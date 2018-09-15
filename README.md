@@ -7,8 +7,7 @@
 >AOP，即IOS的`Runtime`运行机制的黑魔法
 ## 使用方法
 **第一步**：将demo的文件夹引入到你的项目中，并在合适位置
-导入头文件`TABAnimated.h`<>
-![67A2E92E-2953-4106-A534-A63899E5363E.png](https://upload-images.jianshu.io/upload_images/5632003-b2e726163c627231.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+导入头文件`TABAnimated.h`  ![67A2E92E-2953-4106-A534-A63899E5363E.png](https://upload-images.jianshu.io/upload_images/5632003-b2e726163c627231.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 **第二步**：在需要动画的table上，将属性`animatedStyle`设置为`TABTableViewAnimationStart`,不需要动画的table不用做额外的操作
 ```
 typedef enum {
