@@ -31,6 +31,7 @@
             
         case TABTableViewAnimationEnd:
             
+            //结束动画
             if ( cell.contentView.subviews.count > 0 ) {
                 
                 //移除动画图层
@@ -107,6 +108,16 @@
     }
     
     return anim;
+}
+
+#pragma mark -  Getter/Setter
+
++ (void)setAnimatedCount:(NSInteger)animatedCount {
+    self.animatedCount = animatedCount;
+}
+
++ (void)setAnimatedColor:(UIColor *)animatedColor {
+    self.animatedColor = animatedColor;
 }
 
 @end

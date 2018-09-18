@@ -8,6 +8,7 @@
 
 #import "UITableView+Animated.h"
 #import <objc/runtime.h>
+#import "TABViewAnimated.h"
 
 @implementation UITableView (Animated)
 
@@ -32,6 +33,8 @@
         BOOL isAdd = class_addMethod([self class], @selector(tab_setDelegate:), newIMP, method_getTypeEncoding(newMethod));
         
         if (isAdd) {
+            
+            //replace
             class_replaceMethod([self class], @selector(setDelegate:), newIMP, method_getTypeEncoding(newMethod));
         }else {
             //exchange
@@ -56,7 +59,9 @@
         
         // 若未实现代理方法，则先添加代理方法
         BOOL isSuccess = class_addMethod([delegate class], oldSelector, class_getMethodImplementation([self class], newSelector), method_getTypeEncoding(newMethod));
+        
         if (isSuccess) {
+            
             class_replaceMethod([delegate class], newSelector, class_getMethodImplementation([self class], oldSelector), method_getTypeEncoding(oldMethod_self));
         } else {
             
@@ -74,8 +79,9 @@
 #pragma mark -  TABTableViewDelegate
 
 - (NSInteger)tab_tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
     if (tableView.animatedStyle == TABTableViewAnimationStart) {
-        return 5;
+        return TABViewAnimated.animatedCount;
     }
     return [self tab_tableView:tableView numberOfRowsInSection:section];
 }
@@ -83,9 +89,10 @@
 #pragma mark -  Getter / Setter
 
 - (TABTableViewAnimationStyle)animatedStyle {
+    
     NSNumber *value = objc_getAssociatedObject(self, @selector(animatedStyle));
     
-    //动画过程中设置为不可滚动，暂时不要修改，滚动会造成一定的问题
+    //动画开启过程中设置为不可滚动，暂时不要修改，滚动会造成一定的问题
     if (value.intValue == 1) {
         self.scrollEnabled = NO;
     }else {

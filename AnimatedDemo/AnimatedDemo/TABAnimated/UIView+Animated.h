@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-typedef enum {
-    TABViewLoadAnimationDefault = 0, //默认没有动画
-    TABViewLoadAnimationShort,  //动画先变短再变长
-    TABViewLoadAnimationLong  //动画先变长再变短
-}TABViewLoadAnimationStyle; //view动画类型枚举
+typedef NS_ENUM(NSInteger,TABViewLoadAnimationStyle) {
+    TABViewLoadAnimationDefault = 0,   //默认没有动画
+    TABViewLoadAnimationShort,            //动画先变短再变长
+    TABViewLoadAnimationLong             //动画先变长再变短
+};
 
 @interface UIView (Animated)
 

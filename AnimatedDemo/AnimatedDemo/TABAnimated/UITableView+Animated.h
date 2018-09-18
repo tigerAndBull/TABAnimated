@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-typedef enum {
-    TABTableViewAnimationDefault = 0, //没有动画，默认
-    TABTableViewAnimationStart,  //开始动画
-    TABTableViewAnimationEnd  //结束动画
-}TABTableViewAnimationStyle; //table动画状态枚举
+typedef NS_ENUM(NSInteger,TABTableViewAnimationStyle) {
+    TABTableViewAnimationDefault = 0,    //没有动画，默认
+    TABTableViewAnimationStart,              //开始动画
+    TABTableViewAnimationEnd                //结束动画
+};
 
 @interface UITableView (Animated)
 

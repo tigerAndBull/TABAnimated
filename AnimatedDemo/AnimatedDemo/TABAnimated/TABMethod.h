@@ -19,7 +19,9 @@
 #define kScreenHeight ((kIsIPhone_X)?([[UIScreen mainScreen] bounds].size.height-49):([[UIScreen mainScreen] bounds].size.height))
 
 #define kFont(x) [UIFont systemFontOfSize:x]
+
 #define kColor(c) [UIColor colorWithRed:((c>>24)&0xFF)/255.0 green:((c>>16)&0xFF)/255.0 blue:((c>>8)&0xFF)/255.0 alpha:((c)&0xFF)/255.0]
+
 #define kBackColor kColor(0xEEEEEEFF)
 
 @interface TABMethod : NSObject
