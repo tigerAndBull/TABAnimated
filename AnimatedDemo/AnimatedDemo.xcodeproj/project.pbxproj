@@ -20,7 +20,6 @@
 		20A85C3C215224B10005AD62 /* UIView+Animated.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A85C2C215224B10005AD62 /* UIView+Animated.m */; };
 		20A85C3D215224B10005AD62 /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A85C33215224B10005AD62 /* TestViewController.m */; };
 		20A85C3E215224B10005AD62 /* TestTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A85C36215224B10005AD62 /* TestTableViewCell.m */; };
-		20A85C532152334F0005AD62 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 20A85C522152334E0005AD62 /* LICENSE */; };
 		20A85C5521523DD00005AD62 /* TABAnimated.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 20A85C5421523DD00005AD62 /* TABAnimated.podspec */; };
 /* End PBXBuildFile section */
 
@@ -72,7 +71,6 @@
 		20A85C36215224B10005AD62 /* TestTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestTableViewCell.m; sourceTree = "<group>"; };
 		20A85C37215224B10005AD62 /* TestTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestTableViewCell.h; sourceTree = "<group>"; };
 		20A85C4921522CA40005AD62 /* test.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = test.jpg; sourceTree = "<group>"; };
-		20A85C522152334E0005AD62 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		20A85C5421523DD00005AD62 /* TABAnimated.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TABAnimated.podspec; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -124,7 +122,6 @@
 		20A85BF22152248D0005AD62 /* AnimatedDemo */ = {
 			isa = PBXGroup;
 			children = (
-				20A85C522152334E0005AD62 /* LICENSE */,
 				20A85C25215224B10005AD62 /* Model */,
 				20A85C28215224B10005AD62 /* TABAnimated */,
 				20A85C32215224B10005AD62 /* ViewController */,
@@ -307,7 +304,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				20A85C5521523DD00005AD62 /* TABAnimated.podspec in Resources */,
-				20A85C532152334F0005AD62 /* LICENSE in Resources */,
 				20A85BFD2152248E0005AD62 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
