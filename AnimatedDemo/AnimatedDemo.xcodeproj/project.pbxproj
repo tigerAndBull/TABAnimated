@@ -20,7 +20,12 @@
 		201E5CE6214BEC94002B835E /* TABViewAnimated.m in Sources */ = {isa = PBXBuildFile; fileRef = 201E5CE5214BEC94002B835E /* TABViewAnimated.m */; };
 		201E5CED214C2653002B835E /* Game.m in Sources */ = {isa = PBXBuildFile; fileRef = 201E5CEC214C2653002B835E /* Game.m */; };
 		201E5CEF214CCE59002B835E /* UITableView+Animated.m in Sources */ = {isa = PBXBuildFile; fileRef = 201E5CEE214CCE59002B835E /* UITableView+Animated.m */; };
+		20A85B68215221E20005AD62 /* TABAnimated.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 20A85B67215221E10005AD62 /* TABAnimated.podspec */; };
+		20A85B6A215222160005AD62 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 20A85B69215222160005AD62 /* LICENSE */; };
 		20FF74B4214CFEB800EE322E /* test.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 20FF74B3214CFEB800EE322E /* test.jpg */; };
+		9D072410694A133893D90C04 /* libPods-AnimatedDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D7FF3747BC1C53CC7F484D1 /* libPods-AnimatedDemo.a */; };
+		F0F86761A2DCA1D4C9C1600F /* libPods-AnimatedDemoTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6331702FEB571B7B779E7A98 /* libPods-AnimatedDemoTests.a */; };
+		F66E3FF22C12785409580E93 /* libPods-AnimatedDemoUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 44E7CC7271954AC023D4F452 /* libPods-AnimatedDemoUITests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,8 +74,19 @@
 		201E5CEB214C2653002B835E /* Game.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Game.h; sourceTree = "<group>"; };
 		201E5CEC214C2653002B835E /* Game.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Game.m; sourceTree = "<group>"; };
 		201E5CEE214CCE59002B835E /* UITableView+Animated.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+Animated.m"; sourceTree = "<group>"; };
+		20A85B67215221E10005AD62 /* TABAnimated.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = TABAnimated.podspec; path = "../../../TABAnimated-pod/TABAnimated/AnimatedDemo/TABAnimated.podspec"; sourceTree = "<group>"; };
+		20A85B69215222160005AD62 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE; path = "../../../TABAnimated-pod/TABAnimated/AnimatedDemo/LICENSE"; sourceTree = "<group>"; };
 		20FF74B2214CF01A00EE322E /* TABAnimated.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TABAnimated.h; sourceTree = "<group>"; };
 		20FF74B3214CFEB800EE322E /* test.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = test.jpg; sourceTree = "<group>"; };
+		2C018A541E61C96FF0659A13 /* Pods-AnimatedDemoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AnimatedDemoTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AnimatedDemoTests/Pods-AnimatedDemoTests.debug.xcconfig"; sourceTree = "<group>"; };
+		41E8AD6F09759372CBD64D1B /* Pods-AnimatedDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AnimatedDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AnimatedDemo/Pods-AnimatedDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		44E7CC7271954AC023D4F452 /* libPods-AnimatedDemoUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AnimatedDemoUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6331702FEB571B7B779E7A98 /* libPods-AnimatedDemoTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AnimatedDemoTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D7FF3747BC1C53CC7F484D1 /* libPods-AnimatedDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AnimatedDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9B8D47B58387ED0AEDE6CDB7 /* Pods-AnimatedDemoUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AnimatedDemoUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AnimatedDemoUITests/Pods-AnimatedDemoUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		B9AF727CDEBFEE11955EE787 /* Pods-AnimatedDemoUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AnimatedDemoUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-AnimatedDemoUITests/Pods-AnimatedDemoUITests.release.xcconfig"; sourceTree = "<group>"; };
+		C0C6A182C9606C045EF708B5 /* Pods-AnimatedDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AnimatedDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-AnimatedDemo/Pods-AnimatedDemo.release.xcconfig"; sourceTree = "<group>"; };
+		D392A5D17F2D602D89A488B8 /* Pods-AnimatedDemoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AnimatedDemoTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-AnimatedDemoTests/Pods-AnimatedDemoTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +94,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D072410694A133893D90C04 /* libPods-AnimatedDemo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -85,6 +102,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F0F86761A2DCA1D4C9C1600F /* libPods-AnimatedDemoTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -92,6 +110,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F66E3FF22C12785409580E93 /* libPods-AnimatedDemoUITests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -105,6 +124,8 @@
 				201E5CBA214B5D6F002B835E /* AnimatedDemoTests */,
 				201E5CC5214B5D6F002B835E /* AnimatedDemoUITests */,
 				201E5CA0214B5D6C002B835E /* Products */,
+				41DC2078997E2DCA776E0BE7 /* Pods */,
+				7443797155462EE5604CA284 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -121,6 +142,8 @@
 		201E5CA1214B5D6C002B835E /* AnimatedDemo */ = {
 			isa = PBXGroup;
 			children = (
+				20A85B69215222160005AD62 /* LICENSE */,
+				20A85B67215221E10005AD62 /* TABAnimated.podspec */,
 				20FF74B1214CEFEF00EE322E /* TABAnimated */,
 				201E5CEA214C259D002B835E /* Model */,
 				201E5CD9214B5E28002B835E /* ViewController */,
@@ -198,6 +221,29 @@
 			path = TABAnimated;
 			sourceTree = "<group>";
 		};
+		41DC2078997E2DCA776E0BE7 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				41E8AD6F09759372CBD64D1B /* Pods-AnimatedDemo.debug.xcconfig */,
+				C0C6A182C9606C045EF708B5 /* Pods-AnimatedDemo.release.xcconfig */,
+				2C018A541E61C96FF0659A13 /* Pods-AnimatedDemoTests.debug.xcconfig */,
+				D392A5D17F2D602D89A488B8 /* Pods-AnimatedDemoTests.release.xcconfig */,
+				9B8D47B58387ED0AEDE6CDB7 /* Pods-AnimatedDemoUITests.debug.xcconfig */,
+				B9AF727CDEBFEE11955EE787 /* Pods-AnimatedDemoUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		7443797155462EE5604CA284 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8D7FF3747BC1C53CC7F484D1 /* libPods-AnimatedDemo.a */,
+				6331702FEB571B7B779E7A98 /* libPods-AnimatedDemoTests.a */,
+				44E7CC7271954AC023D4F452 /* libPods-AnimatedDemoUITests.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -205,6 +251,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 201E5CCB214B5D6F002B835E /* Build configuration list for PBXNativeTarget "AnimatedDemo" */;
 			buildPhases = (
+				ED5B02DB66701659C1A3BE7D /* [CP] Check Pods Manifest.lock */,
 				201E5C9B214B5D6C002B835E /* Sources */,
 				201E5C9C214B5D6C002B835E /* Frameworks */,
 				201E5C9D214B5D6C002B835E /* Resources */,
@@ -222,6 +269,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 201E5CCE214B5D6F002B835E /* Build configuration list for PBXNativeTarget "AnimatedDemoTests" */;
 			buildPhases = (
+				139F1353977C6D73B97FFB80 /* [CP] Check Pods Manifest.lock */,
 				201E5CB3214B5D6F002B835E /* Sources */,
 				201E5CB4214B5D6F002B835E /* Frameworks */,
 				201E5CB5214B5D6F002B835E /* Resources */,
@@ -240,6 +288,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 201E5CD1214B5D6F002B835E /* Build configuration list for PBXNativeTarget "AnimatedDemoUITests" */;
 			buildPhases = (
+				312874D25992CE8BC8C8C7A5 /* [CP] Check Pods Manifest.lock */,
 				201E5CBE214B5D6F002B835E /* Sources */,
 				201E5CBF214B5D6F002B835E /* Frameworks */,
 				201E5CC0214B5D6F002B835E /* Resources */,
@@ -302,6 +351,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				20FF74B4214CFEB800EE322E /* test.jpg in Resources */,
+				20A85B68215221E20005AD62 /* TABAnimated.podspec in Resources */,
+				20A85B6A215222160005AD62 /* LICENSE in Resources */,
 				201E5CAC214B5D6F002B835E /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -321,6 +372,63 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		139F1353977C6D73B97FFB80 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-AnimatedDemoTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		312874D25992CE8BC8C8C7A5 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-AnimatedDemoUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		ED5B02DB66701659C1A3BE7D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-AnimatedDemo-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		201E5C9B214B5D6C002B835E /* Sources */ = {
@@ -484,6 +592,7 @@
 		};
 		201E5CCC214B5D6F002B835E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 41E8AD6F09759372CBD64D1B /* Pods-AnimatedDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -501,6 +610,7 @@
 		};
 		201E5CCD214B5D6F002B835E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C0C6A182C9606C045EF708B5 /* Pods-AnimatedDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -518,6 +628,7 @@
 		};
 		201E5CCF214B5D6F002B835E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2C018A541E61C96FF0659A13 /* Pods-AnimatedDemoTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -537,6 +648,7 @@
 		};
 		201E5CD0214B5D6F002B835E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D392A5D17F2D602D89A488B8 /* Pods-AnimatedDemoTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -556,6 +668,7 @@
 		};
 		201E5CD2214B5D6F002B835E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9B8D47B58387ED0AEDE6CDB7 /* Pods-AnimatedDemoUITests.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Y8FL5FHNBB;
@@ -574,6 +687,7 @@
 		};
 		201E5CD3214B5D6F002B835E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B9AF727CDEBFEE11955EE787 /* Pods-AnimatedDemoUITests.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Y8FL5FHNBB;
