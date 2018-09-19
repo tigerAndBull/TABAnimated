@@ -81,7 +81,7 @@
 - (NSInteger)tab_tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
     if (tableView.animatedStyle == TABTableViewAnimationStart) {
-        return TABViewAnimated.animatedCount;
+        return 5;
     }
     return [self tab_tableView:tableView numberOfRowsInSection:section];
 }

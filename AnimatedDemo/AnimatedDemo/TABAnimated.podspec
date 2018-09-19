@@ -16,20 +16,20 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "TABAnimated"
-  s.version      = "1.0.2"
-  s.summary      = "A short description of TABAnimated."
+  s.version      = "1.0.4"
+  s.summary      = "TABAnimated是一个ios平台上的网络过渡动画的封装"
 
   # This description is used to generate tags and improve search results.
   #   * Think: What does it do? Why did you write it? What is the focus?
   #   * Try to keep it short, snappy and to the point.
   #   * Write the description between the DESC delimiters below.
   #   * Finally, don't worry about the indent, CocoaPods strips it!
+
   s.description  = <<-DESC
-                   TABAnimated是一个ios平台上的网络过渡动画的封装
+  TABAnimated是一个ios平台上的网络过渡动画的封装
                    DESC
 
-  s.homepage     = "https://github.com/tigerAndBull/LoadAnimatedDemo-ios"
-  # s.screenshots  = "www.example.com/screenshots_1.gif", "www.example.com/screenshots_2.gif"
+  s.homepage     = "http://EXAMPLE/TABAnimated"
 
 
   # ―――  Spec License  ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -53,9 +53,6 @@ Pod::Spec.new do |s|
   #
 
   s.author             = { "tigerAndBull" => "1429299849@qq.com" }
-  # Or just: s.author    = "tigerAndBull"
-  # s.authors            = { "tigerAndBull" => "1429299849@qq.com" }
-  # s.social_media_url   = "http://twitter.com/tigerAndBull"
 
   # ――― Platform Specifics ――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   #
@@ -63,14 +60,7 @@ Pod::Spec.new do |s|
   #  the deployment target. You can optionally include the target after the platform.
   #
 
-  # s.platform     = :ios
-  # s.platform     = :ios, "5.0"
-
-  #  When using multiple platforms
-  # s.ios.deployment_target = "5.0"
-  # s.osx.deployment_target = "10.7"
-  # s.watchos.deployment_target = "2.0"
-  # s.tvos.deployment_target = "9.0"
+  s.platform     = :ios, "8.0"
 
 
   # ――― Source Location ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -90,7 +80,7 @@ Pod::Spec.new do |s|
   #  Not including the public_header_files will make all headers public.
   #
 
-  s.source_files  = "TABAnimated/**/**/*.{h,m}"
+  s.source_files  = "AnimatedDemo", "AnimatedDemo/TABAnimated/*.{h,m}"
 
   # s.public_header_files = "Classes/**/*.h"
 

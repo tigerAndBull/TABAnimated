@@ -20,6 +20,8 @@
 		20A85C3C215224B10005AD62 /* UIView+Animated.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A85C2C215224B10005AD62 /* UIView+Animated.m */; };
 		20A85C3D215224B10005AD62 /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A85C33215224B10005AD62 /* TestViewController.m */; };
 		20A85C3E215224B10005AD62 /* TestTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A85C36215224B10005AD62 /* TestTableViewCell.m */; };
+		20A85C4F21522D4B0005AD62 /* TABAnimated.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 20A85C4E21522D4B0005AD62 /* TABAnimated.podspec */; };
+		20A85C5121522D6B0005AD62 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 20A85C5021522D6B0005AD62 /* LICENSE */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +71,9 @@
 		20A85C34215224B10005AD62 /* TestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
 		20A85C36215224B10005AD62 /* TestTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestTableViewCell.m; sourceTree = "<group>"; };
 		20A85C37215224B10005AD62 /* TestTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestTableViewCell.h; sourceTree = "<group>"; };
+		20A85C4921522CA40005AD62 /* test.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = test.jpg; sourceTree = "<group>"; };
+		20A85C4E21522D4B0005AD62 /* TABAnimated.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TABAnimated.podspec; sourceTree = "<group>"; };
+		20A85C5021522D6B0005AD62 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,9 +124,12 @@
 		20A85BF22152248D0005AD62 /* AnimatedDemo */ = {
 			isa = PBXGroup;
 			children = (
+				20A85C5021522D6B0005AD62 /* LICENSE */,
+				20A85C4E21522D4B0005AD62 /* TABAnimated.podspec */,
 				20A85C25215224B10005AD62 /* Model */,
 				20A85C28215224B10005AD62 /* TABAnimated */,
 				20A85C32215224B10005AD62 /* ViewController */,
+				20A85C4921522CA40005AD62 /* test.jpg */,
 				20A85BF32152248D0005AD62 /* AppDelegate.h */,
 				20A85BF42152248D0005AD62 /* AppDelegate.m */,
 				20A85BF62152248D0005AD62 /* ViewController.h */,
@@ -154,8 +162,8 @@
 		20A85C25215224B10005AD62 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				20A85C26215224B10005AD62 /* Game.m */,
 				20A85C27215224B10005AD62 /* Game.h */,
+				20A85C26215224B10005AD62 /* Game.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -163,15 +171,15 @@
 		20A85C28215224B10005AD62 /* TABAnimated */ = {
 			isa = PBXGroup;
 			children = (
-				20A85C29215224B10005AD62 /* TABMethod.m */,
-				20A85C2A215224B10005AD62 /* UITableView+Animated.m */,
-				20A85C2B215224B10005AD62 /* TABViewAnimated.m */,
-				20A85C2C215224B10005AD62 /* UIView+Animated.m */,
-				20A85C2D215224B10005AD62 /* TABMethod.h */,
-				20A85C2E215224B10005AD62 /* UITableView+Animated.h */,
 				20A85C2F215224B10005AD62 /* TABAnimated.h */,
-				20A85C30215224B10005AD62 /* UIView+Animated.h */,
+				20A85C2D215224B10005AD62 /* TABMethod.h */,
+				20A85C29215224B10005AD62 /* TABMethod.m */,
 				20A85C31215224B10005AD62 /* TABViewAnimated.h */,
+				20A85C2B215224B10005AD62 /* TABViewAnimated.m */,
+				20A85C2E215224B10005AD62 /* UITableView+Animated.h */,
+				20A85C2A215224B10005AD62 /* UITableView+Animated.m */,
+				20A85C30215224B10005AD62 /* UIView+Animated.h */,
+				20A85C2C215224B10005AD62 /* UIView+Animated.m */,
 			);
 			path = TABAnimated;
 			sourceTree = "<group>";
@@ -179,9 +187,9 @@
 		20A85C32215224B10005AD62 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				20A85C33215224B10005AD62 /* TestViewController.m */,
-				20A85C34215224B10005AD62 /* TestViewController.h */,
 				20A85C35215224B10005AD62 /* CustomView */,
+				20A85C34215224B10005AD62 /* TestViewController.h */,
+				20A85C33215224B10005AD62 /* TestViewController.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -189,8 +197,8 @@
 		20A85C35215224B10005AD62 /* CustomView */ = {
 			isa = PBXGroup;
 			children = (
-				20A85C36215224B10005AD62 /* TestTableViewCell.m */,
 				20A85C37215224B10005AD62 /* TestTableViewCell.h */,
+				20A85C36215224B10005AD62 /* TestTableViewCell.m */,
 			);
 			path = CustomView;
 			sourceTree = "<group>";
@@ -298,7 +306,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				20A85C5121522D6B0005AD62 /* LICENSE in Resources */,
 				20A85BFD2152248E0005AD62 /* Assets.xcassets in Resources */,
+				20A85C4F21522D4B0005AD62 /* TABAnimated.podspec in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -419,7 +429,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -472,7 +482,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

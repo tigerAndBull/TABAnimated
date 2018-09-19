@@ -12,9 +12,6 @@
 
 @interface TABViewAnimated : NSObject
 
-@property (nonatomic) NSInteger animatedCount;
-@property (nonatomic) UIColor *animatedColor;
-
 /**
  启动/关闭动画
 
@@ -37,10 +34,5 @@
  @return 动画
  */
 + (CABasicAnimation *)scaleXAnimation:(TABViewLoadAnimationStyle)style;
-
-+(NSInteger)getAnimatedCount;
-+(UIColor *)getAnimatedColor;
-+(void)setAnimatedCount:(NSInteger)animatedCount;
-+(void)setAnimatedColor:(UIColor *)animatedColor;
 
 @end
