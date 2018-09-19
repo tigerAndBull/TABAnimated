@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
 
   s.name         = "TABAnimated"
 
-  s.version      = "1.0.8"
+  s.version      = "1.0.9"
 
   s.summary      = "TABAnimated是一个ios平台上的网络过渡动画的封装"
 
