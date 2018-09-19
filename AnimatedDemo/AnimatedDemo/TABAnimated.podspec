@@ -28,6 +28,6 @@ Pod::Spec.new do |s|
 
   s.source       = { :git => "https://github.com/tigerAndBull/LoadAnimatedDemo-ios.git", :tag => "#{s.version}" }
 
-  s.source_files  = "TABAnimated/**/**/*.{h,m}"
+  s.source_files  = "AnimatedDemo/TABAnimated/*.{h,m}"
 
 end
