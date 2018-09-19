@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
 
   s.name         = "TABAnimated"
 
-  s.version      = "1.0.5"
+  s.version      = "1.0.6"
 
   s.summary      = "TABAnimated是一个ios平台上的网络过渡动画的封装"
 
@@ -28,6 +28,6 @@ Pod::Spec.new do |s|
 
   s.source       = { :git => "https://github.com/tigerAndBull/LoadAnimatedDemo-ios.git", :tag => "#{s.version}" }
 
-  s.source_files  = "TABAnimated/**/*.{h,m}"
+  s.source_files  = "TABAnimated/**/**/*.{h,m}"
 
 end
