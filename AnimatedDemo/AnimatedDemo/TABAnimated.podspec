@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "TABAnimated"
-  s.version      = "0.0.1"
+  s.version      = "1.0.2"
   s.summary      = "A short description of TABAnimated."
 
   # This description is used to generate tags and improve search results.
@@ -28,7 +28,7 @@ Pod::Spec.new do |s|
                    TABAnimated是一个ios平台上的网络过渡动画的封装
                    DESC
 
-  s.homepage     = "http://EXAMPLE/TABAnimated"
+  s.homepage     = "https://github.com/tigerAndBull/LoadAnimatedDemo-ios"
   # s.screenshots  = "www.example.com/screenshots_1.gif", "www.example.com/screenshots_2.gif"
 
 
@@ -90,8 +90,7 @@ Pod::Spec.new do |s|
   #  Not including the public_header_files will make all headers public.
   #
 
-  s.source_files  = "AnimatedDemo", "AnimatedDemo/TABAnimated/*.{h,m}"
-  s.exclude_files = "Classes/Exclude"
+  s.source_files  = "TABAnimated/**/**/*.{h,m}"
 
   # s.public_header_files = "Classes/**/*.h"
 
