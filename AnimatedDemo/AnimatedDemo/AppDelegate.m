@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "TestViewController.h"
+#import "TABAnimated.h"
 
 @interface AppDelegate ()
 
@@ -20,11 +21,13 @@
     
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     
+    //设置TABAnimated相关属性
+    [[TABViewAnimated sharedAnimated]initWithAnimatedDuration:0.3 withColor:tab_kBackColor];
+    
     TestViewController *vc = [[TestViewController alloc] init];
     UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:vc];
     
     [self.window setRootViewController:nav];
-    
     [self.window makeKeyAndVisible];
     return YES;
 }

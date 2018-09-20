@@ -8,11 +8,69 @@
 
 #import "TABViewAnimated.h"
 #import "TABMethod.h"
+#import "UIView+AnimatedStyle.h"
 #import "UITableView+Animated.h"
+
+static CGFloat defaultDuration = 0.4;
 
 @implementation TABViewAnimated
 
-+ (void)startOrEndAnimated:(UITableViewCell *)cell {
+- (void)startOrEndViewAnimated:(UIView *)view {
+    
+    switch (view.animatedStyle) {
+            
+        case TABViewAnimationStart:
+            
+            //添加并开启动画
+            for (int i = 0; i < view.subviews.count; i++) {
+                UIView *v = view.subviews[i];
+                if ( v.loadStyle != TABViewLoadAnimationDefault ) {
+                    [self initLayerWithView:v withColor:_animatedColor];
+                }
+            }
+            break;
+            
+        case TABViewAnimationEnd:
+            
+            //结束动画
+            if ( view.subviews.count > 0 ) {
+                
+                //移除动画图层
+                for (int i = 0; i < view.subviews.count; i++) {
+                    
+                    UIView *v = view.subviews[i];
+                    
+                    if ( v.layer.sublayers.count > 0 ) {
+                        
+                        NSArray<CALayer *> *subLayers = v.layer.sublayers;
+                        NSArray<CALayer *> *removedLayers = [subLayers filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id  _Nullable evaluatedObject, NSDictionary<NSString *,id> * _Nullable bindings) {
+                            
+                            if ([evaluatedObject isKindOfClass:[CALayer class]]) {
+                                
+                                //找出CALayer是你需要移除的，这里根据背景色来判断的
+                                CALayer *layer = (CALayer *)evaluatedObject;
+                                if (CGColorEqualToColor(layer.backgroundColor,self->_animatedColor.CGColor)) {
+                                    return YES;
+                                }
+                                return NO;
+                            }
+                            return NO;
+                        }]];
+                        
+                        [removedLayers enumerateObjectsUsingBlock:^(CALayer * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                            [obj removeFromSuperlayer];
+                        }];
+                    }
+                }
+            }
+            break;
+            
+        default:
+            break;
+    }
+}
+
+- (void)startOrEndTableAnimated:(UITableViewCell *)cell {
     
     UITableView *superView = (UITableView *)cell.superview;
     
@@ -24,7 +82,7 @@
             for (int i = 0; i < cell.contentView.subviews.count; i++) {
                 UIView *v = cell.contentView.subviews[i];
                 if ( v.loadStyle != TABViewLoadAnimationDefault ) {
-                    [TABViewAnimated initLayerWithView:v withColor:kBackColor];
+                    [self initLayerWithView:v withColor:_animatedColor];
                 }
             }
             break;
@@ -48,7 +106,7 @@
                                 
                                 //找出CALayer是你需要移除的，这里根据背景色来判断的
                                 CALayer *layer = (CALayer *)evaluatedObject;
-                                if (CGColorEqualToColor(layer.backgroundColor,kBackColor.CGColor)) {
+                                if (CGColorEqualToColor(layer.backgroundColor,self->_animatedColor.CGColor)) {
                                     return YES;
                                 }
                                 return NO;
@@ -69,11 +127,19 @@
     }
 }
 
-+ (void)initLayerWithView:(UIView *)view withColor:(UIColor *)color {
+#pragma mark -  Private Methods
+
+/**
+ 加载CALayer,设置动画,同时启动
+ 
+ @param view 需要动画的view
+ @param color 动画颜色
+ */
+- (void)initLayerWithView:(UIView *)view withColor:(UIColor *)color {
     
     CALayer *layer = [[CALayer alloc]init];
     layer.frame = CGRectMake(0, 0, view.frame.size.width, view.frame.size.height);
-    layer.backgroundColor = kBackColor.CGColor;
+    layer.backgroundColor = color.CGColor;
     layer.anchorPoint = CGPointMake(0, 0);
     layer.position = CGPointMake(0, 0);
     // 添加一个基本动画
@@ -82,13 +148,19 @@
     [view.layer addSublayer:layer];
 }
 
-+ (CABasicAnimation *)scaleXAnimation:(TABViewLoadAnimationStyle)style {
+/**
+ 根据动画类型设置对应基础动画
+ 
+ @param style 动画类型
+ @return 动画
+ */
+- (CABasicAnimation *)scaleXAnimation:(TABViewLoadAnimationStyle)style {
     
     CABasicAnimation *anim = [CABasicAnimation animationWithKeyPath:@"transform.scale.x"];
-    anim.removedOnCompletion = NO;
-    anim.duration = 0.4;
-    anim.autoreverses = YES;  //往返都有动画
-    anim.repeatCount = MAXFLOAT;  //执行次数
+    anim.removedOnCompletion = NO;  //保证从前台进入后台仍能执行
+    anim.duration = _animatedDuration;
+    anim.autoreverses = YES;                  //往返都有动画
+    anim.repeatCount = MAXFLOAT;    //执行次数
     
     switch (style) {
             
@@ -110,14 +182,35 @@
     return anim;
 }
 
-#pragma mark -  Getter/Setter
+#pragma mark -  Initialize Methods
 
-+ (void)setAnimatedCount:(NSInteger)animatedCount {
-    self.animatedCount = animatedCount;
++ (TABViewAnimated *)sharedAnimated {
+    
+    static TABViewAnimated *tabAnimated;
+    
+    if (tabAnimated == nil){
+        tabAnimated = [[TABViewAnimated alloc] init];
+    }
+    return tabAnimated;
 }
 
-+ (void)setAnimatedColor:(UIColor *)animatedColor {
-    self.animatedColor = animatedColor;
+- (instancetype)init {
+    
+    self = [super init];
+    
+    if (self) {
+        _animatedDuration = defaultDuration;
+        _animatedColor = tab_kBackColor;
+    }
+    return self;
+}
+
+- (void)initWithAnimatedDuration:(CGFloat)duration withColor:(UIColor *)color {
+    
+    if (self) {
+        _animatedDuration = duration;
+        _animatedColor = color;
+    }
 }
 
 @end

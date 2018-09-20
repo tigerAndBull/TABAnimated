@@ -13,5 +13,6 @@
 #import "UITableView+Animated.h"
 #import "TABViewAnimated.h"
 #import "TABMethod.h"
+#import "UIView+AnimatedStyle.h"
 
 #endif /* TABAnimated_h */

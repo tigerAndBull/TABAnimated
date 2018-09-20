@@ -18,4 +18,6 @@ typedef NS_ENUM(NSInteger,TABTableViewAnimationStyle) {
 
 @property (nonatomic) TABTableViewAnimationStyle animatedStyle;
 
+@property (nonatomic) NSInteger animatedCount;    //default is three.
+
 @end

@@ -81,7 +81,7 @@
 - (NSInteger)tab_tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
     if (tableView.animatedStyle == TABTableViewAnimationStart) {
-        return 5;
+        return tableView.animatedCount;
     }
     return [self tab_tableView:tableView numberOfRowsInSection:section];
 }
@@ -103,6 +103,15 @@
 
 - (void)setAnimatedStyle:(TABTableViewAnimationStyle)animatedStyle {
     objc_setAssociatedObject(self, @selector(animatedStyle), @(animatedStyle), OBJC_ASSOCIATION_ASSIGN);
+}
+
+- (NSInteger)animatedCount {
+    NSNumber *value = objc_getAssociatedObject(self, @selector(animatedCount));
+    return (value.integerValue == 0)?(3):(value.integerValue);
+}
+
+- (void)setAnimatedCount:(NSInteger)animatedCount {
+    objc_setAssociatedObject(self, @selector(animatedCount), @(animatedCount), OBJC_ASSOCIATION_ASSIGN);
 }
 
 @end

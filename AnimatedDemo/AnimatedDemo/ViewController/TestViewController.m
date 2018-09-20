@@ -9,12 +9,15 @@
 #import "TestViewController.h"
 #import "TestTableViewCell.h"
 #import "TABAnimated.h"
+#import "TestHeadView.h"
 #import "Game.h"
 
 @interface TestViewController () <UITableViewDelegate,UITableViewDataSource> {
     
     NSMutableArray *dataArray;
 }
+
+@property (nonatomic,strong) TestHeadView *headView;
 
 @property (nonatomic, strong) UITableView *mainTV;
 
@@ -70,9 +73,19 @@
         [dataArray addObject:game];
     }
     
-    //停止动画
+    //省事用了同一个类
+    Game *headGame = [[Game alloc]init];
+    headGame.title = [NSString stringWithFormat:@"头视图标题"];
+    headGame.content = [NSString stringWithFormat:@"这里是头视图内容"];
+    headGame.cover = @"head.jpg";
+    
+    //停止动画,并刷新数据
     _mainTV.animatedStyle = TABTableViewAnimationEnd;
     [_mainTV reloadData];
+    
+    _headView.animatedStyle = TABViewAnimationEnd;
+    [_headView initWithData:headGame];
+    [_headView layoutSubviews];
 }
 
 #pragma mark - UITableView Delegate & Datasource
@@ -138,7 +151,7 @@
 
 - (UITableView *)mainTV {
     if (!_mainTV) {
-        _mainTV = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:UITableViewStyleGrouped];
+        _mainTV = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, tab_kScreenWidth, tab_kScreenHeight) style:UITableViewStyleGrouped];
         _mainTV.animatedStyle = TABTableViewAnimationStart;  //开启动画
         _mainTV.delegate = self;
         _mainTV.dataSource = self;
@@ -148,8 +161,17 @@
         _mainTV.estimatedSectionFooterHeight = 0;
         _mainTV.estimatedSectionHeaderHeight = 0;
         _mainTV.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _mainTV.tableHeaderView = self.headView;
     }
     return _mainTV;
+}
+
+- (TestHeadView *)headView {
+    if (!_headView) {
+        _headView = [[TestHeadView alloc]initWithFrame:CGRectMake(0, 0, tab_kScreenWidth, 90)];
+        _headView.animatedStyle = TABViewAnimationStart;
+    }
+    return _headView;
 }
 
 @end

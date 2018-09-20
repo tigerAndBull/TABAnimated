@@ -12,27 +12,36 @@
 
 @interface TABViewAnimated : NSObject
 
+@property (nonatomic) CGFloat animatedDuration;             // default is 0.4
+@property (nonatomic,strong) UIColor *animatedColor;         //default is 0xEEEEEE.
+
+/**
+ SingleTon 单例
+
+ @return return object
+ */
++ (TABViewAnimated *)sharedAnimated;
+
 /**
  启动/关闭动画
-
- @param cell 传入cell
+ 适用组件UIView及其继承类
+ @param view 传入view自身
  */
-+ (void)startOrEndAnimated:(UITableViewCell *)cell;
+- (void)startOrEndViewAnimated:(UIView *)view;
 
 /**
- 加载CALayer,设置动画,同时启动
-
- @param view 需要动画的view
- @param color 动画颜色
+ 启动/关闭动画
+ 适用组件UITableView
+ @param cell 传入cell自身
  */
-+ (void)initLayerWithView:(UIView *)view withColor:(UIColor *)color;
+- (void)startOrEndTableAnimated:(UITableViewCell *)cell;
 
 /**
- 根据动画类型设置对应基础动画
+ 设置动画属性
 
- @param style 动画类型
- @return 动画
+ @param duration 动画时长，一个来回
+ @param color 背景颜色
  */
-+ (CABasicAnimation *)scaleXAnimation:(TABViewLoadAnimationStyle)style;
+- (void)initWithAnimatedDuration:(CGFloat)duration withColor:(UIColor *)color;
 
 @end

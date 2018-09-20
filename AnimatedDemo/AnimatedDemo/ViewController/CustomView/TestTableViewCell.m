@@ -46,8 +46,8 @@
     [super layoutSubviews];
     
     //获取对应组件文本大小
-    CGSize titleSize = [TABMethod tab_getSizeWithText:titleLab.text sizeWithFont:kFont(15) constrainedToSize:CGSizeMake(MAXFLOAT, 25)];
-    CGSize timeSize = [TABMethod tab_getSizeWithText:timeLab.text sizeWithFont:kFont(12) constrainedToSize:CGSizeMake(MAXFLOAT, 25)];
+    CGSize titleSize = [TABMethod tab_getSizeWithText:titleLab.text sizeWithFont:tab_kFont(15) constrainedToSize:CGSizeMake(MAXFLOAT, 25)];
+    CGSize timeSize = [TABMethod tab_getSizeWithText:timeLab.text sizeWithFont:tab_kFont(12) constrainedToSize:CGSizeMake(MAXFLOAT, 25)];
     
     //布局
     gameImg.frame = CGRectMake(15, 10, (self.frame.size.height-20)*1.5, (self.frame.size.height-20));
@@ -62,7 +62,7 @@
     }
     
     //运行动画/移除动画
-    [TABViewAnimated startOrEndAnimated:self];
+    [[TABViewAnimated sharedAnimated]startOrEndTableAnimated:self];
 }
 
 #pragma mark -  Public Methods
@@ -73,7 +73,7 @@
     
     titleLab.text = game.title;
     timeLab.text = @"报名时间：2018-09-12";
-    [gameImg setImage:[UIImage imageNamed:game.cover]];
+    [gameImg setImage:[UIImage imageNamed:@"test.jpg"]];
     
     [statusBtn setTitle:@"已结束" forState:UIControlStateNormal];
     [statusBtn setBackgroundColor:[UIColor grayColor]];
@@ -85,7 +85,7 @@
     
     {
         UIImageView *iv = [[UIImageView alloc] init];
-        iv.backgroundColor = kBackColor;
+        iv.backgroundColor = tab_kBackColor;
         iv.contentMode = UIViewContentModeScaleAspectFill;
         iv.layer.masksToBounds = YES;
         
@@ -95,7 +95,7 @@
     
     {
         UILabel *lab = [[UILabel alloc]init];
-        [lab setFont:kFont(15)];
+        [lab setFont:tab_kFont(15)];
         lab.loadStyle = TABViewLoadAnimationLong;
         [lab setTextColor:[UIColor blackColor]];
         [lab setText:@""];
@@ -106,7 +106,7 @@
     
     {
         UILabel *lab = [[UILabel alloc]init];
-        [lab setFont:kFont(12)];
+        [lab setFont:tab_kFont(12)];
         lab.loadStyle = TABViewLoadAnimationShort;
         [lab setTextColor:[UIColor grayColor]];
         [lab setText:@""];
@@ -118,9 +118,9 @@
     {
         UIButton *btn = [[UIButton alloc]init];
         [btn setTitle:@"" forState:UIControlStateNormal];
-        btn.backgroundColor = kBackColor;
+        btn.backgroundColor = tab_kBackColor;
         [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [btn.titleLabel setFont:kFont(12)];
+        [btn.titleLabel setFont:tab_kFont(12)];
         
         statusBtn = btn;
         [self.contentView addSubview:btn];
