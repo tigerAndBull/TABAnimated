@@ -23,7 +23,7 @@
 		20BFBB9E2153EE2800136258 /* UIView+AnimatedStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 20BFBB9D2153EE2800136258 /* UIView+AnimatedStyle.m */; };
 		20BFBBA12153F3FF00136258 /* TestHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 20BFBBA02153F3FF00136258 /* TestHeadView.m */; };
 		20BFBBA32153FB5300136258 /* head.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 20BFBBA22153FB5300136258 /* head.jpg */; };
-		20BFBBA52153FE4F00136258 /* test.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 20BFBBA42153FE4F00136258 /* test.jpg */; };
+		20BFBBA72154D3D800136258 /* test.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 20BFBBA62154D3D800136258 /* test.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,7 +78,7 @@
 		20BFBB9F2153F3FF00136258 /* TestHeadView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestHeadView.h; sourceTree = "<group>"; };
 		20BFBBA02153F3FF00136258 /* TestHeadView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestHeadView.m; sourceTree = "<group>"; };
 		20BFBBA22153FB5300136258 /* head.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = head.jpg; sourceTree = "<group>"; };
-		20BFBBA42153FE4F00136258 /* test.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = test.jpg; path = ../../../../test.jpg; sourceTree = "<group>"; };
+		20BFBBA62154D3D800136258 /* test.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = test.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,8 +132,8 @@
 				20A85C25215224B10005AD62 /* Model */,
 				20A85C28215224B10005AD62 /* TABAnimated */,
 				20A85C32215224B10005AD62 /* ViewController */,
-				20BFBBA42153FE4F00136258 /* test.jpg */,
 				20BFBBA22153FB5300136258 /* head.jpg */,
+				20BFBBA62154D3D800136258 /* test.jpg */,
 				20A85BF32152248D0005AD62 /* AppDelegate.h */,
 				20A85BF42152248D0005AD62 /* AppDelegate.m */,
 				20A85BF62152248D0005AD62 /* ViewController.h */,
@@ -315,7 +315,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				20BFBBA32153FB5300136258 /* head.jpg in Resources */,
-				20BFBBA52153FE4F00136258 /* test.jpg in Resources */,
+				20BFBBA72154D3D800136258 /* test.jpg in Resources */,
 				20A85BFD2152248E0005AD62 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
