@@ -7,7 +7,9 @@
 //
 
 #import "TestTableViewCell.h"
-#import "TABAnimated.h"
+#import "TABMethod.h"
+#import "UITableViewCell+Animated.h"
+#import "UIView+Animated.h"
 #import "Game.h"
 
 @interface TestTableViewCell () {
@@ -53,16 +55,13 @@
     gameImg.frame = CGRectMake(15, 10, (self.frame.size.height-20)*1.5, (self.frame.size.height-20));
     gameImg.layer.cornerRadius = 5;
     
-    titleLab.frame = CGRectMake(CGRectGetMaxX(gameImg.frame)+15, 10, titleSize.width>0?self.frame.size.width-(CGRectGetMaxX(gameImg.frame)+15):130, 25);
-    timeLab.frame = CGRectMake(CGRectGetMaxX(gameImg.frame)+15, CGRectGetMaxY(titleLab.frame)+5, timeSize.width>0?self.frame.size.width-(CGRectGetMaxX(gameImg.frame)+15):200, 15);
+    titleLab.frame = CGRectMake(CGRectGetMaxX(gameImg.frame)+15, 10, titleSize.width, 25);
+    timeLab.frame = CGRectMake(CGRectGetMaxX(gameImg.frame)+15, CGRectGetMaxY(titleLab.frame)+5, timeSize.width,15);
     statusBtn.frame = CGRectMake(CGRectGetMaxX(gameImg.frame)+15, CGRectGetMaxY(timeLab.frame)+5+5,70, 20);
     
     if ( timeSize.width > 0 ) {
         statusBtn.layer.cornerRadius = 5;
     }
-    
-    //运行动画/移除动画
-    [[TABViewAnimated sharedAnimated]startOrEndTableAnimated:self];
 }
 
 #pragma mark -  Public Methods

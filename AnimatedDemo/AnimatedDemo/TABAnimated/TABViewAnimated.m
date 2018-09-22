@@ -8,7 +8,7 @@
 
 #import "TABViewAnimated.h"
 #import "TABMethod.h"
-#import "UIView+AnimatedStyle.h"
+#import "UIView+Animated.h"
 #import "UITableView+Animated.h"
 
 static CGFloat defaultDuration = 0.4;

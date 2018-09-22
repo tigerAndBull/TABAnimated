@@ -20,10 +20,11 @@
 		20A85C3C215224B10005AD62 /* UIView+Animated.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A85C2C215224B10005AD62 /* UIView+Animated.m */; };
 		20A85C3D215224B10005AD62 /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A85C33215224B10005AD62 /* TestViewController.m */; };
 		20A85C3E215224B10005AD62 /* TestTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A85C36215224B10005AD62 /* TestTableViewCell.m */; };
-		20BFBB9E2153EE2800136258 /* UIView+AnimatedStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 20BFBB9D2153EE2800136258 /* UIView+AnimatedStyle.m */; };
 		20BFBBA12153F3FF00136258 /* TestHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 20BFBBA02153F3FF00136258 /* TestHeadView.m */; };
 		20BFBBA32153FB5300136258 /* head.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 20BFBBA22153FB5300136258 /* head.jpg */; };
 		20BFBBA72154D3D800136258 /* test.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 20BFBBA62154D3D800136258 /* test.jpg */; };
+		20BFBBAD215502E800136258 /* UITableViewCell+Animated.m in Sources */ = {isa = PBXBuildFile; fileRef = 20BFBBAC215502E800136258 /* UITableViewCell+Animated.m */; };
+		20BFBBB02155036300136258 /* UIView+TABLayerout.m in Sources */ = {isa = PBXBuildFile; fileRef = 20BFBBAF2155036300136258 /* UIView+TABLayerout.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,12 +74,14 @@
 		20A85C34215224B10005AD62 /* TestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
 		20A85C36215224B10005AD62 /* TestTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestTableViewCell.m; sourceTree = "<group>"; };
 		20A85C37215224B10005AD62 /* TestTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestTableViewCell.h; sourceTree = "<group>"; };
-		20BFBB9C2153EE2800136258 /* UIView+AnimatedStyle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+AnimatedStyle.h"; sourceTree = "<group>"; };
-		20BFBB9D2153EE2800136258 /* UIView+AnimatedStyle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+AnimatedStyle.m"; sourceTree = "<group>"; };
 		20BFBB9F2153F3FF00136258 /* TestHeadView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestHeadView.h; sourceTree = "<group>"; };
 		20BFBBA02153F3FF00136258 /* TestHeadView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestHeadView.m; sourceTree = "<group>"; };
 		20BFBBA22153FB5300136258 /* head.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = head.jpg; sourceTree = "<group>"; };
 		20BFBBA62154D3D800136258 /* test.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = test.jpg; sourceTree = "<group>"; };
+		20BFBBAB215502E800136258 /* UITableViewCell+Animated.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableViewCell+Animated.h"; sourceTree = "<group>"; };
+		20BFBBAC215502E800136258 /* UITableViewCell+Animated.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableViewCell+Animated.m"; sourceTree = "<group>"; };
+		20BFBBAE2155036300136258 /* UIView+TABLayerout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+TABLayerout.h"; sourceTree = "<group>"; };
+		20BFBBAF2155036300136258 /* UIView+TABLayerout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+TABLayerout.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -184,8 +187,10 @@
 				20A85C2A215224B10005AD62 /* UITableView+Animated.m */,
 				20A85C30215224B10005AD62 /* UIView+Animated.h */,
 				20A85C2C215224B10005AD62 /* UIView+Animated.m */,
-				20BFBB9C2153EE2800136258 /* UIView+AnimatedStyle.h */,
-				20BFBB9D2153EE2800136258 /* UIView+AnimatedStyle.m */,
+				20BFBBAE2155036300136258 /* UIView+TABLayerout.h */,
+				20BFBBAF2155036300136258 /* UIView+TABLayerout.m */,
+				20BFBBAB215502E800136258 /* UITableViewCell+Animated.h */,
+				20BFBBAC215502E800136258 /* UITableViewCell+Animated.m */,
 			);
 			path = TABAnimated;
 			sourceTree = "<group>";
@@ -341,9 +346,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				20BFBBAD215502E800136258 /* UITableViewCell+Animated.m in Sources */,
 				20A85BF82152248D0005AD62 /* ViewController.m in Sources */,
 				20A85C3E215224B10005AD62 /* TestTableViewCell.m in Sources */,
 				20A85C39215224B10005AD62 /* TABMethod.m in Sources */,
+				20BFBBB02155036300136258 /* UIView+TABLayerout.m in Sources */,
 				20A85C3A215224B10005AD62 /* UITableView+Animated.m in Sources */,
 				20A85C3C215224B10005AD62 /* UIView+Animated.m in Sources */,
 				20A85C3B215224B10005AD62 /* TABViewAnimated.m in Sources */,
@@ -351,7 +358,6 @@
 				20A85C032152248E0005AD62 /* main.m in Sources */,
 				20A85C3D215224B10005AD62 /* TestViewController.m in Sources */,
 				20A85BF52152248D0005AD62 /* AppDelegate.m in Sources */,
-				20BFBB9E2153EE2800136258 /* UIView+AnimatedStyle.m in Sources */,
 				20A85C38215224B10005AD62 /* Game.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

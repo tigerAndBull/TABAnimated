@@ -37,11 +37,8 @@
     CGSize contentSize = [TABMethod tab_getSizeWithText:contentLab.text sizeWithFont:tab_kFont(14) constrainedToSize:CGSizeMake(MAXFLOAT, 25)];
     
     //布局
-    titleLab.frame = CGRectMake(CGRectGetMaxX(headImg.frame)+10, 15, (titleSize.width > 0)?titleSize.width:130, 25);
-    contentLab.frame = CGRectMake(CGRectGetMaxX(headImg.frame)+10, 15+25+10, (contentSize.width > 0)?contentSize.width:200, 25);
-    
-    //运行动画/移除动画
-    [[TABViewAnimated sharedAnimated]startOrEndViewAnimated:self];
+    titleLab.frame = CGRectMake(CGRectGetMaxX(headImg.frame)+10, 15, titleSize.width, 25);
+    contentLab.frame = CGRectMake(CGRectGetMaxX(headImg.frame)+10, 15+25+10, contentSize.width, 25);
 }
 
 #pragma mark -  Public Methods
