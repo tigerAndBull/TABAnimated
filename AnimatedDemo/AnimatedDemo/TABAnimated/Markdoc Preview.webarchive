@@ -1,902 +1,0 @@
-bplist00Ò_WebMainResource_WebSubresourcesÕ	
-_WebResourceTextEncodingName^WebResourceURL_WebResourceFrameName_WebResourceData_WebResourceMIMETypeUUTF-8[about:blankPO+o<html><head>
-<meta charset="utf-8">
-<title>Markdoc Preview</title>
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="/static/mkd/css/style.css">
-<link rel="stylesheet" href="/static/mkd/css/github.css">
-<link rel="stylesheet" href="/static/mkd/css/preview.css">
-</head>
-<body marginwidth="0" marginheight="0">
-<div id="container"><h2 id="-">æœ¬æ–‡ç›®å½•</h2>
-<blockquote>
-<ol>
-<li>CocoaPodså®‰è£…</li>
-<li>ç®€å•ä½¿ç”¨CocoaPods</li>
-<li>CocoaPodså…¬æœ‰å’Œç§æœ‰åº“çš„åŒºåˆ«</li>
-<li>gitè¿œç¨‹ä»“åº“ä¸CocoaPodsè¿œç¨‹ä»“åº“</li>
-<li>å¦‚ä½•æ­å»ºå¹¶ç»´æŠ¤ç§æœ‰åº“</li>
-</ol>
-</blockquote>
-<h4 id="-cocoapods-">ä¸€. CocoaPodså®‰è£…</h4>
-<p>è¿™ä¸ªé…ç½®ç¯å¢ƒçš„è¿‡ç¨‹ï¼Œå°±ä¸å¤šèµ˜è¿°äº†</p>
-<h4 id="-cocoapods">äºŒ. ç®€å•ä½¿ç”¨CocoaPods</h4>
-<blockquote>
-<ol>
-<li>åœ¨é¡¹ç›®æ ¹ç›®å½•ä¸‹ <code>pod init</code>ï¼Œåˆå§‹åŒ–æ“ä½œ </li>
-<li>ä¼šåœ¨æ ¹ç›®å½•ä¸‹ç”Ÿæˆä¸€ä¸ªProfileæ–‡ä»¶ï¼Œç”¨è¿‡çš„åº”è¯¥éƒ½æœ‰æ‰€äº†è§£
-<strong>ä¸»è¦å¼ºè°ƒ</strong>ï¼šæ ¹æ®è¿™ä¸ªæ–‡ä»¶å°±èƒ½å¤Ÿæ‰¾åˆ°Podä»“åº“ä¸‹çš„æŒ‡å®šç‰ˆæœ¬çš„ç¬¬ä¸‰æ–¹åº“çš„.podspecæ–‡ä»¶ï¼ˆåé¢ä¼šè®²åˆ°ï¼‰</li>
-<li>Profileæ–‡ä»¶ä¿®æ”¹å¥½ä»¥åï¼Œæ‰§è¡Œ<code>pod install</code>ï¼ˆè®°ä½ï¼šåŒ…æ‹¬æ›´æ–°éƒ½å»ºè®®ä½¿ç”¨<code>pod install</code>ï¼Œè€Œä¸æ˜¯<code>pod update</code>ï¼‰
-è¿™ä¸ªå‘½ä»¤å°±æ˜¯å®‰è£…Podä»“åº“ä¸‹çš„æŒ‡å®šç‰ˆæœ¬çš„ç¬¬ä¸‰æ–¹åº“</li>
-</ol>
-</blockquote>
-<h4 id="-cocoapods-">ä¸‰. CocoaPodså…¬æœ‰å’Œç§æœ‰åº“çš„åŒºåˆ«</h4>
-<blockquote>
-<p><strong>å­—é¢æ„æ€</strong>ï¼šå…¬æœ‰å¯ä»¥ç†è§£ä¸º<code>å¼€æº</code>ï¼ŒCocoaPodså…¶å®æ˜¯å°†ä»“åº“æ‰˜ç®¡åˆ°githubä¸Šé¢çš„ï¼Œä¹Ÿå°±æ˜¯è¯´ä½ çš„ä»£ç æ‰€æœ‰ç”¨CocoaPodsçš„äººéƒ½å¯ä»¥çœ‹åˆ°ï¼Œä½†æ˜¯æˆ‘æ—¢å¸Œæœ›CocoaPodsç®¡ç†æˆ‘çš„åº“ï¼Œåˆä¸å¸Œæœ›å¼€æºï¼Œç§æœ‰åº“æ„ä¹‰å°±æ¥äº†ã€‚
-<strong>å®é™…åŒºåˆ«</strong>ï¼šåªæœ‰ä¸€ç‚¹ï¼ï¼ï¼å°±æ˜¯Podæœ¬èº«åœ¨githubæœ‰ä¸ª<a href="https://github.com/CocoaPods/Specs">è¿œç¨‹ä»“åº“</a>ï¼Œé‡Œé¢éƒ½æ˜¯æŒ‡å®šç¬¬ä¸‰æ–¹åº“çš„<code>.json/.podspec</code>æ–‡ä»¶ï¼Œè¿™ä¸ªæ–‡ä»¶çš„ä½œç”¨å°±æ˜¯æè¿°ä½ çš„ç¬¬ä¸‰æ–¹åº“çš„ä¿¡æ¯ï¼ŒåŒ…æ‹¬åœ°å€ä¹‹ç±»çš„ã€‚CocoaPodså°±æ˜¯ä¾é æ­¤ç±»æ–‡ä»¶æ¥ç®¡ç†ç¬¬ä¸‰æ–¹åº“ã€‚</p>
-</blockquote>
-<h4 id="-git-cocoapods-">å››. gitè¿œç¨‹ä»“åº“ä¸CocoaPodsç¬¬ä¸‰æ–¹åº“å’Œè¿œç¨‹ä»“åº“</h4>
-<p>å¼ºè°ƒä¸€ä¸‹æ¶‰åŠåˆ°å‡ ä¸ªåº“çš„æ¦‚å¿µï¼Œæ¥è§¦ä¸å¤šçš„äººå¯èƒ½ä¼šæ··ä¹±ï¼</p>
-<blockquote>
-<ol>
-<li>å¦‚æœæˆ‘å’Œä½ ç”¨gitè¿›è¡Œåä½œå¼€å‘æˆ‘ä»¬çš„â€œä»£ç â€ï¼Œå³å…¬å…±ç»„ä»¶/ç§æœ‰ç»„ä»¶ï¼Œé‚£ä¹ˆæˆ‘ä»¬ä¼šç”¨åˆ°gitè¿œç¨‹ä»“åº“ï¼Œè¿™ä¸ªåœ°æ–¹å°±æœ‰ä¸€ä¸ªè¿œç¨‹ä»“åº“çš„åœ°å€çš„æ¦‚å¿µã€‚</li>
-<li>å¦‚æœæˆ‘å’Œä½ æƒ³æŠŠè¿™ä¸ªâ€œä»£ç â€æ‰˜ç®¡åˆ°CocoaPodsï¼Œä»¥æ–¹ä¾¿ä½¿ç”¨ï¼Œ
-é¦–å…ˆä¼šæœ‰ä¸€ä¸ªç®¡ç†<code>.podspec/.json</code>æ–‡ä»¶çš„gitè¿œç¨‹ä»“åº“ï¼Œè€ŒCocoaPodsè‡ªå·±ç®¡ç†æ­¤ç±»æ–‡ä»¶çš„è¿œç¨‹ä»“åº“æ˜¯æ‰˜ç®¡åˆ°githubä¸Šçš„ï¼Œæ‰€ä»¥å¦‚æœæ˜¯ç§æœ‰åº“ï¼Œé‚£ä¹ˆå°±åªè¦å»ºä¸€ä¸ªç±»ä¼¼çš„è¿œç¨‹ä»“åº“å°±å¯ä»¥äº†ã€‚<h4 id="-">äº”. å¦‚ä½•æ­å»ºç§æœ‰åº“ï¼Ÿ</h4>
-</li>
-</ol>
-</blockquote>
-<p>1.åœ¨è‡ªå·±çš„gitæœåŠ¡å™¨ä¸Šæ–°å»ºä¸€ä¸ªä»“åº“ï¼Œç”¨äºå­˜æ”¾å¯¹åº”å„ç§ç¬¬ä¸‰æ–¹åº“çš„.podspecæ–‡ä»¶</p>
-<p>2.ç»ˆç«¯æ‰§è¡Œä»¥ä¸‹ä»£ç ï¼Œå‰ææ˜¯ä½ ç¬¬ä¸€æ­¥æˆåŠŸäº†</p>
-<pre><code><span class="hljs-title">pod</span> repo add UESpecs git<span class="hljs-variable">@git</span>.xxx.xxx:iOSPods
-</code></pre><p>è¯´æ˜ï¼š</p>
-<blockquote>
-<p>1.ä½ è‡ªå·±çš„gitæœåŠ¡å™¨ä»“åº“åï¼šiOSPods</p>
-<p>2.å°†UESpecsæ·»åŠ åˆ°æœ¬åœ°repoï¼Œæ·»åŠ æˆåŠŸåå¯ä»¥åœ¨<code>/.cocoapods/repos/</code>ç›®å½•ä¸‹å¯ä»¥çœ‹åˆ°å®˜æ–¹çš„specs:masterå’ŒåˆšåˆšåŠ å…¥çš„specs:UESpecs</p>
-<p>3.<strong>å¦‚æœæœ‰å…¶ä»–åˆä½œäººå‘˜å…±åŒä½¿ç”¨å’Œç»´æŠ¤è¿™ä¸ªç§æœ‰Spec Repoçš„è¯ï¼Œåœ¨ä»–æœ‰å¯¹åº”gitä»“åº“çš„æƒé™çš„å‰æä¸‹ï¼Œæ‰§è¡Œç›¸åŒçš„å‘½ä»¤æ·»åŠ è¿™ä¸ªSpec Repoå³å¯ã€‚</strong></p>
-</blockquote>
-<p>3.ä¸‹é¢æ˜¯ä¸€ä¸ªç®€å•çš„.podspecæ–‡ä»¶çš„æ¨¡ç‰ˆ</p>
-<pre><code>Pod::Spec.<span class="hljs-keyword">new</span> <span class="hljs-keyword">do</span> |s|
-
-  <span class="hljs-comment">#åº“åï¼Œå’Œæ–‡ä»¶åä¸€æ ·</span>
-  s.name         = <span class="hljs-string">"TABAnimated"</span>
-
-  <span class="hljs-comment">#tagæ–¹å¼ï¼šå¡«tagåç§°</span>
-  <span class="hljs-comment">#commitæ–¹å¼ï¼šå¡«commitçš„id</span>
-  s.version      = <span class="hljs-string">"1.1.1"</span>
-
-  <span class="hljs-comment">#åº“çš„ç®€ä»‹</span>
-  s.summary      = <span class="hljs-string">"TABAnimatedæ˜¯ä¸€ä¸ªioså¹³å°ä¸Šçš„ç½‘ç»œè¿‡æ¸¡åŠ¨ç”»çš„å°è£…"</span>
-
-  <span class="hljs-comment">#åº“çš„æè¿°</span>
-  s.description  = &lt;&lt;-DESC
-  TABAnimatedæ˜¯ä¸€ä¸ªioså¹³å°ä¸Šåˆ©ç”¨Runtimeè¿è¡Œæ—¶æœºåˆ¶çš„ç½‘ç»œè¿‡æ¸¡åŠ¨ç”»çš„å°è£…,ä½ å¯ä»¥å¾ˆè½»æ¾åœ°é›†æˆå®ƒã€‚
-                           DESC
-  <span class="hljs-comment">#åº“çš„è¿œç¨‹ä»“åº“åœ°å€</span>
-  s.homepage     = <span class="hljs-string">"https://github.com/tigerAndBull/LoadAnimatedDemo-ios"</span>
-
-  <span class="hljs-comment">#ç‰ˆæƒæ–¹å¼</span>
-  s.license = { :type =&gt; <span class="hljs-string">"MIT"</span>, :file =&gt; <span class="hljs-string">"LICENSE"</span> }
-
-  <span class="hljs-comment">#åº“çš„ä½œè€…</span>
-  s.author             = { <span class="hljs-string">"tigerAndBull"</span> =&gt; <span class="hljs-string">"1429299849@qq.com"</span> }
-
-  <span class="hljs-comment">#ä¾èµ–äºioså¹³å°ä¸Šçš„8.0</span>
-  s.platform     = :ios, <span class="hljs-string">"8.0"</span>
-
-  <span class="hljs-comment">#åº“çš„åœ°å€</span>
-  s.source       = { :git =&gt; <span class="hljs-string">"https://github.com/tigerAndBull/LoadAnimatedDemo-ios.git"</span>, :tag =&gt; <span class="hljs-string">"#{s.version}"</span> }
-
-  <span class="hljs-comment">#éœ€è¦å…±äº«åœ¨Podä¸Šçš„æ–‡ä»¶å¤¹ç›®å½•</span>
-  <span class="hljs-comment">#è®©æ–‡ä»¶å¤¹å’Œ.podspecåŒçº§ï¼Œç›´æ¥å¡«æ–‡ä»¶åå°±å¯ä»¥äº†</span>
-  s.source_files  = <span class="hljs-string">"TABAnimated"</span>
-
-end
-</code></pre><p>ç¼–å†™å®Œ.podspecæ–‡ä»¶åï¼Œæ‰§è¡Œä»¥ä¸‹å‘½ä»¤å¯ä»¥éªŒè¯å…¶åˆæ³•æ€§</p>
-<pre><code><span class="hljs-title">pod</span> lib lint TABAnimated.podspec
-</code></pre><p>ä¸‹é¢æ˜¯<code>LICENSE</code>æ–‡ä»¶æ¨¡ç‰ˆï¼Œåªéœ€è¦æŠŠæ—¶é—´å’Œåå­—æ”¹æˆä½ æƒ³è¦çš„å°±è¡Œäº†ã€‚</p>
-<pre><code>MIT License
-
-Copyright (c) 2018 tigerAndBull
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to <span class="hljs-operator"><span class="hljs-keyword">use</span>, copy, modify, <span class="hljs-keyword">merge</span>, publish, distribute, sublicense, <span class="hljs-keyword">and</span>/<span class="hljs-keyword">or</span> sell
-copies <span class="hljs-keyword">of</span> the Software, <span class="hljs-keyword">and</span> <span class="hljs-keyword">to</span> permit persons <span class="hljs-keyword">to</span> whom the Software <span class="hljs-keyword">is</span>
-furnished <span class="hljs-keyword">to</span> <span class="hljs-keyword">do</span> so, subject <span class="hljs-keyword">to</span> the following conditions:
-
-The above copyright notice <span class="hljs-keyword">and</span> this permission notice shall be included <span class="hljs-keyword">in</span> <span class="hljs-keyword">all</span>
-copies <span class="hljs-keyword">or</span> substantial portions <span class="hljs-keyword">of</span> the Software.
-
-THE SOFTWARE <span class="hljs-keyword">IS</span> PROVIDED <span class="hljs-string">"AS IS"</span>, WITHOUT WARRANTY <span class="hljs-keyword">OF</span> <span class="hljs-keyword">ANY</span> KIND, EXPRESS <span class="hljs-keyword">OR</span>
-IMPLIED, INCLUDING BUT <span class="hljs-keyword">NOT</span> LIMITED <span class="hljs-keyword">TO</span> THE WARRANTIES <span class="hljs-keyword">OF</span> MERCHANTABILITY,
-FITNESS <span class="hljs-keyword">FOR</span> A PARTICULAR PURPOSE <span class="hljs-keyword">AND</span> NONINFRINGEMENT. <span class="hljs-keyword">IN</span> <span class="hljs-keyword">NO</span> <span class="hljs-keyword">EVENT</span> SHALL THE
-<span class="hljs-keyword">AUTHORS</span> <span class="hljs-keyword">OR</span> COPYRIGHT HOLDERS BE LIABLE <span class="hljs-keyword">FOR</span> <span class="hljs-keyword">ANY</span> CLAIM, DAMAGES <span class="hljs-keyword">OR</span> OTHER
-LIABILITY, WHETHER <span class="hljs-keyword">IN</span> AN <span class="hljs-keyword">ACTION</span> <span class="hljs-keyword">OF</span> CONTRACT, TORT <span class="hljs-keyword">OR</span> OTHERWISE, ARISING <span class="hljs-keyword">FROM</span>,
-OUT <span class="hljs-keyword">OF</span> <span class="hljs-keyword">OR</span> <span class="hljs-keyword">IN</span> <span class="hljs-keyword">CONNECTION</span> <span class="hljs-keyword">WITH</span> THE SOFTWARE <span class="hljs-keyword">OR</span> THE <span class="hljs-keyword">USE</span> <span class="hljs-keyword">OR</span> OTHER DEALINGS <span class="hljs-keyword">IN</span> THE
-SOFTWARE.</span>
-</code></pre><p><strong>æ³¨</strong>ï¼š.podspecæ–‡ä»¶ä¸­çš„homepageå’Œsourceä¸æ”¯æŒsshåè®®åœ°å€ï¼Œæ‰€ä»¥æˆ‘ä»¬å¾—æ”¾å…¥http/httpsåœ°å€ã€‚</p>
-<ol>
-<li>æ³¨æ„ï½ï½ è¿™ä¼šå„¿è¦è½¬åœºäº†ï¼Œæˆ‘ä»¬æ¥åˆ°äº†å­˜æ”¾ç¬¬ä¸‰æ–¹åº“çš„gitæœ¬åœ°ä»“åº“çš„é¡¹ç›®ç›®å½•ä¸Šäº†ï¼Œåˆ«æ‰“ç›¹å“¦ï½
-æŒ‰ç…§ä¸Šé¢çš„.podspecçš„å†™æ³•ï¼Œç›®å½•ç»“æ„åº”è¯¥è¿™ä¹ˆæ”¾</li>
-</ol>
-<p><img src="https://upload-images.jianshu.io/upload_images/5632003-0a8f76fc20e298ae.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
-<blockquote>
-<p>1.TABAnimated æ˜¯éœ€è¦å…±äº«çš„æ–‡ä»¶å¤¹ï¼ˆé‡Œé¢æ”¾çš„æ˜¯ä½ çš„ç¬¬ä¸‰æ–¹åº“çš„ä»£ç ï¼‰ï¼Œä¹Ÿå°±æ˜¯ä¸Šé¢<code>s.source_files</code>æŒ‡å®šçš„æ–‡ä»¶å¤¹</p>
-<p>2.è¿™ç§å†™æ³•ï¼Œæ–‡ä»¶åŒçº§æ”¾å°±okçš„ï¼Œå¯ä»¥è‡ªå·±è°ƒæ•´ï¼</p>
-</blockquote>
-<p>5.ç„¶åå°†podspecåŠ å…¥ç§æœ‰Sepc repoä¸­</p>
-<pre><code>pod repo <span class="hljs-keyword">push</span> UESpecs TABAnimated.podspec
-</code></pre><p>å¯ä»¥å‰å¾€~/.cocoapods/reposä¸‹çš„UESpecsæ–‡ä»¶å¤¹ä¸­æŸ¥çœ‹, åŒæ—¶ä½ è‡ªå·±çš„gitæœåŠ¡å™¨ä¸­çš„è¿œç«¯ä¹Ÿæ›´æ–°äº†ã€‚</p>
-<p>ä½†æ˜¯å•Šï¼Œè¿™ä¸ªæ—¶å€™å…¶ä»–äººä¸çŸ¥é“æ›´æ²¡æ›´æ–°å‘€ï¼
-æ‰€ä»¥å®ƒéœ€è¦æ‰§è¡Œupdateå‘½ä»¤ï¼Œæ‰§è¡Œå®Œä»¥åï¼Œä»–å°±æœ‰äº†ä½ æœ€æ–°å‘å¸ƒçš„ç‰ˆæœ¬</p>
-<pre><code>pod repo <span class="hljs-operator"><span class="hljs-keyword">update</span> UESpecs</span>
-</code></pre><p>6.å¦‚ä½•æŸ¥æ‰¾å’Œä½¿ç”¨ç§æœ‰çš„ç¬¬ä¸‰æ–¹åº“å‘¢ï¼Ÿ</p>
-<p>å¿…é¡»åœ¨Podfileå‰é¢æ·»åŠ ä½ çš„ç§æœ‰Spec repoçš„gitåœ°å€source, pod installæ—¶, æ‰èƒ½åœ¨ç§æœ‰repoä¸­æŸ¥æ‰¾åˆ°ç§æœ‰åº“, åƒè¿™æ ·:</p>
-<pre><code>source <span class="hljs-string">'git@git.xxx.xxx:iOSPods/UESpecs.git'</span>
-
-    platform <span class="hljs-symbol">:ios</span>, <span class="hljs-string">'8.0'</span>
-    target <span class="hljs-string">"test"</span> <span class="hljs-keyword">do</span>
-        pod <span class="hljs-string">'TABAnimated'</span>, <span class="hljs-string">'~&gt;1.1.1'</span>
-    <span class="hljs-keyword">end</span>
-</code></pre><p>å‘å¸ƒæ–°ç‰ˆæœ¬åï¼Œä¿®æ”¹.podspecæ–‡ä»¶çš„<code>s.version</code>ï¼Œé‡æ–°pod repo pushå°±å¯ä»¥äº†,ç„¶åè®©å°ä¼™ä¼´ä»¬ï¼Œupdateä¸€ä¸‹ï¼Œå°±å¯ä»¥æ„‰å¿«åœ°ä½¿ç”¨äº†ã€‚</p>
-</div>
-<script src="js/jquery-1.11.1.min.js"></script>
-<script src="js/preview.js"></script>
-
-</body></html>Ytext/html¤Õ_WebResourceResponseUutf-8Oİbplist00ÔghX$versionX$objectsY$archiverT$top † ¯#)*0123KLMNOPQRSTUVWXYZ[\]abU$nullİ	
- !"___nsurlrequest_proto_prop_obj_6___nsurlrequest_proto_prop_obj_3R$2___nsurlrequest_proto_prop_obj_0R$3___nsurlrequest_proto_prop_obj_4V$class___nsurlrequest_proto_prop_obj_1R$4R$0___nsurlrequest_proto_prop_obj_5___nsurlrequest_proto_prop_obj_2R$1€€€	€€€€ €Ó$% '(WNS.base[NS.relative€ €€_*http://coolaf.com/static/mkd/css/style.cssÒ+,-.Z$classnameX$classesUNSURL¢-/XNSObject#AÀ©ºCî]ê ÈÓ456@JWNS.keysZNS.objects©789:;<=>?€	€
-€€€€€€€©ABCDEFGHI€€€€€€€€€€VServer\Content-TypeTVary]Last-Modified_Transfer-EncodingX__hhaa__TDate_Content-EncodingZConnectionUnginx_text/css; charset=utf-8_Accept-Encoding_Sat, 19 Nov 2016 15:49:12 GMTXIdentity_à
-
-YnBsaXN0MDDYAQIDBAUGBwgJCw0PERMVF1pDb25uZWN0aW9uXENvbnRlbnQtVHlwZVZTZXJ2ZXJdTGFzdC1Nb2RpZmllZFRWYXJ5VERhdGVfEBBDb250ZW50LUVuY29kaW5nXxARVHJhbnNmZXItRW5jb2RpbmehClprZWVwLWFsaXZloQxfEBd0ZXh0L2NzczsgY2hhcnNldD11dGYtOKEOVW5naW54oRBfEB1TYXQsIDE5IE5vdiAyMDE2IDE1OjQ5OjEyIEdNVKESXxAPQWNjZXB0LUVuY29kaW5noRRfEB1UaHUsIDIwIFNlcCAyMDE4IDA2OjE2OjM5IEdNVKEWVGd6aXChGFhJZGVudGl0eQAIABkAJAAxADgARgBLAFAAYwB3AHkAhACGAKAAogCoAKoAygDMAN4A4AEAAQIBBwEJAAAAAAAAAgEAAAAAAAAAGQAAAAAAAAAAAAAAAAAAARI=_Thu, 20 Sep 2018 06:16:39 GMTTgzipZkeep-aliveÒ+,^__NSMutableDictionary£^`/\NSDictionaryXtext/cssÒ+,cd_NSHTTPURLResponse£ef/_NSHTTPURLResponse]NSURLResponse_NSKeyedArchiverÑij_WebResourceResponse€    # - 2 7 X ^ y › ½ À â å036Xz}ƒ…‡‰‹’”–¥±³µ·äéôı#+6@BDFHJLNPR\^`bdfhjlnpw„‰—«´¹Ì×İ÷	)26;FKaer{€”˜¬ºÌÏå             k              ç_*http://coolaf.com/static/mkd/css/style.cssO"/*! normalize.css v3.0.1 | MIT License | git.io/normalize */
-
-/**
- * 1. Set default font family to sans-serif.
- * 2. Prevent iOS text size adjust after orientation change, without disabling
- *    user zoom.
- */
-
-html {
-  font-family: sans-serif; /* 1 */
-  -ms-text-size-adjust: 100%; /* 2 */
-  -webkit-text-size-adjust: 100%; /* 2 */
-}
-
-/**
- * Remove default margin.
- */
-
-body {
-  margin: 0;
-}
-
-/* HTML5 display definitions
-   ========================================================================== */
-
-/**
- * Correct `block` display not defined for any HTML5 element in IE 8/9.
- * Correct `block` display not defined for `details` or `summary` in IE 10/11 and Firefox.
- * Correct `block` display not defined for `main` in IE 11.
- */
-
-article,
-aside,
-details,
-figcaption,
-figure,
-footer,
-header,
-hgroup,
-main,
-nav,
-section,
-summary {
-  display: block;
-}
-
-/**
- * 1. Correct `inline-block` display not defined in IE 8/9.
- * 2. Normalize vertical alignment of `progress` in Chrome, Firefox, and Opera.
- */
-
-audio,
-canvas,
-progress,
-video {
-  display: inline-block; /* 1 */
-  vertical-align: baseline; /* 2 */
-}
-
-/**
- * Prevent modern browsers from displaying `audio` without controls.
- * Remove excess height in iOS 5 devices.
- */
-
-audio:not([controls]) {
-  display: none;
-  height: 0;
-}
-
-/**
- * Address `[hidden]` styling not present in IE 8/9/10.
- * Hide the `template` element in IE 8/9/11, Safari, and Firefox < 22.
- */
-
-[hidden],
-template {
-  display: none;
-}
-
-/* Links
-   ========================================================================== */
-
-/**
- * Remove the gray background color from active links in IE 10.
- */
-
-a {
-  background: transparent;
-}
-
-/**
- * Improve readability when focused and also mouse hovered in all browsers.
- */
-
-a:active,
-a:hover {
-  outline: 0;
-}
-
-/* Text-level semantics
-   ========================================================================== */
-
-/**
- * Address styling not present in IE 8/9/10/11, Safari, and Chrome.
- */
-
-abbr[title] {
-  border-bottom: 1px dotted;
-}
-
-/**
- * Address style set to `bolder` in Firefox 4+, Safari, and Chrome.
- */
-
-b,
-strong {
-  font-weight: bold;
-}
-
-/**
- * Address styling not present in Safari and Chrome.
- */
-
-dfn {
-  font-style: italic;
-}
-
-/**
- * Address variable `h1` font-size and margin within `section` and `article`
- * contexts in Firefox 4+, Safari, and Chrome.
- */
-
-h1 {
-  font-size: 2em;
-  margin: 0.67em 0;
-}
-
-/**
- * Address styling not present in IE 8/9.
- */
-
-mark {
-  background: #ff0;
-  color: #000;
-}
-
-/**
- * Address inconsistent and variable font size in all browsers.
- */
-
-small {
-  font-size: 80%;
-}
-
-/**
- * Prevent `sub` and `sup` affecting `line-height` in all browsers.
- */
-
-sub,
-sup {
-  font-size: 75%;
-  line-height: 0;
-  position: relative;
-  vertical-align: baseline;
-}
-
-sup {
-  top: -0.5em;
-}
-
-sub {
-  bottom: -0.25em;
-}
-
-/* Embedded content
-   ========================================================================== */
-
-/**
- * Remove border when inside `a` element in IE 8/9/10.
- */
-
-img {
-  border: 0;
-}
-
-/**
- * Correct overflow not hidden in IE 9/10/11.
- */
-
-svg:not(:root) {
-  overflow: hidden;
-}
-
-/* Grouping content
-   ========================================================================== */
-
-/**
- * Address margin not present in IE 8/9 and Safari.
- */
-
-figure {
-  margin: 1em 40px;
-}
-
-/**
- * Address differences between Firefox and other browsers.
- */
-
-hr {
-  -moz-box-sizing: content-box;
-  box-sizing: content-box;
-  height: 0;
-}
-
-/**
- * Contain overflow in all browsers.
- */
-
-pre {
-  overflow: auto;
-}
-
-/**
- * Address odd `em`-unit font size rendering in all browsers.
- */
-
-code,
-kbd,
-pre,
-samp {
-  font-family: monospace, monospace;
-  font-size: 1em;
-}
-
-/* Forms
-   ========================================================================== */
-
-/**
- * Known limitation: by default, Chrome and Safari on OS X allow very limited
- * styling of `select`, unless a `border` property is set.
- */
-
-/**
- * 1. Correct color not being inherited.
- *    Known issue: affects color of disabled elements.
- * 2. Correct font properties not being inherited.
- * 3. Address margins set differently in Firefox 4+, Safari, and Chrome.
- */
-
-button,
-input,
-optgroup,
-select,
-textarea {
-  color: inherit; /* 1 */
-  font: inherit; /* 2 */
-  margin: 0; /* 3 */
-}
-
-/**
- * Address `overflow` set to `hidden` in IE 8/9/10/11.
- */
-
-button {
-  overflow: visible;
-}
-
-/**
- * Address inconsistent `text-transform` inheritance for `button` and `select`.
- * All other form control elements do not inherit `text-transform` values.
- * Correct `button` style inheritance in Firefox, IE 8/9/10/11, and Opera.
- * Correct `select` style inheritance in Firefox.
- */
-
-button,
-select {
-  text-transform: none;
-}
-
-/**
- * 1. Avoid the WebKit bug in Android 4.0.* where (2) destroys native `audio`
- *    and `video` controls.
- * 2. Correct inability to style clickable `input` types in iOS.
- * 3. Improve usability and consistency of cursor style between image-type
- *    `input` and others.
- */
-
-button,
-html input[type="button"], /* 1 */
-input[type="reset"],
-input[type="submit"] {
-  -webkit-appearance: button; /* 2 */
-  cursor: pointer; /* 3 */
-}
-
-/**
- * Re-set default cursor for disabled elements.
- */
-
-button[disabled],
-html input[disabled] {
-  cursor: default;
-}
-
-/**
- * Remove inner padding and border in Firefox 4+.
- */
-
-button::-moz-focus-inner,
-input::-moz-focus-inner {
-  border: 0;
-  padding: 0;
-}
-
-/**
- * Address Firefox 4+ setting `line-height` on `input` using `!important` in
- * the UA stylesheet.
- */
-
-input {
-  line-height: normal;
-}
-
-/**
- * It's recommended that you don't attempt to style these elements.
- * Firefox's implementation doesn't respect box-sizing, padding, or width.
- *
- * 1. Address box sizing set to `content-box` in IE 8/9/10.
- * 2. Remove excess padding in IE 8/9/10.
- */
-
-input[type="checkbox"],
-input[type="radio"] {
-  box-sizing: border-box; /* 1 */
-  padding: 0; /* 2 */
-}
-
-/**
- * Fix the cursor style for Chrome's increment/decrement buttons. For certain
- * `font-size` values of the `input`, it causes the cursor style of the
- * decrement button to change from `default` to `text`.
- */
-
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
-  height: auto;
-}
-
-/**
- * 1. Address `appearance` set to `searchfield` in Safari and Chrome.
- * 2. Address `box-sizing` set to `border-box` in Safari and Chrome
- *    (include `-moz` to future-proof).
- */
-
-input[type="search"] {
-  -webkit-appearance: textfield; /* 1 */
-  -moz-box-sizing: content-box;
-  -webkit-box-sizing: content-box; /* 2 */
-  box-sizing: content-box;
-}
-
-/**
- * Remove inner padding and search cancel button in Safari and Chrome on OS X.
- * Safari (but not Chrome) clips the cancel button when the search input has
- * padding (and `textfield` appearance).
- */
-
-input[type="search"]::-webkit-search-cancel-button,
-input[type="search"]::-webkit-search-decoration {
-  -webkit-appearance: none;
-}
-
-/**
- * Define consistent border, margin, and padding.
- */
-
-fieldset {
-  border: 1px solid #c0c0c0;
-  margin: 0 2px;
-  padding: 0.35em 0.625em 0.75em;
-}
-
-/**
- * 1. Correct `color` not being inherited in IE 8/9/10/11.
- * 2. Remove padding so people aren't caught out if they zero out fieldsets.
- */
-
-legend {
-  border: 0; /* 1 */
-  padding: 0; /* 2 */
-}
-
-/**
- * Remove default vertical scrollbar in IE 8/9/10/11.
- */
-
-textarea {
-  overflow: auto;
-}
-
-/**
- * Don't inherit the `font-weight` (applied by a rule above).
- * NOTE: the default cannot safely be changed in Chrome and Safari on OS X.
- */
-
-optgroup {
-  font-weight: bold;
-}
-
-/* Tables
-   ========================================================================== */
-
-/**
- * Remove most spacing between table cells.
- */
-
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-}
-
-td,
-th {
-  padding: 0;
-}
-
-/* mscore */
-* {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-*:before,
-*:after {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-html {
-  font-size: 62.5%;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-}
-body {
-  /*font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;*/
-  font-family: 'Helvetica Neue', Helvetica, Arial, 'Microsoft Yahei', sans-serif;
-  font-size: 14px;
-  line-height: 1.42857143;
-  color: #333333;
-  background-color: #ffffff;
-}
-input,
-button,
-select,
-textarea {
-  font-family: inherit;
-  font-size: inherit;
-  line-height: inherit;
-}
-a {
-  color: #428bca;
-  text-decoration: none;
-}
-a:hover,
-a:focus {
-  color: #2a6496;
-  text-decoration: underline;
-}
-a:focus {
-  outline: thin dotted;
-  outline: 5px auto -webkit-focus-ring-color;
-  outline-offset: -2px;
-}
-figure {
-  margin: 0;
-}
-img {
-  vertical-align: middle;
-}
-Xtext/cssÕOŞbplist00ÔghX$versionX$objectsY$archiverT$top † ¯#)*0123KLMNOPQRSTUVWXYZ[\]abU$nullİ	
- !"___nsurlrequest_proto_prop_obj_6___nsurlrequest_proto_prop_obj_3R$2___nsurlrequest_proto_prop_obj_0R$3___nsurlrequest_proto_prop_obj_4V$class___nsurlrequest_proto_prop_obj_1R$4R$0___nsurlrequest_proto_prop_obj_5___nsurlrequest_proto_prop_obj_2R$1€€€	€€€€ €Ó$% '(WNS.base[NS.relative€ €€_+http://coolaf.com/static/mkd/css/github.cssÒ+,-.Z$classnameX$classesUNSURL¢-/XNSObject#AÀ©ºCîl< ÈÓ456@JWNS.keysZNS.objects©789:;<=>?€	€
-€€€€€€€©ABCDEFGHI€€€€€€€€€€VServer\Content-TypeTVary]Last-Modified_Transfer-EncodingX__hhaa__TDate_Content-EncodingZConnectionUnginx_text/css; charset=utf-8_Accept-Encoding_Sat, 19 Nov 2016 15:49:12 GMTXIdentity_à
-
-YnBsaXN0MDDYAQIDBAUGBwgJCw0PERMVF1pDb25uZWN0aW9uXENvbnRlbnQtVHlwZVZTZXJ2ZXJdTGFzdC1Nb2RpZmllZFRWYXJ5VERhdGVfEBBDb250ZW50LUVuY29kaW5nXxARVHJhbnNmZXItRW5jb2RpbmehClprZWVwLWFsaXZloQxfEBd0ZXh0L2NzczsgY2hhcnNldD11dGYtOKEOVW5naW54oRBfEB1TYXQsIDE5IE5vdiAyMDE2IDE1OjQ5OjEyIEdNVKESXxAPQWNjZXB0LUVuY29kaW5noRRfEB1UaHUsIDIwIFNlcCAyMDE4IDA2OjE3OjIwIEdNVKEWVGd6aXChGFhJZGVudGl0eQAIABkAJAAxADgARgBLAFAAYwB3AHkAhACGAKAAogCoAKoAygDMAN4A4AEAAQIBBwEJAAAAAAAAAgEAAAAAAAAAGQAAAAAAAAAAAAAAAAAAARI=_Thu, 20 Sep 2018 06:17:20 GMTTgzipZkeep-aliveÒ+,^__NSMutableDictionary£^`/\NSDictionaryXtext/cssÒ+,cd_NSHTTPURLResponse£ef/_NSHTTPURLResponse]NSURLResponse_NSKeyedArchiverÑij_WebResourceResponse€    # - 2 7 X ^ y › ½ À â å036Xz}ƒ…‡‰‹’”–¥±³µ·åêõş$,7ACEGIKMOQS]_acegikmoqx…Š˜¬µºÍØŞø
-*37<GLbfs|•™­»ÍĞæ             k              è_+http://coolaf.com/static/mkd/css/github.cssO
-/*
-Original style from softwaremaniacs.org (c) Ivan Sagalaev <Maniac@SoftwareManiacs.Org>
-*/
-
-.hljs {
-  display: block;
-  overflow-x: auto;
-  padding: 0.5em;
-  background: #f0f0f0;
-  -webkit-text-size-adjust: none;
-}
-
-.hljs,
-.hljs-subst,
-.hljs-tag .hljs-title,
-.nginx .hljs-title {
-  color: black;
-}
-
-.hljs-string,
-.hljs-title,
-.hljs-constant,
-.hljs-parent,
-.hljs-tag .hljs-value,
-.hljs-rules .hljs-value,
-.hljs-preprocessor,
-.hljs-pragma,
-.haml .hljs-symbol,
-.ruby .hljs-symbol,
-.ruby .hljs-symbol .hljs-string,
-.hljs-template_tag,
-.django .hljs-variable,
-.smalltalk .hljs-class,
-.hljs-addition,
-.hljs-flow,
-.hljs-stream,
-.bash .hljs-variable,
-.apache .hljs-tag,
-.apache .hljs-cbracket,
-.tex .hljs-command,
-.tex .hljs-special,
-.erlang_repl .hljs-function_or_atom,
-.asciidoc .hljs-header,
-.markdown .hljs-header,
-.coffeescript .hljs-attribute {
-  color: #800;
-}
-
-.smartquote,
-.hljs-comment,
-.hljs-annotation,
-.diff .hljs-header,
-.hljs-chunk,
-.asciidoc .hljs-blockquote,
-.markdown .hljs-blockquote {
-  color: #888;
-}
-
-.hljs-number,
-.hljs-date,
-.hljs-regexp,
-.hljs-literal,
-.hljs-hexcolor,
-.smalltalk .hljs-symbol,
-.smalltalk .hljs-char,
-.go .hljs-constant,
-.hljs-change,
-.lasso .hljs-variable,
-.makefile .hljs-variable,
-.asciidoc .hljs-bullet,
-.markdown .hljs-bullet,
-.asciidoc .hljs-link_url,
-.markdown .hljs-link_url {
-  color: #080;
-}
-
-.hljs-label,
-.hljs-javadoc,
-.ruby .hljs-string,
-.hljs-decorator,
-.hljs-filter .hljs-argument,
-.hljs-localvars,
-.hljs-array,
-.hljs-attr_selector,
-.hljs-important,
-.hljs-pseudo,
-.hljs-pi,
-.haml .hljs-bullet,
-.hljs-doctype,
-.hljs-deletion,
-.hljs-envvar,
-.hljs-shebang,
-.apache .hljs-sqbracket,
-.nginx .hljs-built_in,
-.tex .hljs-formula,
-.erlang_repl .hljs-reserved,
-.hljs-prompt,
-.asciidoc .hljs-link_label,
-.markdown .hljs-link_label,
-.vhdl .hljs-attribute,
-.clojure .hljs-attribute,
-.asciidoc .hljs-attribute,
-.lasso .hljs-attribute,
-.coffeescript .hljs-property,
-.hljs-phony {
-  color: #88f;
-}
-
-.hljs-keyword,
-.hljs-id,
-.hljs-title,
-.hljs-built_in,
-.css .hljs-tag,
-.hljs-javadoctag,
-.hljs-phpdoc,
-.hljs-dartdoc,
-.hljs-yardoctag,
-.smalltalk .hljs-class,
-.hljs-winutils,
-.bash .hljs-variable,
-.apache .hljs-tag,
-.hljs-type,
-.hljs-typename,
-.tex .hljs-command,
-.asciidoc .hljs-strong,
-.markdown .hljs-strong,
-.hljs-request,
-.hljs-status {
-  font-weight: bold;
-}
-
-.asciidoc .hljs-emphasis,
-.markdown .hljs-emphasis {
-  font-style: italic;
-}
-
-.nginx .hljs-built_in {
-  font-weight: normal;
-}
-
-.coffeescript .javascript,
-.javascript .xml,
-.lasso .markup,
-.tex .hljs-formula,
-.xml .javascript,
-.xml .vbscript,
-.xml .css,
-.xml .hljs-cdata {
-  opacity: 0.5;
-}ÕOßbplist00ÔghX$versionX$objectsY$archiverT$top † ¯#)*0123KLMNOPQRSTUVWXYZ[\]abU$nullİ	
- !"___nsurlrequest_proto_prop_obj_6___nsurlrequest_proto_prop_obj_3R$2___nsurlrequest_proto_prop_obj_0R$3___nsurlrequest_proto_prop_obj_4V$class___nsurlrequest_proto_prop_obj_1R$4R$0___nsurlrequest_proto_prop_obj_5___nsurlrequest_proto_prop_obj_2R$1€€€	€€€€ €Ó$% '(WNS.base[NS.relative€ €€_,http://coolaf.com/static/mkd/css/preview.cssÒ+,-.Z$classnameX$classesUNSURL¢-/XNSObject#AÀ©ºCîx ÈÓ456@JWNS.keysZNS.objects©789:;<=>?€	€
-€€€€€€€©ABCDEFGHI€€€€€€€€€€VServer\Content-TypeTVary]Last-Modified_Transfer-EncodingX__hhaa__TDate_Content-EncodingZConnectionUnginx_text/css; charset=utf-8_Accept-Encoding_Sat, 19 Nov 2016 15:49:12 GMTXIdentity_à
-
-YnBsaXN0MDDYAQIDBAUGBwgJCw0PERMVF1pDb25uZWN0aW9uXENvbnRlbnQtVHlwZVZTZXJ2ZXJdTGFzdC1Nb2RpZmllZFRWYXJ5VERhdGVfEBBDb250ZW50LUVuY29kaW5nXxARVHJhbnNmZXItRW5jb2RpbmehClprZWVwLWFsaXZloQxfEBd0ZXh0L2NzczsgY2hhcnNldD11dGYtOKEOVW5naW54oRBfEB1TYXQsIDE5IE5vdiAyMDE2IDE1OjQ5OjEyIEdNVKESXxAPQWNjZXB0LUVuY29kaW5noRRfEB1UaHUsIDIwIFNlcCAyMDE4IDA2OjE3OjIwIEdNVKEWVGd6aXChGFhJZGVudGl0eQAIABkAJAAxADgARgBLAFAAYwB3AHkAhACGAKAAogCoAKoAygDMAN4A4AEAAQIBBwEJAAAAAAAAAgEAAAAAAAAAGQAAAAAAAAAAAAAAAAAAARI=_Thu, 20 Sep 2018 06:17:20 GMTTgzipZkeep-aliveÒ+,^__NSMutableDictionary£^`/\NSDictionaryXtext/cssÒ+,cd_NSHTTPURLResponse£ef/_NSHTTPURLResponse]NSURLResponse_NSKeyedArchiverÑij_WebResourceResponse€    # - 2 7 X ^ y › ½ À â å036Xz}ƒ…‡‰‹’”–¥±³µ·æëöÿ%-8BDFHJLNPRT^`bdfhjlnpry†‹™­¶»ÎÙßù+48=HMcgt}‚–š®¼ÎÑç             k              é_,http://coolaf.com/static/mkd/css/preview.cssO)#container {
-  padding: 15px;
-  margin-left:20px;
-}
-pre {
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  display: block;
-}
-pre code {
-  white-space: pre-wrap;
-}
-.hljs,
-code {
-  font-family: Monaco, Menlo, Consolas, 'Courier New', monospace;
-}
-
-pre{
-  background-color: #dddddd;
-  padding:8px 0px 8px 30px;
-  word-wrap: break-word;
-}
-table tbody tr:nth-child(2n) {
-    background: rgba(158,188,226,0.12); 
-}
-:not(pre) > code {
-  padding: 2px 4px;
-  font-size: 90%;
-  color: #c7254e;
-  background-color: #f9f2f4;
-  white-space: nowrap;
-  border-radius: 4px;
-}
-th, td {
-  border: 1px solid #ccc;
-  padding: 6px 12px;
-}
-blockquote {
-    border-left-width: 10px;
-    background-color: rgba(102,128,153,0.05);
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
-    padding: 1px 20px
-}
-blockquote.pull-right small:before,blockquote.pull-right .small:before {
-    content: ''
-}
-
-blockquote.pull-right small:after,blockquote.pull-right .small:after {
-    content: '\00A0 \2014'
-}
-
-blockquote:before,blockquote:after {
-    content: ""
-}
-blockquote {
-    margin: 0 0 1.1em
-}
-blockquote p {
-    margin-bottom: 1.1em;
-    font-size: 1em;
-    line-height: 1.45
-}
-
-blockquote ul:last-child,blockquote ol:last-child {
-    margin-bottom: 0
-}
-blockquote {
-    margin: 0 0 21px;
-    border-left: 10px solid #dddddd;
-}Ô !"Oˆbplist00ÔrsX$versionX$objectsY$archiverT$top † ¯##)*0123QRSTUVWXYZ[\]^_`abcdefghimU$nullİ	
- !"___nsurlrequest_proto_prop_obj_6___nsurlrequest_proto_prop_obj_3R$2___nsurlrequest_proto_prop_obj_0R$3___nsurlrequest_proto_prop_obj_4V$class___nsurlrequest_proto_prop_obj_1R$4R$0___nsurlrequest_proto_prop_obj_5___nsurlrequest_proto_prop_obj_2R$1€€€	€€"€€ €Ó$% '(WNS.base[NS.relative€ €€_~https://upload-images.jianshu.io/upload_images/5632003-0a8f76fc20e298ae.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240Ò+,-.Z$classnameX$classesUNSURL¢-/XNSObject#AÀ©ºCî„× ÈÓ456CPWNS.keysZNS.objects¬789:;<=>?@AB€	€
-€€€€€€€€€€¬DFGHIJKLMNO€€€€€€€€€€€€ €!_Access-Control-Allow-Origin\Content-TypeSAge_Access-Control-Expose-Headers_Access-Control-Max-Age]Cache-ControlTDate^Content-LengthX__hhaa__]Accept-RangesTEtag]Last-ModifiedQ*Yimage/pngU11482^X-Log, X-ReqidW2592000_public, max-age=31536000_Thu, 20 Sep 2018 06:18:30 GMTU10660_ 
-
-YnBsaXN0MDDbAQIDBAUGBwgJCgsMDhASFBYYGhweIFRFdGFnXENvbnRlbnQtVHlwZV8QFkFjY2Vzcy1Db250cm9sLU1heC1BZ2VdTGFzdC1Nb2RpZmllZFNBZ2VfEB1BY2Nlc3MtQ29udHJvbC1FeHBvc2UtSGVhZGVyc1REYXRlXUFjY2VwdC1SYW5nZXNeQ29udGVudC1MZW5ndGhdQ2FjaGUtQ29udHJvbF8QG0FjY2Vzcy1Db250cm9sLUFsbG93LU9yaWdpbqENXxAeIkFNM29JYTFobmZsc0U2UkpzUUhHVU9sODJNQ08ioQ9ZaW1hZ2UvcG5noRFXMjU5MjAwMKETXxAdVGh1LCAyMCBTZXAgMjAxOCAwMzowNzowNyBHTVShFVUxMTQ4MqEXXlgtTG9nLCBYLVJlcWlkoRlfEB1UaHUsIDIwIFNlcCAyMDE4IDA2OjE4OjMwIEdNVKEbVWJ5dGVzoR1VMTA2NjChH18QGHB1YmxpYywgbWF4LWFnZT0zMTUzNjAwMKEhUSoACAAfACQAMQBKAFgAXAB8AIEAjwCeAKwAygDMAO0A7wD5APsBAwEFASUBJwEtAS8BPgFAAWABYgFoAWoBcAFyAY0BjwAAAAAAAAIBAAAAAAAAACIAAAAAAAAAAAAAAAAAAAGRUbytes_"AM3oIa1hnflsE6RJsQHGUOl82MCO"_Thu, 20 Sep 2018 03:07:07 GMTÒ+,jk_NSMutableDictionary£jl/\NSDictionaryÒ+,no_NSHTTPURLResponse£pq/_NSHTTPURLResponse]NSURLResponse_NSKeyedArchiverÑtu_WebResourceResponse€    # - 2 7 ] c ~   Â Å ç ê58;]‚„†ˆŠŒ’“•—™›¢ª¶¸º¼=BMV\_hqsu|„œ ¢¤¦¨ª¬®°²´ÁÃÅÇÉËÍÏÑÓÕ×ÙÛù
-*CQVen|‘›¡°¸Óóù£Ääéÿ)-AOadz             v              |_~https://upload-images.jianshu.io/upload_images/5632003-0a8f76fc20e298ae.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240O)¤‰PNG
-
-   IHDR  o   §   Şğİy   gAMA  ±üa    cHRM  z&  €„  ú   €è  u0  ê`  :˜  pœºQ<   bKGD ÿ ÿ ÿ ½§“  'AIDATxÚíl\×uç?÷Í"%Qª$Ûq¤8­u­n<^Øi­-’F®›‹z\l’¢‘²Xg[Úu
-‹*ŠØVMé.Ñİ­g+¨é‘²…md£‘µ°²ÕšF=Ú˜ÚRn©8d,ª¢bRÖPœyïìïŞ÷îŒ(ÿ<Îù Òçİ÷ûŞï;ïÜsÏ5ßøú7„Â³P›VEijŒˆ,˜x+Š¢(C°Ô (Š¢¼{T¼EQ2ˆŠ·¢(JQñVEÉ *ŞŠ¢(DÅ[Q%ƒ¨x+Š¢düBn|nnjµJE¼ßprcÆ‚  ¥¥…–––E½PŠ²ÜÑöÖ\,¨x¿ñÆA@¥Ry×ëFQTBW!£("C‚ `õêÕlØ°Õ«W/Á¥S”å…¶·æbAÄ[D0ÆpáÂ®»î:Z[[ßÓ6\Er•HDÃ0©Õj¼ñÆLMM±~ız¶lÙB.—[Ú«©(K€¶·ædÁ,ïZ­F†u•â­pĞ}oüô·ã^çÖ­[G†œ>}š.pã7êëÒ”h{k>L¼İÓ;—Ë½ë'ô|•)‚d›QARY¯ºê*&''9yò$7Üp­­­šKi*´½5êóv7ô½V&÷İÿç¬€0ëö±aÃææægóæÍ¬ZµJ+”ÒTh{k.E¼ƒàİE$6V&÷é*Sãka.—£µµaõêÕ¼öÚklŞ¼™5kÖ,ÊET”å€¶·æbAÅÛñn+\ŞgŒIzÆË_¼x‘\.ÇÆ™˜˜àÚk¯¥££c1NQQ–ÚŞšƒoW‰ŞÏë”{ò»ÏË½âår9ZZZˆ¢ˆµk×bŒá'?ù	Q±~ıúEºœÙÁ]Ó¹0ÇT"Üjüñˆ.¿cX—6¯}÷ÑÊ•GÛ[s±(–÷•ò…5¾Âù•)‚Ä×«V­âšk®arr’0Ù¸qãbœj&póå©Y½™g.oÈåYÁ6ñ?c•ZˆE;g?ñÄ½Q¸0Ë¶M-A ~Ïe€¶·æ`ÙŠ·_q+‘³0\o¸ëTÉårcÈår‰@¹
-E›6mRq!¾§gŞdhº…¹VC85#±u-sD,Ò9ûY%¶ĞcÕ;×bx±’§ãÜE
-W­®AS–moÍÁ¢æ6¹ÜôwßİğÜÆïÎº‚ ©@î7÷İÿ=ŸÏsíµ×röìYÎœ9³$y9áåä…µÖáÅøwcIİ#©pc—åŒµ¼íg­
-AÎğwoæy}úÍy;¸”¥AÛÛÊfÑ-ïw[¡æ[A{ê>ÿ5®³eË~üãE×^{íbœö²ED¨ÎÍ%w_ìÎÚ°Ö5©¥@äİºdVavUçòñèM®iÏ'ÖØRáÄÅ÷á6ÚŞšƒEï+Eã«³\…rR‹Áı†!şğ‡yíµ× šºB‰Hba»ææÄÚê4F¬Û~w>n·Ü	>ÎŸƒ©|+ß9ÑÑj×ñÄÛ­—î€Ä¤7&vÕˆW¶îx½ß×õå;Uó9Ãš\•­íÂ-ë[›NÀ¯ÚŞ–7Ë^¼/÷î*’ëùv£ËÂ0dzzš‹/R«Õ¨Õj É«İæÍ›yıõ×	ÃÍ›7kƒ¶ˆU@_œİ¿À¤~ğ¸pÚy	ñ2ˆ](¹–€°O†œçs±V:H¼Íë;·j,v?·M¿sô’ï`ñ›[œ'ÇkÓÑ,[7¶«€¿´½e‡e/ŞÌ×™â*”ˆ077Çìì,Õj5I‘Y­V“Š‰?®Y+Tdÿ9µ‹¢XPDpÀŠgâ:«<´ûÖ8€ˆ‡·éÔB¶âÿK"[ju?Hˆİ2·1_Sæ} -RƒUm†WŞ~~}XçËUŞÚŞ–/™ïÆ
-ÔèÇôÃ– –ÏçimmMöøÙÑfggøÑ~D†\wİuMW¡ŒªÀd¥Æ›Õ0óvo“Zİî'$`'Üâ»T<İ·„}ß¹8«İ3¥#ûH*ÜnY@ê[7ØRêİ,î|’7»UÆp•ie­	˜››{OÙöšmoÙ âoÿ:ç¾uş8g!øù‰£(¢V«±fÍ^ıuŒ1\wİuK}Š‹J$ğ“7aòB•HêR`;'}ëÖ™¸îêÔºvBİ ªBï·Yç7wëÖVüÅe=c ˆê9qáM#t´ÔC4
-æ] ímù“ñ†ËÇ¢º
-å^‹Ã0L–û•È0ÃÖÖVÂ0¤­­³gÏÒÖÖÆUW]Õ4Á…ZÈ¹‹±r:«Ù…
-ú•©z[´UĞ %õ‡‹\w*&-¬9ÿuÃòÀşX×	i>ò„Ş4¬ë‡2FÄÿ9¸Û0ÌE0u±†ÈÒF¿dmoË›L‰7¼u…òC\gJcEòıuaE×\sgÏeıúõMójI} Ô[Æ‰µXÄ~w†zàÅ&›‘K­ìÖÇm¬İ.s.çÏïÌâ¬ëb4¬1j\×¤‚>WsãC•w‹¶·åKæ' n|rû!Mù||>OKKù|>y­sßİÜ|ííí´¶¶rúôé¥>Å»nH*ÔÎ­a¼Ü%VhıÎI j“º6“Jc2€ÇÆ!:Í‘vˆºÏˆ¸œà$¾<°Âxo&µÔ“‡	©P'şpÏÏŞ©¼´½-2gyÃå;TÜ÷ùÊú1ª~â÷é†õÖjµdpÇJÆë.ñ¤-G¯Ó0ù´ãÒT'’»H|wF2jÓ	º³Æ˜0ô#ş6í>COÅsÏîø¼¸A÷5 ¾ÃÓ7˜ÌÛ(KŠ¶·åIfkõ|•¦ñ»ÿÙ8¤×ÿt=å­­­œ?~©Omñ®!©¥[gµzˆNKØ[X¾®¬xÖ5P{Vµs­„Ö$6Ä~tŸ®ãÑí7RŞTÖíb÷çïÃYôBê§WŞ;ÚŞ–™®ÖoW¡ãz/×;îzÏÛÚÚ˜™™iš-ßâu9L|—ƒSèÀ[! íÈ<±/p\&O½»"ğ÷åù¶“Õ†KFŞq‰#Io›‰?øêöÕ0È'0 —¦£VŞÚŞ–™o¸¼®ñoß7×øé*“ËOÜ,¯pgÉ&bì~ @>G½PZõô»ÿŒœ+g òÔÔYè9÷ÈÅëÒı%ke¤	° î(MÍ÷Ûh–ÀWuï<’cÈ|-_>h{[>dÒçİÈ|1©oå—ó—;?œ1†¶¶¶ÄGw¹õV
-ÄşàªÕx–±—t6ŒxÌ‘ZÕ±ú9O°¿AïÚmäíï5/üĞ¥Ÿ57(ÈF¸D¤•5´ûvşpá’ìÚ€‰¼OåŠ¢ímy°"ÄŞ¾B¹¿ç[Ï±jÕ* ¬`%#Æù³M"°‘ı9/×HbiÛu‚(J	=÷‰Ëy‚ñB½rÆ@6zÅwKÃØeşCÁÏ¯’t˜úikƒ4"Æ.r~r»Ê•EÛÛÒ³bÄÒŠ1_z»Jå/k
-œw	ãfô’<å<áÏ"wî	W6‰ö0¾f»Nò °åò&í”Ì[+;^»~è-ƒ4’¤®CURaÏã%Ñ"‚Ÿ¸P”+¶·¥eE‰·ãrV¼}¥j¦ÊdLê¾È	ÔH+D’çÄùdE+¦,c…:ÂŠ§/²‘us8±÷"Iòv[®œ¯sA,â~ŠÚšÄûÎ{çQkkLÎ!X;ËmoKÃŠo¨¯(oU+N³T$g)W[RŸµÁvò5\
-cİ!±h‡¤™#“V¦i§d¤;tI¯êÂ¹Ô5“¸G:TñÊùB]Ãó·{ÅóñàÊÂ¡ímñY±âí3ŸĞ¸¬ÙH:öŒIBÿ×‡ëX´‰ÉPwç°å[Lšñ/o7jlç6IBı¡îØLñ¢VÜ ñ¾«Åü1®cÓëàŒ¬›'gİ-‘¹ôíÀ–Q	mo‹CSˆ·ãrÖA3â<"N\HF’
-±sî?×¤‰.¬/Š¼¨iğM{ŸIv@/>ÜeL,î MûÚ‚7ñƒIG_ÖÒNNwŒş¹(‹¶·…¥©ÄÛ§Ù-€ Ècbv-õ‚êÈõ¹¾År„e`bkİù­ı4²AÃ6İ>üNRğÜ6Nè½†Û®?è'	4éÉMôæJiî{½höö¶4­x7;ÎOí,W]â,Ö ¨’V$TÏ"ïÈtI¦÷ŞBOœCR—‰?ä½Q¼E¨sç@*Ö.L0ò~óÓÁ^yÕe¥¢âİÄø±Ôy+€şĞt7Ì¨›4!À›ÆŒúœ"ş¤IúVRk=oRÑ¢úˆßŞ(ºnh½?Ÿ¦ï/÷F××*R”•ŠŠw“˜t÷K„ØwY~Š³ÌMı”c~ªÖdØ{ƒÜ}¶ï— İë,üVy2¥}ê˜ºó!ñ@Ò<áÆ5¿•ˆŠw³bR·‚‹qQ!.LĞÕPêİÎw4¸H$íhLæ³ôÂÿ ¸y±ÛP?È¬ÿÜ¤™÷{bmû"¥ÎÍ#})ÊJBÇ/41bCò\Ò¨À‹òˆ;4SwˆCWÎ‰§ËÙ@Ò™ø–¶-yë;qwı…Æq»Hw|nÛ¾ïÛI]1Xß»]©Ñ­¬PÔònb‚ juBk¬.ˆ1D"iø1Hb¥ûˆ'ş‰5œl×xãd¤nŠ4±£ëûØß£t¦ŒÁx>#R7ÜŞX?zRÎ›ÛMµ[Y©¨x7)®SÑÍ¨ƒ!±›¢Õ
-µŸ{;™ÉR§¶[îfJq·eÄ›QØŸÄâÙİÜHêg‘oé¬ùÄ-"iî1‰|¬ìDØe…¡n“fÆEˆX«6²Nğœ‰¿õ9¡6&®4VÉ}µÂáSw©>EêüŞ‰Kç1I2)ŒI'spbo âfj±ÿ¹‡ˆ;¶Äjw~<7¢¬0Ôònb³
-äBÏ¯‘
-s2»6r@d}(Î¸NÃüŒÍÇ-äÓ„â®±qñhNcSÅÚıÖå;ICWRËÜI\;y»ÏÈ+ŸD™¨‰¢¬@´Z7).$J]É6‡ˆØÑ‹&ñEälı$)”s¡x™İD"‚!o]"n[~câ‡!]§N ­^»H ó†ü9«=´ÇîÖ‡èÇÂnÔo¢¬@T¼›?~:ÄóK<`ÇMŠ“¸ó2ŒâYPB+¨¡üí„ÕÅ€c­àšõ¡ã¶/—
-°}ÿ˜œ%çùÈã¼+Rç’q3ıÄÉ²bW‰±³µÔ\®›>VQVZ­›COˆ`Ò°<7ƒ|dH:/‹Ö¤Så]Ö?»^œİOR—†çf©ó‡›X€“‰¨O€•(³¤#8I·ä+!l·_ìñ¸Mø±å‰İAŠ²ÒPŸw“"Îœµlüc}Nl7tŞ)¢›jÌÍ!é»\Ü —Ğq!}ŞÀÈ$•«?@È_O ‰ê‡¸G8C“ø¹%Íßí—„¡Š·²òPñnRœ@ºÙ»óÄîñ\~^æt´dìc®‰›A’²Er˜ØµbëîY‘ì;Ñ¥‘Ø"‡Ø‡³¼ßß<)GUâ:>«v¿±¨‚±ijU¼••‡Šw³"B		ÂóL:c¼0=ë
-‰ç™¬cca%®’8>\ê’Y5ƒ7‰#ö»°?#BÍî3t"DHbù‹=†È†.J¥ÃïmG¨Øc0QD¢(+ï&Å˜x&ƒØÙhÒêt²ç«H}ÎaÃ@œFŸ¶?Oe.HDåH[$†"IŠX<¿y`÷EQÜj÷%ÉÏ810’·÷… ~ÉkzAe¢âİ¤Ä)U…È¸xh©ëìÏ…bÇ½ÇqáiÇ¦Ã…şåí²$+ ÍK^ÊXß¼âuŒg¡ûæ¹›32ñ Ÿ@Ò&q*YçíÜ;¤£/ZŒ×ÌTÊ
-DÅ»I©…Â¹	çæâ¼"vxºËob¢(eiËÇ£±yKì@oÄ/nlØ ~7»NÍ†æ‰­w1†œI\CG^‹"LX[â("k]ßYÙnrHÃİHÏ|íQh]êK®(Wï&%—3¬]•£FŞú°ı¬#CDk$.wrúyF|¹$;v{~îo1éÃÛ sÎ¸üÛ &gÚàñ†ÒÃ%3ì$ƒ~ #ñƒ#
-ìÄ-9V…EYi¨x7)ÕjÈô›sÔª“‘‰â2öáF)ª¶Óê§=Küß
-îò $î‘÷hpaaaÚ–µ>n±ûNâ¼f%Oò¢$v½Á† „öÚĞ®ó(*+
-ï&$Š"6¶Àš°B¸¶Â ˆ…ÓÍBãD³;ÃÁKô¯n´ã¥9¿ÁÎÒ#6l’üÊÙõ±ÍïÇvœÚr.nì ÄÚO"‰`ÁD A•â†š\ãºÜA ãÑ”•…ŠwEìhcÛÔ¿pì_¦™5Q¥>	16Â#óšIİ.TÏŸëÒˆ!L]'¤®H…U’r&Náj{2ïÛÍw)xs[o#yC µêã¿ÅÎoiìÈLû 0pu®Æ[VÅ!‡*àÊ
-BÅ»É0ÆËåhkkãcÚÀ­o077[—ùo¥ÏçY³fär9u›(+
-ï&$ÚÚÚ‚€U«V†áŠogiçóyZ[[iiiQñVV*ŞMˆo}¯Zµ
-`Å‰·#‚8´Q…[Ya¨x7)*hŠ’mT¼óù<?ıéO	Ãl$—Èåräóú<S²‰¶·æbÁ®œˆĞÚÚÊéÓ§©T*DÑòÎ$ÚÛÛÙ°aÃŠu!(+moÍ‡‘ºrQ177ÇÜÜ\&:Äœ¸µµ•ÖÖV+S2…¶·æcÁÄâ
-å6Ÿ…Êä>µ")YDÛ[s± â­(Š¢,úÈSEÉ *ŞŠ¢(DÅ[Q%ƒ¨x+Š¢doEQ”¢â­(Š’AT¼EQ2ˆŠ·¢(JQñVEÉ ËF¼ÏŸ;Ç¹sç©-ĞögÏŸãÜ¹sÌ.õ‰63•	<ÌDe©$fòä	N[&³hÔ8ñıç8öêÌR Õ™	Ÿ˜X°vsW¿Êù…İÉ¢³ â=sü	ÌmOp~eÇŸØÎö'^Jş®Mc÷vCÇÆlÜØA‹ÙÎÏH–—ûv&¹§“Û¿Îyàø×ïÃl‚3şf_â>cè?a+ç¹—øÃûíÙ¸q#íæ¶tû³Çy qÛÆğø±sK{WŞ'µÉã—^3û/½ö³Üm0÷}º³çšÜvß—øşîæÌK|Î~ïÛ¯¾ããš9À¯”~…'¯œp¼zì9¾ÿê{¹_çù«›·òsß(_±ciäëÛç¿®şœ9ú8ÆÜÆógê×-÷7Öûí<qğxƒÈ]æ¾µ“<úñO²í™W®ØyÖ&óÜó'Ş“ _ıs
-[ŸfA%3?ä¦ÂMüÃ
-³ÜÎò¾L›¨gİE¬œà[¶±w]åñi.Ló½'of×=[ñ5sĞµŸÑ±QFFFaôéÏ²YGv±»¿~gÓÀÌ…Pãà£wğ•é=OQ™™ä…'oe×=[ùş¹øhN?`l4İşÎ_X»¤7åı’ßx}|ÆF|¬t2tò###<}ÿ­q¡™—Ù»|¿›ğ›]|Mvf||Œ“å£|jú«|ü?¨{OüŸ<|í¿ÿõ;Û¢2Sáá[;®Ğ™Îò×Û>ÉÇ¿ıÏïå*±®Å¶–+yéëøõ§FeôÅı(°ÿÅQFGGyê×i³Çÿ7O=”Ù÷¿FêÖ53Ğ¹Ÿ±ñqÆÆFìÙÌ®ÒN†ü‹}Ù{øV§}*3Tºï¼bçY;}ˆOŞuğ=½Õ¶µ¬ÚX¸» ´¯¦H‘–•–ÅI€ér¯@¯ÌÌ³l¸·(…aİß)°SÊ¿DEöw"¥¾Óò½åy÷Sî+	v2ñı£ìêÃRé‘)é- ØıÅLÉ÷öÊÈT5)ÛW +Šr_Q(ô]r/Æ;…ÒéíDŠ}ŞõçšÌíè‘©ôé/";öî•Èş±9oı²tK²gÏn{o
-Òsp$YÖYèŒï·-×İİ—+tÉá‘aéİQˆÿ.uËğd5ŞÛ©ÃÒUÄn¯$}‡OŠÈŒt’ÜJıñ9ÎË¾®RºïC#É¡M½¼_J¶|©»G:AŠ½Ã²àT†¥HQ†«ÙÔa)P”Ş¾İ{dÒ[ti½‘"È¾‘é·¿‡2#%éîí•ÉùÈøœ]¶£(}åé¤ÜîŞÇíu)Hï¡a9Úïî]Qú^‹797.İ;’ëİÙ3(S"2]Ş—Ş}åøøÊ{’ßJİûÓs»0*½ö»åÀ@·P˜O+fd`GIöH·½÷…Î>qÍÜí£`÷Qìì•ÑäÒTe¨¿;­ı½R $CÓ²¢XRñî-
-İ‡ßr[åŞ¢Ğ9 £ãc2::*££#2vz:Y¿Ô÷‚î)ì‘q‘ñ9üXÁV¶*Ÿ’™ª·ñÊ°”@v?3$cc£2::*#£cówV™_¼ã‡Zçàefh@w|íæ¹&/ÿ`P:Av<ùbºúä³š®È¡N¤à ]ŸbŸ‘Á½;'\VÄ†¦½r¥^)Ÿ’’…'¿''ËÏÊÎDXg¤„Î~•ï=¹#yàO<* töÉğÉq©JU»è’Ãå:°'”é!)ºúex¤,]VXú^”Ç?oÑB±_.TG¤2à)SRïÇFeddXº‹B¡'½OoueFúJ±øü`DÊ/ì“È£“ñõ, =ÃS"2#ı¥ø8øâ+ò½'íƒ´Ô#Ã'Ë2Ğ]HÚ#}Eòlù¤Œü`@Š =ÃÓ"3“rô™İöšŸ”©ªÈä±p÷Nîeá±ÄfĞ)ƒ/¾’ÜJ}óŠw¿­=‡eôÅÁøAÔ¹_*"2y4^wÏ!99rTºÅ>™‘ÉÃnÙQ~6®#”dXÅûíy7â]xËçå'wÔ=Ùñ¬¥x[eõ¬¨¸!8ñ–ê¤<Û»;yBÒİ?$‘Êpb™¤ÿ
-+ê	=ŸxGãƒñyVDDFe§oÑÍ{Mîƒ#â{#ûJBiÀïè’1·ñÊ°)Èag¦WËRtoFâ]¤ GíM÷ÔY÷e¯Hµ*ÕªHµZ•Êdl­Æ÷¨"ıEÏê´î¡I‘jUD¦¤¿„z†ez¸·ş8eRö,²å]_¯¦¤d÷³±äêBØ3”,¯ŞÓÙo­ç·¹‡2#}EdÇÀ¨»	²'özÖ‹w_é«»Wcñ®ôÅŞéxÕø&ÈÜ…qé-¤×½bÛ{übQ‘B×!©HU*"rêàn™L«ôB÷ÎÿfèÎÁ×‡Êp¯=x…4Ôé¢Í³¬::`—-ü­^L–<Ú¤üÏ“o¹¼67A¡çˆÕj•jµÊóßî•¨7ñGÃ½ÙuÏ Î£š¿šO<ü'¼,U¦ÆGØß³ƒ¯Ş¿¿´>õ ghÒÛş0w^)—ì2åøsßÊtÿÖ<°³“§¿8øÉòøšL!"ˆTêã«÷nå;§ªÀşÅ î`çğÛ¿ÿ°—gû]N›Xã&Ø«UYLLÏçİ”ú![Úğ}ŸÕ¤Ì,GÿÇhi1´´´Ğ~Í]”YgËÕ¸p1-½xdÛ5˜–ŒÙÈıƒ°©Æ^~Š·°))ÙÎuÅ¥»ÕSGyøZÏC<ğÀNß|å¯8i]×~½*“Ãt=u?;÷G÷ğâY(ÜòûWõ‹óŸìEàÆmLî¹åñÍ«¤—•såïğ«--˜–ZWoaWÖ]œ«»W5ûÿÀŞ{h7-´ÃÏŞû5àoù§ŠÜysÚÀ®ıÈ6{ópv|ìúäÏ¶ë?B˜“*3ÓõEÍÆë)q„WÆÏ]²,ÿs·²„·zÁXRñ¾êú{ûx©®«¹ÆáÇwò{y<ı©­ˆ'X½Ü„¥n˜ÃÙñïîâi`@u‚g‚cg òlØ|ŸúâãtgŞˆ«Ú4Ğ¶ºím·¿r˜`ğó”zöÑõ™»¹û3]ìİÁ‘Gæ„øš¸ëgó¿À?½~ÚÉ¿á‘#Ğ3pÏÜ}7Ÿî¤§şåß_vÓ¼f^æwç)ú†Æ¨Š SGéTÜÏ«¬äWaØWF¤JU„j¥Âw;üÜm¿GNáNŸ]º»PÜ….º>Ïİw†®ı½ØËwË^¤­÷ mWßÎ¯uÃÙ7Ş|G÷0&ı£ú–GSßÙY½¤ğßúÜ§9ûØ!¦*UDfè+Â4&-Rğ/,°çkÅ@eæ¯¸³Í Gxe<½gG‡°­õR6Á³:ùsöôh±ªáúP9Ã ¶n^{é²ÉÿÇ‘…½KÂ*Õëüã«¯²®Z«F~#7İtM]‰ßÓI'[¹£ô‡?ı»lí¨0üíÿÊ¯<2@ïğŸĞ”x‚“§ÖQ«ØJ6Ï¶ ¶é)ºşàföbŸå--¼úÈ.vü-”ÿìsÜ¼^>øßx
-Ø¿)ìuÀÿSíWQ©ÅÛ_·åF6w,hÿ÷"s1i¼•Ïñ
-}è~>æ‚jj?Ï·º¶rpø¸å¶ôšL¬û •ÊY}kPà£7làÅş(öóğgÍFL@ñ=<²­Ÿã_ÙÎ­pô› æjTÎMğÜ¸ŞZŞm|pyé837±¹ãçù%¸ÿËıüÛ§îç³/óèÏ~œ7Fyúîw±»ï.ştçíüß§eWb·êbsŠoï¤sğÇ|öŞ-É¯­»¸ç/ñĞíŸŒëıßŸàäÄ&¸Påì+ßå®¯ÂıW½ı=¼sê®}e©Õf9ñì><¥ûìµ«åòÃá__s5Ûwï†{ÿ€¥§ù÷×WùÎWïåÓC»™yş?ğEøü£ÊGŸú6½ö»<Åß 
-TNä7ïıú&Û7ÃªupäÁG9ğÑ?ã×eïCB©Ÿ¬ë`óîİÜïı<óK¹ç†*ßúò]@7®ëàƒurÿ§ãe¿vC…ş‡>”6¢e)X_Ìt¹ïRõ•{‹u~ÆêøtêËî90œøWçõıÙÈ‚ÆmÅû{¿Ïûì+ƒ²³aûİvû•ò¼şİ¡©wtY Üû§+ÉßÅº¿í]Ãİ¡ëĞü×¤P’}‡GEdLº=?mÂ…Ùé®¹‹¬pşÅJYJG7\âóNËM—{ë¢RŸ÷ŒêIë@±sG]çÓøaÕPèıåSÃIt Å®}I¤ÃØá¯í‘¾î¢”úædº¢T†¥H)‰6¹0²/öÁ6T³©¡¤3v¾zß¹÷L½“{(é/9¿vz=‹½å†eå*e)y¾á¸Ç×úôP_ÚoTì’®BÚö¦Ò6·ú{røT|´ÕÉ!é,¤šĞÓÓ™´ç¶íÆ¾{ë·¬[ŠI=ì’¡I§3ò½½Ş>
-]rtÜ]‘)Ùß]L–íèîZ‘–ËdËçÎœ£Fh»âï5ÎŸ;G¥í®fíJ÷Œ¬@jµYjäi{‡n­Ùóç!ßF[ceªÍ2[Ë_ú»ò¨1;[£­­í•=Ï,yÖ^R¾Æìùùµmoñê'në€§+<|kóçk´ÍS¾6;Kæ=¦Úì,µ|ÛèÉò`™ˆ·¢(ŠÏy0¼14Å—ïÜ°Ô³,QñVeY²Ò-ç÷‹Š·¢(JYò8oEQåİ£â­(Š’AT¼EQ2ˆŠ·¢(JQñVEÉ *ŞŠÒLTOÑ¿û>;;Ïm|é™cqúŠÙã<°}'_ÿæãÜfgïù½oK³T'êÖ{Ü›íŠêÏ|é¾dÖŸ/}óû:İà" ”ŠÒDœØ·‹Ïïı†NıëO`ë]ÛøÈ/]à³ªrúÈ YÃáòIÖüã3lûÔ66Ü4É—?¶ƒ_ÜÂç÷vq¸<ÂšÜÏ¶{¶ruyšûomçà·°cïN_|…ùî¸çãÌ~pœ?ùÄæ¥>İÆy+JñÒ·qÇŸŠáC¿Ëí›7@­F-Ÿ'?ûÛÛïà¡±9>õ³q
-§£{nãßÿ!Õ½[øÕÕå“C“|ñŸá›÷mäk¿<ÌËÃöö;¸oxš‡oS½N{ã-·ò‰ÛU¼u›(JQøÍ~º7}…;¶lÄÃò]oòß"7| Í½÷3¸†Æ˜1æ²yÒİz~îÍw~B…{PñV”&"õíü—ç…êÌ$åö1ôH‰os9ÄpÆË­_½8×_E{íòyÒã\ÃGø‡ñÔË=3q’:¼‚Š·¢4³øœÁ|î›Læ~†›o¼™ëZâ®¯uÀ'û	NLãÔP?wì:Âîÿü1ÚÖÆyÒ?ÿå~NLV˜ùÑ÷ùB{;¿õ?ÇÀæPğ¡?æ¥‰sœ9ñ¥-7óèÿ>ı>SyG,uNZEQéÑÁº|í¥îıqt;!ôÎRšı±ÁtnÉ·È“.ÓeÙS·l ]¦,Úa©(MÈ%ùÎg_b{ûïÓ[}[™å|-ÏÚyÒù]6OúÛ,S®<z•¥	i[»¶á—*g9Ë…
-ĞÑvÙ	K.]ï-S®<jy+ŠÂ»%GYzT¼EQ2ˆF›(Š¢doEQ”¢â­(Š’AT¼EQ2ˆŠ·¢(JQñVEÉ *ŞŠ¢(DÅ[Q%ƒ¨x+Š¢doEQ”¢â­(Š’AT¼EQ2ˆŠ·¢(JQñVEÉ *ŞŠ¢(DÅ[Q%ƒ¨x+Š¢doEQ”¢â­(Š’AT¼EQ2ˆŠ·¢(JQñVEÉ *ŞŠ¢(DÅ[Q%ƒ¨x+Š¢doEQ”¢â­(Š’AT¼EQ2ˆŠ·¢(JQñVEÉ *ŞŠ¢(DÅ[Q%ƒ¨x+Š¢doEQ”¢â­(Š’AT¼EQ2ˆŠ·¢(JQñVEÉ *ŞŠ¢(DÅ[Q%ƒ¨x+Š¢doEQ”¢â­(Š’AT¼EQ2ˆŠ·¢(JQñVEÉ *ŞŠ¢(DÅ[Q%ƒ¨x+Š¢doEQ”¢â­(Š’AT¼EQ2ˆŠ·¢(JQñVEÉ *ŞŠ¢(äÿÀÏ¬õ6VíÓ   %tEXtdate:create 2018-09-20T11:07:08+08:00[1×   %tEXtdate:modify 2018-09-20T11:07:08+08:00ì‰k   NtEXtsoftware ImageMagick 6.9.1-10 Q16 x86_64 2018-09-07 http://www.imagemagick.orgjc€   tEXtThumb::Document::Pages 1§ÿ»/   tEXtThumb::Image::Height 167·¯™   tEXtThumb::Image::Width 367'Ú&   tEXtThumb::Mimetype image/png?²VN   tEXtThumb::MTime 1537412828N¬bî   tEXtThumb::Size 10.2KBB8d2   BtEXtThumb::URI file:///tmp/imagelc/imgview2_7_15372891436597099_72_[0]thSˆ    IEND®B`‚Yimage/png    1 < Z i € ’ ¨ ® º »,.,8,=,H,^,d3E3rUŠU“U\€\®fÎfÙm¼mëss!{­|.¥Ö             #              ¥à
