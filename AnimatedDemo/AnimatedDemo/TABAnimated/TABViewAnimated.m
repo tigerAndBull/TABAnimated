@@ -20,7 +20,7 @@ static CGFloat defaultDuration = 0.4;
     switch (view.animatedStyle) {
             
         case TABViewAnimationStart:
-            
+            view.animatedStyle = TABViewAnimationRuning;
             //添加并开启动画
             for (int i = 0; i < view.subviews.count; i++) {
                 UIView *v = view.subviews[i];

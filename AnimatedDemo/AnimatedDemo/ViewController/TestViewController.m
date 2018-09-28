@@ -57,7 +57,6 @@
 
 #pragma mark - Private Methods
 
-
 /**
  获取到数据后
  */
@@ -73,7 +72,7 @@
         [dataArray addObject:game];
     }
     
-    //省事用了同一个类
+    //省事，用了同一个类
     Game *headGame = [[Game alloc]init];
     headGame.title = [NSString stringWithFormat:@"头视图标题"];
     headGame.content = [NSString stringWithFormat:@"这里是头视图内容"];

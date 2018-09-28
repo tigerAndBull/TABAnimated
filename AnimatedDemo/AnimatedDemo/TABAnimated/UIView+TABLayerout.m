@@ -45,7 +45,6 @@
     });
 }
 
-
 #pragma mark -  Exchange Method
 
 - (void)tab_layoutSubviews {
@@ -59,6 +58,7 @@
             for (int i = 0; i < self.subviews.count; i++) {
                 
                 UIView *v = self.subviews[i];
+                
                 if (v.loadStyle != TABViewLoadAnimationDefault) {
                     if (v.frame.size.width == 0) {
                         if (v.loadStyle == TABViewLoadAnimationShort) {
@@ -71,9 +71,12 @@
                     }
                 }
             }
+            
             dispatch_async(dispatch_get_main_queue(), ^{
-                //运行动画/移除动画
-                [[TABViewAnimated sharedAnimated]startOrEndViewAnimated:self];
+                if ( self.animatedStyle != TABViewAnimationRuning ) {
+                    //运行动画/移除动画
+                    [[TABViewAnimated sharedAnimated]startOrEndViewAnimated:self];
+                }
             });
         }
     });

@@ -17,6 +17,7 @@ typedef NS_ENUM(NSInteger,TABViewLoadAnimationStyle) {
 typedef NS_ENUM(NSInteger,TABViewAnimationStyle) {
     TABViewAnimationDefault = 0,    //默认没有动画
     TABViewAnimationStart,              //开始动画
+    TABViewAnimationRuning,          //动画中
     TABViewAnimationEnd                //结束动画
 };
 
