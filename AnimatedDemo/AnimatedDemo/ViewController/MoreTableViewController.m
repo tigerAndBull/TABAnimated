@@ -65,7 +65,18 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return .1;
+    return 20.0;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    UILabel *lab = [[UILabel alloc]init];
+    if ([tableView isEqual:_tableOne]) {
+        lab.text = [NSString stringWithFormat:@"table 1"];
+    }else {
+        lab.text = [NSString stringWithFormat:@"table 2"];
+    }
+    lab.font = tab_kFont(16);
+    return lab;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -98,7 +109,7 @@
 
 - (UITableView *)tableOne {
     if (!_tableOne) {
-        _tableOne = [[UITableView alloc] initWithFrame:CGRectMake(0, 88, tab_kScreenWidth, 200) style:UITableViewStyleGrouped];
+        _tableOne = [[UITableView alloc] initWithFrame:CGRectMake(0, 88+5, tab_kScreenWidth, 200) style:UITableViewStyleGrouped];
         _tableOne.animatedStyle = TABTableViewAnimationStart;  // 开启动画
         _tableOne.delegate = self;
         _tableOne.dataSource = self;
@@ -114,7 +125,7 @@
 
 - (UITableView *)tableTwo {
     if (!_tableTwo) {
-        _tableTwo = [[UITableView alloc] initWithFrame:CGRectMake(0, 88+200+20, tab_kScreenWidth, 200) style:UITableViewStyleGrouped];
+        _tableTwo = [[UITableView alloc] initWithFrame:CGRectMake(0, 88+200+20+5, tab_kScreenWidth, 200) style:UITableViewStyleGrouped];
         _tableTwo.animatedStyle = TABTableViewAnimationStart;  // 开启动画
         _tableTwo.delegate = self;
         _tableTwo.dataSource = self;

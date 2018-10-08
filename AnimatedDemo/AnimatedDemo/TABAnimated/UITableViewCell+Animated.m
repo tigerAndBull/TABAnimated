@@ -12,8 +12,6 @@
 #import <objc/runtime.h>
 #import "UITableView+Animated.h"
 
-static NSInteger runCount = 0;
-
 @implementation UITableViewCell (Animated)
 
 + (void)load {
