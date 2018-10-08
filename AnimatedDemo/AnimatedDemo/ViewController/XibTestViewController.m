@@ -1,34 +1,31 @@
 //
-//  TestViewController.m
+//  XibTestViewController.m
 //  AnimatedDemo
 //
-//  Created by tigerAndBull on 2018/9/14.
+//  Created by tigerAndBull on 2018/10/7.
 //  Copyright © 2018年 tigerAndBull. All rights reserved.
 //
 
-#import "TestViewController.h"
+#import "XibTestViewController.h"
 
-#import "TestTableViewCell.h"
 #import "XIBTableViewCell.h"
 
 #import "TABAnimated.h"
 
-#import "TestHeadView.h"
-
 #import "Game.h"
 
-@interface TestViewController () <UITableViewDelegate,UITableViewDataSource> {
+@interface XibTestViewController () <UITableViewDelegate,UITableViewDataSource> {
     
     NSMutableArray *dataArray;
 }
-
-@property (nonatomic, strong) TestHeadView *headView;
 
 @property (nonatomic, strong) UITableView *mainTV;
 
 @end
 
-@implementation TestViewController
+@implementation XibTestViewController
+
+#pragma mark - LifeCycle
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -43,21 +40,23 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.title = @"纯代码 示例";
+    self.title = @"Xib 示例";
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+}
+
+- (void)dealloc {
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (void)dealloc {
-    NSLog(@"==========  dealloc  ==========");
 }
 
 #pragma mark - Target Methods
@@ -67,7 +66,7 @@
  */
 - (void)afterGetData {
     
-    // 模拟数据
+    //模拟数据
     for (int i = 0; i < 20; i ++) {
         
         Game *game = [[Game alloc]init];
@@ -77,22 +76,12 @@
         [dataArray addObject:game];
     }
     
-    // 省事，用了同一个类
-    Game *headGame = [[Game alloc]init];
-    headGame.title = [NSString stringWithFormat:@"头视图标题"];
-    headGame.content = [NSString stringWithFormat:@"这里是头视图内容"];
-    headGame.cover = @"head.jpg";
-    
-    // 停止动画,并刷新数据
+    //停止动画,并刷新数据
     _mainTV.animatedStyle = TABTableViewAnimationEnd;
     [_mainTV reloadData];
-    
-    _headView.animatedStyle = TABViewAnimationEnd;
-    [_headView initWithData:headGame];
-    [_headView layoutSubviews];
 }
 
-#pragma mark - UITableView Delegate & Datasource
+#pragma mark - UITableViewDataSource & UITableViewDelegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
@@ -112,35 +101,37 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    static NSString *str = @"TestTableViewCell";
-    TestTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:str];
+    static NSString *str = @"XIBTableViewCell";
+    XIBTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:str];
+
     if (!cell) {
-        cell = [[TestTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:str];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        NSArray *cellArray = [[NSBundle mainBundle] loadNibNamed:@"XIBTableViewCell" owner:self options:nil];
+        cell = [cellArray objectAtIndex:0];
     }
     
-    // 在加载动画的时候，即未获得数据时，不要走加载控件数据的方法
+    //在加载动画的时候，即未获得数据时，不要走加载控件数据的方法
     if (_mainTV.animatedStyle != TABTableViewAnimationStart) {
-        [cell initWithData:dataArray[indexPath.row]];
+        //这里刷新走刷新视图的方法
+        
     }
-
+    
     return cell;
 }
 
 #pragma mark - Initize Methods
 
-/**
- load data
- 加载数据
- */
+- (void)addNotification {
+    
+}
+
 - (void)initData {
     
     dataArray = [NSMutableArray array];
 }
 
 /**
- initize view
- 视图初始化
+ initialize view
+ 初始化视图
  */
 - (void)initUI {
     
@@ -154,26 +145,17 @@
 - (UITableView *)mainTV {
     if (!_mainTV) {
         _mainTV = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, tab_kScreenWidth, tab_kScreenHeight) style:UITableViewStyleGrouped];
-        _mainTV.animatedStyle = TABTableViewAnimationStart;  // 开启动画
+        _mainTV.animatedStyle = TABTableViewAnimationStart;  //开启动画
         _mainTV.delegate = self;
         _mainTV.dataSource = self;
-        _mainTV.rowHeight = 100;
+        _mainTV.rowHeight = 44;
         _mainTV.backgroundColor = [UIColor whiteColor];
         _mainTV.estimatedRowHeight = 0;
         _mainTV.estimatedSectionFooterHeight = 0;
         _mainTV.estimatedSectionHeaderHeight = 0;
         _mainTV.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _mainTV.tableHeaderView = self.headView;
     }
     return _mainTV;
-}
-
-- (TestHeadView *)headView {
-    if (!_headView) {
-        _headView = [[TestHeadView alloc]initWithFrame:CGRectMake(0, 0, tab_kScreenWidth, 90)];
-        _headView.animatedStyle = TABViewAnimationStart;    // 开启动画
-    }
-    return _headView;
 }
 
 @end

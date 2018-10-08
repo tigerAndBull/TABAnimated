@@ -13,7 +13,7 @@
 
 @implementation UIView (Animated)
 
-#pragma mark -  Getter/Setter
+#pragma mark - Getter/Setter
 
 - (TABViewLoadAnimationStyle)loadStyle {
     

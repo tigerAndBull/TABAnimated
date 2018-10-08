@@ -13,7 +13,7 @@
 @interface TABViewAnimated : NSObject
 
 @property (nonatomic) CGFloat animatedDuration;             // default is 0.4
-@property (nonatomic,strong) UIColor *animatedColor;         //default is 0xEEEEEE.
+@property (nonatomic,strong) UIColor *animatedColor;          // default is 0xEEEEEE.
 
 /**
  SingleTon 单例
@@ -25,13 +25,15 @@
 /**
  启动/关闭动画
  适用组件UIView及其继承类
+ 
  @param view 传入view自身
  */
 - (void)startOrEndViewAnimated:(UIView *)view;
 
 /**
  启动/关闭动画
- 适用组件UITableView
+ 适用组件UITableViewCell
+ 
  @param cell 传入cell自身
  */
 - (void)startOrEndTableAnimated:(UITableViewCell *)cell;

@@ -7,7 +7,9 @@
 //
 
 #import "AppDelegate.h"
-#import "TestViewController.h"
+
+#import "MainViewController.h"
+
 #import "TABAnimated.h"
 
 @interface AppDelegate ()
@@ -24,10 +26,10 @@
     //设置TABAnimated相关属性
     [[TABViewAnimated sharedAnimated]initWithAnimatedDuration:0.3 withColor:tab_kBackColor];
     
-    TestViewController *vc = [[TestViewController alloc] init];
-    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:vc];
+    MainViewController *vc = [[MainViewController alloc] init];
+    _nav = [[UINavigationController alloc]initWithRootViewController:vc];
     
-    [self.window setRootViewController:nav];
+    [self.window setRootViewController:_nav];
     [self.window makeKeyAndVisible];
     return YES;
 }
@@ -57,6 +59,5 @@
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
-
 
 @end

@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		20243539216AF37400617821 /* MoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20243538216AF37400617821 /* MoreViewController.m */; };
+		2024353C216AF8B300617821 /* MoreTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2024353B216AF8B300617821 /* MoreTableViewController.m */; };
+		20A01591216A321E0082425D /* XIBTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A0158F216A321E0082425D /* XIBTableViewCell.m */; };
+		20A01592216A321E0082425D /* XIBTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 20A01590216A321E0082425D /* XIBTableViewCell.xib */; };
+		20A01597216A51FC0082425D /* XibTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A01596216A51FC0082425D /* XibTestViewController.m */; };
+		20A0159A216A538F0082425D /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A01599216A538F0082425D /* MainViewController.m */; };
 		20A85BF52152248D0005AD62 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A85BF42152248D0005AD62 /* AppDelegate.m */; };
 		20A85BF82152248D0005AD62 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A85BF72152248D0005AD62 /* ViewController.m */; };
 		20A85BFD2152248E0005AD62 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 20A85BFC2152248E0005AD62 /* Assets.xcassets */; };
@@ -45,6 +51,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		20243537216AF37400617821 /* MoreViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoreViewController.h; sourceTree = "<group>"; };
+		20243538216AF37400617821 /* MoreViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MoreViewController.m; sourceTree = "<group>"; };
+		2024353A216AF8B300617821 /* MoreTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoreTableViewController.h; sourceTree = "<group>"; };
+		2024353B216AF8B300617821 /* MoreTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MoreTableViewController.m; sourceTree = "<group>"; };
+		20A0158E216A321E0082425D /* XIBTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XIBTableViewCell.h; sourceTree = "<group>"; };
+		20A0158F216A321E0082425D /* XIBTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XIBTableViewCell.m; sourceTree = "<group>"; };
+		20A01590216A321E0082425D /* XIBTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = XIBTableViewCell.xib; sourceTree = "<group>"; };
+		20A01595216A51FC0082425D /* XibTestViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XibTestViewController.h; sourceTree = "<group>"; };
+		20A01596216A51FC0082425D /* XibTestViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XibTestViewController.m; sourceTree = "<group>"; };
+		20A01598216A538F0082425D /* MainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		20A01599216A538F0082425D /* MainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		20A85BF02152248D0005AD62 /* AnimatedDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AnimatedDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		20A85BF32152248D0005AD62 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		20A85BF42152248D0005AD62 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -109,6 +126,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		20A01593216A50540082425D /* XibView */ = {
+			isa = PBXGroup;
+			children = (
+				20A0158E216A321E0082425D /* XIBTableViewCell.h */,
+				20A0158F216A321E0082425D /* XIBTableViewCell.m */,
+				20A01590216A321E0082425D /* XIBTableViewCell.xib */,
+			);
+			path = XibView;
+			sourceTree = "<group>";
+		};
+		20A01594216A51A80082425D /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				20BFBBA22153FB5300136258 /* head.jpg */,
+				20BFBBA62154D3D800136258 /* test.jpg */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
 		20A85BE72152248D0005AD62 = {
 			isa = PBXGroup;
 			children = (
@@ -132,11 +168,10 @@
 		20A85BF22152248D0005AD62 /* AnimatedDemo */ = {
 			isa = PBXGroup;
 			children = (
+				20A01594216A51A80082425D /* Sources */,
 				20A85C25215224B10005AD62 /* Model */,
 				20A85C28215224B10005AD62 /* TABAnimated */,
 				20A85C32215224B10005AD62 /* ViewController */,
-				20BFBBA22153FB5300136258 /* head.jpg */,
-				20BFBBA62154D3D800136258 /* test.jpg */,
 				20A85BF32152248D0005AD62 /* AppDelegate.h */,
 				20A85BF42152248D0005AD62 /* AppDelegate.m */,
 				20A85BF62152248D0005AD62 /* ViewController.h */,
@@ -198,9 +233,18 @@
 		20A85C32215224B10005AD62 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				20A01593216A50540082425D /* XibView */,
 				20A85C35215224B10005AD62 /* CustomView */,
+				20A01598216A538F0082425D /* MainViewController.h */,
+				20A01599216A538F0082425D /* MainViewController.m */,
 				20A85C34215224B10005AD62 /* TestViewController.h */,
 				20A85C33215224B10005AD62 /* TestViewController.m */,
+				20A01595216A51FC0082425D /* XibTestViewController.h */,
+				20A01596216A51FC0082425D /* XibTestViewController.m */,
+				20243537216AF37400617821 /* MoreViewController.h */,
+				20243538216AF37400617821 /* MoreViewController.m */,
+				2024353A216AF8B300617821 /* MoreTableViewController.h */,
+				2024353B216AF8B300617821 /* MoreTableViewController.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -322,6 +366,7 @@
 				20BFBBA32153FB5300136258 /* head.jpg in Resources */,
 				20BFBBA72154D3D800136258 /* test.jpg in Resources */,
 				20A85BFD2152248E0005AD62 /* Assets.xcassets in Resources */,
+				20A01592216A321E0082425D /* XIBTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -349,15 +394,20 @@
 				20BFBBAD215502E800136258 /* UITableViewCell+Animated.m in Sources */,
 				20A85BF82152248D0005AD62 /* ViewController.m in Sources */,
 				20A85C3E215224B10005AD62 /* TestTableViewCell.m in Sources */,
+				20A0159A216A538F0082425D /* MainViewController.m in Sources */,
+				20A01591216A321E0082425D /* XIBTableViewCell.m in Sources */,
 				20A85C39215224B10005AD62 /* TABMethod.m in Sources */,
 				20BFBBB02155036300136258 /* UIView+TABLayerout.m in Sources */,
 				20A85C3A215224B10005AD62 /* UITableView+Animated.m in Sources */,
 				20A85C3C215224B10005AD62 /* UIView+Animated.m in Sources */,
+				20243539216AF37400617821 /* MoreViewController.m in Sources */,
 				20A85C3B215224B10005AD62 /* TABViewAnimated.m in Sources */,
 				20BFBBA12153F3FF00136258 /* TestHeadView.m in Sources */,
+				20A01597216A51FC0082425D /* XibTestViewController.m in Sources */,
 				20A85C032152248E0005AD62 /* main.m in Sources */,
 				20A85C3D215224B10005AD62 /* TestViewController.m in Sources */,
 				20A85BF52152248D0005AD62 /* AppDelegate.m in Sources */,
+				2024353C216AF8B300617821 /* MoreTableViewController.m in Sources */,
 				20A85C38215224B10005AD62 /* Game.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -513,7 +563,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Y8FL5FHNBB;
 				INFOPLIST_FILE = AnimatedDemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -531,7 +581,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Y8FL5FHNBB;
 				INFOPLIST_FILE = AnimatedDemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

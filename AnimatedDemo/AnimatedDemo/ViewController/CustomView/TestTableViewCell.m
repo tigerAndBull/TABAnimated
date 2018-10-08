@@ -34,7 +34,7 @@
     // Configure the view for the selected state
 }
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     
@@ -55,7 +55,7 @@
     gameImg.frame = CGRectMake(15, 10, (self.frame.size.height-20)*1.5, (self.frame.size.height-20));
     gameImg.layer.cornerRadius = 5;
     
-    titleLab.frame = CGRectMake(CGRectGetMaxX(gameImg.frame)+15, 10, titleSize.width, 25);
+    titleLab.frame = CGRectMake(CGRectGetMaxX(gameImg.frame)+15, 10, titleSize.width, titleSize.height);
     timeLab.frame = CGRectMake(CGRectGetMaxX(gameImg.frame)+15, CGRectGetMaxY(titleLab.frame)+5, timeSize.width,15);
     statusBtn.frame = CGRectMake(CGRectGetMaxX(gameImg.frame)+15, CGRectGetMaxY(timeLab.frame)+5+5,70, 20);
     
@@ -64,13 +64,11 @@
     }
 }
 
-#pragma mark -  Public Methods
+#pragma mark - Public Methods
 
 - (void)initWithData:(Game *)game {
     
-    [statusBtn setBackgroundColor:[UIColor whiteColor]];
-    
-    titleLab.text = game.title;
+    titleLab.text = [NSString stringWithFormat:@"赛事标题%@～",game.gameId];
     timeLab.text = @"报名时间：2018-09-12";
     [gameImg setImage:[UIImage imageNamed:@"test.jpg"]];
     
@@ -78,7 +76,7 @@
     [statusBtn setBackgroundColor:[UIColor grayColor]];
 }
 
-#pragma mark - Initialize Methods
+#pragma mark - Initize Methods
 
 - (void)initUI {
     
@@ -109,7 +107,7 @@
         lab.loadStyle = TABViewLoadAnimationShort;
         [lab setTextColor:[UIColor grayColor]];
         [lab setText:@""];
-        
+
         timeLab = lab;
         [self.contentView addSubview:lab];
     }
@@ -120,7 +118,7 @@
         btn.backgroundColor = tab_kBackColor;
         [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [btn.titleLabel setFont:tab_kFont(12)];
-        
+
         statusBtn = btn;
         [self.contentView addSubview:btn];
     }
