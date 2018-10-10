@@ -1,3 +1,13 @@
+
+**2018 - 10 - 08更新**
+
+最近有童鞋反馈xib没有示例，多个UITableView没有效果，针对这个问题将代码进行了改进，请持续关注哦～
+
+>1. 新增xib创建示例
+>2. 多个UIView，多个UITableView的示例
+
+*******************************
+
 **2018 - 09 - 22 重大更新！你一定会爱上这个库！！！**
 
 **你或许只需要干2件事，就可以让所有组件在网络卡顿时动起来！！！**
@@ -19,7 +29,7 @@
 
 ## 先上效果图
 
-![效果图.gif](https://upload-images.jianshu.io/upload_images/5632003-716bb8feae7ada1b.gif?imageMogr2/auto-orient/strip)
+![效果图.gif](https://upload-images.jianshu.io/upload_images/5632003-0e9ca98f12e0c316.gif?imageMogr2/auto-orient/strip)
 
 ## 说明
 
