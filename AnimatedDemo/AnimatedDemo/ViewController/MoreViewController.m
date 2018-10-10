@@ -15,7 +15,6 @@
 @interface MoreViewController ()
 
 @property (nonatomic,strong) TestHeadView *viewOne;
-
 @property (nonatomic,strong) TestHeadView *viewTwo;
 
 @end

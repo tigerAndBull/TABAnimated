@@ -29,7 +29,7 @@ static CGFloat defaultShortAimatedWidth = 130;
                 
                 UIView *v = view.subviews[i];
                 if ( v.loadStyle != TABViewLoadAnimationDefault ) {
-                    [self initLayerWithView:v withColor:_animatedColor];
+                    [self initLayerWithView:v withSuperView:v.superview withColor:_animatedColor];
                 }
             }
             break;
@@ -85,7 +85,7 @@ static CGFloat defaultShortAimatedWidth = 130;
             for (int i = 0; i < cell.contentView.subviews.count; i++) {
                 UIView *v = cell.contentView.subviews[i];
                 if ( v.loadStyle != TABViewLoadAnimationDefault ) {
-                    [self initLayerWithView:v withColor:_animatedColor];
+                    [self initLayerWithView:v withSuperView:v.superview withColor:_animatedColor];
                 }
             }
             break;
@@ -194,6 +194,43 @@ static CGFloat defaultShortAimatedWidth = 130;
     layer.anchorPoint = CGPointMake(0, 0);
     layer.position = CGPointMake(0, 0);
     // 添加一个基本动画
+    [layer addAnimation:[self scaleXAnimation:view.loadStyle] forKey:@"scaleAnimation"];
+    
+    [view.layer addSublayer:layer];
+}
+
+- (void)initLayerWithView:(UIView *)view withSuperView:(UIView *)superView withColor:(UIColor *)color {
+    
+    //If the view's width is zero,set up it's width.
+    //如果组件宽度为0，则设置默认宽度
+    if (view.frame.size.width == 0) {
+        
+        CGFloat superViewX = superView.frame.origin.x;
+        CGFloat viewX = view.frame.origin.x;
+        CGFloat superViewWidth = superView.frame.size.width;
+        
+        CGFloat longAimatedWidth;
+        CGFloat shortAimatedWidth;
+        
+        longAimatedWidth = (superViewWidth - (viewX - superViewX))*0.7;
+        shortAimatedWidth = (superViewWidth - (viewX - superViewX))*0.5;
+        
+        if (view.loadStyle == TABViewLoadAnimationShort) {
+            view.frame = CGRectMake(view.frame.origin.x, view.frame.origin.y, view.tabViewWidth>0?view.tabViewWidth:longAimatedWidth, view.frame.size.height);
+        }else {
+            if (view.loadStyle == TABViewLoadAnimationLong) {
+                view.frame = CGRectMake(view.frame.origin.x, view.frame.origin.y, view.tabViewWidth>0?view.tabViewWidth:shortAimatedWidth, view.frame.size.height);
+            }
+        }
+    }
+    
+    // add a layer with animation
+    // 添加动画图层
+    CALayer *layer = [[CALayer alloc]init];
+    layer.frame = CGRectMake(0, 0, view.frame.size.width, view.frame.size.height);
+    layer.backgroundColor = color.CGColor;
+    layer.anchorPoint = CGPointMake(0, 0);
+    layer.position = CGPointMake(0, 0);
     [layer addAnimation:[self scaleXAnimation:view.loadStyle] forKey:@"scaleAnimation"];
     
     [view.layer addSublayer:layer];

@@ -48,6 +48,37 @@
     
     SEL oldSelector = @selector(tableView:numberOfRowsInSection:);
     SEL newSelector = @selector(tab_tableView:numberOfRowsInSection:);
+    
+    SEL oldSectionSelector = @selector(numberOfSectionsInTableView:);
+    SEL newSectionSelector = @selector(tab_numberOfSectionsInTableView:);
+    
+    [self exchangeTableDelegateMethod:oldSelector withNewSel:newSelector withTableDelegate:delegate];
+    [self exchangeTableDelegateMethod:oldSectionSelector withNewSel:newSectionSelector withTableDelegate:delegate];
+    
+    [self tab_setDelegate:delegate];
+}
+
+#pragma mark - TABTableViewDelegate
+
+- (NSInteger)tab_tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
+    if (tableView.animatedStyle == TABTableViewAnimationStart) {
+        return tableView.animatedCount;
+    }
+    return [self tab_tableView:tableView numberOfRowsInSection:section];
+}
+
+- (NSInteger)tab_numberOfSectionsInTableView:(UITableView *)tableView {
+    
+    if (tableView.animatedStyle == TABTableViewAnimationStart) {
+        return (tableView.numberOfSections > 0)?tableView.numberOfSections:1;
+    }
+    return [self tab_numberOfSectionsInTableView:tableView];
+}
+
+#pragma mark - Private Methods
+
+- (void)exchangeTableDelegateMethod:(SEL)oldSelector withNewSel:(SEL)newSelector withTableDelegate:(id<UITableViewDelegate>)delegate {
     Method oldMethod_del = class_getInstanceMethod([delegate class], oldSelector);
     Method oldMethod_self = class_getInstanceMethod([self class], oldSelector);
     Method newMethod = class_getInstanceMethod([self class], newSelector);
@@ -66,18 +97,6 @@
             class_replaceMethod([delegate class], oldSelector, class_getMethodImplementation([self class], newSelector), method_getTypeEncoding(newMethod));
         }
     }
-    
-    [self tab_setDelegate:delegate];
-}
-
-#pragma mark - TABTableViewDelegate
-
-- (NSInteger)tab_tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
-    if (tableView.animatedStyle == TABTableViewAnimationStart) {
-        return tableView.animatedCount;
-    }
-    return [self tab_tableView:tableView numberOfRowsInSection:section];
 }
 
 #pragma mark - Getter / Setter
@@ -86,7 +105,7 @@
     
     NSNumber *value = objc_getAssociatedObject(self, @selector(animatedStyle));
     
-    // 动画开启过程中设置为不可滚动，暂时不要修改，滚动会重走layoutSubviews
+    // 动画开启过程中设置为不可滚动,不接触触摸事件
     if (value.intValue == 1) {
         self.scrollEnabled = NO;
         self.allowsSelection = NO;

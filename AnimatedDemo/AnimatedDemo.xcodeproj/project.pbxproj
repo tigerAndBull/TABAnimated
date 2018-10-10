@@ -31,6 +31,7 @@
 		20BFBBA72154D3D800136258 /* test.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 20BFBBA62154D3D800136258 /* test.jpg */; };
 		20BFBBAD215502E800136258 /* UITableViewCell+Animated.m in Sources */ = {isa = PBXBuildFile; fileRef = 20BFBBAC215502E800136258 /* UITableViewCell+Animated.m */; };
 		20BFBBB02155036300136258 /* UIView+TABLayerout.m in Sources */ = {isa = PBXBuildFile; fileRef = 20BFBBAF2155036300136258 /* UIView+TABLayerout.m */; };
+		20C07BEB216E436E0013BABE /* UICollectionView+Animated.m in Sources */ = {isa = PBXBuildFile; fileRef = 20C07BEA216E436E0013BABE /* UICollectionView+Animated.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -99,6 +100,8 @@
 		20BFBBAC215502E800136258 /* UITableViewCell+Animated.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableViewCell+Animated.m"; sourceTree = "<group>"; };
 		20BFBBAE2155036300136258 /* UIView+TABLayerout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+TABLayerout.h"; sourceTree = "<group>"; };
 		20BFBBAF2155036300136258 /* UIView+TABLayerout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+TABLayerout.m"; sourceTree = "<group>"; };
+		20C07BE9216E436E0013BABE /* UICollectionView+Animated.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UICollectionView+Animated.h"; sourceTree = "<group>"; };
+		20C07BEA216E436E0013BABE /* UICollectionView+Animated.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UICollectionView+Animated.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -220,6 +223,8 @@
 				20A85C2B215224B10005AD62 /* TABViewAnimated.m */,
 				20A85C2E215224B10005AD62 /* UITableView+Animated.h */,
 				20A85C2A215224B10005AD62 /* UITableView+Animated.m */,
+				20C07BE9216E436E0013BABE /* UICollectionView+Animated.h */,
+				20C07BEA216E436E0013BABE /* UICollectionView+Animated.m */,
 				20A85C30215224B10005AD62 /* UIView+Animated.h */,
 				20A85C2C215224B10005AD62 /* UIView+Animated.m */,
 				20BFBBAE2155036300136258 /* UIView+TABLayerout.h */,
@@ -399,6 +404,7 @@
 				20A85C39215224B10005AD62 /* TABMethod.m in Sources */,
 				20BFBBB02155036300136258 /* UIView+TABLayerout.m in Sources */,
 				20A85C3A215224B10005AD62 /* UITableView+Animated.m in Sources */,
+				20C07BEB216E436E0013BABE /* UICollectionView+Animated.m in Sources */,
 				20A85C3C215224B10005AD62 /* UIView+Animated.m in Sources */,
 				20243539216AF37400617821 /* MoreViewController.m in Sources */,
 				20A85C3B215224B10005AD62 /* TABViewAnimated.m in Sources */,
