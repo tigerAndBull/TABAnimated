@@ -14,6 +14,9 @@
 #import "TestCollectionViewController.h"
 
 #import "TABMethod.h"
+#import "AppDelegate.h"
+
+#define kAPPDELEGATE ((AppDelegate*)[[UIApplication sharedApplication] delegate])
 
 @interface MainViewController () <UITableViewDelegate,UITableViewDataSource>
 

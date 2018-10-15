@@ -9,10 +9,6 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-#import "AppDelegate.h"
-
-#define kAPPDELEGATE ((AppDelegate*)[[UIApplication sharedApplication] delegate])
-
 // 判断是否是iphone
 #define tab_kIsIPhone (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
 // 判断是否是iphoneX
