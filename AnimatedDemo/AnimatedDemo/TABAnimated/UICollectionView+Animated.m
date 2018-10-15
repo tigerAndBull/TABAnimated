@@ -1,16 +1,18 @@
 //
-//  UITableView+Animated.m
+//  UICollectionView+Animated.m
 //  AnimatedDemo
 //
-//  Created by tigerAndBull on 2018/9/14.
+//  Created by tigerAndBull on 2018/10/12.
 //  Copyright © 2018年 tigerAndBull. All rights reserved.
 //
 
-#import "UITableView+Animated.h"
-#import <objc/runtime.h>
-#import "TABViewAnimated.h"
+#import "UICollectionView+Animated.h"
 
-@implementation UITableView (Animated)
+#import "UIView+Animated.h"
+
+#import <objc/runtime.h>
+
+@implementation UICollectionView (Animated)
 
 + (void)load {
     
@@ -22,7 +24,7 @@
         
         // Gets the viewDidLoad method to the class,whose type is a pointer to a objc_method structure.
         // 获取到这个类的viewDidLoad方法，它的类型是一个objc_method结构体的指针
-        Method  originMethod = class_getInstanceMethod([self class], @selector(setDelegate:));
+        Method originMethod = class_getInstanceMethod([self class], @selector(setDelegate:));
         
         // Get the method you created.
         // 获取自己创建的方法
@@ -44,43 +46,49 @@
     });
 }
 
-- (void)tab_setDelegate:(id<UITableViewDelegate>)delegate {
+- (void)tab_setDelegate:(id<UICollectionViewDelegate>)delegate {
     
-    SEL oldSelector = @selector(tableView:numberOfRowsInSection:);
-    SEL newSelector = @selector(tab_tableView:numberOfRowsInSection:);
+    SEL oldSelector = @selector(numberOfSectionsInCollectionView:);
+    SEL newSelector = @selector(tab_numberOfSectionsInCollectionView:);
     
-    SEL oldSectionSelector = @selector(numberOfSectionsInTableView:);
-    SEL newSectionSelector = @selector(tab_numberOfSectionsInTableView:);
+    SEL oldSectionSelector = @selector(collectionView:numberOfItemsInSection:);
+    SEL newSectionSelector = @selector(tab_collectionView:numberOfItemsInSection:);
     
-    [self exchangeTableDelegateMethod:oldSelector withNewSel:newSelector withTableDelegate:delegate];
-    [self exchangeTableDelegateMethod:oldSectionSelector withNewSel:newSectionSelector withTableDelegate:delegate];
+    [self exchangeCollectionDelegateMethod:oldSectionSelector withNewSel:newSectionSelector withCollectionDelegate:delegate];
+    [self exchangeCollectionDelegateMethod:oldSelector withNewSel:newSelector withCollectionDelegate:delegate];
     
     [self tab_setDelegate:delegate];
 }
 
-#pragma mark - TABTableViewDelegate
+#pragma mark - TABCollectionViewDelegate
 
-- (NSInteger)tab_tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
-    if (tableView.animatedStyle == TABTableViewAnimationStart) {
-        return tableView.animatedCount;
-    }
-    return [self tab_tableView:tableView numberOfRowsInSection:section];
-}
-
-- (NSInteger)tab_numberOfSectionsInTableView:(UITableView *)tableView {
+- (NSInteger)tab_numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     
     NSNumber *value = objc_getAssociatedObject(self, @selector(numberOfSections));
     
-    if (tableView.animatedStyle == TABTableViewAnimationStart) {
+    if (collectionView.animatedStyle == TABCollectionViewAnimationStart) {
         return ([value integerValue] > 0)?[value integerValue]:1;
     }
-    return [self tab_numberOfSectionsInTableView:tableView];
+    return [self tab_numberOfSectionsInCollectionView:collectionView];
+}
+
+- (NSInteger)tab_collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    
+    if (collectionView.animatedStyle == TABCollectionViewAnimationStart) {
+        return collectionView.animatedCount;
+    }
+    return [self tab_collectionView:collectionView numberOfItemsInSection:section];
+}
+
+- (UICollectionViewCell *)tab_collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+
+    return [self tab_collectionView:collectionView cellForItemAtIndexPath:indexPath];
 }
 
 #pragma mark - Private Methods
 
-- (void)exchangeTableDelegateMethod:(SEL)oldSelector withNewSel:(SEL)newSelector withTableDelegate:(id<UITableViewDelegate>)delegate {
+- (void)exchangeCollectionDelegateMethod:(SEL)oldSelector withNewSel:(SEL)newSelector withCollectionDelegate:(id<UICollectionViewDelegate>)delegate {
+    
     Method oldMethod_del = class_getInstanceMethod([delegate class], oldSelector);
     Method oldMethod_self = class_getInstanceMethod([self class], oldSelector);
     Method newMethod = class_getInstanceMethod([self class], newSelector);
@@ -101,30 +109,31 @@
     }
 }
 
+
 #pragma mark - Getter / Setter
 
-- (TABTableViewAnimationStyle)animatedStyle {
+- (TABViewAnimationStyle)animatedStyle {
     
     NSNumber *value = objc_getAssociatedObject(self, @selector(animatedStyle));
-
-    // 动画开启过程中设置为不可滚动,不接触触摸事件
-    if (value.intValue == 1) {
-        self.scrollEnabled = NO;
-        self.allowsSelection = NO;
-    }else {
-        self.scrollEnabled = YES;
-        self.allowsSelection = YES;
-    }
     return value.intValue;
 }
 
-- (void)setAnimatedStyle:(TABTableViewAnimationStyle)animatedStyle {
+- (void)setAnimatedStyle:(TABViewAnimationStyle)animatedStyle {
+
+    // 动画开启过程中设置为不可滚动,不接触触摸事件
+    if (animatedStyle == 4) {
+        [self setScrollEnabled:NO];
+        [self setAllowsSelection:NO];
+    }else {
+        [self setScrollEnabled:YES];
+        [self setAllowsSelection:YES];
+    }
     objc_setAssociatedObject(self, @selector(animatedStyle), @(animatedStyle), OBJC_ASSOCIATION_ASSIGN);
 }
 
 - (NSInteger)animatedCount {
     NSNumber *value = objc_getAssociatedObject(self, @selector(animatedCount));
-    return (value.integerValue == 0)?(3):(value.integerValue);
+    return (value.integerValue == 0)?(6):(value.integerValue);
 }
 
 - (void)setAnimatedCount:(NSInteger)animatedCount {

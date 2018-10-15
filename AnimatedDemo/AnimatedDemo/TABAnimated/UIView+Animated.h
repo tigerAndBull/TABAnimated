@@ -15,10 +15,13 @@ typedef NS_ENUM(NSInteger,TABViewLoadAnimationStyle) {
 };
 
 typedef NS_ENUM(NSInteger,TABViewAnimationStyle) {
-    TABViewAnimationDefault = 0,    // 默认,没有动画
-    TABViewAnimationStart,          // 开始动画
-    TABViewAnimationRuning,         // 动画中
-    TABViewAnimationEnd             // 结束动画
+    TABViewAnimationDefault = 0,               // 默认,没有动画
+    TABViewAnimationStart,                     // 开始动画
+    TABViewAnimationRuning,                    // 动画中
+    TABViewAnimationEnd,                       // 结束动画
+    TABCollectionViewAnimationStart,           // CollectionView 开始动画
+    TABCollectionViewAnimationRunning,         // CollectionView 动画中
+    TABCollectionViewAnimationEnd              // CollectionView 结束动画
 };
 
 @interface UIView (Animated)

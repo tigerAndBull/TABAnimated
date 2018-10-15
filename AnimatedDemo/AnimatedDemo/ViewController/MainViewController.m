@@ -7,13 +7,13 @@
 //
 
 #import "MainViewController.h"
-
-#import "TABMethod.h"
-
 #import "TestViewController.h"
 #import "XibTestViewController.h"
 #import "MoreViewController.h"
 #import "MoreTableViewController.h"
+#import "TestCollectionViewController.h"
+
+#import "TABMethod.h"
 
 @interface MainViewController () <UITableViewDelegate,UITableViewDataSource>
 
@@ -59,7 +59,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 4;
+    return 5;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
@@ -91,6 +91,10 @@
             }else {
                 if (indexPath.row == 3) {
                     cell.textLabel.text = @"多个UITableView 示例";
+                }else {
+                    if (indexPath.row == 4) {
+                        cell.textLabel.text = @"UICollectionView 示例";
+                    }
                 }
             }
         }
@@ -120,6 +124,12 @@
                     
                     MoreTableViewController *vc = [[MoreTableViewController alloc]init];
                     [kAPPDELEGATE.nav pushViewController:vc animated:YES];
+                }else {
+                    if (indexPath.row == 4) {
+                        
+                        TestCollectionViewController *vc = [[TestCollectionViewController alloc]init];
+                        [kAPPDELEGATE.nav pushViewController:vc animated:YES];
+                    }
                 }
             }
         }
@@ -128,12 +138,6 @@
 
 
 #pragma mark - Initize Methods
-
-- (void)addNotification {
-}
-
-- (void)initData {
-}
 
 /**
  initialize view

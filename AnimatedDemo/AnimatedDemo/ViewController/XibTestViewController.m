@@ -30,8 +30,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-    [self initData];
     [self initUI];
     
     // 假设3秒后，获取到数据了，代码具体位置看你项目了。
@@ -66,7 +64,7 @@
  */
 - (void)afterGetData {
     
-    //模拟数据
+    // 模拟数据
     for (int i = 0; i < 20; i ++) {
         
         Game *game = [[Game alloc]init];
@@ -76,7 +74,7 @@
         [dataArray addObject:game];
     }
     
-    //停止动画,并刷新数据
+    // 停止动画,并刷新数据
     _mainTV.animatedStyle = TABTableViewAnimationEnd;
     [_mainTV reloadData];
 }
@@ -109,9 +107,9 @@
         cell = [cellArray objectAtIndex:0];
     }
     
-    //在加载动画的时候，即未获得数据时，不要走加载控件数据的方法
+    // 在加载动画的时候，即未获得数据时，不要走加载控件数据的方法
     if (_mainTV.animatedStyle != TABTableViewAnimationStart) {
-        //这里刷新走刷新视图的方法
+        // 这里刷新走刷新视图的方法
         
     }
     
@@ -119,10 +117,6 @@
 }
 
 #pragma mark - Initize Methods
-
-- (void)addNotification {
-    
-}
 
 - (void)initData {
     
@@ -145,7 +139,7 @@
 - (UITableView *)mainTV {
     if (!_mainTV) {
         _mainTV = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, tab_kScreenWidth, tab_kScreenHeight) style:UITableViewStyleGrouped];
-        _mainTV.animatedStyle = TABTableViewAnimationStart;  //开启动画
+        _mainTV.animatedStyle = TABTableViewAnimationStart;  // 开启动画
         _mainTV.delegate = self;
         _mainTV.dataSource = self;
         _mainTV.rowHeight = 44;

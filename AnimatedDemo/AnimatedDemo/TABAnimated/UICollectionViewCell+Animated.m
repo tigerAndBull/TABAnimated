@@ -1,20 +1,22 @@
 //
-//  UITableViewCell+Animated.m
+//  UICollectionViewCell+Animated.m
 //  AnimatedDemo
 //
-//  Created by tigerAndBull on 2018/9/21.
+//  Created by tigerAndBull on 2018/10/12.
 //  Copyright © 2018年 tigerAndBull. All rights reserved.
 //
 
-#import "UITableViewCell+Animated.h"
-#import "UITableView+Animated.h"
+#import "UICollectionViewCell+Animated.h"
+
+#import "UICollectionView+Animated.h"
 
 #import "TABMethod.h"
+
 #import "TABViewAnimated.h"
 
 #import <objc/runtime.h>
 
-@implementation UITableViewCell (Animated)
+@implementation UICollectionViewCell (Animated)
 
 + (void)load {
     
@@ -28,11 +30,11 @@
         
         // Get the method you created.
         // 获取自己创建的方法
-        Method newMethod = class_getInstanceMethod([self class], @selector(tab_cell_layoutSubviews));
+        Method newMethod = class_getInstanceMethod([self class], @selector(tab_collection_layoutSubviews));
         
         IMP newIMP = method_getImplementation(newMethod);
         
-        BOOL isAdd = class_addMethod([self class], @selector(tab_cell_layoutSubviews), newIMP, method_getTypeEncoding(newMethod));
+        BOOL isAdd = class_addMethod([self class], @selector(tab_collection_layoutSubviews), newIMP, method_getTypeEncoding(newMethod));
         
         if (isAdd) {
             // replace
@@ -47,13 +49,14 @@
 
 #pragma mark - Exchange Method
 
-- (void)tab_cell_layoutSubviews {
+- (void)tab_collection_layoutSubviews {
     
-    [self tab_cell_layoutSubviews];
+    [self tab_collection_layoutSubviews];
     
     // 运行动画/移除动画
     dispatch_async(dispatch_get_main_queue(), ^{
-        [[TABViewAnimated sharedAnimated]startOrEndTableAnimated:self];
+        
+        [[TABViewAnimated sharedAnimated]startOrEndCollectionAnimated:self];
     });
 }
 

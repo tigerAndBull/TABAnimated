@@ -31,6 +31,10 @@
 		20BFBBA72154D3D800136258 /* test.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 20BFBBA62154D3D800136258 /* test.jpg */; };
 		20BFBBAD215502E800136258 /* UITableViewCell+Animated.m in Sources */ = {isa = PBXBuildFile; fileRef = 20BFBBAC215502E800136258 /* UITableViewCell+Animated.m */; };
 		20BFBBB02155036300136258 /* UIView+TABLayerout.m in Sources */ = {isa = PBXBuildFile; fileRef = 20BFBBAF2155036300136258 /* UIView+TABLayerout.m */; };
+		20BFBFF12170D37B001887A9 /* UICollectionView+Animated.m in Sources */ = {isa = PBXBuildFile; fileRef = 20BFBFF02170D37B001887A9 /* UICollectionView+Animated.m */; };
+		20BFBFF42170D647001887A9 /* TestCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20BFBFF32170D647001887A9 /* TestCollectionViewController.m */; };
+		20BFBFF72170D87A001887A9 /* UICollectionViewCell+Animated.m in Sources */ = {isa = PBXBuildFile; fileRef = 20BFBFF62170D87A001887A9 /* UICollectionViewCell+Animated.m */; };
+		20BFBFFA2170D912001887A9 /* TestCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 20BFBFF92170D912001887A9 /* TestCollectionViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -99,6 +103,14 @@
 		20BFBBAC215502E800136258 /* UITableViewCell+Animated.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableViewCell+Animated.m"; sourceTree = "<group>"; };
 		20BFBBAE2155036300136258 /* UIView+TABLayerout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+TABLayerout.h"; sourceTree = "<group>"; };
 		20BFBBAF2155036300136258 /* UIView+TABLayerout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+TABLayerout.m"; sourceTree = "<group>"; };
+		20BFBFEF2170D37B001887A9 /* UICollectionView+Animated.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UICollectionView+Animated.h"; sourceTree = "<group>"; };
+		20BFBFF02170D37B001887A9 /* UICollectionView+Animated.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UICollectionView+Animated.m"; sourceTree = "<group>"; };
+		20BFBFF22170D647001887A9 /* TestCollectionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestCollectionViewController.h; sourceTree = "<group>"; };
+		20BFBFF32170D647001887A9 /* TestCollectionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestCollectionViewController.m; sourceTree = "<group>"; };
+		20BFBFF52170D87A001887A9 /* UICollectionViewCell+Animated.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UICollectionViewCell+Animated.h"; sourceTree = "<group>"; };
+		20BFBFF62170D87A001887A9 /* UICollectionViewCell+Animated.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UICollectionViewCell+Animated.m"; sourceTree = "<group>"; };
+		20BFBFF82170D912001887A9 /* TestCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestCollectionViewCell.h; sourceTree = "<group>"; };
+		20BFBFF92170D912001887A9 /* TestCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestCollectionViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -220,12 +232,16 @@
 				20A85C2B215224B10005AD62 /* TABViewAnimated.m */,
 				20A85C2E215224B10005AD62 /* UITableView+Animated.h */,
 				20A85C2A215224B10005AD62 /* UITableView+Animated.m */,
+				20BFBFEF2170D37B001887A9 /* UICollectionView+Animated.h */,
+				20BFBFF02170D37B001887A9 /* UICollectionView+Animated.m */,
+				20BFBBAB215502E800136258 /* UITableViewCell+Animated.h */,
+				20BFBBAC215502E800136258 /* UITableViewCell+Animated.m */,
+				20BFBFF52170D87A001887A9 /* UICollectionViewCell+Animated.h */,
+				20BFBFF62170D87A001887A9 /* UICollectionViewCell+Animated.m */,
 				20A85C30215224B10005AD62 /* UIView+Animated.h */,
 				20A85C2C215224B10005AD62 /* UIView+Animated.m */,
 				20BFBBAE2155036300136258 /* UIView+TABLayerout.h */,
 				20BFBBAF2155036300136258 /* UIView+TABLayerout.m */,
-				20BFBBAB215502E800136258 /* UITableViewCell+Animated.h */,
-				20BFBBAC215502E800136258 /* UITableViewCell+Animated.m */,
 			);
 			path = TABAnimated;
 			sourceTree = "<group>";
@@ -245,6 +261,8 @@
 				20243538216AF37400617821 /* MoreViewController.m */,
 				2024353A216AF8B300617821 /* MoreTableViewController.h */,
 				2024353B216AF8B300617821 /* MoreTableViewController.m */,
+				20BFBFF22170D647001887A9 /* TestCollectionViewController.h */,
+				20BFBFF32170D647001887A9 /* TestCollectionViewController.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -256,6 +274,8 @@
 				20A85C36215224B10005AD62 /* TestTableViewCell.m */,
 				20BFBB9F2153F3FF00136258 /* TestHeadView.h */,
 				20BFBBA02153F3FF00136258 /* TestHeadView.m */,
+				20BFBFF82170D912001887A9 /* TestCollectionViewCell.h */,
+				20BFBFF92170D912001887A9 /* TestCollectionViewCell.m */,
 			);
 			path = CustomView;
 			sourceTree = "<group>";
@@ -394,11 +414,13 @@
 				20BFBBAD215502E800136258 /* UITableViewCell+Animated.m in Sources */,
 				20A85BF82152248D0005AD62 /* ViewController.m in Sources */,
 				20A85C3E215224B10005AD62 /* TestTableViewCell.m in Sources */,
+				20BFBFF72170D87A001887A9 /* UICollectionViewCell+Animated.m in Sources */,
 				20A0159A216A538F0082425D /* MainViewController.m in Sources */,
 				20A01591216A321E0082425D /* XIBTableViewCell.m in Sources */,
 				20A85C39215224B10005AD62 /* TABMethod.m in Sources */,
 				20BFBBB02155036300136258 /* UIView+TABLayerout.m in Sources */,
 				20A85C3A215224B10005AD62 /* UITableView+Animated.m in Sources */,
+				20BFBFF12170D37B001887A9 /* UICollectionView+Animated.m in Sources */,
 				20A85C3C215224B10005AD62 /* UIView+Animated.m in Sources */,
 				20243539216AF37400617821 /* MoreViewController.m in Sources */,
 				20A85C3B215224B10005AD62 /* TABViewAnimated.m in Sources */,
@@ -406,8 +428,10 @@
 				20A01597216A51FC0082425D /* XibTestViewController.m in Sources */,
 				20A85C032152248E0005AD62 /* main.m in Sources */,
 				20A85C3D215224B10005AD62 /* TestViewController.m in Sources */,
+				20BFBFF42170D647001887A9 /* TestCollectionViewController.m in Sources */,
 				20A85BF52152248D0005AD62 /* AppDelegate.m in Sources */,
 				2024353C216AF8B300617821 /* MoreTableViewController.m in Sources */,
+				20BFBFFA2170D912001887A9 /* TestCollectionViewCell.m in Sources */,
 				20A85C38215224B10005AD62 /* Game.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

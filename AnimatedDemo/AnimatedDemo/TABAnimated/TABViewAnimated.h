@@ -39,6 +39,14 @@
 - (void)startOrEndTableAnimated:(UITableViewCell *)cell;
 
 /**
+ 启动/关闭动画
+ 适用组件UITableViewCell
+ 
+ @param cell 传入cell自身
+ */
+- (void)startOrEndCollectionAnimated:(UICollectionViewCell *)cell;
+
+/**
  设置动画属性
 
  @param duration 动画时长，一个来回

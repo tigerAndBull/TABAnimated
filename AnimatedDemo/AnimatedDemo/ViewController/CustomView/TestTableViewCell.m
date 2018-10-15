@@ -46,7 +46,6 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    
     //获取对应组件文本大小
     CGSize titleSize = [TABMethod tab_getSizeWithText:titleLab.text sizeWithFont:tab_kFont(15) constrainedToSize:CGSizeMake(MAXFLOAT, 25)];
     CGSize timeSize = [TABMethod tab_getSizeWithText:timeLab.text sizeWithFont:tab_kFont(12) constrainedToSize:CGSizeMake(MAXFLOAT, 25)];
@@ -68,7 +67,7 @@
 
 - (void)initWithData:(Game *)game {
     
-    titleLab.text = [NSString stringWithFormat:@"赛事标题%@～",game.gameId];
+    titleLab.text = [NSString stringWithFormat:@"赛事标题赛事标题标题%@～",game.gameId];
     timeLab.text = @"报名时间：2018-09-12";
     [gameImg setImage:[UIImage imageNamed:@"test.jpg"]];
     

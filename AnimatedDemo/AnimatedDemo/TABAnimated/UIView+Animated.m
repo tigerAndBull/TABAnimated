@@ -7,7 +7,9 @@
 //
 
 #import "UIView+Animated.h"
+
 #import <objc/runtime.h>
+
 #import "TABViewAnimated.h"
 #import "TABMethod.h"
 
