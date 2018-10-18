@@ -144,7 +144,7 @@
         _mainTV.dataSource = self;
         _mainTV.rowHeight = 44;
         _mainTV.backgroundColor = [UIColor whiteColor];
-        _mainTV.estimatedRowHeight = 0;
+//        _mainTV.estimatedRowHeight = 100;
         _mainTV.estimatedSectionFooterHeight = 0;
         _mainTV.estimatedSectionHeaderHeight = 0;
         _mainTV.separatorStyle = UITableViewCellSeparatorStyleNone;

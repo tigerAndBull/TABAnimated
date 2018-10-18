@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic) TABViewAnimationStyle animatedStyle;
 
-@property (nonatomic) NSInteger animatedCount;    //default is six.
+@property (nonatomic) NSInteger animatedCount;    // default is six. count of cell during animating.
 
 @end
 

@@ -48,7 +48,7 @@
     
     [self tab_layoutSubviews];
     
-    // 运行动画/结束动画
+    // start animation/end animation
     dispatch_async(dispatch_get_main_queue(), ^{
         
         if ( self.animatedStyle != TABViewAnimationRuning ) {

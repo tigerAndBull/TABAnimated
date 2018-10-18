@@ -8,16 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
+// the animation status of UITableView.
 typedef NS_ENUM(NSInteger,TABTableViewAnimationStyle) {
-    TABTableViewAnimationDefault = 0,     // 默认,没有动画
-    TABTableViewAnimationStart,           // 开始动画
-    TABTableViewAnimationEnd              // 结束动画
+    TABTableViewAnimationDefault = 0,     // default, no animation.
+    TABTableViewAnimationStart,           // start animation.
+    TABTableViewAnimationEnd              // end animation.
 };
 
 @interface UITableView (Animated)
 
 @property (nonatomic) TABTableViewAnimationStyle animatedStyle;
 
-@property (nonatomic) NSInteger animatedCount;    //default is three.
+@property (nonatomic) NSInteger animatedCount;    // default is three. count of cell during animating.
 
 @end

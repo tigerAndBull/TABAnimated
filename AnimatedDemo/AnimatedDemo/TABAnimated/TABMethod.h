@@ -9,13 +9,13 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-// 判断是否是iphone
+// judge is iphone
 #define tab_kIsIPhone (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
-// 判断是否是iphoneX
+// judge is iphoneX
 #define tab_kIsIPhone_X (tab_kIsIPhone && [[UIScreen mainScreen] bounds].size.height == 812.0)
-// 获取屏幕宽
+// get screen width
 #define tab_kScreenWidth [[UIScreen mainScreen] bounds].size.width
-// 获取屏幕高
+// get screen height
 #define tab_kScreenHeight ((tab_kIsIPhone_X)?([[UIScreen mainScreen] bounds].size.height-49):([[UIScreen mainScreen] bounds].size.height))
 
 #define tab_kFont(x) [UIFont systemFontOfSize:x]
@@ -25,12 +25,12 @@
 @interface TABMethod : NSObject
 
 /**
- 获取文本大小
+ get text size
 
- @param text 文本内容
- @param font 字体大小
- @param size 文本区域
- @return CGSize 文本区域大小
+ @param text text content
+ @param font font size
+ @param size max text area
+ @return CGSize new text size
  */
 + (CGSize)tab_getSizeWithText:(NSString *)text sizeWithFont:(UIFont *)font constrainedToSize:(CGSize)size;
 

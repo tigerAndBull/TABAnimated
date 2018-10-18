@@ -80,9 +80,6 @@
 
 #pragma mark - UICollectionViewDelegate & UICollectionViewDataSource
 
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    return 1;
-}
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return dataArray.count;
@@ -131,7 +128,7 @@
         layout.minimumInteritemSpacing = 0;
         layout.itemSize = CGSizeMake(self.view.frame.size.width/2,80);
         
-        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 88, tab_kScreenWidth, tab_kScreenHeight - 88) collectionViewLayout:layout];
+        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 88, tab_kScreenWidth, tab_kScreenHeight-88) collectionViewLayout:layout];
         _collectionView.animatedStyle = TABCollectionViewAnimationStart; // 开启动画
         _collectionView.backgroundColor = [UIColor whiteColor];
         [_collectionView registerClass:[TestCollectionViewCell class] forCellWithReuseIdentifier:@"TestCollectionViewCell"];

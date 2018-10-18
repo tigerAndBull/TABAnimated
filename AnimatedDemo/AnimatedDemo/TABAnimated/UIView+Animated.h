@@ -8,12 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+// the type of animation.
 typedef NS_ENUM(NSInteger,TABViewLoadAnimationStyle) {
-    TABViewLoadAnimationDefault = 0,     // 默认,没有动画
+    TABViewLoadAnimationDefault = 0,     // default,没有动画
     TABViewLoadAnimationShort,           // 动画先变短再变长
     TABViewLoadAnimationLong             // 动画先变长再变短
 };
 
+// the animation status to UIView or UICollectionView.
 typedef NS_ENUM(NSInteger,TABViewAnimationStyle) {
     TABViewAnimationDefault = 0,               // 默认,没有动画
     TABViewAnimationStart,                     // 开始动画
@@ -26,9 +28,9 @@ typedef NS_ENUM(NSInteger,TABViewAnimationStyle) {
 
 @interface UIView (Animated)
 
-@property (nonatomic) TABViewLoadAnimationStyle loadStyle;   // 加载动画的类型
-@property (nonatomic) TABViewAnimationStyle animatedStyle;   // 动画状态
+@property (nonatomic) TABViewLoadAnimationStyle loadStyle;
+@property (nonatomic) TABViewAnimationStyle animatedStyle;
 
-@property (nonatomic) CGFloat tabViewWidth;   // 动画组件长度,default is your phone screen's width / 3.
+@property (nonatomic) CGFloat tabViewWidth;   // width of view to you appiont it, default is your phone screen's width / 3, you can also custom it.
 
 @end

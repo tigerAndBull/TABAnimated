@@ -330,6 +330,7 @@ static CGFloat defaultDuration = 0.4;
         _animatedDuration = defaultDuration;
         _animatedColor = tab_kBackColor;
         self->layerArray = [NSMutableArray array];
+        _superArray = [NSMutableArray array];
     }
     return self;
 }

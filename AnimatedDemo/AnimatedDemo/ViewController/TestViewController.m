@@ -84,7 +84,7 @@
     headGame.cover = @"head.jpg";
     
     // 停止动画,并刷新数据
-    _mainTV.animatedStyle = TABTableViewAnimationEnd;
+    self.mainTV.animatedStyle = TABTableViewAnimationEnd;
     [_mainTV reloadData];
     
     _headView.animatedStyle = TABViewAnimationEnd;
@@ -120,11 +120,15 @@
     }
     
     // 在加载动画的时候，即未获得数据时，不要走加载控件数据的方法
-    if (_mainTV.animatedStyle != TABTableViewAnimationStart) {
+    if (self.mainTV.animatedStyle != TABTableViewAnimationStart) {
         [cell initWithData:dataArray[indexPath.row]];
     }
 
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
 }
 
 #pragma mark - Initize Methods

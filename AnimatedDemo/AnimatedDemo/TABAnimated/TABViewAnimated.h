@@ -8,49 +8,48 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+
 #import "UIView+Animated.h"
 
 @interface TABViewAnimated : NSObject
 
-@property (nonatomic) CGFloat animatedDuration;             // default is 0.4
-@property (nonatomic,strong) UIColor *animatedColor;          // default is 0xEEEEEE.
+@property (nonatomic) CGFloat animatedDuration;             // default is 0.4. the duartion of your animations.
+@property (nonatomic,strong) UIColor *animatedColor;          // default is 0xEEEEEE. the backgroundcolor of your animations.
+@property (nonatomic,strong) NSMutableArray *superArray;         // keep superViews'addresses.
 
 /**
- SingleTon 单例
+ SingleTon
 
  @return return object
  */
 + (TABViewAnimated *)sharedAnimated;
 
 /**
- 启动/关闭动画
- 适用组件UIView及其继承类
+ start/end animations to UIView.
  
- @param view 传入view自身
+ @param view to the UIView
  */
 - (void)startOrEndViewAnimated:(UIView *)view;
 
 /**
- 启动/关闭动画
- 适用组件UITableViewCell
+ start/end animations to UITableView.
  
- @param cell 传入cell自身
+ @param cell to UITableViewCell
  */
 - (void)startOrEndTableAnimated:(UITableViewCell *)cell;
 
 /**
- 启动/关闭动画
- 适用组件UITableViewCell
+ start/end animations to UICollectionView.
  
- @param cell 传入cell自身
+ @param cell to UICollectionViewCell.
  */
 - (void)startOrEndCollectionAnimated:(UICollectionViewCell *)cell;
 
 /**
- 设置动画属性
+ set animation duration and backgroundcolor.
 
- @param duration 动画时长，一个来回
- @param color 背景颜色
+ @param duration of back and forth
+ @param color backgroundcolor
  */
 - (void)initWithAnimatedDuration:(CGFloat)duration withColor:(UIColor *)color;
 

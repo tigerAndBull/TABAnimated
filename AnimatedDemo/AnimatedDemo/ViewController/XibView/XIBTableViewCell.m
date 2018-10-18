@@ -9,6 +9,7 @@
 #import "XIBTableViewCell.h"
 
 #import "TABMethod.h"
+
 #import "UITableViewCell+Animated.h"
 #import "UIView+Animated.h"
 

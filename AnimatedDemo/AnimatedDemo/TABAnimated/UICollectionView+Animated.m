@@ -17,17 +17,14 @@
 + (void)load {
     
     // Ensure that the exchange method executed only once.
-    // 保证交换方法只执行一次
     static dispatch_once_t onceToken;
     
     dispatch_once(&onceToken, ^{
         
         // Gets the viewDidLoad method to the class,whose type is a pointer to a objc_method structure.
-        // 获取到这个类的viewDidLoad方法，它的类型是一个objc_method结构体的指针
         Method originMethod = class_getInstanceMethod([self class], @selector(setDelegate:));
         
         // Get the method you created.
-        // 获取自己创建的方法
         Method newMethod = class_getInstanceMethod([self class], @selector(tab_setDelegate:));
         
         IMP newIMP = method_getImplementation(newMethod);
@@ -36,10 +33,10 @@
         
         if (isAdd) {
             
-            //replace
+            // replace
             class_replaceMethod([self class], @selector(setDelegate:), newIMP, method_getTypeEncoding(newMethod));
         }else {
-            //exchange
+            // exchange
             method_exchangeImplementations(originMethod, newMethod);
         }
         
@@ -58,18 +55,30 @@
     [self exchangeCollectionDelegateMethod:oldSelector withNewSel:newSelector withCollectionDelegate:delegate];
     
     [self tab_setDelegate:delegate];
+    
 }
 
 #pragma mark - TABCollectionViewDelegate
 
 - (NSInteger)tab_numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     
+    // get the count of sections safely.
     NSNumber *value = objc_getAssociatedObject(self, @selector(numberOfSections));
     
     if (collectionView.animatedStyle == TABCollectionViewAnimationStart) {
         return ([value integerValue] > 0)?[value integerValue]:1;
     }
-    return [self tab_numberOfSectionsInCollectionView:collectionView];
+    
+    // judge is add tab_numberOfSectionsInCollectionView or not.
+    Method newMethod = class_getInstanceMethod([self class], @selector(tab_numberOfSectionsInCollectionView:));
+    IMP newIMP = method_getImplementation(newMethod);
+    
+    BOOL isAdd = class_addMethod([collectionView class], @selector(tab_numberOfSectionsInCollectionView:), newIMP, method_getTypeEncoding(newMethod));
+    
+    if (isAdd) {
+        return [self tab_numberOfSectionsInCollectionView:collectionView];
+    }
+    return 1;
 }
 
 - (NSInteger)tab_collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
@@ -78,11 +87,6 @@
         return collectionView.animatedCount;
     }
     return [self tab_collectionView:collectionView numberOfItemsInSection:section];
-}
-
-- (UICollectionViewCell *)tab_collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-
-    return [self tab_collectionView:collectionView cellForItemAtIndexPath:indexPath];
 }
 
 #pragma mark - Private Methods
@@ -120,7 +124,7 @@
 
 - (void)setAnimatedStyle:(TABViewAnimationStyle)animatedStyle {
 
-    // 动画开启过程中设置为不可滚动,不接触触摸事件
+    // If the animation started, disable touch events.
     if (animatedStyle == 4) {
         [self setScrollEnabled:NO];
         [self setAllowsSelection:NO];
