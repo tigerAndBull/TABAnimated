@@ -9,7 +9,6 @@
 #import "AppDelegate.h"
 
 #import "MainViewController.h"
-
 #import "TABAnimated.h"
 
 @interface AppDelegate ()
@@ -28,6 +27,10 @@
     
     MainViewController *vc = [[MainViewController alloc] init];
     _nav = [[UINavigationController alloc]initWithRootViewController:vc];
+    
+    CGRect rectNav = _nav.navigationBar.frame;
+    NSLog(@"nav width - %f", rectNav.size.width);    // 宽度
+    NSLog(@"nav height - %f", rectNav.size.height);  // 高度
     
     [self.window setRootViewController:_nav];
     [self.window makeKeyAndVisible];

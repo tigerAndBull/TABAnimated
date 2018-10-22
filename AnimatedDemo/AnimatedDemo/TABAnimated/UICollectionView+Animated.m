@@ -35,7 +35,7 @@
             
             // replace
             class_replaceMethod([self class], @selector(setDelegate:), newIMP, method_getTypeEncoding(newMethod));
-        }else {
+        } else {
             // exchange
             method_exchangeImplementations(originMethod, newMethod);
         }
@@ -97,7 +97,6 @@
     Method oldMethod_self = class_getInstanceMethod([self class], oldSelector);
     Method newMethod = class_getInstanceMethod([self class], newSelector);
     
-    // 若未实现代理方法，则先添加代理方法
     BOOL isSuccess = class_addMethod([delegate class], oldSelector, class_getMethodImplementation([self class], newSelector), method_getTypeEncoding(newMethod));
     
     if (isSuccess) {
@@ -105,7 +104,7 @@
         class_replaceMethod([delegate class], newSelector, class_getMethodImplementation([self class], oldSelector), method_getTypeEncoding(oldMethod_self));
     } else {
         
-        // 若已实现代理方法，则添加 hook 方法并进行交换
+        // exchange
         BOOL isVictory = class_addMethod([delegate class], newSelector, class_getMethodImplementation([delegate class], oldSelector), method_getTypeEncoding(oldMethod_del));
         if (isVictory) {
             class_replaceMethod([delegate class], oldSelector, class_getMethodImplementation([self class], newSelector), method_getTypeEncoding(newMethod));
@@ -128,7 +127,7 @@
     if (animatedStyle == 4) {
         [self setScrollEnabled:NO];
         [self setAllowsSelection:NO];
-    }else {
+    } else {
         [self setScrollEnabled:YES];
         [self setAllowsSelection:YES];
     }

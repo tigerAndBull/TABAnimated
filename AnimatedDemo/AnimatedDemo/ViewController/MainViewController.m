@@ -12,6 +12,7 @@
 #import "MoreViewController.h"
 #import "MoreTableViewController.h"
 #import "TestCollectionViewController.h"
+#import "LabWithLinesViewController.h"
 
 #import "TABMethod.h"
 #import "AppDelegate.h"
@@ -62,7 +63,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 5;
+    return 6;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
@@ -97,6 +98,10 @@
                 }else {
                     if (indexPath.row == 4) {
                         cell.textLabel.text = @"UICollectionView 示例";
+                    }else {
+                        if (indexPath.row == 5) {
+                            cell.textLabel.text = @"多行文本 示例";
+                        }
                     }
                 }
             }
@@ -132,6 +137,12 @@
                         
                         TestCollectionViewController *vc = [[TestCollectionViewController alloc]init];
                         [kAPPDELEGATE.nav pushViewController:vc animated:YES];
+                    }else {
+                        if (indexPath.row == 5) {
+                            
+                            LabWithLinesViewController *vc = [[LabWithLinesViewController alloc]init];
+                            [kAPPDELEGATE.nav pushViewController:vc animated:YES];
+                        }
                     }
                 }
             }

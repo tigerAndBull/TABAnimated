@@ -1,35 +1,37 @@
 //
-//  XibTestViewController.m
+//  LabWithLinesViewController.m
 //  AnimatedDemo
 //
-//  Created by tigerAndBull on 2018/10/7.
+//  Created by tigerAndBull on 2018/10/22.
 //  Copyright © 2018年 tigerAndBull. All rights reserved.
 //
 
-#import "XibTestViewController.h"
-
-#import "XIBTableViewCell.h"
+#import "LabWithLinesViewController.h"
 
 #import "TABAnimated.h"
 
+#import "LabWithLinesViewCell.h"
+
 #import "Game.h"
 
-@interface XibTestViewController () <UITableViewDelegate,UITableViewDataSource> {
+@interface LabWithLinesViewController () <UITableViewDelegate,UITableViewDataSource> {
     
     NSMutableArray *dataArray;
 }
 
-@property (nonatomic, strong) UITableView *mainTV;
+@property (nonatomic,strong) UITableView *mainTV;
 
 @end
 
-@implementation XibTestViewController
+@implementation LabWithLinesViewController
 
 #pragma mark - LifeCycle
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    [self initData];
     [self initUI];
     
     // 假设3秒后，获取到数据了，代码具体位置看你项目了。
@@ -38,7 +40,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.title = @"Xib 示例";
+    self.title = @"多行文本 示例";
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -75,15 +77,12 @@
     }
     
     // 停止动画,并刷新数据
-    _mainTV.animatedStyle = TABTableViewAnimationEnd;
+    self.mainTV.animatedStyle = TABTableViewAnimationEnd;
     [_mainTV reloadData];
+
 }
 
 #pragma mark - UITableViewDataSource & UITableViewDelegate
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
-}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return dataArray.count;
@@ -99,21 +98,23 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    static NSString *str = @"XIBTableViewCell";
-    XIBTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:str];
-
+    static NSString *str = @"LabWithLinesViewCell";
+    LabWithLinesViewCell *cell = [tableView dequeueReusableCellWithIdentifier:str];
     if (!cell) {
-        NSArray *cellArray = [[NSBundle mainBundle] loadNibNamed:@"XIBTableViewCell" owner:self options:nil];
-        cell = [cellArray objectAtIndex:0];
+        cell = [[LabWithLinesViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:str];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
     // 在加载动画的时候，即未获得数据时，不要走加载控件数据的方法
-    if (_mainTV.animatedStyle != TABTableViewAnimationStart) {
-        // 这里刷新走刷新视图的方法
-        
+    if (self.mainTV.animatedStyle != TABTableViewAnimationStart) {
+        [cell initWithData:dataArray[indexPath.row]];
     }
     
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
 }
 
 #pragma mark - Initize Methods
@@ -142,8 +143,9 @@
         _mainTV.animatedStyle = TABTableViewAnimationStart;  // 开启动画
         _mainTV.delegate = self;
         _mainTV.dataSource = self;
-        _mainTV.rowHeight = 44;
+        _mainTV.rowHeight = 100;
         _mainTV.backgroundColor = [UIColor whiteColor];
+        _mainTV.estimatedRowHeight = 0;
         _mainTV.estimatedSectionFooterHeight = 0;
         _mainTV.estimatedSectionHeaderHeight = 0;
         _mainTV.separatorStyle = UITableViewCellSeparatorStyleNone;

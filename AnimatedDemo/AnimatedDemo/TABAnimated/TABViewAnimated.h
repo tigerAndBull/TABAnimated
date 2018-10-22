@@ -15,7 +15,6 @@
 
 @property (nonatomic) CGFloat animatedDuration;             // default is 0.4. the duartion of your animations.
 @property (nonatomic,strong) UIColor *animatedColor;          // default is 0xEEEEEE. the backgroundcolor of your animations.
-@property (nonatomic,strong) NSMutableArray *superArray;         // keep superViews'addresses.
 
 /**
  SingleTon

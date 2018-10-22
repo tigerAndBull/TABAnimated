@@ -20,6 +20,7 @@
 
 + (void)load {
     
+    
     static dispatch_once_t onceToken;
     
     dispatch_once(&onceToken, ^{
@@ -38,8 +39,8 @@
         
         if (isAdd) {
             // replace
-            class_replaceMethod([self class], @selector(layoutSubviews), newIMP, method_getTypeEncoding(newMethod));
-        }else {
+                class_replaceMethod([self class], @selector(layoutSubviews), newIMP, method_getTypeEncoding(newMethod));
+        } else {
             // exchange
             method_exchangeImplementations(originMethod, newMethod);
             
@@ -50,10 +51,10 @@
 #pragma mark - Exchange Method
 
 - (void)tab_collection_layoutSubviews {
-    
+
     [self tab_collection_layoutSubviews];
     
-    // 运行动画/移除动画
+    // start animation/end animation
     dispatch_async(dispatch_get_main_queue(), ^{
         
         [[TABViewAnimated sharedAnimated]startOrEndCollectionAnimated:self];

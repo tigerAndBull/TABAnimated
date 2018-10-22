@@ -35,7 +35,7 @@
         if (isAdd) {
             // replace
             class_replaceMethod([self class], @selector(layoutSubviews), newIMP, method_getTypeEncoding(newMethod));
-        }else {
+        } else {
             // exchange
             method_exchangeImplementations(originMethod, newMethod);
         }
