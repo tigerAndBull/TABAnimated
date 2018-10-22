@@ -60,8 +60,8 @@
         UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, self.frame.size.height-20, self.frame.size.height-20)];
         img.contentMode = UIViewContentModeScaleAspectFill;
         img.layer.masksToBounds = YES;
-        img.backgroundColor = tab_kBackColor;
         img.layer.cornerRadius = img.frame.size.height/2;
+        img.loadStyle = TABViewLoadAnimationWithOnlySkeleton;
         
         headImg = img;
         [self addSubview:img];

@@ -48,14 +48,14 @@
     [super layoutSubviews];
 
     //获取对应组件文本大小
-    CGSize titleSize = [TABMethod tab_getSizeWithText:titleLab.text sizeWithFont:tab_kFont(15) constrainedToSize:CGSizeMake(MAXFLOAT, 25)];
+    CGSize titleSize = [TABMethod tab_getSizeWithText:titleLab.text sizeWithFont:tab_kFont(15) constrainedToSize:CGSizeMake(MAXFLOAT, 10)];
     CGSize timeSize = [TABMethod tab_getSizeWithText:timeLab.text sizeWithFont:tab_kFont(12) constrainedToSize:CGSizeMake(MAXFLOAT, 25)];
 
     //布局
     gameImg.frame = CGRectMake(15, 10, (self.frame.size.height-20)*1.5, (self.frame.size.height-20));
     gameImg.layer.cornerRadius = 5;
 
-    titleLab.frame = CGRectMake(CGRectGetMaxX(gameImg.frame)+15, 10, titleSize.width, titleSize.height);
+    titleLab.frame = CGRectMake(CGRectGetMaxX(gameImg.frame)+15, 10, titleSize.width, 20);
     timeLab.frame = CGRectMake(CGRectGetMaxX(gameImg.frame)+15, CGRectGetMaxY(titleLab.frame)+5, timeSize.width,15);
     statusBtn.frame = CGRectMake(CGRectGetMaxX(gameImg.frame)+15, CGRectGetMaxY(timeLab.frame)+5+5,70, 20);
 
@@ -68,7 +68,7 @@
 
 - (void)initWithData:(Game *)game {
     
-    titleLab.text = [NSString stringWithFormat:@"赛事标题赛事标题标题%@～",game.gameId];
+    titleLab.text = [NSString stringWithFormat:@"赛事标题赛事标题%@～",game.gameId];
     timeLab.text = @"报名时间：2018-09-12";
     [gameImg setImage:[UIImage imageNamed:@"test.jpg"]];
     
@@ -82,8 +82,8 @@
     
     {
         UIImageView *iv = [[UIImageView alloc] init];
-        iv.backgroundColor = tab_kBackColor;
         iv.contentMode = UIViewContentModeScaleAspectFill;
+        iv.loadStyle = TABViewLoadAnimationWithOnlySkeleton;
         iv.layer.masksToBounds = YES;
         
         gameImg = iv;
@@ -115,10 +115,10 @@
     {
         UIButton *btn = [[UIButton alloc]init];
         [btn setTitle:@"" forState:UIControlStateNormal];
-        btn.backgroundColor = tab_kBackColor;
+        btn.loadStyle = TABViewLoadAnimationWithOnlySkeleton;
         [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [btn.titleLabel setFont:tab_kFont(12)];
-
+        
         statusBtn = btn;
         [self.contentView addSubview:btn];
     }

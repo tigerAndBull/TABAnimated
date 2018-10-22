@@ -10,9 +10,10 @@
 
 // the type of animation.
 typedef NS_ENUM(NSInteger,TABViewLoadAnimationStyle) {
-    TABViewLoadAnimationDefault = 0,     // default,没有动画
-    TABViewLoadAnimationShort,           // 动画先变短再变长
-    TABViewLoadAnimationLong             // 动画先变长再变短
+    TABViewLoadAnimationDefault = 0,           // default,没有动画
+    TABViewLoadAnimationShort,                 // 动画先变短再变长
+    TABViewLoadAnimationLong,                  // 动画先变长再变短
+    TABViewLoadAnimationWithOnlySkeleton,      // 只有骨架层
 };
 
 // the animation status to UIView or UICollectionView.
@@ -31,6 +32,6 @@ typedef NS_ENUM(NSInteger,TABViewAnimationStyle) {
 @property (nonatomic) TABViewLoadAnimationStyle loadStyle;
 @property (nonatomic) TABViewAnimationStyle animatedStyle;
 
-@property (nonatomic) CGFloat tabViewWidth;   // width of view to you appiont it, default is your phone screen's width / 3, you can also custom it.
+@property (nonatomic) CGFloat tabViewWidth;    // width of view to you appiont it, default is your phone screen's width / 3, you can also custom it.
 
 @end

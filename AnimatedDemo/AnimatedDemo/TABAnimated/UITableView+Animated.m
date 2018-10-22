@@ -20,7 +20,7 @@
     dispatch_once(&onceToken, ^{
         
         // Gets the viewDidLoad method to the class,whose type is a pointer to a objc_method structure.
-        Method  originMethod = class_getInstanceMethod([self class], @selector(setDataSource:));
+        Method originMethod = class_getInstanceMethod([self class], @selector(setDataSource:));
         
         // Get the method you created.
         Method newMethod = class_getInstanceMethod([self class], @selector(tab_setDataSource:));
@@ -32,8 +32,9 @@
         if (isAdd) {
             
             // replace
-            class_replaceMethod([self class], @selector(setDelegate:), newIMP, method_getTypeEncoding(newMethod));
+            class_replaceMethod([self class], @selector(setDataSource:), newIMP, method_getTypeEncoding(newMethod));
         }else {
+            
             // exchange
             method_exchangeImplementations(originMethod, newMethod);
         }
@@ -46,11 +47,9 @@
     SEL oldSelector = @selector(tableView:numberOfRowsInSection:);
     SEL newSelector = @selector(tab_tableView:numberOfRowsInSection:);
     
-    SEL oldSectionSelector = @selector(numberOfSectionsInTableView:);
-    SEL newSectionSelector = @selector(tab_numberOfSectionsInTableView:);
-    
-    [self exchangeTableDataSourceMethod:oldSelector withNewSel:newSelector withTableDelegate:dataSource];
-    [self exchangeTableDataSourceMethod:oldSectionSelector withNewSel:newSectionSelector withTableDelegate:dataSource];
+    if ([self.delegate respondsToSelector:oldSelector]) {
+        [self exchangeTableDelegateMethod:oldSelector withNewSel:newSelector withTableDelegate:dataSource];
+    }
     
     [self tab_setDataSource:dataSource];
 }
@@ -66,38 +65,17 @@
     return [self tab_tableView:tableView numberOfRowsInSection:section];
 }
 
-- (NSInteger)tab_numberOfSectionsInTableView:(UITableView *)tableView {
-    
-    // get the count of sections safely.
-    NSNumber *value = objc_getAssociatedObject(self, @selector(numberOfSections));
-    
-    if (tableView.animatedStyle == TABTableViewAnimationStart) {
-        return ([value integerValue] > 0)?[value integerValue]:1;
-    }
-    
-    // judge is add tab_numberOfSectionsInCollectionView or not.
-    Method newMethod = class_getInstanceMethod([self class], @selector(tab_numberOfSectionsInTableView:));
-    IMP newIMP = method_getImplementation(newMethod);
-    
-    BOOL isAdd = class_addMethod([tableView class], @selector(tab_numberOfSectionsInTableView:), newIMP, method_getTypeEncoding(newMethod));
-    
-    if (isAdd) {
-        return [self tab_numberOfSectionsInTableView:tableView];
-    }
-    return 1;
-}
-
 #pragma mark - Private Methods
 
 
 /**
  exchange method
-
+ 
  @param oldSelector old method's sel
  @param newSelector new method's sel
  @param delegate return nil
  */
-- (void)exchangeTableDataSourceMethod:(SEL)oldSelector withNewSel:(SEL)newSelector withTableDelegate:(id<UITableViewDataSource>)delegate {
+- (void)exchangeTableDelegateMethod:(SEL)oldSelector withNewSel:(SEL)newSelector withTableDelegate:(id<UITableViewDataSource>)delegate {
     
     Method oldMethod_del = class_getInstanceMethod([delegate class], oldSelector);
     Method oldMethod_self = class_getInstanceMethod([self class], oldSelector);
@@ -122,7 +100,7 @@
 - (TABTableViewAnimationStyle)animatedStyle {
     
     NSNumber *value = objc_getAssociatedObject(self, @selector(animatedStyle));
-
+    
     // If the animation is running, disable touch events.
     if (value.intValue == 1) {
         self.scrollEnabled = NO;

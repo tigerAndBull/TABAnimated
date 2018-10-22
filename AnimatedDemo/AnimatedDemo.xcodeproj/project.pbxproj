@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		20187D78217E206D00C20EC9 /* MyLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 20187D77217E206D00C20EC9 /* MyLabel.m */; };
+		20187D7B217E20D800C20EC9 /* LabWithLinesViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 20187D7A217E20D800C20EC9 /* LabWithLinesViewCell.m */; };
+		20187D7E217E21BB00C20EC9 /* LabWithLinesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20187D7D217E21BB00C20EC9 /* LabWithLinesViewController.m */; };
 		20243539216AF37400617821 /* MoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20243538216AF37400617821 /* MoreViewController.m */; };
 		2024353C216AF8B300617821 /* MoreTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2024353B216AF8B300617821 /* MoreTableViewController.m */; };
 		20A01591216A321E0082425D /* XIBTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A0158F216A321E0082425D /* XIBTableViewCell.m */; };
@@ -55,6 +58,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		20187D76217E206D00C20EC9 /* MyLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyLabel.h; sourceTree = "<group>"; };
+		20187D77217E206D00C20EC9 /* MyLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyLabel.m; sourceTree = "<group>"; };
+		20187D79217E20D800C20EC9 /* LabWithLinesViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LabWithLinesViewCell.h; sourceTree = "<group>"; };
+		20187D7A217E20D800C20EC9 /* LabWithLinesViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LabWithLinesViewCell.m; sourceTree = "<group>"; };
+		20187D7C217E21BB00C20EC9 /* LabWithLinesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LabWithLinesViewController.h; sourceTree = "<group>"; };
+		20187D7D217E21BB00C20EC9 /* LabWithLinesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LabWithLinesViewController.m; sourceTree = "<group>"; };
 		20243537216AF37400617821 /* MoreViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoreViewController.h; sourceTree = "<group>"; };
 		20243538216AF37400617821 /* MoreViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MoreViewController.m; sourceTree = "<group>"; };
 		2024353A216AF8B300617821 /* MoreTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoreTableViewController.h; sourceTree = "<group>"; };
@@ -138,6 +147,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		20187D75217E206700C20EC9 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				20187D76217E206D00C20EC9 /* MyLabel.h */,
+				20187D77217E206D00C20EC9 /* MyLabel.m */,
+			);
+			path = Util;
+			sourceTree = "<group>";
+		};
 		20A01593216A50540082425D /* XibView */ = {
 			isa = PBXGroup;
 			children = (
@@ -180,6 +198,7 @@
 		20A85BF22152248D0005AD62 /* AnimatedDemo */ = {
 			isa = PBXGroup;
 			children = (
+				20187D75217E206700C20EC9 /* Util */,
 				20A01594216A51A80082425D /* Sources */,
 				20A85C25215224B10005AD62 /* Model */,
 				20A85C28215224B10005AD62 /* TABAnimated */,
@@ -263,6 +282,8 @@
 				2024353B216AF8B300617821 /* MoreTableViewController.m */,
 				20BFBFF22170D647001887A9 /* TestCollectionViewController.h */,
 				20BFBFF32170D647001887A9 /* TestCollectionViewController.m */,
+				20187D7C217E21BB00C20EC9 /* LabWithLinesViewController.h */,
+				20187D7D217E21BB00C20EC9 /* LabWithLinesViewController.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -276,6 +297,8 @@
 				20BFBBA02153F3FF00136258 /* TestHeadView.m */,
 				20BFBFF82170D912001887A9 /* TestCollectionViewCell.h */,
 				20BFBFF92170D912001887A9 /* TestCollectionViewCell.m */,
+				20187D79217E20D800C20EC9 /* LabWithLinesViewCell.h */,
+				20187D7A217E20D800C20EC9 /* LabWithLinesViewCell.m */,
 			);
 			path = CustomView;
 			sourceTree = "<group>";
@@ -420,14 +443,17 @@
 				20A85C39215224B10005AD62 /* TABMethod.m in Sources */,
 				20BFBBB02155036300136258 /* UIView+TABLayerout.m in Sources */,
 				20A85C3A215224B10005AD62 /* UITableView+Animated.m in Sources */,
+				20187D78217E206D00C20EC9 /* MyLabel.m in Sources */,
 				20BFBFF12170D37B001887A9 /* UICollectionView+Animated.m in Sources */,
 				20A85C3C215224B10005AD62 /* UIView+Animated.m in Sources */,
 				20243539216AF37400617821 /* MoreViewController.m in Sources */,
 				20A85C3B215224B10005AD62 /* TABViewAnimated.m in Sources */,
 				20BFBBA12153F3FF00136258 /* TestHeadView.m in Sources */,
 				20A01597216A51FC0082425D /* XibTestViewController.m in Sources */,
+				20187D7E217E21BB00C20EC9 /* LabWithLinesViewController.m in Sources */,
 				20A85C032152248E0005AD62 /* main.m in Sources */,
 				20A85C3D215224B10005AD62 /* TestViewController.m in Sources */,
+				20187D7B217E20D800C20EC9 /* LabWithLinesViewCell.m in Sources */,
 				20BFBFF42170D647001887A9 /* TestCollectionViewController.m in Sources */,
 				20A85BF52152248D0005AD62 /* AppDelegate.m in Sources */,
 				2024353C216AF8B300617821 /* MoreTableViewController.m in Sources */,
