@@ -1,4 +1,15 @@
 
+**2018 - 10 - 22 重要更新！**
+
+>1. 支持多行文本～
+>2. loadStyle 新增 TABViewLoadAnimationWithOnlySkeleton
+      意为：组件设置该属性后，可以暴露骨架，但不会产生动画
+>3. 解决多个section失效问题
+>4. 解决静态tableView崩溃问题
+（后面效果图已更新）
+
+*******************************
+
 **2018 - 10 - 15 重要更新！**
 
 >1. 支持组件UICollectionView，后面有效果图～
@@ -37,7 +48,7 @@
 
 ## 效果图
 
-![效果图.gif](https://upload-images.jianshu.io/upload_images/5632003-2ba3ca837229b949.gif?imageMogr2/auto-orient/strip)
+![效果图.gif](https://upload-images.jianshu.io/upload_images/5632003-4d40e7dd162ae383.gif?imageMogr2/auto-orient/strip)
 
 ## 说明
 >1. 本文主要讲解如何将[demo](https://github.com/tigerAndBull/LoadAnimatedDemo-ios)集成到你的项目中，并使用，同时也算是抛砖引玉了，大佬们要是有更好的封装方法，求之不得。
