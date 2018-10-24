@@ -7,7 +7,9 @@
 //
 
 #import "UITableView+Animated.h"
+
 #import <objc/runtime.h>
+
 #import "TABViewAnimated.h"
 
 @implementation UITableView (Animated)
@@ -81,16 +83,22 @@
     Method oldMethod_self = class_getInstanceMethod([self class], oldSelector);
     Method newMethod = class_getInstanceMethod([self class], newSelector);
     
-    BOOL isSuccess = class_addMethod([delegate class], oldSelector, class_getMethodImplementation([self class], newSelector), method_getTypeEncoding(newMethod));
-    
-    if (isSuccess) {
+    if ([self isKindOfClass:[delegate class]]) {
+        method_exchangeImplementations(oldMethod_del, newMethod);
         
-        class_replaceMethod([delegate class], newSelector, class_getMethodImplementation([self class], oldSelector), method_getTypeEncoding(oldMethod_self));
     } else {
         
-        BOOL isVictory = class_addMethod([delegate class], newSelector, class_getMethodImplementation([delegate class], oldSelector), method_getTypeEncoding(oldMethod_del));
-        if (isVictory) {
-            class_replaceMethod([delegate class], oldSelector, class_getMethodImplementation([self class], newSelector), method_getTypeEncoding(newMethod));
+        BOOL isSuccess = class_addMethod([delegate class], oldSelector, class_getMethodImplementation([self class], newSelector), method_getTypeEncoding(newMethod));
+        
+        if (isSuccess) {
+            
+            class_replaceMethod([delegate class], newSelector, class_getMethodImplementation([self class], oldSelector), method_getTypeEncoding(oldMethod_self));
+        } else {
+            
+            BOOL isVictory = class_addMethod([delegate class], newSelector, class_getMethodImplementation([delegate class], oldSelector), method_getTypeEncoding(oldMethod_del));
+            if (isVictory) {
+                class_replaceMethod([delegate class], oldSelector, class_getMethodImplementation([self class], newSelector), method_getTypeEncoding(newMethod));
+            }
         }
     }
 }
