@@ -1,8 +1,24 @@
+**2018 - 10 - 29 更新 及补充说明**
 
-**2018 - 10 - 24 晚更新**
+1.  新增初始化方法,可以设置动画执行时伸展时的宽度
+```
+/**
+to set your animations' toValue
 
->1. 修复UITableView的代理为自己时无动画效果的问题
->2. 因不少小伙伴私信动画效果出不来，大部分因为是组件高度为0导致，除多行文本外，目前不支持自适应高度
+ @param duration back and forth
+ @param color backgroundcolor
+ @param longToValue toValue for LongAnimation
+ @param shortToValue toValue for ShortAnimation
+ */
+- (void)initWithAnimatedDuration:(CGFloat)duration
+                       withColor:(UIColor *)color
+                 withLongToValue:(CGFloat)longToValue
+                withShortToValue:(CGFloat)shortToValue;
+```
+2.  self.delegate = self，暂时不支持这种情况，很抱歉(当然建议不要自己代理自己)
+3. 安全性更新，放心使用UICollectionView相关，有问题可以私聊我
+4. pod更新，建议下载最新版本 1.4.0，向下兼容
+5. delegate和dataSource 需要先设置delegate，后续会进行优化
 
 *******************************
 
