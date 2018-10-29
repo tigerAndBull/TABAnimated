@@ -148,7 +148,9 @@ static CGFloat defaultSpaceWithLines = 10.f;   // use to label with row is not o
 
 #pragma mark - Private Methods
 
-- (void)addLinesLabAnimated:(UILabel *)lab withColor:(UIColor *)color withSuperView:(UIView *)superView{
+- (void)addLinesLabAnimated:(UILabel *)lab
+                  withColor:(UIColor *)color
+              withSuperView:(UIView *)superView{
     
     CGFloat textHeight = [lab.text sizeWithAttributes:@{NSFontAttributeName:lab.font}].height*0.9;
     
@@ -257,7 +259,8 @@ static CGFloat defaultSpaceWithLines = 10.f;   // use to label with row is not o
 
  @param view 需要动画的view
  */
-- (void)changeFrameWithView:(UIView *)view withSuperView:(UIView *)superView {
+- (void)changeFrameWithView:(UIView *)view
+              withSuperView:(UIView *)superView {
     
     // If the view's width is zero,set up it's width.
     // 如果组件宽度为0，则设置默认宽度
@@ -283,7 +286,8 @@ static CGFloat defaultSpaceWithLines = 10.f;   // use to label with row is not o
     }
 }
 
-- (void)changeFrameWithLabOfLines:(UILabel *)lab withSuperView:(UIView *)superView {
+- (void)changeFrameWithLabOfLines:(UILabel *)lab
+                    withSuperView:(UIView *)superView {
 
     // If the view's width is zero,set up it's width.
     // 如果组件宽度为0，则设置默认宽度
@@ -318,12 +322,12 @@ static CGFloat defaultSpaceWithLines = 10.f;   // use to label with row is not o
     switch (style) {
             
         case TABViewLoadAnimationShort:{
-            anim.toValue = @0.6;
+            anim.toValue = (_longToValue > 0)?@0.6:@(_longToValue);
         }
         break;
             
         case TABViewLoadAnimationLong:{
-            anim.toValue = @1.6;
+            anim.toValue = (_shortToValue > 0)?@1.6:@(_shortToValue);
         }
         break;
             
@@ -360,11 +364,26 @@ static CGFloat defaultSpaceWithLines = 10.f;   // use to label with row is not o
     return self;
 }
 
-- (void)initWithAnimatedDuration:(CGFloat)duration withColor:(UIColor *)color {
+- (void)initWithAnimatedDuration:(CGFloat)duration
+                       withColor:(UIColor *)color {
     
     if (self) {
         _animatedDuration = duration;
         _animatedColor = color;
+    }
+}
+
+
+- (void)initWithAnimatedDuration:(CGFloat)duration
+                       withColor:(UIColor *)color
+                 withLongToValue:(CGFloat)longToValue
+                withShortToValue:(CGFloat)shortToValue {
+    
+    if (self) {
+        _animatedDuration = duration;
+        _animatedColor = color;
+        _shortToValue = shortToValue;
+        _longToValue = longToValue;
     }
 }
 
@@ -374,7 +393,9 @@ static CGFloat defaultSpaceWithLines = 10.f;   // use to label with row is not o
  @param view 需要动画的view
  @param color 动画颜色
  */
-- (void)initLayerWithView:(UIView *)view withSuperView:(UIView *)superView withColor:(UIColor *)color {
+- (void)initLayerWithView:(UIView *)view
+            withSuperView:(UIView *)superView
+                withColor:(UIColor *)color {
     
     // adaptive the label with row is not one
     if ([view isKindOfClass:[UILabel class]]) {
@@ -434,7 +455,9 @@ static CGFloat defaultSpaceWithLines = 10.f;   // use to label with row is not o
  @param view 需要动画的view
  @param color 动画颜色
  */
-- (void)initLayerWithCollectionView:(UIView *)view withSuperView:(UIView *)superView withColor:(UIColor *)color {
+- (void)initLayerWithCollectionView:(UIView *)view
+                      withSuperView:(UIView *)superView
+                          withColor:(UIColor *)color {
     
     // 自适应动画长度
     [self changeFrameWithView:view withSuperView:superView];

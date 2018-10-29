@@ -80,7 +80,6 @@
 
 #pragma mark - UICollectionViewDelegate & UICollectionViewDataSource
 
-
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return dataArray.count;
 }

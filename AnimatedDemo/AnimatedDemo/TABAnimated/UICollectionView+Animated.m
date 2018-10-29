@@ -45,41 +45,16 @@
 
 - (void)tab_setDelegate:(id<UICollectionViewDelegate>)delegate {
     
-    SEL oldSelector = @selector(numberOfSectionsInCollectionView:);
-    SEL newSelector = @selector(tab_numberOfSectionsInCollectionView:);
-    
     SEL oldSectionSelector = @selector(collectionView:numberOfItemsInSection:);
     SEL newSectionSelector = @selector(tab_collectionView:numberOfItemsInSection:);
     
     [self exchangeCollectionDelegateMethod:oldSectionSelector withNewSel:newSectionSelector withCollectionDelegate:delegate];
-    [self exchangeCollectionDelegateMethod:oldSelector withNewSel:newSelector withCollectionDelegate:delegate];
     
     [self tab_setDelegate:delegate];
     
 }
 
 #pragma mark - TABCollectionViewDelegate
-
-- (NSInteger)tab_numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    
-    // get the count of sections safely.
-    NSNumber *value = objc_getAssociatedObject(self, @selector(numberOfSections));
-    
-    if (collectionView.animatedStyle == TABCollectionViewAnimationStart) {
-        return ([value integerValue] > 0)?[value integerValue]:1;
-    }
-    
-    // judge is add tab_numberOfSectionsInCollectionView or not.
-    Method newMethod = class_getInstanceMethod([self class], @selector(tab_numberOfSectionsInCollectionView:));
-    IMP newIMP = method_getImplementation(newMethod);
-    
-    BOOL isAdd = class_addMethod([collectionView class], @selector(tab_numberOfSectionsInCollectionView:), newIMP, method_getTypeEncoding(newMethod));
-    
-    if (isAdd) {
-        return [self tab_numberOfSectionsInCollectionView:collectionView];
-    }
-    return 1;
-}
 
 - (NSInteger)tab_collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     
@@ -91,7 +66,9 @@
 
 #pragma mark - Private Methods
 
-- (void)exchangeCollectionDelegateMethod:(SEL)oldSelector withNewSel:(SEL)newSelector withCollectionDelegate:(id<UICollectionViewDelegate>)delegate {
+- (void)exchangeCollectionDelegateMethod:(SEL)oldSelector
+                              withNewSel:(SEL)newSelector
+                  withCollectionDelegate:(id<UICollectionViewDelegate>)delegate {
     
     Method oldMethod_del = class_getInstanceMethod([delegate class], oldSelector);
     Method oldMethod_self = class_getInstanceMethod([self class], oldSelector);

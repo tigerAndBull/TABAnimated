@@ -10,15 +10,15 @@
 
 @interface Game:NSObject
 
-@property (nonatomic,strong) NSString *gameId;
+@property (nonatomic, strong) NSString *gameId;
 
-@property (nonatomic,strong) NSString *content;
+@property (nonatomic, strong) NSString *content;
 
-@property (nonatomic,strong) NSString *title;
+@property (nonatomic, strong) NSString *title;
 
-@property (nonatomic,strong) NSString *cover;
+@property (nonatomic, strong) NSString *cover;
 
-@property (nonatomic,strong) NSString *author;
+@property (nonatomic, strong) NSString *author;
 
 @property (nonatomic) long long openTime;
 

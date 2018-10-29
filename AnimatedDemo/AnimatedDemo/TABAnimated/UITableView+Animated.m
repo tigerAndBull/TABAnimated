@@ -23,7 +23,6 @@
         
         // Gets the viewDidLoad method to the class,whose type is a pointer to a objc_method structure.
         Method originMethod = class_getInstanceMethod([self class], @selector(setDataSource:));
-        
         // Get the method you created.
         Method newMethod = class_getInstanceMethod([self class], @selector(tab_setDataSource:));
         
@@ -77,15 +76,17 @@
  @param newSelector new method's sel
  @param delegate return nil
  */
-- (void)exchangeTableDelegateMethod:(SEL)oldSelector withNewSel:(SEL)newSelector withTableDelegate:(id<UITableViewDataSource>)delegate {
+- (void)exchangeTableDelegateMethod:(SEL)oldSelector
+                         withNewSel:(SEL)newSelector
+                  withTableDelegate:(id<UITableViewDataSource>)delegate {
     
     Method oldMethod_del = class_getInstanceMethod([delegate class], oldSelector);
     Method oldMethod_self = class_getInstanceMethod([self class], oldSelector);
     Method newMethod = class_getInstanceMethod([self class], newSelector);
     
     if ([self isKindOfClass:[delegate class]]) {
-        method_exchangeImplementations(oldMethod_del, newMethod);
-        
+          // If self.delegate = self,no animation.
+//        method_exchangeImplementations(oldMethod_del, newMethod);
     } else {
         
         BOOL isSuccess = class_addMethod([delegate class], oldSelector, class_getMethodImplementation([self class], newSelector), method_getTypeEncoding(newMethod));
