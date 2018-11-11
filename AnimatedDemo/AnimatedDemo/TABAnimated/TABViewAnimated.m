@@ -281,6 +281,12 @@ static CGFloat defaultSpaceWithLines = 10.f;   // use to label with row is not o
         }else {
             if (view.loadStyle == TABViewLoadAnimationLong) {
                 view.frame = CGRectMake(view.frame.origin.x, view.frame.origin.y, view.tabViewWidth>0?view.tabViewWidth:shortAimatedWidth, view.frame.size.height);
+            }else {
+                if (view.tabViewWidth != 0) {
+                    view.frame = CGRectMake(view.frame.origin.x, view.frame.origin.y, view.tabViewWidth, view.frame.size.height);
+                }else {
+                    view.frame = CGRectMake(view.frame.origin.x, view.frame.origin.y, longAimatedWidth, view.frame.size.height);
+                }
             }
         }
     }
@@ -470,7 +476,10 @@ static CGFloat defaultSpaceWithLines = 10.f;   // use to label with row is not o
     layer.anchorPoint = CGPointMake(0, 0);
     layer.position = CGPointMake(0, 0);
     layer.name = @"TABLayer";
-    [layer addAnimation:[self scaleXAnimation:view.loadStyle] forKey:@"scaleAnimation"];
+    
+    if (view.loadStyle != TABViewLoadAnimationWithOnlySkeleton) {
+        [layer addAnimation:[self scaleXAnimation:view.loadStyle] forKey:@"scaleAnimation"];
+    }
     
     [layerArray addObject:layer];
     [view.layer addSublayer:layer];

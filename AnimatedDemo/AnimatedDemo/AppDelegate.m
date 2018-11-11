@@ -11,7 +11,9 @@
 #import "MainViewController.h"
 #import "TABAnimated.h"
 
-@interface AppDelegate ()
+#import "TestCollectionView.h"
+
+@interface AppDelegate ()<UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 
 @end
 
@@ -22,14 +24,24 @@
     
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     
-    //设置TABAnimated相关属性
+    // 设置TABAnimated相关属性
     [[TABViewAnimated sharedAnimated]initWithAnimatedDuration:0.4 withColor:tab_kBackColor withLongToValue:0.8 withShortToValue:0.3];
     
     MainViewController *vc = [[MainViewController alloc] init];
     _nav = [[UINavigationController alloc]initWithRootViewController:vc];
     
+    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+    layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+    TestCollectionView *collectionView = [[TestCollectionView alloc] initWithFrame:self.window.bounds collectionViewLayout:layout];
+    collectionView.backgroundColor = [UIColor clearColor];
+    collectionView.showsHorizontalScrollIndicator = NO;
+    collectionView.showsVerticalScrollIndicator = NO;
+    collectionView.delegate = self;
+    collectionView.dataSource = self;
+    
     [self.window setRootViewController:_nav];
     [self.window makeKeyAndVisible];
+    
     return YES;
 }
 

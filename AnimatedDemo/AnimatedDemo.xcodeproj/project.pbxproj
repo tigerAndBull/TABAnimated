@@ -16,6 +16,7 @@
 		20A01592216A321E0082425D /* XIBTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 20A01590216A321E0082425D /* XIBTableViewCell.xib */; };
 		20A01597216A51FC0082425D /* XibTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A01596216A51FC0082425D /* XibTestViewController.m */; };
 		20A0159A216A538F0082425D /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A01599216A538F0082425D /* MainViewController.m */; };
+		20A7BE9021986DB0006186DB /* TestCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A7BE8F21986DB0006186DB /* TestCollectionView.m */; };
 		20A85BF52152248D0005AD62 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A85BF42152248D0005AD62 /* AppDelegate.m */; };
 		20A85BF82152248D0005AD62 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A85BF72152248D0005AD62 /* ViewController.m */; };
 		20A85BFD2152248E0005AD62 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 20A85BFC2152248E0005AD62 /* Assets.xcassets */; };
@@ -75,6 +76,8 @@
 		20A01596216A51FC0082425D /* XibTestViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XibTestViewController.m; sourceTree = "<group>"; };
 		20A01598216A538F0082425D /* MainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		20A01599216A538F0082425D /* MainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		20A7BE8E21986DAF006186DB /* TestCollectionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestCollectionView.h; sourceTree = "<group>"; };
+		20A7BE8F21986DB0006186DB /* TestCollectionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestCollectionView.m; sourceTree = "<group>"; };
 		20A85BF02152248D0005AD62 /* AnimatedDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AnimatedDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		20A85BF32152248D0005AD62 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		20A85BF42152248D0005AD62 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -284,6 +287,8 @@
 				20BFBFF32170D647001887A9 /* TestCollectionViewController.m */,
 				20187D7C217E21BB00C20EC9 /* LabWithLinesViewController.h */,
 				20187D7D217E21BB00C20EC9 /* LabWithLinesViewController.m */,
+				20A7BE8E21986DAF006186DB /* TestCollectionView.h */,
+				20A7BE8F21986DB0006186DB /* TestCollectionView.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -452,6 +457,7 @@
 				20A01597216A51FC0082425D /* XibTestViewController.m in Sources */,
 				20187D7E217E21BB00C20EC9 /* LabWithLinesViewController.m in Sources */,
 				20A85C032152248E0005AD62 /* main.m in Sources */,
+				20A7BE9021986DB0006186DB /* TestCollectionView.m in Sources */,
 				20A85C3D215224B10005AD62 /* TestViewController.m in Sources */,
 				20187D7B217E20D800C20EC9 /* LabWithLinesViewCell.m in Sources */,
 				20BFBFF42170D647001887A9 /* TestCollectionViewController.m in Sources */,

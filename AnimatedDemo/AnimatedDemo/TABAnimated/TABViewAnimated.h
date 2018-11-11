@@ -26,7 +26,7 @@
 + (TABViewAnimated *)sharedAnimated;
 
 /**
- start/end animations to UIView.
+ start/end animatiqons to UIView.
  
  @param view to the UIView
  */

@@ -48,8 +48,10 @@
     SEL oldSectionSelector = @selector(collectionView:numberOfItemsInSection:);
     SEL newSectionSelector = @selector(tab_collectionView:numberOfItemsInSection:);
     
-    [self exchangeCollectionDelegateMethod:oldSectionSelector withNewSel:newSectionSelector withCollectionDelegate:delegate];
-    
+    if ([self respondsToSelector:newSectionSelector]) {
+        [self exchangeCollectionDelegateMethod:oldSectionSelector withNewSel:newSectionSelector withCollectionDelegate:delegate];
+    }
+
     [self tab_setDelegate:delegate];
     
 }
