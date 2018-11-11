@@ -48,10 +48,10 @@
     SEL oldSelector = @selector(tableView:numberOfRowsInSection:);
     SEL newSelector = @selector(tab_tableView:numberOfRowsInSection:);
     
-    if ([self.delegate respondsToSelector:oldSelector]) {
+    if ([self respondsToSelector:newSelector]) {
         [self exchangeTableDelegateMethod:oldSelector withNewSel:newSelector withTableDelegate:dataSource];
     }
-    
+
     [self tab_setDataSource:dataSource];
 }
 

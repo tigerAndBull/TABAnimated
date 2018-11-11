@@ -62,8 +62,8 @@
     
     {
         UIImageView *iv = [[UIImageView alloc] init];
-        iv.backgroundColor = tab_kBackColor;
         iv.contentMode = UIViewContentModeScaleAspectFill;
+        iv.loadStyle = TABViewLoadAnimationWithOnlySkeleton;
         iv.layer.masksToBounds = YES;
         
         gameImg = iv;
@@ -73,7 +73,7 @@
     {
         UILabel *lab = [[UILabel alloc]init];
         [lab setFont:tab_kFont(13)];
-        lab.loadStyle = TABViewLoadAnimationLong;
+        lab.loadStyle = TABViewLoadAnimationWithOnlySkeleton;
         [lab setTextColor:[UIColor blackColor]];
         [lab setText:@""];
         
@@ -84,7 +84,7 @@
     {
         UILabel *lab = [[UILabel alloc]init];
         [lab setFont:tab_kFont(10)];
-        lab.loadStyle = TABViewLoadAnimationShort;
+        lab.loadStyle = TABViewLoadAnimationWithOnlySkeleton;
         [lab setTextColor:[UIColor grayColor]];
         [lab setText:@""];
         
