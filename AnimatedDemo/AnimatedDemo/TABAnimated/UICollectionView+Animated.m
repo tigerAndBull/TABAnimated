@@ -48,7 +48,7 @@
     SEL oldSectionSelector = @selector(collectionView:numberOfItemsInSection:);
     SEL newSectionSelector = @selector(tab_collectionView:numberOfItemsInSection:);
     
-    if ([self respondsToSelector:newSectionSelector]) {
+    if ([self respondsToSelector:newSectionSelector] && [self respondsToSelector:oldSectionSelector]) {
         [self exchangeCollectionDelegateMethod:oldSectionSelector withNewSel:newSectionSelector withCollectionDelegate:delegate];
     }
 
@@ -73,20 +73,29 @@
                   withCollectionDelegate:(id<UICollectionViewDelegate>)delegate {
     
     Method oldMethod_del = class_getInstanceMethod([delegate class], oldSelector);
-    Method oldMethod_self = class_getInstanceMethod([self class], oldSelector);
     Method newMethod = class_getInstanceMethod([self class], newSelector);
+    IMP oldImp = method_getImplementation(oldMethod_del);
     
-    BOOL isSuccess = class_addMethod([delegate class], oldSelector, class_getMethodImplementation([self class], newSelector), method_getTypeEncoding(newMethod));
-    
-    if (isSuccess) {
-        
-        class_replaceMethod([delegate class], newSelector, class_getMethodImplementation([self class], oldSelector), method_getTypeEncoding(oldMethod_self));
+    if ([self isKindOfClass:[delegate class]]) {
+        // If self.delegate = self,no animation.
+        //        method_exchangeImplementations(oldMethod_del, newMethod);
     } else {
         
-        // exchange
-        BOOL isVictory = class_addMethod([delegate class], newSelector, class_getMethodImplementation([delegate class], oldSelector), method_getTypeEncoding(oldMethod_del));
-        if (isVictory) {
-            class_replaceMethod([delegate class], oldSelector, class_getMethodImplementation([self class], newSelector), method_getTypeEncoding(newMethod));
+        // If the child is not imp new Method, add imp.
+        BOOL isSuccess = class_addMethod([delegate class], oldSelector, class_getMethodImplementation([self class], newSelector), method_getTypeEncoding(newMethod));
+        
+        if (isSuccess) {
+            
+            class_addMethod([delegate class], newSelector, oldImp, method_getTypeEncoding(oldMethod_del));
+            
+        } else {
+            
+            // If the child is not imp old Method, add imp.
+            BOOL isVictory = class_addMethod([delegate class], newSelector, class_getMethodImplementation([delegate class], oldSelector), method_getTypeEncoding(oldMethod_del));
+            if (isVictory) {
+                // exchange
+                class_replaceMethod([delegate class], oldSelector, class_getMethodImplementation([self class], newSelector), method_getTypeEncoding(newMethod));
+            }
         }
     }
 }
