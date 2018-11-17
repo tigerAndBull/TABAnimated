@@ -11,9 +11,7 @@
 #import "MainViewController.h"
 #import "TABAnimated.h"
 
-#import "TestCollectionView.h"
-
-@interface AppDelegate ()<UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
+@interface AppDelegate ()
 
 @end
 
@@ -29,15 +27,6 @@
     
     MainViewController *vc = [[MainViewController alloc] init];
     _nav = [[UINavigationController alloc]initWithRootViewController:vc];
-    
-    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-    TestCollectionView *collectionView = [[TestCollectionView alloc] initWithFrame:self.window.bounds collectionViewLayout:layout];
-    collectionView.backgroundColor = [UIColor clearColor];
-    collectionView.showsHorizontalScrollIndicator = NO;
-    collectionView.showsVerticalScrollIndicator = NO;
-    collectionView.delegate = self;
-    collectionView.dataSource = self;
     
     [self.window setRootViewController:_nav];
     [self.window makeKeyAndVisible];

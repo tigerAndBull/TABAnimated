@@ -26,11 +26,8 @@
     dispatch_once(&onceToken, ^{
         
         // Gets the viewDidLoad method to the class,whose type is a pointer to a objc_method structure.
-        // 获取到这个类的viewDidLoad方法，它的类型是一个objc_method结构体的指针
         Method originMethod = class_getInstanceMethod([self class], @selector(layoutSubviews));
-        
         // Get the method you created.
-        // 获取自己创建的方法
         Method newMethod = class_getInstanceMethod([self class], @selector(tab_collection_layoutSubviews));
         
         IMP newIMP = method_getImplementation(newMethod);

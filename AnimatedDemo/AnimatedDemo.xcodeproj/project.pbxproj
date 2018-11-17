@@ -12,11 +12,12 @@
 		20187D7E217E21BB00C20EC9 /* LabWithLinesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20187D7D217E21BB00C20EC9 /* LabWithLinesViewController.m */; };
 		20243539216AF37400617821 /* MoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20243538216AF37400617821 /* MoreViewController.m */; };
 		2024353C216AF8B300617821 /* MoreTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2024353B216AF8B300617821 /* MoreTableViewController.m */; };
+		2083176221A04455000A0D95 /* PackageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2083176121A04455000A0D95 /* PackageTableViewCell.m */; };
+		2083176521A0451A000A0D95 /* ExampleOfPackageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2083176421A0451A000A0D95 /* ExampleOfPackageViewController.m */; };
 		20A01591216A321E0082425D /* XIBTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A0158F216A321E0082425D /* XIBTableViewCell.m */; };
 		20A01592216A321E0082425D /* XIBTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 20A01590216A321E0082425D /* XIBTableViewCell.xib */; };
 		20A01597216A51FC0082425D /* XibTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A01596216A51FC0082425D /* XibTestViewController.m */; };
 		20A0159A216A538F0082425D /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A01599216A538F0082425D /* MainViewController.m */; };
-		20A7BE9021986DB0006186DB /* TestCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A7BE8F21986DB0006186DB /* TestCollectionView.m */; };
 		20A85BF52152248D0005AD62 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A85BF42152248D0005AD62 /* AppDelegate.m */; };
 		20A85BF82152248D0005AD62 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A85BF72152248D0005AD62 /* ViewController.m */; };
 		20A85BFD2152248E0005AD62 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 20A85BFC2152248E0005AD62 /* Assets.xcassets */; };
@@ -69,6 +70,10 @@
 		20243538216AF37400617821 /* MoreViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MoreViewController.m; sourceTree = "<group>"; };
 		2024353A216AF8B300617821 /* MoreTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoreTableViewController.h; sourceTree = "<group>"; };
 		2024353B216AF8B300617821 /* MoreTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MoreTableViewController.m; sourceTree = "<group>"; };
+		2083176021A04455000A0D95 /* PackageTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PackageTableViewCell.h; sourceTree = "<group>"; };
+		2083176121A04455000A0D95 /* PackageTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PackageTableViewCell.m; sourceTree = "<group>"; };
+		2083176321A0451A000A0D95 /* ExampleOfPackageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExampleOfPackageViewController.h; sourceTree = "<group>"; };
+		2083176421A0451A000A0D95 /* ExampleOfPackageViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExampleOfPackageViewController.m; sourceTree = "<group>"; };
 		20A0158E216A321E0082425D /* XIBTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XIBTableViewCell.h; sourceTree = "<group>"; };
 		20A0158F216A321E0082425D /* XIBTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XIBTableViewCell.m; sourceTree = "<group>"; };
 		20A01590216A321E0082425D /* XIBTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = XIBTableViewCell.xib; sourceTree = "<group>"; };
@@ -76,8 +81,6 @@
 		20A01596216A51FC0082425D /* XibTestViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XibTestViewController.m; sourceTree = "<group>"; };
 		20A01598216A538F0082425D /* MainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		20A01599216A538F0082425D /* MainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
-		20A7BE8E21986DAF006186DB /* TestCollectionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestCollectionView.h; sourceTree = "<group>"; };
-		20A7BE8F21986DB0006186DB /* TestCollectionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestCollectionView.m; sourceTree = "<group>"; };
 		20A85BF02152248D0005AD62 /* AnimatedDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AnimatedDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		20A85BF32152248D0005AD62 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		20A85BF42152248D0005AD62 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -287,8 +290,8 @@
 				20BFBFF32170D647001887A9 /* TestCollectionViewController.m */,
 				20187D7C217E21BB00C20EC9 /* LabWithLinesViewController.h */,
 				20187D7D217E21BB00C20EC9 /* LabWithLinesViewController.m */,
-				20A7BE8E21986DAF006186DB /* TestCollectionView.h */,
-				20A7BE8F21986DB0006186DB /* TestCollectionView.m */,
+				2083176321A0451A000A0D95 /* ExampleOfPackageViewController.h */,
+				2083176421A0451A000A0D95 /* ExampleOfPackageViewController.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -296,14 +299,16 @@
 		20A85C35215224B10005AD62 /* CustomView */ = {
 			isa = PBXGroup;
 			children = (
-				20A85C37215224B10005AD62 /* TestTableViewCell.h */,
-				20A85C36215224B10005AD62 /* TestTableViewCell.m */,
 				20BFBB9F2153F3FF00136258 /* TestHeadView.h */,
 				20BFBBA02153F3FF00136258 /* TestHeadView.m */,
+				20A85C37215224B10005AD62 /* TestTableViewCell.h */,
+				20A85C36215224B10005AD62 /* TestTableViewCell.m */,
 				20BFBFF82170D912001887A9 /* TestCollectionViewCell.h */,
 				20BFBFF92170D912001887A9 /* TestCollectionViewCell.m */,
 				20187D79217E20D800C20EC9 /* LabWithLinesViewCell.h */,
 				20187D7A217E20D800C20EC9 /* LabWithLinesViewCell.m */,
+				2083176021A04455000A0D95 /* PackageTableViewCell.h */,
+				2083176121A04455000A0D95 /* PackageTableViewCell.m */,
 			);
 			path = CustomView;
 			sourceTree = "<group>";
@@ -445,19 +450,20 @@
 				20BFBFF72170D87A001887A9 /* UICollectionViewCell+Animated.m in Sources */,
 				20A0159A216A538F0082425D /* MainViewController.m in Sources */,
 				20A01591216A321E0082425D /* XIBTableViewCell.m in Sources */,
+				2083176521A0451A000A0D95 /* ExampleOfPackageViewController.m in Sources */,
 				20A85C39215224B10005AD62 /* TABMethod.m in Sources */,
 				20BFBBB02155036300136258 /* UIView+TABLayerout.m in Sources */,
 				20A85C3A215224B10005AD62 /* UITableView+Animated.m in Sources */,
 				20187D78217E206D00C20EC9 /* MyLabel.m in Sources */,
 				20BFBFF12170D37B001887A9 /* UICollectionView+Animated.m in Sources */,
 				20A85C3C215224B10005AD62 /* UIView+Animated.m in Sources */,
+				2083176221A04455000A0D95 /* PackageTableViewCell.m in Sources */,
 				20243539216AF37400617821 /* MoreViewController.m in Sources */,
 				20A85C3B215224B10005AD62 /* TABViewAnimated.m in Sources */,
 				20BFBBA12153F3FF00136258 /* TestHeadView.m in Sources */,
 				20A01597216A51FC0082425D /* XibTestViewController.m in Sources */,
 				20187D7E217E21BB00C20EC9 /* LabWithLinesViewController.m in Sources */,
 				20A85C032152248E0005AD62 /* main.m in Sources */,
-				20A7BE9021986DB0006186DB /* TestCollectionView.m in Sources */,
 				20A85C3D215224B10005AD62 /* TestViewController.m in Sources */,
 				20187D7B217E20D800C20EC9 /* LabWithLinesViewCell.m in Sources */,
 				20BFBFF42170D647001887A9 /* TestCollectionViewController.m in Sources */,
@@ -616,8 +622,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Y8FL5FHNBB;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = AnimatedDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3.1;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -626,6 +632,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tigerAndBull.AnimatedDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -634,8 +641,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Y8FL5FHNBB;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = AnimatedDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3.1;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -644,6 +651,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tigerAndBull.AnimatedDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

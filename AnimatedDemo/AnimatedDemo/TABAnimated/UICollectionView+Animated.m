@@ -48,7 +48,7 @@
     SEL oldSectionSelector = @selector(collectionView:numberOfItemsInSection:);
     SEL newSectionSelector = @selector(tab_collectionView:numberOfItemsInSection:);
     
-    if ([self respondsToSelector:newSectionSelector] && [self respondsToSelector:oldSectionSelector]) {
+    if ([self respondsToSelector:newSectionSelector]) {
         [self exchangeCollectionDelegateMethod:oldSectionSelector withNewSel:newSectionSelector withCollectionDelegate:delegate];
     }
 
@@ -78,7 +78,7 @@
     
     if ([self isKindOfClass:[delegate class]]) {
         // If self.delegate = self,no animation.
-        //        method_exchangeImplementations(oldMethod_del, newMethod);
+        // method_exchangeImplementations(oldMethod_del, newMethod);
     } else {
         
         // If the child is not imp new Method, add imp.

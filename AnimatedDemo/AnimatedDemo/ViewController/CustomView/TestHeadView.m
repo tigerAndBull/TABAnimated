@@ -33,14 +33,16 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    
+
     // 获取对应组件文本大小
-    CGSize titleSize = [TABMethod tab_getSizeWithText:titleLab.text sizeWithFont:tab_kFont(16) constrainedToSize:CGSizeMake(MAXFLOAT, 25)];
-    CGSize contentSize = [TABMethod tab_getSizeWithText:contentLab.text sizeWithFont:tab_kFont(14) constrainedToSize:CGSizeMake(MAXFLOAT, 25)];
-    
+    CGSize titleSize = [TABMethod tab_getSizeWithText:titleLab.text sizeWithFont:tab_kFont(16) constrainedToSize:CGSizeMake(MAXFLOAT, 20)];
+    CGSize contentSize = [TABMethod tab_getSizeWithText:contentLab.text sizeWithFont:tab_kFont(14) constrainedToSize:CGSizeMake(MAXFLOAT, 20)];
+
+    headImg.frame = CGRectMake(10, 10, self.frame.size.height-20, self.frame.size.height-20);
+    headImg.layer.cornerRadius = headImg.frame.size.height/2;
     // 布局
-    titleLab.frame = CGRectMake(CGRectGetMaxX(headImg.frame)+10, 15, titleSize.width, 25);
-    contentLab.frame = CGRectMake(CGRectGetMaxX(headImg.frame)+10, 15+25+10, contentSize.width, 25);
+    titleLab.frame = CGRectMake(CGRectGetMaxX(headImg.frame)+10, 15, titleSize.width, 20);
+    contentLab.frame = CGRectMake(CGRectGetMaxX(headImg.frame)+10, 15+20+10, contentSize.width, 20);
 }
 
 #pragma mark - Public Methods
@@ -57,10 +59,9 @@
 - (void)initUI {
     
     {
-        UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, self.frame.size.height-20, self.frame.size.height-20)];
+        UIImageView *img = [[UIImageView alloc] init];
         img.contentMode = UIViewContentModeScaleAspectFill;
         img.layer.masksToBounds = YES;
-        img.layer.cornerRadius = img.frame.size.height/2;
         img.loadStyle = TABViewLoadAnimationWithOnlySkeleton;
         
         headImg = img;

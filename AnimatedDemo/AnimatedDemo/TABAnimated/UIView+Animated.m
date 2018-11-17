@@ -38,6 +38,11 @@
 - (void)setAnimatedStyle:(TABViewAnimationStyle)animatedStyle {
     
     objc_setAssociatedObject(self, @selector(animatedStyle), @(animatedStyle), OBJC_ASSOCIATION_ASSIGN);
+    if (animatedStyle == TABViewAnimationEnd) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self layoutSubviews];
+        });
+    }
 }
 
 - (CGFloat)tabViewWidth {

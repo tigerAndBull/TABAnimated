@@ -89,7 +89,6 @@
     
     _headView.animatedStyle = TABViewAnimationEnd;
     [_headView initWithData:headGame];
-    [_headView layoutSubviews];
 }
 
 #pragma mark - UITableView Delegate & Datasource
@@ -159,8 +158,8 @@
     if (!_mainTV) {
         _mainTV = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, tab_kScreenWidth, tab_kScreenHeight) style:UITableViewStyleGrouped];
         _mainTV.animatedStyle = TABTableViewAnimationStart;  // 开启动画
-        _mainTV.delegate = self;
         _mainTV.dataSource = self;
+        _mainTV.delegate = self;
         _mainTV.rowHeight = 100;
         _mainTV.backgroundColor = [UIColor whiteColor];
         _mainTV.estimatedRowHeight = 0;
