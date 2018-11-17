@@ -13,6 +13,7 @@
 #import "MoreTableViewController.h"
 #import "TestCollectionViewController.h"
 #import "LabWithLinesViewController.h"
+#import "ExampleOfPackageViewController.h"
 
 #import "TABMethod.h"
 #import "AppDelegate.h"
@@ -63,7 +64,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 6;
+    return 7;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
@@ -101,6 +102,10 @@
                     }else {
                         if (indexPath.row == 5) {
                             cell.textLabel.text = @"多行文本 示例";
+                        }else {
+                            if (indexPath.row == 6) {
+                                cell.textLabel.text = @"cell中使用封装组件 示例";
+                            }
                         }
                     }
                 }
@@ -142,6 +147,12 @@
                             
                             LabWithLinesViewController *vc = [[LabWithLinesViewController alloc]init];
                             [kAPPDELEGATE.nav pushViewController:vc animated:YES];
+                        }else {
+                            if (indexPath.row == 6) {
+                                
+                                ExampleOfPackageViewController *vc = [[ExampleOfPackageViewController alloc]init];
+                                [kAPPDELEGATE.nav pushViewController:vc animated:YES];
+                            }
                         }
                     }
                 }

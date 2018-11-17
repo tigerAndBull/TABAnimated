@@ -89,7 +89,7 @@
     static NSString *CellIdentifier = @"TestCollectionViewCell";
     TestCollectionViewCell *cell = (TestCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
     
-    // 必须调用，否则会造成复用池的cell的子视图的frame没有刷新，但不会导致程序崩溃
+    // 重新布局
     [cell setNeedsLayout];
     
     // 在加载动画的时候，即未获得数据时，不要走加载控件数据的方法
@@ -131,8 +131,8 @@
         _collectionView.animatedStyle = TABCollectionViewAnimationStart; // 开启动画
         _collectionView.backgroundColor = [UIColor whiteColor];
         [_collectionView registerClass:[TestCollectionViewCell class] forCellWithReuseIdentifier:@"TestCollectionViewCell"];
-        _collectionView.delegate = self;
         _collectionView.dataSource = self;
+        _collectionView.delegate = self;
         _collectionView.showsHorizontalScrollIndicator = NO;
         _collectionView.showsVerticalScrollIndicator = NO;
     }

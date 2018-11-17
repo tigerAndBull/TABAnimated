@@ -24,11 +24,6 @@
 
 @implementation TestTableViewCell
 
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    // Initialization code
-}
-
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
     // Configure the view for the selected state
@@ -83,44 +78,44 @@
     {
         UIImageView *iv = [[UIImageView alloc] init];
         iv.contentMode = UIViewContentModeScaleAspectFill;
-        iv.loadStyle = TABViewLoadAnimationWithOnlySkeleton;
         iv.layer.masksToBounds = YES;
+        iv.loadStyle = TABViewLoadAnimationWithOnlySkeleton;
         
         gameImg = iv;
-        [self.contentView addSubview:iv];
+        [self addSubview:iv];
     }
     
     {
         UILabel *lab = [[UILabel alloc]init];
         [lab setFont:tab_kFont(15)];
-        lab.loadStyle = TABViewLoadAnimationLong;
         [lab setTextColor:[UIColor blackColor]];
         [lab setText:@""];
+        lab.loadStyle = TABViewLoadAnimationLong;
         
         titleLab = lab;
-        [self.contentView addSubview:lab];
+        [self addSubview:lab];
     }
     
     {
         UILabel *lab = [[UILabel alloc]init];
         [lab setFont:tab_kFont(12)];
-        lab.loadStyle = TABViewLoadAnimationShort;
         [lab setTextColor:[UIColor grayColor]];
         [lab setText:@""];
-
+        lab.loadStyle = TABViewLoadAnimationShort;
+        
         timeLab = lab;
-        [self.contentView addSubview:lab];
+        [self addSubview:lab];
     }
     
     {
         UIButton *btn = [[UIButton alloc]init];
         [btn setTitle:@"" forState:UIControlStateNormal];
-        btn.loadStyle = TABViewLoadAnimationWithOnlySkeleton;
         [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [btn.titleLabel setFont:tab_kFont(12)];
+        btn.loadStyle = TABViewLoadAnimationWithOnlySkeleton;
         
         statusBtn = btn;
-        [self.contentView addSubview:btn];
+        [self addSubview:btn];
     }
 }
 

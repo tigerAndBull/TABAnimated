@@ -63,33 +63,33 @@
     {
         UIImageView *iv = [[UIImageView alloc] init];
         iv.contentMode = UIViewContentModeScaleAspectFill;
-        iv.loadStyle = TABViewLoadAnimationWithOnlySkeleton;
         iv.layer.masksToBounds = YES;
+        iv.loadStyle = TABViewLoadAnimationWithOnlySkeleton;
         
         gameImg = iv;
-        [self.contentView addSubview:iv];
+        [self addSubview:iv];
     }
     
     {
         UILabel *lab = [[UILabel alloc]init];
         [lab setFont:tab_kFont(13)];
-        lab.loadStyle = TABViewLoadAnimationWithOnlySkeleton;
         [lab setTextColor:[UIColor blackColor]];
         [lab setText:@""];
+        lab.loadStyle = TABViewLoadAnimationWithOnlySkeleton;
         
         titleLab = lab;
-        [self.contentView addSubview:lab];
+        [self addSubview:lab];
     }
     
     {
         UILabel *lab = [[UILabel alloc]init];
         [lab setFont:tab_kFont(10)];
-        lab.loadStyle = TABViewLoadAnimationWithOnlySkeleton;
         [lab setTextColor:[UIColor grayColor]];
         [lab setText:@""];
+        lab.loadStyle = TABViewLoadAnimationWithOnlySkeleton;
         
         timeLab = lab;
-        [self.contentView addSubview:lab];
+        [self addSubview:lab];
     }
 }
 

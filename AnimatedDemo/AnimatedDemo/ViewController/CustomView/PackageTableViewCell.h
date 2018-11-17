@@ -1,8 +1,8 @@
 //
-//  TestCollectionView.h
+//  PackageTableViewCell.h
 //  AnimatedDemo
 //
-//  Created by tigerAndBull on 2018/11/11.
+//  Created by tigerAndBull on 2018/11/17.
 //  Copyright © 2018年 tigerAndBull. All rights reserved.
 //
 
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface TestCollectionView : UICollectionView
+@interface PackageTableViewCell : UITableViewCell
 
 @end
 

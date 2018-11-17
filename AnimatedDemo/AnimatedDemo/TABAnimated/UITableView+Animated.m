@@ -22,13 +22,13 @@
     dispatch_once(&onceToken, ^{
         
         // Gets the viewDidLoad method to the class,whose type is a pointer to a objc_method structure.
-        Method originMethod = class_getInstanceMethod([self class], @selector(setDataSource:));
+        Method originMethod = class_getInstanceMethod([self class], @selector(setDelegate:));
         // Get the method you created.
-        Method newMethod = class_getInstanceMethod([self class], @selector(tab_setDataSource:));
+        Method newMethod = class_getInstanceMethod([self class], @selector(tab_setDelegate:));
         
         IMP newIMP = method_getImplementation(newMethod);
         
-        BOOL isAdd = class_addMethod([self class], @selector(tab_setDataSource:), newIMP, method_getTypeEncoding(newMethod));
+        BOOL isAdd = class_addMethod([self class], @selector(tab_setDelegate:), newIMP, method_getTypeEncoding(newMethod));
         
         if (isAdd) {
             
@@ -43,16 +43,16 @@
     });
 }
 
-- (void)tab_setDataSource:(id<UITableViewDataSource>)dataSource {
+- (void)tab_setDelegate:(id<UITableViewDelegate>)delegate {
     
     SEL oldSelector = @selector(tableView:numberOfRowsInSection:);
     SEL newSelector = @selector(tab_tableView:numberOfRowsInSection:);
     
     if ([self respondsToSelector:newSelector]) {
-        [self exchangeTableDelegateMethod:oldSelector withNewSel:newSelector withTableDelegate:dataSource];
+        [self exchangeTableDelegateMethod:oldSelector withNewSel:newSelector withTableDelegate:delegate];
     }
 
-    [self tab_setDataSource:dataSource];
+    [self tab_setDelegate:delegate];
 }
 
 #pragma mark - TABTableViewDataSource
@@ -78,7 +78,7 @@
  */
 - (void)exchangeTableDelegateMethod:(SEL)oldSelector
                          withNewSel:(SEL)newSelector
-                  withTableDelegate:(id<UITableViewDataSource>)delegate {
+                  withTableDelegate:(id<UITableViewDelegate>)delegate {
     
     Method oldMethod_del = class_getInstanceMethod([delegate class], oldSelector);
     Method newMethod = class_getInstanceMethod([self class], newSelector);
@@ -86,7 +86,7 @@
     
     if ([self isKindOfClass:[delegate class]]) {
           // If self.delegate = self,no animation.
-//        method_exchangeImplementations(oldMethod_del, newMethod);
+          // method_exchangeImplementations(oldMethod_del, newMethod);
     } else {
         
         // If the child is not imp new Method, add imp.

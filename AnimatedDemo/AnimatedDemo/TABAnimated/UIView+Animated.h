@@ -10,17 +10,20 @@
 
 // the type of animation.
 typedef NS_ENUM(NSInteger,TABViewLoadAnimationStyle) {
-    TABViewLoadAnimationDefault = 0,           // default,没有动画
-    TABViewLoadAnimationShort,                 // 动画先变短再变长
-    TABViewLoadAnimationLong,                  // 动画先变长再变短
-    TABViewLoadAnimationWithOnlySkeleton,      // 只有骨架层
+    TABViewLoadAnimationDefault = 0,                         // default,没有动画
+    TABViewLoadAnimationShort,                               // 动画先变短再变长
+    TABViewLoadAnimationLong,                                // 动画先变长再变短
+    TABViewLoadAnimationWithOnlySkeleton,                    // 只有骨架层
+    TABViewLoadAnimationForPackageViewShort,                 // 动画先变短再变长 (用于封装好的组件)
+    TABViewLoadAnimationForPackageViewLong,                  // 动画先变长再变短 (用于封装好的组件)
+    TABViewLoadAnimationForPackageViewWithOnlySkeleton,      // 只有骨架层 (用于封装好的组件)
 };
 
 // the animation status to UIView or UICollectionView.
 typedef NS_ENUM(NSInteger,TABViewAnimationStyle) {
     TABViewAnimationDefault = 0,               // 默认,没有动画
     TABViewAnimationStart,                     // 开始动画
-    TABViewAnimationRuning,                    // 动画中
+    TABViewAnimationRunning,                   // 动画中 you don't need care the status.
     TABViewAnimationEnd,                       // 结束动画
     TABCollectionViewAnimationStart,           // CollectionView 开始动画
     TABCollectionViewAnimationRunning,         // CollectionView 动画中
