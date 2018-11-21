@@ -13,7 +13,7 @@
 
 typedef NS_ENUM(NSInteger,TABAnimationType) {
     TABAnimationTypeDefault = 0,     // default animation.
-    TABAnimationTypeShimmer          // shimmer animation.
+    TABAnimationTypeShimmer          // shimmer animation for all suvViews.
 };
 
 @interface TABViewAnimated : NSObject

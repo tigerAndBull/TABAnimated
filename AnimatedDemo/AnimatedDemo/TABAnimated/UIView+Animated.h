@@ -14,9 +14,6 @@ typedef NS_ENUM(NSInteger,TABViewLoadAnimationStyle) {
     TABViewLoadAnimationShort,                               // 动画先变短再变长
     TABViewLoadAnimationLong,                                // 动画先变长再变短
     TABViewLoadAnimationWithOnlySkeleton,                    // 只有骨架层
-    TABViewLoadAnimationForPackageViewShort,                 // 动画先变短再变长 (用于封装好的组件)
-    TABViewLoadAnimationForPackageViewLong,                  // 动画先变长再变短 (用于封装好的组件)
-    TABViewLoadAnimationForPackageViewWithOnlySkeleton,      // 只有骨架层 (用于封装好的组件)
 };
 
 // the animation status to UIView or UICollectionView.
