@@ -1,4 +1,26 @@
+## 本文目录
+
+>+ 效果图
+>+ 版本更新记录
+>+ 使用教程
+
+## 效果图
+
+上面为 闪光灯动画
+下面为 经典动画
+
+![闪光灯动画.gif](https://upload-images.jianshu.io/upload_images/5632003-173bc0f48ec284fa.gif?imageMogr2/auto-orient/strip)
+
+![经典动画.gif](https://upload-images.jianshu.io/upload_images/5632003-4d40e7dd162ae383.gif?imageMogr2/auto-orient/strip)
+
 ## 版本更新记录
+
+**2018 - 11 - 22 新增闪光灯动画类型**
+>1. 当前最新版本为1.8.0
+>2. 新增两个初始化方法，全局切换闪光灯动画
+
+*******************************
+
 **2018 - 11 - 17 此次更新主要是优化库**
 >1. 当前最新版本为1.7.0
 >2. 之前在cell中只对`self.contentView`中的view生效 ==> 现在`self 和 self.contentView`均可以
@@ -85,16 +107,13 @@ to set your animations' toValue
 
 *******************************
 
-## 效果图
-
-![效果图.gif](https://upload-images.jianshu.io/upload_images/5632003-4d40e7dd162ae383.gif?imageMogr2/auto-orient/strip)
-
-## 说明
+### 说明
 >1. 本文主要讲解如何将[demo](https://github.com/tigerAndBull/LoadAnimatedDemo-ios)集成到你的项目中，并使用，同时也算是抛砖引玉了，大佬们要是有更好的封装方法，求之不得。
 >2. 均为个人思考，转载请注明出处，谢谢🙏
-## 主要使用的技术
+### 主要使用的技术
 >AOP，即IOS的`Runtime`运行机制的黑魔法
-## 使用流程
+
+## 使用教程
 **第一步：Install it**
 
 **CocoaPods**
@@ -187,7 +206,6 @@ _mainTV.animatedStyle = TABTableViewAnimationEnd;
     
 _headView.animatedStyle = TABViewAnimationEnd;
 [_headView initWithData:headGame];
-[_headView layoutSubviews];
 ```
 **注意点（重要）**：
 1. 对于UITableView组件，在加载动画的时候，即未获得数据时，不要设置对应的数值
@@ -216,7 +234,7 @@ _headView.animatedStyle = TABViewAnimationEnd;
     static NSString *CellIdentifier = @"TestCollectionViewCell";
     TestCollectionViewCell *cell = (TestCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
     
-    // 必须调用，否则会造成复用池的cell的子视图的frame没有刷新，但不会导致程序崩溃
+    // 需要重新布局
     [cell setNeedsLayout];
     
     // 在加载动画的时候，即未获得数据时，不要走加载控件数据的方法
