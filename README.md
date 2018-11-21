@@ -120,8 +120,6 @@ to set your animations' toValue
 
 >pod search TABAnimated
 
-最新版本为1.6.0
-
 **第二步（可选）**：可以选择在appDelegate的`didFinishLaunchingWithOptions`方法全局设置动画属性，设有默认属性，为上面示例图的样子
 ```
 // 设置TABAnimated相关属性
