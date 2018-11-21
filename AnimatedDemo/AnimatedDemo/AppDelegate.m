@@ -23,7 +23,7 @@
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     
     // 设置TABAnimated相关属性
-    [[TABViewAnimated sharedAnimated]initWithAnimatedDuration:0.4 withColor:tab_kBackColor withLongToValue:0.8 withShortToValue:0.3];
+    [[TABViewAnimated sharedAnimated]initWithShimmerAnimated];
     
     MainViewController *vc = [[MainViewController alloc] init];
     _nav = [[UINavigationController alloc]initWithRootViewController:vc];
