@@ -46,11 +46,11 @@
 #pragma mark - Exchange Method
 
 - (void)tab_cell_layoutSubviews {
-    
     [self tab_cell_layoutSubviews];
     
     // start/end animation.
     dispatch_async(dispatch_get_main_queue(), ^{
+        
         [[TABViewAnimated sharedAnimated]startOrEndTableAnimated:self];
     });
 }

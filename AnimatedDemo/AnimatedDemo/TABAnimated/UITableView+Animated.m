@@ -113,7 +113,6 @@
 - (TABTableViewAnimationStyle)animatedStyle {
     
     NSNumber *value = objc_getAssociatedObject(self, @selector(animatedStyle));
-    
     // If the animation is running, disable touch events.
     if (value.intValue == 1) {
         self.scrollEnabled = NO;
@@ -122,6 +121,7 @@
         self.scrollEnabled = YES;
         self.allowsSelection = YES;
     }
+    
     return value.intValue;
 }
 

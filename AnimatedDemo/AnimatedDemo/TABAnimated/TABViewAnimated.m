@@ -14,6 +14,8 @@
 #import "UITableView+Animated.h"
 #import "UICollectionView+Animated.h"
 
+#import <objc/runtime.h>
+
 static CGFloat defaultDuration = 0.4f;
 static CGFloat defaultHeight = 25.f;           // use to label with row is not one
 static CGFloat defaultSpaceWithLines = 10.f;   // use to label with row is not one
@@ -56,17 +58,23 @@ static CGFloat defaultSpaceWithLines = 10.f;   // use to label with row is not o
 
 - (void)startOrEndTableAnimated:(UITableViewCell *)cell {
     
-    UITableView *superView = (UITableView *)cell.superview;
+    UITableView *superView;
     
+    if ([[[cell superview] superview] isKindOfClass:[UITableView class]]) {
+        superView = (UITableView *)cell.superview.superview;
+    }else {
+        superView = (UITableView *)cell.superview;
+    }
+
     switch (superView.animatedStyle) {
             
         case TABTableViewAnimationStart:
-            
+
             // start animations
             [self getNeedAnimationSubViewsOfTableView:cell];
             
             break;
-            
+
         case TABTableViewAnimationEnd:
             
             // end animations
@@ -144,9 +152,11 @@ static CGFloat defaultSpaceWithLines = 10.f;   // use to label with row is not o
     for (int i = 0; i < subViews.count;i++) {
 
         UIView *subV = subViews[i];
+        
         [self getNeedAnimationSubViewsOfTableView:subV];
         
         if (_animationType == TABAnimationTypeShimmer) {
+            
             if ([subV.superview isKindOfClass:[UITableViewCell class]]) {
                 if (i != 0) {
                     subV.loadStyle = TABViewLoadAnimationWithOnlySkeleton;
@@ -159,6 +169,7 @@ static CGFloat defaultSpaceWithLines = 10.f;   // use to label with row is not o
         if ((subV.loadStyle != TABViewLoadAnimationDefault) && [self judgeViewIsNeedAddAnimation:subV]) {
             [self initLayerWithView:subV withSuperView:subV.superview withColor:_animatedColor];
         }
+        
         if (_animationType == TABAnimationTypeShimmer) {
             if (![superView.class isEqual:[UIButton class]]) {
                 if ([subV isEqual:[subViews lastObject]]) {
