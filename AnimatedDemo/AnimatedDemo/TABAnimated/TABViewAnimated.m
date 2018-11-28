@@ -413,6 +413,10 @@ static CGFloat defaultSpaceWithLines = 10.f;   // use to label with row is not o
                 }
             }
         }
+    }else {
+        if (view.tabViewWidth > 0) {
+            view.frame = CGRectMake(view.frame.origin.x, view.frame.origin.y, view.tabViewWidth, view.frame.size.height);
+        }
     }
 }
 
@@ -432,6 +436,10 @@ static CGFloat defaultSpaceWithLines = 10.f;   // use to label with row is not o
         aimatedWidth = (superViewWidth - (viewX - superViewX))*0.9;
 
         lab.frame = CGRectMake(lab.frame.origin.x, lab.frame.origin.y, lab.tabViewWidth>0?lab.tabViewWidth:aimatedWidth, lab.frame.size.height);
+    }else {
+        if (lab.tabViewWidth > 0) {
+            lab.frame = CGRectMake(lab.frame.origin.x, lab.frame.origin.y, lab.tabViewWidth, lab.frame.size.height);
+        }
     }
 }
 
