@@ -347,7 +347,7 @@ static CGFloat defaultSpaceWithLines = 10.f;   // use to label with row is not o
                     layer.position = CGPointMake(0, 0);
                     layer.name = @"TABLayer";
                     
-                    if (_animationType != TABAnimationTypeShimmer) {
+                    if (_animationType == TABAnimationTypeDefault) {
                         
                         layer.frame = CGRectMake(0, (i == 0)?(0):(i*(textHeight+defaultSpaceWithLines)), width, textHeight);
                         
