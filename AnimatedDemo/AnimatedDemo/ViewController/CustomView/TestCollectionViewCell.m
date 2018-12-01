@@ -52,7 +52,7 @@
 - (void)initWithData:(Game *)game {
     
     titleLab.text = game.content;
-    timeLab.text = @"报名时间：2018-09-12";
+    timeLab.text = @"报名时间：2018-09-12报名时间：2018-09-12报名时间：2018-09-12";
     [gameImg setImage:[UIImage imageNamed:@"test.jpg"]];
 }
 

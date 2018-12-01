@@ -126,8 +126,8 @@ static CGFloat defaultSpaceWithLines = 10.f;   // use to label with row is not o
 
 - (BOOL)judgeViewIsNeedAddAnimation:(UIView *)view {
     
-    if ([view.class isEqual:[UIButton class]]) {
-        if (view.layer.sublayers.count == 1) {
+    if ([view isKindOfClass:[UIButton class]]) {
+        if (view.layer.sublayers.count >= 1) {
             return YES;
         }else {
             return NO;
@@ -171,7 +171,7 @@ static CGFloat defaultSpaceWithLines = 10.f;   // use to label with row is not o
         }
         
         if (_animationType == TABAnimationTypeShimmer) {
-            if (![superView.class isEqual:[UIButton class]]) {
+            if (![superView isKindOfClass:[UIButton class]]) {
                 if ([subV isEqual:[subViews lastObject]]) {
                     [self shimmerAnimation:subV.superview];
                 }
@@ -209,7 +209,7 @@ static CGFloat defaultSpaceWithLines = 10.f;   // use to label with row is not o
         }
         
         if (_animationType == TABAnimationTypeShimmer) {
-            if (![superView.class isEqual:[UIButton class]]) {
+            if (![superView isKindOfClass:[UIButton class]]) {
                 if ([subV isEqual:[subViews lastObject]]) {
                     [self shimmerAnimation:subV.superview];
                 }
@@ -267,7 +267,8 @@ static CGFloat defaultSpaceWithLines = 10.f;   // use to label with row is not o
 
 - (void)addLinesLabAnimated:(UILabel *)lab
                   withColor:(UIColor *)color
-              withSuperView:(UIView *)superView{
+              withSuperView:(UIView *)superView
+              withWidth:(CGFloat)width{
     
     CGFloat textHeight = [lab.text sizeWithAttributes:@{NSFontAttributeName:lab.font}].height*0.9;
     
@@ -282,7 +283,7 @@ static CGFloat defaultSpaceWithLines = 10.f;   // use to label with row is not o
             layer.anchorPoint = CGPointMake(0, 0);
             layer.position = CGPointMake(0, 0);
             layer.name = @"TABLayer";
-            layer.frame = CGRectMake(0, (i == 0)?(0):(i*(textHeight+defaultSpaceWithLines)), lab.frame.size.width, textHeight);
+            layer.frame = CGRectMake(0, (i == 0)?(0):(i*(textHeight+defaultSpaceWithLines)), width, textHeight);
             
             // If next layer's maxY is over superView, stop add layer.
             if ((layer.frame.origin.y+textHeight*2+defaultSpaceWithLines) >= CGRectGetMaxY(superView.frame)) {
@@ -315,7 +316,7 @@ static CGFloat defaultSpaceWithLines = 10.f;   // use to label with row is not o
                 
                 if (_animationType != TABAnimationTypeShimmer) {
                     
-                    layer.frame = CGRectMake(0, (i == 0)?(0):(i*(textHeight + defaultHeight)), lab.frame.size.width, textHeight);
+                    layer.frame = CGRectMake(0, (i == 0)?(0):(i*(textHeight + defaultHeight)), width, textHeight);
                     
                     if (i == (lab.numberOfLines - 1)) {
                         [layer addAnimation:[self scaleXAnimation:TABViewLoadAnimationShort] forKey:@"TABScaleAnimation"];
@@ -325,9 +326,9 @@ static CGFloat defaultSpaceWithLines = 10.f;   // use to label with row is not o
                 }else {
                     
                     if (i == (lab.numberOfLines - 1)) {
-                        layer.frame = CGRectMake(0, (i == 0)?(0):(i*(textHeight + defaultHeight)), lab.frame.size.width*0.6, textHeight);
+                        layer.frame = CGRectMake(0, (i == 0)?(0):(i*(textHeight + defaultHeight)), width*0.6, textHeight);
                     }else {
-                        layer.frame = CGRectMake(0, (i == 0)?(0):(i*(textHeight + defaultHeight)), lab.frame.size.width, textHeight);
+                        layer.frame = CGRectMake(0, (i == 0)?(0):(i*(textHeight + defaultHeight)), width, textHeight);
                     }
                 }
                 
@@ -348,7 +349,7 @@ static CGFloat defaultSpaceWithLines = 10.f;   // use to label with row is not o
                     
                     if (_animationType != TABAnimationTypeShimmer) {
                         
-                        layer.frame = CGRectMake(0, (i == 0)?(0):(i*(textHeight+defaultSpaceWithLines)), lab.frame.size.width, textHeight);
+                        layer.frame = CGRectMake(0, (i == 0)?(0):(i*(textHeight+defaultSpaceWithLines)), width, textHeight);
                         
                         // If next layer's maxY is over superView, stop add layer.
                         if ((layer.frame.origin.y+textHeight*2+defaultSpaceWithLines*2) >= CGRectGetMaxY(superView.frame)) {
@@ -361,9 +362,9 @@ static CGFloat defaultSpaceWithLines = 10.f;   // use to label with row is not o
                         }
                     }else {
                         if (i == (lab.numberOfLines - 1)) {
-                            layer.frame = CGRectMake(0, (i == 0)?(0):(i*(textHeight+defaultSpaceWithLines)), lab.frame.size.width*0.6, textHeight);
+                            layer.frame = CGRectMake(0, (i == 0)?(0):(i*(textHeight+defaultSpaceWithLines)), width*0.6, textHeight);
                         }else {
-                            layer.frame = CGRectMake(0, (i == 0)?(0):(i*(textHeight+defaultSpaceWithLines)), lab.frame.size.width, textHeight);
+                            layer.frame = CGRectMake(0, (i == 0)?(0):(i*(textHeight+defaultSpaceWithLines)), width, textHeight);
                         }
                     }
                     
@@ -380,9 +381,10 @@ static CGFloat defaultSpaceWithLines = 10.f;   // use to label with row is not o
 
  @param view 需要动画的view
  */
-- (void)changeFrameWithView:(UIView *)view
+- (CGRect)changeFrameWithView:(UIView *)view
               withSuperView:(UIView *)superView {
     
+    CGRect rect;
     // If the view's width is zero,set up it's width.
     // 如果组件宽度为0，则设置默认宽度
     if (view.frame.size.width == 0) {
@@ -401,28 +403,33 @@ static CGFloat defaultSpaceWithLines = 10.f;   // use to label with row is not o
         shortAimatedWidth = (superViewWidth - viewX)*0.5;
         
         if (view.loadStyle == TABViewLoadAnimationShort) {
-            view.frame = CGRectMake(view.frame.origin.x, view.frame.origin.y, view.tabViewWidth>0?view.tabViewWidth:longAimatedWidth, view.frame.size.height);
+            rect = CGRectMake(0, 0, view.tabViewWidth>0?view.tabViewWidth:longAimatedWidth, view.frame.size.height);
         }else {
             if (view.loadStyle == TABViewLoadAnimationLong) {
-                view.frame = CGRectMake(view.frame.origin.x, view.frame.origin.y, view.tabViewWidth>0?view.tabViewWidth:shortAimatedWidth, view.frame.size.height);
+                rect = CGRectMake(0, 0, view.tabViewWidth>0?view.tabViewWidth:shortAimatedWidth, view.frame.size.height);
             }else {
                 if (view.tabViewWidth > 0) {
-                    view.frame = CGRectMake(view.frame.origin.x, view.frame.origin.y, view.tabViewWidth, view.frame.size.height);
+                    rect = CGRectMake(0, 0, view.tabViewWidth, view.frame.size.height);
                 }else {
-                    view.frame = CGRectMake(view.frame.origin.x, view.frame.origin.y, longAimatedWidth, view.frame.size.height);
+                    rect = CGRectMake(0, 0, longAimatedWidth, view.frame.size.height);
                 }
             }
         }
     }else {
+        NSLog(@"%lf",view.tabViewWidth);
         if (view.tabViewWidth > 0) {
-            view.frame = CGRectMake(view.frame.origin.x, view.frame.origin.y, view.tabViewWidth, view.frame.size.height);
+            rect = CGRectMake(0, 0, view.tabViewWidth, view.frame.size.height);
+        }else {
+            rect = CGRectMake(0, 0, view.frame.size.width, view.frame.size.height);
         }
     }
+    return rect;
 }
 
-- (void)changeFrameWithLabOfLines:(UILabel *)lab
+- (CGFloat)changeFrameWithLabOfLines:(UILabel *)lab
                     withSuperView:(UIView *)superView {
 
+    CGFloat width;
     // If the view's width is zero,set up it's width.
     // 如果组件宽度为0，则设置默认宽度
     if (lab.frame.size.width == 0) {
@@ -434,13 +441,16 @@ static CGFloat defaultSpaceWithLines = 10.f;   // use to label with row is not o
         CGFloat aimatedWidth;                                   // storage view's width
 
         aimatedWidth = (superViewWidth - (viewX - superViewX))*0.9;
-
-        lab.frame = CGRectMake(lab.frame.origin.x, lab.frame.origin.y, lab.tabViewWidth>0?lab.tabViewWidth:aimatedWidth, lab.frame.size.height);
+        width = (lab.tabViewWidth>0?lab.tabViewWidth:aimatedWidth);
+        
     }else {
         if (lab.tabViewWidth > 0) {
-            lab.frame = CGRectMake(lab.frame.origin.x, lab.frame.origin.y, lab.tabViewWidth, lab.frame.size.height);
+            width = lab.tabViewWidth;
+        }else {
+            width = lab.frame.size.width;
         }
     }
+    return width;
 }
 
 #pragma mark - Create Animation Methods
@@ -517,7 +527,7 @@ static CGFloat defaultSpaceWithLines = 10.f;   // use to label with row is not o
     
     // 创建动画
     CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"locations"];
-    animation.duration = (_animatedDuration <= 0.)?_animatedDuration:1.5f;
+    animation.duration = (_animatedDuration > 0.)?_animatedDuration:1.5f;
 
     animation.fromValue = @[
                             @(0-0.5),
@@ -580,6 +590,12 @@ static CGFloat defaultSpaceWithLines = 10.f;   // use to label with row is not o
     return self;
 }
 
+- (void)initWithDefaultAnimated {
+    _animatedDuration = defaultDuration;
+    _animatedColor = tab_kBackColor;
+    _animationType = TABAnimationTypeDefault;
+}
+
 - (void)initWithAnimatedDuration:(CGFloat)duration
                        withColor:(UIColor *)color {
     
@@ -608,6 +624,7 @@ static CGFloat defaultSpaceWithLines = 10.f;   // use to label with row is not o
     
     if (self) {
         _animationType = TABAnimationTypeShimmer;
+        _animatedDuration = 1.5f;
     }
 }
 
@@ -635,19 +652,17 @@ static CGFloat defaultSpaceWithLines = 10.f;   // use to label with row is not o
     if ([view isKindOfClass:[UILabel class]]) {
         UILabel *lab = (UILabel *)view;
         if (lab.numberOfLines != 1) {
-            // 自适应动画长度
-            [self changeFrameWithLabOfLines:lab withSuperView:superView];
             
-            [self addLinesLabAnimated:lab withColor:color withSuperView:superView];
+            [self addLinesLabAnimated:lab
+                            withColor:color
+                        withSuperView:superView
+                             withWidth:[self changeFrameWithLabOfLines:lab withSuperView:superView]];
         } else {
-            
-            // 自适应动画长度
-            [self changeFrameWithView:view withSuperView:superView];
             
             // add a layer with animation.
             // 添加动画图层
             CALayer *layer = [[CALayer alloc]init];
-            layer.frame = CGRectMake(0, 0, view.frame.size.width, view.frame.size.height);
+            layer.frame = [self changeFrameWithView:view withSuperView:superView];
             layer.backgroundColor = color.CGColor;
             layer.anchorPoint = CGPointMake(0, 0);
             layer.position = CGPointMake(0, 0);
@@ -659,15 +674,13 @@ static CGFloat defaultSpaceWithLines = 10.f;   // use to label with row is not o
             
             [view.layer addSublayer:layer];
         }
-    } else {
         
-        // 自适应动画长度
-        [self changeFrameWithView:view withSuperView:superView];
+    } else {
         
         // add a layer with animation.
         // 添加动画图层
         CALayer *layer = [[CALayer alloc]init];
-        layer.frame = CGRectMake(0, 0, view.frame.size.width, view.frame.size.height);
+        layer.frame = [self changeFrameWithView:view withSuperView:superView];
         layer.backgroundColor = color.CGColor;
         layer.anchorPoint = CGPointMake(0, 0);
         layer.position = CGPointMake(0, 0);
@@ -692,14 +705,11 @@ static CGFloat defaultSpaceWithLines = 10.f;   // use to label with row is not o
 - (void)initLayerWithCollectionView:(UIView *)view
                       withSuperView:(UIView *)superView
                           withColor:(UIColor *)color {
-    
-    // 自适应动画长度
-    [self changeFrameWithView:view withSuperView:superView];
 
     // add a layer with animation.
     // 添加动画图层
     CALayer *layer = [[CALayer alloc]init];
-    layer.frame = CGRectMake(0, 0, view.frame.size.width, view.frame.size.height);
+    layer.frame = [self changeFrameWithView:view withSuperView:superView];
     layer.backgroundColor = color.CGColor;
     layer.anchorPoint = CGPointMake(0, 0);
     layer.position = CGPointMake(0, 0);

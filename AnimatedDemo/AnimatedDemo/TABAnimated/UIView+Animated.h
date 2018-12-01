@@ -32,6 +32,10 @@ typedef NS_ENUM(NSInteger,TABViewAnimationStyle) {
 @property (nonatomic) TABViewLoadAnimationStyle loadStyle;
 @property (nonatomic) TABViewAnimationStyle animatedStyle;
 
-@property (nonatomic) CGFloat tabViewWidth;    // width of view to you appiont it, default is your phone screen's width / 3, you can also custom it.
+@property (nonatomic) float tabViewWidth;    // width of view to you appiont it, default is your phone screen's width / 3, you can also custom it.
+
+- (float)tabViewWidth;
+
+- (void)setTabViewWidth:(float)tabViewWidth;
 
 @end

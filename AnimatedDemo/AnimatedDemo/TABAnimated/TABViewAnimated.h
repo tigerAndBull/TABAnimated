@@ -58,6 +58,12 @@ typedef NS_ENUM(NSInteger,TABAnimationType) {
 #pragma mark - Default Animation
 
 /**
+ shimmer Animation
+ 
+ */
+- (void)initWithDefaultAnimated;
+
+/**
  set animation duration and backgroundcolor.
 
  @param duration back and forth

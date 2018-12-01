@@ -45,15 +45,13 @@
     }
 }
 
-- (CGFloat)tabViewWidth {
-    
-    NSNumber *value = objc_getAssociatedObject(self, @selector(tabViewWidth));
-    return value.floatValue;
+- (float)tabViewWidth {
+    return [objc_getAssociatedObject(self, @selector(tabViewWidth)) floatValue];
 }
 
-- (void)setTabViewWidth:(CGFloat)tabViewWidth {
+- (void)setTabViewWidth:(float)tabViewWidth {
     
-    objc_setAssociatedObject(self, @selector(tabViewWidth), @(tabViewWidth), OBJC_ASSOCIATION_ASSIGN);
+    objc_setAssociatedObject(self, @selector(tabViewWidth), @(tabViewWidth), OBJC_ASSOCIATION_RETAIN);
 }
 
 @end
