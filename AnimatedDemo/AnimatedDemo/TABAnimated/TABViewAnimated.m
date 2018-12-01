@@ -155,7 +155,7 @@ static CGFloat defaultSpaceWithLines = 10.f;   // use to label with row is not o
         
         [self getNeedAnimationSubViewsOfTableView:subV];
         
-        if (_animationType == TABAnimationTypeShimmer) {
+        if (_animationType == TABAnimationTypeShimmer || _animationType == TABAnimationTypeOnlySkeleton) {
             
             if ([subV.superview isKindOfClass:[UITableViewCell class]]) {
                 if (i != 0) {
@@ -194,7 +194,7 @@ static CGFloat defaultSpaceWithLines = 10.f;   // use to label with row is not o
         
         [self getNeedAnimationSubViewsOfCollectionView:subV];
         
-        if (_animationType == TABAnimationTypeShimmer) {
+        if (_animationType == TABAnimationTypeShimmer || _animationType == TABAnimationTypeOnlySkeleton) {
             if ([subV.superview isKindOfClass:[UICollectionViewCell class]]) {
                 if (i == 0) {
                     subV.loadStyle = TABViewLoadAnimationDefault;
@@ -395,7 +395,7 @@ static CGFloat defaultSpaceWithLines = 10.f;   // use to label with row is not o
         CGFloat longAimatedWidth;                               // storage view's width which to long
         CGFloat shortAimatedWidth;                              // storage view's width which to short
         
-        if (_animationType == TABAnimationTypeShimmer) {
+        if (_animationType == TABAnimationTypeShimmer || _animationType == TABAnimationTypeOnlySkeleton) {
             longAimatedWidth = (superViewWidth - viewX)*0.9;
         }else {
             longAimatedWidth = (superViewWidth - viewX)*0.7;
@@ -635,6 +635,13 @@ static CGFloat defaultSpaceWithLines = 10.f;   // use to label with row is not o
         _animatedDuration = duration;
         _animatedColor = color;
         _animationType = TABAnimationTypeShimmer;
+    }
+}
+
+- (void)initWithOnlySkeleton {
+    
+    if (self) {
+        _animationType = TABAnimationTypeOnlySkeleton;
     }
 }
 

@@ -13,7 +13,8 @@
 
 typedef NS_ENUM(NSInteger,TABAnimationType) {
     TABAnimationTypeDefault = 0,     // default animation.
-    TABAnimationTypeShimmer          // shimmer animation for all suvViews.
+    TABAnimationTypeShimmer,         // shimmer animation for all views.
+    TABAnimationTypeOnlySkeleton     // onlySkeleton for all views.
 };
 
 @interface TABViewAnimated : NSObject
@@ -101,5 +102,9 @@ to set toValue
  */
 - (void)initWithShimmerAnimatedDuration:(CGFloat)duration
                               withColor:(UIColor *)color;
+
+#pragma mark - OnlySkeleton
+
+- (void)initWithOnlySkeleton;
 
 @end

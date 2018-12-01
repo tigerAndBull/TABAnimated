@@ -24,6 +24,7 @@
     
     // 设置TABAnimated相关属性
     [[TABViewAnimated sharedAnimated]initWithShimmerAnimated];
+//    [[TABViewAnimated sharedAnimated]initWithOnlySkeleton];
 //    [[TABViewAnimated sharedAnimated]initWithAnimatedDuration:0.6 withColor:tab_kBackColor];
     
     MainViewController *vc = [[MainViewController alloc] init];
