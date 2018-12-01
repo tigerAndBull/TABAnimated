@@ -6,14 +6,26 @@
 
 ## 效果图
 
-上面为 闪光灯动画
-下面为 经典动画
+1. 闪光灯模式
+2. 只有骨架屏模式
+3. 经典模式
 
 ![闪光灯动画.gif](https://upload-images.jianshu.io/upload_images/5632003-173bc0f48ec284fa.gif?imageMogr2/auto-orient/strip)
+
+![只有骨架屏.gif](https://upload-images.jianshu.io/upload_images/5632003-3de95600a5475720.gif?imageMogr2/auto-orient/strip)
 
 ![经典动画.gif](https://upload-images.jianshu.io/upload_images/5632003-4d40e7dd162ae383.gif?imageMogr2/auto-orient/strip)
 
 ## 版本更新记录
+
+**2018 - 12 - 01**
+
+>1. 当前最新版本为1.8.6
+>2. 新增初始化方法`initWithOnlySkeleton`,切换为只有骨架屏的模式
+>3. 完善对UIButton的支持，问题请参考github issue
+>4. 修复tabWidth不能设置小数的bug
+
+*******************************
 
 **2018 - 11 - 28**
 
