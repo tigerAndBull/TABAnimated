@@ -29,6 +29,17 @@
     objc_setAssociatedObject(self, @selector(loadStyle), @(loadStyle), OBJC_ASSOCIATION_ASSIGN);
 }
 
+- (TABViewSuperAnimationType)superAnimationType {
+    
+    NSNumber *value = objc_getAssociatedObject(self, @selector(superAnimationType));
+    return value.intValue;
+}
+
+- (void)setSuperAnimationType:(TABViewSuperAnimationType)superAnimationType {
+    
+    objc_setAssociatedObject(self, @selector(superAnimationType), @(superAnimationType), OBJC_ASSOCIATION_ASSIGN);
+}
+
 - (TABViewAnimationStyle)animatedStyle {
     
     NSNumber *value = objc_getAssociatedObject(self, @selector(animatedStyle));
@@ -52,6 +63,15 @@
 - (void)setTabViewWidth:(float)tabViewWidth {
     
     objc_setAssociatedObject(self, @selector(tabViewWidth), @(tabViewWidth), OBJC_ASSOCIATION_RETAIN);
+}
+
+- (float)tabViewHeight {
+    return [objc_getAssociatedObject(self, @selector(tabViewHeight)) floatValue];
+}
+
+- (void)setTabViewHeight:(float)tabViewHeight {
+    
+    objc_setAssociatedObject(self, @selector(tabViewHeight), @(tabViewHeight), OBJC_ASSOCIATION_RETAIN);
 }
 
 @end

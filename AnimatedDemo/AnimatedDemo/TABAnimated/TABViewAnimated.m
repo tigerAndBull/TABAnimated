@@ -17,8 +17,8 @@
 #import <objc/runtime.h>
 
 static CGFloat defaultDuration = 0.4f;
-static CGFloat defaultHeight = 25.f;           // use to label with row is not one
-static CGFloat defaultSpaceWithLines = 10.f;   // use to label with row is not one
+static CGFloat defaultHeight = 25.f;           // used to label with row is not one
+static CGFloat defaultSpaceWithLines = 10.f;   // used to label with row is not one
 
 @interface TABViewAnimated () {
     @private
@@ -39,7 +39,13 @@ static CGFloat defaultSpaceWithLines = 10.f;   // use to label with row is not o
             // change status
             view.animatedStyle = TABViewAnimationRunning;
             // start animations
-            [self getNeedAnimationSubViewsOfTableView:view];
+            if (_animationType != TABAnimationTypeCustom) {
+                [self getNeedAnimationSubViewsOfView:view];
+            }else {
+                if (view.superAnimationType != TABViewSuperAnimationTypeDefault) {
+                    [self getNeedAnimationSubViewsOfView:view];
+                }
+            }
             
             break;
             
@@ -60,6 +66,7 @@ static CGFloat defaultSpaceWithLines = 10.f;   // use to label with row is not o
     
     UITableView *superView;
     
+    // adept to different ios versions.
     if ([[[cell superview] superview] isKindOfClass:[UITableView class]]) {
         superView = (UITableView *)cell.superview.superview;
     }else {
@@ -71,7 +78,13 @@ static CGFloat defaultSpaceWithLines = 10.f;   // use to label with row is not o
         case TABTableViewAnimationStart:
 
             // start animations
-            [self getNeedAnimationSubViewsOfTableView:cell];
+            if (_animationType != TABAnimationTypeCustom) {
+                [self getNeedAnimationSubViewsOfTableView:cell withSuperView:superView];
+            }else {
+                if (superView.superAnimationType != TABViewSuperAnimationTypeDefault) {
+                    [self getNeedAnimationSubViewsOfTableView:cell withSuperView:superView];
+                }
+            }
             
             break;
 
@@ -96,7 +109,13 @@ static CGFloat defaultSpaceWithLines = 10.f;   // use to label with row is not o
         case TABCollectionViewAnimationStart:
 
             // run animation
-            [self getNeedAnimationSubViewsOfCollectionView:cell];
+            if (_animationType != TABAnimationTypeCustom) {
+                [self getNeedAnimationSubViewsOfCollectionView:cell withSuperView:superView];
+            }else {
+                if (superView.superAnimationType != TABViewSuperAnimationTypeDefault) {
+                    [self getNeedAnimationSubViewsOfCollectionView:cell withSuperView:superView];
+                }
+            }
             
             break;
             
@@ -109,7 +128,8 @@ static CGFloat defaultSpaceWithLines = 10.f;   // use to label with row is not o
             }
             [layerArray removeAllObjects];
             
-            if (_animationType == TABAnimationTypeShimmer) {
+            if (_animationType == TABAnimationTypeShimmer ||
+                (superView.superAnimationType == TABViewSuperAnimationTypeShimmer)) {
                 if (cell.layer.mask != nil) {
                     [cell.layer.mask removeFromSuperlayer];
                 }
@@ -127,6 +147,7 @@ static CGFloat defaultSpaceWithLines = 10.f;   // use to label with row is not o
 - (BOOL)judgeViewIsNeedAddAnimation:(UIView *)view {
     
     if ([view isKindOfClass:[UIButton class]]) {
+        // UIButtonLabel has one CALayer.
         if (view.layer.sublayers.count >= 1) {
             return YES;
         }else {
@@ -141,23 +162,27 @@ static CGFloat defaultSpaceWithLines = 10.f;   // use to label with row is not o
     }
 }
 
-- (void)getNeedAnimationSubViewsOfTableView:(UIView *)superView {
+- (void)getNeedAnimationSubViewsOfView:(UIView *)superView {
     
     NSArray *subViews = [superView subviews];
     
     if ([subViews count] == 0) {
         return;
     }
-
+    
     for (int i = 0; i < subViews.count;i++) {
-
+        
         UIView *subV = subViews[i];
         
-        [self getNeedAnimationSubViewsOfTableView:subV];
+        [self getNeedAnimationSubViewsOfView:subV];
         
-        if (_animationType == TABAnimationTypeShimmer || _animationType == TABAnimationTypeOnlySkeleton) {
+        if ((_animationType == TABAnimationTypeShimmer) ||
+            (_animationType == TABAnimationTypeOnlySkeleton) ||
+            (superView.superAnimationType == TABViewSuperAnimationTypeShimmer) ||
+            (superView.superAnimationType == TABViewSuperAnimationTypeOnlySkeleton)) {
             
             if ([subV.superview isKindOfClass:[UITableViewCell class]]) {
+                // used to can not add animation to contentView
                 if (i != 0) {
                     subV.loadStyle = TABViewLoadAnimationWithOnlySkeleton;
                 }
@@ -170,7 +195,8 @@ static CGFloat defaultSpaceWithLines = 10.f;   // use to label with row is not o
             [self initLayerWithView:subV withSuperView:subV.superview withColor:_animatedColor];
         }
         
-        if (_animationType == TABAnimationTypeShimmer) {
+        if ((_animationType == TABAnimationTypeShimmer) ||
+            (superView.superAnimationType == TABViewSuperAnimationTypeShimmer)) {
             if (![superView isKindOfClass:[UIButton class]]) {
                 if ([subV isEqual:[subViews lastObject]]) {
                     [self shimmerAnimation:subV.superview];
@@ -180,9 +206,55 @@ static CGFloat defaultSpaceWithLines = 10.f;   // use to label with row is not o
     }
 }
 
-- (void)getNeedAnimationSubViewsOfCollectionView:(UIView *)superView {
+- (void)getNeedAnimationSubViewsOfTableView:(UIView *)view
+                              withSuperView:(UIView *)superView{
     
-    NSArray *subViews = [superView subviews];
+    NSArray *subViews = [view subviews];
+    
+    if ([subViews count] == 0) {
+        return;
+    }
+
+    for (int i = 0; i < subViews.count;i++) {
+
+        UIView *subV = subViews[i];
+        
+        [self getNeedAnimationSubViewsOfTableView:subV withSuperView:subV.superview];
+        
+        if ((_animationType == TABAnimationTypeShimmer) ||
+            (_animationType == TABAnimationTypeOnlySkeleton) ||
+            (superView.superAnimationType == TABViewSuperAnimationTypeShimmer) ||
+            (superView.superAnimationType == TABViewSuperAnimationTypeOnlySkeleton)) {
+            
+            if ([subV.superview isKindOfClass:[UITableViewCell class]]) {
+                // used to can not add animation to contentView
+                if (i != 0) {
+                    subV.loadStyle = TABViewLoadAnimationWithOnlySkeleton;
+                }
+            }else {
+                subV.loadStyle = TABViewLoadAnimationWithOnlySkeleton;
+            }
+        }
+        
+        if ((subV.loadStyle != TABViewLoadAnimationDefault) && [self judgeViewIsNeedAddAnimation:subV]) {
+            [self initLayerWithView:subV withSuperView:subV.superview withColor:_animatedColor];
+        }
+        
+        if ((_animationType == TABAnimationTypeShimmer) ||
+            (superView.superAnimationType == TABViewSuperAnimationTypeShimmer)) {
+            if (![subV.superview isKindOfClass:[UIButton class]]) {
+                if ([subV isEqual:[subViews lastObject]]) {
+                    [self shimmerAnimation:subV.superview];
+                }
+            }
+        }
+    }
+}
+
+- (void)getNeedAnimationSubViewsOfCollectionView:(UIView *)view
+                                   withSuperView:(UIView *)superView{
+    
+    NSArray *subViews = [view subviews];
     
     if ([subViews count] == 0) {
         return;
@@ -192,10 +264,14 @@ static CGFloat defaultSpaceWithLines = 10.f;   // use to label with row is not o
         
         UIView *subV = subViews[i];
         
-        [self getNeedAnimationSubViewsOfCollectionView:subV];
+        [self getNeedAnimationSubViewsOfCollectionView:subV withSuperView:subV.superview];
         
-        if (_animationType == TABAnimationTypeShimmer || _animationType == TABAnimationTypeOnlySkeleton) {
+        if (_animationType == TABAnimationTypeShimmer ||
+            _animationType == TABAnimationTypeOnlySkeleton ||
+            (superView.superAnimationType == TABViewSuperAnimationTypeShimmer) ||
+            (superView.superAnimationType == TABViewSuperAnimationTypeOnlySkeleton)) {
             if ([subV.superview isKindOfClass:[UICollectionViewCell class]]) {
+                // used to can not add animation to contentView
                 if (i == 0) {
                     subV.loadStyle = TABViewLoadAnimationDefault;
                 }
@@ -208,8 +284,9 @@ static CGFloat defaultSpaceWithLines = 10.f;   // use to label with row is not o
             [self initLayerWithCollectionView:subV withSuperView:subV.superview withColor:_animatedColor];
         }
         
-        if (_animationType == TABAnimationTypeShimmer) {
-            if (![superView isKindOfClass:[UIButton class]]) {
+        if (_animationType == TABAnimationTypeShimmer ||
+            (superView.superAnimationType == TABViewSuperAnimationTypeShimmer)) {
+            if (![subV.superview isKindOfClass:[UIButton class]]) {
                 if ([subV isEqual:[subViews lastObject]]) {
                     [self shimmerAnimation:subV.superview];
                 }
@@ -238,7 +315,8 @@ static CGFloat defaultSpaceWithLines = 10.f;   // use to label with row is not o
         }
     }
     
-    if (_animationType == TABAnimationTypeShimmer) {
+    if (_animationType == TABAnimationTypeShimmer ||
+        _animationType == TABAnimationTypeCustom) {
         if (view.layer.mask != nil) {
             [view.layer.mask removeFromSuperlayer];
         }
@@ -268,7 +346,8 @@ static CGFloat defaultSpaceWithLines = 10.f;   // use to label with row is not o
 - (void)addLinesLabAnimated:(UILabel *)lab
                   withColor:(UIColor *)color
               withSuperView:(UIView *)superView
-              withWidth:(CGFloat)width{
+                  withWidth:(CGFloat)width
+       withIsCollectionView:(BOOL)isCollectionView {
     
     CGFloat textHeight = [lab.text sizeWithAttributes:@{NSFontAttributeName:lab.font}].height*0.9;
     
@@ -287,20 +366,30 @@ static CGFloat defaultSpaceWithLines = 10.f;   // use to label with row is not o
             
             // If next layer's maxY is over superView, stop add layer.
             if ((layer.frame.origin.y+textHeight*2+defaultSpaceWithLines) >= CGRectGetMaxY(superView.frame)) {
-                if (_animationType != TABAnimationTypeShimmer) {
+                if (_animationType != TABAnimationTypeShimmer ||
+                    superView.superAnimationType != TABAnimationTypeShimmer) {
                     [layer addAnimation:[self scaleXAnimation:TABViewLoadAnimationShort] forKey:@"TABScaleAnimation"];
                 }
                 [lab.layer addSublayer:layer];
+            
+                if (isCollectionView) {
+                    [layerArray addObject:layer];
+                }
                 break;
             }
             
             if (i == (lineCount - 1)) {
-                if (_animationType != TABAnimationTypeShimmer) {
+                if (_animationType != TABAnimationTypeShimmer ||
+                    superView.superAnimationType != TABAnimationTypeShimmer) {
                     [layer addAnimation:[self scaleXAnimation:TABViewLoadAnimationShort] forKey:@"TABScaleAnimation"];
                 }
             }
             
             [lab.layer addSublayer:layer];
+            
+            if (isCollectionView) {
+                [layerArray addObject:layer];
+            }
         }
     } else {
         
@@ -314,7 +403,8 @@ static CGFloat defaultSpaceWithLines = 10.f;   // use to label with row is not o
                 layer.position = CGPointMake(0, 0);
                 layer.name = @"TABLayer";
                 
-                if (_animationType != TABAnimationTypeShimmer) {
+                if (_animationType != TABAnimationTypeShimmer ||
+                    superView.superAnimationType != TABAnimationTypeShimmer) {
                     
                     layer.frame = CGRectMake(0, (i == 0)?(0):(i*(textHeight + defaultHeight)), width, textHeight);
                     
@@ -333,6 +423,10 @@ static CGFloat defaultSpaceWithLines = 10.f;   // use to label with row is not o
                 }
                 
                 [lab.layer addSublayer:layer];
+                
+                if (isCollectionView) {
+                    [layerArray addObject:layer];
+                }
             }
         }else {
             
@@ -347,7 +441,8 @@ static CGFloat defaultSpaceWithLines = 10.f;   // use to label with row is not o
                     layer.position = CGPointMake(0, 0);
                     layer.name = @"TABLayer";
                     
-                    if (_animationType == TABAnimationTypeDefault) {
+                    if (_animationType == TABAnimationTypeDefault ||
+                        superView.superAnimationType == TABViewSuperAnimationTypeClassic) {
                         
                         layer.frame = CGRectMake(0, (i == 0)?(0):(i*(textHeight+defaultSpaceWithLines)), width, textHeight);
                         
@@ -369,6 +464,10 @@ static CGFloat defaultSpaceWithLines = 10.f;   // use to label with row is not o
                     }
                     
                     [lab.layer addSublayer:layer];
+                    
+                    if (isCollectionView) {
+                        [layerArray addObject:layer];
+                    }
                 }
             }
         }
@@ -385,6 +484,24 @@ static CGFloat defaultSpaceWithLines = 10.f;   // use to label with row is not o
               withSuperView:(UIView *)superView {
     
     CGRect rect;
+    CGFloat height;
+    
+    if (view.frame.size.height == 0.) {
+        
+        if (view.tabViewHeight == 0.) {
+            height = 20.;
+        }else {
+            height = view.tabViewHeight;
+        }
+    }else {
+        
+        if (view.tabViewHeight != 0.) {
+            height = view.tabViewHeight;
+        }else {
+            height = view.frame.size.height;
+        }
+    }
+    
     // If the view's width is zero,set up it's width.
     // 如果组件宽度为0，则设置默认宽度
     if (view.frame.size.width == 0) {
@@ -395,7 +512,10 @@ static CGFloat defaultSpaceWithLines = 10.f;   // use to label with row is not o
         CGFloat longAimatedWidth;                               // storage view's width which to long
         CGFloat shortAimatedWidth;                              // storage view's width which to short
         
-        if (_animationType == TABAnimationTypeShimmer || _animationType == TABAnimationTypeOnlySkeleton) {
+        if (_animationType == TABAnimationTypeShimmer ||
+            _animationType == TABAnimationTypeOnlySkeleton ||
+            (superView.superAnimationType == TABViewSuperAnimationTypeOnlySkeleton) ||
+            (superView.superAnimationType == TABViewSuperAnimationTypeShimmer)) {
             longAimatedWidth = (superViewWidth - viewX)*0.9;
         }else {
             longAimatedWidth = (superViewWidth - viewX)*0.7;
@@ -403,24 +523,24 @@ static CGFloat defaultSpaceWithLines = 10.f;   // use to label with row is not o
         shortAimatedWidth = (superViewWidth - viewX)*0.5;
         
         if (view.loadStyle == TABViewLoadAnimationShort) {
-            rect = CGRectMake(0, 0, view.tabViewWidth>0?view.tabViewWidth:longAimatedWidth, view.frame.size.height);
+            rect = CGRectMake(0, 0, view.tabViewWidth>0?view.tabViewWidth:longAimatedWidth, height);
         }else {
             if (view.loadStyle == TABViewLoadAnimationLong) {
-                rect = CGRectMake(0, 0, view.tabViewWidth>0?view.tabViewWidth:shortAimatedWidth, view.frame.size.height);
+                rect = CGRectMake(0, 0, view.tabViewWidth>0?view.tabViewWidth:shortAimatedWidth, height);
             }else {
                 if (view.tabViewWidth > 0) {
-                    rect = CGRectMake(0, 0, view.tabViewWidth, view.frame.size.height);
+                    rect = CGRectMake(0, 0, view.tabViewWidth, height);
                 }else {
-                    rect = CGRectMake(0, 0, longAimatedWidth, view.frame.size.height);
+                    rect = CGRectMake(0, 0, longAimatedWidth, height);
                 }
             }
         }
     }else {
-        NSLog(@"%lf",view.tabViewWidth);
+
         if (view.tabViewWidth > 0) {
-            rect = CGRectMake(0, 0, view.tabViewWidth, view.frame.size.height);
+            rect = CGRectMake(0, 0, view.tabViewWidth, height);
         }else {
-            rect = CGRectMake(0, 0, view.frame.size.width, view.frame.size.height);
+            rect = CGRectMake(0, 0, view.frame.size.width, height);
         }
     }
     return rect;
@@ -497,7 +617,7 @@ static CGFloat defaultSpaceWithLines = 10.f;   // use to label with row is not o
     graLayer.name = @"TABLayer";
     
     graLayer.colors = @[
-                        (__bridge id)[[UIColor whiteColor]colorWithAlphaComponent:0.95].CGColor,
+//                        (__bridge id)[[UIColor whiteColor]colorWithAlphaComponent:0.95].CGColor,
                         (__bridge id)[[UIColor whiteColor]colorWithAlphaComponent:0.90].CGColor,
                         (__bridge id)[[UIColor whiteColor]colorWithAlphaComponent:0.70].CGColor,
                         (__bridge id)[[UIColor whiteColor]colorWithAlphaComponent:0.50].CGColor,
@@ -506,14 +626,14 @@ static CGFloat defaultSpaceWithLines = 10.f;   // use to label with row is not o
                         (__bridge id)[[UIColor whiteColor]colorWithAlphaComponent:0.50].CGColor,
                         (__bridge id)[[UIColor whiteColor]colorWithAlphaComponent:0.70].CGColor,
                         (__bridge id)[[UIColor whiteColor]colorWithAlphaComponent:0.90].CGColor,
-                        (__bridge id)[[UIColor whiteColor]colorWithAlphaComponent:0.95].CGColor,
+//                        (__bridge id)[[UIColor whiteColor]colorWithAlphaComponent:0.95].CGColor,
                          ];
     
     graLayer.startPoint = CGPointMake(0, 0.6);        // 设置渐变方向起点
     graLayer.endPoint = CGPointMake(1, 1);            // 设置渐变方向终点
     
     graLayer.locations = @[
-                           @(0),
+//                           @(0),
                            @(0.3),
                            @(0.33),
                            @(0.36),
@@ -522,15 +642,15 @@ static CGFloat defaultSpaceWithLines = 10.f;   // use to label with row is not o
                            @(0.45),
                            @(0.48),
                            @(0.50),
-                           @(1)
+//                           @(1)
                            ];                         // colors中各颜色对应的初始渐变点
     
     // 创建动画
     CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"locations"];
-    animation.duration = (_animatedDuration > 0.)?_animatedDuration:1.5f;
+    animation.duration = (_animatedDurationShimmer > 0.)?_animatedDurationShimmer:1.5f;
 
     animation.fromValue = @[
-                            @(0-0.5),
+//                            @(0-0.5),
                             @(0.3-0.5),
                             @(0.33-0.5),
                             @(0.36-0.5),
@@ -539,11 +659,11 @@ static CGFloat defaultSpaceWithLines = 10.f;   // use to label with row is not o
                             @(0.45-0.5),
                             @(0.48-0.5),
                             @(0.50-0.5),
-                            @(1)
+//                            @(1)
                             ];
 
     animation.toValue = @[
-                          @(0+0.5),
+//                          @(0+0.5),
                           @(0.3+0.5),
                           @(0.33+0.5),
                           @(0.36+0.5),
@@ -552,7 +672,7 @@ static CGFloat defaultSpaceWithLines = 10.f;   // use to label with row is not o
                           @(0.45+0.5),
                           @(0.48+0.5),
                           @(0.50+0.5),
-                          @(1+0.5)
+//                          @(1+0.5)
                           ];
     
     animation.removedOnCompletion = NO;
@@ -624,7 +744,7 @@ static CGFloat defaultSpaceWithLines = 10.f;   // use to label with row is not o
     
     if (self) {
         _animationType = TABAnimationTypeShimmer;
-        _animatedDuration = 1.5f;
+        _animatedDurationShimmer = 1.5f;
     }
 }
 
@@ -632,7 +752,7 @@ static CGFloat defaultSpaceWithLines = 10.f;   // use to label with row is not o
                               withColor:(UIColor *)color {
     
     if (self) {
-        _animatedDuration = duration;
+        _animatedDurationShimmer = duration;
         _animatedColor = color;
         _animationType = TABAnimationTypeShimmer;
     }
@@ -642,6 +762,32 @@ static CGFloat defaultSpaceWithLines = 10.f;   // use to label with row is not o
     
     if (self) {
         _animationType = TABAnimationTypeOnlySkeleton;
+    }
+}
+
+- (void)initWithCustomAnimation {
+    
+    if (self) {
+        _animationType = TABAnimationTypeCustom;
+        _animatedDurationShimmer = 1.5f;
+        _animatedDuration = defaultDuration;
+    }
+}
+
+- (void)initWithDefaultDurationAnimation:(CGFloat)defaultAnimationDuration
+                 withLongToValue:(CGFloat)longToValue
+                withShortToValue:(CGFloat)shortToValue
+    withShimmerAnimationDuration:(CGFloat)shimmerAnimationDuration
+                       withColor:(UIColor *)color {
+    
+    if (self) {
+        _animationType = TABAnimationTypeCustom;
+        _animatedDurationShimmer = shimmerAnimationDuration;
+        _animatedDuration = defaultAnimationDuration;
+        _animatedColor = color;
+        _shortToValue = shortToValue;
+        _longToValue = longToValue;
+        
     }
 }
 
@@ -663,7 +809,8 @@ static CGFloat defaultSpaceWithLines = 10.f;   // use to label with row is not o
             [self addLinesLabAnimated:lab
                             withColor:color
                         withSuperView:superView
-                             withWidth:[self changeFrameWithLabOfLines:lab withSuperView:superView]];
+                             withWidth:[self changeFrameWithLabOfLines:lab withSuperView:superView]
+                 withIsCollectionView:NO];
         } else {
             
             // add a layer with animation.
@@ -712,21 +859,53 @@ static CGFloat defaultSpaceWithLines = 10.f;   // use to label with row is not o
 - (void)initLayerWithCollectionView:(UIView *)view
                       withSuperView:(UIView *)superView
                           withColor:(UIColor *)color {
-
-    // add a layer with animation.
-    // 添加动画图层
-    CALayer *layer = [[CALayer alloc]init];
-    layer.frame = [self changeFrameWithView:view withSuperView:superView];
-    layer.backgroundColor = color.CGColor;
-    layer.anchorPoint = CGPointMake(0, 0);
-    layer.position = CGPointMake(0, 0);
-    layer.name = @"TABLayer";
     
-    if (view.loadStyle != TABViewLoadAnimationWithOnlySkeleton) {
-        [layer addAnimation:[self scaleXAnimation:view.loadStyle] forKey:@"TABScaleAnimation"];
+    
+    // adaptive the label with row is not one
+    if ([view isKindOfClass:[UILabel class]]) {
+        UILabel *lab = (UILabel *)view;
+        if (lab.numberOfLines != 1) {
+            
+            [self addLinesLabAnimated:lab
+                            withColor:color
+                        withSuperView:superView
+                            withWidth:[self changeFrameWithLabOfLines:lab withSuperView:superView]
+                 withIsCollectionView:YES];
+        } else {
+            
+            // add a layer with animation.
+            // 添加动画图层
+            CALayer *layer = [[CALayer alloc]init];
+            layer.frame = [self changeFrameWithView:view withSuperView:superView];
+            layer.backgroundColor = color.CGColor;
+            layer.anchorPoint = CGPointMake(0, 0);
+            layer.position = CGPointMake(0, 0);
+            layer.name = @"TABLayer";
+            
+            if (view.loadStyle != TABViewLoadAnimationWithOnlySkeleton) {
+                [layer addAnimation:[self scaleXAnimation:view.loadStyle] forKey:@"TABScaleAnimation"];
+            }
+            [layerArray addObject:layer];
+            [view.layer addSublayer:layer];
+        }
+        
+    }else {
+        
+        // add a layer with animation.
+        // 添加动画图层
+        CALayer *layer = [[CALayer alloc]init];
+        layer.frame = [self changeFrameWithView:view withSuperView:superView];
+        layer.backgroundColor = color.CGColor;
+        layer.anchorPoint = CGPointMake(0, 0);
+        layer.position = CGPointMake(0, 0);
+        layer.name = @"TABLayer";
+        
+        if (view.loadStyle != TABViewLoadAnimationWithOnlySkeleton) {
+            [layer addAnimation:[self scaleXAnimation:view.loadStyle] forKey:@"TABScaleAnimation"];
+        }
+        [layerArray addObject:layer];
+        [view.layer addSublayer:layer];
     }
-    [layerArray addObject:layer];
-    [view.layer addSublayer:layer];
 }
 
 @end

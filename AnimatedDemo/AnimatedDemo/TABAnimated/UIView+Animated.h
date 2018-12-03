@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-// the type of animation.
+// the style of animation.
 typedef NS_ENUM(NSInteger,TABViewLoadAnimationStyle) {
     TABViewLoadAnimationDefault = 0,                         // default,没有动画
     TABViewLoadAnimationShort,                               // 动画先变短再变长
@@ -27,12 +27,25 @@ typedef NS_ENUM(NSInteger,TABViewAnimationStyle) {
     TABCollectionViewAnimationEnd              // CollectionView 结束动画
 };
 
+// the type of superAnimation. (1.8.7 新增)
+typedef NS_ENUM(NSInteger,TABViewSuperAnimationType) {
+    TABViewSuperAnimationTypeDefault = 0,                    // default,没有动画
+    TABViewSuperAnimationTypeClassic,                        // 经典动画类型(包含只有骨架屏，动静结合）
+    TABViewSuperAnimationTypeShimmer,                        // 闪关灯动画
+    TABViewSuperAnimationTypeOnlySkeleton,                   // 只有骨架屏
+};
+
 @interface UIView (Animated)
 
 @property (nonatomic) TABViewLoadAnimationStyle loadStyle;
 @property (nonatomic) TABViewAnimationStyle animatedStyle;
+@property (nonatomic) TABViewSuperAnimationType superAnimationType;
 
-@property (nonatomic) float tabViewWidth;    // width of view to you appiont it, default is your phone screen's width / 3, you can also custom it.
+@property (nonatomic) float tabViewWidth;     // width of view to you appiont it, default is your phone screen's width / 3, you can also custom it.
+@property (nonatomic) float tabViewHeight;    // height of views to you appiont it, default is 20.
+                                              // If your view's height is 0 when animating, you can use the property.
+                                              // (1.8.7 新增)
+
 
 - (float)tabViewWidth;
 

@@ -129,6 +129,7 @@
         
         _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 88, tab_kScreenWidth, tab_kScreenHeight-88) collectionViewLayout:layout];
         _collectionView.animatedStyle = TABCollectionViewAnimationStart; // 开启动画
+        _collectionView.superAnimationType = TABViewSuperAnimationTypeShimmer;
         _collectionView.backgroundColor = [UIColor whiteColor];
         [_collectionView registerClass:[TestCollectionViewCell class] forCellWithReuseIdentifier:@"TestCollectionViewCell"];
         _collectionView.dataSource = self;

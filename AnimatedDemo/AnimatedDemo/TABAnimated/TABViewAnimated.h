@@ -12,9 +12,10 @@
 #import "UIView+Animated.h"
 
 typedef NS_ENUM(NSInteger,TABAnimationType) {
-    TABAnimationTypeDefault = 0,     // default animation.
-    TABAnimationTypeShimmer,         // shimmer animation for all views.
-    TABAnimationTypeOnlySkeleton     // onlySkeleton for all views.
+    TABAnimationTypeDefault = 0,     // default animation for all views in your project.
+    TABAnimationTypeShimmer,         // shimmer animation for all views in your project.
+    TABAnimationTypeOnlySkeleton,    // onlySkeleton for all views in your project.
+    TABAnimationTypeCustom           // you can select one among the three types mentioned above for the superView.
 };
 
 @interface TABViewAnimated : NSObject
@@ -22,7 +23,7 @@ typedef NS_ENUM(NSInteger,TABAnimationType) {
 @property (nonatomic) TABAnimationType animationType;
 
 @property (nonatomic) CGFloat animatedDuration;             // TABAnimationTypeDefault: default is 0.4
-                                                            // TABAnimationTypeShimmer: default is 1.5
+@property (nonatomic) CGFloat animatedDurationShimmer;             // TABAnimationTypeShimmer: default is 1.5
 
 @property (nonatomic, strong) UIColor *animatedColor;       // default is 0xEEEEEE. the backgroundcolor of your animations.
 @property (nonatomic) CGFloat longToValue;                  // toValue for LongAnimation
@@ -106,5 +107,15 @@ to set toValue
 #pragma mark - OnlySkeleton
 
 - (void)initWithOnlySkeleton;
+
+#pragma mark - Custom Animation
+
+- (void)initWithCustomAnimation;
+
+- (void)initWithDefaultDurationAnimation:(CGFloat)defaultAnimationDuration
+                         withLongToValue:(CGFloat)longToValue
+                        withShortToValue:(CGFloat)shortToValue
+            withShimmerAnimationDuration:(CGFloat)shimmerAnimationDuration
+                               withColor:(UIColor *)color;
 
 @end
