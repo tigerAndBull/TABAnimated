@@ -85,32 +85,28 @@
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     
-    if (indexPath.row == 0) {
-        cell.textLabel.text = @"UIView和UITableView纯代码 示例";
-    }else {
-        if (indexPath.row == 1) {
-            cell.textLabel.text = @"cell xib 示例";
-        }else {
-            if (indexPath.row == 2) {
-                cell.textLabel.text = @"多个UIView 示例";
-            }else {
-                if (indexPath.row == 3) {
-                    cell.textLabel.text = @"多个UITableView 示例";
-                }else {
-                    if (indexPath.row == 4) {
-                        cell.textLabel.text = @"UICollectionView 示例";
-                    }else {
-                        if (indexPath.row == 5) {
-                            cell.textLabel.text = @"多行文本 示例";
-                        }else {
-                            if (indexPath.row == 6) {
-                                cell.textLabel.text = @"cell中使用封装组件 示例";
-                            }
-                        }
-                    }
-                }
-            }
-        }
+    switch (indexPath.row) {
+        case 0:
+            cell.textLabel.text = @"UIView和UITableView纯代码 示例";
+            break;
+        case 1:
+            cell.textLabel.text = @"cell xib 示例";;
+            break;
+        case 2:
+            cell.textLabel.text = @"多个UIView 示例";
+            break;
+        case 3:
+            cell.textLabel.text = @"多个UITableView 示例";
+            break;
+        case 4:
+            cell.textLabel.text = @"UICollectionView 示例";
+            break;
+        case 5:
+            cell.textLabel.text = @"多行文本 示例";
+            break;
+        case 6:
+            cell.textLabel.text = @"cell中使用封装组件 示例";
+            break;
     }
 
     return cell;
@@ -118,46 +114,42 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (indexPath.row == 0) {
-        
-        TestViewController *vc = [[TestViewController alloc]init];
-        [kAPPDELEGATE.nav pushViewController:vc animated:YES];
-    }else {
-        if (indexPath.row == 1) {
-            
-            XibTestViewController *vc = [[XibTestViewController alloc]init];
+    switch (indexPath.row) {
+        case 0: {
+            TestViewController *vc = [TestViewController new];
             [kAPPDELEGATE.nav pushViewController:vc animated:YES];
-        }else {
-            if (indexPath.row == 2) {
-                
-                MoreViewController *vc = [[MoreViewController alloc]init];
-                [kAPPDELEGATE.nav pushViewController:vc animated:YES];
-            }else {
-                if (indexPath.row == 3) {
-                    
-                    MoreTableViewController *vc = [[MoreTableViewController alloc]init];
-                    [kAPPDELEGATE.nav pushViewController:vc animated:YES];
-                }else {
-                    if (indexPath.row == 4) {
-                        
-                        TestCollectionViewController *vc = [[TestCollectionViewController alloc]init];
-                        [kAPPDELEGATE.nav pushViewController:vc animated:YES];
-                    }else {
-                        if (indexPath.row == 5) {
-                            
-                            LabWithLinesViewController *vc = [[LabWithLinesViewController alloc]init];
-                            [kAPPDELEGATE.nav pushViewController:vc animated:YES];
-                        }else {
-                            if (indexPath.row == 6) {
-                                
-                                ExampleOfPackageViewController *vc = [[ExampleOfPackageViewController alloc]init];
-                                [kAPPDELEGATE.nav pushViewController:vc animated:YES];
-                            }
-                        }
-                    }
-                }
-            }
         }
+            break;
+        case 1: {
+            XibTestViewController *vc =[XibTestViewController new];
+            [kAPPDELEGATE.nav pushViewController:vc animated:YES];
+        }
+            break;
+        case 2: {
+            MoreViewController *vc = [MoreViewController new];
+            [kAPPDELEGATE.nav pushViewController:vc animated:YES];
+        }
+            break;
+        case 3: {
+            MoreTableViewController *vc = [MoreTableViewController new];
+            [kAPPDELEGATE.nav pushViewController:vc animated:YES];
+        }
+            break;
+        case 4: {
+            TestCollectionViewController *vc = [TestCollectionViewController new];
+            [kAPPDELEGATE.nav pushViewController:vc animated:YES];
+        }
+            break;
+        case 5: {
+            LabWithLinesViewController *vc = [LabWithLinesViewController new];
+            [kAPPDELEGATE.nav pushViewController:vc animated:YES];
+        }
+            break;
+        case 6: {
+            ExampleOfPackageViewController *vc = [ExampleOfPackageViewController new];
+            [kAPPDELEGATE.nav pushViewController:vc animated:YES];
+        }
+            break;
     }
 }
 
