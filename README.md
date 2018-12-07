@@ -1,6 +1,7 @@
 ## 本文目录
 
 >+ 效果图
+>+ 本项目思维导图
 >+ 版本更新记录
 >+ 使用教程
 
@@ -15,6 +16,10 @@
 ![只有骨架屏.gif](https://upload-images.jianshu.io/upload_images/5632003-3de95600a5475720.gif?imageMogr2/auto-orient/strip)
 
 ![经典动画.gif](https://upload-images.jianshu.io/upload_images/5632003-4d40e7dd162ae383.gif?imageMogr2/auto-orient/strip)
+
+## 本项目思维导图
+
+![思维导图.JPG](https://upload-images.jianshu.io/upload_images/5632003-05cfe2aafc075a1c.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 ## 版本更新记录
 
