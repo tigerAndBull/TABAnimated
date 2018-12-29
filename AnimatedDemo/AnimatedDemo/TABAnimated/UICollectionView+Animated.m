@@ -23,7 +23,6 @@
         
         // Gets the viewDidLoad method to the class,whose type is a pointer to a objc_method structure.
         Method originMethod = class_getInstanceMethod([self class], @selector(setDelegate:));
-        
         // Get the method you created.
         Method newMethod = class_getInstanceMethod([self class], @selector(tab_setDelegate:));
         
@@ -32,7 +31,6 @@
         BOOL isAdd = class_addMethod([self class], @selector(tab_setDelegate:), newIMP, method_getTypeEncoding(newMethod));
         
         if (isAdd) {
-            
             // replace
             class_replaceMethod([self class], @selector(setDelegate:), newIMP, method_getTypeEncoding(newMethod));
         } else {
@@ -45,16 +43,22 @@
 
 - (void)tab_setDelegate:(id<UICollectionViewDelegate>)delegate {
     
+    SEL oldSelector = @selector(numberOfSectionsInCollectionView:);
+    SEL newSelector = @selector(tab_numberOfSectionsInCollectionView:);
+    
     SEL oldSectionSelector = @selector(collectionView:numberOfItemsInSection:);
     SEL newSectionSelector = @selector(tab_collectionView:numberOfItemsInSection:);
     
     if ([self respondsToSelector:newSectionSelector]) {
+        [self exchangeCollectionDelegateMethod:oldSelector withNewSel:newSelector withCollectionDelegate:delegate];
         [self exchangeCollectionDelegateMethod:oldSectionSelector withNewSel:newSectionSelector withCollectionDelegate:delegate];
+        
     }
 
     [self tab_setDelegate:delegate];
-    
 }
+
+
 
 #pragma mark - TABCollectionViewDelegate
 
@@ -64,6 +68,14 @@
         return collectionView.animatedCount;
     }
     return [self tab_collectionView:collectionView numberOfItemsInSection:section];
+}
+
+- (NSInteger)tab_numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    
+    if (collectionView.animatedStyle == TABCollectionViewAnimationStart) {
+        return collectionView.animatedCount;
+    }
+    return [self tab_numberOfSectionsInCollectionView:collectionView];
 }
 
 #pragma mark - Private Methods

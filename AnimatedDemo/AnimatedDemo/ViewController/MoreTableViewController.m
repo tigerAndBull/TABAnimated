@@ -9,6 +9,7 @@
 #import "MoreTableViewController.h"
 
 #import "TABAnimated.h"
+#import "TABMethod.h"
 
 #import "TestTableViewCell.h"
 

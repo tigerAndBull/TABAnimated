@@ -31,11 +31,9 @@
         BOOL isAdd = class_addMethod([self class], @selector(tab_setDelegate:), newIMP, method_getTypeEncoding(newMethod));
         
         if (isAdd) {
-            
             // replace
             class_replaceMethod([self class], @selector(setDataSource:), newIMP, method_getTypeEncoding(newMethod));
         }else {
-            
             // exchange
             method_exchangeImplementations(originMethod, newMethod);
         }

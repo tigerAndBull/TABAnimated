@@ -1,8 +1,8 @@
 //
-//  UICollectionViewCell+Animated.h
+//  UIView+TABLayerout.h
 //  AnimatedDemo
 //
-//  Created by tigerAndBull on 2018/10/12.
+//  Created by tigerAndBull on 2018/9/21.
 //  Copyright © 2018年 tigerAndBull. All rights reserved.
 //
 
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface UICollectionViewCell (Animated)
+@interface UIView (TABLayoutSubviews)
 
 @end
 

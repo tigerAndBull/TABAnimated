@@ -8,7 +8,7 @@
 
 #import "TestTableViewCell.h"
 #import "TABMethod.h"
-#import "UITableViewCell+Animated.h"
+#import "UITableViewCell+TABLayoutSubviews.h"
 #import "UIView+Animated.h"
 #import "Game.h"
 
@@ -78,7 +78,7 @@
         UIImageView *iv = [[UIImageView alloc] init];
         iv.contentMode = UIViewContentModeScaleAspectFill;
         iv.layer.masksToBounds = YES;
-        iv.loadStyle = TABViewLoadAnimationWithOnlySkeleton;
+//        iv.loadStyle = TABViewLoadAnimationWithOnlySkeleton;
         
         gameImg = iv;
         [self addSubview:iv];
@@ -89,7 +89,8 @@
         [lab setFont:tab_kFont(15)];
         [lab setTextColor:[UIColor blackColor]];
         [lab setText:@""];
-        lab.loadStyle = TABViewLoadAnimationLong;
+        lab.numberOfLines = 1;
+//        lab.loadStyle = TABViewLoadAnimationLong;
         
         titleLab = lab;
         [self addSubview:lab];
@@ -98,9 +99,9 @@
     {
         UILabel *lab = [[UILabel alloc]init];
         [lab setFont:tab_kFont(12)];
-        [lab setTextColor:[UIColor grayColor]];
         [lab setText:@""];
-        lab.loadStyle = TABViewLoadAnimationShort;
+        lab.numberOfLines = 1;
+//        lab.loadStyle = TABViewLoadAnimationWithOnlySkeleton;
         
         timeLab = lab;
         [self addSubview:lab];
@@ -111,7 +112,7 @@
         [btn setTitle:@"" forState:UIControlStateNormal];
         [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [btn.titleLabel setFont:tab_kFont(12)];
-        btn.loadStyle = TABViewLoadAnimationLong;
+//        btn.loadStyle = TABViewLoadAnimationLong;
         btn.tabViewWidth = 100.1;
         
         statusBtn = btn;

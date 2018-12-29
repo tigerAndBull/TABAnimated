@@ -10,7 +10,7 @@
 
 #import "TABMethod.h"
 
-#import "UITableViewCell+Animated.h"
+#import "UITableViewCell+TABLayoutSubviews.h"
 #import "UIView+Animated.h"
 
 @interface XIBTableViewCell ()

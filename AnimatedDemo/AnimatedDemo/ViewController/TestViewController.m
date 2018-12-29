@@ -12,6 +12,7 @@
 #import "XIBTableViewCell.h"
 
 #import "TABAnimated.h"
+#import "TABMethod.h"
 
 #import "TestHeadView.h"
 
@@ -158,7 +159,7 @@
     if (!_mainTV) {
         _mainTV = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, tab_kScreenWidth, tab_kScreenHeight) style:UITableViewStyleGrouped];
         _mainTV.animatedStyle = TABTableViewAnimationStart;  // 开启动画
-        _mainTV.superAnimationType = TABViewSuperAnimationTypeShimmer;
+//        _mainTV.superAnimationType = TABViewSuperAnimationTypeShimmer;
         _mainTV.dataSource = self;
         _mainTV.delegate = self;
         _mainTV.rowHeight = 100;
@@ -176,7 +177,7 @@
     if (!_headView) {
         _headView = [[TestHeadView alloc]initWithFrame:CGRectMake(0, 0, tab_kScreenWidth, 90)];
         _headView.animatedStyle = TABViewAnimationStart;    // 开启动画
-        _headView.superAnimationType = TABViewSuperAnimationTypeOnlySkeleton;
+//        _headView.superAnimationType = TABViewSuperAnimationTypeOnlySkeleton;
     }
     return _headView;
 }

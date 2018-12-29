@@ -11,6 +11,7 @@
 #import "XIBTableViewCell.h"
 
 #import "TABAnimated.h"
+#import "TABMethod.h"
 
 #import "Game.h"
 

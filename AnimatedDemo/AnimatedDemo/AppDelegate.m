@@ -25,6 +25,7 @@
     // 设置TABAnimated相关属性
     [[TABViewAnimated sharedAnimated]initWithShimmerAnimated];
 //    [[TABViewAnimated sharedAnimated]initWithOnlySkeleton];
+//    [[TABViewAnimated sharedAnimated] initWithDefaultAnimated];
 //      [[TABViewAnimated sharedAnimated]initWithCustomAnimation];
 //    [[TABViewAnimated sharedAnimated]initWithAnimatedDuration:0.6 withColor:tab_kBackColor];
     

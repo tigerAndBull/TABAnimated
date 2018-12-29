@@ -22,12 +22,14 @@ typedef NS_ENUM(NSInteger,TABAnimationType) {
 
 @property (nonatomic) TABAnimationType animationType;
 
-@property (nonatomic) CGFloat animatedDuration;             // TABAnimationTypeDefault: default is 0.4
+@property (nonatomic) CGFloat animatedDuration;                    // TABAnimationTypeDefault: default is 0.4
 @property (nonatomic) CGFloat animatedDurationShimmer;             // TABAnimationTypeShimmer: default is 1.5
 
-@property (nonatomic, strong) UIColor *animatedColor;       // default is 0xEEEEEE. the backgroundcolor of your animations.
-@property (nonatomic) CGFloat longToValue;                  // toValue for LongAnimation
-@property (nonatomic) CGFloat shortToValue;                 // toValue for ShortAnimation
+@property (nonatomic,strong) UIColor *animatedColor;               // default is 0xEEEEEE. the backgroundcolor of your animations.
+@property (nonatomic) CGFloat longToValue;                         // toValue for LongAnimation
+@property (nonatomic) CGFloat shortToValue;                        // toValue for ShortAnimation
+
+@property (nonatomic,strong,readonly) NSMutableArray *layerArray;  // manager layer on UICollectionView.
 
 /**
  SingleTon
@@ -38,7 +40,7 @@ typedef NS_ENUM(NSInteger,TABAnimationType) {
 
 /**
  start/end animatiqons to UIView.
- 
+
  @param view to the UIView
  */
 - (void)startOrEndViewAnimated:(UIView *)view;

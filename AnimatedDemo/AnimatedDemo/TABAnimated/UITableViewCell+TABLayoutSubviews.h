@@ -1,5 +1,5 @@
 //
-//  UIView+TABLayerout.h
+//  UITableViewCell+Animated.h
 //  AnimatedDemo
 //
 //  Created by tigerAndBull on 2018/9/21.
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface UIView (TABLayerout)
+@interface UITableViewCell (TABLayoutSubviews)
 
 @end
 

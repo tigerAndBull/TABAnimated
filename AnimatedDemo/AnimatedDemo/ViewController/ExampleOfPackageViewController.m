@@ -11,6 +11,7 @@
 #import "PackageTableViewCell.h"
 
 #import "TABAnimated.h"
+#import "TABMethod.h"
 
 @interface ExampleOfPackageViewController ()<UITableViewDelegate,UITableViewDataSource>
 

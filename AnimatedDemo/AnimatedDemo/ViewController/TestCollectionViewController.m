@@ -11,6 +11,7 @@
 #import "TestCollectionViewCell.h"
 
 #import "TABAnimated.h"
+#import "TABMethod.h"
 
 #import "Game.h"
 
@@ -80,8 +81,12 @@
 
 #pragma mark - UICollectionViewDelegate & UICollectionViewDataSource
 
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     return dataArray.count;
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return 1;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {

@@ -11,6 +11,7 @@
 #import "TestHeadView.h"
 
 #import "TABAnimated.h"
+#import "TABMethod.h"
 
 @interface MoreViewController ()
 

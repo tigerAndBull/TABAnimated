@@ -10,14 +10,15 @@
 #define TABAnimated_h
 
 #import "UIView+Animated.h"
+#import "UIView+TABLayoutSubviews.h"
 
 #import "UITableView+Animated.h"
-#import "UITableViewCell+Animated.h"
+#import "UITableViewCell+TABLayoutSubviews.h"
 
 #import "UICollectionView+Animated.h"
-#import "UICollectionViewCell+Animated.h"
+#import "UICollectionViewCell+TABLayoutSubviews.h"
 
 #import "TABViewAnimated.h"
-#import "TABMethod.h"
+#import "TABAnimationMethod.h"
 
 #endif /* TABAnimated_h */

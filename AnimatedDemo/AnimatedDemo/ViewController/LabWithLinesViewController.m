@@ -9,6 +9,7 @@
 #import "LabWithLinesViewController.h"
 
 #import "TABAnimated.h"
+#import "TABMethod.h"
 
 #import "LabWithLinesViewCell.h"
 
