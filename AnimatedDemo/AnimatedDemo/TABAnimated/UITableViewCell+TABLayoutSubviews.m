@@ -8,8 +8,6 @@
 
 #import "UITableViewCell+TABLayoutSubviews.h"
 #import "UITableView+Animated.h"
-
-#import "TABMethod.h"
 #import "TABViewAnimated.h"
 
 #import <objc/runtime.h>

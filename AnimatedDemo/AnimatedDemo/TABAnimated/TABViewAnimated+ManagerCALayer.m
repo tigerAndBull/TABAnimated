@@ -102,29 +102,22 @@ static CGFloat defaultSpaceWithLines = 10.f;   // used to label with row is not 
             
             // If next layer's maxY is over superView, stop add layer.
             if ((layer.frame.origin.y+textHeight*2+defaultSpaceWithLines) >= CGRectGetMaxY(superView.frame)) {
-                if (self.animationType != TABAnimationTypeShimmer ||
-                    superView.superAnimationType != TABAnimationTypeShimmer) {
+                if (self.animationType == TABAnimationTypeDefault ||
+                    superView.superAnimationType == TABViewSuperAnimationTypeClassic) {
                     [layer addAnimation:[TABAnimationMethod scaleXAnimationDuration:self.animatedDuration toValue:[self getToValueByViewLoadStyle:TABViewLoadAnimationShort]] forKey:@"TABScaleAnimation"];
                 }
                 [lab.layer addSublayer:layer];
-                
-                if (isCollectionView) {
-                    [self.layerArray addObject:layer];
-                }
                 break;
             }
             
             if (i == (lineCount - 1)) {
-                if (self.animationType != TABAnimationTypeShimmer ||
-                    superView.superAnimationType != TABAnimationTypeShimmer) {
+                if (self.animationType == TABAnimationTypeDefault ||
+                    superView.superAnimationType == TABViewSuperAnimationTypeClassic) {
                     [layer addAnimation:[TABAnimationMethod scaleXAnimationDuration:self.animatedDuration toValue:[self getToValueByViewLoadStyle:TABViewLoadAnimationShort]] forKey:@"TABScaleAnimation"];
                 }
             }
             
             [lab.layer addSublayer:layer];
-            if (isCollectionView) {
-                [self.layerArray addObject:layer];
-            }
         }
     } else {
         
@@ -138,8 +131,8 @@ static CGFloat defaultSpaceWithLines = 10.f;   // used to label with row is not 
                 layer.position = CGPointMake(0, 0);
                 layer.name = @"TABLayer";
                 
-                if (self.animationType != TABAnimationTypeShimmer ||
-                    superView.superAnimationType != TABAnimationTypeShimmer) {
+                if (self.animationType == TABAnimationTypeDefault ||
+                    superView.superAnimationType == TABViewSuperAnimationTypeClassic) {
                     
                     layer.frame = CGRectMake(0, (i == 0)?(0):(i*(textHeight + defaultHeight)), width, textHeight);
                     
@@ -158,9 +151,6 @@ static CGFloat defaultSpaceWithLines = 10.f;   // used to label with row is not 
                 }
                 
                 [lab.layer addSublayer:layer];
-                if (isCollectionView) {
-                    [self.layerArray addObject:layer];
-                }
             }
         }else {
             
@@ -198,9 +188,6 @@ static CGFloat defaultSpaceWithLines = 10.f;   // used to label with row is not 
                     }
                     
                     [lab.layer addSublayer:layer];
-                    if (isCollectionView) {
-                        [self.layerArray addObject:layer];
-                    }
                 }
             }
         }
@@ -226,7 +213,6 @@ static CGFloat defaultSpaceWithLines = 10.f;   // used to label with row is not 
             height = view.tabViewHeight;
         }
     }else {
-        
         if (view.tabViewHeight != 0.) {
             height = view.tabViewHeight;
         }else {
@@ -400,8 +386,6 @@ static CGFloat defaultSpaceWithLines = 10.f;   // used to label with row is not 
             if (view.loadStyle != TABViewLoadAnimationWithOnlySkeleton) {
                 [layer addAnimation:[TABAnimationMethod scaleXAnimationDuration:self.animatedDuration toValue:[self getToValueByViewLoadStyle:view.loadStyle]] forKey:@"TABScaleAnimation"];
             }
-            
-            [self.layerArray addObject:layer];
             [view.layer addSublayer:layer];
         }
         
@@ -419,8 +403,6 @@ static CGFloat defaultSpaceWithLines = 10.f;   // used to label with row is not 
         if (view.loadStyle != TABViewLoadAnimationWithOnlySkeleton) {
             [layer addAnimation:[TABAnimationMethod scaleXAnimationDuration:self.animatedDuration toValue:[self getToValueByViewLoadStyle:view.loadStyle]] forKey:@"TABScaleAnimation"];
         }
-        
-        [self.layerArray addObject:layer];
         [view.layer addSublayer:layer];
     }
 }

@@ -11,6 +11,9 @@
 
 #import "UIView+Animated.h"
 
+#define tab_kColor(c) [UIColor colorWithRed:((c>>24)&0xFF)/255.0 green:((c>>16)&0xFF)/255.0 blue:((c>>8)&0xFF)/255.0 alpha:((c)&0xFF)/255.0]
+#define tab_kBackColor tab_kColor(0xEEEEEEFF)
+
 typedef NS_ENUM(NSInteger,TABAnimationType) {
     TABAnimationTypeDefault = 0,     // default animation for all views in your project.
     TABAnimationTypeShimmer,         // shimmer animation for all views in your project.
@@ -28,8 +31,6 @@ typedef NS_ENUM(NSInteger,TABAnimationType) {
 @property (nonatomic,strong) UIColor *animatedColor;               // default is 0xEEEEEE. the backgroundcolor of your animations.
 @property (nonatomic) CGFloat longToValue;                         // toValue for LongAnimation
 @property (nonatomic) CGFloat shortToValue;                        // toValue for ShortAnimation
-
-@property (nonatomic,strong,readonly) NSMutableArray *layerArray;  // manager layer on UICollectionView.
 
 /**
  SingleTon

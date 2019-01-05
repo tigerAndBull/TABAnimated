@@ -12,8 +12,6 @@
 
 #import "TABViewAnimated.h"
 
-#import "TABMethod.h"
-
 @implementation UIView (Animated)
 
 #pragma mark - Getter/Setter
@@ -61,7 +59,6 @@
 }
 
 - (void)setTabViewWidth:(float)tabViewWidth {
-    
     objc_setAssociatedObject(self, @selector(tabViewWidth), @(tabViewWidth), OBJC_ASSOCIATION_RETAIN);
 }
 
@@ -70,7 +67,6 @@
 }
 
 - (void)setTabViewHeight:(float)tabViewHeight {
-    
     objc_setAssociatedObject(self, @selector(tabViewHeight), @(tabViewHeight), OBJC_ASSOCIATION_RETAIN);
 }
 

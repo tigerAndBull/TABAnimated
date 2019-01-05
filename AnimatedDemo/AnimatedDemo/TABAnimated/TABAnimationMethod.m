@@ -23,23 +23,24 @@
     return anim;
 }
 
-+ (void)addShimmerAnimationToView:(UIView *)view
-                         duration:(CGFloat)duration {
++ (CALayer *)addShimmerAnimationToView:(UIView *)view
+                              duration:(CGFloat)duration {
     
+    UIColor *color = [UIColor redColor];
     // 创建渐变效果的layer
     CAGradientLayer *graLayer = [CAGradientLayer layer];
     graLayer.frame = view.bounds;
     graLayer.name = @"TABLayer";
     
     graLayer.colors = @[
-                        (__bridge id)[[UIColor whiteColor]colorWithAlphaComponent:0.90].CGColor,
-                        (__bridge id)[[UIColor whiteColor]colorWithAlphaComponent:0.70].CGColor,
-                        (__bridge id)[[UIColor whiteColor]colorWithAlphaComponent:0.50].CGColor,
-                        (__bridge id)[[UIColor whiteColor]colorWithAlphaComponent:0.40].CGColor,
-                        (__bridge id)[[UIColor whiteColor]colorWithAlphaComponent:0.40].CGColor,
-                        (__bridge id)[[UIColor whiteColor]colorWithAlphaComponent:0.50].CGColor,
-                        (__bridge id)[[UIColor whiteColor]colorWithAlphaComponent:0.70].CGColor,
-                        (__bridge id)[[UIColor whiteColor]colorWithAlphaComponent:0.90].CGColor
+                        (__bridge id)[color colorWithAlphaComponent:0.90].CGColor,
+                        (__bridge id)[color colorWithAlphaComponent:0.70].CGColor,
+                        (__bridge id)[color colorWithAlphaComponent:0.50].CGColor,
+                        (__bridge id)[color colorWithAlphaComponent:0.40].CGColor,
+                        (__bridge id)[color colorWithAlphaComponent:0.40].CGColor,
+                        (__bridge id)[color colorWithAlphaComponent:0.50].CGColor,
+                        (__bridge id)[color colorWithAlphaComponent:0.70].CGColor,
+                        (__bridge id)[color colorWithAlphaComponent:0.90].CGColor
                         ];
     
     graLayer.startPoint = CGPointMake(0, 0.6);        // 设置渐变方向起点
@@ -61,14 +62,14 @@
     animation.duration = (duration > 0.)?duration:1.5f;
     
     animation.fromValue = @[
-                            @(0.3-0.5),
-                            @(0.33-0.5),
-                            @(0.36-0.5),
-                            @(0.39-0.5),
-                            @(0.42-0.5),
-                            @(0.45-0.5),
-                            @(0.48-0.5),
-                            @(0.50-0.5)
+                            @(0.3-0.6),
+                            @(0.33-0.6),
+                            @(0.36-0.6),
+                            @(0.39-0.6),
+                            @(0.42-0.6),
+                            @(0.45-0.6),
+                            @(0.48-0.6),
+                            @(0.50-0.6)
                             ];
     
     animation.toValue = @[
@@ -89,6 +90,7 @@
     
     // 将graLayer设置成superView的遮罩
     view.layer.mask = graLayer;
+    return graLayer;
 }
 
 @end

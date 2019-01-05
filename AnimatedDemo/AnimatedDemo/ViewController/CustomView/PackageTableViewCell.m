@@ -9,6 +9,8 @@
 #import "PackageTableViewCell.h"
 #import "TestHeadView.h"
 
+#import "Game.h"
+
 @interface PackageTableViewCell()
 
 @property (nonatomic,strong) TestHeadView *packView;
@@ -19,7 +21,6 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
     // Configure the view for the selected state
 }
 
@@ -31,6 +32,10 @@
         [self initUI];
     }
     return self;
+}
+
+- (void)updateWithGame:(Game *)game {
+    [self.packView initWithData:game];
 }
 
 #pragma mark - Initize Methods

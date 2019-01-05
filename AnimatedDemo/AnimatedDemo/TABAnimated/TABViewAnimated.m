@@ -8,7 +8,6 @@
 
 #import "TABViewAnimated.h"
 
-#import "TABMethod.h"
 #import "TABAnimationMethod.h"
 
 #import "UIView+Animated.h"
@@ -22,7 +21,9 @@ static CGFloat defaultDuration = 0.4f;
 
 @interface TABViewAnimated()
 
-@property (nonatomic,strong,readwrite) NSMutableArray *layerArray;
+@property (nonatomic) BOOL isNestShimmer;        // 嵌套表格 用于禁用闪光灯
+@property (nonatomic) BOOL isNestShimmerToTable; // 嵌套表格 用于禁用闪光灯
+@property (nonatomic) BOOL isNestShimmerToView;  // 嵌套表格 用于禁用闪光灯
 
 @end
 
@@ -38,6 +39,7 @@ static CGFloat defaultDuration = 0.4f;
             
             // change status
             view.animatedStyle = TABViewAnimationRunning;
+            [self judgeNestTable:view superView:view.superview];
             // start animations
             if (self.animationType != TABAnimationTypeCustom || self.animationType != TABAnimationTypeDefault) {
                 [self getNeedAnimationSubViewsOfView:view];
@@ -51,6 +53,7 @@ static CGFloat defaultDuration = 0.4f;
             
         case TABViewAnimationEnd:
             
+            [self endAnimationToSubViews:view];
             // end animations
             [self removeAllTABLayersFromView:view];
             
@@ -59,6 +62,15 @@ static CGFloat defaultDuration = 0.4f;
         default:
             break;
     }
+    __weak typeof(self) weakSelf = self;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (weakSelf.isNestShimmerToTable) {
+            weakSelf.isNestShimmerToTable = NO;
+        }
+        if (weakSelf.isNestShimmer) {
+            weakSelf.isNestShimmer = NO;
+        }
+    });
 }
 
 
@@ -71,6 +83,8 @@ static CGFloat defaultDuration = 0.4f;
     }else {
         superView = (UITableView *)cell.superview;
     }
+    
+    [self judgeNestTable:cell superView:superView];
 
     switch (superView.animatedStyle) {
             
@@ -89,6 +103,7 @@ static CGFloat defaultDuration = 0.4f;
 
         case TABTableViewAnimationEnd:
             
+            [self endAnimationToSubViews:cell];
             // end animations
             [self removeAllTABLayersFromView:superView];
             
@@ -97,12 +112,24 @@ static CGFloat defaultDuration = 0.4f;
         default:
             break;
     }
+    
+    __weak typeof(self) weakSelf = self;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (weakSelf.isNestShimmerToTable) {
+            weakSelf.isNestShimmerToTable = NO;
+        }
+        if (weakSelf.isNestShimmer) {
+            weakSelf.isNestShimmer = NO;
+        }
+    });
 }
 
 - (void)startOrEndCollectionAnimated:(UICollectionViewCell *)cell {
     
     UICollectionView *superView = (UICollectionView *)cell.superview;
-
+    
+    [self judgeNestTable:cell superView:superView];
+    
     switch (superView.animatedStyle) {
             
         case TABCollectionViewAnimationStart:
@@ -120,28 +147,105 @@ static CGFloat defaultDuration = 0.4f;
             
         case TABCollectionViewAnimationEnd:
             
-            // remove layers
-            for (int i = 0; i < self.layerArray.count; i++) {
-                CALayer *layer = self.layerArray[i];
-                [layer removeFromSuperlayer];
-            }
-            [self.layerArray removeAllObjects];
-            
-            if (self.animationType == TABAnimationTypeShimmer ||
-                (superView.superAnimationType == TABViewSuperAnimationTypeShimmer)) {
-                if (cell.layer.mask != nil) {
-                    [cell.layer.mask removeFromSuperlayer];
-                }
-            }
+            [self endAnimationToSubViews:cell];
+            // end animations
+            [self removeAllTABLayersFromView:superView];
             
             break;
             
         default:
             break;
     }
+    
+    __weak typeof(self) weakSelf = self;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (weakSelf.isNestShimmerToTable) {
+            weakSelf.isNestShimmerToTable = NO;
+        }
+        if (weakSelf.isNestShimmer) {
+            weakSelf.isNestShimmer = NO;
+        }
+    });
 }
 
 #pragma mark - Private Methods
+
+- (void)judgeNestTable:(UIView *)view superView:(UIView *)superView {
+    
+    if ([superView.superview isKindOfClass:[UICollectionViewCell class]] ||
+        [superView.superview.superview isKindOfClass:[UICollectionViewCell class]] ||
+        [superView.superview isKindOfClass:[UITableViewCell class]] ||
+        [superView.superview.superview isKindOfClass:[UITableViewCell class]]) {
+        if ([view isKindOfClass:[UITableViewCell class]]) {
+            self.isNestShimmerToTable = YES;
+        }else {
+            self.isNestShimmer = YES;
+        }
+        return;
+    }
+    
+    BOOL shouldExe = YES;
+    for (UIView *sub in view.subviews) {
+        if (shouldExe) {
+            if ([sub isEqual:[view.subviews firstObject]]) {
+                if (sub.subviews.count > 0) {
+                    for (UIView *v in sub.subviews) {
+                        if ([v isKindOfClass:[UICollectionView class]] ||
+                            [v isKindOfClass:[UITableView class]]) {
+                            shouldExe = NO;
+                            if ([view isKindOfClass:[UITableViewCell class]]) {
+                                self.isNestShimmerToTable = YES;
+                            }else {
+                                self.isNestShimmer = YES;
+                            }
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+        shouldExe = NO;
+        if ([sub isKindOfClass:[UICollectionView class]] ||
+            [sub isKindOfClass:[UITableView class]]) {
+            if ([view isKindOfClass:[UITableViewCell class]]) {
+                self.isNestShimmerToTable = YES;
+            }else {
+                self.isNestShimmer = YES;
+            }
+            return;
+        }
+    }
+}
+
+- (void)endAnimationToSubViews:(UIView *)view {
+    
+    NSArray *subViews = [view subviews];
+    if ([subViews count] == 0) {
+        return;
+    }
+    
+    for (int i = 0; i < subViews.count;i++) {
+        
+        UIView *subV = subViews[i];
+        [self endAnimationToSubViews:subV];
+        
+        if ([subV isKindOfClass:[UICollectionView class]]) {
+            if (subV.animatedStyle == TABCollectionViewAnimationStart) {
+                UICollectionView *collectionView = (UICollectionView *)subV;
+                collectionView.animatedStyle = TABCollectionViewAnimationEnd;
+                [collectionView reloadData];
+            }
+        }else {
+            if ([subV isKindOfClass:[UITableView class]]) {
+                if (subV.animatedStyle == TABTableViewAnimationStart) {
+                    UITableView *tableView = (UITableView *)subV;
+                    tableView.animatedStyle = TABTableViewAnimationEnd;
+                    [tableView reloadData];
+                }
+            }
+        }
+    }
+}
 
 - (BOOL)judgeViewIsNeedAddAnimation:(UIView *)view {
     
@@ -153,16 +257,21 @@ static CGFloat defaultDuration = 0.4f;
             return NO;
         }
     }else {
-        if (view.layer.sublayers.count == 0) {
-            return YES;
-        }else {
-            if ([view isKindOfClass:[UILabel class]]) {
-                UILabel *lab = (UILabel *)view;
-                if (!lab.text) {
-                    return YES;
-                }
-            }
+        if ([view isKindOfClass:[UICollectionView class]] ||
+            [view isKindOfClass:[UITableView class]]) {
             return NO;
+        }else {
+            if (view.layer.sublayers.count == 0) {
+                return YES;
+            }else {
+                if ([view isKindOfClass:[UILabel class]]) {
+                    UILabel *lab = (UILabel *)view;
+                    if (!lab.text || [lab.text isEqualToString:@""]) {
+                        return YES;
+                    }
+                }
+                return NO;
+            }
         }
     }
 }
@@ -179,6 +288,18 @@ static CGFloat defaultDuration = 0.4f;
         UIView *subV = subViews[i];
         
         [self getNeedAnimationSubViewsOfView:subV];
+        
+        if ([subV isKindOfClass:[UITableView class]]) {
+            UITableView *view = (UITableView *)subV;
+            subV.animatedStyle = TABTableViewAnimationStart;
+            [view reloadData];
+        }else {
+            if ([subV isKindOfClass:[UICollectionView class]]) {
+                UICollectionView *view = (UICollectionView *)subV;
+                subV.animatedStyle = TABCollectionViewAnimationStart;
+                [view reloadData];
+            }
+        }
         
         if ((self.animationType == TABAnimationTypeShimmer) ||
             (self.animationType == TABAnimationTypeOnlySkeleton) ||
@@ -199,12 +320,15 @@ static CGFloat defaultDuration = 0.4f;
             [self initLayerWithView:subV withSuperView:subV.superview withColor:self.animatedColor];
         }
         
+        if (self.isNestShimmerToTable || self.isNestShimmer) {
+            continue;
+        }
+        
         if ((self.animationType == TABAnimationTypeShimmer) ||
             (self.animationType == TABAnimationTypeCustom && (superView.superAnimationType == TABViewSuperAnimationTypeShimmer))) {
             if (![superView isKindOfClass:[UIButton class]]) {
                 if ([subV isEqual:[subViews lastObject]]) {
-                    [TABAnimationMethod addShimmerAnimationToView:subV.superview
-                                                         duration:self.animatedDurationShimmer];
+                    [TABAnimationMethod addShimmerAnimationToView:subV.superview                                           duration:self.animatedDurationShimmer];
                 }
             }
         }
@@ -212,7 +336,7 @@ static CGFloat defaultDuration = 0.4f;
 }
 
 - (void)getNeedAnimationSubViewsOfTableView:(UIView *)view
-                              withSuperView:(UIView *)superView{
+                              withSuperView:(UIView *)superView {
     
     NSArray *subViews = [view subviews];
     if ([subViews count] == 0) {
@@ -224,6 +348,18 @@ static CGFloat defaultDuration = 0.4f;
         UIView *subV = subViews[i];
         
         [self getNeedAnimationSubViewsOfTableView:subV withSuperView:subV.superview];
+        
+        if ([subV isKindOfClass:[UITableView class]]) {
+            UITableView *view = (UITableView *)subV;
+            subV.animatedStyle = TABTableViewAnimationStart;
+            [view reloadData];
+        }else {
+            if ([subV isKindOfClass:[UICollectionView class]]) {
+                UICollectionView *view = (UICollectionView *)subV;
+                subV.animatedStyle = TABCollectionViewAnimationStart;
+                [view reloadData];
+            }
+        }
         
         if ((self.animationType == TABAnimationTypeShimmer) ||
             (self.animationType == TABAnimationTypeOnlySkeleton) ||
@@ -243,6 +379,10 @@ static CGFloat defaultDuration = 0.4f;
         
         if ((subV.loadStyle != TABViewLoadAnimationDefault) && [self judgeViewIsNeedAddAnimation:subV]) {
             [self initLayerWithView:subV withSuperView:subV.superview withColor:self.animatedColor];
+        }
+        
+        if (self.isNestShimmerToTable || self.isNestShimmer) {
+            continue;
         }
         
         if ((self.animationType == TABAnimationTypeShimmer) ||
@@ -269,14 +409,27 @@ static CGFloat defaultDuration = 0.4f;
     for (int i = 0; i < subViews.count;i++) {
         
         UIView *subV = subViews[i];
-        
         [self getNeedAnimationSubViewsOfCollectionView:subV withSuperView:subV.superview];
         
+        // 如果有嵌套表格组件，将嵌套的表格组件调整为启动动画状态
+        if ([subV isKindOfClass:[UITableView class]]) {
+            UITableView *view = (UITableView *)subV;
+            subV.animatedStyle = TABTableViewAnimationStart;
+            [view reloadData];
+        }else {
+            if ([subV isKindOfClass:[UICollectionView class]]) {
+                UICollectionView *view = (UICollectionView *)subV;
+                subV.animatedStyle = TABCollectionViewAnimationStart;
+                [view reloadData];
+            }
+        }
+        
+        // 如果是闪光灯模式 或者是 骨架屏模式，将所有view动画属性调整为骨架屏
         if (self.animationType == TABAnimationTypeShimmer ||
             self.animationType == TABAnimationTypeOnlySkeleton ||
             (self.animationType == TABAnimationTypeCustom &&
-             ((superView.superAnimationType == TABViewSuperAnimationTypeShimmer) ||
-             (superView.superAnimationType == TABViewSuperAnimationTypeOnlySkeleton)))) {
+            ((superView.superAnimationType == TABViewSuperAnimationTypeShimmer) ||
+            (superView.superAnimationType == TABViewSuperAnimationTypeOnlySkeleton)))) {
             if ([subV.superview isKindOfClass:[UICollectionViewCell class]]) {
                 // used to can not add animation to contentView
                 if (i == 0) {
@@ -287,13 +440,20 @@ static CGFloat defaultDuration = 0.4f;
             }
         }
         
+        // 判断是否需要加入基础动画
         if ((subV.loadStyle != TABViewLoadAnimationDefault) && [self judgeViewIsNeedAddAnimation:subV]) {
             [self initLayerWithCollectionView:subV withSuperView:subV.superview withColor:self.animatedColor];
         }
         
+        if (self.isNestShimmerToTable || self.isNestShimmer) {
+            continue;
+        }
+        
+        // 判断是否需要加入闪光灯
         if (self.animationType == TABAnimationTypeShimmer ||
             ((self.animationType == TABAnimationTypeCustom &&
             (superView.superAnimationType == TABViewSuperAnimationTypeShimmer)))) {
+            
             if (![subV.superview isKindOfClass:[UIButton class]]) {
                 if ([subV isEqual:[subViews lastObject]]) {
                     [TABAnimationMethod addShimmerAnimationToView:subV.superview
@@ -310,23 +470,20 @@ static CGFloat defaultDuration = 0.4f;
     
     static TABViewAnimated *tabAnimated;
     
-    if (tabAnimated == nil){
+    if (tabAnimated == nil) {
         tabAnimated = [[TABViewAnimated alloc] init];
     }
     return tabAnimated;
 }
 
 - (instancetype)init {
-    
     if ( self = [super init]) {
         _animationType = TABAnimationTypeDefault;
-        self.layerArray = [NSMutableArray array];
     }
     return self;
 }
 
 - (void)initWithDefaultAnimated {
-    
     if (self) {
         _animatedDuration = defaultDuration;
         _animatedColor = tab_kBackColor;
@@ -359,16 +516,15 @@ static CGFloat defaultDuration = 0.4f;
 }
 
 - (void)initWithShimmerAnimated {
-    
     if (self) {
         _animationType = TABAnimationTypeShimmer;
         _animatedDurationShimmer = 1.5f;
+        _animatedColor = tab_kBackColor;
     }
 }
 
 - (void)initWithShimmerAnimatedDuration:(CGFloat)duration
                               withColor:(UIColor *)color {
-    
     if (self) {
         _animatedDurationShimmer = duration;
         _animatedColor = color;
@@ -377,7 +533,6 @@ static CGFloat defaultDuration = 0.4f;
 }
 
 - (void)initWithOnlySkeleton {
-    
     if (self) {
         _animationType = TABAnimationTypeOnlySkeleton;
         _animatedColor = tab_kBackColor;
@@ -385,7 +540,6 @@ static CGFloat defaultDuration = 0.4f;
 }
 
 - (void)initWithCustomAnimation {
-    
     if (self) {
         _animationType = TABAnimationTypeCustom;
         _animatedDurationShimmer = 1.5f;

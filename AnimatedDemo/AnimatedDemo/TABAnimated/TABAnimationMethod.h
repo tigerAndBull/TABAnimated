@@ -15,8 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (CABasicAnimation *)scaleXAnimationDuration:(CGFloat)duration
                                       toValue:(CGFloat)toValue;
 
-+ (void)addShimmerAnimationToView:(UIView *)view
-                         duration:(CGFloat)duration;
++ (CALayer *)addShimmerAnimationToView:(UIView *)view
+                              duration:(CGFloat)duration;
 
 @end
 

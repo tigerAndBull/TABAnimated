@@ -13,7 +13,6 @@
 #import "Game.h"
 
 @interface TestHeadView () {
-    
     UIImageView *headImg;
     UILabel *titleLab;
     UILabel *contentLab;
@@ -53,6 +52,7 @@
     titleLab.text = game.title;
     contentLab.text = game.content;
     headImg.image = [UIImage imageNamed:game.cover];
+    [self layoutSubviews];
 }
 
 #pragma mark - Initize Methods
@@ -71,7 +71,6 @@
     
     {
         UILabel *lab = [[UILabel alloc] init];
-        lab.text = @"";
         lab.font = tab_kFont(16);
         lab.textAlignment = NSTextAlignmentLeft;
         lab.textColor = [UIColor blackColor];
@@ -83,7 +82,6 @@
     
     {
         UILabel *lab = [[UILabel alloc] init];
-        lab.text = @"";
         lab.font = tab_kFont(14);
         lab.textAlignment = NSTextAlignmentLeft;
         lab.textColor = [UIColor grayColor];

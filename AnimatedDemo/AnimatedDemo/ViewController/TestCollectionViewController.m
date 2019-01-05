@@ -30,11 +30,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
     [self initData];
     [self initUI];
     
     // 假设3秒后，获取到数据了，代码具体位置看你项目了。
-    [self performSelector:@selector(afterGetData) withObject:nil afterDelay:3.0];
+    [self performSelector:@selector(afterGetData) withObject:nil afterDelay:3];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -66,7 +67,6 @@
     
     // 模拟数据
     for (int i = 0; i < 20; i ++) {
-        
         Game *game = [[Game alloc]init];
         game.gameId = [NSString stringWithFormat:@"%d",i];
         game.content = [NSString stringWithFormat:@"这里是赛事标题%d",i+1];
@@ -81,22 +81,26 @@
 
 #pragma mark - UICollectionViewDelegate & UICollectionViewDataSource
 
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return dataArray.count;
 }
 
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 1;
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    return CGSizeMake((tab_kScreenWidth)/2.0-15, 70);
+}
+
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
+    return UIEdgeInsetsMake(0, 10, 0, 0);
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     static NSString *CellIdentifier = @"TestCollectionViewCell";
     TestCollectionViewCell *cell = (TestCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
-    
+
     // 重新布局
     [cell setNeedsLayout];
-    
+
     // 在加载动画的时候，即未获得数据时，不要走加载控件数据的方法
     if (_collectionView.animatedStyle != TABCollectionViewAnimationStart) {
         [cell initWithData:dataArray[indexPath.row]];
@@ -117,8 +121,8 @@
 - (void)initUI {
     
     self.view.backgroundColor = [UIColor whiteColor];
-    
     [self.view addSubview:self.collectionView];
+    [self.collectionView registerClass:[TestCollectionViewCell class] forCellWithReuseIdentifier:@"TestCollectionViewCell"];
 }
 
 #pragma mark - Lazy Methods
@@ -126,17 +130,12 @@
 - (UICollectionView *)collectionView {
     
     if (!_collectionView) {
-        
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-        layout.minimumLineSpacing = 0;
-        layout.minimumInteritemSpacing = 0;
-        layout.itemSize = CGSizeMake(self.view.frame.size.width/2,80);
-        
-        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 88, tab_kScreenWidth, tab_kScreenHeight-88) collectionViewLayout:layout];
+        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 88, tab_kScreenWidth, tab_kScreenHeight-88)            collectionViewLayout:layout];
         _collectionView.animatedStyle = TABCollectionViewAnimationStart; // 开启动画
         _collectionView.superAnimationType = TABViewSuperAnimationTypeShimmer;
+        _collectionView.animatedCount = 40;
         _collectionView.backgroundColor = [UIColor whiteColor];
-        [_collectionView registerClass:[TestCollectionViewCell class] forCellWithReuseIdentifier:@"TestCollectionViewCell"];
         _collectionView.dataSource = self;
         _collectionView.delegate = self;
         _collectionView.showsHorizontalScrollIndicator = NO;

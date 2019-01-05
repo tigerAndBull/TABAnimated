@@ -10,7 +10,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class Game;
+
 @interface PackageTableViewCell : UITableViewCell
+
+- (void)updateWithGame:(Game *)game;
 
 @end
 

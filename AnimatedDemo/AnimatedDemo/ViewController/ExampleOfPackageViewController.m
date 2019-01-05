@@ -13,6 +13,8 @@
 #import "TABAnimated.h"
 #import "TABMethod.h"
 
+#import "Game.h"
+
 @interface ExampleOfPackageViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic,strong) UITableView *mainTV;
@@ -27,6 +29,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self initUI];
+    
+    // 假设3秒后，获取到数据了，代码具体位置看你项目了。
+    [self performSelector:@selector(afterGetData) withObject:nil afterDelay:3.0];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -48,6 +53,11 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)afterGetData {
+    self.mainTV.animatedStyle = TABTableViewAnimationEnd;
+    [self.mainTV reloadData];
 }
 
 #pragma mark - UITableViewDataSource & UITableViewDelegate
@@ -77,6 +87,14 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
+    if (tableView.animatedStyle != TABTableViewAnimationStart) {
+        // 省事，用了同一个类
+        Game *headGame = [[Game alloc]init];
+        headGame.title = [NSString stringWithFormat:@"头视图标题"];
+        headGame.content = [NSString stringWithFormat:@"这里是头视图内容"];
+        headGame.cover = @"head.jpg";
+        [cell updateWithGame:headGame];
+    }
     return cell;
 }
 
@@ -87,9 +105,7 @@
  初始化视图
  */
 - (void)initUI {
-    
     self.view.backgroundColor = [UIColor whiteColor];
-    
     [self.view addSubview:self.mainTV];
 }
 

@@ -23,7 +23,6 @@ typedef NS_ENUM(NSInteger,TABViewAnimationStyle) {
     TABViewAnimationRunning,                   // 动画中 you don't need care the status.
     TABViewAnimationEnd,                       // 结束动画
     TABCollectionViewAnimationStart,           // CollectionView 开始动画
-    TABCollectionViewAnimationRunning,         // CollectionView 动画中
     TABCollectionViewAnimationEnd              // CollectionView 结束动画
 };
 

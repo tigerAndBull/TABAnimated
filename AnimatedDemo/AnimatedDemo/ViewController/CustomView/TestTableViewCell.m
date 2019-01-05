@@ -113,7 +113,6 @@
         [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [btn.titleLabel setFont:tab_kFont(12)];
 //        btn.loadStyle = TABViewLoadAnimationLong;
-        btn.tabViewWidth = 100.1;
         
         statusBtn = btn;
         [self addSubview:btn];

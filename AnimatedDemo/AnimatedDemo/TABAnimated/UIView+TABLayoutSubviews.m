@@ -9,7 +9,6 @@
 #import "UIView+TABLayoutSubviews.h"
 #import "UIView+Animated.h"
 #import "TABViewAnimated.h"
-#import "TABMethod.h"
 #import <objc/runtime.h>
 
 @implementation UIView (TABLayoutSubviews)
@@ -47,7 +46,6 @@
     
     // start animation/end animation
     dispatch_async(dispatch_get_main_queue(), ^{
-        
         if ( self.animatedStyle != TABViewAnimationRunning ) {
             [[TABViewAnimated sharedAnimated]startOrEndViewAnimated:self];
         }

@@ -28,7 +28,7 @@
 //    [[TABViewAnimated sharedAnimated] initWithDefaultAnimated];
 //      [[TABViewAnimated sharedAnimated]initWithCustomAnimation];
 //    [[TABViewAnimated sharedAnimated]initWithAnimatedDuration:0.6 withColor:tab_kBackColor];
-    
+    [TABViewAnimated sharedAnimated].animatedColor = tab_kBackColor;
     MainViewController *vc = [[MainViewController alloc] init];
     _nav = [[UINavigationController alloc]initWithRootViewController:vc];
     

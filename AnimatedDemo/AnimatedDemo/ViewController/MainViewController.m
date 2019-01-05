@@ -14,6 +14,7 @@
 #import "TestCollectionViewController.h"
 #import "LabWithLinesViewController.h"
 #import "ExampleOfPackageViewController.h"
+#import "NestCollectionViewController.h"
 
 #import "TABMethod.h"
 #import "AppDelegate.h"
@@ -64,7 +65,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 7;
+    return 8;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
@@ -105,6 +106,10 @@
                         }else {
                             if (indexPath.row == 6) {
                                 cell.textLabel.text = @"cell中使用封装组件 示例";
+                            }else {
+                                if (indexPath.row == 7) {
+                                    cell.textLabel.text = @"嵌套表格组件 示例";
+                                }
                             }
                         }
                     }
@@ -152,6 +157,12 @@
                                 
                                 ExampleOfPackageViewController *vc = [[ExampleOfPackageViewController alloc]init];
                                 [kAPPDELEGATE.nav pushViewController:vc animated:YES];
+                            }else {
+                                if (indexPath.row == 7) {
+                                    
+                                    NestCollectionViewController *vc = [[NestCollectionViewController alloc]init];
+                                    [kAPPDELEGATE.nav pushViewController:vc animated:YES];
+                                }
                             }
                         }
                     }
