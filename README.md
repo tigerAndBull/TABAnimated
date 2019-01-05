@@ -1,6 +1,7 @@
 ## 本文目录
 
 >+ 效果图
+>+ 本项目思维导图
 >+ 版本更新记录
 >+ 使用教程
 
@@ -16,7 +17,26 @@
 
 ![经典动画.gif](https://upload-images.jianshu.io/upload_images/5632003-4d40e7dd162ae383.gif?imageMogr2/auto-orient/strip)
 
+## 本项目思维导图
+
+![思维导图.JPG](https://upload-images.jianshu.io/upload_images/5632003-05cfe2aafc075a1c.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 ## 版本更新记录
+
+**2018 - 12 - 03**
+
+>1. 当前最新版本为1.8.7
+>2. 新增属性`superAnimationType`，为控制动画状态的视图使用（最新demo有示例）
+>3. 新增属性`tabViewHeight`, 如果动画高度不满意或者因为高度为0而无法显示动画，则使用该属性 ( `强调`：动画宽度和高度是可以自动适配的，如果有特殊情况才考虑使用)
+>4. 优化闪光灯动画的显示效果
+>5. 因多次版本迭代，后续会整理文档，同时oc版趋于完善状态，后续考虑swift版本
+
+> `superAnimationType`说明：
+以前的三种动画类型均为项目级别，即全局
+如果你希望同时使用两种及以上动画类型，则使用该属性，
+同时需要使用新的初始化方法
+
+*******************************
 
 **2018 - 12 - 01**
 
