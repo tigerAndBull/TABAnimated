@@ -18,11 +18,9 @@
 
 ![思维导图.JPG](https://upload-images.jianshu.io/upload_images/5632003-05cfe2aafc075a1c.JPG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-#### 说明
+#### 交流群
 
-> 1. 本文将介绍如何将[demo](https://github.com/tigerAndBull/LoadAnimatedDemo-ios)集成到你的项目中
-
-> 2. 均为个人思考，转载请注明出处，谢谢
+为了方便进行交流和解决问题，可以加入TABAnimated交流群，保证只进行技术问题的讨论，群号：304543771
 
 #### 简要说明
 
