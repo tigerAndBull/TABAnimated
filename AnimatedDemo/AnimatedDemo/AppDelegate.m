@@ -11,10 +11,6 @@
 #import "MainViewController.h"
 #import "TABAnimated.h"
 
-#ifdef DEBUG
-#import <DoraemonKit/DoraemonManager.h>
-#endif
-
 @interface AppDelegate ()
 
 @end
@@ -25,10 +21,6 @@
     // Override point for customization after application launch.
     
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    
-#ifdef DEBUG
-    [[DoraemonManager shareInstance] install];
-#endif
     
     // 设置TABAnimated相关属性
 //    [[TABViewAnimated sharedAnimated] initWithShimmerAnimated];
