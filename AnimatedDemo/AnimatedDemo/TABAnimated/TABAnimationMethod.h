@@ -7,16 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UIView+Animated.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface TABAnimationMethod : NSObject
 
 + (CABasicAnimation *)scaleXAnimationDuration:(CGFloat)duration
-                                      toValue:(CGFloat)toValue;
+                                viewLoadStyle:(TABViewLoadAnimationStyle)style;
 
-+ (CALayer *)addShimmerAnimationToView:(UIView *)view
-                              duration:(CGFloat)duration;
++ (void)addShimmerAnimationToView:(UIView *)view
+                         duration:(CGFloat)duration;
 
 @end
 

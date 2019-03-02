@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface XIBTableViewCell : UITableViewCell
 
+- (void)updateCell;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -12,12 +12,19 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol UICollectionViewAnimatedDelegate <NSObject>
+
+@optional
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfAnimatedItemsInSection:(NSInteger)section;
+
+@end
+
 @interface UICollectionView (Animated)
 
-@property (nonatomic) TABViewAnimationStyle animatedStyle;
+@property (nonatomic,weak) id<UICollectionViewAnimatedDelegate> animatedDelegate;
 
-@property (nonatomic) NSInteger animatedCount;    // default is six. count of cell during animating.
-@property (nonatomic) NSInteger sectionCount;
+@property (nonatomic,assign) NSInteger animatedCount;    // default is six. count of cell during animating.
 
 @end
 

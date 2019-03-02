@@ -7,12 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseCollectionCell.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @class Game;
 
-@interface TestCollectionViewCell : UICollectionViewCell
+@interface TestCollectionViewCell : BaseCollectionCell
 
 - (void)initWithData:(Game *)game;
 

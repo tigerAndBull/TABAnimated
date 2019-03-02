@@ -8,14 +8,15 @@
 
 #import "TestCollectionViewController.h"
 
-#import "TestCollectionViewCell.h"
+#import "DailyCollectionViewCell.h"
+#import "CourseCollectionViewCell.h"
 
 #import "TABAnimated.h"
-#import "TABMethod.h"
 
 #import "Game.h"
+#import <TABKit/TABKit.h>
 
-@interface TestCollectionViewController () <UICollectionViewDelegate,UICollectionViewDataSource> {
+@interface TestCollectionViewController () <UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewAnimatedDelegate> {
     NSMutableArray *dataArray;
 }
 
@@ -38,24 +39,8 @@
     [self performSelector:@selector(afterGetData) withObject:nil afterDelay:3];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-}
-
-- (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-}
-
 - (void)dealloc {
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    NSLog(@"========= delloc =========");
 }
 
 #pragma mark - Target Methods
@@ -66,27 +51,41 @@
 - (void)afterGetData {
     
     // 模拟数据
-    for (int i = 0; i < 20; i ++) {
-        Game *game = [[Game alloc]init];
-        game.gameId = [NSString stringWithFormat:@"%d",i];
-        game.content = [NSString stringWithFormat:@"这里是赛事标题%d",i+1];
-        game.cover = @"test.jpg";
-        [dataArray addObject:game];
+    for (int i = 0; i < 5; i ++) {
+        [dataArray addObject:[NSObject new]];
     }
     
     // 停止动画,并刷新数据
-    _collectionView.animatedStyle = TABCollectionViewAnimationEnd;
-    [_collectionView reloadData];
+    [self.collectionView tab_endAnimation];
+}
+
+// 注意看!!!!!! UICollectionViewAnimatedDelegate
+// 注意看!!!!!! UICollectionViewAnimatedDelegate
+// 注意看!!!!!! UICollectionViewAnimatedDelegate
+#pragma mark - UICollectionViewAnimatedDelegate
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfAnimatedItemsInSection:(NSInteger)section {
+    if (section == 0) {
+        return 2;
+    }
+    return 4;
 }
 
 #pragma mark - UICollectionViewDelegate & UICollectionViewDataSource
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    return 2;
+}
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return dataArray.count;
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return CGSizeMake((tab_kScreenWidth)/2.0-15, 70);
+    if (indexPath.section == 0) {
+        return [CourseCollectionViewCell cellSizeWithWidth:kScreenWidth];
+    }
+    return [DailyCollectionViewCell cellSize];
 }
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
@@ -95,17 +94,22 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    static NSString *CellIdentifier = @"TestCollectionViewCell";
-    TestCollectionViewCell *cell = (TestCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
-
-    // 重新布局
-    [cell setNeedsLayout];
-
-    // 在加载动画的时候，即未获得数据时，不要走加载控件数据的方法
-    if (_collectionView.animatedStyle != TABCollectionViewAnimationStart) {
-        [cell initWithData:dataArray[indexPath.row]];
+    if (indexPath.section == 0) {
+        CourseCollectionViewCell *cell = [CourseCollectionViewCell cellWithIndexPath:indexPath atCollectionView:collectionView];
+        return cell;
     }
+    
+    DailyCollectionViewCell *cell = [DailyCollectionViewCell cellWithIndexPath:indexPath atCollectionView:collectionView];
     return cell;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
+    if ([cell isKindOfClass:[CourseCollectionViewCell class]]) {
+        CourseCollectionViewCell *myCell = (CourseCollectionViewCell *)cell;
+        [myCell updateWithModel:nil];
+    }
+    DailyCollectionViewCell *myCell = (DailyCollectionViewCell *)cell;
+    [myCell updateWithModel:nil];
 }
 
 #pragma mark - Initize Methods
@@ -122,22 +126,24 @@
     
     self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.collectionView];
-    [self.collectionView registerClass:[TestCollectionViewCell class] forCellWithReuseIdentifier:@"TestCollectionViewCell"];
+    
+    [self.collectionView registerClass:[CourseCollectionViewCell class] forCellWithReuseIdentifier:[CourseCollectionViewCell cellIdentifier]];
+    [self.collectionView registerClass:[DailyCollectionViewCell class] forCellWithReuseIdentifier:[DailyCollectionViewCell cellIdentifier]];
+    
+    [self.collectionView tab_startAnimation];
 }
 
 #pragma mark - Lazy Methods
 
 - (UICollectionView *)collectionView {
-    
     if (!_collectionView) {
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 88, tab_kScreenWidth, tab_kScreenHeight-88)            collectionViewLayout:layout];
-        _collectionView.animatedStyle = TABCollectionViewAnimationStart; // 开启动画
-        _collectionView.superAnimationType = TABViewSuperAnimationTypeShimmer;
-        _collectionView.animatedCount = 40;
+        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, kNavigationHeight, kScreenWidth, kScreenHeight-kNavigationHeight)            collectionViewLayout:layout];
+        _collectionView.animatedCount = 10;
         _collectionView.backgroundColor = [UIColor whiteColor];
         _collectionView.dataSource = self;
         _collectionView.delegate = self;
+        _collectionView.animatedDelegate = self;
         _collectionView.showsHorizontalScrollIndicator = NO;
         _collectionView.showsVerticalScrollIndicator = NO;
     }

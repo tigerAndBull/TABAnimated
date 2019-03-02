@@ -8,17 +8,15 @@
 
 #import "LabWithLinesViewCell.h"
 
-#import "MyLabel.h"
-
 #import "TABAnimated.h"
-#import "TABMethod.h"
 
 #import "Game.h"
+#import <TABKit/TABKit.h>
 
 @interface LabWithLinesViewCell () {
     
     UIImageView *gameImg;
-    UILabel *titleLab;
+    TABLabel *titleLab;
 }
 
 @end
@@ -49,10 +47,9 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     
-    //获取对应组件文本大小
-    CGSize titleSize = [TABMethod tab_getSizeWithText:titleLab.text sizeWithFont:tab_kFont(15) constrainedToSize:CGSizeMake(tab_kScreenWidth-(self.frame.size.height-20)*1.5-15-15-10, MAXFLOAT)];
-    
-    //布局
+    // 获取对应组件文本大小
+    CGSize titleSize = [titleLab getTextSize:CGSizeMake(kScreenWidth-(self.frame.size.height-20)*1.5-15-15-10, MAXFLOAT)];
+    // 布局
     gameImg.frame = CGRectMake(15, 10, (self.frame.size.height-20)*1.5, (self.frame.size.height-20));
     gameImg.layer.cornerRadius = 5;
     
@@ -82,11 +79,11 @@
     }
     
     {
-        MyLabel *lab = [[MyLabel alloc]init];
-        [lab setFont:tab_kFont(15)];
+        TABLabel *lab = [[TABLabel alloc]init];
+        [lab setFont:kFont(15)];
         lab.loadStyle = TABViewLoadAnimationLong;        // 需要设置，长短属性效果
-        lab.numberOfLines = 3;                           // 也可以为0,有超出父视图判断，无视图间重叠判断
-        lab.verticalAlignment = VerticalAlignmentTop;    // 多行文本 一个简单例子
+        lab.lineSpace = 5.0f;
+        lab.numberOfLines = 0;
         [lab setTextColor:[UIColor blackColor]];
         [lab setText:@""];
         

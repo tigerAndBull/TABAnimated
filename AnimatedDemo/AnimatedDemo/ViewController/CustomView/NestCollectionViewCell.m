@@ -1,9 +1,10 @@
 #import "NestCollectionViewCell.h"
 #import "ImageCollectionViewCell.h"
 #import "AppDelegate.h"
-#import "TABMethod.h"
 #import "TABAnimated.h"
 #import "Masonry.h"
+#import "UIView+Animated.h"
+#import <TABKit/TABKit.h>
 
 @interface NestCollectionViewCell()<UICollectionViewDelegate,UICollectionViewDataSource>{
     NSMutableArray * dataArray;
@@ -17,7 +18,7 @@
 @implementation NestCollectionViewCell
 
 + (CGSize)cellSizeWithWidth:(CGFloat)width {
-    return CGSizeMake(tab_kScreenWidth, ((tab_kScreenWidth-15*3-45)/2)*(3/2.0)+70);
+    return CGSizeMake(kScreenWidth, ((kScreenWidth-15*3-45)/2)*(3/2.0)+70);
 }
 
 - (instancetype)initWithFrame:(CGRect)frame {
@@ -36,7 +37,7 @@
         make.width.mas_offset(80);
     }];
     
-    [_collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(self);
         make.left.mas_equalTo(self);
         make.bottom.mas_equalTo(self).mas_offset(10);
@@ -57,7 +58,7 @@
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return [ImageCollectionViewCell cellSizeWithWidth:tab_kScreenWidth];
+    return [ImageCollectionViewCell cellSizeWithWidth:kScreenWidth];
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
@@ -72,7 +73,7 @@
     
     ImageCollectionViewCell *cell = [ImageCollectionViewCell cellWithIndexPath:indexPath atCollectionView:collectionView];
     
-    if (collectionView.animatedStyle != TABCollectionViewAnimationStart) {
+    if (!collectionView.isAnimating) {
         [cell.imgV setImage:[UIImage imageNamed:dataArray[indexPath.row]]];
     }
     
@@ -105,6 +106,8 @@
         _collectionView.backgroundColor = [UIColor whiteColor];
         _collectionView.delegate = self;
         _collectionView.dataSource = self;
+        _collectionView.animatedCount = 3;
+        _collectionView.isNest = YES;
         _collectionView.showsHorizontalScrollIndicator = NO;
         _collectionView.showsVerticalScrollIndicator = NO;
     }

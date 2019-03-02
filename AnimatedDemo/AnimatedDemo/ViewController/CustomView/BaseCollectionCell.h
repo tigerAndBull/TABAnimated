@@ -15,6 +15,7 @@
 + (void)registerCellInCollectionView:(UICollectionView *)collectionView;
 - (void)updateWithModel:(id)model;
 + (CGSize)cellSizeWithWidth:(CGFloat)width;
++ (CGSize)cellSize;
 + (instancetype)cellWithIndexPath:(NSIndexPath *)indexPath atCollectionView:(UICollectionView *)collectionView;
 
 @end

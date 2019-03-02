@@ -1,0 +1,6 @@
+framework module TABKit {
+  umbrella header "TABKit.h"
+
+  export *
+  module * { export * }
+}

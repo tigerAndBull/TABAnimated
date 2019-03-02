@@ -9,8 +9,8 @@
 #import "TestCollectionViewCell.h"
 
 #import "TABAnimated.h"
-#import "TABMethod.h"
 #import "Masonry.h"
+#import <TABKit/TABKit.h>
 
 #import "Game.h"
 
@@ -36,16 +36,6 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
 
-    //获取对应组件文本大小
-//    CGSize titleSize = [TABMethod tab_getSizeWithText:titleLab.text sizeWithFont:tab_kFont(13) constrainedToSize:CGSizeMake(MAXFLOAT, 25)];
-//    CGSize timeSize = [TABMethod tab_getSizeWithText:timeLab.text sizeWithFont:tab_kFont(10) constrainedToSize:CGSizeMake(MAXFLOAT, 25)];
-    
-    //布局
-//    self.gameImg.frame = CGRectMake(15, 10, 40, 40);
-//    self.gameImg.layer.cornerRadius = 5;
-    
-//    titleLab.frame = CGRectMake(CGRectGetMaxX(gameImg.frame)+15, 12, titleSize.width, titleSize.height);
-//    timeLab.frame = CGRectMake(CGRectGetMaxX(gameImg.frame)+15, CGRectGetMaxY(titleLab.frame)+5, timeSize.width,15);
     [self.gameImg mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.contentView);
         make.top.mas_offset(10);
@@ -93,7 +83,7 @@
     
     {
         UILabel *lab = [[UILabel alloc]init];
-        [lab setFont:tab_kFont(13)];
+        [lab setFont:kFont(13)];
         [lab setTextColor:[UIColor blackColor]];
         lab.loadStyle = TABViewLoadAnimationWithOnlySkeleton;
         
@@ -103,7 +93,7 @@
     
     {
         UILabel *lab = [[UILabel alloc]init];
-        [lab setFont:tab_kFont(10)];
+        [lab setFont:kFont(10)];
         [lab setTextColor:[UIColor grayColor]];
         lab.loadStyle = TABViewLoadAnimationWithOnlySkeleton;
         

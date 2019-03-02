@@ -7,18 +7,19 @@
 //
 
 #import "UICollectionViewCell+TABLayoutSubviews.h"
-
 #import "UICollectionView+Animated.h"
-
 #import "TABViewAnimated.h"
+#import "TABAnimationMethod.h"
+#import "TABManagerMethod.h"
+#import "UIView+TABControlAnimation.h"
+#import "TABManagerMethod+ManagerCALayer.h"
 
 #import <objc/runtime.h>
 
 @implementation UICollectionViewCell (TABLayoutSubviews)
 
 + (void)load {
-    
-    
+
     static dispatch_once_t onceToken;
     
     dispatch_once(&onceToken, ^{
@@ -28,18 +29,7 @@
         // Get the method you created.
         Method newMethod = class_getInstanceMethod([self class], @selector(tab_collection_layoutSubviews));
         
-        IMP newIMP = method_getImplementation(newMethod);
-        
-        BOOL isAdd = class_addMethod([self class], @selector(tab_collection_layoutSubviews), newIMP, method_getTypeEncoding(newMethod));
-        
-        if (isAdd) {
-            // replace
-                class_replaceMethod([self class], @selector(layoutSubviews), newIMP, method_getTypeEncoding(newMethod));
-        } else {
-            // exchange
-            method_exchangeImplementations(originMethod, newMethod);
-            
-        }
+        method_exchangeImplementations(originMethod, newMethod);
     });
 }
 
@@ -49,9 +39,22 @@
 
     [self tab_collection_layoutSubviews];
     
-    // start animation/end animation
     dispatch_async(dispatch_get_main_queue(), ^{
-        [[TABViewAnimated sharedAnimated]startOrEndCollectionAnimated:self];
+        
+        // 如果父视图开启动画，同时满足闪光灯条件，则为cell添加闪光灯动画
+        UICollectionView *superView = (UICollectionView *)self.superview;
+        
+        if (!superView.isNest) {
+            if (superView.animatedStyle != TABViewAnimationEnd &&
+                superView.animatedStyle != TABViewAnimationDefault) {
+                // shimmer animations
+                if (([TABViewAnimated sharedAnimated].animationType == TABAnimationTypeShimmer) ||
+                    ([TABViewAnimated sharedAnimated].animationType == TABAnimationTypeCustom && (superView.superAnimationType == TABViewSuperAnimationTypeShimmer))) {
+                    [TABAnimationMethod addShimmerAnimationToView:self
+                                                         duration:[TABViewAnimated sharedAnimated].animatedDurationShimmer];
+                }
+            }
+        }
     });
 }
 

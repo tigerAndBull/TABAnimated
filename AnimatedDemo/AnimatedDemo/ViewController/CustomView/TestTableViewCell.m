@@ -7,18 +7,18 @@
 //
 
 #import "TestTableViewCell.h"
-#import "TABMethod.h"
 #import "UITableViewCell+TABLayoutSubviews.h"
 #import "UIView+Animated.h"
 #import "Game.h"
+#import "Masonry.h"
+#import <TABKit/TABKit.h>
 
-@interface TestTableViewCell () {
-    
-    UIImageView *gameImg;
-    UILabel *titleLab;
-    UILabel *timeLab;
-    UIButton *statusBtn;
-}
+@interface TestTableViewCell ()
+
+@property (nonatomic,strong) UIImageView *gameImg;
+@property (nonatomic,strong) UILabel *titleLab;
+@property (nonatomic,strong) UILabel *timeLab;
+@property (nonatomic,strong) UIButton *statusBtn;
 
 @end
 
@@ -30,10 +30,7 @@
 }
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
-    
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    
-    if (self) {
+    if ([super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         [self initUI];
     }
     return self;
@@ -41,33 +38,44 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    //获取对应组件文本大小
-    CGSize titleSize = [TABMethod tab_getSizeWithText:titleLab.text sizeWithFont:tab_kFont(15) constrainedToSize:CGSizeMake(MAXFLOAT, 10)];
-    CGSize timeSize = [TABMethod tab_getSizeWithText:timeLab.text sizeWithFont:tab_kFont(12) constrainedToSize:CGSizeMake(MAXFLOAT, 25)];
 
     //布局
-    gameImg.frame = CGRectMake(15, 10, (self.frame.size.height-20)*1.5, (self.frame.size.height-20));
-    gameImg.layer.cornerRadius = 5;
+    self.gameImg.frame = CGRectMake(15, 10, (self.frame.size.height-20)*1.5, (self.frame.size.height-20));
+    self.gameImg.layer.cornerRadius = 5;
 
-    titleLab.frame = CGRectMake(CGRectGetMaxX(gameImg.frame)+15, 10, titleSize.width, 20);
-    timeLab.frame = CGRectMake(CGRectGetMaxX(gameImg.frame)+15, CGRectGetMaxY(titleLab.frame)+5, timeSize.width,15);
-    statusBtn.frame = CGRectMake(CGRectGetMaxX(gameImg.frame)+15, CGRectGetMaxY(timeLab.frame)+5+5,70, 20);
-
-    if ( timeSize.width > 0 ) {
-        statusBtn.layer.cornerRadius = 5;
-    }
+    [self.titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.gameImg.mas_right).mas_offset(15);
+        make.top.mas_offset(10);
+        make.right.mas_equalTo(self).mas_offset(-20);
+        make.height.mas_offset(20);
+    }];
+    
+    [self.timeLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.titleLab);
+        make.top.mas_equalTo(self.titleLab.mas_bottom).mas_offset(5);
+        make.right.mas_equalTo(self).mas_offset(-40);
+        make.height.mas_offset(15);
+    }];
+    
+    [self.statusBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.gameImg.mas_right).mas_offset(15);
+        make.top.mas_equalTo(self.timeLab.mas_bottom).mas_offset(10);
+        make.width.mas_offset(70);
+        make.height.mas_offset(20);
+    }];
+    self.statusBtn.layer.cornerRadius = 5;
 }
 
 #pragma mark - Public Methods
 
 - (void)initWithData:(Game *)game {
     
-    titleLab.text = [NSString stringWithFormat:@"赛事标题赛事标题%@～",game.gameId];
-    timeLab.text = @"报名时间：2018-09-12";
-    [gameImg setImage:[UIImage imageNamed:@"test.jpg"]];
+    self.titleLab.text = [NSString stringWithFormat:@"赛事标题赛事标题%@～",game.gameId];
+    self.timeLab.text = @"报名时间：2018-09-12";
+    [self.gameImg setImage:[UIImage imageNamed:@"test.jpg"]];
     
-    [statusBtn setTitle:@"已结束" forState:UIControlStateNormal];
-    [statusBtn setBackgroundColor:[UIColor grayColor]];
+    [self.statusBtn setTitle:@"已结束" forState:UIControlStateNormal];
+    [self.statusBtn setBackgroundColor:[UIColor grayColor]];
 }
 
 #pragma mark - Initize Methods
@@ -78,43 +86,45 @@
         UIImageView *iv = [[UIImageView alloc] init];
         iv.contentMode = UIViewContentModeScaleAspectFill;
         iv.layer.masksToBounds = YES;
-//        iv.loadStyle = TABViewLoadAnimationWithOnlySkeleton;
+        iv.layer.borderWidth = 1.0f;
+        iv.layer.borderColor = UIColor.redColor.CGColor;
+        iv.loadStyle = TABViewLoadAnimationWithOnlySkeleton;
         
-        gameImg = iv;
+        self.gameImg = iv;
         [self addSubview:iv];
     }
     
     {
         UILabel *lab = [[UILabel alloc]init];
-        [lab setFont:tab_kFont(15)];
+        [lab setFont:kFont(15)];
         [lab setTextColor:[UIColor blackColor]];
-        [lab setText:@""];
-        lab.numberOfLines = 1;
-//        lab.loadStyle = TABViewLoadAnimationLong;
+        [lab setText:@"测试测试测试"];
+        lab.loadStyle = TABViewLoadAnimationShort;
         
-        titleLab = lab;
+        self.titleLab = lab;
         [self addSubview:lab];
     }
     
     {
         UILabel *lab = [[UILabel alloc]init];
-        [lab setFont:tab_kFont(12)];
-        [lab setText:@""];
-        lab.numberOfLines = 1;
-//        lab.loadStyle = TABViewLoadAnimationWithOnlySkeleton;
+        [lab setFont:kFont(12)];
+        [lab setText:@"测试测试测试"];
+        lab.loadStyle = TABViewLoadAnimationLong;
         
-        timeLab = lab;
+        self.timeLab = lab;
         [self addSubview:lab];
     }
     
     {
         UIButton *btn = [[UIButton alloc]init];
-        [btn setTitle:@"" forState:UIControlStateNormal];
         [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [btn.titleLabel setFont:tab_kFont(12)];
-//        btn.loadStyle = TABViewLoadAnimationLong;
+        [btn.titleLabel setFont:kFont(12)];
+        btn.layer.borderWidth = 1.0f;
+        btn.layer.borderColor = UIColor.redColor.CGColor;
+        [btn setTitle:@"测试测试测试" forState:UIControlStateNormal];
+        btn.loadStyle = TABViewLoadAnimationWithOnlySkeleton;
         
-        statusBtn = btn;
+        self.statusBtn = btn;
         [self addSubview:btn];
     }
 }

@@ -6,17 +6,18 @@
 //  Copyright © 2018年 tigerAndBull. All rights reserved.
 //
 
-#import "TABViewAnimated+ManagerCALayer.h"
+#import "TABManagerMethod+ManagerCALayer.h"
 #import "TABAnimationMethod.h"
+#import "TABViewAnimated.h"
 
-static CGFloat defaultHeight = 25.f;           // used to label with row is not one
-static CGFloat defaultSpaceWithLines = 10.f;   // used to label with row is not one
+static CGFloat defaultHeight = 20.f;                     // used to label with row is not one.
+static CGFloat defaultSpaceWithLines = 8.f;              // used to label with row is not one.
 
-@implementation TABViewAnimated (ManagerCALayer)
+@implementation TABManagerMethod (ManagerCALayer)
 
 #pragma mark - Remove Layer Methods
 
-- (void)removeAllTABLayersFromView:(UIView *)view {
++ (void)removeAllTABLayersFromView:(UIView *)view {
     
     NSArray *subViews = [view subviews];
     if ([subViews count] == 0) {
@@ -28,31 +29,31 @@ static CGFloat defaultSpaceWithLines = 10.f;   // used to label with row is not 
         UIView *v = subViews[i];
         [self removeAllTABLayersFromView:v];
         
-        if ( v.layer.sublayers.count > 0 ) {
+        if (v.layer.sublayers.count > 0) {
             NSArray<CALayer *> *subLayers = v.layer.sublayers;
             [self removeSubLayers:subLayers];
         }
     }
     
-    if (self.animationType == TABAnimationTypeShimmer ||
-        self.animationType == TABAnimationTypeCustom) {
+    [self removeMask:view];
+}
+
++ (void)removeMask:(UIView *)view {
+    if ([TABViewAnimated sharedAnimated].animationType == TABAnimationTypeShimmer ||
+        [TABViewAnimated sharedAnimated].animationType == TABAnimationTypeCustom) {
         if (view.layer.mask != nil) {
             [view.layer.mask removeFromSuperlayer];
         }
     }
 }
 
-- (void)removeSubLayers:(NSArray *)subLayers {
++ (void)removeSubLayers:(NSArray *)subLayers {
     
-    NSArray<CALayer *> *removedLayers = [subLayers filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id  _Nullable evaluatedObject, NSDictionary<NSString *,id> * _Nullable bindings) {
+    NSArray <CALayer *> *removedLayers = [subLayers filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id  _Nullable evaluatedObject, NSDictionary<NSString *,id> * _Nullable bindings) {
         
-        if ([evaluatedObject isKindOfClass:[CALayer class]]) {
-            // remove CAlayers by name
-            CALayer *layer = (CALayer *)evaluatedObject;
-            if ([layer.name isEqualToString:@"TABLayer"]) {
-                return YES;
-            }
-            return NO;
+        CALayer *layer = (CALayer *)evaluatedObject;
+        if ([layer.name isEqualToString:@"TABLayer"]) {
+            return YES;
         }
         return NO;
     }]];
@@ -62,32 +63,15 @@ static CGFloat defaultSpaceWithLines = 10.f;   // used to label with row is not 
     }];
 }
 
-
-- (CGFloat)getToValueByViewLoadStyle:(TABViewLoadAnimationStyle)style {
-    switch (style) {
-        case TABViewLoadAnimationShort:
-            return self.shortToValue>0?self.shortToValue:0.6;
-            break;
-            
-        case TABViewLoadAnimationLong:
-            return self.longToValue>0?self.longToValue:1.6;
-            break;
-            
-        default:
-            return 0.6;
-            break;
-    }
-}
-
-- (void)addLinesLabAnimated:(UILabel *)lab
++ (void)addLinesLabAnimated:(UILabel *)lab
                   withColor:(UIColor *)color
               withSuperView:(UIView *)superView
                   withWidth:(CGFloat)width
        withIsCollectionView:(BOOL)isCollectionView {
     
-    CGFloat textHeight = [lab.text sizeWithAttributes:@{NSFontAttributeName:lab.font}].height*0.9;
+    CGFloat textHeight = [lab.text sizeWithAttributes:@{NSFontAttributeName:lab.font}].height*[TABViewAnimated sharedAnimated].animatedHeightCoefficient;
     
-    if (lab.numberOfLines == 0 ) {
+    if (lab.numberOfLines == 0) {
         
         NSInteger lineCount = (superView.frame.size.height - (CGRectGetMinY(lab.frame) - CGRectGetMinY(superView.frame)))/(defaultHeight+defaultSpaceWithLines);
         
@@ -98,22 +82,35 @@ static CGFloat defaultSpaceWithLines = 10.f;   // used to label with row is not 
             layer.anchorPoint = CGPointMake(0, 0);
             layer.position = CGPointMake(0, 0);
             layer.name = @"TABLayer";
-            layer.frame = CGRectMake(0, (i == 0)?(0):(i*(textHeight+defaultSpaceWithLines)), width, textHeight);
+            
+            if (i == lineCount - 1) {
+                layer.frame = CGRectMake(0, (i == 0)?(0):(i*(textHeight+defaultSpaceWithLines)), width*0.6, textHeight);
+            }else {
+                layer.frame = CGRectMake(0, (i == 0)?(0):(i*(textHeight+defaultSpaceWithLines)), width, textHeight);
+            }
+            
+            if (lab.textAlignment == NSTextAlignmentCenter) {
+                layer.position = CGPointMake((lab.frame.size.width - layer.frame.size.width)/2.0, 0);
+            }
             
             // If next layer's maxY is over superView, stop add layer.
             if ((layer.frame.origin.y+textHeight*2+defaultSpaceWithLines) >= CGRectGetMaxY(superView.frame)) {
-                if (self.animationType == TABAnimationTypeDefault ||
+                if ([TABViewAnimated sharedAnimated].animationType == TABAnimationTypeDefault ||
                     superView.superAnimationType == TABViewSuperAnimationTypeClassic) {
-                    [layer addAnimation:[TABAnimationMethod scaleXAnimationDuration:self.animatedDuration toValue:[self getToValueByViewLoadStyle:TABViewLoadAnimationShort]] forKey:@"TABScaleAnimation"];
+                    
+                     [layer addAnimation:[TABAnimationMethod scaleXAnimationDuration:[TABViewAnimated sharedAnimated].animatedDuration viewLoadStyle:TABViewLoadAnimationShort]
+                                  forKey:@"TABScaleAnimation"];
                 }
                 [lab.layer addSublayer:layer];
                 break;
             }
             
             if (i == (lineCount - 1)) {
-                if (self.animationType == TABAnimationTypeDefault ||
+                if ([TABViewAnimated sharedAnimated].animationType == TABAnimationTypeDefault ||
                     superView.superAnimationType == TABViewSuperAnimationTypeClassic) {
-                    [layer addAnimation:[TABAnimationMethod scaleXAnimationDuration:self.animatedDuration toValue:[self getToValueByViewLoadStyle:TABViewLoadAnimationShort]] forKey:@"TABScaleAnimation"];
+                    
+                    [layer addAnimation:[TABAnimationMethod scaleXAnimationDuration:[TABViewAnimated sharedAnimated].animatedDuration viewLoadStyle:TABViewLoadAnimationShort]
+                                 forKey:@"TABScaleAnimation"];
                 }
             }
             
@@ -131,15 +128,19 @@ static CGFloat defaultSpaceWithLines = 10.f;   // used to label with row is not 
                 layer.position = CGPointMake(0, 0);
                 layer.name = @"TABLayer";
                 
-                if (self.animationType == TABAnimationTypeDefault ||
+                if ([TABViewAnimated sharedAnimated].animationType == TABAnimationTypeDefault ||
                     superView.superAnimationType == TABViewSuperAnimationTypeClassic) {
                     
                     layer.frame = CGRectMake(0, (i == 0)?(0):(i*(textHeight + defaultHeight)), width, textHeight);
                     
                     if (i == (lab.numberOfLines - 1)) {
-                        [layer addAnimation:[TABAnimationMethod scaleXAnimationDuration:self.animatedDuration toValue:[self getToValueByViewLoadStyle:TABViewLoadAnimationShort]] forKey:@"TABScaleAnimation"];
+                        
+                        [layer addAnimation:[TABAnimationMethod scaleXAnimationDuration:[TABViewAnimated sharedAnimated].animatedDuration viewLoadStyle:TABViewLoadAnimationShort]
+                                     forKey:@"TABScaleAnimation"];
                     } else {
-                        [layer addAnimation:[TABAnimationMethod scaleXAnimationDuration:self.animatedDuration toValue:[self getToValueByViewLoadStyle:TABViewLoadAnimationLong]] forKey:@"TABScaleAnimation"];
+                        
+                        [layer addAnimation:[TABAnimationMethod scaleXAnimationDuration:[TABViewAnimated sharedAnimated].animatedDuration viewLoadStyle:TABViewLoadAnimationLong]
+                                     forKey:@"TABScaleAnimation"];
                     }
                 }else {
                     
@@ -148,6 +149,22 @@ static CGFloat defaultSpaceWithLines = 10.f;   // used to label with row is not 
                     }else {
                         layer.frame = CGRectMake(0, (i == 0)?(0):(i*(textHeight + defaultHeight)), width, textHeight);
                     }
+                }
+                
+                switch (lab.textAlignment) {
+                    case NSTextAlignmentLeft:
+                        layer.position = CGPointMake(0, 0);
+                        break;
+                        
+                    case NSTextAlignmentCenter:
+                        layer.position = CGPointMake((lab.frame.size.width - layer.frame.size.width)/2.0, 0);
+                        break;
+                        
+                    case NSTextAlignmentRight:
+                        layer.position = CGPointMake(lab.frame.size.width - layer.frame.size.width, 0);
+                        break;
+                    default:
+                        break;
                 }
                 
                 [lab.layer addSublayer:layer];
@@ -165,19 +182,24 @@ static CGFloat defaultSpaceWithLines = 10.f;   // used to label with row is not 
                     layer.position = CGPointMake(0, 0);
                     layer.name = @"TABLayer";
                     
-                    if (self.animationType == TABAnimationTypeDefault ||
+                    if ([TABViewAnimated sharedAnimated].animationType == TABAnimationTypeDefault ||
                         superView.superAnimationType == TABViewSuperAnimationTypeClassic) {
                         
                         layer.frame = CGRectMake(0, (i == 0)?(0):(i*(textHeight+defaultSpaceWithLines)), width, textHeight);
                         
                         // If next layer's maxY is over superView, stop add layer.
                         if ((layer.frame.origin.y+textHeight*2+defaultSpaceWithLines*2) >= CGRectGetMaxY(superView.frame)) {
-                            [layer addAnimation:[TABAnimationMethod scaleXAnimationDuration:self.animatedDuration toValue:[self getToValueByViewLoadStyle:TABViewLoadAnimationShort]] forKey:@"TABScaleAnimation"];
+                            
+                            [layer addAnimation:[TABAnimationMethod scaleXAnimationDuration:[TABViewAnimated sharedAnimated].animatedDuration viewLoadStyle:TABViewLoadAnimationShort]
+                                         forKey:@"TABScaleAnimation"];
+                            
                             [lab.layer addSublayer:layer];
                             break;
                         }
                         if (i == (lab.numberOfLines - 1)) {
-                            [layer addAnimation:[TABAnimationMethod scaleXAnimationDuration:self.animatedDuration toValue:[self getToValueByViewLoadStyle:TABViewLoadAnimationShort]] forKey:@"TABScaleAnimation"];
+                            
+                            [layer addAnimation:[TABAnimationMethod scaleXAnimationDuration:[TABViewAnimated sharedAnimated].animatedDuration viewLoadStyle:TABViewLoadAnimationShort]
+                                         forKey:@"TABScaleAnimation"];
                         }
                     }else {
                         if (i == (lab.numberOfLines - 1)) {
@@ -185,6 +207,14 @@ static CGFloat defaultSpaceWithLines = 10.f;   // used to label with row is not 
                         }else {
                             layer.frame = CGRectMake(0, (i == 0)?(0):(i*(textHeight+defaultSpaceWithLines)), width, textHeight);
                         }
+                    }
+                    
+                    switch (lab.textAlignment) {
+                        case NSTextAlignmentCenter:
+                            layer.position = CGPointMake((lab.frame.size.width - layer.frame.size.width)/2.0, 0);
+                            break;
+                        default:
+                            break;
                     }
                     
                     [lab.layer addSublayer:layer];
@@ -200,15 +230,17 @@ static CGFloat defaultSpaceWithLines = 10.f;   // used to label with row is not 
  
  @param view 需要动画的view
  */
-- (CGRect)changeFrameWithView:(UIView *)view
++ (CGRect)changeFrameWithView:(UIView *)view
                 withSuperView:(UIView *)superView {
     
-    CGRect rect;
+    CGRect rect = CGRectZero;
     CGFloat height;
     
+    // 如果没有高度
     if (view.frame.size.height == 0.) {
+        // 同时没有设置动画时高度
         if (view.tabViewHeight == 0.) {
-            height = 20.;
+            height = defaultHeight;
         }else {
             height = view.tabViewHeight;
         }
@@ -216,7 +248,11 @@ static CGFloat defaultSpaceWithLines = 10.f;   // used to label with row is not 
         if (view.tabViewHeight != 0.) {
             height = view.tabViewHeight;
         }else {
-            height = view.frame.size.height;
+            if ([view isKindOfClass:[UIImageView class]]) {
+                height = view.frame.size.height;
+            }else {
+                height = view.frame.size.height*[TABViewAnimated sharedAnimated].animatedHeightCoefficient;
+            }
         }
     }
     
@@ -230,8 +266,8 @@ static CGFloat defaultSpaceWithLines = 10.f;   // used to label with row is not 
         CGFloat longAimatedWidth;                               // storage view's width which to long
         CGFloat shortAimatedWidth;                              // storage view's width which to short
         
-        if (self.animationType == TABAnimationTypeShimmer ||
-            self.animationType == TABAnimationTypeOnlySkeleton ||
+        if ([TABViewAnimated sharedAnimated].animationType == TABAnimationTypeShimmer ||
+            [TABViewAnimated sharedAnimated].animationType == TABAnimationTypeOnlySkeleton ||
             (superView.superAnimationType == TABViewSuperAnimationTypeOnlySkeleton) ||
             (superView.superAnimationType == TABViewSuperAnimationTypeShimmer)) {
             longAimatedWidth = (superViewWidth - viewX)*0.9;
@@ -254,17 +290,22 @@ static CGFloat defaultSpaceWithLines = 10.f;   // used to label with row is not 
             }
         }
     }else {
-        
         if (view.tabViewWidth > 0) {
             rect = CGRectMake(0, 0, view.tabViewWidth, height);
         }else {
-            rect = CGRectMake(0, 0, view.frame.size.width, height);
+            
+            if (view.loadStyle == TABViewLoadAnimationLong) {
+                rect = CGRectMake(0, 0, view.frame.size.width*0.8, height);
+            }else {
+                rect = CGRectMake(0, 0, view.frame.size.width, height);
+            }
         }
     }
+    
     return rect;
 }
 
-- (CGFloat)changeFrameWithLabOfLines:(UILabel *)lab
++ (CGFloat)changeFrameWithLabOfLines:(UILabel *)lab
                        withSuperView:(UIView *)superView {
     
     CGFloat width;
@@ -291,6 +332,7 @@ static CGFloat defaultSpaceWithLines = 10.f;   // used to label with row is not 
     return width;
 }
 
+
 #pragma mark - Init Method
 
 /**
@@ -299,13 +341,18 @@ static CGFloat defaultSpaceWithLines = 10.f;   // used to label with row is not 
  @param view 需要动画的view
  @param color 动画颜色
  */
-- (void)initLayerWithView:(UIView *)view
++ (void)initLayerWithView:(UIView *)view
             withSuperView:(UIView *)superView
                 withColor:(UIColor *)color {
-    
+
     // adaptive the label with row is not one
     if ([view isKindOfClass:[UILabel class]]) {
         UILabel *lab = (UILabel *)view;
+        
+        if ([TABViewAnimated sharedAnimated].isRemoveLabelText) {
+            lab.text = @"";
+        }
+        
         if (lab.numberOfLines != 1) {
             
             [self addLinesLabAnimated:lab
@@ -318,14 +365,34 @@ static CGFloat defaultSpaceWithLines = 10.f;   // used to label with row is not 
             // add a layer with animation.
             // 添加动画图层
             CALayer *layer = [[CALayer alloc]init];
-            layer.frame = [self changeFrameWithView:view withSuperView:superView];
-            layer.backgroundColor = color.CGColor;
             layer.anchorPoint = CGPointMake(0, 0);
             layer.position = CGPointMake(0, 0);
+            layer.frame = [self changeFrameWithView:view withSuperView:superView];
+
+            UILabel *lab = (UILabel *)view;
+            switch (lab.textAlignment) {
+                case NSTextAlignmentLeft:
+                    layer.position = CGPointMake(0, 0);
+                    break;
+                    
+                case NSTextAlignmentCenter:
+                    layer.position = CGPointMake((view.frame.size.width - view.tabViewWidth)/2.0, 0);
+                    break;
+                    
+                case NSTextAlignmentRight:
+                    layer.position = CGPointMake(view.frame.size.width - view.tabViewWidth, 0);
+                    break;
+                default:
+                    break;
+            }
+            
+            layer.backgroundColor = color.CGColor;
             layer.name = @"TABLayer";
             
             if (view.loadStyle != TABViewLoadAnimationWithOnlySkeleton) {
-                [layer addAnimation:[TABAnimationMethod scaleXAnimationDuration:self.animatedDuration toValue:[self getToValueByViewLoadStyle:view.loadStyle]] forKey:@"TABScaleAnimation"];
+                
+                [layer addAnimation:[TABAnimationMethod scaleXAnimationDuration:[TABViewAnimated sharedAnimated].animatedDuration viewLoadStyle:view.loadStyle]
+                             forKey:@"TABScaleAnimation"];
             }
             
             [view.layer addSublayer:layer];
@@ -336,74 +403,33 @@ static CGFloat defaultSpaceWithLines = 10.f;   // used to label with row is not 
         // add a layer with animation.
         // 添加动画图层
         CALayer *layer = [[CALayer alloc]init];
-        layer.frame = [self changeFrameWithView:view withSuperView:superView];
-        layer.backgroundColor = color.CGColor;
         layer.anchorPoint = CGPointMake(0, 0);
         layer.position = CGPointMake(0, 0);
+        layer.frame = [self changeFrameWithView:view withSuperView:superView];
+        layer.backgroundColor = color.CGColor;
         layer.name = @"TABLayer";
         
         if (view.loadStyle != TABViewLoadAnimationWithOnlySkeleton) {
-            [layer addAnimation:[TABAnimationMethod scaleXAnimationDuration:self.animatedDuration toValue:[self getToValueByViewLoadStyle:view.loadStyle]] forKey:@"TABScaleAnimation"];
+            
+            [layer addAnimation:[TABAnimationMethod scaleXAnimationDuration:[TABViewAnimated sharedAnimated].animatedDuration viewLoadStyle:view.loadStyle]
+                         forKey:@"TABScaleAnimation"];
         }
         
         [view.layer addSublayer:layer];
-    }
-}
-
-/**
- 仅用于UICollectionView
- 加载CALayer,设置动画,同时启动
- 
- @param view 需要动画的view
- @param color 动画颜色
- */
-- (void)initLayerWithCollectionView:(UIView *)view
-                      withSuperView:(UIView *)superView
-                          withColor:(UIColor *)color {
-    
-    
-    // adaptive the label with row is not one
-    if ([view isKindOfClass:[UILabel class]]) {
-        UILabel *lab = (UILabel *)view;
-        if (lab.numberOfLines != 1) {
-            
-            [self addLinesLabAnimated:lab
-                            withColor:color
-                        withSuperView:superView
-                            withWidth:[self changeFrameWithLabOfLines:lab withSuperView:superView]
-                 withIsCollectionView:YES];
-        } else {
-            
-            // add a layer with animation.
-            // 添加动画图层
-            CALayer *layer = [[CALayer alloc]init];
-            layer.frame = [self changeFrameWithView:view withSuperView:superView];
-            layer.backgroundColor = color.CGColor;
-            layer.anchorPoint = CGPointMake(0, 0);
-            layer.position = CGPointMake(0, 0);
-            layer.name = @"TABLayer";
-            
-            if (view.loadStyle != TABViewLoadAnimationWithOnlySkeleton) {
-                [layer addAnimation:[TABAnimationMethod scaleXAnimationDuration:self.animatedDuration toValue:[self getToValueByViewLoadStyle:view.loadStyle]] forKey:@"TABScaleAnimation"];
+        
+        if ([TABViewAnimated sharedAnimated].isRemoveButtonTitle) {
+            if ([view isKindOfClass:[UIButton class]]) {
+                UIButton *btn = (UIButton *)view;
+                [btn setTitle:@"" forState:UIControlStateNormal];
             }
-            [view.layer addSublayer:layer];
         }
         
-    }else {
-        
-        // add a layer with animation.
-        // 添加动画图层
-        CALayer *layer = [[CALayer alloc]init];
-        layer.frame = [self changeFrameWithView:view withSuperView:superView];
-        layer.backgroundColor = color.CGColor;
-        layer.anchorPoint = CGPointMake(0, 0);
-        layer.position = CGPointMake(0, 0);
-        layer.name = @"TABLayer";
-        
-        if (view.loadStyle != TABViewLoadAnimationWithOnlySkeleton) {
-            [layer addAnimation:[TABAnimationMethod scaleXAnimationDuration:self.animatedDuration toValue:[self getToValueByViewLoadStyle:view.loadStyle]] forKey:@"TABScaleAnimation"];
+        if ([TABViewAnimated sharedAnimated].isRemoveImageViewImage) {
+            if ([view isKindOfClass:[UIImageView class]]) {
+                UIImageView *img = (UIImageView *)view;
+                img.image = nil;
+            }
         }
-        [view.layer addSublayer:layer];
     }
 }
 

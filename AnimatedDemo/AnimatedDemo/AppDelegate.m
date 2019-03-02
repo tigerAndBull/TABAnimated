@@ -11,6 +11,10 @@
 #import "MainViewController.h"
 #import "TABAnimated.h"
 
+#ifdef DEBUG
+#import <DoraemonKit/DoraemonManager.h>
+#endif
+
 @interface AppDelegate ()
 
 @end
@@ -22,13 +26,21 @@
     
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     
+#ifdef DEBUG
+    [[DoraemonManager shareInstance] install];
+#endif
+    
     // 设置TABAnimated相关属性
-//    [[TABViewAnimated sharedAnimated]initWithShimmerAnimated];
-    [[TABViewAnimated sharedAnimated]initWithOnlySkeleton];
+//    [[TABViewAnimated sharedAnimated] initWithShimmerAnimated];
+    [[TABViewAnimated sharedAnimated] initWithOnlySkeleton];
 //    [[TABViewAnimated sharedAnimated] initWithDefaultAnimated];
-//      [[TABViewAnimated sharedAnimated]initWithCustomAnimation];
-//    [[TABViewAnimated sharedAnimated]initWithAnimatedDuration:0.6 withColor:tab_kBackColor];
-    [TABViewAnimated sharedAnimated].animatedColor = tab_kBackColor;
+//    [[TABViewAnimated sharedAnimated] initWithCustomAnimation];
+//    [[TABViewAnimated sharedAnimated] initWithAnimatedDuration:0.6 withColor:tab_kBackColor];
+//    [TABViewAnimated sharedAnimated].animatedColor = tab_kBackColor;
+    
+    [TABViewAnimated sharedAnimated].isRemoveLabelText = YES;
+    [TABViewAnimated sharedAnimated].isRemoveButtonTitle = YES;
+    
     MainViewController *vc = [[MainViewController alloc] init];
     _nav = [[UINavigationController alloc]initWithRootViewController:vc];
     

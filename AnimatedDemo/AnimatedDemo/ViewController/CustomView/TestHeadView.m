@@ -9,14 +9,16 @@
 #import "TestHeadView.h"
 
 #import "TABAnimated.h"
-#import "TABMethod.h"
 #import "Game.h"
 
-@interface TestHeadView () {
-    UIImageView *headImg;
-    UILabel *titleLab;
-    UILabel *contentLab;
-}
+#import "Masonry.h"
+#import <TABKit/TABKit.h>
+
+@interface TestHeadView ()
+
+@property (nonatomic,strong) UIImageView *headImg;
+@property (nonatomic,strong) UILabel *titleLab;
+@property (nonatomic,strong) UILabel *contentLab;
 
 @end
 
@@ -34,25 +36,37 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
 
-    // 获取对应组件文本大小
-    CGSize titleSize = [TABMethod tab_getSizeWithText:titleLab.text sizeWithFont:tab_kFont(16) constrainedToSize:CGSizeMake(MAXFLOAT, 20)];
-    CGSize contentSize = [TABMethod tab_getSizeWithText:contentLab.text sizeWithFont:tab_kFont(14) constrainedToSize:CGSizeMake(MAXFLOAT, 20)];
-
-    headImg.frame = CGRectMake(10, 10, self.frame.size.height-20, self.frame.size.height-20);
-    headImg.layer.cornerRadius = headImg.frame.size.height/2;
     // 布局
-    titleLab.frame = CGRectMake(CGRectGetMaxX(headImg.frame)+10, 15, titleSize.width, 20);
-    contentLab.frame = CGRectMake(CGRectGetMaxX(headImg.frame)+10, 15+20+10, contentSize.width, 20);
+    [self.headImg mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_offset(10);
+        make.top.mas_offset(15);
+        make.width.mas_offset(self.frame.size.height-20);
+        make.height.mas_offset(self.frame.size.height-20);
+    }];
+    
+    self.headImg.layer.cornerRadius = (self.frame.size.height-20)/2;
+    
+    [self.titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.headImg.mas_right).mas_offset(10);
+        make.top.mas_offset(25);
+        make.right.mas_equalTo(self).mas_offset(-20);
+        make.height.mas_offset(20);
+    }];
+    
+    [self.contentLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.headImg.mas_right).mas_offset(10);
+        make.top.mas_equalTo(self.titleLab.mas_bottom).mas_offset(5);
+        make.right.mas_equalTo(self).mas_offset(-20);
+        make.height.mas_offset(20);
+    }];
 }
 
 #pragma mark - Public Methods
 
 - (void)initWithData:(Game *)game {
-    
-    titleLab.text = game.title;
-    contentLab.text = game.content;
-    headImg.image = [UIImage imageNamed:game.cover];
-    [self layoutSubviews];
+    self.titleLab.text = game.title;
+    self.contentLab.text = game.content;
+    self.headImg.image = [UIImage imageNamed:game.cover];
 }
 
 #pragma mark - Initize Methods
@@ -65,29 +79,29 @@
         img.layer.masksToBounds = YES;
         img.loadStyle = TABViewLoadAnimationWithOnlySkeleton;
         
-        headImg = img;
+        self.headImg = img;
         [self addSubview:img];
     }
     
     {
         UILabel *lab = [[UILabel alloc] init];
-        lab.font = tab_kFont(16);
+        lab.font = kFont(16);
         lab.textAlignment = NSTextAlignmentLeft;
         lab.textColor = [UIColor blackColor];
         lab.loadStyle = TABViewLoadAnimationShort;
         
-        titleLab = lab;
+        self.titleLab = lab;
         [self addSubview:lab];
     }
     
     {
         UILabel *lab = [[UILabel alloc] init];
-        lab.font = tab_kFont(14);
+        lab.font = kFont(14);
         lab.textAlignment = NSTextAlignmentLeft;
         lab.textColor = [UIColor grayColor];
         lab.loadStyle = TABViewLoadAnimationLong;
         
-        contentLab = lab;
+        self.contentLab = lab;
         [self addSubview:lab];
     }
 }

@@ -9,9 +9,8 @@
 #import "ExampleOfPackageViewController.h"
 
 #import "PackageTableViewCell.h"
-
 #import "TABAnimated.h"
-#import "TABMethod.h"
+#import <TABKit/TABKit.h>
 
 #import "Game.h"
 
@@ -34,30 +33,8 @@
     [self performSelector:@selector(afterGetData) withObject:nil afterDelay:3.0];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    self.title = @"cell中使用封装组件 示例";
-}
-
-- (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-}
-
-- (void)dealloc {
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 - (void)afterGetData {
-    self.mainTV.animatedStyle = TABTableViewAnimationEnd;
-    [self.mainTV reloadData];
+    [self.mainTV tab_endAnimation];
 }
 
 #pragma mark - UITableViewDataSource & UITableViewDelegate
@@ -87,14 +64,16 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
-    if (tableView.animatedStyle != TABTableViewAnimationStart) {
+    if (!tableView.isAnimating) {
         // 省事，用了同一个类
         Game *headGame = [[Game alloc]init];
         headGame.title = [NSString stringWithFormat:@"头视图标题"];
         headGame.content = [NSString stringWithFormat:@"这里是头视图内容"];
         headGame.cover = @"head.jpg";
         [cell updateWithGame:headGame];
+        
     }
+    
     return cell;
 }
 
@@ -107,14 +86,14 @@
 - (void)initUI {
     self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.mainTV];
+    [self.mainTV tab_startAnimation];
 }
 
 #pragma mark - Lazy Methods
 
 - (UITableView *)mainTV {
     if (!_mainTV) {
-        _mainTV = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, tab_kScreenWidth, tab_kScreenHeight) style:UITableViewStyleGrouped];
-        _mainTV.animatedStyle = TABTableViewAnimationStart;  // 开启动画
+        _mainTV = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:UITableViewStyleGrouped];
         _mainTV.dataSource = self;
         _mainTV.delegate = self;
         _mainTV.rowHeight = 100;

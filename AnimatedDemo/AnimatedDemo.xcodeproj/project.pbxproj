@@ -7,11 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		20187D78217E206D00C20EC9 /* MyLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 20187D77217E206D00C20EC9 /* MyLabel.m */; };
+		2013CA9E222B0C0C00E928E1 /* TABKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2013CA9D222B0C0C00E928E1 /* TABKit.framework */; };
 		20187D7B217E20D800C20EC9 /* LabWithLinesViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 20187D7A217E20D800C20EC9 /* LabWithLinesViewCell.m */; };
 		20187D7E217E21BB00C20EC9 /* LabWithLinesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20187D7D217E21BB00C20EC9 /* LabWithLinesViewController.m */; };
-		20243539216AF37400617821 /* MoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20243538216AF37400617821 /* MoreViewController.m */; };
-		2024353C216AF8B300617821 /* MoreTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2024353B216AF8B300617821 /* MoreTableViewController.m */; };
+		20238A6E21F05DFD00728142 /* UIView+TABControlAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 20238A6D21F05DFD00728142 /* UIView+TABControlAnimation.m */; };
 		202559DA21E0CFA300DC22EC /* TABAnimationMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = 202559C721E0CFA200DC22EC /* TABAnimationMethod.m */; };
 		202559DB21E0CFA300DC22EC /* UITableView+Animated.m in Sources */ = {isa = PBXBuildFile; fileRef = 202559C821E0CFA200DC22EC /* UITableView+Animated.m */; };
 		202559DC21E0CFA300DC22EC /* UICollectionViewCell+TABLayoutSubviews.m in Sources */ = {isa = PBXBuildFile; fileRef = 202559C921E0CFA200DC22EC /* UICollectionViewCell+TABLayoutSubviews.m */; };
@@ -19,8 +18,10 @@
 		202559DE21E0CFA300DC22EC /* UITableViewCell+TABLayoutSubviews.m in Sources */ = {isa = PBXBuildFile; fileRef = 202559CB21E0CFA200DC22EC /* UITableViewCell+TABLayoutSubviews.m */; };
 		202559DF21E0CFA300DC22EC /* UIView+Animated.m in Sources */ = {isa = PBXBuildFile; fileRef = 202559CD21E0CFA200DC22EC /* UIView+Animated.m */; };
 		202559E021E0CFA300DC22EC /* UICollectionView+Animated.m in Sources */ = {isa = PBXBuildFile; fileRef = 202559CE21E0CFA200DC22EC /* UICollectionView+Animated.m */; };
-		202559E121E0CFA300DC22EC /* TABViewAnimated+ManagerCALayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 202559CF21E0CFA200DC22EC /* TABViewAnimated+ManagerCALayer.m */; };
+		202559E121E0CFA300DC22EC /* TABManagerMethod+ManagerCALayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 202559CF21E0CFA200DC22EC /* TABManagerMethod+ManagerCALayer.m */; };
 		202559E221E0CFA300DC22EC /* UIView+TABLayoutSubviews.m in Sources */ = {isa = PBXBuildFile; fileRef = 202559D721E0CFA200DC22EC /* UIView+TABLayoutSubviews.m */; };
+		202D40BE22297D92005CF7E3 /* CourseCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 202D40BD22297D92005CF7E3 /* CourseCollectionViewCell.m */; };
+		2031BCDF221E997A004C23B7 /* TABManagerMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = 2031BCDE221E997A004C23B7 /* TABManagerMethod.m */; };
 		2039EF7221DA077200AE09FC /* NestCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2039EF7121DA077200AE09FC /* NestCollectionViewController.m */; };
 		2039EF7521DA07F200AE09FC /* NestCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2039EF7421DA07F200AE09FC /* NestCollectionViewCell.m */; };
 		2039EF7821DA135900AE09FC /* BaseCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2039EF7621DA135900AE09FC /* BaseCollectionCell.m */; };
@@ -44,11 +45,8 @@
 		20A01597216A51FC0082425D /* XibTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A01596216A51FC0082425D /* XibTestViewController.m */; };
 		20A0159A216A538F0082425D /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A01599216A538F0082425D /* MainViewController.m */; };
 		20A85BF52152248D0005AD62 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A85BF42152248D0005AD62 /* AppDelegate.m */; };
-		20A85BF82152248D0005AD62 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A85BF72152248D0005AD62 /* ViewController.m */; };
 		20A85BFD2152248E0005AD62 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 20A85BFC2152248E0005AD62 /* Assets.xcassets */; };
 		20A85C032152248E0005AD62 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A85C022152248E0005AD62 /* main.m */; };
-		20A85C0D2152248E0005AD62 /* AnimatedDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A85C0C2152248E0005AD62 /* AnimatedDemoTests.m */; };
-		20A85C182152248E0005AD62 /* AnimatedDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A85C172152248E0005AD62 /* AnimatedDemoUITests.m */; };
 		20A85C38215224B10005AD62 /* Game.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A85C26215224B10005AD62 /* Game.m */; };
 		20A85C3D215224B10005AD62 /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A85C33215224B10005AD62 /* TestViewController.m */; };
 		20A85C3E215224B10005AD62 /* TestTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A85C36215224B10005AD62 /* TestTableViewCell.m */; };
@@ -57,7 +55,9 @@
 		20BFBBA72154D3D800136258 /* test.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 20BFBBA62154D3D800136258 /* test.jpg */; };
 		20BFBFF42170D647001887A9 /* TestCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20BFBFF32170D647001887A9 /* TestCollectionViewController.m */; };
 		20BFBFFA2170D912001887A9 /* TestCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 20BFBFF92170D912001887A9 /* TestCollectionViewCell.m */; };
-		20BFE04B21B251A900104CC9 /* TABMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = 20BFE03B21B251A900104CC9 /* TABMethod.m */; };
+		20E72D7A2226E2D200E781C9 /* DailyCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 20E72D782226E2D200E781C9 /* DailyCollectionViewCell.m */; };
+		20E72D7D2226EEBB00E781C9 /* ViewExampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20E72D7C2226EEBB00E781C9 /* ViewExampleViewController.m */; };
+		B8015BF1E8CB7D9CA28D1366 /* libPods-AnimatedDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A3B523D893DBE5D15D7488E6 /* libPods-AnimatedDemo.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,16 +78,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		20187D76217E206D00C20EC9 /* MyLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyLabel.h; sourceTree = "<group>"; };
-		20187D77217E206D00C20EC9 /* MyLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyLabel.m; sourceTree = "<group>"; };
+		2013CA9D222B0C0C00E928E1 /* TABKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TABKit.framework; sourceTree = "<group>"; };
 		20187D79217E20D800C20EC9 /* LabWithLinesViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LabWithLinesViewCell.h; sourceTree = "<group>"; };
 		20187D7A217E20D800C20EC9 /* LabWithLinesViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LabWithLinesViewCell.m; sourceTree = "<group>"; };
 		20187D7C217E21BB00C20EC9 /* LabWithLinesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LabWithLinesViewController.h; sourceTree = "<group>"; };
 		20187D7D217E21BB00C20EC9 /* LabWithLinesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LabWithLinesViewController.m; sourceTree = "<group>"; };
-		20243537216AF37400617821 /* MoreViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoreViewController.h; sourceTree = "<group>"; };
-		20243538216AF37400617821 /* MoreViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MoreViewController.m; sourceTree = "<group>"; };
-		2024353A216AF8B300617821 /* MoreTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoreTableViewController.h; sourceTree = "<group>"; };
-		2024353B216AF8B300617821 /* MoreTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MoreTableViewController.m; sourceTree = "<group>"; };
+		20238A6C21F05DFD00728142 /* UIView+TABControlAnimation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+TABControlAnimation.h"; sourceTree = "<group>"; };
+		20238A6D21F05DFD00728142 /* UIView+TABControlAnimation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+TABControlAnimation.m"; sourceTree = "<group>"; };
 		202559C721E0CFA200DC22EC /* TABAnimationMethod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TABAnimationMethod.m; sourceTree = "<group>"; };
 		202559C821E0CFA200DC22EC /* UITableView+Animated.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+Animated.m"; sourceTree = "<group>"; };
 		202559C921E0CFA200DC22EC /* UICollectionViewCell+TABLayoutSubviews.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UICollectionViewCell+TABLayoutSubviews.m"; sourceTree = "<group>"; };
@@ -96,7 +93,7 @@
 		202559CC21E0CFA200DC22EC /* UIView+TABLayoutSubviews.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+TABLayoutSubviews.h"; sourceTree = "<group>"; };
 		202559CD21E0CFA200DC22EC /* UIView+Animated.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Animated.m"; sourceTree = "<group>"; };
 		202559CE21E0CFA200DC22EC /* UICollectionView+Animated.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UICollectionView+Animated.m"; sourceTree = "<group>"; };
-		202559CF21E0CFA200DC22EC /* TABViewAnimated+ManagerCALayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TABViewAnimated+ManagerCALayer.m"; sourceTree = "<group>"; };
+		202559CF21E0CFA200DC22EC /* TABManagerMethod+ManagerCALayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TABManagerMethod+ManagerCALayer.m"; sourceTree = "<group>"; };
 		202559D021E0CFA200DC22EC /* TABAnimationMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TABAnimationMethod.h; sourceTree = "<group>"; };
 		202559D121E0CFA200DC22EC /* UICollectionViewCell+TABLayoutSubviews.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UICollectionViewCell+TABLayoutSubviews.h"; sourceTree = "<group>"; };
 		202559D221E0CFA200DC22EC /* UITableView+Animated.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+Animated.h"; sourceTree = "<group>"; };
@@ -105,8 +102,12 @@
 		202559D521E0CFA200DC22EC /* TABViewAnimated.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TABViewAnimated.h; sourceTree = "<group>"; };
 		202559D621E0CFA200DC22EC /* UITableViewCell+TABLayoutSubviews.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableViewCell+TABLayoutSubviews.h"; sourceTree = "<group>"; };
 		202559D721E0CFA200DC22EC /* UIView+TABLayoutSubviews.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+TABLayoutSubviews.m"; sourceTree = "<group>"; };
-		202559D821E0CFA300DC22EC /* TABViewAnimated+ManagerCALayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TABViewAnimated+ManagerCALayer.h"; sourceTree = "<group>"; };
+		202559D821E0CFA300DC22EC /* TABManagerMethod+ManagerCALayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TABManagerMethod+ManagerCALayer.h"; sourceTree = "<group>"; };
 		202559D921E0CFA300DC22EC /* UICollectionView+Animated.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UICollectionView+Animated.h"; sourceTree = "<group>"; };
+		202D40BC22297D92005CF7E3 /* CourseCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CourseCollectionViewCell.h; sourceTree = "<group>"; };
+		202D40BD22297D92005CF7E3 /* CourseCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CourseCollectionViewCell.m; sourceTree = "<group>"; };
+		2031BCDD221E997A004C23B7 /* TABManagerMethod.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TABManagerMethod.h; sourceTree = "<group>"; };
+		2031BCDE221E997A004C23B7 /* TABManagerMethod.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TABManagerMethod.m; sourceTree = "<group>"; };
 		2039EF7021DA077200AE09FC /* NestCollectionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NestCollectionViewController.h; sourceTree = "<group>"; };
 		2039EF7121DA077200AE09FC /* NestCollectionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NestCollectionViewController.m; sourceTree = "<group>"; };
 		2039EF7321DA07F200AE09FC /* NestCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NestCollectionViewCell.h; sourceTree = "<group>"; };
@@ -156,17 +157,11 @@
 		20A85BF02152248D0005AD62 /* AnimatedDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AnimatedDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		20A85BF32152248D0005AD62 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		20A85BF42152248D0005AD62 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		20A85BF62152248D0005AD62 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		20A85BF72152248D0005AD62 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		20A85BFC2152248E0005AD62 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		20A85C012152248E0005AD62 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		20A85C022152248E0005AD62 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		20A85C082152248E0005AD62 /* AnimatedDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AnimatedDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		20A85C0C2152248E0005AD62 /* AnimatedDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AnimatedDemoTests.m; sourceTree = "<group>"; };
-		20A85C0E2152248E0005AD62 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		20A85C132152248E0005AD62 /* AnimatedDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AnimatedDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		20A85C172152248E0005AD62 /* AnimatedDemoUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AnimatedDemoUITests.m; sourceTree = "<group>"; };
-		20A85C192152248E0005AD62 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		20A85C26215224B10005AD62 /* Game.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Game.m; sourceTree = "<group>"; };
 		20A85C27215224B10005AD62 /* Game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Game.h; sourceTree = "<group>"; };
 		20A85C33215224B10005AD62 /* TestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestViewController.m; sourceTree = "<group>"; };
@@ -181,8 +176,13 @@
 		20BFBFF32170D647001887A9 /* TestCollectionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestCollectionViewController.m; sourceTree = "<group>"; };
 		20BFBFF82170D912001887A9 /* TestCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestCollectionViewCell.h; sourceTree = "<group>"; };
 		20BFBFF92170D912001887A9 /* TestCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestCollectionViewCell.m; sourceTree = "<group>"; };
-		20BFE03B21B251A900104CC9 /* TABMethod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TABMethod.m; sourceTree = "<group>"; };
-		20BFE04321B251A900104CC9 /* TABMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TABMethod.h; sourceTree = "<group>"; };
+		20E72D782226E2D200E781C9 /* DailyCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DailyCollectionViewCell.m; sourceTree = "<group>"; };
+		20E72D792226E2D200E781C9 /* DailyCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DailyCollectionViewCell.h; sourceTree = "<group>"; };
+		20E72D7B2226EEBA00E781C9 /* ViewExampleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewExampleViewController.h; sourceTree = "<group>"; };
+		20E72D7C2226EEBB00E781C9 /* ViewExampleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewExampleViewController.m; sourceTree = "<group>"; };
+		65186EF4E859272D3F1B2754 /* Pods-AnimatedDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AnimatedDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AnimatedDemo/Pods-AnimatedDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		A3B523D893DBE5D15D7488E6 /* libPods-AnimatedDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AnimatedDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		EE191A7B44834CAB09DCE9CD /* Pods-AnimatedDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AnimatedDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-AnimatedDemo/Pods-AnimatedDemo.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -190,6 +190,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2013CA9E222B0C0C00E928E1 /* TABKit.framework in Frameworks */,
+				B8015BF1E8CB7D9CA28D1366 /* libPods-AnimatedDemo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -210,39 +212,40 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		20187D75217E206700C20EC9 /* Util */ = {
+		17CF1192F01A36690B9F7CEF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				20BFE04321B251A900104CC9 /* TABMethod.h */,
-				20BFE03B21B251A900104CC9 /* TABMethod.m */,
-				20187D76217E206D00C20EC9 /* MyLabel.h */,
-				20187D77217E206D00C20EC9 /* MyLabel.m */,
+				A3B523D893DBE5D15D7488E6 /* libPods-AnimatedDemo.a */,
 			);
-			path = Util;
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		202559C621E0CFA200DC22EC /* TABAnimated */ = {
 			isa = PBXGroup;
 			children = (
 				202559D321E0CFA200DC22EC /* TABAnimated.h */,
-				202559D021E0CFA200DC22EC /* TABAnimationMethod.h */,
-				202559C721E0CFA200DC22EC /* TABAnimationMethod.m */,
 				202559D521E0CFA200DC22EC /* TABViewAnimated.h */,
 				202559CA21E0CFA200DC22EC /* TABViewAnimated.m */,
-				202559D821E0CFA300DC22EC /* TABViewAnimated+ManagerCALayer.h */,
-				202559CF21E0CFA200DC22EC /* TABViewAnimated+ManagerCALayer.m */,
-				202559D921E0CFA300DC22EC /* UICollectionView+Animated.h */,
-				202559CE21E0CFA200DC22EC /* UICollectionView+Animated.m */,
-				202559D121E0CFA200DC22EC /* UICollectionViewCell+TABLayoutSubviews.h */,
-				202559C921E0CFA200DC22EC /* UICollectionViewCell+TABLayoutSubviews.m */,
-				202559D221E0CFA200DC22EC /* UITableView+Animated.h */,
-				202559C821E0CFA200DC22EC /* UITableView+Animated.m */,
-				202559D621E0CFA200DC22EC /* UITableViewCell+TABLayoutSubviews.h */,
-				202559CB21E0CFA200DC22EC /* UITableViewCell+TABLayoutSubviews.m */,
 				202559D421E0CFA200DC22EC /* UIView+Animated.h */,
 				202559CD21E0CFA200DC22EC /* UIView+Animated.m */,
+				202559D221E0CFA200DC22EC /* UITableView+Animated.h */,
+				202559C821E0CFA200DC22EC /* UITableView+Animated.m */,
+				202559D921E0CFA300DC22EC /* UICollectionView+Animated.h */,
+				202559CE21E0CFA200DC22EC /* UICollectionView+Animated.m */,
 				202559CC21E0CFA200DC22EC /* UIView+TABLayoutSubviews.h */,
 				202559D721E0CFA200DC22EC /* UIView+TABLayoutSubviews.m */,
+				202559D621E0CFA200DC22EC /* UITableViewCell+TABLayoutSubviews.h */,
+				202559CB21E0CFA200DC22EC /* UITableViewCell+TABLayoutSubviews.m */,
+				202559D121E0CFA200DC22EC /* UICollectionViewCell+TABLayoutSubviews.h */,
+				202559C921E0CFA200DC22EC /* UICollectionViewCell+TABLayoutSubviews.m */,
+				20238A6C21F05DFD00728142 /* UIView+TABControlAnimation.h */,
+				20238A6D21F05DFD00728142 /* UIView+TABControlAnimation.m */,
+				2031BCDD221E997A004C23B7 /* TABManagerMethod.h */,
+				2031BCDE221E997A004C23B7 /* TABManagerMethod.m */,
+				202559D821E0CFA300DC22EC /* TABManagerMethod+ManagerCALayer.h */,
+				202559CF21E0CFA200DC22EC /* TABManagerMethod+ManagerCALayer.m */,
+				202559D021E0CFA200DC22EC /* TABAnimationMethod.h */,
+				202559C721E0CFA200DC22EC /* TABAnimationMethod.m */,
 			);
 			path = TABAnimated;
 			sourceTree = "<group>";
@@ -302,6 +305,7 @@
 		20A01594216A51A80082425D /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				2013CA9D222B0C0C00E928E1 /* TABKit.framework */,
 				20BFBBA22153FB5300136258 /* head.jpg */,
 				20BFBBA62154D3D800136258 /* test.jpg */,
 			);
@@ -312,9 +316,9 @@
 			isa = PBXGroup;
 			children = (
 				20A85BF22152248D0005AD62 /* AnimatedDemo */,
-				20A85C0B2152248E0005AD62 /* AnimatedDemoTests */,
-				20A85C162152248E0005AD62 /* AnimatedDemoUITests */,
 				20A85BF12152248D0005AD62 /* Products */,
+				AAE8EEAAEEF20BE1838CB7C4 /* Pods */,
+				17CF1192F01A36690B9F7CEF /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -333,37 +337,16 @@
 			children = (
 				2039EF7C21DA17A600AE09FC /* Masonry */,
 				202559C621E0CFA200DC22EC /* TABAnimated */,
-				20187D75217E206700C20EC9 /* Util */,
 				20A01594216A51A80082425D /* Sources */,
 				20A85C25215224B10005AD62 /* Model */,
 				20A85C32215224B10005AD62 /* ViewController */,
 				20A85BF32152248D0005AD62 /* AppDelegate.h */,
 				20A85BF42152248D0005AD62 /* AppDelegate.m */,
-				20A85BF62152248D0005AD62 /* ViewController.h */,
-				20A85BF72152248D0005AD62 /* ViewController.m */,
 				20A85BFC2152248E0005AD62 /* Assets.xcassets */,
 				20A85C012152248E0005AD62 /* Info.plist */,
 				20A85C022152248E0005AD62 /* main.m */,
 			);
 			path = AnimatedDemo;
-			sourceTree = "<group>";
-		};
-		20A85C0B2152248E0005AD62 /* AnimatedDemoTests */ = {
-			isa = PBXGroup;
-			children = (
-				20A85C0C2152248E0005AD62 /* AnimatedDemoTests.m */,
-				20A85C0E2152248E0005AD62 /* Info.plist */,
-			);
-			path = AnimatedDemoTests;
-			sourceTree = "<group>";
-		};
-		20A85C162152248E0005AD62 /* AnimatedDemoUITests */ = {
-			isa = PBXGroup;
-			children = (
-				20A85C172152248E0005AD62 /* AnimatedDemoUITests.m */,
-				20A85C192152248E0005AD62 /* Info.plist */,
-			);
-			path = AnimatedDemoUITests;
 			sourceTree = "<group>";
 		};
 		20A85C25215224B10005AD62 /* Model */ = {
@@ -382,14 +365,12 @@
 				20A85C35215224B10005AD62 /* CustomView */,
 				20A01598216A538F0082425D /* MainViewController.h */,
 				20A01599216A538F0082425D /* MainViewController.m */,
+				20E72D7B2226EEBA00E781C9 /* ViewExampleViewController.h */,
+				20E72D7C2226EEBB00E781C9 /* ViewExampleViewController.m */,
 				20A85C34215224B10005AD62 /* TestViewController.h */,
 				20A85C33215224B10005AD62 /* TestViewController.m */,
 				20A01595216A51FC0082425D /* XibTestViewController.h */,
 				20A01596216A51FC0082425D /* XibTestViewController.m */,
-				20243537216AF37400617821 /* MoreViewController.h */,
-				20243538216AF37400617821 /* MoreViewController.m */,
-				2024353A216AF8B300617821 /* MoreTableViewController.h */,
-				2024353B216AF8B300617821 /* MoreTableViewController.m */,
 				20BFBFF22170D647001887A9 /* TestCollectionViewController.h */,
 				20BFBFF32170D647001887A9 /* TestCollectionViewController.m */,
 				20187D7C217E21BB00C20EC9 /* LabWithLinesViewController.h */,
@@ -405,6 +386,10 @@
 		20A85C35215224B10005AD62 /* CustomView */ = {
 			isa = PBXGroup;
 			children = (
+				202D40BC22297D92005CF7E3 /* CourseCollectionViewCell.h */,
+				202D40BD22297D92005CF7E3 /* CourseCollectionViewCell.m */,
+				20E72D792226E2D200E781C9 /* DailyCollectionViewCell.h */,
+				20E72D782226E2D200E781C9 /* DailyCollectionViewCell.m */,
 				2039EF7921DA15C100AE09FC /* ImageCollectionViewCell.h */,
 				2039EF7A21DA15C100AE09FC /* ImageCollectionViewCell.m */,
 				2039EF7721DA135900AE09FC /* BaseCollectionCell.h */,
@@ -425,6 +410,15 @@
 			path = CustomView;
 			sourceTree = "<group>";
 		};
+		AAE8EEAAEEF20BE1838CB7C4 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				65186EF4E859272D3F1B2754 /* Pods-AnimatedDemo.debug.xcconfig */,
+				EE191A7B44834CAB09DCE9CD /* Pods-AnimatedDemo.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -432,9 +426,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 20A85C1C2152248E0005AD62 /* Build configuration list for PBXNativeTarget "AnimatedDemo" */;
 			buildPhases = (
+				70C9C4A679CCC10007ECB6AC /* [CP] Check Pods Manifest.lock */,
 				20A85BEC2152248D0005AD62 /* Sources */,
 				20A85BED2152248D0005AD62 /* Frameworks */,
 				20A85BEE2152248D0005AD62 /* Resources */,
+				F85337002545BAC3C3036CF9 /* [CP] Embed Pods Frameworks */,
+				32CD833D66417C27ECA7F6BC /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -553,6 +550,75 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		32CD833D66417C27ECA7F6BC /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-AnimatedDemo/Pods-AnimatedDemo-resources.sh",
+				"${PODS_CONFIGURATION_BUILD_DIR}/DoraemonKit/DoraemonKit.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/DoraemonKit.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AnimatedDemo/Pods-AnimatedDemo-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		70C9C4A679CCC10007ECB6AC /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-AnimatedDemo-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F85337002545BAC3C3036CF9 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-AnimatedDemo/Pods-AnimatedDemo-frameworks.sh",
+				"${PODS_ROOT}/DoraemonKit/iOS/DoraemonKit/Framework/DoraemonLoadAnalyze.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DoraemonLoadAnalyze.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AnimatedDemo/Pods-AnimatedDemo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		20A85BEC2152248D0005AD62 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -561,21 +627,20 @@
 				2039EF7221DA077200AE09FC /* NestCollectionViewController.m in Sources */,
 				2039EF7B21DA15C100AE09FC /* ImageCollectionViewCell.m in Sources */,
 				2039EF9F21DA17A600AE09FC /* NSArray+MASAdditions.m in Sources */,
-				20A85BF82152248D0005AD62 /* ViewController.m in Sources */,
 				20A85C3E215224B10005AD62 /* TestTableViewCell.m in Sources */,
 				2039EF9C21DA17A600AE09FC /* MASCompositeConstraint.m in Sources */,
 				20A0159A216A538F0082425D /* MainViewController.m in Sources */,
+				20E72D7A2226E2D200E781C9 /* DailyCollectionViewCell.m in Sources */,
+				2031BCDF221E997A004C23B7 /* TABManagerMethod.m in Sources */,
 				2039EF7821DA135900AE09FC /* BaseCollectionCell.m in Sources */,
 				202559DB21E0CFA300DC22EC /* UITableView+Animated.m in Sources */,
+				20238A6E21F05DFD00728142 /* UIView+TABControlAnimation.m in Sources */,
 				20A01591216A321E0082425D /* XIBTableViewCell.m in Sources */,
 				2083176521A0451A000A0D95 /* ExampleOfPackageViewController.m in Sources */,
-				20187D78217E206D00C20EC9 /* MyLabel.m in Sources */,
 				2039EF9B21DA17A600AE09FC /* ViewController+MASAdditions.m in Sources */,
-				20BFE04B21B251A900104CC9 /* TABMethod.m in Sources */,
-				202559E121E0CFA300DC22EC /* TABViewAnimated+ManagerCALayer.m in Sources */,
+				202559E121E0CFA300DC22EC /* TABManagerMethod+ManagerCALayer.m in Sources */,
 				2083176221A04455000A0D95 /* PackageTableViewCell.m in Sources */,
 				2039EF9A21DA17A600AE09FC /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
-				20243539216AF37400617821 /* MoreViewController.m in Sources */,
 				20BFBBA12153F3FF00136258 /* TestHeadView.m in Sources */,
 				202559DE21E0CFA300DC22EC /* UITableViewCell+TABLayoutSubviews.m in Sources */,
 				202559DF21E0CFA300DC22EC /* UIView+Animated.m in Sources */,
@@ -587,6 +652,7 @@
 				202559DD21E0CFA300DC22EC /* TABViewAnimated.m in Sources */,
 				2039EFA121DA17A600AE09FC /* MASConstraint.m in Sources */,
 				202559DC21E0CFA300DC22EC /* UICollectionViewCell+TABLayoutSubviews.m in Sources */,
+				202D40BE22297D92005CF7E3 /* CourseCollectionViewCell.m in Sources */,
 				2039EF9E21DA17A600AE09FC /* MASLayoutConstraint.m in Sources */,
 				202559E221E0CFA300DC22EC /* UIView+TABLayoutSubviews.m in Sources */,
 				20A85C3D215224B10005AD62 /* TestViewController.m in Sources */,
@@ -594,10 +660,10 @@
 				20187D7B217E20D800C20EC9 /* LabWithLinesViewCell.m in Sources */,
 				2039EF9D21DA17A600AE09FC /* MASConstraintMaker.m in Sources */,
 				20BFBFF42170D647001887A9 /* TestCollectionViewController.m in Sources */,
+				20E72D7D2226EEBB00E781C9 /* ViewExampleViewController.m in Sources */,
 				202559E021E0CFA300DC22EC /* UICollectionView+Animated.m in Sources */,
 				20A85BF52152248D0005AD62 /* AppDelegate.m in Sources */,
 				2039EF7521DA07F200AE09FC /* NestCollectionViewCell.m in Sources */,
-				2024353C216AF8B300617821 /* MoreTableViewController.m in Sources */,
 				2039EFA221DA17A600AE09FC /* MASViewConstraint.m in Sources */,
 				20BFBFFA2170D912001887A9 /* TestCollectionViewCell.m in Sources */,
 				20A85C38215224B10005AD62 /* Game.m in Sources */,
@@ -608,7 +674,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				20A85C0D2152248E0005AD62 /* AnimatedDemoTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -616,7 +681,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				20A85C182152248E0005AD62 /* AnimatedDemoUITests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -750,11 +814,17 @@
 		};
 		20A85C1D2152248E0005AD62 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 65186EF4E859272D3F1B2754 /* Pods-AnimatedDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = AS4P4F5CC5;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/AnimatedDemo",
+					"$(PROJECT_DIR)/AnimatedDemo/Sources",
+				);
 				INFOPLIST_FILE = AnimatedDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -770,11 +840,17 @@
 		};
 		20A85C1E2152248E0005AD62 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EE191A7B44834CAB09DCE9CD /* Pods-AnimatedDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = AS4P4F5CC5;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/AnimatedDemo",
+					"$(PROJECT_DIR)/AnimatedDemo/Sources",
+				);
 				INFOPLIST_FILE = AnimatedDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (

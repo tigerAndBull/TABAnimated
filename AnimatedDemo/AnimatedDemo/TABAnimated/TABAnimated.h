@@ -11,6 +11,7 @@
 
 #import "UIView+Animated.h"
 #import "UIView+TABLayoutSubviews.h"
+#import "UIView+TABControlAnimation.h"
 
 #import "UITableView+Animated.h"
 #import "UITableViewCell+TABLayoutSubviews.h"

@@ -9,20 +9,19 @@
 #import "MainViewController.h"
 #import "TestViewController.h"
 #import "XibTestViewController.h"
-#import "MoreViewController.h"
-#import "MoreTableViewController.h"
 #import "TestCollectionViewController.h"
 #import "LabWithLinesViewController.h"
 #import "ExampleOfPackageViewController.h"
 #import "NestCollectionViewController.h"
 
-#import "TABMethod.h"
-#import "AppDelegate.h"
+#import <TABKit/TABKit.h>
 
-#define kAPPDELEGATE ((AppDelegate*)[[UIApplication sharedApplication] delegate])
+#import "AppDelegate.h"
 
 @interface MainViewController () <UITableViewDelegate,UITableViewDataSource>
 
+@property (nonatomic,strong) NSArray <NSString *> *titleArray;
+@property (nonatomic,strong) NSArray <NSString *> *controllerClassArray;
 @property (nonatomic,strong) UITableView *mainTV;
 
 @end
@@ -42,22 +41,6 @@
     self.title = @"主页面";
 }
 
-- (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-}
-
-- (void)dealloc {
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 #pragma mark - UITableViewDataSource & UITableViewDelegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -65,7 +48,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 8;
+    return self.titleArray.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
@@ -86,89 +69,18 @@
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     
-    if (indexPath.row == 0) {
-        cell.textLabel.text = @"UIView和UITableView纯代码 示例";
-    }else {
-        if (indexPath.row == 1) {
-            cell.textLabel.text = @"cell xib 示例";
-        }else {
-            if (indexPath.row == 2) {
-                cell.textLabel.text = @"多个UIView 示例";
-            }else {
-                if (indexPath.row == 3) {
-                    cell.textLabel.text = @"多个UITableView 示例";
-                }else {
-                    if (indexPath.row == 4) {
-                        cell.textLabel.text = @"UICollectionView 示例";
-                    }else {
-                        if (indexPath.row == 5) {
-                            cell.textLabel.text = @"多行文本 示例";
-                        }else {
-                            if (indexPath.row == 6) {
-                                cell.textLabel.text = @"cell中使用封装组件 示例";
-                            }else {
-                                if (indexPath.row == 7) {
-                                    cell.textLabel.text = @"嵌套表格组件 示例";
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
+    cell.textLabel.text = self.titleArray[indexPath.row];
 
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    if (indexPath.row == 0) {
-        
-        TestViewController *vc = [[TestViewController alloc]init];
+    NSString *className = self.controllerClassArray[indexPath.row];
+    Class class = NSClassFromString(className);
+    if (class) {
+        UIViewController *vc = class.new;
+        vc.title = self.titleArray[indexPath.row];
         [kAPPDELEGATE.nav pushViewController:vc animated:YES];
-    }else {
-        if (indexPath.row == 1) {
-            
-            XibTestViewController *vc = [[XibTestViewController alloc]init];
-            [kAPPDELEGATE.nav pushViewController:vc animated:YES];
-        }else {
-            if (indexPath.row == 2) {
-                
-                MoreViewController *vc = [[MoreViewController alloc]init];
-                [kAPPDELEGATE.nav pushViewController:vc animated:YES];
-            }else {
-                if (indexPath.row == 3) {
-                    
-                    MoreTableViewController *vc = [[MoreTableViewController alloc]init];
-                    [kAPPDELEGATE.nav pushViewController:vc animated:YES];
-                }else {
-                    if (indexPath.row == 4) {
-                        
-                        TestCollectionViewController *vc = [[TestCollectionViewController alloc]init];
-                        [kAPPDELEGATE.nav pushViewController:vc animated:YES];
-                    }else {
-                        if (indexPath.row == 5) {
-                            
-                            LabWithLinesViewController *vc = [[LabWithLinesViewController alloc]init];
-                            [kAPPDELEGATE.nav pushViewController:vc animated:YES];
-                        }else {
-                            if (indexPath.row == 6) {
-                                
-                                ExampleOfPackageViewController *vc = [[ExampleOfPackageViewController alloc]init];
-                                [kAPPDELEGATE.nav pushViewController:vc animated:YES];
-                            }else {
-                                if (indexPath.row == 7) {
-                                    
-                                    NestCollectionViewController *vc = [[NestCollectionViewController alloc]init];
-                                    [kAPPDELEGATE.nav pushViewController:vc animated:YES];
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
     }
 }
 
@@ -180,9 +92,7 @@
  初始化视图
  */
 - (void)initUI {
-    
     self.view.backgroundColor = [UIColor whiteColor];
-    
     [self.view addSubview:self.mainTV];
 }
 
@@ -190,7 +100,7 @@
 
 - (UITableView *)mainTV {
     if (!_mainTV) {
-        _mainTV = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, tab_kScreenWidth, tab_kScreenHeight) style:UITableViewStyleGrouped];
+        _mainTV = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:UITableViewStyleGrouped];
         _mainTV.delegate = self;
         _mainTV.dataSource = self;
         _mainTV.rowHeight = 44;
@@ -201,6 +111,26 @@
         _mainTV.separatorStyle = UITableViewCellSeparatorStyleNone;
     }
     return _mainTV;
+}
+
+- (NSArray *)titleArray {
+    return @[@"UITableView 纯代码开发 示例",
+             @"多行文本 示例",
+             @"UICollectionView 示例",
+             @"UIView 示例",
+             @"UITableView xib 示例",
+             @"cell中使用封装组件 示例",
+             @"嵌套UICollectionView 示例"];
+}
+
+- (NSArray *)controllerClassArray {
+    return @[@"TestViewController",
+             @"LabWithLinesViewController",
+             @"TestCollectionViewController",
+             @"ViewExampleViewController",
+             @"XibTestViewController",
+             @"ExampleOfPackageViewController",
+             @"NestCollectionViewController"];
 }
 
 @end

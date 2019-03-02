@@ -8,8 +8,6 @@
 
 #import "XIBTableViewCell.h"
 
-#import "TABMethod.h"
-
 #import "UITableViewCell+TABLayoutSubviews.h"
 #import "UIView+Animated.h"
 
@@ -29,6 +27,10 @@
     if (_testLab) {
         _testLab.loadStyle = TABViewLoadAnimationLong;
     }
+}
+
+- (void)updateCell {
+    self.testLab.text = @"测试数据";
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

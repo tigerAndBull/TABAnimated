@@ -11,12 +11,12 @@
 #import "XIBTableViewCell.h"
 
 #import "TABAnimated.h"
-#import "TABMethod.h"
 
 #import "Game.h"
 
+#import <TABKit/TABKit.h>
+
 @interface XibTestViewController () <UITableViewDelegate,UITableViewDataSource> {
-    
     NSMutableArray *dataArray;
 }
 
@@ -31,31 +31,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    dataArray = [NSMutableArray array];
     [self initUI];
-    
     // 假设3秒后，获取到数据了，代码具体位置看你项目了。
     [self performSelector:@selector(afterGetData) withObject:nil afterDelay:3.0];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    self.title = @"Xib 示例";
-}
-
-- (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-}
-
 - (void)dealloc {
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    NSLog(@"==========  dealloc  ==========");
 }
 
 #pragma mark - Target Methods
@@ -76,8 +59,7 @@
     }
     
     // 停止动画,并刷新数据
-    _mainTV.animatedStyle = TABTableViewAnimationEnd;
-    [_mainTV reloadData];
+    [self.mainTV tab_endAnimation];
 }
 
 #pragma mark - UITableViewDataSource & UITableViewDelegate
@@ -109,9 +91,9 @@
     }
     
     // 在加载动画的时候，即未获得数据时，不要走加载控件数据的方法
-    if (_mainTV.animatedStyle != TABTableViewAnimationStart) {
+    if (!self.mainTV.isAnimating) {
         // 这里刷新走刷新视图的方法
-        
+        [cell updateCell];
     }
     
     return cell;
@@ -120,7 +102,6 @@
 #pragma mark - Initize Methods
 
 - (void)initData {
-    
     dataArray = [NSMutableArray array];
 }
 
@@ -129,18 +110,16 @@
  初始化视图
  */
 - (void)initUI {
-    
     self.view.backgroundColor = [UIColor whiteColor];
-    
     [self.view addSubview:self.mainTV];
+    [self.mainTV tab_startAnimation];
 }
 
 #pragma mark - Lazy Methods
 
 - (UITableView *)mainTV {
     if (!_mainTV) {
-        _mainTV = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, tab_kScreenWidth, tab_kScreenHeight) style:UITableViewStyleGrouped];
-        _mainTV.animatedStyle = TABTableViewAnimationStart;  // 开启动画
+        _mainTV = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:UITableViewStyleGrouped];
         _mainTV.delegate = self;
         _mainTV.dataSource = self;
         _mainTV.rowHeight = 44;

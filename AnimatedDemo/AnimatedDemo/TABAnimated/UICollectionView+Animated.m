@@ -7,12 +7,16 @@
 //
 
 #import "UICollectionView+Animated.h"
-
 #import "UIView+Animated.h"
+#import "UIView+TABControlAnimation.m"
 
 #import <objc/runtime.h>
 
 @implementation UICollectionView (Animated)
+
+struct {
+    unsigned int animatedSectionCountDelegate:1;
+} collectionViewAnimatedDelegateRespondTo;
 
 + (void)load {
     
@@ -26,18 +30,7 @@
         // Get the method you created.
         Method newMethod = class_getInstanceMethod([self class], @selector(tab_setDelegate:));
         
-        IMP newIMP = method_getImplementation(newMethod);
-        
-        BOOL isAdd = class_addMethod([self class], @selector(tab_setDelegate:), newIMP, method_getTypeEncoding(newMethod));
-        
-        if (isAdd) {
-            // replace
-            class_replaceMethod([self class], @selector(setDelegate:), newIMP, method_getTypeEncoding(newMethod));
-        } else {
-            // exchange
-            method_exchangeImplementations(originMethod, newMethod);
-        }
-        
+        method_exchangeImplementations(originMethod, newMethod);
     });
 }
 
@@ -46,8 +39,12 @@
     SEL oldSectionSelector = @selector(collectionView:numberOfItemsInSection:);
     SEL newSectionSelector = @selector(tab_collectionView:numberOfItemsInSection:);
     
+    SEL old = @selector(collectionView:willDisplayCell:forItemAtIndexPath:);
+    SEL new = @selector(tab_collectionView:willDisplayCell:forItemAtIndexPath:);
+    
     if ([self respondsToSelector:newSectionSelector]) {
         [self exchangeCollectionDelegateMethod:oldSectionSelector withNewSel:newSectionSelector withCollectionDelegate:delegate];
+        [self exchangeCollectionDelegateMethod:old withNewSel:new withCollectionDelegate:delegate];
     }
 
     [self tab_setDelegate:delegate];
@@ -57,10 +54,22 @@
 
 - (NSInteger)tab_collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     
-    if (collectionView.animatedStyle == TABCollectionViewAnimationStart) {
+    if (collectionView.isAnimating) {
+        if (collectionView.delegate &&
+            [collectionView.delegate respondsToSelector:@selector(collectionView:numberOfAnimatedItemsInSection:)]) {
+            return [collectionView.animatedDelegate collectionView:collectionView numberOfAnimatedItemsInSection:section];
+        }
         return collectionView.animatedCount;
     }
     return [self tab_collectionView:collectionView numberOfItemsInSection:section];
+}
+
+- (void)tab_collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (collectionView.animatedStyle == TABViewAnimationStart) {
+        return;
+    }
+    [self tab_collectionView:collectionView willDisplayCell:cell forItemAtIndexPath:indexPath];
 }
 
 #pragma mark - Private Methods
@@ -69,45 +78,35 @@
                               withNewSel:(SEL)newSelector
                   withCollectionDelegate:(id<UICollectionViewDelegate>)delegate {
     
-    Method oldMethod_del = class_getInstanceMethod([delegate class], oldSelector);
+    Method oldMethod = class_getInstanceMethod([delegate class], oldSelector);
     Method newMethod = class_getInstanceMethod([self class], newSelector);
-    IMP oldImp = method_getImplementation(oldMethod_del);
     
     if ([self isKindOfClass:[delegate class]]) {
-        // If self.delegate = self,no animation.
-        // method_exchangeImplementations(oldMethod_del, newMethod);
-    } else {
+        method_exchangeImplementations(oldMethod, newMethod);
+    }else {
         
-        // If the child is not imp new Method, add imp.
-        BOOL isSuccess = class_addMethod([delegate class], oldSelector, class_getMethodImplementation([self class], newSelector), method_getTypeEncoding(newMethod));
+        if (oldMethod == nil) {
+            return;
+        }
         
-        if (isSuccess) {
-            
-            class_addMethod([delegate class], newSelector, oldImp, method_getTypeEncoding(oldMethod_del));
-            
-        } else {
-            
-            // If the child is not imp old Method, add imp.
-            BOOL isVictory = class_addMethod([delegate class], newSelector, class_getMethodImplementation([delegate class], oldSelector), method_getTypeEncoding(oldMethod_del));
-            if (isVictory) {
-                // exchange
-                class_replaceMethod([delegate class], oldSelector, class_getMethodImplementation([self class], newSelector), method_getTypeEncoding(newMethod));
-            }
+        // 代理对象添加newMethod，指向oldImp
+        BOOL isVictory = class_addMethod([delegate class], newSelector, class_getMethodImplementation([delegate class], oldSelector), method_getTypeEncoding(oldMethod));
+        if (isVictory) {
+            // 添加成功后，将oldMethod指向当前类的新的
+            class_replaceMethod([delegate class], oldSelector, class_getMethodImplementation([self class], newSelector), method_getTypeEncoding(newMethod));
+        }else {
+            method_exchangeImplementations(oldMethod, newMethod);
         }
     }
 }
 
 #pragma mark - Getter / Setter
 
-- (TABViewAnimationStyle)animatedStyle {
-    NSNumber *value = objc_getAssociatedObject(self, @selector(animatedStyle));
-    return value.intValue;
-}
-
 - (void)setAnimatedStyle:(TABViewAnimationStyle)animatedStyle {
     
     // If the animation started, disable touch events.
-    if (animatedStyle == 4) {
+    if (animatedStyle == TABViewAnimationStart ||
+        animatedStyle == TABViewAnimationRunning) {
         [self setScrollEnabled:NO];
         [self setAllowsSelection:NO];
     } else {
@@ -126,13 +125,19 @@
     objc_setAssociatedObject(self, @selector(animatedCount), @(animatedCount), OBJC_ASSOCIATION_ASSIGN);
 }
 
-- (NSInteger)sectionCount {
-    NSNumber *value = objc_getAssociatedObject(self, @selector(sectionCount));
-    return (value.integerValue == 0)?(3):(value.integerValue);
+- (id<UICollectionViewAnimatedDelegate>)animatedDelegate {
+    id<UICollectionViewAnimatedDelegate> delegate = objc_getAssociatedObject(self, @selector(animatedDelegate));
+    return delegate;
 }
 
-- (void)setSectionCount:(NSInteger)sectionCount {
-    objc_setAssociatedObject(self, @selector(sectionCount), @(sectionCount), OBJC_ASSOCIATION_ASSIGN);
+- (void)setAnimatedDelegate:(id<UICollectionViewAnimatedDelegate>)animatedDelegate {
+
+    if (self.animatedDelegate != animatedDelegate) {
+        
+        objc_setAssociatedObject(self, @selector(animatedDelegate), animatedDelegate, OBJC_ASSOCIATION_ASSIGN);
+        
+        collectionViewAnimatedDelegateRespondTo.animatedSectionCountDelegate = [animatedDelegate respondsToSelector:@selector(collectionView:numberOfAnimatedItemsInSection:)];
+    }
 }
 
 @end

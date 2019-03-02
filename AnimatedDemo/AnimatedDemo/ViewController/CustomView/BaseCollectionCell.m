@@ -38,4 +38,8 @@
     return CGSizeMake(width, 1);
 }
 
++ (CGSize)cellSize {
+    return CGSizeMake(1, 1);
+}
+
 @end
