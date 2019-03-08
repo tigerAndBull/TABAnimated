@@ -13,6 +13,7 @@
 #import "TABViewAnimated.h"
 #import "TABBaseTableViewCell.h"
 #import "TABAnimatedObject.h"
+#import "TABAnimated.h"
 
 @implementation UITableView (Animated)
 
@@ -79,8 +80,10 @@ struct {
     if ([TABViewAnimated sharedAnimated].isUseTemplate) {
         if (tableView.animatedStyle == TABViewAnimationStart) {
             SEL sel = @selector(cellHeight);
-            NSNumber *num = [NSClassFromString(tableView.tabAnimated.className) performSelector:sel];
-            return [num floatValue];
+            tab_suppressPerformSelectorLeakWarning(
+                NSNumber *num = [NSClassFromString(tableView.tabAnimated.className) performSelector:sel];
+                return [num floatValue];
+            );
         }
         return [self tab_tableView:tableView heightForRowAtIndexPath:indexPath];
     }

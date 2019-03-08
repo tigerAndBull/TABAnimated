@@ -16,6 +16,7 @@
 #import "TemplateCollectionViewCell.h"
 
 #import <objc/runtime.h>
+#import "TABAnimated.h"
 
 @implementation UICollectionView (Animated)
 
@@ -81,10 +82,12 @@ struct {
     if ([TABViewAnimated sharedAnimated].isUseTemplate) {
         if (collectionView.animatedStyle == TABViewAnimationStart) {
             SEL sel = @selector(cellWithIndexPath:atCollectionView:);
-            return [NSClassFromString(collectionView.tabAnimated.classNameArray[indexPath.section])
-                    performSelector:sel
-                    withObject:indexPath
-                    withObject:collectionView];
+            tab_suppressPerformSelectorLeakWarning(
+                return [NSClassFromString(collectionView.tabAnimated.classNameArray[indexPath.section])
+                        performSelector:sel
+                        withObject:indexPath
+                        withObject:collectionView];
+            );
         }
         return [self tab_collectionView:collectionView cellForItemAtIndexPath:indexPath];
     }
@@ -95,8 +98,10 @@ struct {
     if ([TABViewAnimated sharedAnimated].isUseTemplate) {
         if (collectionView.animatedStyle == TABViewAnimationStart) {
             SEL sel = @selector(cellSize);
-            NSValue *value = [NSClassFromString(collectionView.tabAnimated.classNameArray[indexPath.section]) performSelector:sel];
-            return [value CGSizeValue];
+            tab_suppressPerformSelectorLeakWarning(
+                NSValue *value = [NSClassFromString(collectionView.tabAnimated.classNameArray[indexPath.section]) performSelector:sel];
+                return [value CGSizeValue];
+            );
         }
         return [self tab_collectionView:collectionView layout:collectionViewLayout sizeForItemAtIndexPath:indexPath];
     }
