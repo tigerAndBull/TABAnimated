@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+@class TABAnimatedObject;
+
 @protocol UITableViewAnimatedDelegate <NSObject>
 
 @optional
@@ -18,8 +20,14 @@
 
 @interface UITableView (Animated)
 
+@property (nonatomic,strong) TABAnimatedObject *tabAnimated;
+
 @property (nonatomic,weak) id<UITableViewAnimatedDelegate> animatedDelegate;
 
 @property (nonatomic,assign) NSInteger animatedCount;    // default is three. count of cell during animating.
+
+- (void)registerTemplateClass:(Class)templateClass;
+
+- (void)registerTemplateClassArray:(NSArray <Class> *)classArray;
 
 @end

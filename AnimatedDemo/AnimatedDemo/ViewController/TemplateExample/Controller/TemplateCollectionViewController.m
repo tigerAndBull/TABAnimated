@@ -1,46 +1,43 @@
 //
-//  TestCollectionViewController.m
+//  TemplateCollectionViewController.m
 //  AnimatedDemo
 //
-//  Created by tigerAndBull on 2018/10/12.
-//  Copyright © 2018年 tigerAndBull. All rights reserved.
+//  Created by tigerAndBull on 2019/3/8.
+//  Copyright © 2019年 tigerAndBull. All rights reserved.
 //
 
-#import "TestCollectionViewController.h"
+#import "TemplateCollectionViewController.h"
 
 #import "DailyCollectionViewCell.h"
 #import "CourseCollectionViewCell.h"
+#import "TemplateCollectionViewCell.h"
+#import "TemplateSecondCollectionViewCell.h"
+
+#import "TABAnimatedObject.h"
 
 #import "TABAnimated.h"
 
 #import "Game.h"
 #import <TABKit/TABKit.h>
 
-@interface TestCollectionViewController () <UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewAnimatedDelegate> {
+@interface TemplateCollectionViewController () <UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewAnimatedDelegate> {
     NSMutableArray *dataArray;
 }
 
-@property (nonatomic, strong) UICollectionView *collectionView;
+@property (nonatomic,strong) UICollectionView *collectionView;
 
 @end
 
-@implementation TestCollectionViewController
-
-#pragma mark - LifeCycle
+@implementation TemplateCollectionViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
     [self initData];
     [self initUI];
     
     // 假设3秒后，获取到数据了，代码具体位置看你项目了。
     [self performSelector:@selector(afterGetData) withObject:nil afterDelay:3];
-}
-
-- (void)dealloc {
-    NSLog(@"========= delloc =========");
 }
 
 #pragma mark - Target Methods
@@ -89,7 +86,14 @@
 }
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
-    return UIEdgeInsetsMake(0, 10, 0, 0);
+    return UIEdgeInsetsMake(0, 10, 0, 10);
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
+    if (section == 0) {
+        return .1;
+    }
+    return 10;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -133,19 +137,23 @@
     [self.collectionView tab_startAnimation];
 }
 
-#pragma mark - Lazy Methods
+#pragma mark - Getter
 
 - (UICollectionView *)collectionView {
     if (!_collectionView) {
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
         _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, kNavigationHeight, kScreenWidth, kScreenHeight-kNavigationHeight)            collectionViewLayout:layout];
-        _collectionView.animatedCount = 10;
         _collectionView.backgroundColor = [UIColor whiteColor];
         _collectionView.dataSource = self;
         _collectionView.delegate = self;
-        _collectionView.animatedDelegate = self;
+        _collectionView.animatedDelegate = self;             
         _collectionView.showsHorizontalScrollIndicator = NO;
         _collectionView.showsVerticalScrollIndicator = NO;
+        
+        // 注册模版
+        [_collectionView registerTemplateClassArray:@[[TemplateCollectionViewCell class],
+                                                      [TemplateSecondCollectionViewCell class]]];
+
     }
     return _collectionView;
 }

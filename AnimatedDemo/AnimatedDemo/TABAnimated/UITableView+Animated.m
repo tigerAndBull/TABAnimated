@@ -11,6 +11,8 @@
 #import <objc/runtime.h>
 
 #import "TABViewAnimated.h"
+#import "TABBaseTableViewCell.h"
+#import "TABAnimatedObject.h"
 
 @implementation UITableView (Animated)
 
@@ -42,9 +44,17 @@ struct {
     SEL old = @selector(tableView:willDisplayCell:forRowAtIndexPath:);
     SEL new = @selector(tab_tableView:willDisplayCell:forRowAtIndexPath:);
     
+    SEL oldCell = @selector(tableView:cellForRowAtIndexPath:);
+    SEL newCell = @selector(tab_tableView:cellForRowAtIndexPath:);
+    
+    SEL oldHeightDelegate = @selector(tableView:heightForRowAtIndexPath:);
+    SEL newHeightDelegate = @selector(tab_tableView:heightForRowAtIndexPath:);
+    
     if ([self respondsToSelector:newSelector]) {
         [self exchangeTableDelegateMethod:oldSelector withNewSel:newSelector withTableDelegate:delegate];
         [self exchangeTableDelegateMethod:old withNewSel:new withTableDelegate:delegate];
+        [self exchangeTableDelegateMethod:oldCell withNewSel:newCell withTableDelegate:delegate];
+        [self exchangeTableDelegateMethod:oldHeightDelegate withNewSel:newHeightDelegate withTableDelegate:delegate];
     }
 
     [self tab_setDelegate:delegate];
@@ -65,11 +75,36 @@ struct {
     return [self tab_tableView:tableView numberOfRowsInSection:section];
 }
 
+- (CGFloat)tab_tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if ([TABViewAnimated sharedAnimated].isUseTemplate) {
+        if (tableView.animatedStyle == TABViewAnimationStart) {
+            SEL sel = @selector(cellHeight);
+            NSNumber *num = [NSClassFromString(tableView.tabAnimated.className) performSelector:sel];
+            return [num floatValue];
+        }
+        return [self tab_tableView:tableView heightForRowAtIndexPath:indexPath];
+    }
+    return [self tab_tableView:tableView heightForRowAtIndexPath:indexPath];
+}
+
 - (void)tab_tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (tableView.animatedStyle == TABViewAnimationStart) {
         return;
     }
     [self tab_tableView:tableView willDisplayCell:cell forRowAtIndexPath:indexPath];
+}
+
+- (UITableViewCell *)tab_tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    // If the animation running, return animatedCount.
+    if ([TABViewAnimated sharedAnimated].isUseTemplate) {
+        if (tableView.animatedStyle == TABViewAnimationStart) {
+            TABBaseTableViewCell *cell = (TABBaseTableViewCell *)NSClassFromString(tableView.tabAnimated.className).new;
+            return cell;
+        }
+        return [self tab_tableView:tableView cellForRowAtIndexPath:indexPath];
+    }
+    return [self tab_tableView:tableView cellForRowAtIndexPath:indexPath];
 }
 
 #pragma mark - Private Methods
@@ -106,6 +141,24 @@ struct {
             method_exchangeImplementations(oldMethod, newMethod);
         }
     }
+}
+
+#pragma mark - Public Method
+
+- (void)registerTemplateClass:(Class)templateClass {
+    TABAnimatedObject *obj = [[TABAnimatedObject alloc] init];
+    obj.className = NSStringFromClass(templateClass);
+    self.tabAnimated = obj;
+}
+
+- (void)registerTemplateClassArray:(NSArray<Class> *)classArray {
+    TABAnimatedObject *obj = [[TABAnimatedObject alloc] init];
+    NSMutableArray *array = [NSMutableArray array];
+    for (Class class in classArray) {
+        [array addObject:NSStringFromClass(class)];
+    }
+    obj.classNameArray = array.mutableCopy;
+    self.tabAnimated = obj;
 }
 
 #pragma mark - Getter / Setter
@@ -146,6 +199,14 @@ struct {
         
         tableViewAnimatedDelegateRespondTo.sectionAnimatedCountDelegate = [animatedDelegate respondsToSelector:@selector(tableView:numberOfAnimatedRowsInSection:)];
     }
+}
+
+- (TABAnimatedObject *)tabAnimated {
+    return objc_getAssociatedObject(self, @selector(tabAnimated));
+}
+
+- (void)setTabAnimated:(TABAnimatedObject *)tabAnimated {
+    objc_setAssociatedObject(self, @selector(tabAnimated),tabAnimated, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 @end

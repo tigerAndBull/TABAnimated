@@ -75,7 +75,7 @@ static CGFloat defaultSpaceWithLines = 8.f;              // used to label with r
         
         NSInteger lineCount = (superView.frame.size.height - (CGRectGetMinY(lab.frame) - CGRectGetMinY(superView.frame)))/(defaultHeight+defaultSpaceWithLines);
         
-        for (int i = 0; i < ((lineCount > 4)?4:lineCount); i++) {
+        for (int i = 0; i < lineCount; i++) {
             
             CALayer *layer = [[CALayer alloc]init];
             layer.backgroundColor = color.CGColor;
@@ -84,7 +84,7 @@ static CGFloat defaultSpaceWithLines = 8.f;              // used to label with r
             layer.name = @"TABLayer";
             
             if (i == lineCount - 1) {
-                layer.frame = CGRectMake(0, (i == 0)?(0):(i*(textHeight+defaultSpaceWithLines)), width*0.6, textHeight);
+                layer.frame = CGRectMake(0, (i == 0)?(0):(i*(textHeight+defaultSpaceWithLines)), width*0.5, textHeight);
             }else {
                 layer.frame = CGRectMake(0, (i == 0)?(0):(i*(textHeight+defaultSpaceWithLines)), width, textHeight);
             }
@@ -145,7 +145,7 @@ static CGFloat defaultSpaceWithLines = 8.f;              // used to label with r
                 }else {
                     
                     if (i == (lab.numberOfLines - 1)) {
-                        layer.frame = CGRectMake(0, (i == 0)?(0):(i*(textHeight + defaultHeight)), width*0.6, textHeight);
+                        layer.frame = CGRectMake(0, (i == 0)?(0):(i*(textHeight + defaultHeight)), width*0.5, textHeight);
                     }else {
                         layer.frame = CGRectMake(0, (i == 0)?(0):(i*(textHeight + defaultHeight)), width, textHeight);
                     }
@@ -174,7 +174,7 @@ static CGFloat defaultSpaceWithLines = 8.f;              // used to label with r
             if (lab.numberOfLines > 2) {
                 
                 // If the number of row exceeds four,I will use four.
-                for (int i = 0; i < ((lab.numberOfLines > 4)?4:lab.numberOfLines); i++) {
+                for (int i = 0; i < lab.numberOfLines; i++) {
                     
                     CALayer *layer = [[CALayer alloc]init];
                     layer.backgroundColor = color.CGColor;
@@ -203,7 +203,7 @@ static CGFloat defaultSpaceWithLines = 8.f;              // used to label with r
                         }
                     }else {
                         if (i == (lab.numberOfLines - 1)) {
-                            layer.frame = CGRectMake(0, (i == 0)?(0):(i*(textHeight+defaultSpaceWithLines)), width*0.6, textHeight);
+                            layer.frame = CGRectMake(0, (i == 0)?(0):(i*(textHeight+defaultSpaceWithLines)), width*0.5, textHeight);
                         }else {
                             layer.frame = CGRectMake(0, (i == 0)?(0):(i*(textHeight+defaultSpaceWithLines)), width, textHeight);
                         }
@@ -421,6 +421,12 @@ static CGFloat defaultSpaceWithLines = 8.f;              // used to label with r
             if ([view isKindOfClass:[UIButton class]]) {
                 UIButton *btn = (UIButton *)view;
                 [btn setTitle:@"" forState:UIControlStateNormal];
+            }
+        }
+        
+        if ([TABViewAnimated sharedAnimated].isUseTemplate) {
+            if ([view isKindOfClass:[UIImageView class]]) {
+                view.layer.masksToBounds = YES;
             }
         }
         

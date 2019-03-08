@@ -14,6 +14,8 @@
 #import "TABAnimated.h"
 #import <TABKit/TABKit.h>
 #import "TestHeadView.h"
+#import "MyTestTableViewCell.h"
+#import "TABAnimatedObject.h"
 
 #import "Game.h"
 
@@ -100,6 +102,10 @@
     return cell;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 100;
+}
+
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     TestTableViewCell *myCell = (TestTableViewCell *)cell;
     [myCell initWithData:dataArray[indexPath.row]];
@@ -133,12 +139,13 @@
         _mainTV.dataSource = self;
         _mainTV.delegate = self;
         _mainTV.animatedDelegate = self;
-        _mainTV.rowHeight = 100;
+        _mainTV.superAnimationType = TABViewSuperAnimationTypeClassic;
         _mainTV.estimatedRowHeight = 0;
         _mainTV.estimatedSectionFooterHeight = 0;
         _mainTV.estimatedSectionHeaderHeight = 0;
         _mainTV.backgroundColor = [UIColor whiteColor];
         _mainTV.separatorStyle = UITableViewCellSeparatorStyleNone;
+        [_mainTV registerTemplateClass:[MyTestTableViewCell class]];  // 注册模版
     }
     return _mainTV;
 }

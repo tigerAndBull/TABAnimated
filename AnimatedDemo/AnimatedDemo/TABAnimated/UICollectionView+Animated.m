@@ -9,6 +9,11 @@
 #import "UICollectionView+Animated.h"
 #import "UIView+Animated.h"
 #import "UIView+TABControlAnimation.m"
+#import "TABViewAnimated.h"
+
+#import "TABAnimatedObject.h"
+#import "TABBaseCollectionViewCell.h"
+#import "TemplateCollectionViewCell.h"
 
 #import <objc/runtime.h>
 
@@ -42,9 +47,17 @@ struct {
     SEL old = @selector(collectionView:willDisplayCell:forItemAtIndexPath:);
     SEL new = @selector(tab_collectionView:willDisplayCell:forItemAtIndexPath:);
     
+    SEL oldCell = @selector(collectionView:cellForItemAtIndexPath:);
+    SEL newCell = @selector(tab_collectionView:cellForItemAtIndexPath:);
+    
+    SEL oldHeightSel = @selector(collectionView:layout:sizeForItemAtIndexPath:);
+    SEL newHeightSel = @selector(tab_collectionView:layout:sizeForItemAtIndexPath:);
+    
     if ([self respondsToSelector:newSectionSelector]) {
         [self exchangeCollectionDelegateMethod:oldSectionSelector withNewSel:newSectionSelector withCollectionDelegate:delegate];
         [self exchangeCollectionDelegateMethod:old withNewSel:new withCollectionDelegate:delegate];
+        [self exchangeCollectionDelegateMethod:oldCell withNewSel:newCell withCollectionDelegate:delegate];
+        [self exchangeCollectionDelegateMethod:oldHeightSel withNewSel:newHeightSel withCollectionDelegate:delegate];
     }
 
     [self tab_setDelegate:delegate];
@@ -62,6 +75,32 @@ struct {
         return collectionView.animatedCount;
     }
     return [self tab_collectionView:collectionView numberOfItemsInSection:section];
+}
+
+- (UICollectionViewCell *)tab_collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    if ([TABViewAnimated sharedAnimated].isUseTemplate) {
+        if (collectionView.animatedStyle == TABViewAnimationStart) {
+            SEL sel = @selector(cellWithIndexPath:atCollectionView:);
+            return [NSClassFromString(collectionView.tabAnimated.classNameArray[indexPath.section])
+                    performSelector:sel
+                    withObject:indexPath
+                    withObject:collectionView];
+        }
+        return [self tab_collectionView:collectionView cellForItemAtIndexPath:indexPath];
+    }
+    return [self tab_collectionView:collectionView cellForItemAtIndexPath:indexPath];
+}
+
+- (CGSize)tab_collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    if ([TABViewAnimated sharedAnimated].isUseTemplate) {
+        if (collectionView.animatedStyle == TABViewAnimationStart) {
+            SEL sel = @selector(cellSize);
+            NSValue *value = [NSClassFromString(collectionView.tabAnimated.classNameArray[indexPath.section]) performSelector:sel];
+            return [value CGSizeValue];
+        }
+        return [self tab_collectionView:collectionView layout:collectionViewLayout sizeForItemAtIndexPath:indexPath];
+    }
+    return [self tab_collectionView:collectionView layout:collectionViewLayout sizeForItemAtIndexPath:indexPath];
 }
 
 - (void)tab_collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -98,6 +137,32 @@ struct {
             method_exchangeImplementations(oldMethod, newMethod);
         }
     }
+}
+
+#pragma mark - Public Method
+
+- (void)registerTemplateClass:(Class)templateClass {
+    
+    [self registerClass:[templateClass class] forCellWithReuseIdentifier:NSStringFromClass(templateClass)];
+    
+    TABAnimatedObject *obj = [[TABAnimatedObject alloc] init];
+    obj.className = NSStringFromClass(templateClass);
+    self.tabAnimated = obj;
+}
+
+- (void)registerTemplateClassArray:(NSArray <Class> *)classArray {
+    
+    for (Class class in classArray) {
+        [self registerClass:[class class] forCellWithReuseIdentifier:NSStringFromClass(class)];
+    }
+    
+    TABAnimatedObject *obj = [[TABAnimatedObject alloc] init];
+    NSMutableArray *array = [NSMutableArray array];
+    for (Class class in classArray) {
+        [array addObject:NSStringFromClass(class)];
+    }
+    obj.classNameArray = array.mutableCopy;
+    self.tabAnimated = obj;
 }
 
 #pragma mark - Getter / Setter
@@ -138,6 +203,14 @@ struct {
         
         collectionViewAnimatedDelegateRespondTo.animatedSectionCountDelegate = [animatedDelegate respondsToSelector:@selector(collectionView:numberOfAnimatedItemsInSection:)];
     }
+}
+
+- (TABAnimatedObject *)tabAnimated {
+    return objc_getAssociatedObject(self, @selector(tabAnimated));
+}
+
+- (void)setTabAnimated:(TABAnimatedObject *)tabAnimated {
+    objc_setAssociatedObject(self, @selector(tabAnimated),tabAnimated, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 @end

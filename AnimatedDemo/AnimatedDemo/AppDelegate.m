@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 
-#import "MainViewController.h"
+#import "OptionViewController.h"
 #import "TABAnimated.h"
 
 @interface AppDelegate ()
@@ -26,6 +26,7 @@
 //    [[TABViewAnimated sharedAnimated] initWithShimmerAnimated];
     [[TABViewAnimated sharedAnimated] initWithOnlySkeleton];
 //    [[TABViewAnimated sharedAnimated] initWithDefaultAnimated];
+    [TABViewAnimated sharedAnimated].isUseTemplate = YES;
 //    [[TABViewAnimated sharedAnimated] initWithCustomAnimation];
 //    [[TABViewAnimated sharedAnimated] initWithAnimatedDuration:0.6 withColor:tab_kBackColor];
 //    [TABViewAnimated sharedAnimated].animatedColor = tab_kBackColor;
@@ -33,7 +34,7 @@
     [TABViewAnimated sharedAnimated].isRemoveLabelText = YES;
     [TABViewAnimated sharedAnimated].isRemoveButtonTitle = YES;
     
-    MainViewController *vc = [[MainViewController alloc] init];
+    OptionViewController *vc = [[OptionViewController alloc] init];
     _nav = [[UINavigationController alloc]initWithRootViewController:vc];
     
     [self.window setRootViewController:_nav];

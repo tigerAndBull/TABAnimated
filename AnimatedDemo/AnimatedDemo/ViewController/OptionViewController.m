@@ -1,24 +1,18 @@
 //
-//  MainViewController.m
+//  OptionViewController.m
 //  AnimatedDemo
 //
-//  Created by tigerAndBull on 2018/10/7.
-//  Copyright © 2018年 tigerAndBull. All rights reserved.
+//  Created by tigerAndBull on 2019/3/8.
+//  Copyright © 2019年 tigerAndBull. All rights reserved.
 //
 
-#import "MainViewController.h"
-#import "TestViewController.h"
-#import "XibTestViewController.h"
-#import "TestCollectionViewController.h"
-#import "LabWithLinesViewController.h"
-#import "ExampleOfPackageViewController.h"
-#import "NestCollectionViewController.h"
+#import "OptionViewController.h"
 
 #import <TABKit/TABKit.h>
-
 #import "AppDelegate.h"
+#import "TABViewAnimated.h"
 
-@interface MainViewController () <UITableViewDelegate,UITableViewDataSource>
+@interface OptionViewController () <UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic,strong) NSArray <NSString *> *titleArray;
 @property (nonatomic,strong) NSArray <NSString *> *controllerClassArray;
@@ -26,7 +20,7 @@
 
 @end
 
-@implementation MainViewController
+@implementation OptionViewController
 
 #pragma mark - LifeCycle
 
@@ -38,7 +32,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.title = @"主页面";
+    self.title = @"选择页面";
 }
 
 #pragma mark - UITableViewDataSource & UITableViewDelegate
@@ -70,7 +64,7 @@
     }
     
     cell.textLabel.text = self.titleArray[indexPath.row];
-
+    
     return cell;
 }
 
@@ -80,6 +74,11 @@
     if (class) {
         UIViewController *vc = class.new;
         vc.title = self.titleArray[indexPath.row];
+        if (indexPath.row == 0) {
+            [TABViewAnimated sharedAnimated].isUseTemplate = NO;
+        }else {
+            [TABViewAnimated sharedAnimated].isUseTemplate = YES;
+        }
         [kAPPDELEGATE.nav pushViewController:vc animated:YES];
     }
 }
@@ -114,23 +113,13 @@
 }
 
 - (NSArray *)titleArray {
-    return @[@"UITableView 纯代码",
-             @"多行文本",
-             @"UICollectionView 纯代码",
-             @"UIView",
-             @"UITableView xib",
-             @"cell中使用封装组件",
-             @"嵌套UICollectionView"];
+    return @[@"普通模式",
+             @"模版模式"];
 }
 
 - (NSArray *)controllerClassArray {
-    return @[@"TestViewController",
-             @"LabWithLinesViewController",
-             @"TestCollectionViewController",
-             @"ViewExampleViewController",
-             @"XibTestViewController",
-             @"ExampleOfPackageViewController",
-             @"NestCollectionViewController"];
+    return @[@"MainViewController",
+             @"TemplateViewController"];
 }
 
 @end

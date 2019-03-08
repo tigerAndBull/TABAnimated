@@ -22,4 +22,11 @@
 #import "TABViewAnimated.h"
 #import "TABAnimationMethod.h"
 
+/*
+ v1.9.1 模版功能新增
+ */
+#import "TABAnimatedObject.h"
+#import "TABBaseCollectionViewCell.h"
+#import "TABBaseTableViewCell.h"
+
 #endif /* TABAnimated_h */

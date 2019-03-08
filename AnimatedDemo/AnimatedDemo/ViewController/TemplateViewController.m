@@ -1,24 +1,17 @@
 //
-//  MainViewController.m
+//  TemplateViewController.m
 //  AnimatedDemo
 //
-//  Created by tigerAndBull on 2018/10/7.
-//  Copyright © 2018年 tigerAndBull. All rights reserved.
+//  Created by tigerAndBull on 2019/3/8.
+//  Copyright © 2019年 tigerAndBull. All rights reserved.
 //
 
-#import "MainViewController.h"
-#import "TestViewController.h"
-#import "XibTestViewController.h"
-#import "TestCollectionViewController.h"
-#import "LabWithLinesViewController.h"
-#import "ExampleOfPackageViewController.h"
-#import "NestCollectionViewController.h"
+#import "TemplateViewController.h"
 
 #import <TABKit/TABKit.h>
-
 #import "AppDelegate.h"
 
-@interface MainViewController () <UITableViewDelegate,UITableViewDataSource>
+@interface TemplateViewController () <UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic,strong) NSArray <NSString *> *titleArray;
 @property (nonatomic,strong) NSArray <NSString *> *controllerClassArray;
@@ -26,7 +19,7 @@
 
 @end
 
-@implementation MainViewController
+@implementation TemplateViewController
 
 #pragma mark - LifeCycle
 
@@ -34,11 +27,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self initUI];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    self.title = @"主页面";
 }
 
 #pragma mark - UITableViewDataSource & UITableViewDelegate
@@ -70,7 +58,7 @@
     }
     
     cell.textLabel.text = self.titleArray[indexPath.row];
-
+    
     return cell;
 }
 
@@ -114,23 +102,13 @@
 }
 
 - (NSArray *)titleArray {
-    return @[@"UITableView 纯代码",
-             @"多行文本",
-             @"UICollectionView 纯代码",
-             @"UIView",
-             @"UITableView xib",
-             @"cell中使用封装组件",
-             @"嵌套UICollectionView"];
+    return @[@"UICollectionView and 多section",
+             @"UITableView and 单section"];
 }
 
 - (NSArray *)controllerClassArray {
-    return @[@"TestViewController",
-             @"LabWithLinesViewController",
-             @"TestCollectionViewController",
-             @"ViewExampleViewController",
-             @"XibTestViewController",
-             @"ExampleOfPackageViewController",
-             @"NestCollectionViewController"];
+    return @[@"TemplateCollectionViewController",
+             @"TemplateTableViewController"];
 }
 
 @end

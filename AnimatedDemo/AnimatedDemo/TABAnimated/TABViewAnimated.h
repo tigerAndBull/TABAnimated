@@ -18,12 +18,14 @@ typedef NS_ENUM(NSInteger,TABAnimationType) {
     TABAnimationTypeDefault = 0,     // default animation for all registered views in your project.
     TABAnimationTypeShimmer,         // shimmer animation for all views in your project.
     TABAnimationTypeOnlySkeleton,    // onlySkeleton for all views in your project.
-    TABAnimationTypeCustom           // you can select one among the three types mentioned above for the superView.
+    TABAnimationTypeCustom,          // you can select one among the three types mentioned above for the superView.
 };
 
 @interface TABViewAnimated : NSObject
 
 @property (nonatomic,assign) TABAnimationType animationType;
+
+@property (nonatomic,assign) BOOL isUseTemplate;
 
 @property (nonatomic,assign) CGFloat animatedDuration;           // TABAnimationTypeDefault: default is 0.6
 @property (nonatomic,assign) CGFloat animatedDurationShimmer;    // TABAnimationTypeShimmer: default is 1.5
@@ -32,7 +34,7 @@ typedef NS_ENUM(NSInteger,TABAnimationType) {
 @property (nonatomic,assign) CGFloat longToValue;                // toValue for LongAnimation in TABAnimationTypeDefault.
 @property (nonatomic,assign) CGFloat shortToValue;               // toValue for ShortAnimation in TABAnimationTypeDefault.
 
-@property (nonatomic,assign) CGFloat animatedHeightCoefficient;  // compare to old view's height. default is 0.8. Don't adapt to UIImageView.
+@property (nonatomic,assign) CGFloat animatedHeightCoefficient;  // compare to old view's height. default is 0.75. Don't adapt to UIImageView.
 
 // In most cases, when we layout the UI, we need to give the default text property of `UIlabel` to see the effect.
 // If this property is set to YES, when the animation is started, the text property of `UIlabel` is set to @"“.
