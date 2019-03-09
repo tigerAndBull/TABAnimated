@@ -4,10 +4,10 @@
 >+ 使用教程
 
 ##  效果图
-1.模版模式 - 骨架
-2.普通模式 - 闪光灯
-3.普通模式 - 骨架
-4.普通模式 -  经典动画
+1. 模版模式 - 骨架
+2. 普通模式 - 闪光灯
+3. 普通模式 - 骨架
+4. 普通模式 -  经典动画
 
 ![template.gif](https://upload-images.jianshu.io/upload_images/5632003-a96a8e0115482406.gif?imageMogr2/auto-orient/strip)
 
