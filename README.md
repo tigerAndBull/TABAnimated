@@ -4,15 +4,23 @@
 >+ 使用教程
 
 ##  效果图
-1. 闪光灯模式
-2. 骨架模式
-3. 经典动画模式
+1.模版模式 - 骨架
+2.普通模式 - 闪光灯
+3.普通模式 - 骨架
+4.普通模式 -  经典动画
+
+![template.gif](https://upload-images.jianshu.io/upload_images/5632003-a96a8e0115482406.gif?imageMogr2/auto-orient/strip)
 
 ![闪光灯动画.gif](https://upload-images.jianshu.io/upload_images/5632003-173bc0f48ec284fa.gif?imageMogr2/auto-orient/strip)
 
 ![只有骨架屏.gif](https://upload-images.jianshu.io/upload_images/5632003-3de95600a5475720.gif?imageMogr2/auto-orient/strip)
 
 ![经典动画.gif](https://upload-images.jianshu.io/upload_images/5632003-4d40e7dd162ae383.gif?imageMogr2/auto-orient/strip)
+
+
+####  v1.9.1 推出模版模式
+
+[介绍模版使用详情文章地址](https://www.jianshu.com/p/aac3df2fd46e)
 
 ##  本项目思维导图
 
