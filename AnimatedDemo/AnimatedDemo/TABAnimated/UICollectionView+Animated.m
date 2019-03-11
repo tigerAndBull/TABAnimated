@@ -13,7 +13,6 @@
 
 #import "TABAnimatedObject.h"
 #import "TABBaseCollectionViewCell.h"
-#import "TemplateCollectionViewCell.h"
 
 #import <objc/runtime.h>
 #import "TABAnimated.h"
