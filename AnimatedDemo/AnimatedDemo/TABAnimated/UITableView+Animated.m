@@ -67,8 +67,8 @@ struct {
     
     // If the animation running, return animatedCount.
     if (tableView.isAnimating) {
-        if (tableView.delegate &&
-            [tableView.delegate respondsToSelector:@selector(tableView:numberOfAnimatedRowsInSection:)]) {
+        if (tableView.animatedDelegate &&
+            [tableView.animatedDelegate respondsToSelector:@selector(tableView:numberOfAnimatedRowsInSection:)]) {
             return [tableView.animatedDelegate tableView:tableView numberOfAnimatedRowsInSection:section];
         }
         return tableView.animatedCount;

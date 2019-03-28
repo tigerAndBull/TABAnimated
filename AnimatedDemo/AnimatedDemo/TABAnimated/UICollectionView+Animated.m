@@ -68,8 +68,8 @@ struct {
 - (NSInteger)tab_collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     
     if (collectionView.isAnimating) {
-        if (collectionView.delegate &&
-            [collectionView.delegate respondsToSelector:@selector(collectionView:numberOfAnimatedItemsInSection:)]) {
+        if (collectionView.animatedDelegate &&
+            [collectionView.animatedDelegate respondsToSelector:@selector(collectionView:numberOfAnimatedItemsInSection:)]) {
             return [collectionView.animatedDelegate collectionView:collectionView numberOfAnimatedItemsInSection:section];
         }
         return collectionView.animatedCount;
