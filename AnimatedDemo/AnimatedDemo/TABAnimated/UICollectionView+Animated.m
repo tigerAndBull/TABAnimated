@@ -137,8 +137,6 @@ struct {
         if (isVictory) {
             // 添加成功后，将oldMethod指向当前类的新的
             class_replaceMethod([delegate class], oldSelector, class_getMethodImplementation([self class], newSelector), method_getTypeEncoding(newMethod));
-        }else {
-            method_exchangeImplementations(oldMethod, newMethod);
         }
     }
 }

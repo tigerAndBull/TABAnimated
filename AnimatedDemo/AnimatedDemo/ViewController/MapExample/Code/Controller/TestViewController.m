@@ -52,7 +52,7 @@
 - (void)afterGetData {
     
     // 模拟数据
-    for (int i = 0; i < 20; i ++) {
+    for (int i = 0; i < 1; i ++) {
         Game *game = [[Game alloc]init];
         game.gameId = [NSString stringWithFormat:@"%d",i];
         game.title = [NSString stringWithFormat:@"这里是赛事标题%d",i+1];
