@@ -12,10 +12,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface TABBaseCollectionViewCell : UICollectionViewCell
 
+/**
+ 子类需要重写，设置固定值
+ 
+ @return package of animateding cell suze
+ */
++ (NSValue *)cellSize;
+
+// 开发者不需要关心
 + (NSString *)cellIdentifier;
 + (void)registerCellInCollectionView:(UICollectionView *)collectionView;
 + (instancetype)cellWithIndexPath:(NSIndexPath *)indexPath atCollectionView:(UICollectionView *)collectionView;
-+ (NSValue *)cellSize;
 
 @end
 

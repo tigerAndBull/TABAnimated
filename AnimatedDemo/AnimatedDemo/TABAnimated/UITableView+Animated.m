@@ -27,12 +27,10 @@ struct {
     static dispatch_once_t onceToken;
     
     dispatch_once(&onceToken, ^{
-        
         // Gets the viewDidLoad method to the class,whose type is a pointer to a objc_method structure.
         Method originMethod = class_getInstanceMethod([self class], @selector(setDelegate:));
         // Get the method you created.
         Method newMethod = class_getInstanceMethod([self class], @selector(tab_setDelegate:));
-        
         method_exchangeImplementations(originMethod, newMethod);
     });
 }
@@ -79,9 +77,21 @@ struct {
 - (CGFloat)tab_tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if ([TABViewAnimated sharedAnimated].isUseTemplate) {
         if (tableView.animatedStyle == TABViewAnimationStart) {
+            
+            NSAssert(tableView.tabAnimated, @"TABAnimated强制提醒 - tableView未注册模版类");
+            
+            NSInteger index = indexPath.section;
+            if (indexPath.section > (tableView.tabAnimated.classNameArray.count - 1)) {
+                index = tableView.tabAnimated.classNameArray.count - 1;
+                NSLog(@"TABAnimated提醒 - section的数量和模版类的数量不一致，超出的section，将使用最后一个模版类加载");
+            }
+            
             SEL sel = @selector(cellHeight);
             tab_suppressPerformSelectorLeakWarning(
-                NSNumber *num = [NSClassFromString(tableView.tabAnimated.className) performSelector:sel];
+                NSNumber *num = [NSClassFromString(tableView.tabAnimated.classNameArray[index]) performSelector:sel];
+                if (num.floatValue <= 1.0) {
+                    NSAssert(NO, @"TABAnimated提醒 - 请在注册的模版类中设置固定高度，否则没有动画效果");
+                }
                 return [num floatValue];
             );
         }
@@ -90,24 +100,31 @@ struct {
     return [self tab_tableView:tableView heightForRowAtIndexPath:indexPath];
 }
 
-- (void)tab_tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (tableView.animatedStyle == TABViewAnimationStart) {
-        return;
-    }
-    [self tab_tableView:tableView willDisplayCell:cell forRowAtIndexPath:indexPath];
-}
-
 - (UITableViewCell *)tab_tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     // If the animation running, return animatedCount.
     if ([TABViewAnimated sharedAnimated].isUseTemplate) {
         if (tableView.animatedStyle == TABViewAnimationStart) {
-            TABBaseTableViewCell *cell = (TABBaseTableViewCell *)NSClassFromString(tableView.tabAnimated.className).new;
+            
+            NSInteger index = indexPath.section;
+            if (indexPath.section > (tableView.tabAnimated.classNameArray.count - 1)) {
+                index = tableView.tabAnimated.classNameArray.count - 1;
+                NSLog(@"TABAnimated提醒 - section的数量和模版类的数量不一致，超出的section，将使用最后一个模版类加载");
+            }
+            
+            TABBaseTableViewCell *cell = (TABBaseTableViewCell *)NSClassFromString(tableView.tabAnimated.classNameArray[index]).new;
             return cell;
         }
         return [self tab_tableView:tableView cellForRowAtIndexPath:indexPath];
     }
     return [self tab_tableView:tableView cellForRowAtIndexPath:indexPath];
+}
+
+- (void)tab_tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (tableView.animatedStyle == TABViewAnimationStart) {
+        return;
+    }
+    [self tab_tableView:tableView willDisplayCell:cell forRowAtIndexPath:indexPath];
 }
 
 #pragma mark - Private Methods
@@ -147,17 +164,34 @@ struct {
 #pragma mark - Public Method
 
 - (void)registerTemplateClass:(Class)templateClass {
+    
+    if (![templateClass.new isKindOfClass:[TABBaseTableViewCell class]]) {
+        NSAssert(NO,@"TABAnimated强制提醒 - 注册类未继承模版类:TABBaseTableViewCell");
+    }
+    
     TABAnimatedObject *obj = [[TABAnimatedObject alloc] init];
-    obj.className = NSStringFromClass(templateClass);
+    obj.classNameArray = @[NSStringFromClass(templateClass)];
     self.tabAnimated = obj;
 }
 
 - (void)registerTemplateClassArray:(NSArray<Class> *)classArray {
+    
+    if (nil == classArray || classArray.count <= 0) {
+        NSAssert(NO,@"TABAnimated强制提醒 - 请传入有效模版数组");
+    }
+    
+    for (Class templateClass in classArray) {
+        if (![templateClass.new isKindOfClass:[TABBaseTableViewCell class]]) {
+            NSAssert(NO,@"TABAnimated强制提醒 - 注册类未继承模版类:TABBaseTableViewCell");
+        }
+    }
+    
     TABAnimatedObject *obj = [[TABAnimatedObject alloc] init];
-    NSMutableArray *array = [NSMutableArray array];
+    NSMutableArray *array = @[].mutableCopy;
     for (Class class in classArray) {
         [array addObject:NSStringFromClass(class)];
     }
+    
     obj.classNameArray = array.mutableCopy;
     self.tabAnimated = obj;
 }
@@ -193,11 +227,8 @@ struct {
 }
 
 - (void)setAnimatedDelegate:(id<UITableViewAnimatedDelegate>)animatedDelegate {
-    
     if (self.animatedDelegate != animatedDelegate) {
-        
         objc_setAssociatedObject(self, @selector(animatedDelegate), animatedDelegate, OBJC_ASSOCIATION_ASSIGN);
-        
         tableViewAnimatedDelegateRespondTo.sectionAnimatedCountDelegate = [animatedDelegate respondsToSelector:@selector(tableView:numberOfAnimatedRowsInSection:)];
     }
 }

@@ -13,7 +13,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface TABAnimatedObject : NSObject
 
-@property (nonatomic,copy) NSString *className;
 @property (nonatomic,copy) NSArray <NSString *> *classNameArray;
 
 @end

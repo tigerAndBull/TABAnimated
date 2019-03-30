@@ -139,13 +139,11 @@
         _mainTV.dataSource = self;
         _mainTV.delegate = self;
         _mainTV.animatedDelegate = self;
-        _mainTV.superAnimationType = TABViewSuperAnimationTypeClassic;
         _mainTV.estimatedRowHeight = 0;
         _mainTV.estimatedSectionFooterHeight = 0;
         _mainTV.estimatedSectionHeaderHeight = 0;
         _mainTV.backgroundColor = [UIColor whiteColor];
         _mainTV.separatorStyle = UITableViewCellSeparatorStyleNone;
-        [_mainTV registerTemplateClass:[MyTestTableViewCell class]];  // 注册模版
     }
     return _mainTV;
 }

@@ -71,7 +71,6 @@
         headGame.content = [NSString stringWithFormat:@"这里是头视图内容"];
         headGame.cover = @"head.jpg";
         [cell updateWithGame:headGame];
-        
     }
     
     return cell;

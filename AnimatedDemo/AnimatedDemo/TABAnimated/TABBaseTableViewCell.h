@@ -12,8 +12,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface TABBaseTableViewCell : UITableViewCell
 
+/**
+ 子类需要重写，设置固定值
+
+ @return package of animateding cell height
+ */
 + (NSNumber *)cellHeight;
 
+// 开发者不需要关心
 + (NSString *)cellIdentifier;
 + (instancetype)cellFromTableView:(UITableView *)tableView;
 

@@ -24,7 +24,6 @@
     static dispatch_once_t onceToken;
 
     dispatch_once(&onceToken, ^{
-        
         // Gets the layoutSubviews method to the class,whose type is a pointer to a objc_method structure.
         Method originMethod = class_getInstanceMethod([self class], @selector(layoutSubviews));
         // Get the method you created.

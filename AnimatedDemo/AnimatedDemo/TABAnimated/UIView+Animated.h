@@ -15,7 +15,6 @@ typedef NS_ENUM(NSInteger,TABViewLoadAnimationStyle) {
     TABViewLoadAnimationShort,                               // 动画先变短再变长
     TABViewLoadAnimationLong,                                // 动画先变长再变短
     TABViewLoadAnimationWithOnlySkeleton,                    // 骨架层
-    
     TABViewLoadAnimationRemove,                              // 从动画队列中移出, 只用于第二种和第三种动画模式
 };
 
@@ -24,7 +23,7 @@ typedef NS_ENUM(NSInteger,TABViewLoadAnimationStyle) {
 typedef NS_ENUM(NSInteger,TABViewAnimationStyle) {
     TABViewAnimationDefault = 0,                             // 默认,没有动画
     TABViewAnimationStart,                                   // 开始动画
-    TABViewAnimationRunning,                                 // 动画中 you don't need care the status.
+    TABViewAnimationRunning,                                 // 动画中  you don't need care the status.
     TABViewAnimationEnd,                                     // 结束动画      
 };
 
@@ -39,7 +38,6 @@ typedef NS_ENUM(NSInteger,TABViewSuperAnimationType) {
 @interface UIView (Animated)
 
 // 你可能会用到的属性
-
 @property (nonatomic,assign) TABViewLoadAnimationStyle loadStyle;           // 组件动画类型
 @property (nonatomic,assign) TABViewSuperAnimationType superAnimationType;  // 父级权限
 

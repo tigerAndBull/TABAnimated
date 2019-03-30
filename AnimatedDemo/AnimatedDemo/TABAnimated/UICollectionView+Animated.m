@@ -29,7 +29,6 @@ struct {
     static dispatch_once_t onceToken;
     
     dispatch_once(&onceToken, ^{
-        
         // Gets the viewDidLoad method to the class,whose type is a pointer to a objc_method structure.
         Method originMethod = class_getInstanceMethod([self class], @selector(setDelegate:));
         // Get the method you created.
@@ -80,9 +79,16 @@ struct {
 - (UICollectionViewCell *)tab_collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     if ([TABViewAnimated sharedAnimated].isUseTemplate) {
         if (collectionView.animatedStyle == TABViewAnimationStart) {
+            
+            NSInteger index = indexPath.section;
+            if (indexPath.section > (collectionView.tabAnimated.classNameArray.count - 1)) {
+                index = collectionView.tabAnimated.classNameArray.count - 1;
+                NSLog(@"TABAnimated提醒 - section的数量和模版类的数量不一致，超出的section，将使用最后一个模版类加载");
+            }
+            
             SEL sel = @selector(cellWithIndexPath:atCollectionView:);
             tab_suppressPerformSelectorLeakWarning(
-                return [NSClassFromString(collectionView.tabAnimated.classNameArray[indexPath.section])
+                return [NSClassFromString(collectionView.tabAnimated.classNameArray[index])
                         performSelector:sel
                         withObject:indexPath
                         withObject:collectionView];
@@ -96,9 +102,21 @@ struct {
 - (CGSize)tab_collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     if ([TABViewAnimated sharedAnimated].isUseTemplate) {
         if (collectionView.animatedStyle == TABViewAnimationStart) {
+            
+            NSAssert(collectionView.tabAnimated, @"TABAnimated强制提醒 - collectionView未注册模版类");
+            
+            NSInteger index = indexPath.section;
+            if (indexPath.section > (collectionView.tabAnimated.classNameArray.count - 1)) {
+                index = collectionView.tabAnimated.classNameArray.count - 1;
+                NSLog(@"TABAnimated提醒 - section的数量和模版类的数量不一致，超出的section，将使用最后一个模版类加载");
+            }
+            
             SEL sel = @selector(cellSize);
             tab_suppressPerformSelectorLeakWarning(
-                NSValue *value = [NSClassFromString(collectionView.tabAnimated.classNameArray[indexPath.section]) performSelector:sel];
+                NSValue *value = [NSClassFromString(collectionView.tabAnimated.classNameArray[index]) performSelector:sel];
+                if (value.CGSizeValue.height <= 1.0) {
+                    NSAssert(NO, @"TABAnimated提醒 - 请在注册的模版类中设置固定高度，否则没有动画效果");
+                }
                 return [value CGSizeValue];
             );
         }
@@ -145,21 +163,33 @@ struct {
 
 - (void)registerTemplateClass:(Class)templateClass {
     
+    if (![templateClass.new isKindOfClass:[TABBaseCollectionViewCell class]]) {
+        NSAssert(NO,@"TABAnimated提醒 - 注册类未继承模版类:TABBaseCollectionViewCell");
+    }
+    
     [self registerClass:[templateClass class] forCellWithReuseIdentifier:NSStringFromClass(templateClass)];
     
     TABAnimatedObject *obj = [[TABAnimatedObject alloc] init];
-    obj.className = NSStringFromClass(templateClass);
+    obj.classNameArray = @[NSStringFromClass(templateClass)];
     self.tabAnimated = obj;
 }
 
 - (void)registerTemplateClassArray:(NSArray <Class> *)classArray {
     
-    for (Class class in classArray) {
-        [self registerClass:[class class] forCellWithReuseIdentifier:NSStringFromClass(class)];
+    if (nil == classArray || classArray.count <= 0) {
+        NSAssert(NO,@"TABAnimated提醒 - 请传入有效模版数组");
+    }
+    
+    for (Class templateClass in classArray) {
+        if (![templateClass.new isKindOfClass:[TABBaseCollectionViewCell class]]) {
+            NSAssert(NO,@"TABAnimated提醒 - 注册类未继承模版类:TABBaseCollectionViewCell");
+        }else {
+            [self registerClass:[templateClass class] forCellWithReuseIdentifier:NSStringFromClass(templateClass)];
+        }
     }
     
     TABAnimatedObject *obj = [[TABAnimatedObject alloc] init];
-    NSMutableArray *array = [NSMutableArray array];
+    NSMutableArray *array = @[].mutableCopy;
     for (Class class in classArray) {
         [array addObject:NSStringFromClass(class)];
     }
@@ -200,9 +230,7 @@ struct {
 - (void)setAnimatedDelegate:(id<UICollectionViewAnimatedDelegate>)animatedDelegate {
 
     if (self.animatedDelegate != animatedDelegate) {
-        
         objc_setAssociatedObject(self, @selector(animatedDelegate), animatedDelegate, OBJC_ASSOCIATION_ASSIGN);
-        
         collectionViewAnimatedDelegateRespondTo.animatedSectionCountDelegate = [animatedDelegate respondsToSelector:@selector(collectionView:numberOfAnimatedItemsInSection:)];
     }
 }

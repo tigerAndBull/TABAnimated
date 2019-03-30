@@ -75,8 +75,10 @@
         UIViewController *vc = class.new;
         vc.title = self.titleArray[indexPath.row];
         if (indexPath.row == 0) {
+            NSLog(@"TABAnimated提醒 - 切换到普通模式");
             [TABViewAnimated sharedAnimated].isUseTemplate = NO;
         }else {
+            NSLog(@"TABAnimated提醒 - 切换到模版模式");
             [TABViewAnimated sharedAnimated].isUseTemplate = YES;
         }
         [kAPPDELEGATE.nav pushViewController:vc animated:YES];

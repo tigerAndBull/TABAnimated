@@ -10,6 +10,10 @@
 
 @implementation TABBaseCollectionViewCell
 
++ (NSValue *)cellSize {
+    return [NSValue valueWithCGSize:CGSizeMake(1, 1)];
+}
+
 + (NSString *)cellIdentifier {
     return [NSString stringWithFormat:@"%@", [self class]];
 }
@@ -24,10 +28,6 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-}
-
-+ (NSValue *)cellSize {
-    return [NSValue valueWithCGSize:CGSizeMake(1, 1)];
 }
 
 @end
