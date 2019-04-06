@@ -24,7 +24,7 @@
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     
     // 设置TABAnimated相关属性
-    [[TABViewAnimated sharedAnimated] initWithShimmerAnimated];
+    [[TABViewAnimated sharedAnimated] initWithOnlySkeleton];
     // demo选择普通模式的时候，将属性切回了普通模式
     // 目前两种模式在不同视图上可以切换
     [TABViewAnimated sharedAnimated].isUseTemplate = YES;

@@ -15,8 +15,6 @@
 
 #import "TABAnimatedObject.h"
 
-#import <TABKit/TABKit.h>
-
 @implementation TABManagerMethod
 
 + (void)getNeedAnimationSubViews:(UIView *)view
