@@ -7,12 +7,11 @@
 //
 
 #import "TABTemplateTableViewCell.h"
-#import <TABKit/TABKit.h>
 
 #define mLeft 15
 #define headImgWidth 40
 #define imgCount 3
-#define imgWidth (kScreenWidth - 10*2 - mLeft*2)/3
+#define imgWidth ([UIScreen mainScreen].bounds.size.width - 10*2 - mLeft*2)/3
 
 @interface TABTemplateTableViewCell()
 
@@ -58,7 +57,7 @@
     
     self.firstLab.frame = CGRectMake(mLeft+headImgWidth+10, 13, 80, 15);
     self.secondLab.frame = CGRectMake(mLeft+headImgWidth+10, 15+15+1, 100, 15);
-    self.linesLab.frame = CGRectMake(mLeft, CGRectGetMaxY(self.headImg.frame)+5, kScreenWidth - mLeft*2, 80);
+    self.linesLab.frame = CGRectMake(mLeft, CGRectGetMaxY(self.headImg.frame)+5, [UIScreen mainScreen].bounds.size.width - mLeft*2, 80);
     
     for (int i = 0; i < self.imageArray.count; i++) {
         UIImageView *img = self.imageArray[i];
