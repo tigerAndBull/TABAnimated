@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TABBaseTableViewCell.h"
 
 @class Game;
 
-@interface TestTableViewCell : UITableViewCell
+@interface TestTableViewCell : TABBaseTableViewCell
 
 - (void)initWithData:(Game *)game;
 

@@ -10,7 +10,7 @@
 
 #import "DailyCollectionViewCell.h"
 #import "CourseCollectionViewCell.h"
-#import "TemplateCollectionViewCell.h"
+#import "TABTemplateCollectionViewCell.h"
 #import "TemplateSecondCollectionViewCell.h"
 
 #import "TABAnimatedObject.h"
@@ -20,7 +20,7 @@
 #import "Game.h"
 #import <TABKit/TABKit.h>
 
-@interface TemplateCollectionViewController () <UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewAnimatedDelegate> {
+@interface TemplateCollectionViewController () <UICollectionViewDelegate,UICollectionViewDataSource> {
     NSMutableArray *dataArray;
 }
 
@@ -54,18 +54,6 @@
     
     // 停止动画,并刷新数据
     [self.collectionView tab_endAnimation];
-}
-
-// 注意看!!!!!! UICollectionViewAnimatedDelegate
-// 注意看!!!!!! UICollectionViewAnimatedDelegate
-// 注意看!!!!!! UICollectionViewAnimatedDelegate
-#pragma mark - UICollectionViewAnimatedDelegate
-
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfAnimatedItemsInSection:(NSInteger)section {
-    if (section == 0) {
-        return 2;
-    }
-    return 4;
 }
 
 #pragma mark - UICollectionViewDelegate & UICollectionViewDataSource
@@ -146,14 +134,10 @@
         _collectionView.backgroundColor = [UIColor whiteColor];
         _collectionView.dataSource = self;
         _collectionView.delegate = self;
-        _collectionView.animatedDelegate = self;             
         _collectionView.showsHorizontalScrollIndicator = NO;
         _collectionView.showsVerticalScrollIndicator = NO;
-        
-        // 注册模版
-        [_collectionView registerTemplateClassArray:@[[TemplateCollectionViewCell class],
-                                                      [TemplateSecondCollectionViewCell class]]];
 
+        _collectionView.tabAnimated = [TABAnimatedObject animatedWithTemplateClass:[TABTemplateCollectionViewCell class] animatedCount:4];
     }
     return _collectionView;
 }

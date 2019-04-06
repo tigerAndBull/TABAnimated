@@ -26,7 +26,6 @@
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
-    
     if (self) {
         [self initUI];
     }
@@ -77,8 +76,6 @@
         UIImageView *img = [[UIImageView alloc] init];
         img.contentMode = UIViewContentModeScaleAspectFill;
         img.layer.masksToBounds = YES;
-        img.loadStyle = TABViewLoadAnimationWithOnlySkeleton;
-        
         self.headImg = img;
         [self addSubview:img];
     }
@@ -88,8 +85,6 @@
         lab.font = kFont(16);
         lab.textAlignment = NSTextAlignmentLeft;
         lab.textColor = [UIColor blackColor];
-        lab.loadStyle = TABViewLoadAnimationShort;
-        
         self.titleLab = lab;
         [self addSubview:lab];
     }
@@ -99,8 +94,6 @@
         lab.font = kFont(14);
         lab.textAlignment = NSTextAlignmentLeft;
         lab.textColor = [UIColor grayColor];
-        lab.loadStyle = TABViewLoadAnimationLong;
-        
         self.contentLab = lab;
         [self addSubview:lab];
     }

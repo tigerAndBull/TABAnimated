@@ -17,31 +17,17 @@
 
 #import <objc/runtime.h>
 
-static CGFloat defaultDuration = 0.6f;
+//static CGFloat defaultDuration = 0.5f;
 
 @implementation TABViewAnimated
 
 #pragma mark - Getter
 
 - (CGFloat)animatedHeightCoefficient {
-    if (_animatedHeightCoefficient == 0) {
+    if (_animatedHeightCoefficient == 0.) {
         return 0.75f;
     }
     return _animatedHeightCoefficient;
-}
-
-- (CGFloat)longToValue {
-    if (_longToValue == 0) {
-        return 1.4;
-    }
-    return _longToValue;
-}
-
-- (CGFloat)shortToValue {
-    if (_shortToValue == 0) {
-        return 0.6;
-    }
-    return _shortToValue;
 }
 
 #pragma mark - Initize Method
@@ -58,38 +44,22 @@ static CGFloat defaultDuration = 0.6f;
 
 - (instancetype)init {
     if (self = [super init]) {
-        _animationType = TABAnimationTypeDefault;
+        _animationType = TABAnimationTypeOnlySkeleton;
     }
     return self;
 }
 
-- (void)initWithDefaultAnimated {
+- (void)initWithOnlySkeleton {
     if (self) {
-        _animatedDuration = defaultDuration;
+        _animationType = TABAnimationTypeOnlySkeleton;
         _animatedColor = tab_kBackColor;
-        _animationType = TABAnimationTypeDefault;
     }
 }
 
-- (void)initWithAnimatedDuration:(CGFloat)duration
-                       withColor:(UIColor *)color {
+- (void)initWithBinAnimation {
     if (self) {
-        _animatedDuration = duration;
-        _animatedColor = color;
-        _animationType = TABAnimationTypeDefault;
-    }
-}
-
-- (void)initWithAnimatedDuration:(CGFloat)duration
-                       withColor:(UIColor *)color
-                 withLongToValue:(CGFloat)longToValue
-                withShortToValue:(CGFloat)shortToValue {
-    if (self) {
-        _animatedDuration = duration;
-        _animatedColor = color;
-        _shortToValue = shortToValue;
-        _longToValue = longToValue;
-        _animationType = TABAnimationTypeDefault;
+        _animationType = TABAnimationTypeBinAnimation;
+        _animatedColor = tab_kBackColor;
     }
 }
 
@@ -107,36 +77,6 @@ static CGFloat defaultDuration = 0.6f;
         _animatedDurationShimmer = duration;
         _animatedColor = color;
         _animationType = TABAnimationTypeShimmer;
-    }
-}
-
-- (void)initWithOnlySkeleton {
-    if (self) {
-        _animationType = TABAnimationTypeOnlySkeleton;
-        _animatedColor = tab_kBackColor;
-    }
-}
-
-- (void)initWithCustomAnimation {
-    if (self) {
-        _animationType = TABAnimationTypeCustom;
-        _animatedDurationShimmer = 1.5f;
-        _animatedDuration = defaultDuration;
-    }
-}
-
-- (void)initWithDefaultDurationAnimation:(CGFloat)defaultAnimationDuration
-                 withLongToValue:(CGFloat)longToValue
-                withShortToValue:(CGFloat)shortToValue
-    withShimmerAnimationDuration:(CGFloat)shimmerAnimationDuration
-                       withColor:(UIColor *)color {
-    if (self) {
-        _animationType = TABAnimationTypeCustom;
-        _animatedDurationShimmer = shimmerAnimationDuration;
-        _animatedDuration = defaultAnimationDuration;
-        _animatedColor = color;
-        _shortToValue = shortToValue;
-        _longToValue = longToValue;
     }
 }
 

@@ -39,10 +39,6 @@
 
 #pragma mark - UITableViewDataSource & UITableViewDelegate
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
-}
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return 8;
 }
@@ -64,7 +60,7 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
-    if (!tableView.isAnimating) {
+    if (!tableView.tabAnimated.isAnimating) {
         // 省事，用了同一个类
         Game *headGame = [[Game alloc]init];
         headGame.title = [NSString stringWithFormat:@"头视图标题"];
@@ -95,7 +91,7 @@
         _mainTV = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:UITableViewStyleGrouped];
         _mainTV.dataSource = self;
         _mainTV.delegate = self;
-        _mainTV.rowHeight = 100;
+        _mainTV.rowHeight = 80;
         _mainTV.backgroundColor = [UIColor whiteColor];
         _mainTV.estimatedRowHeight = 0;
         _mainTV.estimatedSectionFooterHeight = 0;

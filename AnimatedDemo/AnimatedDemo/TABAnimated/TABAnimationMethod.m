@@ -11,38 +11,17 @@
 
 @implementation TABAnimationMethod
 
-+ (CABasicAnimation *)scaleXAnimationDuration:(CGFloat)duration
-                                viewLoadStyle:(TABViewLoadAnimationStyle)style {
-    CGFloat toValue = [self getToValueByViewLoadStyle:style];
-    return [self scaleXAnimationDuration:duration toValue:toValue];
-}
-
-+ (CABasicAnimation *)scaleXAnimationDuration:(CGFloat)duration
-                                      toValue:(CGFloat)toValue {
-    CABasicAnimation *anim = [CABasicAnimation animationWithKeyPath:@"transform.scale.x"];
-    anim.removedOnCompletion = NO;        // 保证从前台进入后台仍能执行
-    anim.duration = duration;
-    anim.autoreverses = YES;              // 往返都有动画
-    anim.repeatCount = HUGE_VALF;         // 执行次数
-    anim.toValue = (toValue == 0.)?@0.6:@(toValue);
-    
-    return anim;
-}
-
-+ (CGFloat)getToValueByViewLoadStyle:(TABViewLoadAnimationStyle)style {
-    switch (style) {
-        case TABViewLoadAnimationShort:
-            return [TABViewAnimated sharedAnimated].shortToValue;
-            break;
-            
-        case TABViewLoadAnimationLong:
-            return [TABViewAnimated sharedAnimated].longToValue;
-            break;
-            
-        default:
-            return 0.6;
-            break;
-    }
++ (void)addAlphaAnimation:(UIView *)view {
+    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+    animation.fromValue = [NSNumber numberWithFloat:1.1f];
+    animation.toValue = [NSNumber numberWithFloat:0.6f];  // 这是透明度。
+    animation.autoreverses = YES;
+    animation.duration = 1.0;                             // 动画循环的时间，也就是呼吸灯效果的速度
+    animation.repeatCount = MAXFLOAT;
+    animation.removedOnCompletion = NO;
+    animation.fillMode = kCAFillModeForwards;
+    animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
+    [view.layer addAnimation:animation forKey:@"TABAlphaAnimation"];
 }
 
 + (void)addShimmerAnimationToView:(UIView *)view

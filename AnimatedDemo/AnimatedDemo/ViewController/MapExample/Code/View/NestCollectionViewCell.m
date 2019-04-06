@@ -73,7 +73,7 @@
     
     ImageCollectionViewCell *cell = [ImageCollectionViewCell cellWithIndexPath:indexPath atCollectionView:collectionView];
     
-    if (!collectionView.isAnimating) {
+    if (!collectionView.tabAnimated.isAnimating) {
         [cell.imgV setImage:[UIImage imageNamed:dataArray[indexPath.row]]];
     }
     
@@ -106,10 +106,12 @@
         _collectionView.backgroundColor = [UIColor whiteColor];
         _collectionView.delegate = self;
         _collectionView.dataSource = self;
-        _collectionView.animatedCount = 3;
-        _collectionView.isNest = YES;
         _collectionView.showsHorizontalScrollIndicator = NO;
         _collectionView.showsVerticalScrollIndicator = NO;
+        
+        _collectionView.tabAnimated = [[TABAnimatedObject alloc] init];
+        _collectionView.tabAnimated.isNest = YES;
+        _collectionView.tabAnimated.animatedCount = 3;
     }
     return _collectionView;
 }

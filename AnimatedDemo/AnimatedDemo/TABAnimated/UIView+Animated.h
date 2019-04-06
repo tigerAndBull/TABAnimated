@@ -8,40 +8,26 @@
 
 #import <UIKit/UIKit.h>
 
-// the style of default animation.
-// 经典动画枚举
+// 组件动画类型枚举
 typedef NS_ENUM(NSInteger,TABViewLoadAnimationStyle) {
-    TABViewLoadAnimationDefault = 0,                         // default,没有动画
-    TABViewLoadAnimationShort,                               // 动画先变短再变长
-    TABViewLoadAnimationLong,                                // 动画先变长再变短
-    TABViewLoadAnimationWithOnlySkeleton,                    // 骨架层
-    TABViewLoadAnimationRemove,                              // 从动画队列中移出, 只用于第二种和第三种动画模式
+    TABViewLoadAnimationDefault = 0,                         // 默认不加入队列，没有动画
+    TABViewLoadAnimationWithOnlySkeleton,                    // 加入动画队列，父视图开启动画后，所有子view将设置为该属性
+    TABViewLoadAnimationRemove,                              // 将view从动画队列中移出，由开发者使用
 };
 
-// the animation status.
-// 动画状态
-typedef NS_ENUM(NSInteger,TABViewAnimationStyle) {
-    TABViewAnimationDefault = 0,                             // 默认,没有动画
-    TABViewAnimationStart,                                   // 开始动画
-    TABViewAnimationRunning,                                 // 动画中  you don't need care the status.
-    TABViewAnimationEnd,                                     // 结束动画      
-};
-
-// the type of superAnimation. (1.8.7 新增)
-typedef NS_ENUM(NSInteger,TABViewSuperAnimationType) {
-    TABViewSuperAnimationTypeDefault = 0,                    // default,没有动画
-    TABViewSuperAnimationTypeClassic,                        // 经典动画类型(包含只有骨架，动静结合）
-    TABViewSuperAnimationTypeShimmer,                        // 闪光灯动画
-    TABViewSuperAnimationTypeOnlySkeleton,                   // 骨架层
-};
+@class TABAnimatedObject;
+@class TABLayer;
 
 @interface UIView (Animated)
 
-// 你可能会用到的属性
-@property (nonatomic,assign) TABViewLoadAnimationStyle loadStyle;           // 组件动画类型
-@property (nonatomic,assign) TABViewSuperAnimationType superAnimationType;  // 父级权限
+@property (nonatomic,strong) TABAnimatedObject *tabAnimated;
+@property (nonatomic,strong) TABLayer *tabLayer;
 
-@property (nonatomic,assign) BOOL isAnimating;                              // is runing animation or not.
+// 组件动画类型
+@property (nonatomic,assign) TABViewLoadAnimationStyle loadStyle;
+
+// 为了降低框架的侵入式程度，在2.0.0版本，针对自动布局，进行了动画时的视图宽高预处理操作
+// 下面为保留属性，在92.28%的情况下不要使用
 
 // width of view to you appiont it during animating.
 // default is your phone screen's width / 3.
@@ -52,11 +38,5 @@ typedef NS_ENUM(NSInteger,TABViewSuperAnimationType) {
 // (1.8.7 新增)
 @property (nonatomic,assign) float tabViewHeight;
 
-@property (nonatomic,assign) BOOL isNest;
-
-// 你不必关心的属性
-
-@property (nonatomic,assign) TABViewAnimationStyle animatedStyle;   // 不要修改它，旧版可以使用，1.8.8以上不推荐使用
-@property (nonatomic,copy) NSString *tabIdentifier;                 // A string that identifies the user interface element.
 
 @end

@@ -8,204 +8,34 @@
 
 #import "TABManagerMethod.h"
 
+#import "TABLayer.h"
 #import "UIView+Animated.h"
 #import "TABViewAnimated.h"
 #import "UIView+TABControlAnimation.h"
 
-#import "TABManagerMethod+ManagerCALayer.h"
+#import "TABAnimatedObject.h"
 
-@interface TABManagerMethod ()
-
-@property (nonatomic,strong) NSMutableArray <UIView *>*tempViewArray;
-@property (nonatomic,strong) NSMutableArray <NSNumber *>*tempBorderArray;
-@property (nonatomic,strong,readwrite) NSMutableArray <NSMutableArray *> *cacheArray;
-@property (nonatomic,strong) NSMutableArray <NSString *>*cacheKeyArray;
-
-@property (nonatomic,strong) NSMutableArray <UILabel *>*tempAlignArray;
-@property (nonatomic,strong,readwrite) NSMutableArray <NSMutableArray *> *cacheAlignArray;
-@property (nonatomic,strong) NSMutableArray <NSString *>*cacheAlignKeyArray;
-
-@end
+#import <TABKit/TABKit.h>
 
 @implementation TABManagerMethod
 
-+ (instancetype)sharedManager {
-    static dispatch_once_t token;
-    static TABManagerMethod *method = nil;
-    dispatch_once(&token, ^{
-        method = [[TABManagerMethod alloc] init];
-    });
-    return method;
-}
-
-- (instancetype)init {
-    if (self = [super init]) {
-        _cacheArray = [NSMutableArray array];
-        _tempViewArray = [NSMutableArray array];
-        _tempBorderArray = [NSMutableArray array];
-        _cacheKeyArray = [NSMutableArray array];
-        
-        _cacheAlignArray = [NSMutableArray array];
-        _cacheAlignKeyArray = [NSMutableArray array];
-        _tempAlignArray = [NSMutableArray array];
-    }
-    return self;
-}
-
-- (void)cacheView:(UIView *)view {
-    
-    [self searchView:view];
-    
-    NSString *key = [self uuidString];
-    
-    if (self.tempAlignArray.count != 0) {
-        [self.cacheAlignArray addObject:[[NSMutableArray alloc]initWithArray:self.tempAlignArray]];
-        [self.cacheAlignKeyArray addObject:key];
-        view.tabIdentifier = key;
-        [self.tempAlignArray removeAllObjects];
-    }
-    
-    if (self.tempViewArray.count != 0) {
-        
-        [self.cacheArray addObject:
-         [NSMutableArray arrayWithObjects:
-                                    [[NSMutableArray alloc]initWithArray:self.tempViewArray],
-                                    [[NSMutableArray alloc]initWithArray:self.tempBorderArray], nil]];
-        [self.cacheKeyArray addObject:key];
-        view.tabIdentifier = key;
-        [self.tempViewArray removeAllObjects];
-        [self.tempBorderArray removeAllObjects];
-    }
-}
-
-- (void)recoverView:(UIView *)view {
-    
-    if (view.tabIdentifier == nil || [view.tabIdentifier isEqualToString:@""] || view.tabIdentifier.length != 36) {
-        return;
-    }
-    
-    [self recoverAlignView:view];
-    [self recoverBorderView:view];
-}
-
-- (void)recoverAlignView:(UIView *)view {
-    if (self.cacheAlignArray.count == 0) {
-        [self.tempAlignArray removeAllObjects];
-        return;
-    }
-    
-    for (int i = 0; i < self.cacheAlignKeyArray.count; i++) {
-        
-        NSString *str = self.cacheAlignKeyArray[i];
-        if (![str isEqualToString:view.tabIdentifier]) {
-            continue;
-        }
-        
-        NSArray <UILabel *>*array = self.cacheAlignArray[i];
-        if (array.count == 0) {
-            array = nil;
-            continue;
-        }
-        
-        for (int j = 0; j < array.count; j++) {
-            UILabel *view = array[j];
-            view.textAlignment = NSTextAlignmentRight;
-        }
-        break;
-    }
-    
-    NSInteger index = [self.cacheAlignKeyArray indexOfObject:view.tabIdentifier];
-    if (index <= self.cacheAlignArray.count - 1) {
-        [self.cacheAlignArray removeObjectAtIndex:index];
-        [self.cacheAlignKeyArray removeObject:view.tabIdentifier];
-    }
-}
-
-- (void)recoverBorderView:(UIView *)view {
-    if (self.cacheArray.count == 0) {
-        [self.tempViewArray removeAllObjects];
-        [self.tempBorderArray removeAllObjects];
-        return;
-    }
-    
-    for (int i = 0; i < self.cacheKeyArray.count; i++) {
-        
-        NSString *str = self.cacheKeyArray[i];
-        if (![str isEqualToString:view.tabIdentifier]) {
-            continue;
-        }
-        
-        NSArray *array = self.cacheArray[i];
-        if (array.count != 2) {
-            array = nil;
-            continue;
-        }
-        
-        NSMutableArray <UIView *>*viewArray = array[0];
-        NSMutableArray <NSNumber *>*borderArray = array[1];
-        
-        for (int i = 0; i < viewArray.count; i++) {
-            UIView *view = viewArray[i];
-            CGFloat borderWidth = [borderArray[i] floatValue];
-            view.layer.borderWidth = borderWidth;
-        }
-        break;
-    }
-    
-    NSInteger index = [self.cacheKeyArray indexOfObject:view.tabIdentifier];
-    if (index <= self.cacheArray.count - 1) {
-        [self.cacheArray removeObjectAtIndex:index];
-        [self.cacheKeyArray removeObject:view.tabIdentifier];
-    }
-}
-
-- (void)searchView:(UIView *)view {
++ (void)getNeedAnimationSubViews:(UIView *)view
+                   withSuperView:(UIView *)superView
+                    withRootView:(UIView *)rootView {
     
     NSArray *subViews = [view subviews];
     if ([subViews count] == 0) {
         return;
     }
     
-    for (int i = 0; i < subViews.count;i++) {
-        UIView *subV = subViews[i];
-        [self searchView:subV];
-        
-        if ([subV isKindOfClass:[UILabel class]]) {
-            UILabel *lab = (UILabel *)subV;
-            if (lab.textAlignment == NSTextAlignmentRight) {
-                [self.tempAlignArray addObject:lab];
-                lab.textAlignment = NSTextAlignmentLeft;
-            }
-        }
-        
-        if (subV.layer.borderWidth > 0) {
-            [self.tempViewArray addObject:subV];
-            [self.tempBorderArray addObject:[NSNumber numberWithFloat:subV.layer.borderWidth]];
-            subV.layer.borderWidth = 0.f;
-        }
-    }
-}
-
-- (NSString *)uuidString {
-    CFUUIDRef uuid_ref = CFUUIDCreate(NULL);
-    CFStringRef uuid_string_ref= CFUUIDCreateString(NULL, uuid_ref);
-    NSString *uuid = [NSString stringWithString:(__bridge NSString *)uuid_string_ref];
-    CFRelease(uuid_ref);
-    CFRelease(uuid_string_ref);
-    return [uuid lowercaseString];
-}
-
-+ (void)managerAnimationSubViewsOfView:(UIView *)superView {
-    
-    NSArray *subViews = [superView subviews];
-    if ([subViews count] == 0) {
-        return;
-    }
+    superView.loadStyle = TABViewLoadAnimationRemove;
     
     for (int i = 0; i < subViews.count;i++) {
-        UIView *subV = subViews[i];
-        [self managerAnimationSubViewsOfView:subV];
         
+        UIView *subV = subViews[i];
+        [self getNeedAnimationSubViews:subV withSuperView:subV.superview withRootView:rootView];
+        
+        // 如果父视图中嵌套了表格组件，为表格组件开启动画
         if ([subV isKindOfClass:[UITableView class]]) {
             UITableView *view = (UITableView *)subV;
             [view tab_startAnimation];
@@ -218,30 +48,80 @@
             }
         }
         
-        if (([TABViewAnimated sharedAnimated].animationType == TABAnimationTypeShimmer) ||
-            ([TABViewAnimated sharedAnimated].animationType == TABAnimationTypeOnlySkeleton) ||
-            (([TABViewAnimated sharedAnimated].animationType == TABAnimationTypeCustom) &&
-             ((superView.superAnimationType == TABViewSuperAnimationTypeShimmer) ||
-              (superView.superAnimationType == TABViewSuperAnimationTypeOnlySkeleton)))) {
-                 if ([subV.superview isKindOfClass:[UITableViewCell class]]) {
-                     // add animation without on contentView.
-                     if (i != 0) {
-                         if (subV.loadStyle != TABViewLoadAnimationRemove) {
-                             subV.loadStyle = TABViewLoadAnimationWithOnlySkeleton;
-                         }
-                     }
-                 }else {
-                     if (subV.loadStyle != TABViewLoadAnimationRemove) {
-                         subV.loadStyle = TABViewLoadAnimationWithOnlySkeleton;
-                     }
-                 }
+        if ([subV.superview isKindOfClass:[UITableViewCell class]] ||
+            [subV.superview isKindOfClass:[UICollectionViewCell class]]) {
+            // used to can not add animation to contentView
+            if (i != 0) {
+                if (subV.loadStyle != TABViewLoadAnimationRemove) {
+                    subV.loadStyle = TABViewLoadAnimationWithOnlySkeleton;
+                }
+            }else {
+                subV.loadStyle = TABViewLoadAnimationRemove;
+            }
+        }else {
+            if (subV.loadStyle != TABViewLoadAnimationRemove) {
+                subV.loadStyle = TABViewLoadAnimationWithOnlySkeleton;
+            }
         }
         
-        if ((subV.loadStyle != TABViewLoadAnimationDefault) &&
+        if ((subV.loadStyle == TABViewLoadAnimationWithOnlySkeleton) &&
             [TABManagerMethod judgeViewIsNeedAddAnimation:subV]) {
-            [TABManagerMethod initLayerWithView:subV
-                                  withSuperView:subV.superview
-                                      withColor:[TABViewAnimated sharedAnimated].animatedColor];
+            
+            if (nil == rootView.tabLayer) {
+                rootView.tabLayer = TABLayer.new;
+                rootView.tabLayer.frame = rootView.bounds;
+                [rootView.layer addSublayer:rootView.tabLayer];
+            }
+            
+            [rootView.tabLayer.tabWidthArray addObject:[NSNumber numberWithFloat:subV.tabViewWidth]];
+            [rootView.tabLayer.tabHeightArray addObject:[NSNumber numberWithFloat:subV.tabViewHeight]];
+            
+            CGRect rect = [rootView convertRect:subV.frame fromView:subV.superview];
+            [rootView.tabLayer.valueArray addObject:[NSValue valueWithCGRect:rect]];
+            
+            [rootView.tabLayer.cornerRadiusArray addObject:[NSNumber numberWithFloat:subV.layer.cornerRadius]];
+            
+            if ([subV isKindOfClass:[UILabel class]]) {
+                UILabel *lab = (UILabel *)subV;
+                
+                if (lab.textAlignment == NSTextAlignmentCenter) {
+                    [rootView.tabLayer.judgeCenterLabelArray addObject:@(YES)];
+                }else {
+                    [rootView.tabLayer.judgeCenterLabelArray addObject:@(NO)];
+                }
+                
+                if (lab.numberOfLines == 0 ||
+                    lab.numberOfLines > 1) {
+                    if (lab.frame.size.width == 0 ||
+                        lab.frame.size.height == 0) {
+                        lab.text = @"测试测试测试测试测试测试测试测试测试测试测试测试测试测试";
+                    }
+                    [rootView.tabLayer.labelLinesArray addObject:@(lab.numberOfLines)];
+                }else {
+                    if (lab.frame.size.width == 0 ||
+                        lab.frame.size.height == 0) {
+                        lab.text = @"测试测试测试测试";
+                    }
+                    [rootView.tabLayer.labelLinesArray addObject:@(1)];
+                }
+            }else {
+                [rootView.tabLayer.judgeCenterLabelArray addObject:@(NO)];
+                [rootView.tabLayer.labelLinesArray addObject:@(1)];
+            }
+            
+            if ([subV isKindOfClass:[UIButton class]]) {
+                UIButton *btn = (UIButton *)subV;
+                if (btn.frame.size.width == 0 ||
+                    btn.frame.size.height == 0) {
+                    [btn setTitle:@"测试测试" forState:UIControlStateNormal];
+                }
+            }
+            
+            if ([subV isKindOfClass:[UIImageView class]]) {
+                [rootView.tabLayer.judgeImageViewArray addObject:@(YES)];
+            }else {
+                [rootView.tabLayer.judgeImageViewArray addObject:@(NO)];
+            }
         }
     }
 }
@@ -258,36 +138,119 @@
         UIView *subV = subViews[i];
         [self endAnimationToSubViews:subV];
         
-        if (subV.isAnimating) {
-            [subV tab_endAnimation];
+        if (subV.tabAnimated) {
+            if (subV.tabAnimated.isAnimating) {
+                [subV tab_endAnimation];
+            }
         }
     }
 }
 
 + (BOOL)judgeViewIsNeedAddAnimation:(UIView *)view {
     
+    if ([view isKindOfClass:[UICollectionView class]] ||
+        [view isKindOfClass:[UITableView class]]) {
+        return NO;
+    }
+    
+    // 将UIButton中的UILabel移除动画队列
+    if ([view.superview isKindOfClass:[UIButton class]]) {
+        return NO;
+    }
+    
     if ([view isKindOfClass:[UIButton class]]) {
-        // UIButtonLabel has one CALayer.
+        // UIButtonLabel has one subLayer.
         if (view.layer.sublayers.count >= 1) {
             return YES;
         }else {
             return NO;
         }
     }else {
-        if ([view isKindOfClass:[UICollectionView class]] ||
-            [view isKindOfClass:[UITableView class]]) {
-            return NO;
+        if (view.layer.sublayers.count == 0) {
+            return YES;
         }else {
-            if (view.layer.sublayers.count == 0) {
+            if ([view isKindOfClass:[UILabel class]]) {
                 return YES;
-            }else {
-                if ([view isKindOfClass:[UILabel class]]) {
-                    return YES;
-                }
-                return NO;
             }
+            return NO;
         }
     }
 }
+
++ (BOOL)canAddShimmer:(UIView *)view {
+    
+    if (view.tabAnimated.superAnimationType == TABViewSuperAnimationTypeShimmer) {
+        return YES;
+    }
+    
+    if ([TABViewAnimated sharedAnimated].animationType == TABAnimationTypeShimmer) {
+        return YES;
+    }
+    
+    return NO;
+}
+
++ (BOOL)canAddBinAnimation:(UIView *)view {
+    
+    if (view.tabAnimated.superAnimationType == TABViewSuperAnimationTypeBinAnimation) {
+        return YES;
+    }
+    
+    if ([TABViewAnimated sharedAnimated].animationType == TABAnimationTypeBinAnimation) {
+        return YES;
+    }
+    
+    return NO;
+}
+
++ (void)removeAllTABLayersFromView:(UIView *)view {
+    
+    NSArray *subViews = [view subviews];
+    if ([subViews count] == 0) {
+        return;
+    }
+    
+    for (int i = 0; i < subViews.count; i++) {
+        
+        UIView *v = subViews[i];
+        [self removeAllTABLayersFromView:v];
+        
+        if (v.layer.sublayers.count > 0) {
+            NSArray<CALayer *> *subLayers = v.layer.sublayers;
+            [self removeSubLayers:subLayers];
+        }
+    }
+    
+    [self removeMask:view];
+}
+
++ (void)removeMask:(UIView *)view {
+    
+    [view.layer removeAnimationForKey:@"TABAlphaAnimation"];
+    [view.layer removeAnimationForKey:@"TABLocationsAnimation"];
+    
+    if (view.layer.mask != nil) {
+        [view.layer.mask removeFromSuperlayer];
+    }
+    
+    [view.tabLayer removeFromSuperlayer];
+}
+
++ (void)removeSubLayers:(NSArray *)subLayers {
+    
+    NSArray <CALayer *> *removedLayers = [subLayers filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id  _Nullable evaluatedObject, NSDictionary<NSString *,id> * _Nullable bindings) {
+        
+        CALayer *layer = (CALayer *)evaluatedObject;
+        if ([layer.name isEqualToString:@"TABLayer"]) {
+            return YES;
+        }
+        return NO;
+    }]];
+    
+    [removedLayers enumerateObjectsUsingBlock:^(CALayer * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [obj removeFromSuperlayer];
+    }];
+}
+
 
 @end

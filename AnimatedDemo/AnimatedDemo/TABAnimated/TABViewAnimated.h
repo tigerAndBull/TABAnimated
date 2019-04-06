@@ -15,38 +15,34 @@
 #define tab_kBackColor tab_kColor(0xEEEEEEFF)
 
 typedef NS_ENUM(NSInteger,TABAnimationType) {
-    TABAnimationTypeDefault = 0,     // default animation for all registered views in your project.
-    TABAnimationTypeShimmer,         // shimmer animation for all views in your project.
-    TABAnimationTypeOnlySkeleton,    // onlySkeleton for all views in your project.
-    TABAnimationTypeCustom,          // you can select one among the three types mentioned above for the superView.
+    TABAnimationTypeOnlySkeleton = 0,    // onlySkeleton for all views in your project.
+    TABAnimationTypeBinAnimation,        // default animation for all registered views in your project.
+    TABAnimationTypeShimmer              // shimmer animation for all views in your project.
 };
 
 @interface TABViewAnimated : NSObject
 
 @property (nonatomic,assign) TABAnimationType animationType;
 
-@property (nonatomic,assign) BOOL isUseTemplate;
+// Compare to old view's height. Default is 0.75, do not adapt to UIImageView.
+@property (nonatomic,assign) CGFloat animatedHeightCoefficient;
 
-@property (nonatomic,assign) CGFloat animatedDuration;           // TABAnimationTypeDefault: default is 0.6
 @property (nonatomic,assign) CGFloat animatedDurationShimmer;    // TABAnimationTypeShimmer: default is 1.5
 
 @property (nonatomic,strong) UIColor *animatedColor;             // default is 0xEEEEEE. the backgroundcolor of your animations.
-@property (nonatomic,assign) CGFloat longToValue;                // toValue for LongAnimation in TABAnimationTypeDefault.
-@property (nonatomic,assign) CGFloat shortToValue;               // toValue for ShortAnimation in TABAnimationTypeDefault.
 
-@property (nonatomic,assign) CGFloat animatedHeightCoefficient;  // compare to old view's height. default is 0.75. Don't adapt to UIImageView.
+// 全局圆角
+// 优先级：view设置的圆角 > animatedCornerRadius
+@property (nonatomic,assign) CGFloat animatedCornerRadius;
 
-// In most cases, when we layout the UI, we need to give the default text property of `UIlabel` to see the effect.
-// If this property is set to YES, when the animation is started, the text property of `UIlabel` is set to @"“.
-// 大多数情况下，我们在布局UI的时候，都需要给UILabel的text属性一个默认值，以便查看效果。
-// 如果设置这个属性为YES，动画开启时，将所有控件的text属性置为@""，默认为NO。
-@property (nonatomic,assign) BOOL isRemoveLabelText;
+#pragma mark - 模版相关
 
-// Use to `UIButton` similar to isRemoveLabelText.
-@property (nonatomic,assign) BOOL isRemoveButtonTitle;
+// 是否开启模版模式，内置默认模版
+@property (nonatomic,assign) BOOL isUseTemplate;
 
-// Use to `UIImageView` similar to isRemoveLabelText. set image = nil
-@property (nonatomic,assign) BOOL isRemoveImageViewImage;
+// 设置全局模版
+@property (nonatomic) Class templateTableViewCell;
+@property (nonatomic) Class templateCollectionViewCell;
 
 
 /**
@@ -56,36 +52,13 @@ typedef NS_ENUM(NSInteger,TABAnimationType) {
  */
 + (TABViewAnimated *)sharedAnimated;
 
+#pragma mark - OnlySkeleton
 
-#pragma mark - Default Animation
+- (void)initWithOnlySkeleton;
 
-/**
- default Animation
- 
- */
-- (void)initWithDefaultAnimated;
+#pragma mark - Bin Animation
 
-/**
- set animation duration and backgroundcolor.
-
- @param duration back and forth
- @param color backgroundcolor
- */
-- (void)initWithAnimatedDuration:(CGFloat)duration
-                       withColor:(UIColor *)color;
-
-/**
-to set toValue
-
- @param duration back and forth
- @param color backgroundcolor
- @param longToValue toValue for LongAnimation
- @param shortToValue toValue for ShortAnimation
- */
-- (void)initWithAnimatedDuration:(CGFloat)duration
-                       withColor:(UIColor *)color
-                 withLongToValue:(CGFloat)longToValue
-                withShortToValue:(CGFloat)shortToValue;
+- (void)initWithBinAnimation;
 
 #pragma mark - Shimmer Animation
 
@@ -103,19 +76,5 @@ to set toValue
  */
 - (void)initWithShimmerAnimatedDuration:(CGFloat)duration
                               withColor:(UIColor *)color;
-
-#pragma mark - OnlySkeleton
-
-- (void)initWithOnlySkeleton;
-
-#pragma mark - Custom Animation
-
-- (void)initWithCustomAnimation;
-
-- (void)initWithDefaultDurationAnimation:(CGFloat)defaultAnimationDuration
-                         withLongToValue:(CGFloat)longToValue
-                        withShortToValue:(CGFloat)shortToValue
-            withShimmerAnimationDuration:(CGFloat)shimmerAnimationDuration
-                               withColor:(UIColor *)color;
 
 @end

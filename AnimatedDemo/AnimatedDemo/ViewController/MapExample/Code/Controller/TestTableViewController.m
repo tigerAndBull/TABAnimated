@@ -1,12 +1,12 @@
 //
-//  TestViewController.m
+//  TestTableViewController.m
 //  AnimatedDemo
 //
 //  Created by tigerAndBull on 2018/9/14.
 //  Copyright © 2018年 tigerAndBull. All rights reserved.
 //
 
-#import "TestViewController.h"
+#import "TestTableViewController.h"
 
 #import "TestTableViewCell.h"
 #import "XIBTableViewCell.h"
@@ -14,20 +14,20 @@
 #import "TABAnimated.h"
 #import <TABKit/TABKit.h>
 #import "TestHeadView.h"
-#import "MyTestTableViewCell.h"
+#import "TABTemplateTableViewCell.h"
 #import "TABAnimatedObject.h"
 
 #import "Game.h"
 
-@interface TestViewController () <UITableViewDelegate,UITableViewDataSource,UITableViewAnimatedDelegate> {
+@interface TestTableViewController () <UITableViewDelegate,UITableViewDataSource> {
     NSMutableArray *dataArray;
 }
 
-@property (nonatomic,strong) UITableView *mainTV;
+@property (nonatomic,strong) UITableView *tableView;
 
 @end
 
-@implementation TestViewController
+@implementation TestTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -52,42 +52,33 @@
 - (void)afterGetData {
     
     // 模拟数据
-    for (int i = 0; i < 1; i ++) {
+    for (int i = 0; i < 10; i ++) {
         Game *game = [[Game alloc]init];
         game.gameId = [NSString stringWithFormat:@"%d",i];
-        game.title = [NSString stringWithFormat:@"这里是赛事标题%d",i+1];
+        game.title = [NSString stringWithFormat:@"这里是测试数据%d",i+1];
         game.cover = @"test.jpg";
         [dataArray addObject:game];
     }
 
     // 停止动画,并刷新数据
-    [self.mainTV tab_endAnimation];
-}
-
-#pragma mark - UITableViewAnimatedDelegate
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfAnimatedRowsInSection:(NSInteger)section {
-    if (section == 0) {
-        return 5;
-    }
-    return 3;
+    [self.tableView tab_endAnimation];
 }
 
 #pragma mark - UITableViewDelegate & Datasource
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 2;
-}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return dataArray.count;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return .1;
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 100;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return .1;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     return .1;
 }
 
@@ -100,10 +91,6 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     return cell;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 100;
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -127,25 +114,30 @@
  */
 - (void)initUI {
     self.view.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:self.mainTV];
-    [self.mainTV tab_startAnimation];   // 开启动画
+    [self.view addSubview:self.tableView];
+    [self.tableView tab_startAnimation];   // 开启动画
 }
 
 #pragma mark - Lazy Methods
 
-- (UITableView *)mainTV {
-    if (!_mainTV) {
-        _mainTV = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:UITableViewStyleGrouped];
-        _mainTV.dataSource = self;
-        _mainTV.delegate = self;
-        _mainTV.animatedDelegate = self;
-        _mainTV.estimatedRowHeight = 0;
-        _mainTV.estimatedSectionFooterHeight = 0;
-        _mainTV.estimatedSectionHeaderHeight = 0;
-        _mainTV.backgroundColor = [UIColor whiteColor];
-        _mainTV.separatorStyle = UITableViewCellSeparatorStyleNone;
+- (UITableView *)tableView {
+    if (!_tableView) {
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:UITableViewStyleGrouped];
+        _tableView.dataSource = self;
+        _tableView.delegate = self;
+        _tableView.estimatedRowHeight = 0;
+        _tableView.estimatedSectionFooterHeight = 0;
+        _tableView.estimatedSectionHeaderHeight = 0;
+        _tableView.backgroundColor = [UIColor whiteColor];
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        
+        // 设置tabAnimated相关属性
+        // 可以不进行手动初始化，将使用默认属性
+        TABAnimatedObject *tabAnimated = [[TABAnimatedObject alloc] init];
+        tabAnimated.animatedCount = 3;
+        _tableView.tabAnimated = tabAnimated;
     }
-    return _mainTV;
+    return _tableView;
 }
 
 @end

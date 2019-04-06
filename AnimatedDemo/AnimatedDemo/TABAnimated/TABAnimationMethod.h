@@ -13,11 +13,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface TABAnimationMethod : NSObject
 
-+ (CABasicAnimation *)scaleXAnimationDuration:(CGFloat)duration
-                                viewLoadStyle:(TABViewLoadAnimationStyle)style;
-
 + (void)addShimmerAnimationToView:(UIView *)view
                          duration:(CGFloat)duration;
+
++ (void)addAlphaAnimation:(UIView *)view;
 
 @end
 

@@ -8,6 +8,16 @@
 
 #import "TABBaseCollectionViewCell.h"
 
+#import "UIView+Animated.h"
+#import "UITableView+Animated.h"
+#import "UIView+TABControlAnimation.h"
+
+#import "TABViewAnimated.h"
+#import "TABManagerMethod.h"
+#import "TABAnimationMethod.h"
+
+#import "TABAnimatedObject.h"
+
 @implementation TABBaseCollectionViewCell
 
 + (NSValue *)cellSize {

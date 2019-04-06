@@ -8,6 +8,7 @@
 
 #import "PackageTableViewCell.h"
 #import "TestHeadView.h"
+#import <TABKit/TABKit.h>
 
 #import "Game.h"
 
@@ -48,7 +49,7 @@
 
 - (TestHeadView *)packView {
     if (!_packView) {
-        _packView = [[TestHeadView alloc]initWithFrame:CGRectMake(0, 0, self.frame.size.width, 90)];
+        _packView = [[TestHeadView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 80)];
     }
     return _packView;
 }

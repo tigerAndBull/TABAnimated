@@ -9,6 +9,8 @@
 #import "UIView+Animated.h"
 #import "TABViewAnimated.h"
 #import "UIView+TABControlAnimation.h"
+#import "TABAnimatedObject.h"
+#import "TABLayer.h"
 
 #import <objc/runtime.h>
 
@@ -23,32 +25,6 @@
 
 - (void)setLoadStyle:(TABViewLoadAnimationStyle)loadStyle {
     objc_setAssociatedObject(self, @selector(loadStyle), @(loadStyle), OBJC_ASSOCIATION_ASSIGN);
-}
-
-- (TABViewSuperAnimationType)superAnimationType {
-    NSNumber *value = objc_getAssociatedObject(self, @selector(superAnimationType));
-    return value.intValue;
-}
-
-- (void)setSuperAnimationType:(TABViewSuperAnimationType)superAnimationType {
-    objc_setAssociatedObject(self, @selector(superAnimationType), @(superAnimationType), OBJC_ASSOCIATION_ASSIGN);
-}
-
-- (TABViewAnimationStyle)animatedStyle {
-    NSNumber *value = objc_getAssociatedObject(self, @selector(animatedStyle));
-    return value.intValue;
-}
-
-- (void)setAnimatedStyle:(TABViewAnimationStyle)animatedStyle {
-    objc_setAssociatedObject(self, @selector(animatedStyle), @(animatedStyle), OBJC_ASSOCIATION_ASSIGN);
-}
-
-- (BOOL)isAnimating {
-    return [objc_getAssociatedObject(self, @selector(isAnimating)) boolValue];
-}
-
-- (void)setIsAnimating:(BOOL)isAnimating {
-    objc_setAssociatedObject(self, @selector(isAnimating), @(isAnimating), OBJC_ASSOCIATION_ASSIGN);
 }
 
 - (float)tabViewWidth {
@@ -67,23 +43,20 @@
     objc_setAssociatedObject(self, @selector(tabViewHeight), @(tabViewHeight), OBJC_ASSOCIATION_RETAIN);
 }
 
-- (NSString *)tabIdentifier {
-    return objc_getAssociatedObject(self, @selector(tabIdentifier));
+- (TABAnimatedObject *)tabAnimated {
+    return objc_getAssociatedObject(self, @selector(tabAnimated));
 }
 
-- (void)setTabIdentifier:(NSString *)tabIdentifier {
-    objc_setAssociatedObject(self, @selector(tabIdentifier), tabIdentifier, OBJC_ASSOCIATION_RETAIN);
+- (void)setTabAnimated:(TABAnimatedObject *)tabAnimated {
+    objc_setAssociatedObject(self, @selector(tabAnimated),tabAnimated, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-- (BOOL)isNest {
-    return [objc_getAssociatedObject(self, @selector(isNest)) boolValue];
+- (TABLayer *)tabLayer {
+    return objc_getAssociatedObject(self, @selector(tabLayer));
 }
 
-- (void)setIsNest:(BOOL)isNest {
-    if (isNest) {
-        [self tab_startAnimation];
-    }
-    objc_setAssociatedObject(self, @selector(isNest), @(isNest), OBJC_ASSOCIATION_RETAIN);
+- (void)setTabLayer:(TABLayer *)tabLayer {
+    objc_setAssociatedObject(self, @selector(tabLayer),tabLayer, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 @end

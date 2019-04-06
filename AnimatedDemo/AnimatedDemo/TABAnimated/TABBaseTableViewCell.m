@@ -8,20 +8,17 @@
 
 #import "TABBaseTableViewCell.h"
 
-@interface TABBaseTableViewCell()
+#import "UIView+Animated.h"
+#import "UITableView+Animated.h"
+#import "UIView+TABControlAnimation.h"
 
-@end
+#import "TABViewAnimated.h"
+#import "TABManagerMethod.h"
+#import "TABAnimationMethod.h"
+
+#import "TABAnimatedObject.h"
 
 @implementation TABBaseTableViewCell
-
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    // Initialization code
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-}
 
 + (instancetype)cellFromTableView:(UITableView *)tableView {
     TABBaseTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[self cellIdentifier]];
@@ -41,7 +38,6 @@
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
-        
     }
     return self;
 }

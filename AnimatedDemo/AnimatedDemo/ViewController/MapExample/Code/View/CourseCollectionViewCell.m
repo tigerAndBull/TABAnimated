@@ -69,8 +69,6 @@
     
     [self.priceLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(self).mas_offset(-mLeft-10);
-        make.width.mas_offset(kWidth(80));
-        make.height.mas_offset(kHeight(30));
         make.bottom.mas_equalTo(self.headImg.mas_bottom);
     }];
     
@@ -140,7 +138,7 @@
     if (!_priceLab) {
         _priceLab = [[UILabel alloc] init];
         _priceLab.font = kFont(16);
-        _priceLab.text = @"$18";
+//        _priceLab.text = @"$";
         _priceLab.textAlignment = NSTextAlignmentRight;
     }
     return _priceLab;

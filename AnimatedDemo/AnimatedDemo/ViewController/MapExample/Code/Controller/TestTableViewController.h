@@ -1,5 +1,5 @@
 //
-//  TestViewController.h
+//  TestTableViewController.h
 //  AnimatedDemo
 //
 //  Created by tigerAndBull on 2018/9/14.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TestViewController : UIViewController
+@interface TestTableViewController : UIViewController
 
 @end

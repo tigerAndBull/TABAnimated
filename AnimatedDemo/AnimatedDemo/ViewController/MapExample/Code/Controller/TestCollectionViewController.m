@@ -10,7 +10,7 @@
 
 #import "DailyCollectionViewCell.h"
 #import "CourseCollectionViewCell.h"
-#import "TemplateCollectionViewCell.h"
+#import "TABTemplateCollectionViewCell.h"
 #import "TemplateSecondCollectionViewCell.h"
 
 #import "TABAnimatedObject.h"
@@ -20,7 +20,7 @@
 #import "Game.h"
 #import <TABKit/TABKit.h>
 
-@interface TestCollectionViewController () <UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewAnimatedDelegate> {
+@interface TestCollectionViewController () <UICollectionViewDelegate,UICollectionViewDataSource> {
     NSMutableArray *dataArray;
 }
 
@@ -39,7 +39,7 @@
     [self initData];
     [self initUI];
     
-    // 假设3秒后，获取到数据了，代码具体位置看你项目了。
+    // 假设3秒后，获取到数据
     [self performSelector:@selector(afterGetData) withObject:nil afterDelay:3];
 }
 
@@ -146,7 +146,6 @@
         _collectionView.backgroundColor = [UIColor whiteColor];
         _collectionView.dataSource = self;
         _collectionView.delegate = self;
-        _collectionView.animatedDelegate = self;
         _collectionView.showsHorizontalScrollIndicator = NO;
         _collectionView.showsVerticalScrollIndicator = NO;
     }

@@ -13,35 +13,21 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface TABManagerMethod : NSObject
 
-@property (nonatomic,strong,readonly) NSMutableArray <NSMutableArray *> *cacheArray;
-@property (nonatomic,strong,readonly) NSMutableArray <NSMutableArray *> *cacheAlignArray;
-
-/**
- SingleTon
-
- @return self
- */
-+ (instancetype)sharedManager;
-
-/**
- 缓存boderWidth不为0的view
-
- @param view superView
- */
-- (void)cacheView:(UIView *)view;
-
-/**
- 移除缓存的view
- 
- @param view superView
- */
-- (void)recoverView:(UIView *)view;
++ (void)getNeedAnimationSubViews:(UIView *)view
+                   withSuperView:(UIView *)superView
+                    withRootView:(UIView *)rootView;
 
 + (BOOL)judgeViewIsNeedAddAnimation:(UIView *)view;
 
-+ (void)managerAnimationSubViewsOfView:(UIView *)superView;
++ (BOOL)canAddShimmer:(UIView *)view;
+
++ (BOOL)canAddBinAnimation:(UIView *)view;
 
 + (void)endAnimationToSubViews:(UIView *)view;
+
++ (void)removeAllTABLayersFromView:(UIView *)view;
+
++ (void)removeMask:(UIView *)view;
 
 @end
 

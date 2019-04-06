@@ -7,13 +7,15 @@
 //
 
 #import "UIView+TABLayoutSubviews.h"
-#import "UIView+Animated.h"
 #import "UIView+TABControlAnimation.h"
+#import "UIView+Animated.h"
 
 #import "TABViewAnimated.h"
 #import "TABManagerMethod.h"
-#import "TABManagerMethod+ManagerCALayer.h"
+
 #import "TABAnimationMethod.h"
+#import "TABAnimatedObject.h"
+#import "TABLayer.h"
 
 #import <objc/runtime.h>
 
@@ -39,49 +41,57 @@
     
     [self tab_layoutSubviews];
 
+    if ([self isKindOfClass:[UITableView class]] ||
+        [self isKindOfClass:[UICollectionView class]] ||
+        [self isKindOfClass:[UICollectionViewCell class]] ||
+        [self isKindOfClass:[UITableViewCell class]]) {
+        return;
+    }
+    
     // start animation/end animation
     dispatch_async(dispatch_get_main_queue(), ^{
 
-        switch (self.animatedStyle) {
-                
-            case TABViewAnimationStart:
-
-                // change status
-                self.animatedStyle = TABViewAnimationRunning;
-                
-                // start animations
-                if ([TABViewAnimated sharedAnimated].animationType != TABAnimationTypeCustom) {
-                    [[TABManagerMethod sharedManager] cacheView:self];
-                    [TABManagerMethod managerAnimationSubViewsOfView:self];
-                }else {
-                    if (self.superAnimationType != TABViewSuperAnimationTypeDefault) {
-                        [[TABManagerMethod sharedManager] cacheView:self];
-                        [TABManagerMethod managerAnimationSubViewsOfView:self];
-                    }
-                }
-
-                // shimmer animations, UICollectionView be added by cell.
-                if (![self isKindOfClass:[UICollectionView class]]) {
-                    if (([TABViewAnimated sharedAnimated].animationType == TABAnimationTypeShimmer) ||
-                        ([TABViewAnimated sharedAnimated].animationType == TABAnimationTypeCustom && (self.superAnimationType == TABViewSuperAnimationTypeShimmer))) {
+        if (nil != self.tabAnimated) {
+            
+            switch (self.tabAnimated.animatedStyle) {
+                    
+                case TABViewAnimationStart:
+                    
+                    // change status
+                    self.tabAnimated.animatedStyle = TABViewAnimationRunning;
+                    
+                    // start animations
+                    [TABManagerMethod getNeedAnimationSubViews:self
+                                                 withSuperView:self
+                                                  withRootView:self];
+                    
+                    [self.tabLayer setNeedsDisplay];
+                    
+                    // add shimmer animation
+                    if ([TABManagerMethod canAddShimmer:self]) {
                         [TABAnimationMethod addShimmerAnimationToView:self
                                                              duration:[TABViewAnimated sharedAnimated].animatedDurationShimmer];
+                        break;
                     }
-                }
-                
-                break;
-                
-            case TABViewAnimationEnd:
-
-                // end animations
-                [TABManagerMethod endAnimationToSubViews:self];
-                [TABManagerMethod removeAllTABLayersFromView:self];
-                [[TABManagerMethod sharedManager] recoverView:self];
-                
-                break;
-                
-            default:
-                break;
+                    
+                    // add bin animation
+                    if ([TABManagerMethod canAddBinAnimation:self]) {
+                        [TABAnimationMethod addAlphaAnimation:self];
+                    }
+                    
+                    break;
+                    
+                case TABViewAnimationEnd:
+                    
+                    // end animations
+                    [TABManagerMethod endAnimationToSubViews:self];
+                    [TABManagerMethod removeMask:self];
+                    
+                    break;
+                    
+                default:
+                    break;
+            }
         }
     });
 }

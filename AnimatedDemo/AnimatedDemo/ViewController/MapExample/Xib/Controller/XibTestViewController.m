@@ -91,7 +91,7 @@
     }
     
     // 在加载动画的时候，即未获得数据时，不要走加载控件数据的方法
-    if (!self.mainTV.isAnimating) {
+    if (!self.mainTV.tabAnimated.isAnimating) {
         // 这里刷新走刷新视图的方法
         [cell updateCell];
     }

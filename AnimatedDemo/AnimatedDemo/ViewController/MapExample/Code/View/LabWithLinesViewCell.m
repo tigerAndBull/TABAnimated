@@ -14,7 +14,6 @@
 #import <TABKit/TABKit.h>
 
 @interface LabWithLinesViewCell () {
-    
     UIImageView *gameImg;
     TABLabel *titleLab;
 }
@@ -35,9 +34,7 @@
 }
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
-    
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    
     if (self) {
         [self initUI];
     }
@@ -59,8 +56,7 @@
 #pragma mark - Public Methods
 
 - (void)initWithData:(Game *)game {
-    
-    titleLab.text = [NSString stringWithFormat:@"赛事标题赛事标题标题赛事标题赛事标题标题赛事标题赛事标题标题赛事标题赛事标题标题赛事标题赛%@～",game.gameId];
+    titleLab.text = [NSString stringWithFormat:@"测试数据测试数据测试数据测试数据测试数据测试数据测试数据%@～",game.gameId];
     [gameImg setImage:[UIImage imageNamed:@"test.jpg"]];
 }
 
@@ -81,11 +77,9 @@
     {
         TABLabel *lab = [[TABLabel alloc]init];
         [lab setFont:kFont(15)];
-        lab.loadStyle = TABViewLoadAnimationLong;        // 需要设置，长短属性效果
         lab.lineSpace = 5.0f;
-        lab.numberOfLines = 0;
+        lab.numberOfLines = 3;
         [lab setTextColor:[UIColor blackColor]];
-        [lab setText:@""];
         
         titleLab = lab;
         [self.contentView addSubview:lab];

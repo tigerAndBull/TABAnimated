@@ -1,5 +1,5 @@
 //
-//  TemplateCollectionViewCell.h
+//  TABTemplateCollectionViewCell.h
 //  AnimatedDemo
 //
 //  Created by tigerAndBull on 2019/3/6.
@@ -11,7 +11,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface TemplateCollectionViewCell : TABBaseCollectionViewCell
+@interface TABTemplateCollectionViewCell : TABBaseCollectionViewCell
 
 @end
 

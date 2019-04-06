@@ -10,13 +10,13 @@
 
 #import "TABAnimatedObject.h"
 #import "TestTableViewCell.h"
-#import "MyTestTableViewCell.h"
+#import "TABTemplateTableViewCell.h"
 #import "TABAnimated.h"
 
 #import "Game.h"
 #import <TABKit/TABKit.h>
 
-@interface TemplateTableViewController () <UITableViewDelegate,UITableViewDataSource,UITableViewAnimatedDelegate> {
+@interface TemplateTableViewController () <UITableViewDelegate,UITableViewDataSource> {
     NSMutableArray *dataArray;
 }
 
@@ -49,7 +49,7 @@
 - (void)afterGetData {
     
     // 模拟数据
-    for (int i = 0; i < 20; i ++) {
+    for (int i = 0; i < 8; i ++) {
         Game *game = [[Game alloc]init];
         game.gameId = [NSString stringWithFormat:@"%d",i];
         game.title = [NSString stringWithFormat:@"这里是赛事标题%d",i+1];
@@ -126,13 +126,11 @@
         _mainTV = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:UITableViewStyleGrouped];
         _mainTV.dataSource = self;
         _mainTV.delegate = self;
-        _mainTV.animatedCount = 5;
         _mainTV.estimatedRowHeight = 0;
         _mainTV.estimatedSectionFooterHeight = 0;
         _mainTV.estimatedSectionHeaderHeight = 0;
         _mainTV.backgroundColor = [UIColor whiteColor];
         _mainTV.separatorStyle = UITableViewCellSeparatorStyleNone;
-        [_mainTV registerTemplateClass:[MyTestTableViewCell class]];
     }
     return _mainTV;
 }

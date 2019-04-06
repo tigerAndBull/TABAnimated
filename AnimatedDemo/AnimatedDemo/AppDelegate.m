@@ -10,6 +10,7 @@
 
 #import "OptionViewController.h"
 #import "TABAnimated.h"
+#import "TestTableViewCell.h"
 
 @interface AppDelegate ()
 
@@ -23,10 +24,16 @@
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     
     // 设置TABAnimated相关属性
-    [[TABViewAnimated sharedAnimated] initWithOnlySkeleton];
+    [[TABViewAnimated sharedAnimated] initWithShimmerAnimated];
+    // demo选择普通模式的时候，将属性切回了普通模式
+    // 目前两种模式在不同视图上可以切换
     [TABViewAnimated sharedAnimated].isUseTemplate = YES;
-    [TABViewAnimated sharedAnimated].isRemoveLabelText = YES;
-    [TABViewAnimated sharedAnimated].isRemoveButtonTitle = YES;
+    // 设置全局圆角
+    [TABViewAnimated sharedAnimated].animatedCornerRadius = 3.f;
+    // 设置全局模版，有内置模版
+    // 注意，模版一定要按照规矩来，继承自TABBaseTableViewCell,TABBaseCollectionViewCell
+    // 模版的初衷是另写一个新的cell，如果你用项目中用到的cell，也不是不可以，只是会在cell内产生耦合
+    [TABViewAnimated sharedAnimated].templateTableViewCell = [TestTableViewCell class];
     
     OptionViewController *vc = [[OptionViewController alloc] init];
     _nav = [[UINavigationController alloc]initWithRootViewController:vc];

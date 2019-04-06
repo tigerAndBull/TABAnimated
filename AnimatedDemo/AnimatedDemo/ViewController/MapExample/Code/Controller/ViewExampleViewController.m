@@ -32,7 +32,7 @@
     // Do any additional setup after loading the view.
     [self initUI];
     
-    // 假设3秒后，获取到数据了，代码具体位置看你项目了。
+    // 假设3秒后，获取到数据
     [self performSelector:@selector(afterGetData) withObject:nil afterDelay:3.0];
 }
 
@@ -121,7 +121,7 @@
 - (UIButton *)commitBtn {
     if (!_commitBtn) {
         _commitBtn = [[UIButton alloc] init];
-        _commitBtn.frame = CGRectMake(kWidth(28), CGRectGetMaxY(self.secondInfoLab.frame)+kHeight(80), kScreenWidth - kWidth(28)*2, kHeight(65));
+        _commitBtn.frame = CGRectMake(kWidth(28), CGRectGetMaxY(self.secondInfoLab.frame)+kHeight(80), kScreenWidth - kWidth(28)*2, 55);
         [_commitBtn setTitleColor:UIColor.redColor forState:UIControlStateNormal];
         _commitBtn.layer.cornerRadius = 5.0f;
         [_commitBtn.titleLabel setFont:kFont(16)];

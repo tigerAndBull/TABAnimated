@@ -7,22 +7,14 @@
 //
 
 #import "MainViewController.h"
-#import "TestViewController.h"
-#import "XibTestViewController.h"
-#import "TestCollectionViewController.h"
-#import "LabWithLinesViewController.h"
-#import "ExampleOfPackageViewController.h"
-#import "NestCollectionViewController.h"
-
 #import <TABKit/TABKit.h>
-
 #import "AppDelegate.h"
 
 @interface MainViewController () <UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic,strong) NSArray <NSString *> *titleArray;
 @property (nonatomic,strong) NSArray <NSString *> *controllerClassArray;
-@property (nonatomic,strong) UITableView *mainTV;
+@property (nonatomic,strong) UITableView *tableView;
 
 @end
 
@@ -42,10 +34,6 @@
 }
 
 #pragma mark - UITableViewDataSource & UITableViewDelegate
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
-}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.titleArray.count;
@@ -93,38 +81,38 @@
  */
 - (void)initUI {
     self.view.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:self.mainTV];
+    [self.view addSubview:self.tableView];
 }
 
 #pragma mark - Lazy Methods
 
-- (UITableView *)mainTV {
-    if (!_mainTV) {
-        _mainTV = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:UITableViewStyleGrouped];
-        _mainTV.delegate = self;
-        _mainTV.dataSource = self;
-        _mainTV.rowHeight = 44;
-        _mainTV.backgroundColor = [UIColor whiteColor];
-        _mainTV.estimatedRowHeight = 0;
-        _mainTV.estimatedSectionFooterHeight = 0;
-        _mainTV.estimatedSectionHeaderHeight = 0;
-        _mainTV.separatorStyle = UITableViewCellSeparatorStyleNone;
+- (UITableView *)tableView {
+    if (!_tableView) {
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:UITableViewStyleGrouped];
+        _tableView.delegate = self;
+        _tableView.dataSource = self;
+        _tableView.rowHeight = 44;
+        _tableView.backgroundColor = [UIColor whiteColor];
+        _tableView.estimatedRowHeight = 0;
+        _tableView.estimatedSectionFooterHeight = 0;
+        _tableView.estimatedSectionHeaderHeight = 0;
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     }
-    return _mainTV;
+    return _tableView;
 }
 
 - (NSArray *)titleArray {
-    return @[@"UITableView 纯代码",
-             @"多行文本",
-             @"UICollectionView 纯代码",
-             @"UIView",
-             @"UITableView xib",
-             @"cell中使用封装组件",
-             @"嵌套UICollectionView"];
+    return @[@"UITableView 示例",
+             @"多行文本 示例",
+             @"UICollectionView 示例",
+             @"UIView 示例",
+             @"UITableView xib 示例",
+             @"cell中使用多级view 示例",
+             @"嵌套表格 示例"];
 }
 
 - (NSArray *)controllerClassArray {
-    return @[@"TestViewController",
+    return @[@"TestTableViewController",
              @"LabWithLinesViewController",
              @"TestCollectionViewController",
              @"ViewExampleViewController",

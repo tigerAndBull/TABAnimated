@@ -55,7 +55,7 @@
 #pragma mark - UICollectionViewDelegate & DataSource
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    if (collectionView.isAnimating) {
+    if (collectionView.tabAnimated.isAnimating) {
         return 3;
     }
     return self.dataArray.count;
@@ -81,7 +81,7 @@
     
     NestCollectionViewCell *cell = [NestCollectionViewCell cellWithIndexPath:indexPath atCollectionView:collectionView];
     
-    if (!collectionView.isAnimating) {
+    if (!collectionView.tabAnimated.isAnimating) {
         NSMutableArray *array = self.dataArray[indexPath.section];
         [cell updateCellWithData:array];
     }

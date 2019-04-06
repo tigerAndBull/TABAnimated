@@ -13,8 +13,10 @@
 
 #import "TABViewAnimated.h"
 #import "TABManagerMethod.h"
-#import "TABManagerMethod+ManagerCALayer.h"
 #import "TABAnimationMethod.h"
+
+#import "TABAnimatedObject.h"
+#import "TABLayer.h"
 
 #import <objc/runtime.h>
 
@@ -30,7 +32,7 @@
         Method originMethod = class_getInstanceMethod([self class], @selector(layoutSubviews));
         // Get the method you created.
         Method newMethod = class_getInstanceMethod([self class], @selector(tab_cell_layoutSubviews));
-        
+        // exchange
         method_exchangeImplementations(originMethod, newMethod);
     });
 }
@@ -51,106 +53,40 @@
             superView = (UITableView *)self.superview;
         }
         
-        if (superView != nil) {
-            
-            switch (superView.animatedStyle) {
-                    
-                case TABViewAnimationStart:
-                    
-                    // start animations
-                    if ([TABViewAnimated sharedAnimated].animationType != TABAnimationTypeCustom) {
-                        [[TABManagerMethod sharedManager] cacheView:self];
-                        [self getNeedAnimationSubViews:self withSuperView:superView];
-                    }else {
-                        if (superView.superAnimationType != TABViewSuperAnimationTypeDefault) {
-                            [[TABManagerMethod sharedManager] cacheView:self];
-                            [self getNeedAnimationSubViews:self withSuperView:superView];
-                        }
-                    }
-                    
+        switch (superView.tabAnimated.animatedStyle) {
+                
+            case TABViewAnimationStart:
+                
+                // start animations
+                [TABManagerMethod getNeedAnimationSubViews:self
+                                             withSuperView:superView
+                                              withRootView:self];
+                
+                [self.tabLayer setNeedsDisplay];
+                
+                // add shimmer animation
+                if ([TABManagerMethod canAddShimmer:self]) {
+                    [TABAnimationMethod addShimmerAnimationToView:self
+                                                         duration:[TABViewAnimated sharedAnimated].animatedDurationShimmer];
                     break;
-                    
-                case TABViewAnimationEnd:
-                    
-                    // end animations
-                    [TABManagerMethod endAnimationToSubViews:self];
-                    [TABManagerMethod removeAllTABLayersFromView:self];
-                    [[TABManagerMethod sharedManager] recoverView:self];
-   
-                default:
-                    break;
-            }
+                }
+                
+                if ([TABManagerMethod canAddBinAnimation:self]) {
+                    [TABAnimationMethod addAlphaAnimation:self];
+                }
+                
+                break;
+                
+            case TABViewAnimationEnd:
+                
+                // end animations
+                [TABManagerMethod endAnimationToSubViews:self];
+                [TABManagerMethod removeMask:self];
+                
+            default:
+                break;
         }
     });
-}
-
-- (void)getNeedAnimationSubViews:(UIView *)view
-                   withSuperView:(UIView *)superView {
-    
-    NSArray *subViews = [view subviews];
-    if ([subViews count] == 0) {
-        return;
-    }
-    
-    for (int i = 0; i < subViews.count;i++) {
-        
-        UIView *subV = subViews[i];
-        [self getNeedAnimationSubViews:subV withSuperView:subV.superview];
-        
-        if ([subV isKindOfClass:[UITableView class]]) {
-            UITableView *view = (UITableView *)subV;
-            subV.animatedStyle = TABViewAnimationStart;
-            [view reloadData];
-        }else {
-            if ([subV isKindOfClass:[UICollectionView class]]) {
-                UICollectionView *view = (UICollectionView *)subV;
-                subV.animatedStyle = TABViewAnimationStart;
-                [view reloadData];
-            }
-        }
-        
-        if (([TABViewAnimated sharedAnimated].animationType == TABAnimationTypeShimmer) ||
-            ([TABViewAnimated sharedAnimated].animationType == TABAnimationTypeOnlySkeleton) ||
-            (([TABViewAnimated sharedAnimated].animationType == TABAnimationTypeCustom) &&
-             ((superView.superAnimationType == TABViewSuperAnimationTypeShimmer) ||
-              (superView.superAnimationType == TABViewSuperAnimationTypeOnlySkeleton)))) {
-                 
-                 if ([subV.superview isKindOfClass:[UITableViewCell class]]) {
-                     // used to can not add animation to contentView
-                     if (i != 0) {
-                         if (subV.loadStyle != TABViewLoadAnimationRemove) {
-                             subV.loadStyle = TABViewLoadAnimationWithOnlySkeleton;
-                         }
-                     }
-                 }else {
-                     if (subV.loadStyle != TABViewLoadAnimationRemove) {
-                         subV.loadStyle = TABViewLoadAnimationWithOnlySkeleton;
-                     }
-                 }
-        }
-        
-        if ((subV.loadStyle != TABViewLoadAnimationDefault) && [TABManagerMethod judgeViewIsNeedAddAnimation:subV]) {
-            [TABManagerMethod initLayerWithView:subV withSuperView:subV.superview withColor:[TABViewAnimated sharedAnimated].animatedColor];
-        }
-
-        if ([self.superview.superview isKindOfClass:[UITableViewCell class]] ||
-            [self.superview.superview isKindOfClass:[UICollectionViewCell class]]||
-            [self.superview.superview.superview isKindOfClass:[UITableViewCell class]]||
-            [self.superview.superview.superview isKindOfClass:[UICollectionViewCell class]]) {
-            
-        }else {
-            if (([TABViewAnimated sharedAnimated].animationType == TABAnimationTypeShimmer) ||
-                (([TABViewAnimated sharedAnimated].animationType == TABAnimationTypeCustom) &&
-                 (superView.superAnimationType == TABViewSuperAnimationTypeShimmer))) {
-                    if (![subV.superview isKindOfClass:[UIButton class]]) {
-                        if ([subV isEqual:[subViews lastObject]]) {
-                            [TABAnimationMethod addShimmerAnimationToView:subV.superview
-                                                                 duration:[TABViewAnimated sharedAnimated].animatedDurationShimmer];
-                        }
-                    }
-                }
-        }
-    }
 }
 
 @end

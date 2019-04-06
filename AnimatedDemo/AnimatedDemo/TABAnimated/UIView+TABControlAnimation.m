@@ -9,21 +9,74 @@
 #import "UIView+TABControlAnimation.h"
 #import "UIView+Animated.h"
 #import "TABManagerMethod.h"
+#import "TABAnimatedObject.h"
+#import "TABViewAnimated.h"
+
+#import "TABTemplateCollectionViewCell.h"
+#import "TABTemplateTableViewCell.h"
 
 @implementation UIView (TABControlAnimation)
 
 - (void)tab_startAnimation {
-    self.isAnimating = YES;
-    self.animatedStyle = TABViewAnimationStart;
+    
+    if (!self.tabAnimated) {
+        NSLog(@"TABAnimated提醒 - 检测到未进行初始化设置，将以默认属性加载");
+        self.tabAnimated = [[TABAnimatedObject alloc] init];
+    }
+    
+    if ([self isKindOfClass:[UICollectionView class]]) {
+        [(UICollectionView *)self setScrollEnabled:NO];
+    }
+    
+    if ([TABViewAnimated sharedAnimated].isUseTemplate) {
+        
+        if ([self isKindOfClass:[UICollectionView class]]) {
+            
+            if (self.tabAnimated.templateClassArray.count == 0) {
+                
+                if ([TABViewAnimated sharedAnimated].templateCollectionViewCell) {
+                    self.tabAnimated.templateClassArray = @[NSStringFromClass([[TABViewAnimated sharedAnimated].templateCollectionViewCell class])];
+                }else {
+                    self.tabAnimated.templateClassArray = @[NSStringFromClass([TABTemplateCollectionViewCell class])];
+                }
+            }
+            
+            for (NSString *className in self.tabAnimated.templateClassArray) {
+                [(UICollectionView *)self registerClass:NSClassFromString(className) forCellWithReuseIdentifier:className];
+            }
+            
+        }else if ([self isKindOfClass:[UITableView class]]) {
+            
+            if (self.tabAnimated.templateClassArray.count == 0) {
+                
+                if ([TABViewAnimated sharedAnimated].templateTableViewCell) {
+                    self.tabAnimated.templateClassArray = @[NSStringFromClass([[TABViewAnimated sharedAnimated].templateTableViewCell class])];
+                }else {
+                    self.tabAnimated.templateClassArray = @[NSStringFromClass([TABTemplateTableViewCell class])];
+                }
+            }
+        }
+    }
+    
+    self.tabAnimated.isAnimating = YES;
+    self.tabAnimated.animatedStyle = TABViewAnimationStart;
 }
 
 - (void)tab_endAnimation {
-    self.animatedStyle = TABViewAnimationEnd;
-    self.isAnimating = NO;
+    
+    if (!self.tabAnimated) {
+        NSLog(@"TABAnimated提醒 - 动画对象已被提前释放，请检查");
+        return;
+    }
+    
+    self.tabAnimated.animatedStyle = TABViewAnimationEnd;
+    self.tabAnimated.isAnimating = NO;
+    
     if ([self isKindOfClass:[UITableView class]]) {
         [(UITableView *)self reloadData];
     }else {
         if ([self isKindOfClass:[UICollectionView class]]) {
+            [(UICollectionView *)self setScrollEnabled:YES];
             [(UICollectionView *)self reloadData];
         }else {
             [self layoutSubviews];

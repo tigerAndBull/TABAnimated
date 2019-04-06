@@ -18,7 +18,7 @@
     NSMutableArray *dataArray;
 }
 
-@property (nonatomic,strong) UITableView *mainTV;
+@property (nonatomic,strong) UITableView *tableView;
 
 @end
 
@@ -33,7 +33,7 @@
     [self initData];
     [self initUI];
     
-    // 假设3秒后，获取到数据了，代码具体位置看你项目了。
+    // 假设3秒后，获取到数据
     [self performSelector:@selector(afterGetData) withObject:nil afterDelay:3.0];
 }
 
@@ -53,12 +53,12 @@
         
         Game *game = [[Game alloc]init];
         game.gameId = [NSString stringWithFormat:@"%d",i];
-        game.title = [NSString stringWithFormat:@"这里是赛事标题%d",i+1];
+        game.title = [NSString stringWithFormat:@"这里是测试数据%d",i+1];
         game.cover = @"test.jpg";
         [dataArray addObject:game];
     }
     
-    [self.mainTV tab_endAnimation];
+    [self.tableView tab_endAnimation];
 }
 
 #pragma mark - UITableViewDataSource & UITableViewDelegate
@@ -85,7 +85,7 @@
     }
     
     // 在加载动画的时候，即未获得数据时，不要走加载控件数据的方法
-    if (!self.mainTV.isAnimating) {
+    if (!self.tableView.tabAnimated.isAnimating) {
         [cell initWithData:dataArray[indexPath.row]];
     }
     
@@ -108,25 +108,25 @@
  */
 - (void)initUI {
     self.view.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:self.mainTV];
-    [self.mainTV tab_startAnimation];
+    [self.view addSubview:self.tableView];
+    [self.tableView tab_startAnimation];
 }
 
 #pragma mark - Lazy Methods
 
-- (UITableView *)mainTV {
-    if (!_mainTV) {
-        _mainTV = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:UITableViewStyleGrouped];
-        _mainTV.delegate = self;
-        _mainTV.dataSource = self;
-        _mainTV.rowHeight = 100;
-        _mainTV.backgroundColor = [UIColor whiteColor];
-        _mainTV.estimatedRowHeight = 0;
-        _mainTV.estimatedSectionFooterHeight = 0;
-        _mainTV.estimatedSectionHeaderHeight = 0;
-        _mainTV.separatorStyle = UITableViewCellSeparatorStyleNone;
+- (UITableView *)tableView {
+    if (!_tableView) {
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:UITableViewStyleGrouped];
+        _tableView.delegate = self;
+        _tableView.dataSource = self;
+        _tableView.rowHeight = 100;
+        _tableView.backgroundColor = [UIColor whiteColor];
+        _tableView.estimatedRowHeight = 0;
+        _tableView.estimatedSectionFooterHeight = 0;
+        _tableView.estimatedSectionHeaderHeight = 0;
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     }
-    return _mainTV;
+    return _tableView;
 }
 
 @end

@@ -1,5 +1,5 @@
 //
-//  MyTestTableViewCell.h
+//  TABTemplateTableViewCell.h
 //  AnimatedDemo
 //
 //  Created by tigerAndBull on 2019/3/5.
@@ -11,7 +11,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MyTestTableViewCell : TABBaseTableViewCell
+@interface TABTemplateTableViewCell : TABBaseTableViewCell
 
 @end
 

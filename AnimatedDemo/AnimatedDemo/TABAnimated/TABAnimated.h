@@ -10,17 +10,18 @@
 #define TABAnimated_h
 
 #import "UIView+Animated.h"
-#import "UIView+TABLayoutSubviews.h"
-#import "UIView+TABControlAnimation.h"
-
 #import "UITableView+Animated.h"
-#import "UITableViewCell+TABLayoutSubviews.h"
-
 #import "UICollectionView+Animated.h"
+
+#import "UIView+TABLayoutSubviews.h"
+#import "UITableViewCell+TABLayoutSubviews.h"
 #import "UICollectionViewCell+TABLayoutSubviews.h"
+
+#import "UIView+TABControlAnimation.h"
 
 #import "TABViewAnimated.h"
 #import "TABAnimationMethod.h"
+#import "TABManagerMethod.h"
 
 /*
  v1.9.1 模版功能新增
@@ -28,6 +29,13 @@
 #import "TABAnimatedObject.h"
 #import "TABBaseCollectionViewCell.h"
 #import "TABBaseTableViewCell.h"
+
+/*
+ v2.0.0 新增
+ */
+#import "TABLayer.h"
+#import "TABTemplateCollectionViewCell.h"
+#import "TABTemplateTableViewCell.h"
 
 #define tab_suppressPerformSelectorLeakWarning(Stuff) \
 do { \

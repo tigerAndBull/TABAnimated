@@ -24,6 +24,10 @@
 
 @implementation TestTableViewCell
 
++ (NSNumber *)cellHeight {
+    return [NSNumber numberWithFloat:100.0];
+}
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
     // Configure the view for the selected state
@@ -99,7 +103,7 @@
         [lab setFont:kFont(15)];
         [lab setTextColor:[UIColor blackColor]];
         [lab setText:@"测试测试测试"];
-        lab.loadStyle = TABViewLoadAnimationShort;
+//        lab.loadStyle = TABViewLoadAnimationShort;
         
         self.titleLab = lab;
         [self addSubview:lab];
@@ -109,7 +113,7 @@
         UILabel *lab = [[UILabel alloc]init];
         [lab setFont:kFont(12)];
         [lab setText:@"测试测试测试"];
-        lab.loadStyle = TABViewLoadAnimationLong;
+//        lab.loadStyle = TABViewLoadAnimationLong;
         
         self.timeLab = lab;
         [self addSubview:lab];
