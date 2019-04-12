@@ -26,12 +26,14 @@
         return;
     }
     
-    superView.loadStyle = TABViewLoadAnimationRemove;
-    
     for (int i = 0; i < subViews.count;i++) {
         
         UIView *subV = subViews[i];
         [self getNeedAnimationSubViews:subV withSuperView:subV.superview withRootView:rootView];
+        
+        if ([subV isKindOfClass:[NSClassFromString(@"_UITableViewCellSeparatorView") class]]) {
+            [subV removeFromSuperview];
+        }
         
         // 如果父视图中嵌套了表格组件，为表格组件开启动画
         if ([subV isKindOfClass:[UITableView class]]) {

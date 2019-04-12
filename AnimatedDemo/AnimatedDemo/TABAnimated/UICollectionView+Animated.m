@@ -93,7 +93,7 @@ struct {
             NSInteger index = indexPath.section;
             if (indexPath.section > (collectionView.tabAnimated.templateClassArray.count - 1)) {
                 index = collectionView.tabAnimated.templateClassArray.count - 1;
-                NSLog(@"TABAnimated模版模式提醒 - section的数量和模版类的数量不一致，超出的section，将使用最后一个模版类加载");
+                tabAnimatedLog(@"TABAnimated模版模式提醒 - section的数量和模版类的数量不一致，超出的section，将使用最后一个模版类加载");
             }
             
             SEL sel = @selector(cellWithIndexPath:atCollectionView:);
@@ -119,7 +119,7 @@ struct {
             NSInteger index = indexPath.section;
             if (indexPath.section > (collectionView.tabAnimated.templateClassArray.count - 1)) {
                 index = collectionView.tabAnimated.templateClassArray.count - 1;
-                NSLog(@"TABAnimated模版模式提醒 - section的数量和模版类的数量不一致，超出的section，将使用最后一个模版类加载");
+                tabAnimatedLog(@"TABAnimated模版模式提醒 - section的数量和模版类的数量不一致，超出的section，将使用最后一个模版类加载");
             }
             
             SEL sel = @selector(cellSize);

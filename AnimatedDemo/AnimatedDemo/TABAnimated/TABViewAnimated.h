@@ -44,6 +44,11 @@ typedef NS_ENUM(NSInteger,TABAnimationType) {
 @property (nonatomic) Class templateTableViewCell;
 @property (nonatomic) Class templateCollectionViewCell;
 
+#pragma mark - Other
+
+// 是否开启控制台Log提醒
+@property (nonatomic,assign) BOOL openLog;
+
 
 /**
  SingleTon

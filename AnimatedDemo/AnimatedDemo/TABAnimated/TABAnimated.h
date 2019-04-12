@@ -45,4 +45,6 @@ Stuff; \
 _Pragma("clang diagnostic pop") \
 } while (0)
 
+#define tabAnimatedLog(x) {if([TABViewAnimated sharedAnimated].openLog) NSLog(x);}
+
 #endif /* TABAnimated_h */

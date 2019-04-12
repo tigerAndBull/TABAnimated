@@ -7,7 +7,7 @@
 //
 
 #import "TABLayer.h"
-#import "TABViewAnimated.h"
+#import "TABAnimated.h"
 
 static CGFloat defaultHeight = 16.f;
 static CGFloat defaultSpaceWithLines = 8.f;
@@ -17,9 +17,10 @@ static CGFloat defaultSpaceWithLines = 8.f;
 - (instancetype)init {
     if (self = [super init]) {
         
+        self.backgroundColor = [UIColor.whiteColor CGColor];
         self.name = @"TABLayer";
         self.anchorPoint = CGPointMake(0, 0);
-        self.position = CGPointMake(0, 0);;
+        self.position = CGPointMake(0, 0);
         self.opaque = YES;
         self.contentsScale = ([[UIScreen mainScreen] scale] > 3.0) ? [[UIScreen mainScreen] scale] : 3.0;
         
@@ -30,15 +31,12 @@ static CGFloat defaultSpaceWithLines = 8.f;
         _tabWidthArray = @[].mutableCopy;
         _tabHeightArray = @[].mutableCopy;
         _judgeCenterLabelArray = @[].mutableCopy;
+        
     }
     return self;
 }
 
-- (void)drawInContext:(CGContextRef)ctx {
-    
-    CGContextAddRect(ctx,self.bounds);
-    CGContextSetFillColorWithColor(ctx,[UIColor.whiteColor CGColor]);
-    CGContextFillPath(ctx);
+- (void)udpateSublayers {
     
     for (int i = 0; i < self.valueArray.count; i++) {
         
@@ -49,36 +47,38 @@ static CGFloat defaultSpaceWithLines = 8.f;
         NSInteger labelLines = [self.labelLinesArray[i] integerValue];
         
         if (labelLines != 1) {
-            [self addLabelsPath:rect ctx:ctx cornerRadius:cornerRadius lines:labelLines];
+            [self addLayers:rect cornerRadius:cornerRadius lines:labelLines];
         }else {
-
+            
+            CALayer *layer = [[CALayer alloc]init];
+            layer.anchorPoint = CGPointMake(0, 0);
+            layer.position = CGPointMake(0, 0);
+            layer.frame = rect;
+            layer.backgroundColor = [TABViewAnimated sharedAnimated].animatedColor.CGColor;
+            
             if (cornerRadius == 0.) {
                 if ([TABViewAnimated sharedAnimated].animatedCornerRadius != 0.) {
-                    CGContextAddRoundRect(ctx,rect,[TABViewAnimated sharedAnimated].animatedCornerRadius);
-                }else {
-                    CGContextAddRect(ctx, rect);
+                    layer.cornerRadius = [TABViewAnimated sharedAnimated].animatedCornerRadius;
                 }
             }else {
-                CGContextAddRoundRect(ctx,rect,cornerRadius);
+                layer.cornerRadius = cornerRadius;
             }
             
-            CGContextSetFillColorWithColor(ctx,[[TABViewAnimated sharedAnimated].animatedColor CGColor]);
-            CGContextFillPath(ctx);
+            [self addSublayer:layer];
         }
     }
 }
 
-- (void)addLabelsPath:(CGRect)frame
-                  ctx:(CGContextRef)ctx
-         cornerRadius:(CGFloat)cornerRadius
-                lines:(NSInteger)lines {
+- (void)addLayers:(CGRect)frame
+     cornerRadius:(CGFloat)cornerRadius
+            lines:(NSInteger)lines {
     
     CGFloat textHeight = defaultHeight*[TABViewAnimated sharedAnimated].animatedHeightCoefficient;
     
     if (lines == 0) {
         lines = (frame.size.height*1.0)/(textHeight+defaultSpaceWithLines);
         if (lines >= 0 && lines <= 1) {
-            NSLog(@"TABAnimated提醒 - 监测到多行文本高度为0，动画时将使用默认行数3");
+            tabAnimatedLog(@"TABAnimated提醒 - 监测到多行文本高度为0，动画时将使用默认行数3");
             lines = 3;
         }
     }
@@ -92,18 +92,21 @@ static CGFloat defaultSpaceWithLines = 8.f;
             rect = CGRectMake(frame.origin.x, frame.origin.y+i*(textHeight+defaultSpaceWithLines), frame.size.width*0.5, textHeight);
         }
         
+        CALayer *layer = [[CALayer alloc]init];
+        layer.anchorPoint = CGPointMake(0, 0);
+        layer.position = CGPointMake(0, 0);
+        layer.frame = rect;
+        layer.backgroundColor = [TABViewAnimated sharedAnimated].animatedColor.CGColor;
+        
         if (cornerRadius == 0.) {
             if ([TABViewAnimated sharedAnimated].animatedCornerRadius != 0.) {
-                CGContextAddRoundRect(ctx,rect,[TABViewAnimated sharedAnimated].animatedCornerRadius);
-            }else {
-                CGContextAddRect(ctx, rect);
+                layer.cornerRadius = [TABViewAnimated sharedAnimated].animatedCornerRadius;
             }
         }else {
-            CGContextAddRoundRect(ctx,rect,cornerRadius);
+            layer.cornerRadius = cornerRadius;
         }
         
-        CGContextSetFillColorWithColor(ctx,[[TABViewAnimated sharedAnimated].animatedColor CGColor]);
-        CGContextFillPath(ctx);
+        [self addSublayer:layer];
     }
 }
 
@@ -131,25 +134,6 @@ static CGFloat defaultSpaceWithLines = 8.f;
     }
     
     return rect;
-}
-
-void CGContextAddRoundRect(CGContextRef context,CGRect rect,CGFloat radius) {
-    
-    float x1 = rect.origin.x;
-    float y1 = rect.origin.y;
-    float x2 = x1 + rect.size.width;
-    float y2 = y1;
-    float x3 = x2;
-    float y3 = y1 + rect.size.height;
-    float x4 = x1;
-    float y4 = y3;
-    
-    CGContextMoveToPoint(context, x1, y1 + radius);
-    CGContextAddArcToPoint(context, x1, y1, x1 + radius, y1, radius);
-    CGContextAddArcToPoint(context, x2, y2, x2, y2 + radius, radius);
-    CGContextAddArcToPoint(context, x3, y3, x3 - radius, y3, radius);
-    CGContextAddArcToPoint(context, x4, y4, x4, y4 - radius, radius);
-    CGContextClosePath(context);
 }
 
 @end

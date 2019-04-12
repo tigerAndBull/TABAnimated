@@ -23,10 +23,6 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-    
-//    if (_testLab) {
-//        _testLab.loadStyle = TABViewLoadAnimationLong;
-//    }
 }
 
 - (void)updateCell {

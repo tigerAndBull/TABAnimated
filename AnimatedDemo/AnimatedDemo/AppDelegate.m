@@ -28,6 +28,8 @@
     // demo选择普通模式的时候，将属性切回了普通模式
     // 目前两种模式在不同视图上可以切换
     [TABViewAnimated sharedAnimated].isUseTemplate = YES;
+    // 开启日志
+    [TABViewAnimated sharedAnimated].openLog = YES;
     // 设置全局圆角
     [TABViewAnimated sharedAnimated].animatedCornerRadius = 3.f;
     // 设置全局模版，有内置模版

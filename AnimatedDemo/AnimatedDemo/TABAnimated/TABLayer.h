@@ -23,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic,strong) NSMutableArray <NSNumber *> *judgeCenterLabelArray;
 
-@property (nonatomic,assign) CGPoint tempPoint;
+- (void)udpateSublayers;
 
 @end
 

@@ -7,20 +7,14 @@
 //
 
 #import "UIView+TABControlAnimation.h"
-#import "UIView+Animated.h"
-#import "TABManagerMethod.h"
-#import "TABAnimatedObject.h"
-#import "TABViewAnimated.h"
-
-#import "TABTemplateCollectionViewCell.h"
-#import "TABTemplateTableViewCell.h"
+#import "TABAnimated.h"
 
 @implementation UIView (TABControlAnimation)
 
 - (void)tab_startAnimation {
     
     if (!self.tabAnimated) {
-        NSLog(@"TABAnimated提醒 - 检测到未进行初始化设置，将以默认属性加载");
+        tabAnimatedLog(@"TABAnimated提醒 - 检测到未进行初始化设置，将以默认属性加载");
         self.tabAnimated = [[TABAnimatedObject alloc] init];
     }
     
@@ -65,7 +59,7 @@
 - (void)tab_endAnimation {
     
     if (!self.tabAnimated) {
-        NSLog(@"TABAnimated提醒 - 动画对象已被提前释放，请检查");
+        tabAnimatedLog(@"TABAnimated提醒 - 动画对象已被提前释放，请检查");
         return;
     }
     

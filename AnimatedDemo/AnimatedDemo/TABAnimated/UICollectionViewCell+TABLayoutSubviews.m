@@ -56,7 +56,7 @@
                                              withSuperView:superView
                                               withRootView:self];
                 
-                [self.tabLayer setNeedsDisplay];
+                [self.tabLayer udpateSublayers];
                 
                 // shimmer animation
                 if ([TABManagerMethod canAddShimmer:self]) {

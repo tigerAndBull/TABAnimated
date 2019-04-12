@@ -40,6 +40,10 @@
     [self performSelector:@selector(afterGetData) withObject:nil afterDelay:3];
 }
 
+- (void)dealloc {
+    
+}
+
 #pragma mark - Target Methods
 
 /**
@@ -137,7 +141,7 @@
         _collectionView.showsHorizontalScrollIndicator = NO;
         _collectionView.showsVerticalScrollIndicator = NO;
 
-        _collectionView.tabAnimated = [TABAnimatedObject animatedWithTemplateClass:[TABTemplateCollectionViewCell class] animatedCount:4];
+        _collectionView.tabAnimated = [TABAnimatedObject animatedWithTemplateClass:[TABTemplateCollectionViewCell class] animatedCount:3];
     }
     return _collectionView;
 }
