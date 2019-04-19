@@ -12,6 +12,7 @@
 #import "TestTableViewCell.h"
 #import "TABTemplateTableViewCell.h"
 #import "TABAnimated.h"
+#import "MJRefresh.h"
 
 #import "Game.h"
 #import <TABKit/TABKit.h>
@@ -33,8 +34,8 @@
     [self initData];
     [self initUI];
     
-    // 假设3秒后，获取到数据了，代码具体位置看你项目了。
-    [self performSelector:@selector(afterGetData) withObject:nil afterDelay:3.0];
+    // 假设2秒后，获取到数据了，代码具体位置看你项目了。
+    [self getData];
 }
 
 - (void)dealloc {
@@ -59,6 +60,11 @@
     
     // 停止动画,并刷新数据
     [self.mainTV tab_endAnimation];
+    [self.mainTV.mj_header endRefreshing];
+}
+
+- (void)getData {
+    [self performSelector:@selector(afterGetData) withObject:nil afterDelay:2.0];
 }
 
 #pragma mark - UITableViewDelegate & Datasource
@@ -99,6 +105,10 @@
     [myCell initWithData:dataArray[indexPath.row]];
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+}
+
 #pragma mark - Initize Methods
 
 /**
@@ -117,6 +127,7 @@
     self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.mainTV];
     [self.mainTV tab_startAnimation];   // 开启动画
+    [self.mainTV.mj_header beginRefreshing];
 }
 
 #pragma mark - Lazy Methods
@@ -131,6 +142,7 @@
         _mainTV.estimatedSectionHeaderHeight = 0;
         _mainTV.backgroundColor = [UIColor whiteColor];
         _mainTV.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _mainTV.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(getData)];
     }
     return _mainTV;
 }

@@ -19,6 +19,7 @@
 
 #import "Game.h"
 #import <TABKit/TABKit.h>
+#import "MJRefresh.h"
 
 @interface TemplateCollectionViewController () <UICollectionViewDelegate,UICollectionViewDataSource> {
     NSMutableArray *dataArray;
@@ -37,7 +38,7 @@
     [self initUI];
     
     // 假设3秒后，获取到数据了，代码具体位置看你项目了。
-    [self performSelector:@selector(afterGetData) withObject:nil afterDelay:3];
+    [self.collectionView.mj_header beginRefreshing];
 }
 
 - (void)dealloc {
@@ -51,6 +52,7 @@
  */
 - (void)afterGetData {
     
+    [dataArray removeAllObjects];
     // 模拟数据
     for (int i = 0; i < 5; i ++) {
         [dataArray addObject:[NSObject new]];
@@ -58,6 +60,18 @@
     
     // 停止动画,并刷新数据
     [self.collectionView tab_endAnimation];
+    // 解决结束刷新闪动问题
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, NSEC_PER_SEC*0.1), dispatch_get_main_queue(), ^{
+        [self.collectionView.mj_header endRefreshing];
+    });
+}
+
+- (void)getData {
+    [self performSelector:@selector(afterGetData) withObject:nil afterDelay:2];
+}
+
+- (void)getMoreData {
+    
 }
 
 #pragma mark - UICollectionViewDelegate & UICollectionViewDataSource
@@ -141,7 +155,8 @@
         _collectionView.showsHorizontalScrollIndicator = NO;
         _collectionView.showsVerticalScrollIndicator = NO;
 
-        _collectionView.tabAnimated = [TABAnimatedObject animatedWithTemplateClass:[TABTemplateCollectionViewCell class] animatedCount:3];
+        _collectionView.tabAnimated = [TABAnimatedObject animatedWithTemplateClass:[TABTemplateCollectionViewCell class]];
+        _collectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(getData)];
     }
     return _collectionView;
 }

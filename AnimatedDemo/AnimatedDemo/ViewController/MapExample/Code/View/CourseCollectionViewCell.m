@@ -138,7 +138,6 @@
     if (!_priceLab) {
         _priceLab = [[UILabel alloc] init];
         _priceLab.font = kFont(16);
-//        _priceLab.text = @"$";
         _priceLab.textAlignment = NSTextAlignmentRight;
     }
     return _priceLab;

@@ -37,10 +37,6 @@
 
 #pragma mark - UITableViewDataSource & UITableViewDelegate
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
-}
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.titleArray.count;
 }

@@ -31,10 +31,6 @@
 
 #pragma mark - UITableViewDataSource & UITableViewDelegate
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
-}
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.titleArray.count;
 }
@@ -103,12 +99,16 @@
 
 - (NSArray *)titleArray {
     return @[@"UICollectionView and 多section",
-             @"UITableView and 单section"];
+             @"UITableView and 单section",
+             @"UICollectionView categoryView",
+             @"阴影卡片"];
 }
 
 - (NSArray *)controllerClassArray {
     return @[@"TemplateCollectionViewController",
-             @"TemplateTableViewController"];
+             @"TemplateTableViewController",
+             @"TemplateCategoryCollectionViewController",
+             @"TemplateCardViewController"];
 }
 
 @end

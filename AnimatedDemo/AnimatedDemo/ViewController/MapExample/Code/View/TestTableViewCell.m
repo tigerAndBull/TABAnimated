@@ -92,7 +92,6 @@
         iv.layer.masksToBounds = YES;
         iv.layer.borderWidth = 1.0f;
         iv.layer.borderColor = UIColor.redColor.CGColor;
-        iv.loadStyle = TABViewLoadAnimationWithOnlySkeleton;
         
         self.gameImg = iv;
         [self addSubview:iv];
@@ -103,7 +102,6 @@
         [lab setFont:kFont(15)];
         [lab setTextColor:[UIColor blackColor]];
         [lab setText:@"测试测试测试"];
-//        lab.loadStyle = TABViewLoadAnimationShort;
         
         self.titleLab = lab;
         [self addSubview:lab];
@@ -113,7 +111,6 @@
         UILabel *lab = [[UILabel alloc]init];
         [lab setFont:kFont(12)];
         [lab setText:@"测试测试测试"];
-//        lab.loadStyle = TABViewLoadAnimationLong;
         
         self.timeLab = lab;
         [self addSubview:lab];
@@ -126,7 +123,6 @@
         btn.layer.borderWidth = 1.0f;
         btn.layer.borderColor = UIColor.redColor.CGColor;
         [btn setTitle:@"测试测试测试" forState:UIControlStateNormal];
-        btn.loadStyle = TABViewLoadAnimationWithOnlySkeleton;
         
         self.statusBtn = btn;
         [self addSubview:btn];

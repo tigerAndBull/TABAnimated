@@ -21,6 +21,8 @@
 
 // use to iPad
 #define isIPad (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+// use to iphone 4,4s,5s,5c,SE
+#define isIphoneSmall (([UIScreen mainScreen].bounds.size.height == 568) || ([UIScreen mainScreen].bounds.size.height == 480))
 // use to iphone 5,5s,6,7,8
 #define isIPhone (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
 // use to iphone 6P,7P,8P
@@ -33,8 +35,8 @@
 #define kSafeAreaHeight (isIPhoneFill?34:0)
 #define kStatusHeight (isIPhoneFill?44:20)
 
-#define kFont(x) [UIFont systemFontOfSize:((isIPhonePlus)?(x + 1):((isIPhoneFill)?(x + 2):x))]
-#define kBlodFont(x) [UIFont boldSystemFontOfSize:((isIPhonePlus)?(x + 1):((isIPhoneFill)?(x + 2):x))]
+#define kFont(x) [UIFont systemFontOfSize:((isIPhonePlus)?(x + 1):((isIPhoneFill)?(x):(isIphoneSmall?x-2:x)))]
+#define kBlodFont(x) [UIFont boldSystemFontOfSize:((isIPhonePlus)?(x + 1):((isIPhoneFill)?(x):(isIphoneSmall?x-3:x)))]
 
 #define kColor(c) [UIColor colorWithRed:((c>>24)&0xFF)/255.0 green:((c>>16)&0xFF)/255.0 blue:((c>>8)&0xFF)/255.0 alpha:((c)&0xFF)/255.0]
 #define kBackColor kColor(0xEEEEEEFF)
