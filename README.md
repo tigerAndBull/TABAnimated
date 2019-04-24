@@ -1,7 +1,7 @@
 +
 ###### 在您决定使用本库之前，请仔细阅读使用文档，本人接受在TABAnimated交流群内部进行任何指导，希望您先认真阅读文档，谢谢。
 +
-
+## 最新版 2.0.2
 ## 2.0.0升级须知
 
 从去年9月份左右至今，**TABAnimated**原生骨架库历经了多次迭代，不断进步的同时离不开每一位开发者的建议。
@@ -66,10 +66,17 @@ typedef NS_ENUM(NSInteger,TABAnimationType) {
 
 ##  效果图
 
-1. 模版模式 - 骨架（展示的是内置的默认模版）
-2. 普通模式 - 骨架
-3. 呼吸灯
-4. 闪光灯
+1. 卡片投影式
+2. 模版模式 - 带下拉演示
+3. 模版模式 - 骨架（展示的是内置的默认模版）
+4. 普通模式 - 骨架
+5. 呼吸灯
+6. 闪光灯
+7. 分段
+
+![卡片.gif](https://upload-images.jianshu.io/upload_images/5632003-47f991e3d8729075.gif?imageMogr2/auto-orient/strip)
+
+![模版.gif](https://upload-images.jianshu.io/upload_images/5632003-9ab844b612265f7b.gif?imageMogr2/auto-orient/strip)
 
 ![模版.gif](https://upload-images.jianshu.io/upload_images/5632003-ff6ac55f277d43af.gif?imageMogr2/auto-orient/strip)
 
@@ -78,6 +85,8 @@ typedef NS_ENUM(NSInteger,TABAnimationType) {
 ![呼吸灯.gif](https://upload-images.jianshu.io/upload_images/5632003-f05eaec5e159df0d.gif?imageMogr2/auto-orient/strip)
 
 ![闪光灯.gif](https://upload-images.jianshu.io/upload_images/5632003-dc5980b6178839c5.gif?imageMogr2/auto-orient/strip)
+
+![分段.gif](https://upload-images.jianshu.io/upload_images/5632003-f50be5a34e12dfd1.gif?imageMogr2/auto-orient/strip)
 
 
 ####  交流群
