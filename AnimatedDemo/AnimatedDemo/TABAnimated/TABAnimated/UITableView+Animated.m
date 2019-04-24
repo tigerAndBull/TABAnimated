@@ -169,8 +169,9 @@ struct {
     Method newMethod = class_getInstanceMethod([self class], newSelector);
     
     if ([self isKindOfClass:[delegate class]]) {
-        // 如果你采用了将数据代理给予表格本身，这种愚蠢的做法不做处理，将无法使用动画库
+        // 如果你采用了将数据代理给予表格本身，这种愚蠢的做法暂不做处理，将无法使用动画库。
         // method_exchangeImplementations(oldMethod, newMethod);
+        NSAssert(NO, @"Why do you do `self.delegate = self` such a silly thing?");
     }else {
         
         if (oldMethod == nil) {
