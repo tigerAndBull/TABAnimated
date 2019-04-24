@@ -53,18 +53,20 @@
 
         if (nil != self.tabAnimated) {
             
-            switch (self.tabAnimated.animatedStyle) {
+            switch (self.tabAnimated.state) {
                     
                 case TABViewAnimationStart:
                     
                     // change status
-                    self.tabAnimated.animatedStyle = TABViewAnimationRunning;
+                    self.tabAnimated.state = TABViewAnimationRunning;
                     
                     // start animations
                     [TABManagerMethod getNeedAnimationSubViews:self
                                                  withSuperView:self
                                                   withRootView:self];
                     
+                    self.tabLayer.animatedBackgroundColor = self.tabAnimated.animatedBackgroundColor;
+                    self.tabLayer.animatedColor = self.tabAnimated.animatedColor;
                     [self.tabLayer udpateSublayers];
                     
                     // add shimmer animation

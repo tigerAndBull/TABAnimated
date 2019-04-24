@@ -87,9 +87,10 @@ struct {
 }
 
 - (CGFloat)tab_tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     if ([TABViewAnimated sharedAnimated].isUseTemplate) {
         
-        if (tableView.tabAnimated.animatedStyle == TABViewAnimationStart) {
+        if (tableView.tabAnimated.state == TABViewAnimationStart) {
             
             NSAssert(tableView.tabAnimated, @"TABAnimated模版模式强制提醒 - tabAnimated未初始化");
             
@@ -118,7 +119,7 @@ struct {
     // If the animation running, return animatedCount.
     if ([TABViewAnimated sharedAnimated].isUseTemplate) {
         
-        if (tableView.tabAnimated.animatedStyle == TABViewAnimationStart) {
+        if (tableView.tabAnimated.state == TABViewAnimationStart) {
             
             NSInteger index = indexPath.section;
             if (indexPath.section > (tableView.tabAnimated.templateClassArray.count - 1)) {
@@ -136,15 +137,15 @@ struct {
 
 - (void)tab_tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (tableView.tabAnimated.animatedStyle == TABViewAnimationStart) {
+    if (tableView.tabAnimated.state == TABViewAnimationStart) {
         return;
     }
     [self tab_tableView:tableView willDisplayCell:cell forRowAtIndexPath:indexPath];
 }
 
 - (void)tab_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (tableView.tabAnimated.animatedStyle == TABViewAnimationStart ||
-        tableView.tabAnimated.animatedStyle == TABViewAnimationRunning) {
+    if (tableView.tabAnimated.state == TABViewAnimationStart ||
+        tableView.tabAnimated.state == TABViewAnimationRunning) {
         return;
     }
     [self tab_tableView:tableView didSelectRowAtIndexPath:indexPath];
@@ -168,7 +169,8 @@ struct {
     Method newMethod = class_getInstanceMethod([self class], newSelector);
     
     if ([self isKindOfClass:[delegate class]]) {
-           method_exchangeImplementations(oldMethod, newMethod);
+        // 如果你采用了将数据代理给予表格本身，这种愚蠢的做法不做处理，将无法使用动画库
+        // method_exchangeImplementations(oldMethod, newMethod);
     }else {
         
         if (oldMethod == nil) {

@@ -47,7 +47,7 @@
         // 如果父视图开启动画，同时满足闪光灯条件，则为cell添加闪光灯动画
         UICollectionView *superView = (UICollectionView *)self.superview;
         
-        switch (superView.tabAnimated.animatedStyle) {
+        switch (superView.tabAnimated.state) {
                 
             case TABViewAnimationStart:
                 
@@ -56,6 +56,8 @@
                                              withSuperView:superView
                                               withRootView:self];
                 
+                self.tabLayer.animatedBackgroundColor = superView.tabAnimated.animatedBackgroundColor;
+                self.tabLayer.animatedColor = superView.tabAnimated.animatedColor;
                 [self.tabLayer udpateSublayers];
                 
                 // shimmer animation

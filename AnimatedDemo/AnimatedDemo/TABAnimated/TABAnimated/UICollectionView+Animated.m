@@ -92,7 +92,7 @@ struct {
 - (UICollectionViewCell *)tab_collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     if ([TABViewAnimated sharedAnimated].isUseTemplate) {
         
-        if (collectionView.tabAnimated.animatedStyle == TABViewAnimationStart) {
+        if (collectionView.tabAnimated.state == TABViewAnimationStart) {
             
             NSInteger index = indexPath.section;
             if (indexPath.section > (collectionView.tabAnimated.templateClassArray.count - 1)) {
@@ -116,7 +116,7 @@ struct {
 - (CGSize)tab_collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     if ([TABViewAnimated sharedAnimated].isUseTemplate) {
         
-        if (collectionView.tabAnimated.animatedStyle == TABViewAnimationStart) {
+        if (collectionView.tabAnimated.state == TABViewAnimationStart) {
             
             NSAssert(collectionView.tabAnimated, @"TABAnimated模版模式强制提醒 - collectionView未注册模版类");
             
@@ -142,15 +142,15 @@ struct {
 
 - (void)tab_collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (collectionView.tabAnimated.animatedStyle == TABViewAnimationStart) {
+    if (collectionView.tabAnimated.state == TABViewAnimationStart) {
         return;
     }
     [self tab_collectionView:collectionView willDisplayCell:cell forItemAtIndexPath:indexPath];
 }
 
 - (void)tab_collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    if (collectionView.tabAnimated.animatedStyle == TABViewAnimationStart ||
-        collectionView.tabAnimated.animatedStyle == TABViewAnimationRunning) {
+    if (collectionView.tabAnimated.state == TABViewAnimationStart ||
+        collectionView.tabAnimated.state == TABViewAnimationRunning) {
         return;
     }
     [self tab_collectionView:collectionView didSelectItemAtIndexPath:indexPath];
@@ -166,7 +166,8 @@ struct {
     Method newMethod = class_getInstanceMethod([self class], newSelector);
     
     if ([self isKindOfClass:[delegate class]]) {
-        method_exchangeImplementations(oldMethod, newMethod);
+        // 如果你采用了将数据代理给予表格本身，这种愚蠢的做法不做处理，将无法使用动画库
+        // method_exchangeImplementations(oldMethod, newMethod);
     }else {
         
         if (oldMethod == nil) {

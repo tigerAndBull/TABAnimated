@@ -17,8 +17,6 @@
 
 #import <objc/runtime.h>
 
-//static CGFloat defaultDuration = 0.5f;
-
 @implementation TABViewAnimated
 
 #pragma mark - Getter
@@ -35,6 +33,13 @@
         return 12.f;
     }
     return _animatedHeight;
+}
+
+- (UIColor *)animatedBackgroundColor {
+    if (_animatedBackgroundColor) {
+        return _animatedBackgroundColor;
+    }
+    return UIColor.whiteColor;
 }
 
 #pragma mark - Initize Method

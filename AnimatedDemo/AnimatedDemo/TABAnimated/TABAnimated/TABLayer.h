@@ -13,6 +13,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface TABLayer : CALayer
 
+@property (nonatomic,strong) UIColor *animatedColor;
+@property (nonatomic,strong) UIColor *animatedBackgroundColor;
+
 @property (nonatomic,strong) NSMutableArray <NSValue *> *valueArray;
 @property (nonatomic,strong) NSMutableArray <NSNumber *> *labelLinesArray;
 @property (nonatomic,strong) NSMutableArray <NSNumber *> *cornerRadiusArray;

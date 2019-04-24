@@ -101,14 +101,16 @@
     return @[@"UICollectionView and 多section",
              @"UITableView and 单section",
              @"UICollectionView categoryView",
-             @"阴影卡片"];
+             @"阴影卡片",
+             @"深色系"];
 }
 
 - (NSArray *)controllerClassArray {
     return @[@"TemplateCollectionViewController",
              @"TemplateTableViewController",
              @"TemplateCategoryCollectionViewController",
-             @"TemplateCardViewController"];
+             @"TemplateCardViewController",
+             @"TemplateDarkCardViewController"];
 }
 
 @end

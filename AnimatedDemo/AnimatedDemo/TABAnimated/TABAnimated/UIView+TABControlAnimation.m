@@ -13,6 +13,11 @@
 
 - (void)tab_startAnimation {
     
+    if (self.tabAnimated &&
+        self.tabAnimated.state == TABViewAnimationEnd) {
+        return;
+    }
+    
     if (!self.tabAnimated) {
         tabAnimatedLog(@"TABAnimated提醒 - 检测到未进行初始化设置，将以默认属性加载");
         self.tabAnimated = [[TABAnimatedObject alloc] init];
@@ -23,7 +28,7 @@
     }
     
     self.tabAnimated.isAnimating = YES;
-    self.tabAnimated.animatedStyle = TABViewAnimationStart;
+    self.tabAnimated.state = TABViewAnimationStart;
     
     if ([TABViewAnimated sharedAnimated].isUseTemplate) {
         
@@ -90,21 +95,18 @@
     }
 }
 
-- (void)tab_startAnimationWithCompletion:(void (^ __nullable)(BOOL finished))completion {
-    [self tab_startAnimation];
-    if (completion) {
-        completion(nil);
-    }
-}
-
 - (void)tab_endAnimation {
     
     if (!self.tabAnimated) {
-        tabAnimatedLog(@"TABAnimated提醒 - 动画对象已被提前释放，请检查");
+        tabAnimatedLog(@"TABAnimated提醒 - 动画对象已被提前释放");
         return;
     }
     
-    self.tabAnimated.animatedStyle = TABViewAnimationEnd;
+    if (self.tabAnimated.state == TABViewAnimationEnd) {
+        return;
+    }
+    
+    self.tabAnimated.state = TABViewAnimationEnd;
     self.tabAnimated.isAnimating = NO;
     
     if ([self isKindOfClass:[UITableView class]]) {

@@ -1,22 +1,22 @@
 //
-//  TemplateCardViewController.m
+//  TemplateDarkCardViewController.m
 //  AnimatedDemo
 //
-//  Created by tigerAndBull on 2019/4/15.
+//  Created by tigerAndBull on 2019/4/24.
 //  Copyright © 2019 tigerAndBull. All rights reserved.
 //
 
-#import "TemplateCardViewController.h"
+#import "TemplateDarkCardViewController.h"
 
 #import <TABKit/TABKit.h>
 #import "TABAnimated.h"
 #import "MJRefresh.h"
 #import "Game.h"
 
-#import "CardTemplateCollectionViewCell.h"
-#import "CardCollectionViewCell.h"
+#import "DarkCardTemplateCollectionViewCell.h"
+#import "DarkCardCollectionViewCell.h"
 
-@interface TemplateCardViewController ()<UICollectionViewDelegate,UICollectionViewDataSource> {
+@interface TemplateDarkCardViewController ()<UICollectionViewDelegate,UICollectionViewDataSource> {
     NSMutableArray *dataArray;
 }
 
@@ -24,12 +24,12 @@
 
 @end
 
-@implementation TemplateCardViewController
+@implementation TemplateDarkCardViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.view.backgroundColor = kColor(0xEEEEEEFF);
+    self.view.backgroundColor = kColor(0x131626FF);
     [self.view addSubview:self.collectionView];
     dataArray = @[].mutableCopy;
     [self.collectionView tab_startAnimation];
@@ -69,7 +69,7 @@
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return [[CardCollectionViewCell cellSize] CGSizeValue];
+    return [[DarkCardCollectionViewCell cellSize] CGSizeValue];
 }
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
@@ -84,7 +84,7 @@
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    CardCollectionViewCell *cell = [CardCollectionViewCell cellWithIndexPath:indexPath atCollectionView:collectionView];
+    DarkCardCollectionViewCell *cell = [DarkCardCollectionViewCell cellWithIndexPath:indexPath atCollectionView:collectionView];
     [cell updateWithModel:dataArray[indexPath.row]];
     return cell;
 }
@@ -102,10 +102,13 @@
         _collectionView.showsVerticalScrollIndicator = NO;
         _collectionView.bounces = YES;
         _collectionView.contentInset = UIEdgeInsetsMake(0, 0, kSafeAreaHeight, 0);
-        _collectionView.backgroundColor = kColor(0xEEEEEEFF);
-        [_collectionView registerClass:[CardCollectionViewCell class] forCellWithReuseIdentifier:[CardCollectionViewCell cellIdentifier]];
+        _collectionView.backgroundColor = kColor(0x131626FF);
+        [_collectionView registerClass:[DarkCardCollectionViewCell class] forCellWithReuseIdentifier:[DarkCardCollectionViewCell cellIdentifier]];
         
-        _collectionView.tabAnimated = [TABAnimatedObject animatedWithTemplateClass:[CardTemplateCollectionViewCell class]];
+        _collectionView.tabAnimated = [TABAnimatedObject animatedWithTemplateClass:[DarkCardTemplateCollectionViewCell class]];
+        _collectionView.tabAnimated.animatedBackgroundColor = kColor(0x1C2031FF);
+        _collectionView.tabAnimated.animatedColor = UIColor.grayColor;
+        
         _collectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadData)];
         
         if (@available(iOS 11.0, *)) {
@@ -114,5 +117,6 @@
     }
     return _collectionView;
 }
+
 
 @end

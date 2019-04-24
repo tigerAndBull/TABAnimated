@@ -13,6 +13,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CardCollectionViewCell : TABBaseCollectionViewCell
 
+@property (nonatomic,strong) UIImageView *leftImg;
+@property (nonatomic,strong) UILabel *infoLab;
+@property (nonatomic,strong) UILabel *titleLab;
+@property (nonatomic,strong) UILabel *contentLab;
+@property (nonatomic,strong) UILabel *timeLab;
+@property (nonatomic,strong) UILabel *priceLab;
+
+@property (nonatomic,strong) UIView *shadowView;
+
 - (void)updateWithModel:(id)model;
 
 @end

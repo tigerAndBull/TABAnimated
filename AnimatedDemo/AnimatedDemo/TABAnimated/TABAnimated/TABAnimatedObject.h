@@ -60,6 +60,12 @@ typedef NS_ENUM(NSInteger,TABViewSuperAnimationType) {
 + (instancetype)animatedWithTemplateClassArray:(NSArray <Class> *)templateClassArray
                             animatedCountArray:(NSArray <NSNumber *> *)animatedCountArray;
 
+// 决定当前视图动画内容颜色
+@property (nonatomic,strong) UIColor *animatedColor;
+
+// 决定当前视图动画背景颜色
+@property (nonatomic,strong) UIColor *animatedBackgroundColor;
+
 // 一个section对应一个templateClass
 @property (nonatomic,copy) NSArray <NSString *> *templateClassArray;
 
@@ -75,16 +81,15 @@ typedef NS_ENUM(NSInteger,TABViewSuperAnimationType) {
 // 使用该属性时，全局动画类型失效，目标视图将更改为当前属性指定的动画类型。
 @property (nonatomic,assign) TABViewSuperAnimationType superAnimationType;
 
-// 是否在动画中
+// 是否在动画中，在普通模式中，用于快速判断
 // is runing animation or not.
 @property (nonatomic,assign) BOOL isAnimating;
 
+// 在特定场景下，用于重置动画状态
+@property (nonatomic,assign) TABViewAnimationStyle state;
+
 // 是否是嵌套类型视图
 @property (nonatomic,assign) BOOL isNest;
-
-// you do not need care it.
-// 不要修改它，旧版可以使用，1.8.8以上不推荐使用
-@property (nonatomic,assign) TABViewAnimationStyle animatedStyle;
 
 // A string that identifies the user interface element.
 @property (nonatomic,copy) NSString *tabIdentifier;

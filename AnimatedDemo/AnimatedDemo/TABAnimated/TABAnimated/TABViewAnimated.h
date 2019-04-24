@@ -30,8 +30,11 @@ typedef NS_ENUM(NSInteger,TABAnimationType) {
 // TABAnimationTypeShimmer: default is 1.5
 @property (nonatomic,assign) CGFloat animatedDurationShimmer;
 
-// default is 0xEEEEEE. the backgroundcolor of your animations.
+// default is 0xEEEEEE. color of your animations' content.
 @property (nonatomic,strong) UIColor *animatedColor;
+
+// default is UIColor.white. backgroundcolor of your animations.
+@property (nonatomic,strong) UIColor *animatedBackgroundColor;
 
 // 全局圆角
 // 优先级：view设置的圆角 > animatedCornerRadius
@@ -56,7 +59,6 @@ typedef NS_ENUM(NSInteger,TABAnimationType) {
 
 // 是否开启控制台Log提醒
 @property (nonatomic,assign) BOOL openLog;
-
 
 /**
  SingleTon

@@ -17,19 +17,6 @@
 #define imgHeight imgWidth*(130/96.0)
 #define imgWidth 110
 
-@interface CardCollectionViewCell()
-
-@property (nonatomic,strong) UIImageView *leftImg;
-@property (nonatomic,strong) UILabel *infoLab;
-@property (nonatomic,strong) UILabel *titleLab;
-@property (nonatomic,strong) UILabel *contentLab;
-@property (nonatomic,strong) UILabel *timeLab;
-@property (nonatomic,strong) UILabel *priceLab;
-
-@property (nonatomic,strong) UIView *shadowView;
-
-@end
-
 @implementation CardCollectionViewCell
 
 + (NSValue *)cellSize {

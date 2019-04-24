@@ -12,18 +12,11 @@
 static CGFloat defaultHeight = 16.f;
 static CGFloat defaultSpaceWithLines = 8.f;
 
-@interface TABLayer()
-
-@property (nonatomic,assign) BOOL haveLoad;
-
-@end
-
 @implementation TABLayer
 
 - (instancetype)init {
     if (self = [super init]) {
-        
-        self.backgroundColor = [UIColor.whiteColor CGColor];
+
         self.name = @"TABLayer";
         self.anchorPoint = CGPointMake(0, 0);
         self.position = CGPointMake(0, 0);
@@ -44,6 +37,8 @@ static CGFloat defaultSpaceWithLines = 8.f;
 
 - (void)udpateSublayers {
     
+    self.backgroundColor = [self.animatedBackgroundColor CGColor];
+    
     [TABManagerMethod removeSubLayers:self.sublayers];
 
     for (int i = 0; i < self.valueArray.count; i++) {
@@ -62,7 +57,7 @@ static CGFloat defaultSpaceWithLines = 8.f;
             layer.anchorPoint = CGPointMake(0, 0);
             layer.position = CGPointMake(0, 0);
             layer.frame = rect;
-            layer.backgroundColor = [TABViewAnimated sharedAnimated].animatedColor.CGColor;
+            layer.backgroundColor = self.animatedColor.CGColor;
             
             if (cornerRadius == 0.) {
                 if ([TABViewAnimated sharedAnimated].animatedCornerRadius != 0.) {
@@ -104,7 +99,7 @@ static CGFloat defaultSpaceWithLines = 8.f;
         layer.anchorPoint = CGPointMake(0, 0);
         layer.position = CGPointMake(0, 0);
         layer.frame = rect;
-        layer.backgroundColor = [TABViewAnimated sharedAnimated].animatedColor.CGColor;
+        layer.backgroundColor = self.animatedColor.CGColor;
         
         if (cornerRadius == 0.) {
             if ([TABViewAnimated sharedAnimated].animatedCornerRadius != 0.) {
@@ -149,6 +144,32 @@ static CGFloat defaultSpaceWithLines = 8.f;
     }
     
     return rect;
+}
+
+#pragma mark - Getter / Setter
+
+@synthesize animatedColor = _animatedColor;
+- (UIColor *)animatedColor {
+    if (_animatedColor) {
+        return _animatedColor;
+    }
+    return [TABViewAnimated sharedAnimated].animatedColor;
+}
+
+- (void)setAnimatedColor:(UIColor *)animatedColor {
+    _animatedColor = animatedColor;
+}
+
+@synthesize animatedBackgroundColor = _animatedBackgroundColor;
+- (UIColor *)animatedBackgroundColor {
+    if (_animatedBackgroundColor) {
+        return _animatedBackgroundColor;
+    }
+    return [TABViewAnimated sharedAnimated].animatedBackgroundColor;
+}
+
+- (void)setAnimatedBackgroundColor:(UIColor *)animatedBackgroundColor {
+    _animatedBackgroundColor = animatedBackgroundColor;
 }
 
 @end

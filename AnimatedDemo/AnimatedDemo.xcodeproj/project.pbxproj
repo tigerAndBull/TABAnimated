@@ -132,6 +132,9 @@
 		685D5BDF226A047B0058A6CC /* CardTemplateCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 685D5BDE226A047B0058A6CC /* CardTemplateCollectionViewCell.m */; };
 		685D5BE2226A048E0058A6CC /* CardCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 685D5BE0226A048E0058A6CC /* CardCollectionViewCell.m */; };
 		688BBA2822578F160008FD5D /* TestTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 688BBA2622578F160008FD5D /* TestTableViewController.m */; };
+		68958D2D22701036002C4295 /* TemplateDarkCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68958D2C22701036002C4295 /* TemplateDarkCardViewController.m */; };
+		68958D3022701328002C4295 /* DarkCardTemplateCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 68958D2F22701328002C4295 /* DarkCardTemplateCollectionViewCell.m */; };
+		68958D33227015A8002C4295 /* DarkCardCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 68958D32227015A8002C4295 /* DarkCardCollectionViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -409,6 +412,12 @@
 		685D5BE1226A048E0058A6CC /* CardCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardCollectionViewCell.h; sourceTree = "<group>"; };
 		688BBA2622578F160008FD5D /* TestTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestTableViewController.m; sourceTree = "<group>"; };
 		688BBA2722578F160008FD5D /* TestTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestTableViewController.h; sourceTree = "<group>"; };
+		68958D2B22701036002C4295 /* TemplateDarkCardViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TemplateDarkCardViewController.h; sourceTree = "<group>"; };
+		68958D2C22701036002C4295 /* TemplateDarkCardViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TemplateDarkCardViewController.m; sourceTree = "<group>"; };
+		68958D2E22701328002C4295 /* DarkCardTemplateCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DarkCardTemplateCollectionViewCell.h; sourceTree = "<group>"; };
+		68958D2F22701328002C4295 /* DarkCardTemplateCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DarkCardTemplateCollectionViewCell.m; sourceTree = "<group>"; };
+		68958D31227015A8002C4295 /* DarkCardCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DarkCardCollectionViewCell.h; sourceTree = "<group>"; };
+		68958D32227015A8002C4295 /* DarkCardCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DarkCardCollectionViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -451,6 +460,8 @@
 			children = (
 				685D5BDD226A047B0058A6CC /* CardTemplateCollectionViewCell.h */,
 				685D5BDE226A047B0058A6CC /* CardTemplateCollectionViewCell.m */,
+				68958D2E22701328002C4295 /* DarkCardTemplateCollectionViewCell.h */,
+				68958D2F22701328002C4295 /* DarkCardTemplateCollectionViewCell.m */,
 				685D5B5322670ABD0058A6CC /* CommentTemplateCollectionViewCell.h */,
 				685D5B5222670ABD0058A6CC /* CommentTemplateCollectionViewCell.m */,
 				6815673A2264233C00293AB4 /* LawyerTemplateCollectionViewCell.h */,
@@ -531,6 +542,8 @@
 				681567382264218000293AB4 /* TemplateCategoryCollectionViewController.m */,
 				685D5ABA2264DE100058A6CC /* TemplateCardViewController.h */,
 				685D5ABB2264DE100058A6CC /* TemplateCardViewController.m */,
+				68958D2B22701036002C4295 /* TemplateDarkCardViewController.h */,
+				68958D2C22701036002C4295 /* TemplateDarkCardViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -879,6 +892,8 @@
 			children = (
 				685D5BE1226A048E0058A6CC /* CardCollectionViewCell.h */,
 				685D5BE0226A048E0058A6CC /* CardCollectionViewCell.m */,
+				68958D31227015A8002C4295 /* DarkCardCollectionViewCell.h */,
+				68958D32227015A8002C4295 /* DarkCardCollectionViewCell.m */,
 				68156742226423D900293AB4 /* LawyerArticleCollectionViewCell.h */,
 				68156741226423D900293AB4 /* LawyerArticleCollectionViewCell.m */,
 				6815673E226423A800293AB4 /* LawyerCollectionViewCell.h */,
@@ -1165,6 +1180,7 @@
 				68156740226423A900293AB4 /* LawyerCollectionViewCell.m in Sources */,
 				681567132264214F00293AB4 /* JXCategoryIndicatorLineView.m in Sources */,
 				6815671A2264214F00293AB4 /* JXCategoryIndicatorBackgroundView.m in Sources */,
+				68958D2D22701036002C4295 /* TemplateDarkCardViewController.m in Sources */,
 				685D5B012265D05F0058A6CC /* MJRefreshAutoNormalFooter.m in Sources */,
 				2039EF9C21DA17A600AE09FC /* MASCompositeConstraint.m in Sources */,
 				685D5B3B2265D14B0058A6CC /* UIView+Animated.m in Sources */,
@@ -1172,6 +1188,7 @@
 				685D5B3F2265D14B0058A6CC /* TABBaseCollectionViewCell.m in Sources */,
 				20A0159A216A538F0082425D /* MainViewController.m in Sources */,
 				6815673C2264233D00293AB4 /* LawyerTemplateCollectionViewCell.m in Sources */,
+				68958D33227015A8002C4295 /* DarkCardCollectionViewCell.m in Sources */,
 				685D5AFA2265D05F0058A6CC /* NSBundle+MJRefresh.m in Sources */,
 				685D5B5422670ABD0058A6CC /* CommentTemplateCollectionViewCell.m in Sources */,
 				685D5B022265D05F0058A6CC /* MJRefreshNormalHeader.m in Sources */,
@@ -1258,6 +1275,7 @@
 				685D5B042265D05F0058A6CC /* MJRefreshGifHeader.m in Sources */,
 				685D5B372265D14B0058A6CC /* TABAnimatedObject.m in Sources */,
 				6815671E2264214F00293AB4 /* JXCategoryDotCell.m in Sources */,
+				68958D3022701328002C4295 /* DarkCardTemplateCollectionViewCell.m in Sources */,
 				685D5AF62265D05F0058A6CC /* UIScrollView+MJRefresh.m in Sources */,
 				6815672A2264214F00293AB4 /* JXCategoryNumberView.m in Sources */,
 				20E72D7D2226EEBB00E781C9 /* ViewExampleViewController.m in Sources */,

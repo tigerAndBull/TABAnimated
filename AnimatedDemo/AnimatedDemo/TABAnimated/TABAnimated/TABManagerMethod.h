@@ -19,8 +19,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (BOOL)judgeViewIsNeedAddAnimation:(UIView *)view;
 
-
-
 + (BOOL)canAddShimmer:(UIView *)view;
 
 + (BOOL)canAddBinAnimation:(UIView *)view;

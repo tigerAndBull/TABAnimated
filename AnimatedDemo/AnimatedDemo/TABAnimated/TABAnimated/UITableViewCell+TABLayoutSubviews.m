@@ -53,7 +53,7 @@
             superView = (UITableView *)self.superview;
         }
         
-        switch (superView.tabAnimated.animatedStyle) {
+        switch (superView.tabAnimated.state) {
                 
             case TABViewAnimationStart:
                 
@@ -62,6 +62,8 @@
                                              withSuperView:superView
                                               withRootView:self];
                 
+                self.tabLayer.animatedBackgroundColor = superView.tabAnimated.animatedBackgroundColor;
+                self.tabLayer.animatedColor = superView.tabAnimated.animatedColor;
                 [self.tabLayer udpateSublayers];
                 
                 // add shimmer animation
