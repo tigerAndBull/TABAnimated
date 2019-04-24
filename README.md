@@ -2,7 +2,7 @@
 <img src="https://upload-images.jianshu.io/upload_images/5632003-14498d8a6c786224.png"/>
 </div>
 
-#### the lastest version is 2.0.3.2
+#### the lastest version is 2.0.3.2 [中文文档](https://www.jianshu.com/p/6a0ca4995dff)
 
 ## About TABAnimated
 
