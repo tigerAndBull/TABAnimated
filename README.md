@@ -19,6 +19,23 @@
 
 #### the lastest version is 2.0.3.2 [中文文档](https://www.jianshu.com/p/6a0ca4995dff)
 
+* [About TABAnimated](#About-TABAnimated)
+* [Realization Principle](#Realization-Principle)
+* [TABAnimated has two patterns](#TABAnimated-has-two-patterns)
+* [Features](#Features)
+* [Install](#Install)  
+  * [Cocoapods](#Using-CocoaPods)
+  * [Manually](#Manually)
+* [Effect Drawing](#Effect-Drawing)
+* [How to use](#How-to-use)
+  * [Use Template Pattern](#Use-Template-Pattern)
+  * [Use Normal Pattern](#Use-Normal-Pattern)
+* [Tips](#Tips)
+* [Properties](#More-Global-Properties)
+* [Author](#Author)
+* [Hope](#Hope)
+* [License](#License)
+
 ## About TABAnimated
 
 The origin of `TABAnimated` by imitating [jianshu](https://www.jianshu.com/) animation in chinese palform early, i was attracted by its dynamics in Mid 2018.
@@ -57,12 +74,12 @@ If you care coupling, you can use normal pattern. Meanwhile, you need create a n
 
 ## Install
 
-Using CocoaPods
+#### Using CocoaPods
 
 ```
 pod 'TABAnimated'
 ```
-Manually
+#### Manually
 
 Drag the folder named by `TABAnimated` to your project
 
@@ -105,8 +122,6 @@ Drag the folder named by `TABAnimated` to your project
 </tr>
 </table>
 
-Certainly, this is just a simple example of my casual writing.
-
 ## How to use
 
 you need only 4 steps
@@ -131,7 +146,7 @@ you need only 4 steps
 
 But evevryone have different views, `TABAnimated` used to solve the problem better.
 
-#### On Template Pattern
+#### Use Template Pattern
 
 Template pattern on `UITableView` and `UICollectionView` only.
 Normal view looks like a superfluous move when useing template pattern.
@@ -198,7 +213,7 @@ UICollectionViewCell
 
 ##### tips: TABAnimatedObject have more properties, you can find them on `TABAnimatedObject.h`.
 
-#### On Normal Pattern
+#### Use Normal Pattern
 
 1. set properties
 
@@ -222,7 +237,9 @@ self.titleLab = lab;
 3. [self.collectionView tab_startAnimation];
 4. [self.collectionView tab_endAnimation];
 
-## Other tips when using on normal pattern
+## Tips
+
+when using on normal pattern
 
 1. specificing when having none data.
 
@@ -244,7 +261,7 @@ self.titleLab = lab;
 }
 ```
 
-2. same as 1, you can also do by this.
+2. same as 1, you can also do by the following method.
 
 ```
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -287,7 +304,7 @@ _mainTV.animatedDelegate = self;
 _collectionView.tabAnimated.isNest = YES;
 ```
 
-## Other Gobal Propertie
+## More Global Properties
 
 | init methods| name | 
 | ------ | ------ | 
@@ -306,11 +323,16 @@ If you set the control view `superAnimationType`, the animation type of the cont
 |templateTableViewCell|pattern|common|0.|
 |templateCollectionViewCell| pattern|common|0.|
 
-#### I sincerely hope that you can make better use of this library.
-
-## About Author
+## Author
 
 email:1429299849@qq.com
+
+## Hope
+
+Demo is just a simple example I wrote, you can use the framework to play a more attractive effect. It has gone through many projects. This framework can solve all the problems in your project, conquer it quickly!
+
+If you have any questions or suggestions, you can contact me by email. I'm looking forward to it.
+Surely, you can also push your code to me on this.
 
 ## License
 
