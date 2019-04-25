@@ -2,6 +2,21 @@
 <img src="https://upload-images.jianshu.io/upload_images/5632003-14498d8a6c786224.png"/>
 </div>
 
+<p style="align: center">
+    <a href="https://github.com/tigerAndBull/TABAnimated">
+       <img src="https://img.shields.io/badge/platform-iOS-blue.svg?style=plastic">
+    </a>
+    <a href="https://github.com/tigerAndBull/TABAnimated">
+       <img src="https://img.shields.io/badge/language-objective--c-blue.svg">
+    </a>
+    <a href="https://cocoapods.org/pods/TABAnimated">
+       <img src="https://img.shields.io/badge/cocoapods-supported-4BC51D.svg?style=plastic">
+    </a>
+    <a href="https://github.com/tigerAndBull/TABAnimated">
+       <img src="https://img.shields.io/badge/support-ios%208%2B-orange.svg">
+    </a>
+</p>
+
 #### the lastest version is 2.0.3.2 [中文文档](https://www.jianshu.com/p/6a0ca4995dff)
 
 ## About TABAnimated
