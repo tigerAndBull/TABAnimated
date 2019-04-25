@@ -22,7 +22,7 @@ Almost all views can be resolved by `TABAnimated`.
 When views have not enough condition to know position with none data, 
 `TABAnimated` can use default data to fill them up. 
 
-## TABAnimated has tow patterns
+## TABAnimated has two patterns
 
 why?
 
