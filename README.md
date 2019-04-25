@@ -56,7 +56,14 @@ When views have not enough condition to know position with none data,
 
 ## TABAnimated has two patterns
 
-why?
+Which two kinds?
+
+Nomal pattern and template pattern.
+
+Why?
+
+First, for a normal view, there is no distinction between patterns. you do not care it.
+The concept of the template pattern is for tableView and collectionView only.
 
 In most cases, if `TABAnimated` create animations by origin views' position, the animation is not beautiful,
 but you just need to make the right adjustments to look good by `TABAnimated`.
