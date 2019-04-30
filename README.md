@@ -1,3 +1,6 @@
+如果你此时看到这里你必须要知道，
+将在五一期间发布一个比较重要的版本，合并当前两大模式。
+
 <div style="align: center">
 <img src="https://upload-images.jianshu.io/upload_images/5632003-14498d8a6c786224.png"/>
 </div>
