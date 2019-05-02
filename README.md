@@ -34,7 +34,7 @@
 * [Tips](#Tips)
 * [Attribute Related](#Attribute-Related)
 * [Author](#Author)
-* [Lastly](#Last)
+* [Lastly](#Lastly)
 * [License](#License)
 
 ## About TABAnimated
