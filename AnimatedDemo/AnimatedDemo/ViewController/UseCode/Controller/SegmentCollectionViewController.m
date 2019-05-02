@@ -141,7 +141,7 @@
         collectionView.showsHorizontalScrollIndicator = NO;
         collectionView.showsVerticalScrollIndicator = NO;
         collectionView.bounces = YES;
-        collectionView.contentInset = UIEdgeInsetsMake(0, 0, kSafeAreaHeight, 0);
+        collectionView.contentInset = UIEdgeInsetsMake(0, 0, kSafeAreaHeight+kNavigationHeight, 0);
         
         if (@available(iOS 11.0, *)) {
             collectionView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
@@ -165,8 +165,8 @@
             [TABCollectionAnimated animatedWithCellClass:[LawyerArticleCollectionViewCell class]
                                                 cellSize:[LawyerArticleCollectionViewCell cellSize]];
             collectionView.tabAnimated.categoryBlock = ^(UIView * _Nonnull view) {
-                view.animation(1).height(12).up(-10).width(60);
-                view.animation(2).height(12).width(90);
+                view.animation(1).height(12).up(-3).width(60);
+                view.animation(2).height(12).width(90).up(2);
                 view.animation(3).up(10);
             };
         }
