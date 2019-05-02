@@ -1,6 +1,3 @@
-如果你此时看到这里你必须要知道，
-将在五一期间发布一个比较重要的版本，合并当前两大模式。
-
 <div style="align: center">
 <img src="https://upload-images.jianshu.io/upload_images/5632003-14498d8a6c786224.png"/>
 </div>
@@ -20,336 +17,350 @@
     </a>
 </p>
 
-#### the lastest version is 2.0.3.2 [中文文档](https://www.jianshu.com/p/6a0ca4995dff)
+###### the lastest version is v2.0.4 [中文文档](https://www.jianshu.com/p/6a0ca4995dff)
+
+## Catalog
 
 * [About TABAnimated](#About-TABAnimated)
-* [Realization Principle](#Realization-Principle)
-* [TABAnimated has two patterns](#TABAnimated-has-two-patterns)
-* [Features](#Features)
-* [Install](#Install)  
+* [Implementation Principle](#Implementation-Principle)
+* [Benefits](#Benefits)
+* [Evolution Process](#Evolution-Process)
+* [Effects](#Effects)
+* [Installation](#Installation)  
   * [Cocoapods](#Using-CocoaPods)
-  * [Manually](#Manually)
-* [Effect Drawing](#Effect-Drawing)
-* [How to use](#How-to-use)
-  * [Use Template Pattern](#Use-Template-Pattern)
-  * [Use Normal Pattern](#Use-Normal-Pattern)
+  * [Manually](#Manual-Import)
+* [Usage](#Usage)
+* [Extension-Callback](#Extension-Callback)
 * [Tips](#Tips)
-* [Properties](#More-Global-Properties)
+* [Attribute Related](#Attribute-Related)
 * [Author](#Author)
-* [Hope](#Hope)
+* [Lastly](#Lastly)
 * [License](#License)
 
 ## About TABAnimated
 
-The origin of `TABAnimated` by imitating [jianshu](https://www.jianshu.com/) animation in chinese palform early, i was attracted by its dynamics in Mid 2018.
-But i remove it over version 2.0, because i changed the realization principle of `TABAnimated` to cut coupling.
+The origin version of `TABAnimated` is the dynamic effect of the skeleton screen of the [jianshu](https://www.jianshu.com/) web page.
+I have explored the template mode in v1.9, but the repetitive workload is not conducive to rapid construction.
+Moreover, the existence of the two modes is unreasonable, so this setting is deleted in v2.1, but the appearance of the template mode to delete is not unproductive, but instead brings a more reasonable implementation scheme and a more convenient construction method.
 
-## Realization Principle
+## Implementation Principle
 
-`TABAnimated` needs a control view, the view used to start or end animations.
-all subviews onto the control view added to the animation queue acquiescently. 
-Of course, you can remove specific views without the animation queue.
-`TABAnimated` create a group of `TABLayer` according to their position.
-(`TABLayer` is the subclass of `CALayer`.)
+`TABAnimated` requires a control view to make the switch animation. All subViews under this control view will be added to the animation queue.
 
-Almost all views can be resolved by `TABAnimated`.
+`TABAnimated` creates `TABCompentLayer` by controlling the position of the subViews of the view and related information.
+Normal control view with a `TABLayer`
+Table view, each cell has a `TABLayer`
+`TABLayer` is responsible for managing and displaying all `TABCompentLayer`.
 
-When views have not enough condition to know position with none data, 
-`TABAnimated` can use default data to fill them up. 
+When using constraints for layout, if the constraints are insufficient and there is no data, the location information of subViews will not be reflected, and TABAnimated will pre-populate the data.
 
-## TABAnimated has two patterns
+## Benefits
 
-Which two kinds?
+- Rapid integration
+- Zero coupling, easy to wrap its animation logic into the base library
+- High performance with minimal memory loss
+- Chained syntax, fast and easy to read
+- Fully customizable to fit 99.99% view
 
-Nomal pattern and template pattern.
+## Evolution Process
 
-Why?
+Can't see clearly, you can zoom in
 
-First, for a normal view, there is no distinction between patterns. you do not care it.
-The concept of the template pattern is for tableView and collectionView only.
+![origin.png](https://upload-images.jianshu.io/upload_images/5632003-8a373e3d07820664.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-In most cases, if `TABAnimated` create animations by origin views' position, the animation is not beautiful,
-but you just need to make the right adjustments to look good by `TABAnimated`.
-so, if you don't care coupling in your project, you can use normal pattern.
-If you care coupling, you can use normal pattern. Meanwhile, you need create a new template file.
+**Briefly explain**:
 
-## Features
+The first picture: the original table component, the display situation when there is data
 
--  Use three seconds to integrate it
--  Zero coupling
--  High Performance
--  All views you can see
--  Fully customized
--  Code is beautiful
+The second picture: is the animation group mapped after the table component starts the animation. I believe you can see that the effect is not very beautiful.
 
-## Install
+The third picture: for this unsightly animation group, through the callback, pre-processing, the following description
+
+## Effects
+
+| Dynamic | Card View | Bin Animation |
+| ------ | ------ | ------ |
+| ![dynmic.gif](https://upload-images.jianshu.io/upload_images/5632003-56c9726a027ca5e2.gif?imageMogr2/auto-orient/strip) | ![card.gif](https://upload-images.jianshu.io/upload_images/5632003-fd01c795bb3f9e1a.gif?imageMogr2/auto-orient/strip) | ![bin.gif](https://upload-images.jianshu.io/upload_images/5632003-683062be0a23d5b8.gif?imageMogr2/auto-orient/strip) |
+
+| Shimmer Animation | Segment View | Nested Tables |
+| ------ | ------ | ------ |
+| ![shimmer.gif](https://upload-images.jianshu.io/upload_images/5632003-6096ab323f4ae075.gif?imageMogr2/auto-orient/strip) | ![segment.gif](https://upload-images.jianshu.io/upload_images/5632003-4da2062be691cf0b.gif?imageMogr2/auto-orient/strip) | ![nest.gif](https://upload-images.jianshu.io/upload_images/5632003-43d1b30bbc3c5654.gif?imageMogr2/auto-orient/strip) |
+
+## Installation
 
 #### Using CocoaPods
 
 ```
-pod 'TABAnimated'
+Pod 'TABAnimated'
 ```
-#### Manually
 
-Drag the folder named by `TABAnimated` to your project
+#### Manual Import
 
-## Effect Drawing
+Drag the TABAnimated folder into the project.
 
-<table>
-<tr>
-<td width="20%">
-<center>Template - card</center>
-</td>
-<td width="20%">
-<center>Template - bin</center>
-</td>
-<td width="20%">
-<center>Template - shimmer</center>
-</td>
-<td width="20%">
-<center>Template - segment</center>
-</td>
-<td width="20%">
-<center>Normal - skeleton</center>
-</td>
-</tr>
-<tr>
-<td width="20%">
-<img src="https://upload-images.jianshu.io/upload_images/5632003-47f991e3d8729075.gif"></img>
-</td>
-<td width="20%">
-<img src="https://upload-images.jianshu.io/upload_images/5632003-f05eaec5e159df0d.gif"></img>
-</td>
-<td width="20%">
-<img src="https://upload-images.jianshu.io/upload_images/5632003-dc5980b6178839c5.gif"></img>
-</td>
-<td width="20%">
-<img src="https://upload-images.jianshu.io/upload_images/5632003-f50be5a34e12dfd1.gif"></img>
-</td>
-<td width="20%">
-<img src="https://upload-images.jianshu.io/upload_images/5632003-7249862124eb2d76.gif"></img>
-</td>
-</tr>
-</table>
+## Usage
 
-## How to use
+You only need four steps
 
-you need only 4 steps
+1. Initialize `TABAimated` in `didFinishLaunchingWithOptions`
 
-1. import 'TABAnimated.h', advise you to set it on `.pch`
-2. init `TABAimated` on `didFinishLaunchingWithOptions`
+There are other global properties, which are presented below in a table.
 
 ```
 // init `TABAnimated`, and set the properties you need.
-[[TABViewAnimated sharedAnimated] initWithOnlySkeleton];
-// demo changes the pattern quietly.
-// you can change the pattern in different views.
-[TABViewAnimated sharedAnimated].isUseTemplate = YES;
+[[TABAnimated sharedAnimated] initWithOnlySkeleton];
 // open log
-[TABViewAnimated sharedAnimated].openLog = YES;
-// set gobal cornerRadius
-[TABViewAnimated sharedAnimated].animatedCornerRadius = 3.f;
+[TABAnimated sharedAnimated].openLog = YES;
 ```
 
-3. [self.rootControlView tab_startAnimation];
-4. [self.rootControlView tab_endAnimation];
+2. Control view initialization tabAnimated
 
-But evevryone have different views, `TABAnimated` used to solve the problem better.
-
-#### Use Template Pattern
-
-Template pattern on `UITableView` and `UICollectionView` only.
-Normal view looks like a superfluous move when useing template pattern.
-
-1.set `TABAnimatedObject` properties
+Ordinary view:
 
 ```
-_collectionView.tabAnimated = [TABAnimatedObject animatedWithTemplateClass:[TABTemplateCollectionViewCell class] animatedCount:4];
+self.mainView.tabAnimated = TABViewAnimated.new;
+self.mainView.tabAnimated.categoryBlock = ^(UIView * _Nonnull view) {
+        View.animation(1).width(200);
+        View.animation(2).width(220);
+        View.animation(3).width(180);
+ };
 ```
 
-TABAnimatedObject init methods
+Table component:
 
 ```
-/**
- one section
- animation count full contentSize
- 
- @param templateClass
- @return TABAnimatedObject.new
- */
-+ (instancetype)animatedWithTemplateClass:(Class)templateClass;
-
-/**
- one section
- specific animation count
- 
- @param templateClass TABAnimatedObject.new
- @param animatedCount
- @return object
- */
-+ (instancetype)animatedWithTemplateClass:(Class)templateClass
-                            animatedCount:(NSInteger)animatedCount;
-
-/**
- sections
-
- @param templateClassArray
- @param animatedCountArray
- @return object
- */
-+ (instancetype)animatedWithTemplateClassArray:(NSArray <Class> *)templateClassArray
-                            animatedCountArray:(NSArray <NSNumber *> *)animatedCountArray;
+_collectionView.tabAnimated =
+[TABCollectionAnimated animatedWithCellClass:[NewsCollectionViewCell class]
+                                    cellSize:[NewsCollectionViewCell cellSize]];
+_collectionView.tabAnimated.categoryBlock = ^(UIView * _Nonnull view) {
+        View.animation(1).reducedWidth(20).down(2);
+        View.animation(2).reducedWidth(-10).up(1);
+        View.animation(3).down(5).line(4);
+        View.animations(4,3).radius(3).down(5);
+};
 ```
 
-the array has security handling:
-
-when animatedCountArray.count > section.count，the extra on animatedCountArray is not effective.
-when animatedCountArray.count < section.count，the financial departments load by animatedCountArray.lastobject.
-
-2. create template
-
-UITableViewCell
-> + create new cell，inherit `TABBaseTableViewCell`
-> + override `+ (NSNumber *)cellHeight` to set cellHeight
-> + init subviews on it，and set positions
-
-UICollectionViewCell
-> + create new cell，inherit `继承自TABBaseCollectionViewCell`
-> + override `+ (NSValue *)cellSize` to set cellSize
-> + init subviews on it，and set positions
-
-3. [self.collectionView tab_startAnimation];
-4. [self.collectionView tab_endAnimation];
-
-##### tips: TABAnimatedObject have more properties, you can find them on `TABAnimatedObject.h`.
-
-#### Use Normal Pattern
-
-1. set properties
+3. Turn on the animation
 
 ```
-TABAnimatedObject *tabAnimated = TABAnimatedObject.new;
-tabAnimated.animatedCount = 3;
-_tableView.tabAnimated = tabAnimated;
+[self.collectionView tab_startAnimation];
 ```
 
-2. use `loadStyle` - `TABViewLoadAnimationRemove`, cancel add
+4. Turn off the animation
 
 ```
-UILabel *lab = [[UILabel alloc]init];
-[lab setFont:tab_kFont(15)];
-lab.loadStyle = TABViewLoadAnimationRemove;   // remove it
-[lab setTextColor:[UIColor blackColor]];    
-self.titleLab = lab;
-[self.contentView addSubview:lab];
+[self.collectionView tab_endAnimation];
 ```
 
-3. [self.collectionView tab_startAnimation];
-4. [self.collectionView tab_endAnimation];
+UIView corresponds to `TABViewAnimated`
+
+UITableView corresponds to `TABTableAnimated`
+
+UICollectionView corresponds to `TABCollectionAnimated`
+
+There are also other initialization methods that support multiple sections.
+
+In general, the registered cell can be mapped with the original cell.
+
+**Special application scenarios**:
+
+For example, there are many types of Sina Weibo post pages.
+Such a complicated page, rising to the animation level is definitely to design a unified animation.
+At this time, you can rewrite a cell, then register to the form, and map out the visual effects you want through this framework. This is also the evolution of the template function.
+
+For additional details, continue to add additional documentation or view it on the github demo.
+
+## Extended Callback
+
+The extension callback gives the animation group to the developer, which the developer can adjust.
+Because it is an adjustment, the chain syntax is added to allow developers to adjust quickly and easily.
+
+```
+_collectionView.tabAnimated.categoryBlock = ^(UIView * _Nonnull view) {
+        View.animation(1).reducedWidth(20).down(2);
+        View.animation(2).reducedWidth(-10).up(1);
+        View.animation(3).down(5).line(4);
+        View.animations(4,3).radius(3).down(5);
+};
+```
+
+**Parameter description** (also detailed in the framework)
+
+view.animation(x): The animation of the specified subscript of the view `TABCompentLayer`
+
+view.animations(x,x): An array of animated individuals of the specified range of the view for uniform adjustment
+
+up(x): How much to move up
+
+down(x): How much to move down
+
+left(x): How many moves to the left
+
+right(x): How many moves to the right
+
+height(x): modify height
+
+Width(x): modify the width
+
+reducedWidth(x): How much is the width compared to before
+
+reducedHeight(x): How much is the height compared to before
+
+radius(x): rounded corners
+
+line(x): number of lines
+
+space(x): spacing
+
+These two parameters, if it is multi-line text, take effect by default according to the number of `numberOfLines`
+Ordinary animated individuals can also set these two properties to achieve the same effect.
+
+remove(): Move out the animation group
+
+toLongAnimation(): Give the individual a dynamic variable length animation
+
+toShortAnimation(): Give the individual a dynamic shortening animation
+
+special reminder:
+
+> + In the `TABAnimated.h` file, there are global animation parameters
+> + In `TABViewAnimated.h`, there are parameters for all animations in the control view
+> + The above chained grammar, modified by specific animated individuals
+
+priority:
+
+Animated Individual Parameter Configuration > Control View Animation Parameter Configuration > Global Animation Parameter Configuration
 
 ## Tips
 
-when using on normal pattern
+1. Q: Which animation component corresponds to which component?
 
-1. specificing when having none data.
+answer:
 
-```
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    static NSString *str = @"TestTableViewCell";
-    TestTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:str];
-    if (!cell) {
-        cell = [[TestTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:str];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    }
-    
-    if (!_tableView.tabAnimated.isAnimating) {
-        [cell initWithData:dataArray[indexPath.row]];
-    }
+If you build with pure code, then you add the subscripts of the animation array corresponding to the component order,
+For example, if the first one is added to the cell, then its corresponding animation component is: view.animation(0)
+And so on, just open your cell file and look at the hierarchy to make adjustments.
 
-    return cell;
-}
-```
+However, if you create with xib, it's a pity to tell you that the order is the order in which the xib files are associated.
+The xib in the demo did a wrong demonstration, and there was a pit of caution.
+There are no other good ways to find it, and I hope to collect your suggestions.
 
-2. same as 1, you can also do by the following method.
+2. `UILabel` with Multi-line
 
-```
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    static NSString *str = @"TestTableViewCell";
-    TestTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:str];
-    if (!cell) {
-        cell = [[TestTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:str];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    }
-    return cell;
-}
+![line.png](https://upload-images.jianshu.io/upload_images/5632003-866d8adb77e4310c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    TestTableViewCell *myCell = (TestTableViewCell *)cell;
-    [myCell initWithData:dataArray[indexPath.row]];
-}
-```
+As mentioned above, here again,
+You can use .line(x) to set the number of lines. space(x) to set the spacing.
+Each animation component can set these two properties to achieve the same effect.
 
-3. set animatedDelegate or set `animatedCountArray`
+3. Multiple sections can be solved by the new form proxy method
 
-(1) `UITableViewAnimatedDelegate` and `UICollectionViewAnimatedDelegate`
+But it is not recommended, because the initialization method can be completely solved.
+
+`UITableViewAnimatedDelegate` and `UICollectionViewAnimatedDelegate`
 ```
 _mainTV.animatedDelegate = self;
 ```
 ```
 - (NSInteger)tableView:(UITableView *)tableView numberOfAnimatedRowsInSection:(NSInteger)section {
-    if (section == 0) {
-        return 5;
-    }
-    return 3;
+    If (section == 0) {
+        Return 5;
+    }
+    Return 3;
 }
 ```
 
-(2) self.tableView.tabAnimated.animatedCountArray = @[@(3),@(3)];
-
-4. nest about tableView or collectionView
+4. Expand the callback when using multiple sections
 
 ```
+_collectionView.tabAnimated.categoryBlock = ^(UIView * _Nonnull view) {
+            
+      If ([view isKindOfClass:[CourseCollectionViewCell class]]) {
+
+      }
+            
+      If ([view isKindOfClass:[DailyCollectionViewCell class]]) {
+            View.animations(1,3).height(14);
+            View.animation(2).down(6);
+            View.animation(1).up(1);
+            View.animation(3).up(6);
+      }
+  };
+```
+
+5. For nested table components, the `isNest` attribute of the table component to be nested needs to be set to `YES`. See demo for details.
+
+```
+_collectionView.tabAnimated = [[TABAnimatedObject alloc] init];
 _collectionView.tabAnimated.isNest = YES;
+_collectionView.tabAnimated.animatedCount = 3;
 ```
 
-## More Global Properties
+## Attribute Related
 
-| init methods| name | 
-| ------ | ------ | 
-| initWithOnlySkeleton | only Skeleton | 
-| initWithBinAnimation | bin Animation | 
-| initWithShimmerAnimated | Shimmer Animation | 
+| Initialization Method | Name |
+| ------ | ------ |
+| initWithOnlySkeleton | Skeleton Screen |
+| initWithBinAnimation | Breathing Light Animation |
+| initWithShimmerAnimated | Flash Animation |
 
-If you set the control view `superAnimationType`, the animation type of the control view according to `superAnimationType`.
+If the control view's `superAnimationType` is set, it will be loaded with the animation type declared by `superAnimationType`
 
-| name | pattern | animation| default|
-| ------ | ------ |  ------ | ------ |
-|animatedColor| common |common|0xEEEEEE |
-|animatedDurationShimmer|common|shimmer animation| 1.5 |
-|animatedHeightCoefficient|common|common|0.75|
-|animatedCornerRadius|common|common|0.|
-|templateTableViewCell|pattern|common|0.|
-|templateCollectionViewCell| pattern|common|0.|
+**Global animation properties: **
+
+Instructions
+
+```
+[TABAnimated shareAnimated].xxx = xxx;
+```
+
+| Property Name | Applicable Animation | Meaning | Default |
+| ------ | ------ | ------ | ------ |
+| animatedColor| General | Animated Color | 0xEEEEEE |
+| animatedBackgroundColor| General | Animated Background Color | UIColor.white |
+| animatedDuration | Dynamic Animation | Move back and forth | 1.0 |
+| longToValue | Dynamic Animation | Scale | 1.9 |
+| shortToValue | Dynamic Animation | Scale | 0.6 |
+| animatedDurationShimmer | Flash | Movement Duration | 1.5 |
+|animatedHeightCoefficient| General | Height Coefficient |0.75|
+|useGlobalCornerRadius| General | Open Global Fillet | NO|
+|animatedCornerRadius| General | Global Fillet |0.|
+|openLog| Universal|Open Log|NO|
+
+**All animation property configurations under control view:**
+
+Instructions
+
+```
+_tableView.tabAnimated.xxx = xxx;
+```
+
+| Property Name | Scope | Meaning | Default |
+| ------ | ------ | ------ | ------ |
+|superAnimationType| General | This control view animation type | Default global properties |
+| animatedCount| Table Components | Number of Animations | Filling the Table Visible Area |
+| animatedColor| General | Animated Content Color | UIColor.white |
+| animatedBackgroundColor | General | Animated Background Color | 0xEEEEEE |
+| cancelGlobalCornerRadius | General | Unused Global Fillet | NO |
+| animatedCornerRadius | General | Animated fillets in this control view | 0. |
+| animatedHeight | General | Animation height under this control view | 0. |
+|isAnimating| General | Is it in animation |\|
+|isNest| General | Is it a nested table|NO|
 
 ## Author
 
-email:1429299849@qq.com
+email: 1429299849@qq.com
 
-## Hope
+## Lastly
 
-Demo is just a simple example I wrote, you can use the framework to play a more attractive effect. It has gone through many projects. This framework can solve all the problems in your project, conquer it quickly!
-
-If you have any questions or suggestions, you can contact me by email. I'm looking forward to it.
-Surely, you can also push your code to me on this.
+> + Thanks for meeting, thanks for using, if you feel good, you can order a star
+> + If there are usage problems, optimization suggestions, etc., you can email me.
 
 ## License
 
-```
 MIT License
 
-Copyright (c) 2019 tigerAndBull
+Copyright (c) 2018 tigerAndBull
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -368,4 +379,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-```
