@@ -1,11 +1,12 @@
 {
   "images" : [
     {
-      "orientation" : "portrait",
-      "idiom" : "iphone",
       "extent" : "full-screen",
-      "minimum-system-version" : "12.0",
+      "idiom" : "iphone",
       "subtype" : "2688h",
+      "filename" : "xsmax.png",
+      "minimum-system-version" : "12.0",
+      "orientation" : "portrait",
       "scale" : "3x"
     },
     {
@@ -17,11 +18,12 @@
       "scale" : "3x"
     },
     {
-      "orientation" : "portrait",
-      "idiom" : "iphone",
       "extent" : "full-screen",
-      "minimum-system-version" : "12.0",
+      "idiom" : "iphone",
       "subtype" : "1792h",
+      "filename" : "xr.png",
+      "minimum-system-version" : "12.0",
+      "orientation" : "portrait",
       "scale" : "2x"
     },
     {
@@ -33,11 +35,12 @@
       "scale" : "2x"
     },
     {
-      "orientation" : "portrait",
-      "idiom" : "iphone",
       "extent" : "full-screen",
-      "minimum-system-version" : "11.0",
+      "idiom" : "iphone",
       "subtype" : "2436h",
+      "filename" : "xs.png",
+      "minimum-system-version" : "11.0",
+      "orientation" : "portrait",
       "scale" : "3x"
     },
     {
@@ -49,11 +52,12 @@
       "scale" : "3x"
     },
     {
-      "orientation" : "portrait",
-      "idiom" : "iphone",
       "extent" : "full-screen",
-      "minimum-system-version" : "8.0",
+      "idiom" : "iphone",
       "subtype" : "736h",
+      "filename" : "7P.png",
+      "minimum-system-version" : "8.0",
+      "orientation" : "portrait",
       "scale" : "3x"
     },
     {
@@ -65,16 +69,18 @@
       "scale" : "3x"
     },
     {
-      "orientation" : "portrait",
-      "idiom" : "iphone",
       "extent" : "full-screen",
-      "minimum-system-version" : "8.0",
+      "idiom" : "iphone",
       "subtype" : "667h",
+      "filename" : "7.png",
+      "minimum-system-version" : "8.0",
+      "orientation" : "portrait",
       "scale" : "2x"
     },
     {
       "orientation" : "portrait",
       "idiom" : "iphone",
+      "filename" : "4s.png",
       "extent" : "full-screen",
       "minimum-system-version" : "7.0",
       "scale" : "2x"
