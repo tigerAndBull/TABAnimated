@@ -1,0 +1,18 @@
+/* 
+  Localizable.strings
+  AnimatedDemo
+
+  Created by tigerAndBull on 2019/5/1.
+  Copyright © 2019 tigerAndBull. All rights reserved.
+*/
+"主页面" = "Show time";
+"UITableView 示例" = "Example of UITableView";
+"多行文本 示例" = "Example of numberOflines";
+"UICollectionView 示例" = "Example of UICollectionView";
+"UIView 示例" = "Example of UIView";
+"卡片投影视图 示例" = "Example of the card view";
+"分段视图 示例" = "Example of the segment view ";
+"cell中使用多级view 示例" = "Example of the multilayer view";
+"UITableView xib 示例" = "Example of UITableView xib";
+"嵌套表格 示例" = "Example of the nest view";
+"UICollectionView 多section 示例" = "Example of UICollectionView with sections";

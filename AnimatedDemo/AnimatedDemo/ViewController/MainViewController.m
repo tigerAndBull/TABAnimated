@@ -30,7 +30,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.title = @"主页面";
+    self.title = kText(@"主页面");
 }
 
 #pragma mark - UITableViewDataSource & UITableViewDelegate
@@ -102,13 +102,16 @@
 }
 
 - (NSArray *)titleArray {
-    return @[@"UITableView 示例",
-             @"多行文本 示例",
-             @"UICollectionView 示例",
-             @"UIView 示例",
-             @"UITableView xib 示例",
-             @"cell中使用多级view 示例",
-             @"嵌套表格 示例"];
+    return @[kText(@"UITableView 示例"),
+             kText(@"多行文本 示例"),
+             kText(@"UICollectionView 示例"),
+             kText(@"UIView 示例"),
+             kText(@"卡片投影视图 示例"),
+             kText(@"分段视图 示例"),
+             kText(@"cell中使用多级view 示例"),
+             kText(@"UITableView xib 示例"),
+             kText(@"嵌套表格 示例"),
+             kText(@"UICollectionView 多section 示例")];
 }
 
 - (NSArray *)controllerClassArray {
@@ -116,9 +119,12 @@
              @"LabWithLinesViewController",
              @"TestCollectionViewController",
              @"ViewExampleViewController",
-             @"XibTestViewController",
+             @"CardViewController",
+             @"SegmentCollectionViewController",
              @"ExampleOfPackageViewController",
-             @"NestCollectionViewController"];
+             @"XibTestViewController",
+             @"NestCollectionViewController",
+             @"SectionsCollectionViewController"];
 }
 
 @end

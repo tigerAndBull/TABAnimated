@@ -7,16 +7,25 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "UIView+Animated.h"
+#import "UIView+TABAnimated.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
+/**
+ Methods in the file are about to animation type.
+ **/
 @interface TABAnimationMethod : NSObject
 
-+ (void)addShimmerAnimationToView:(UIView *)view
-                         duration:(CGFloat)duration;
++ (CABasicAnimation *)scaleXAnimationDuration:(CGFloat)duration
+                                      toValue:(CGFloat)toValue;
 
-+ (void)addAlphaAnimation:(UIView *)view;
++ (void)addShimmerAnimationToView:(UIView *)view
+                         duration:(CGFloat)duration
+                              key:(NSString *)key;
+
++ (void)addAlphaAnimation:(UIView *)view
+                 duration:(CGFloat)duration
+                      key:(NSString *)key;
 
 @end
 

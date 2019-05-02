@@ -7,17 +7,7 @@
 //
 
 #import "UICollectionViewCell+TABLayoutSubviews.h"
-#import "UICollectionView+Animated.h"
-
-#import "TABViewAnimated.h"
-#import "TABAnimationMethod.h"
-#import "TABManagerMethod.h"
-
-#import "UIView+TABControlAnimation.h"
-
-#import "TABAnimatedObject.h"
-#import "UIView+Animated.h"
-#import "TABLayer.h"
+#import "TABAnimated.h"
 
 #import <objc/runtime.h>
 
@@ -28,11 +18,11 @@
     static dispatch_once_t onceToken;
     
     dispatch_once(&onceToken, ^{
-        // Gets the viewDidLoad method to the class,whose type is a pointer to a objc_method structure.
+        // Getting the viewDidLoad method to the class,whose type is a pointer to a objc_method structure.
         Method originMethod = class_getInstanceMethod([self class], @selector(layoutSubviews));
-        // Get the method you created.
+        // Getting the method you created.
         Method newMethod = class_getInstanceMethod([self class], @selector(tab_collection_layoutSubviews));
-        
+        // Exchange
         method_exchangeImplementations(originMethod, newMethod);
     });
 }
@@ -49,36 +39,57 @@
         
         switch (superView.tabAnimated.state) {
                 
-            case TABViewAnimationStart:
+            case TABViewAnimationStart: {
+
+                if (nil == self.tabLayer) {
+                    self.tabLayer = TABLayer.new;
+                    self.tabLayer.frame = self.bounds;
+                    self.tabLayer.animatedHeight = superView.tabAnimated.animatedHeight;
+                    self.tabLayer.animatedCornerRadius = superView.tabAnimated.animatedCornerRadius;
+                    self.tabLayer.cancelGlobalCornerRadius = superView.tabAnimated.cancelGlobalCornerRadius;
+                    [self.layer addSublayer:self.tabLayer];
+                }
                 
+                NSMutableArray <TABComponentLayer *> *array = @[].mutableCopy;
                 // start animations
                 [TABManagerMethod getNeedAnimationSubViews:self
                                              withSuperView:superView
-                                              withRootView:self];
+                                              withRootView:self
+                                                     array:array];
+                
+                
+                self.tabLayer.componentLayerArray = array;
+                
+                __weak typeof(self) weakSelf = self;
+                if (superView.tabAnimated.categoryBlock) {
+                    superView.tabAnimated.categoryBlock(weakSelf);
+                }
                 
                 self.tabLayer.animatedBackgroundColor = superView.tabAnimated.animatedBackgroundColor;
                 self.tabLayer.animatedColor = superView.tabAnimated.animatedColor;
-                [self.tabLayer udpateSublayers];
+                [self.tabLayer updateSublayers:self.tabLayer.componentLayerArray.mutableCopy];
                 
                 // shimmer animation
                 if ([TABManagerMethod canAddShimmer:self]) {
                     [TABAnimationMethod addShimmerAnimationToView:self
-                                                         duration:[TABViewAnimated sharedAnimated].animatedDurationShimmer];
+                                                         duration:[TABAnimated sharedAnimated].animatedDurationShimmer key:kTABShimmerAnimation];
                     break;
                 }
                 
                 // bin animation
                 if ([TABManagerMethod canAddBinAnimation:self]) {
-                    [TABAnimationMethod addAlphaAnimation:self];
+                    [TABAnimationMethod addAlphaAnimation:self
+                                                 duration:[TABAnimated sharedAnimated].animatedDurationBin
+                                                      key:kTABAlphaAnimation];
                 }
-                
+            }
                 break;
                 
-            case TABViewAnimationEnd:
-                
+            case TABViewAnimationEnd: {
                 // end animations
                 [TABManagerMethod endAnimationToSubViews:self];
                 [TABManagerMethod removeMask:self];
+            }
                 
                 break;
                 

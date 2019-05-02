@@ -7,16 +7,7 @@
 //
 
 #import "UITableViewCell+TABLayoutSubviews.h"
-#import "UIView+Animated.h"
-#import "UITableView+Animated.h"
-#import "UIView+TABControlAnimation.h"
-
-#import "TABViewAnimated.h"
-#import "TABManagerMethod.h"
-#import "TABAnimationMethod.h"
-
-#import "TABAnimatedObject.h"
-#import "TABLayer.h"
+#import "TABAnimated.h"
 
 #import <objc/runtime.h>
 
@@ -54,36 +45,57 @@
         }
         
         switch (superView.tabAnimated.state) {
+            
+            case TABViewAnimationStart: {
                 
-            case TABViewAnimationStart:
+                if (nil == self.tabLayer) {
+                    self.tabLayer = TABLayer.new;
+                    self.tabLayer.frame = self.bounds;
+                    self.tabLayer.animatedHeight = superView.tabAnimated.animatedHeight;
+                    self.tabLayer.animatedCornerRadius = superView.tabAnimated.animatedCornerRadius;
+                    self.tabLayer.cancelGlobalCornerRadius = superView.tabAnimated.cancelGlobalCornerRadius;
+                    [self.layer addSublayer:self.tabLayer];
+                }
                 
+                NSMutableArray <TABComponentLayer *> *array = @[].mutableCopy;
                 // start animations
                 [TABManagerMethod getNeedAnimationSubViews:self
                                              withSuperView:superView
-                                              withRootView:self];
+                                              withRootView:self
+                                                     array:array];
+                
+                self.tabLayer.componentLayerArray = array;
+                
+                __weak typeof(self) weakSelf = self;
+                if (superView.tabAnimated.categoryBlock) {
+                    superView.tabAnimated.categoryBlock(weakSelf);
+                }
                 
                 self.tabLayer.animatedBackgroundColor = superView.tabAnimated.animatedBackgroundColor;
                 self.tabLayer.animatedColor = superView.tabAnimated.animatedColor;
-                [self.tabLayer udpateSublayers];
+                [self.tabLayer updateSublayers:self.tabLayer.componentLayerArray.mutableCopy];
                 
                 // add shimmer animation
                 if ([TABManagerMethod canAddShimmer:self]) {
                     [TABAnimationMethod addShimmerAnimationToView:self
-                                                         duration:[TABViewAnimated sharedAnimated].animatedDurationShimmer];
+                                                         duration:[TABAnimated sharedAnimated].animatedDurationShimmer key:kTABShimmerAnimation];
                     break;
                 }
                 
                 if ([TABManagerMethod canAddBinAnimation:self]) {
-                    [TABAnimationMethod addAlphaAnimation:self];
+                    [TABAnimationMethod addAlphaAnimation:self
+                                                 duration:[TABAnimated sharedAnimated].animatedDurationBin
+                                                      key:kTABAlphaAnimation];
                 }
+            }
                 
                 break;
                 
-            case TABViewAnimationEnd:
-                
+            case TABViewAnimationEnd: {
                 // end animations
                 [TABManagerMethod endAnimationToSubViews:self];
                 [TABManagerMethod removeMask:self];
+            }
                 
             default:
                 break;

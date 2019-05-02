@@ -7,13 +7,7 @@
 //
 
 #import "TABManagerMethod.h"
-
-#import "TABLayer.h"
-#import "UIView+Animated.h"
-#import "TABViewAnimated.h"
-#import "UIView+TABControlAnimation.h"
-
-#import "TABAnimatedObject.h"
+#import "TABAnimated.h"
 
 #import <CoreGraphics/CoreGraphics.h>
 
@@ -21,7 +15,8 @@
 
 + (void)getNeedAnimationSubViews:(UIView *)view
                    withSuperView:(UIView *)superView
-                    withRootView:(UIView *)rootView {
+                    withRootView:(UIView *)rootView
+                           array:(NSMutableArray <TABComponentLayer *> *)array {
     
     NSArray *subViews = [view subviews];
     if ([subViews count] == 0) {
@@ -31,12 +26,18 @@
     for (int i = 0; i < subViews.count;i++) {
         
         UIView *subV = subViews[i];
-        [self getNeedAnimationSubViews:subV withSuperView:subV.superview withRootView:rootView];
         
+        [self getNeedAnimationSubViews:subV
+                         withSuperView:subV.superview
+                          withRootView:rootView
+                                 array:array];
+        
+        // remove lineView for the cell created by xib
         if ([subV isKindOfClass:[NSClassFromString(@"_UITableViewCellSeparatorView") class]]) {
             [subV removeFromSuperview];
         }
         
+        // start animation for the nest view
         // 如果父视图中嵌套了表格组件，为表格组件开启动画
         if ([subV isKindOfClass:[UITableView class]]) {
             UITableView *view = (UITableView *)subV;
@@ -52,28 +53,15 @@
         
         if ([subV.superview isKindOfClass:[UITableViewCell class]] ||
             [subV.superview isKindOfClass:[UICollectionViewCell class]]) {
-            // used to can not add animation to contentView
-            if (i != 0) {
-                if (subV.loadStyle != TABViewLoadAnimationRemove) {
-                    subV.loadStyle = TABViewLoadAnimationWithOnlySkeleton;
-                }
-            }else {
-                subV.loadStyle = TABViewLoadAnimationRemove;
-            }
-        }else {
-            if (subV.loadStyle != TABViewLoadAnimationRemove) {
-                subV.loadStyle = TABViewLoadAnimationWithOnlySkeleton;
+            if (i == 0) {
+                continue;
             }
         }
         
-        if ((subV.loadStyle == TABViewLoadAnimationWithOnlySkeleton) &&
-            [TABManagerMethod judgeViewIsNeedAddAnimation:subV]) {
-            
-            if (nil == rootView.tabLayer) {
-                rootView.tabLayer = TABLayer.new;
-                rootView.tabLayer.frame = rootView.bounds;
-                [rootView.layer addSublayer:rootView.tabLayer];
-            }
+        // remove contentView frome the animation queue
+        TABComponentLayer *layer = TABComponentLayer.new;
+
+        if ([TABManagerMethod judgeViewIsNeedAddAnimation:subV]) {
             
             if (!CGSizeEqualToSize(subV.layer.shadowOffset, CGSizeMake(0, -3))) {
                 rootView.tabLayer.cardOffset = CGPointMake(rootView.bounds.origin.x - subV.frame.origin.x, rootView.bounds.origin.y - subV.frame.origin.y);
@@ -87,21 +75,18 @@
                 continue;
             }
             
-            [rootView.tabLayer.tabWidthArray addObject:[NSNumber numberWithFloat:subV.tabViewWidth]];
-            [rootView.tabLayer.tabHeightArray addObject:[NSNumber numberWithFloat:subV.tabViewHeight]];
-            
             CGRect rect = [rootView convertRect:subV.frame fromView:subV.superview];
-
-            [rootView.tabLayer.valueArray addObject:[NSValue valueWithCGRect:rect]];
-            [rootView.tabLayer.cornerRadiusArray addObject:[NSNumber numberWithFloat:subV.layer.cornerRadius]];
+            
+            layer.cornerRadius = subV.layer.cornerRadius;
+            layer.frame = rect;
             
             if ([subV isKindOfClass:[UILabel class]]) {
                 UILabel *lab = (UILabel *)subV;
                 
                 if (lab.textAlignment == NSTextAlignmentCenter) {
-                    [rootView.tabLayer.judgeCenterLabelArray addObject:@(YES)];
+                    layer.fromCenterLabel = YES;
                 }else {
-                    [rootView.tabLayer.judgeCenterLabelArray addObject:@(NO)];
+                    layer.fromCenterLabel = NO;
                 }
                 
                 if (lab.numberOfLines == 0 ||
@@ -110,17 +95,17 @@
                         lab.frame.size.height == 0) {
                         lab.text = @"测试测试测试测试测试测试测试测试测试测试测试测试测试测试";
                     }
-                    [rootView.tabLayer.labelLinesArray addObject:@(lab.numberOfLines)];
+                    layer.numberOflines = lab.numberOfLines;
                 }else {
                     if (lab.frame.size.width == 0 ||
                         lab.frame.size.height == 0) {
                         lab.text = @"测试测试测试测试";
                     }
-                    [rootView.tabLayer.labelLinesArray addObject:@(1)];
+                    layer.numberOflines = 1;
                 }
             }else {
-                [rootView.tabLayer.judgeCenterLabelArray addObject:@(NO)];
-                [rootView.tabLayer.labelLinesArray addObject:@(1)];
+                layer.fromCenterLabel = NO;
+                layer.numberOflines = 1;
             }
             
             if ([subV isKindOfClass:[UIButton class]]) {
@@ -132,10 +117,12 @@
             }
             
             if ([subV isKindOfClass:[UIImageView class]]) {
-                [rootView.tabLayer.judgeImageViewArray addObject:@(YES)];
+                layer.fromImageView = YES;
             }else {
-                [rootView.tabLayer.judgeImageViewArray addObject:@(NO)];
+                layer.fromImageView = NO;
             }
+            
+            [array addObject:layer];
         }
     }
 }
@@ -202,7 +189,7 @@
         return YES;
     }
     
-    if ([TABViewAnimated sharedAnimated].animationType == TABAnimationTypeShimmer) {
+    if ([TABAnimated sharedAnimated].animationType == TABAnimationTypeShimmer) {
         return YES;
     }
     
@@ -215,7 +202,7 @@
         return YES;
     }
     
-    if ([TABViewAnimated sharedAnimated].animationType == TABAnimationTypeBinAnimation) {
+    if ([TABAnimated sharedAnimated].animationType == TABAnimationTypeBinAnimation) {
         return YES;
     }
     
@@ -245,14 +232,16 @@
 
 + (void)removeMask:(UIView *)view {
     
-    [view.layer removeAnimationForKey:@"TABAlphaAnimation"];
-    [view.layer removeAnimationForKey:@"TABLocationsAnimation"];
+    [view.tabLayer removeFromSuperlayer];
+    
+    [view.layer removeAnimationForKey:kTABAlphaAnimation];
+    [view.layer removeAnimationForKey:kTABLocationAnimation];
+    [view.layer removeAnimationForKey:kTABShimmerAnimation];
     
     if (view.layer.mask != nil) {
         [view.layer.mask removeFromSuperlayer];
     }
-    
-    [view.tabLayer removeFromSuperlayer];
+
 }
 
 + (void)removeSubLayers:(NSArray *)subLayers {
@@ -263,7 +252,6 @@
     
     [removedLayers enumerateObjectsUsingBlock:^(CALayer * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         [obj removeFromSuperlayer];
-        obj = nil;
     }];
 }
 

@@ -10,61 +10,73 @@
 #import "TABAnimated.h"
 
 static CGFloat defaultHeight = 16.f;
-static CGFloat defaultSpaceWithLines = 8.f;
 
 @implementation TABLayer
 
 - (instancetype)init {
     if (self = [super init]) {
-
         self.name = @"TABLayer";
         self.anchorPoint = CGPointMake(0, 0);
         self.position = CGPointMake(0, 0);
         self.opaque = YES;
-        self.contentsScale = ([[UIScreen mainScreen] scale] > 3.0) ? [[UIScreen mainScreen] scale] : 3.0;
-        
-        _valueArray = @[].mutableCopy;
-        _labelLinesArray = @[].mutableCopy;
-        _cornerRadiusArray = @[].mutableCopy;
-        _judgeImageViewArray = @[].mutableCopy;
-        _tabWidthArray = @[].mutableCopy;
-        _tabHeightArray = @[].mutableCopy;
-        _judgeCenterLabelArray = @[].mutableCopy;
-        
+        self.contentsScale = ([[UIScreen mainScreen] scale] > 3.0) ? [[UIScreen mainScreen] scale]:3.0;
     }
     return self;
 }
 
-- (void)udpateSublayers {
+- (void)updateSublayers:(NSArray <TABComponentLayer *> *)componentLayerArray {
     
     self.backgroundColor = [self.animatedBackgroundColor CGColor];
     
     [TABManagerMethod removeSubLayers:self.sublayers];
-
-    for (int i = 0; i < self.valueArray.count; i++) {
+    
+    for (int i = 0; i < componentLayerArray.count; i++) {
         
-        CGRect rect = [self.valueArray[i] CGRectValue];
-        rect = [self resetFrame:i rect:rect];
+        TABComponentLayer *layer = componentLayerArray[i];
         
-        CGFloat cornerRadius = [(NSNumber *)self.cornerRadiusArray[i] floatValue];
-        NSInteger labelLines = [self.labelLinesArray[i] integerValue];
+        if (layer.loadStyle == TABViewLoadAnimationRemove) {
+            continue;
+        }
+        
+        CGRect rect = [self resetFrame:layer rect:layer.frame];
+        layer.frame = rect;
+        
+        CGFloat cornerRadius = layer.cornerRadius;
+        NSInteger labelLines = layer.numberOflines;
         
         if (labelLines != 1) {
-            [self addLayers:rect cornerRadius:cornerRadius lines:labelLines];
+            [self addLayers:rect
+               cornerRadius:cornerRadius
+                      lines:labelLines
+                      space:layer.lineSpace
+                  loadStyle:layer.loadStyle];
         }else {
             
-            CALayer *layer = [[CALayer alloc]init];
-            layer.anchorPoint = CGPointMake(0, 0);
-            layer.position = CGPointMake(0, 0);
-            layer.frame = rect;
             layer.backgroundColor = self.animatedColor.CGColor;
             
-            if (cornerRadius == 0.) {
-                if ([TABViewAnimated sharedAnimated].animatedCornerRadius != 0.) {
-                    layer.cornerRadius = [TABViewAnimated sharedAnimated].animatedCornerRadius;
+            // 设置动画
+            if (layer.loadStyle != TABAnimationTypeOnlySkeleton) {
+                [layer addAnimation:[self getAnimationWithLoadStyle:layer.loadStyle] forKey:kTABLocationAnimation];
+            }
+            
+            BOOL isImageView = layer.fromImageView;
+            if (!isImageView) {
+                // 设置圆角
+                if (cornerRadius == 0.) {
+                    if (self.cancelGlobalCornerRadius) {
+                        layer.cornerRadius = self.animatedCornerRadius;
+                    }else {
+                        if ([TABAnimated sharedAnimated].useGlobalCornerRadius) {
+                            if ([TABAnimated sharedAnimated].animatedCornerRadius != 0.) {
+                                layer.cornerRadius = [TABAnimated sharedAnimated].animatedCornerRadius;
+                            }else {
+                                layer.cornerRadius = layer.frame.size.height/2.0;
+                            }
+                        }
+                    }
+                }else {
+                    layer.cornerRadius = cornerRadius;
                 }
-            }else {
-                layer.cornerRadius = cornerRadius;
             }
             
             [self addSublayer:layer];
@@ -74,12 +86,14 @@ static CGFloat defaultSpaceWithLines = 8.f;
 
 - (void)addLayers:(CGRect)frame
      cornerRadius:(CGFloat)cornerRadius
-            lines:(NSInteger)lines {
+            lines:(NSInteger)lines
+            space:(CGFloat)space
+        loadStyle:(TABViewLoadAnimationStyle)loadStyle {
     
-    CGFloat textHeight = defaultHeight*[TABViewAnimated sharedAnimated].animatedHeightCoefficient;
+    CGFloat textHeight = defaultHeight*[TABAnimated sharedAnimated].animatedHeightCoefficient;
     
     if (lines == 0) {
-        lines = (frame.size.height*1.0)/(textHeight+defaultSpaceWithLines);
+        lines = (frame.size.height*1.0)/(textHeight+space);
         if (lines >= 0 && lines <= 1) {
             tabAnimatedLog(@"TABAnimated提醒 - 监测到多行文本高度为0，动画时将使用默认行数3");
             lines = 3;
@@ -90,9 +104,9 @@ static CGFloat defaultSpaceWithLines = 8.f;
         
         CGRect rect;
         if (i != lines - 1) {
-            rect = CGRectMake(frame.origin.x, frame.origin.y+i*(textHeight+defaultSpaceWithLines), frame.size.width, textHeight);
+            rect = CGRectMake(frame.origin.x, frame.origin.y+i*(textHeight+space), frame.size.width, textHeight);
         }else {
-            rect = CGRectMake(frame.origin.x, frame.origin.y+i*(textHeight+defaultSpaceWithLines), frame.size.width*0.5, textHeight);
+            rect = CGRectMake(frame.origin.x, frame.origin.y+i*(textHeight+space), frame.size.width*0.5, textHeight);
         }
         
         CALayer *layer = [[CALayer alloc]init];
@@ -102,43 +116,79 @@ static CGFloat defaultSpaceWithLines = 8.f;
         layer.backgroundColor = self.animatedColor.CGColor;
         
         if (cornerRadius == 0.) {
-            if ([TABViewAnimated sharedAnimated].animatedCornerRadius != 0.) {
-                layer.cornerRadius = [TABViewAnimated sharedAnimated].animatedCornerRadius;
+            if (self.cancelGlobalCornerRadius) {
+                layer.cornerRadius = self.animatedCornerRadius;
+            }else {
+                if ([TABAnimated sharedAnimated].useGlobalCornerRadius) {
+                    if ([TABAnimated sharedAnimated].animatedCornerRadius != 0.) {
+                        layer.cornerRadius = [TABAnimated sharedAnimated].animatedCornerRadius;
+                    }else {
+                        layer.cornerRadius = layer.frame.size.height/2.0;
+                    }
+                }
             }
         }else {
             layer.cornerRadius = cornerRadius;
+        }
+        
+        if (i == lines - 1) {
+            if (loadStyle != TABAnimationTypeOnlySkeleton) {
+                [layer addAnimation:[self getAnimationWithLoadStyle:loadStyle] forKey:kTABLocationAnimation];
+            }
         }
         
         [self addSublayer:layer];
     }
 }
 
-- (CGRect)resetFrame:(NSInteger)index
+#pragma mark - Private
+
+- (CABasicAnimation *)getAnimationWithLoadStyle:(TABViewLoadAnimationStyle)loadStyle {
+    CGFloat duration = [TABAnimated sharedAnimated].animatedDuration;
+    CGFloat value = 0.;
+    
+    if (loadStyle == TABViewLoadAnimationToLong) {
+        value = [TABAnimated sharedAnimated].longToValue;
+    }else {
+        value = [TABAnimated sharedAnimated].shortToValue;
+    }
+    return [TABAnimationMethod scaleXAnimationDuration:duration toValue:value];
+}
+
+- (CGRect)resetFrame:(TABComponentLayer *)layer
                 rect:(CGRect)rect {
     
     rect = CGRectMake(rect.origin.x + self.cardOffset.x, rect.origin.y + self.cardOffset.y, rect.size.width, rect.size.height);
     
-    CGFloat tabWidth = [(NSNumber *)self.tabWidthArray[index] floatValue];
+    CGFloat tabWidth = layer.tabViewWidth;
     if (tabWidth > 0.) {
         rect = CGRectMake(rect.origin.x, rect.origin.y, tabWidth, rect.size.height);
     }
     
-    BOOL isImageView = [self.judgeImageViewArray[index] boolValue];
-    if ([TABViewAnimated sharedAnimated].needAnimatedHeight && !isImageView) {
-        rect = CGRectMake(rect.origin.x, rect.origin.y, rect.size.width, [TABViewAnimated sharedAnimated].animatedHeight);
-    }else {
-        
-        CGFloat tabHeight = [(NSNumber *)self.tabHeightArray[index] floatValue];
-        if (tabHeight > 0.) {
-            rect = CGRectMake(rect.origin.x, rect.origin.y, rect.size.width, tabHeight);
+    BOOL isImageView = layer.fromImageView;
+    
+    CGFloat height = 0.;
+    
+    if (!isImageView) {
+        if (self.animatedHeight > 0.) {
+            height = self.animatedHeight;
+        }else {
+            if ([TABAnimated sharedAnimated].useGlobalAnimatedHeight) {
+                height = [TABAnimated sharedAnimated].animatedHeight;
+            }else {
+                if (layer.tabViewHeight > 0.) {
+                    height = layer.tabViewHeight;
+                }else {
+                    if (!isImageView) {
+                        height = rect.size.height*[TABAnimated sharedAnimated].animatedHeightCoefficient;
+                    }
+                }
+            }
         }
-        
-        if (!isImageView) {
-            rect = CGRectMake(rect.origin.x, rect.origin.y, rect.size.width, rect.size.height*[TABViewAnimated sharedAnimated].animatedHeightCoefficient);
-        }
+        rect = CGRectMake(rect.origin.x, rect.origin.y, rect.size.width,height);
     }
     
-    BOOL isCenterLab = [self.judgeCenterLabelArray[index] boolValue];
+    BOOL isCenterLab = layer.fromCenterLabel;
     if (isCenterLab) {
         rect = CGRectMake((self.frame.size.width - rect.size.width)/2.0, rect.origin.y, rect.size.width, rect.size.height);
     }
@@ -153,7 +203,7 @@ static CGFloat defaultSpaceWithLines = 8.f;
     if (_animatedColor) {
         return _animatedColor;
     }
-    return [TABViewAnimated sharedAnimated].animatedColor;
+    return [TABAnimated sharedAnimated].animatedColor;
 }
 
 - (void)setAnimatedColor:(UIColor *)animatedColor {
@@ -165,7 +215,7 @@ static CGFloat defaultSpaceWithLines = 8.f;
     if (_animatedBackgroundColor) {
         return _animatedBackgroundColor;
     }
-    return [TABViewAnimated sharedAnimated].animatedBackgroundColor;
+    return [TABAnimated sharedAnimated].animatedBackgroundColor;
 }
 
 - (void)setAnimatedBackgroundColor:(UIColor *)animatedBackgroundColor {

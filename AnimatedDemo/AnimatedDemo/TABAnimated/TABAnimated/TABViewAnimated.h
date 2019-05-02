@@ -1,95 +1,138 @@
 //
-//  TABViewAnimated.h
-//  lifeAndSport
+//  TABBaseAnimated.h
+//  AnimatedDemo
 //
-//  Created by tigerAndBull on 2018/9/14.
-//  Copyright © 2018年 tigerAndBull. All rights reserved.
+//  Created by tigerAndBull on 2019/4/27.
+//  Copyright © 2019 tigerAndBull. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-#import "UIView+Animated.h"
+NS_ASSUME_NONNULL_BEGIN
 
-#define tab_kColor(c) [UIColor colorWithRed:((c>>24)&0xFF)/255.0 green:((c>>16)&0xFF)/255.0 blue:((c>>8)&0xFF)/255.0 alpha:((c)&0xFF)/255.0]
-#define tab_kBackColor tab_kColor(0xEEEEEEFF)
+@class TABLayer;
+@class TABComponentLayer;
 
-typedef NS_ENUM(NSInteger,TABAnimationType) {
-    TABAnimationTypeOnlySkeleton = 0,    // onlySkeleton for all views in your project.
-    TABAnimationTypeBinAnimation,        // default animation for all registered views in your project.
-    TABAnimationTypeShimmer              // shimmer animation for all views in your project.
+// `TABAnimatedObject` is used to the control view.
+
+/**
+ The status of the animation on the control view.
+ 动画状态
+ */
+typedef NS_ENUM(NSInteger,TABViewAnimationStyle) {
+    TABViewAnimationDefault = 0,                             // default, nothing to do
+    TABViewAnimationStart,                                   // start animation
+    TABViewAnimationRunning,                                 // runing animation
+    TABViewAnimationEnd,                                     // end animation
 };
+
+/**
+ The type of superAnimation, it decides the type of the animation.
+ If the property's value is default, the type of the animation is decided by the global property named `animationType` in the file named `TABViewAnimated.h`.
+ 控制视图设置此属性后，动画类型以该属性为准
+
+ - TABViewSuperAnimationTypeDefault: 不做降权处理
+ */
+typedef NS_ENUM(NSInteger,TABViewSuperAnimationType) {
+    TABViewSuperAnimationTypeDefault = 0,                    // default, 不做降权处理
+    TABViewSuperAnimationTypeOnlySkeleton,                   // 骨架层
+    TABViewSuperAnimationTypeBinAnimation,                   // 呼吸灯
+    TABViewSuperAnimationTypeShimmer,                        // 闪光灯
+};
+
+typedef void(^TABAnimatedCategoryBlock)(UIView *view);
 
 @interface TABViewAnimated : NSObject
 
-@property (nonatomic,assign) TABAnimationType animationType;
+@property (nonatomic,copy) TABAnimatedCategoryBlock categoryBlock;
 
-// Compare to old view's height. Default is 0.75, do not adapt to UIImageView.
-@property (nonatomic,assign) CGFloat animatedHeightCoefficient;
+/**
+ The state of the animation, you can reset it.
+ 动画状态，可重置
 
-// TABAnimationTypeShimmer: default is 1.5
-@property (nonatomic,assign) CGFloat animatedDurationShimmer;
+ */
+@property (nonatomic,assign) TABViewAnimationStyle state;
 
-// default is 0xEEEEEE. color of your animations' content.
+/**
+ The type of superAnimation, it decides the type of the animation.
+ If the property's value is default, the type of the animation is decided by the global property named `animationType` in the file named `TABViewAnimated.h`.
+ 使用该属性时，全局动画类型失效，目标视图将更改为当前属性指定的动画类型。
+ */
+@property (nonatomic,assign) TABViewSuperAnimationType superAnimationType;
+
+/**
+ One-to-one correspondence between section and templateClass
+ 一个section对应一个templateClass
+ */
+@property (nonatomic,copy) NSArray <Class> *cellClassArray;
+
+/**
+ 
+ If the table has only one section, you can use it to set the count of the animation.
+ 
+ Template Pattern:
+ use `animatedWithTemplateClass` to init, the count decided by the table's contentSize and the templateCell's height, animatedCount = the table's contentSize / the templateCell's height.
+ 
+ Normal Pattern:
+ default is 2.
+ 
+ 如果表格视图只有一个分区，你可以使用该属性设置动画数量
+ 模版模式：默认数量为 表格的可视区域 / cell的高度
+ 普通模式：默认数量为 2
+ 
+ **/
+@property (nonatomic,assign) NSInteger animatedCount;
+
+
+/**
+ Similar to `animatedCount`.
+ when animatedCountArray.count > section.count，the extra on animatedCountArray is not effective.
+ when animatedCountArray.count < section.count，the financial departments load by animatedCountArray.lastobject.
+ 多个section使用该属性，设置动画时row数量
+ 当数组数量大于section数量，多余数据将舍弃
+ 当数组数量小于seciton数量，剩余部分动画时row的数量为默认值
+ */
+@property (nonatomic,copy) NSArray <NSNumber *> *animatedCountArray;
+
+/**
+ It determines the color of all animations on the control view.
+ 决定当前视图动画内容颜色
+ */
 @property (nonatomic,strong) UIColor *animatedColor;
 
-// default is UIColor.white. backgroundcolor of your animations.
+/**
+ It determines the backgroundColor of all animations on the control view.
+ 决定当前视图动画背景颜色
+ */
 @property (nonatomic,strong) UIColor *animatedBackgroundColor;
 
-// 全局圆角
-// 优先级：view设置的圆角 > animatedCornerRadius
+@property (nonatomic,assign) BOOL cancelGlobalCornerRadius;
+
+/**
+ It determines the cornerRadius of all animations on the control view.
+ 决定当前视图动画圆角
+ */
 @property (nonatomic,assign) CGFloat animatedCornerRadius;
 
-// 针对UILabel/UIButton
-// 是否需要全局动画高度
-@property (nonatomic,assign) BOOL needAnimatedHeight;
-// 设置统一高度，默认12.
+/**
+ It determines the cornerRadius of all animations without the class of `UIImageView` on the control view.
+ 决定当前视图动画高度
+ */
 @property (nonatomic,assign) CGFloat animatedHeight;
 
-#pragma mark - 模版相关
-
-// 是否开启模版模式，内置默认模版
-@property (nonatomic,assign) BOOL isUseTemplate;
-
-// 设置全局模版
-@property (nonatomic) Class templateTableViewCell;
-@property (nonatomic) Class templateCollectionViewCell;
-
-#pragma mark - Other
-
-// 是否开启控制台Log提醒
-@property (nonatomic,assign) BOOL openLog;
+/**
+ Is runing animation or not.
+ 是否在动画中，在普通模式中，用于快速判断
+ */
+@property (nonatomic,assign) BOOL isAnimating;
 
 /**
- SingleTon
-
- @return return object
+ Be used to the nest view.
+ 是否是嵌套类型视图
  */
-+ (TABViewAnimated *)sharedAnimated;
-
-#pragma mark - OnlySkeleton
-
-- (void)initWithOnlySkeleton;
-
-#pragma mark - Bin Animation
-
-- (void)initWithBinAnimation;
-
-#pragma mark - Shimmer Animation
-
-/**
- shimmer Animation
-
- */
-- (void)initWithShimmerAnimated;
-
-/**
- shimmer Animation
- 
- @param duration back and forth
- @param color backgroundcolor
- */
-- (void)initWithShimmerAnimatedDuration:(CGFloat)duration
-                              withColor:(UIColor *)color;
+@property (nonatomic,assign) BOOL isNest;
 
 @end
+
+NS_ASSUME_NONNULL_END

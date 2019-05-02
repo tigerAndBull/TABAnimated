@@ -8,14 +8,19 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "TABComponentLayer.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
+/**
+ Methods in the file are used to manager the animation.
+ **/
 @interface TABManagerMethod : NSObject
 
 + (void)getNeedAnimationSubViews:(UIView *)view
                    withSuperView:(UIView *)superView
-                    withRootView:(UIView *)rootView;
+                    withRootView:(UIView *)rootView
+                           array:(NSMutableArray <TABComponentLayer *> *)array;
 
 + (BOOL)judgeViewIsNeedAddAnimation:(UIView *)view;
 

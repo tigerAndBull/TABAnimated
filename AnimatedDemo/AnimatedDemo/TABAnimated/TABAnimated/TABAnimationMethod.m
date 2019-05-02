@@ -11,23 +11,38 @@
 
 @implementation TABAnimationMethod
 
-+ (void)addAlphaAnimation:(UIView *)view {
++ (CABasicAnimation *)scaleXAnimationDuration:(CGFloat)duration
+                                      toValue:(CGFloat)toValue {
+    CABasicAnimation *anim = [CABasicAnimation animationWithKeyPath:@"transform.scale.x"];
+    anim.removedOnCompletion = NO;
+    anim.duration = duration;
+    anim.autoreverses = YES;
+    anim.repeatCount = HUGE_VALF;
+    anim.toValue = (toValue == 0.)?@0.6:@(toValue);
+    anim.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    
+    return anim;
+}
+
++ (void)addAlphaAnimation:(UIView *)view
+                 duration:(CGFloat)duration
+                      key:(NSString *)key {
     CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"opacity"];
     animation.fromValue = [NSNumber numberWithFloat:1.1f];
-    animation.toValue = [NSNumber numberWithFloat:0.6f];  // 这是透明度。
+    animation.toValue = [NSNumber numberWithFloat:0.6f];
     animation.autoreverses = YES;
-    animation.duration = 1.0;                             // 动画循环的时间，也就是呼吸灯效果的速度
+    animation.duration = 1.0;
     animation.repeatCount = MAXFLOAT;
     animation.removedOnCompletion = NO;
     animation.fillMode = kCAFillModeForwards;
     animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
-    [view.layer addAnimation:animation forKey:@"TABAlphaAnimation"];
+    [view.layer addAnimation:animation forKey:key];
 }
 
 + (void)addShimmerAnimationToView:(UIView *)view
-                         duration:(CGFloat)duration {
+                         duration:(CGFloat)duration
+                              key:(NSString *)key {
     UIColor *color = [UIColor whiteColor];
-    // 创建渐变效果的layer
     CAGradientLayer *graLayer = [CAGradientLayer layer];
     graLayer.frame = view.bounds;
     graLayer.name = @"TABLayer";
@@ -41,8 +56,8 @@
                         (__bridge id)[color colorWithAlphaComponent:0.70].CGColor,
                         (__bridge id)[color colorWithAlphaComponent:0.90].CGColor];
     
-    graLayer.startPoint = CGPointMake(0, 0.6);        // 设置渐变方向起点
-    graLayer.endPoint = CGPointMake(1, 1);            // 设置渐变方向终点
+    graLayer.startPoint = CGPointMake(0, 0.6);
+    graLayer.endPoint = CGPointMake(1, 1);
     
     graLayer.locations = @[@(0.3),
                            @(0.33),
@@ -51,9 +66,9 @@
                            @(0.42),
                            @(0.45),
                            @(0.48),
-                           @(0.50)];                  // colors中各颜色对应的初始渐变点
+                           @(0.50)];
     
-    // 创建动画
+
     CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"locations"];
     animation.duration = (duration > 0.)?duration:1.5f;
     
@@ -81,8 +96,7 @@
     animation.removedOnCompletion = NO;
     animation.repeatCount = HUGE_VALF;
     animation.fillMode = kCAFillModeForwards;
-    [graLayer addAnimation:animation forKey:@"TABLocationsAnimation"];
-    // 将graLayer设置成superView的遮罩
+    [graLayer addAnimation:animation forKey:key];
     [view.layer setMask:graLayer];
 }
 

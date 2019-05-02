@@ -11,24 +11,22 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class TABComponentLayer;
+
 @interface TABLayer : CALayer
 
 @property (nonatomic,strong) UIColor *animatedColor;
 @property (nonatomic,strong) UIColor *animatedBackgroundColor;
 
-@property (nonatomic,strong) NSMutableArray <NSValue *> *valueArray;
-@property (nonatomic,strong) NSMutableArray <NSNumber *> *labelLinesArray;
-@property (nonatomic,strong) NSMutableArray <NSNumber *> *cornerRadiusArray;
-@property (nonatomic,strong) NSMutableArray <NSNumber *> *judgeImageViewArray;
-
-@property (nonatomic,strong) NSMutableArray <NSNumber *> *tabWidthArray;
-@property (nonatomic,strong) NSMutableArray <NSNumber *> *tabHeightArray;
-
-@property (nonatomic,strong) NSMutableArray <NSNumber *> *judgeCenterLabelArray;
+@property (nonatomic,assign) CGFloat animatedHeight;
+@property (nonatomic,assign) CGFloat animatedCornerRadius;
+@property (nonatomic,assign) BOOL cancelGlobalCornerRadius;
 
 @property (nonatomic,assign) CGPoint cardOffset;
 
-- (void)udpateSublayers;
+@property (nonatomic,strong) NSMutableArray <TABComponentLayer *> *componentLayerArray;
+
+- (void)updateSublayers:(NSArray <TABComponentLayer *> *)componentLayerArray;
 
 @end
 

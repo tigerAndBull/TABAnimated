@@ -8,9 +8,8 @@
 
 #import "AppDelegate.h"
 
-#import "OptionViewController.h"
+#import "MainViewController.h"
 #import "TABAnimated.h"
-#import "TestTemplateTableViewCell.h"
 
 @interface AppDelegate ()
 
@@ -23,21 +22,16 @@
     
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     
-    // 设置TABAnimated相关属性
-    [[TABViewAnimated sharedAnimated] initWithOnlySkeleton];
-    // demo选择普通模式的时候，将属性切回了普通模式
-    // 目前两种模式在不同视图上可以切换
-    [TABViewAnimated sharedAnimated].isUseTemplate = YES;
+    // Init `TABAnimated`, and set the properties you need.
+    // 初始化TABAnimated，并设置TABAnimated相关属性
+    [[TABAnimated sharedAnimated] initWithOnlySkeleton];
+    // open log
     // 开启日志
-    [TABViewAnimated sharedAnimated].openLog = YES;
-    // 设置全局圆角
-    [TABViewAnimated sharedAnimated].animatedCornerRadius = 3.f;
-    // 设置全局模版，有内置模版
-    // 注意，模版一定要按照规矩来，继承自TABBaseTableViewCell,TABBaseCollectionViewCell
-    // 模版的初衷是另写一个新的cell，如果你用项目中用到的cell，也不是不可以，只是会在cell内产生耦合
-    [TABViewAnimated sharedAnimated].templateTableViewCell = [TestTemplateTableViewCell class];
+    [TABAnimated sharedAnimated].openLog = YES;
+    // set gobal cornerRadius
+    [TABAnimated sharedAnimated].useGlobalCornerRadius = YES;
     
-    OptionViewController *vc = [[OptionViewController alloc] init];
+    MainViewController *vc = [[MainViewController alloc] init];
     _nav = [[UINavigationController alloc]initWithRootViewController:vc];
     
     [self.window setRootViewController:_nav];
