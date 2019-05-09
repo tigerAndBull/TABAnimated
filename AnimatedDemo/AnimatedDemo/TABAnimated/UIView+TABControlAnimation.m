@@ -13,7 +13,7 @@
 
 - (void)tab_startAnimation {
     
-    if (self.tabAnimated &&
+    if (!self.tabAnimated.canLoadAgain &&
         self.tabAnimated.state == TABViewAnimationEnd) {
         return;
     }

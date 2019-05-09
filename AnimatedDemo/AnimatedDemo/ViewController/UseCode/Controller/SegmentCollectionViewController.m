@@ -153,6 +153,7 @@
             collectionView.tabAnimated =
             [TABCollectionAnimated animatedWithCellClass:[LawyerCollectionViewCell class]
                                                 cellSize:[LawyerCollectionViewCell cellSize]];
+            collectionView.tabAnimated.canLoadAgain = YES;
             collectionView.tabAnimated.categoryBlock = ^(UIView * _Nonnull view) {
                 view.animation(1).height(12).down(-2).reducedWidth(-90);
                 view.animation(2).height(12).down(7).reducedWidth(-30);
@@ -164,6 +165,7 @@
             collectionView.tabAnimated =
             [TABCollectionAnimated animatedWithCellClass:[LawyerArticleCollectionViewCell class]
                                                 cellSize:[LawyerArticleCollectionViewCell cellSize]];
+            collectionView.tabAnimated.canLoadAgain = YES;
             collectionView.tabAnimated.categoryBlock = ^(UIView * _Nonnull view) {
                 view.animation(1).height(12).up(-3).width(60);
                 view.animation(2).height(12).width(90).up(2);

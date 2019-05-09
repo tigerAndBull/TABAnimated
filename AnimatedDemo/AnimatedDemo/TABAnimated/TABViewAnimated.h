@@ -135,6 +135,11 @@ typedef void (^TABFinishedBlock)(BOOL finished);
  */
 @property (nonatomic,assign) BOOL isNest;
 
+/**
+ 是否可以重复开启动画，默认开启只生效一次。
+ */
+@property (nonatomic,assign) BOOL canLoadAgain;
+
 @end
 
 NS_ASSUME_NONNULL_END
