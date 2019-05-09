@@ -17,7 +17,7 @@
     </a>
 </p>
 
-###### the lastest version is v2.0.4 [中文文档](https://www.jianshu.com/p/6a0ca4995dff)
+###### the lastest version is v2.0.5[release]  [中文文档](https://www.jianshu.com/p/6a0ca4995dff)
 
 ## Catalog
 
@@ -253,20 +253,25 @@ As mentioned above, here again,
 You can use .line(x) to set the number of lines. space(x) to set the spacing.
 Each animation component can set these two properties to achieve the same effect.
 
-3. Multiple sections can be solved by the new form proxy method
+3. Specify the initialization method of section loading animation
 
-But it is not recommended, because the initialization method can be completely solved.
+For example, animatedSectionArray = @[@(3), @(4)];
 
-`UITableViewAnimatedDelegate` and `UICollectionViewAnimatedDelegate`
+This means the first element in the cellHeightArray, animatedCountArray, cellClassArray, is the animation data when section == 3.
+
 ```
-_mainTV.animatedDelegate = self;
-```
-```
-- (NSInteger)tableView:(UITableView *)tableView numberOfAnimatedRowsInSection:(NSInteger)section {
-    If (section == 0) {
-        Return 5;
-    }
-    Return 3;
+// Some sections have animations
+
+_tableView.tabAnimated =
+[TABTableAnimated animated WithCellClassArray:@[[TestTableViewCell class]]
+                              cellHeightArray:@[@(100)]
+                           animatedCountArray:@[@(1)]
+                         animatedSectionArray:@[@(1)];
+
+_tableView.tabAnimated.categoryBlock = ^(UIView * _Nonnull view){
+    view.animation(1).down(3).height (12).toShortAnimation();
+    view.animation(2).height(12).width(110).toLongAnimation();
+    view.animation(3).down(-5).height(12);
 }
 ```
 
@@ -326,6 +331,8 @@ Instructions
 |useGlobalCornerRadius| General | Open Global Fillet | NO|
 |animatedCornerRadius| General | Global Fillet |0.|
 |openLog| Universal|Open Log|NO|
+|useGlobalAnimatedHeight| without UIImageView|use Global Animated Height|NO|
+|animatedHeight| without UIImageView|Global Animated Height|12.|
 
 **All animation property configurations under control view:**
 
@@ -346,6 +353,7 @@ _tableView.tabAnimated.xxx = xxx;
 | animatedHeight | General | Animation height under this control view | 0. |
 |isAnimating| General | Is it in animation |\|
 |isNest| General | Is it a nested table|NO|
+|canLoadAgain| General|Is it can load again|NO|
 
 ## Author
 
