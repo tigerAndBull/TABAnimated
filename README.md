@@ -30,7 +30,7 @@
   * [Cocoapods](#Using-CocoaPods)
   * [Manually](#Manual-Import)
 * [Usage](#Usage)
-* [Extension-Callback](#Extension-Callback)
+* [Extension Callback](#Extension-Callback)
 * [Tips](#Tips)
 * [Attribute Related](#Attribute-Related)
 * [Author](#Author)
