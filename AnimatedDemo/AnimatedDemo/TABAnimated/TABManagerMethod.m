@@ -212,10 +212,6 @@
 
 + (BOOL)judgeViewIsNeedAddAnimation:(UIView *)view {
     
-    if (view.tag == 1000) {
-        
-    }
-    
     if ([view isKindOfClass:[UICollectionView class]] ||
         [view isKindOfClass:[UITableView class]]) {
         return NO;
@@ -309,7 +305,6 @@
     if (view.layer.mask != nil) {
         [view.layer.mask removeFromSuperlayer];
     }
-
 }
 
 + (void)removeSubLayers:(NSArray *)subLayers {
