@@ -66,6 +66,7 @@
                     [TABManagerMethod getNeedAnimationSubViews:self
                                                  withSuperView:self
                                                   withRootView:self
+                                             withRootSuperView:self
                                                          array:array];
                     
                     self.tabLayer.componentLayerArray = array;

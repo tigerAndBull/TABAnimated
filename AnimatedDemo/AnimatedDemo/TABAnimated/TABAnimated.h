@@ -50,14 +50,14 @@ _Pragma("clang diagnostic pop") \
 
 #define tabAnimatedLog(x) {if([TABAnimated sharedAnimated].openLog) NSLog(x);}
 
-#endif /* TABAnimated_h */
-
 #define tab_kColor(c) [UIColor colorWithRed:((c>>24)&0xFF)/255.0 green:((c>>16)&0xFF)/255.0 blue:((c>>8)&0xFF)/255.0 alpha:((c)&0xFF)/255.0]
 #define tab_kBackColor tab_kColor(0xEEEEEEFF)
 
 #define kTABAlphaAnimation @"TABAlphaAnimation"
 #define kTABLocationAnimation @"TABLocationAnimation"
 #define kTABShimmerAnimation @"TABShimmerAnimation"
+
+#endif /* TABAnimated_h */
 
 typedef NS_ENUM(NSInteger,TABAnimationType) {
     TABAnimationTypeOnlySkeleton = 0,    // onlySkeleton for all views in your project.

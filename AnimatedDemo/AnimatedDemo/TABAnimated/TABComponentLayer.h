@@ -43,13 +43,19 @@ typedef TABComponentLayer *_Nullable(^TABLoadStyleBlock)(void);
 @property (nonatomic,assign) TABViewLoadAnimationStyle loadStyle;
 
 /**
- is from UILabel and `NSTextAligentCenter`
+ is from the UILabel of `NSTextAligentCenter`or not
  动画来自居中文本
  */
 @property (nonatomic,assign) BOOL fromCenterLabel;
 
 /**
- is from UIImageView
+ If it is from the UILabel of `NSTextAligentCenter`,canceling show in center.
+ 动画来自居中文本,取消居中显示
+ */
+@property (nonatomic,assign) BOOL isCancelAlignCenter;
+
+/**
+ is from UIImageView or not
  动画来自UIImageView
  */
 @property (nonatomic,assign) BOOL fromImageView;
@@ -185,6 +191,12 @@ typedef TABComponentLayer *_Nullable(^TABLoadStyleBlock)(void);
  赋予该动画组件画由短到长的动画
  */
 - (TABLoadStyleBlock)toShortAnimation;
+
+/**
+ If it is from the UILabel of `NSTextAligentCenter`,canceling show in center.
+ 动画来自居中文本，取消居中显示
+ */
+- (TABLoadStyleBlock)cancelAlignCenter;
 
 @end
 

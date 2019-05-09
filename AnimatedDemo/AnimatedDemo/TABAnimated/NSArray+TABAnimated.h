@@ -48,18 +48,24 @@ typedef NSArray <TABComponentLayer *> *_Nullable(^TABAnimatedArrayBlock)(void);
 
 /**
  set width
- 设置该动画组件的宽度，设置的是`tabViewWidth`这个属性
+ 设置该动画组件数组所有组件的宽度，设置的是`tabViewWidth`这个属性
  @return return value 宽度
  */
 - (TABAnimatedArrayFloatBlock)width;
 
 /**
  set height
- 设置该动画组件的高度，设置的就是`tabViewHeight`这个属性
+ 设置该动画组件数组所有组件的高度，设置的就是`tabViewHeight`这个属性
  @return return value 高度
  */
 - (TABAnimatedArrayFloatBlock)height;
 
+/**
+ set animation cornerRadius
+ 设置该动画组件数组所有组件的圆角
+
+ @return return value 圆角
+ */
 - (TABAnimatedArrayFloatBlock)radius;
 
 /**
@@ -90,7 +96,7 @@ typedef NSArray <TABComponentLayer *> *_Nullable(^TABAnimatedArrayBlock)(void);
 
 /**
  remve the layer
- 移除该动画组件
+ 移除该动画组件数组中的所有组件
  @return return value description
  */
 - (TABAnimatedArrayBlock)remove;

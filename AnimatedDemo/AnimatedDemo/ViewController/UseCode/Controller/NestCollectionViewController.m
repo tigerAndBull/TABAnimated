@@ -7,11 +7,9 @@
 //
 
 #import "NestCollectionViewController.h"
-
 #import "NestCollectionViewCell.h"
 
 #import "TABAnimated.h"
-
 #import <TABKit/TABKit.h>
 
 @interface NestCollectionViewController ()<UICollectionViewDelegate,UICollectionViewDataSource>
@@ -115,7 +113,10 @@
         _collectionView.showsHorizontalScrollIndicator = NO;
         _collectionView.showsVerticalScrollIndicator = NO;
         
-        _collectionView.tabAnimated = [TABCollectionAnimated animatedWithCellClass:[NestCollectionViewCell class] cellSize:[NestCollectionViewCell cellSize]];
+        _collectionView.tabAnimated =
+        [TABCollectionAnimated animatedWithCellClass:[NestCollectionViewCell class]
+                                            cellSize:[NestCollectionViewCell cellSize]];
+        
     }
     return _collectionView;
 }

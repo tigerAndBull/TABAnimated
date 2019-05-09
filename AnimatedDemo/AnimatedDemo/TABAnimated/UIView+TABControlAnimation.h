@@ -33,7 +33,6 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)tab_endAnimation;
 
-
 @end
 
 NS_ASSUME_NONNULL_END

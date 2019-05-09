@@ -87,6 +87,7 @@
         UILabel *lab = [[UILabel alloc]init];
         lab.font = [UIFont systemFontOfSize:24];
         lab.textColor = [UIColor blackColor];
+        lab.tag = 1000;
         titleLab = lab;
         [self.contentView addSubview:lab];
     }
@@ -105,7 +106,9 @@
         _collectionView.showsHorizontalScrollIndicator = NO;
         _collectionView.showsVerticalScrollIndicator = NO;
         
-        _collectionView.tabAnimated = [TABCollectionAnimated animatedWithCellClass:[ImageCollectionViewCell class] cellSize:[ImageCollectionViewCell cellSize]];
+        _collectionView.tabAnimated =
+        [TABCollectionAnimated animatedWithCellClass:[ImageCollectionViewCell class]
+                                            cellSize:[ImageCollectionViewCell cellSize]];
         _collectionView.tabAnimated.isNest = YES;
         _collectionView.tabAnimated.animatedCount = 3;
     }

@@ -16,6 +16,7 @@
         self.anchorPoint = CGPointMake(0, 0);
         self.position = CGPointMake(0, 0);
         self.opaque = YES;
+        self.opacity = 1.0;
     }
     return self;
 }
@@ -57,6 +58,11 @@
 
 - (TABComponentLayerBlock)width {
     return ^TABComponentLayer *(CGFloat offset) {
+        
+        if (offset <= 0) {
+            return self;
+        }
+        
         self.tabViewWidth = offset;
         return self;
     };
@@ -64,6 +70,11 @@
 
 - (TABComponentLayerBlock)height {
     return ^TABComponentLayer *(CGFloat offset) {
+        
+        if (offset <= 0) {
+            return self;
+        }
+        
         self.tabViewHeight = offset;
         return self;
     };
@@ -121,6 +132,13 @@
 - (TABLoadStyleBlock)toShortAnimation {
     return ^TABComponentLayer *(void) {
         self.loadStyle = TABViewLoadAnimationToShort;
+        return self;
+    };
+}
+
+- (TABLoadStyleBlock)cancelAlignCenter {
+    return ^TABComponentLayer *(void) {
+        self.isCancelAlignCenter = YES;
         return self;
     };
 }

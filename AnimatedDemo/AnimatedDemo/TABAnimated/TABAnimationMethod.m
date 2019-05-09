@@ -20,7 +20,6 @@
     anim.repeatCount = HUGE_VALF;
     anim.toValue = (toValue == 0.)?@0.6:@(toValue);
     anim.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-    
     return anim;
 }
 

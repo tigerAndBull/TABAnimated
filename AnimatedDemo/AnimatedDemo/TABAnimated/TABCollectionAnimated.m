@@ -22,21 +22,35 @@
 + (instancetype)animatedWithCellClass:(Class)cellClass
                              cellSize:(CGSize)cellSize
                         animatedCount:(NSInteger)animatedCount {
-    TABCollectionAnimated *obj = [[TABCollectionAnimated alloc] init];
-    obj.cellClassArray = @[cellClass];
-    obj.cellSize = cellSize;
+    TABCollectionAnimated *obj = [self animatedWithCellClass:cellClass cellSize:cellSize];
     obj.animatedCount = animatedCount;
     return obj;
 }
 
-+ (instancetype)animatedWithCellClassArray:(NSArray<Class> *)cellClassArray
-                             cellSizeArray:(NSArray<NSNumber *> *)cellSizeArray
-                        animatedCountArray:(NSArray<NSNumber *> *)animatedCountArray {
++ (instancetype)animatedWithCellClassArray:(NSArray <Class> *)cellClassArray
+                             cellSizeArray:(NSArray <NSValue *> *)cellSizeArray
+                        animatedCountArray:(NSArray <NSNumber *> *)animatedCountArray {
     
     TABCollectionAnimated *obj = [[TABCollectionAnimated alloc] init];
     obj.animatedCountArray = animatedCountArray;
+    NSInteger result = 0;
+    for (NSNumber *num in animatedCountArray) {
+        NSInteger count = [num integerValue];
+        result += count;
+    }
     obj.cellSizeArray = cellSizeArray;
     obj.cellClassArray = cellClassArray;
+    return obj;
+}
+
++ (instancetype)animatedWithCellClassArray:(NSArray <Class> *)cellClassArray
+                             cellSizeArray:(NSArray <NSValue *> *)cellSizeArray
+                        animatedCountArray:(NSArray <NSNumber *> *)animatedCountArray
+                      animatedSectionArray:(NSArray <NSNumber *> *)animatedSectionArray {
+    TABCollectionAnimated *obj = [self animatedWithCellClassArray:cellClassArray
+                                                    cellSizeArray:cellSizeArray
+                                               animatedCountArray:animatedCountArray];
+    obj.animatedSectionArray = animatedSectionArray;
     return obj;
 }
 

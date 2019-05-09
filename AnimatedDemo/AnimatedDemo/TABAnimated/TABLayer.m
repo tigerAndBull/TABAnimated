@@ -19,7 +19,9 @@ static CGFloat defaultHeight = 16.f;
         self.anchorPoint = CGPointMake(0, 0);
         self.position = CGPointMake(0, 0);
         self.opaque = YES;
+        self.opacity = 1.0;
         self.contentsScale = ([[UIScreen mainScreen] scale] > 3.0) ? [[UIScreen mainScreen] scale]:3.0;
+        self.backgroundColor = [self.animatedBackgroundColor CGColor];
     }
     return self;
 }
@@ -27,7 +29,6 @@ static CGFloat defaultHeight = 16.f;
 - (void)updateSublayers:(NSArray <TABComponentLayer *> *)componentLayerArray {
     
     self.backgroundColor = [self.animatedBackgroundColor CGColor];
-    
     [TABManagerMethod removeSubLayers:self.sublayers];
     
     for (int i = 0; i < componentLayerArray.count; i++) {
@@ -170,14 +171,14 @@ static CGFloat defaultHeight = 16.f;
     CGFloat height = 0.;
     
     if (!isImageView) {
-        if (self.animatedHeight > 0.) {
-            height = self.animatedHeight;
+        if (layer.tabViewHeight > 0.) {
+            height = layer.tabViewHeight;
         }else {
-            if ([TABAnimated sharedAnimated].useGlobalAnimatedHeight) {
-                height = [TABAnimated sharedAnimated].animatedHeight;
+            if (self.animatedHeight > 0.) {
+                height = self.animatedHeight;
             }else {
-                if (layer.tabViewHeight > 0.) {
-                    height = layer.tabViewHeight;
+                if ([TABAnimated sharedAnimated].useGlobalAnimatedHeight) {
+                    height = [TABAnimated sharedAnimated].animatedHeight;
                 }else {
                     if (!isImageView) {
                         height = rect.size.height*[TABAnimated sharedAnimated].animatedHeightCoefficient;
@@ -185,11 +186,12 @@ static CGFloat defaultHeight = 16.f;
                 }
             }
         }
+
         rect = CGRectMake(rect.origin.x, rect.origin.y, rect.size.width,height);
     }
     
     BOOL isCenterLab = layer.fromCenterLabel;
-    if (isCenterLab) {
+    if (isCenterLab && !layer.isCancelAlignCenter) {
         rect = CGRectMake((self.frame.size.width - rect.size.width)/2.0, rect.origin.y, rect.size.width, rect.size.height);
     }
     

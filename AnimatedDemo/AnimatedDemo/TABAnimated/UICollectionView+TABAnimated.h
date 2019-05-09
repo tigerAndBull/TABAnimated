@@ -12,17 +12,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@protocol UICollectionViewAnimatedDelegate <NSObject>
-
-- (NSInteger)tab_collectionView:(UICollectionView *)collectionView numberOfAnimatedItemsInSection:(NSInteger)section;
-
-@end
-
 @class TABCollectionAnimated;
 
 @interface UICollectionView (TABAnimated)
-
-@property (nonatomic,weak) id<UICollectionViewAnimatedDelegate> animatedDelegate;
 
 // To the control view
 @property (nonatomic,strong) TABCollectionAnimated * _Nullable tabAnimated;

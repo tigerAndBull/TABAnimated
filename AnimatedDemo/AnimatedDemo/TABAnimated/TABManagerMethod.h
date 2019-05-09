@@ -17,9 +17,13 @@ NS_ASSUME_NONNULL_BEGIN
  **/
 @interface TABManagerMethod : NSObject
 
++ (void)fullData:(UIView *)view;
++ (void)resetData:(UIView *)view;
+
 + (void)getNeedAnimationSubViews:(UIView *)view
                    withSuperView:(UIView *)superView
                     withRootView:(UIView *)rootView
+               withRootSuperView:(UIView *)rootSuperView
                            array:(NSMutableArray <TABComponentLayer *> *)array;
 
 + (BOOL)judgeViewIsNeedAddAnimation:(UIView *)view;

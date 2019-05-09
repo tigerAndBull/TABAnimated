@@ -17,7 +17,6 @@
         _cellClassArray = @[].mutableCopy;
         _animatedCount = 2;
         _superAnimationType = TABViewSuperAnimationTypeDefault;
-        _isNest = NO;
     }
     return self;
 }

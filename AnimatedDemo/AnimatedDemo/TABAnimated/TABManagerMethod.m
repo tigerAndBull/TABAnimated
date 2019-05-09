@@ -11,11 +11,92 @@
 
 #import <CoreGraphics/CoreGraphics.h>
 
+#define kShortDataString @"tab_testtesttest"
+#define kLongDataString @"tab_testtesttesttesttesttesttesttesttesttesttest"
+
 @implementation TABManagerMethod
+
++ (void)fullData:(UIView *)view {
+    
+    if ([view isKindOfClass:[UITableView class]] ||
+        [view isKindOfClass:[UICollectionView class]]) {
+        return;
+    }
+    
+    NSArray *subViews = [view subviews];
+    if ([subViews count] == 0) {
+        return;
+    }
+    
+    for (int i = 0; i < subViews.count;i++) {
+        
+        UIView *subV = subViews[i];
+        [self fullData:subV];
+        
+        if ([subV isKindOfClass:[UITableView class]] ||
+            [subV isKindOfClass:[UICollectionView class]]) {
+            continue;
+        }
+        
+        if ([subV isKindOfClass:[UILabel class]]) {
+            UILabel *lab = (UILabel *)subV;
+            if (lab.text == nil || [lab.text isEqualToString:@""]) {
+                if (lab.numberOfLines == 1) {
+                    lab.text = kShortDataString;
+                }else {
+                    lab.text = kLongDataString;
+                }
+            }
+        }else {
+            if ([subV isKindOfClass:[UIButton class]]) {
+                UIButton *btn = (UIButton *)subV;
+                if (btn.titleLabel.text == nil && btn.imageView.image == nil) {
+                    [btn setTitle:kShortDataString forState:UIControlStateNormal];
+                }
+            }
+        }
+    }
+}
+
++ (void)resetData:(UIView *)view {
+    
+    if ([view isKindOfClass:[UITableView class]] ||
+        [view isKindOfClass:[UICollectionView class]]) {
+        return;
+    }
+    
+    NSArray *subViews = [view subviews];
+    if ([subViews count] == 0) {
+        return;
+    }
+    
+    for (int i = 0; i < subViews.count;i++) {
+        
+        UIView *subV = subViews[i];
+        [self resetData:subV];
+        
+        if ([subV isKindOfClass:[UILabel class]]) {
+            UILabel *lab = (UILabel *)subV;
+            if ([lab.text isEqualToString:kShortDataString] ||
+                [lab.text isEqualToString:kLongDataString]) {
+                lab.text = @"";
+            }
+        }else {
+            if ([subV isKindOfClass:[UIButton class]]) {
+                UIButton *btn = (UIButton *)subV;
+                if ([btn.titleLabel.text isEqualToString:kShortDataString] ||
+                    [btn.titleLabel.text isEqualToString:kLongDataString]) {
+                    [btn setTitle:@"" forState:UIControlStateNormal];
+                }
+            }
+        }
+    }
+}
 
 + (void)getNeedAnimationSubViews:(UIView *)view
                    withSuperView:(UIView *)superView
                     withRootView:(UIView *)rootView
+               withRootSuperView:(UIView *)rootSuperView
                            array:(NSMutableArray <TABComponentLayer *> *)array {
     
     NSArray *subViews = [view subviews];
@@ -30,8 +111,9 @@
         [self getNeedAnimationSubViews:subV
                          withSuperView:subV.superview
                           withRootView:rootView
+                     withRootSuperView:rootSuperView
                                  array:array];
-        
+
         // remove lineView for the cell created by xib
         if ([subV isKindOfClass:[NSClassFromString(@"_UITableViewCellSeparatorView") class]]) {
             [subV removeFromSuperview];
@@ -42,12 +124,12 @@
         if ([subV isKindOfClass:[UITableView class]]) {
             UITableView *view = (UITableView *)subV;
             [view tab_startAnimation];
-            [view reloadData];
+            continue;
         }else {
             if ([subV isKindOfClass:[UICollectionView class]]) {
                 UICollectionView *view = (UICollectionView *)subV;
                 [view tab_startAnimation];
-                [view reloadData];
+                continue;
             }
         }
         
@@ -58,11 +140,10 @@
             }
         }
         
-        // remove contentView frome the animation queue
-        TABComponentLayer *layer = TABComponentLayer.new;
-
         if ([TABManagerMethod judgeViewIsNeedAddAnimation:subV]) {
             
+            TABComponentLayer *layer = TABComponentLayer.new;
+
             if (!CGSizeEqualToSize(subV.layer.shadowOffset, CGSizeMake(0, -3))) {
                 rootView.tabLayer.cardOffset = CGPointMake(rootView.bounds.origin.x - subV.frame.origin.x, rootView.bounds.origin.y - subV.frame.origin.y);
                 rootView.tabLayer.frame = subV.frame;
@@ -76,7 +157,6 @@
             }
             
             CGRect rect = [rootView convertRect:subV.frame fromView:subV.superview];
-            
             layer.cornerRadius = subV.layer.cornerRadius;
             layer.frame = rect;
             
@@ -89,31 +169,14 @@
                     layer.fromCenterLabel = NO;
                 }
                 
-                if (lab.numberOfLines == 0 ||
-                    lab.numberOfLines > 1) {
-                    if (lab.frame.size.width == 0 ||
-                        lab.frame.size.height == 0) {
-                        lab.text = @"测试测试测试测试测试测试测试测试测试测试测试测试测试测试";
-                    }
+                if (lab.numberOfLines == 0 || lab.numberOfLines > 1) {
                     layer.numberOflines = lab.numberOfLines;
                 }else {
-                    if (lab.frame.size.width == 0 ||
-                        lab.frame.size.height == 0) {
-                        lab.text = @"测试测试测试测试";
-                    }
                     layer.numberOflines = 1;
                 }
             }else {
                 layer.fromCenterLabel = NO;
                 layer.numberOflines = 1;
-            }
-            
-            if ([subV isKindOfClass:[UIButton class]]) {
-                UIButton *btn = (UIButton *)subV;
-                if (btn.frame.size.width == 0 ||
-                    btn.frame.size.height == 0) {
-                    [btn setTitle:@"测试测试" forState:UIControlStateNormal];
-                }
             }
             
             if ([subV isKindOfClass:[UIImageView class]]) {
@@ -148,7 +211,11 @@
 }
 
 + (BOOL)judgeViewIsNeedAddAnimation:(UIView *)view {
-
+    
+    if (view.tag == 1000) {
+        
+    }
+    
     if ([view isKindOfClass:[UICollectionView class]] ||
         [view isKindOfClass:[UITableView class]]) {
         return NO;
@@ -171,7 +238,8 @@
         if (view.layer.sublayers.count == 0) {
             return YES;
         }else {
-            if ([view isKindOfClass:[UILabel class]]) {
+            if ([view isKindOfClass:[UILabel class]] ||
+                [view isKindOfClass:[UIImageView class]]) {
                 return YES;
             }else {
                 if ([view isKindOfClass:[UIView class]] && !CGSizeEqualToSize(view.layer.shadowOffset, CGSizeMake(0, -3))) {

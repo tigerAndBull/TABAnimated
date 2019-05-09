@@ -16,10 +16,6 @@
 
 @implementation UITableView (TABAnimated)
 
-struct {
-    unsigned int sectionAnimatedCountDelegate:1;
-} tableViewAnimatedDelegateRespondTo;
-
 + (void)load {
     
     // Ensure that the exchange method executed only once.
@@ -30,6 +26,7 @@ struct {
         Method originMethod = class_getInstanceMethod([self class], @selector(setDelegate:));
         // Get the method you created.
         Method newMethod = class_getInstanceMethod([self class], @selector(tab_setDelegate:));
+        // Exchange
         method_exchangeImplementations(originMethod, newMethod);
     });
 }
@@ -48,8 +45,8 @@ struct {
     SEL oldHeightDelegate = @selector(tableView:heightForRowAtIndexPath:);
     SEL newHeightDelegate = @selector(tab_tableView:heightForRowAtIndexPath:);
     
-    SEL oldClickDelegate = @selector(tableView:heightForRowAtIndexPath:);
-    SEL newClickDelegate = @selector(tab_tableView:heightForRowAtIndexPath:);
+    SEL oldClickDelegate = @selector(tableView:didSelectRowAtIndexPath:);
+    SEL newClickDelegate = @selector(tab_tableView:didSelectRowAtIndexPath:);
     
     if ([self respondsToSelector:newSelector]) {
         [self exchangeTableDelegateMethod:oldSelector withNewSel:newSelector withTableDelegate:delegate];
@@ -69,9 +66,24 @@ struct {
     // If the animation running, return animatedCount.
     if (tableView.tabAnimated.isAnimating) {
         
-        if (tableView.animatedDelegate &&
-            [tableView.animatedDelegate respondsToSelector:@selector(tab_tableView:numberOfAnimatedRowsInSection:)]) {
-            return [tableView.animatedDelegate tab_tableView:tableView numberOfAnimatedRowsInSection:section];
+        // 开发者指定section
+        if (tableView.tabAnimated.animatedSectionArray.count > 0) {
+            
+            // 匹配当前section
+            for (NSNumber *num in tableView.tabAnimated.animatedSectionArray) {
+                if ([num integerValue] == section) {
+                    NSInteger index = [tableView.tabAnimated.animatedSectionArray indexOfObject:num];
+                    if (index > tableView.tabAnimated.animatedCountArray.count - 1) {
+                        return [[tableView.tabAnimated.animatedCountArray lastObject] integerValue];
+                    }else {
+                        return [tableView.tabAnimated.animatedCountArray[index] integerValue];
+                    }
+                }
+                
+                if ([num isEqual:[tableView.tabAnimated.animatedSectionArray lastObject]]) {
+                    return [self tab_tableView:tableView numberOfRowsInSection:section];
+                }
+            }
         }
         
         if (tableView.tabAnimated.animatedCountArray.count > 0) {
@@ -92,9 +104,31 @@ struct {
         NSAssert(tableView.tabAnimated, @"TABAnimated模版模式强制提醒 - tabAnimated未初始化");
         
         NSInteger index = indexPath.section;
-        if (indexPath.section > (tableView.tabAnimated.cellClassArray.count - 1)) {
-            index = tableView.tabAnimated.cellClassArray.count - 1;
-            tabAnimatedLog(@"TABAnimated模版模式提醒 - section的数量和模版类的数量不一致，超出的section，将使用最后一个模版类加载");
+        
+        // 开发者指定section
+        if (tableView.tabAnimated.animatedSectionArray.count > 0) {
+            
+            // 匹配当前section
+            for (NSNumber *num in tableView.tabAnimated.animatedSectionArray) {
+                if ([num integerValue] == indexPath.section) {
+                    NSInteger currentIndex = [tableView.tabAnimated.animatedSectionArray indexOfObject:num];
+                    if (currentIndex > tableView.tabAnimated.cellHeightArray.count - 1) {
+                        index = [tableView.tabAnimated.cellHeightArray count] - 1;
+                    }else {
+                        index = currentIndex;
+                    }
+                    break;
+                }
+                
+                if ([num isEqual:[tableView.tabAnimated.animatedSectionArray lastObject]]) {
+                    return [self tab_tableView:tableView heightForRowAtIndexPath:indexPath];
+                }
+            }
+        }else {
+            if (indexPath.section > (tableView.tabAnimated.cellClassArray.count - 1)) {
+                index = tableView.tabAnimated.cellClassArray.count - 1;
+                tabAnimatedLog(@"TABAnimated模版模式提醒 - section的数量和模版类的数量不一致，超出的section，将使用最后一个模版类加载");
+            }
         }
         
         return [tableView.tabAnimated.cellHeightArray[index] floatValue];
@@ -111,9 +145,31 @@ struct {
         }
         
         NSInteger index = indexPath.section;
-        if (indexPath.section > (tableView.tabAnimated.cellClassArray.count - 1)) {
-            index = tableView.tabAnimated.cellClassArray.count - 1;
-            tabAnimatedLog(@"TABAnimated - section的数量和模版类的数量不一致，超出的section，将使用最后一个模版类加载");
+        
+        // 开发者指定section
+        if (tableView.tabAnimated.animatedSectionArray.count > 0) {
+            
+            // 匹配当前section
+            for (NSNumber *num in tableView.tabAnimated.animatedSectionArray) {
+                if ([num integerValue] == indexPath.section) {
+                    NSInteger currentIndex = [tableView.tabAnimated.animatedSectionArray indexOfObject:num];
+                    if (currentIndex > tableView.tabAnimated.cellClassArray.count - 1) {
+                        index = [tableView.tabAnimated.cellClassArray count] - 1;
+                    }else {
+                        index = currentIndex;
+                    }
+                    break;
+                }
+                
+                if ([num isEqual:[tableView.tabAnimated.animatedSectionArray lastObject]]) {
+                    return [self tab_tableView:tableView cellForRowAtIndexPath:indexPath];
+                }
+            }
+        }else {
+            if (indexPath.section > (tableView.tabAnimated.cellClassArray.count - 1)) {
+                index = tableView.tabAnimated.cellClassArray.count - 1;
+                tabAnimatedLog(@"TABAnimated - section的数量和模版类的数量不一致，超出的section，将使用最后一个模版类加载");
+            }
         }
         
         UITableViewCell *cell = (UITableViewCell *)tableView.tabAnimated.cellClassArray[index].new;
@@ -125,6 +181,24 @@ struct {
             }
             cell = [cellArray objectAtIndex:0];
         }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        if (nil == cell.tabLayer) {
+            [TABManagerMethod fullData:cell];
+            cell.tabLayer = TABLayer.new;
+            CGFloat height = 0.;
+            if (index > tableView.tabAnimated.cellHeightArray.count - 1) {
+                height = [[tableView.tabAnimated.cellHeightArray lastObject] floatValue];
+            }else {
+                height = [tableView.tabAnimated.cellHeightArray[index] floatValue];
+            }
+            cell.tabLayer.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, height);
+            cell.tabLayer.animatedHeight = tableView.tabAnimated.animatedHeight;
+            cell.tabLayer.animatedCornerRadius = tableView.tabAnimated.animatedCornerRadius;
+            cell.tabLayer.cancelGlobalCornerRadius = tableView.tabAnimated.cancelGlobalCornerRadius;
+            [cell.layer addSublayer:cell.tabLayer];
+        }
+
         return cell;
     }
     return [self tab_tableView:tableView cellForRowAtIndexPath:indexPath];
@@ -165,8 +239,6 @@ struct {
     
     if ([self isKindOfClass:[delegate class]]) {
         // 如果你采用了将数据代理给予表格本身，这种愚蠢的做法暂不做处理，将无法使用动画库。
-        // method_exchangeImplementations(oldMethod, newMethod);
-        NSAssert(NO, @"Why do you do `self.delegate = self` such a silly thing?");
     }else {
         
         if (oldMethod == nil) {
@@ -179,21 +251,6 @@ struct {
             // 添加成功后，将oldMethod指向当前类的新的
             class_replaceMethod([delegate class], oldSelector, class_getMethodImplementation([self class], newSelector), method_getTypeEncoding(newMethod));
         }
-    }
-}
-
-- (id<UITableViewAnimatedDelegate>)animatedDelegate {
-    id<UITableViewAnimatedDelegate> delegate = objc_getAssociatedObject(self, @selector(animatedDelegate));
-    return delegate;
-}
-
-- (void)setAnimatedDelegate:(id<UITableViewAnimatedDelegate>)animatedDelegate {
-    
-    if (self.animatedDelegate != animatedDelegate) {
-        
-        objc_setAssociatedObject(self, @selector(animatedDelegate), animatedDelegate, OBJC_ASSOCIATION_ASSIGN);
-        
-        tableViewAnimatedDelegateRespondTo.sectionAnimatedCountDelegate = [animatedDelegate respondsToSelector:@selector(tab_tableView:numberOfAnimatedRowsInSection:)];
     }
 }
 

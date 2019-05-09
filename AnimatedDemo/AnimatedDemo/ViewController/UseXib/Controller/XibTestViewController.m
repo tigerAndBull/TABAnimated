@@ -7,13 +7,10 @@
 //
 
 #import "XibTestViewController.h"
-
 #import "XIBTableViewCell.h"
 
 #import "TABAnimated.h"
-
 #import "Game.h"
-
 #import <TABKit/TABKit.h>
 
 @interface XibTestViewController () <UITableViewDelegate,UITableViewDataSource> {
@@ -121,9 +118,21 @@
         _mainTV.estimatedSectionFooterHeight = 0;
         _mainTV.estimatedSectionHeaderHeight = 0;
         _mainTV.separatorStyle = UITableViewCellSeparatorStyleNone;
+        
+        // 注意！！！
+        // xib 动画数组的顺序是组件关联xib文件的顺序。
+        // 这里做了一个错误示范，有坑慎入。
         _mainTV.tabAnimated = [TABTableAnimated animatedWithCellClass:[XIBTableViewCell class] cellHeight:115];
         _mainTV.tabAnimated.cancelGlobalCornerRadius = YES;
         _mainTV.tabAnimated.animatedHeight = 14.f;
+        _mainTV.tabAnimated.categoryBlock = ^(UIView * _Nonnull view) {
+            
+            // 注意！！！
+            // xib 动画数组的顺序是组件关联xib文件的顺序。
+            // 这里做了一个错误示范，有坑慎入。
+            view.animation(4).width(80).down(4);
+            view.animation(3).width(110).up(2);
+        };
     }
     return _mainTV;
 }

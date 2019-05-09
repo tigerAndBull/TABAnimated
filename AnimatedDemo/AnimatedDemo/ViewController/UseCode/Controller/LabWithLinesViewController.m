@@ -53,7 +53,7 @@
         
         Game *game = [[Game alloc]init];
         game.gameId = [NSString stringWithFormat:@"%d",i];
-        game.title = [NSString stringWithFormat:@"这里是测试数据%d",i+1];
+        game.title = [NSString stringWithFormat:@"测试数据测试数据测试数据测试数据测试数据测试数据测试数据%d",i+1];
         game.cover = @"test.jpg";
         [dataArray addObject:game];
     }

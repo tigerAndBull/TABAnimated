@@ -1,23 +1,19 @@
 //
-//  TestTableViewController.m
+//  SectionsTableViewController.m
 //  AnimatedDemo
 //
-//  Created by tigerAndBull on 2018/9/14.
-//  Copyright © 2018年 tigerAndBull. All rights reserved.
+//  Created by tigerAndBull on 2019/5/9.
+//  Copyright © 2019 tigerAndBull. All rights reserved.
 //
 
-#import "TestTableViewController.h"
-
+#import "SectionsTableViewController.h"
 #import "TestTableViewCell.h"
-#import "XIBTableViewCell.h"
-
-#import "TABAnimated.h"
-#import <TABKit/TABKit.h>
-#import "TestHeadView.h"
+#import "LabWithLinesViewCell.h"
 
 #import "Game.h"
+#import <TABKit/TABKit.h>
 
-@interface TestTableViewController () <UITableViewDelegate,UITableViewDataSource> {
+@interface SectionsTableViewController ()<UITableViewDelegate,UITableViewDataSource> {
     NSMutableArray *dataArray;
 }
 
@@ -25,14 +21,7 @@
 
 @end
 
-@implementation TestTableViewController
-
-- (instancetype)init {
-    if (self = [super init]) {
-        [self tableView];
-    }
-    return self;
-}
+@implementation SectionsTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -64,14 +53,21 @@
         game.cover = @"test.jpg";
         [dataArray addObject:game];
     }
-
+    
     // 停止动画,并刷新数据
     [self.tableView tab_endAnimation];
 }
 
 #pragma mark - UITableViewDelegate & Datasource
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 2;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if (section == 0) {
+        return 1;
+    }
     return dataArray.count;
 }
 
@@ -80,6 +76,9 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    if (section == 0) {
+        return 5.;
+    }
     return .1;
 }
 
@@ -88,6 +87,20 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (indexPath.section == 0) {
+        static NSString *str = @"LabWithLinesViewCell";
+        LabWithLinesViewCell *cell = [tableView dequeueReusableCellWithIdentifier:str];
+        if (!cell) {
+            cell = [[LabWithLinesViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:str];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        }
+        
+        Game *game = Game.new;
+        game.title = @"这里是不需要动画的section";
+        [cell initWithData:game];
+        return cell;
+    }
     
     static NSString *str = @"TestTableViewCell";
     TestTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:str];
@@ -106,7 +119,7 @@
  加载数据
  */
 - (void)initData {
-    dataArray = [NSMutableArray array];
+    dataArray = @[].mutableCopy;
 }
 
 /**
@@ -118,8 +131,6 @@
     [self.view addSubview:self.tableView];
     [self.tableView tab_startAnimation];   // 开启动画
 }
-
-#pragma mark - Lazy Methods
 
 - (UITableView *)tableView {
     if (!_tableView) {
@@ -133,8 +144,13 @@
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         
         // 设置tabAnimated相关属性
-        // 可以不进行手动初始化，将使用默认属性
-        _tableView.tabAnimated = [TABTableAnimated animatedWithCellClass:[TestTableViewCell class] cellHeight:100];
+        // 部分section有动画
+        _tableView.tabAnimated =
+        [TABTableAnimated animatedWithCellClassArray:@[[TestTableViewCell class]]
+                                     cellHeightArray:@[@(100)]
+                                  animatedCountArray:@[@(1)]
+                                animatedSectionArray:@[@(1)]];
+        
         _tableView.tabAnimated.categoryBlock = ^(UIView * _Nonnull view) {
             view.animation(1).down(3).height(12).toShortAnimation();
             view.animation(2).height(12).width(110).toLongAnimation();

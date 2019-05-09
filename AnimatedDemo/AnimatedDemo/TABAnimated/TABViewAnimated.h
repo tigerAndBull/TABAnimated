@@ -42,10 +42,13 @@ typedef NS_ENUM(NSInteger,TABViewSuperAnimationType) {
 };
 
 typedef void(^TABAnimatedCategoryBlock)(UIView *view);
+typedef void (^TABFinishedBlock)(BOOL finished);
 
 @interface TABViewAnimated : NSObject
 
 @property (nonatomic,copy) TABAnimatedCategoryBlock categoryBlock;
+
+@property (nonatomic,copy) TABFinishedBlock finishedBlock;
 
 /**
  The state of the animation, you can reset it.
@@ -83,7 +86,6 @@ typedef void(^TABAnimatedCategoryBlock)(UIView *view);
  
  **/
 @property (nonatomic,assign) NSInteger animatedCount;
-
 
 /**
  Similar to `animatedCount`.
@@ -128,8 +130,8 @@ typedef void(^TABAnimatedCategoryBlock)(UIView *view);
 @property (nonatomic,assign) BOOL isAnimating;
 
 /**
- Be used to the nest view.
- 是否是嵌套类型视图
+ Is the nest view or not.
+ 是否是嵌套在内部的表格视图
  */
 @property (nonatomic,assign) BOOL isNest;
 

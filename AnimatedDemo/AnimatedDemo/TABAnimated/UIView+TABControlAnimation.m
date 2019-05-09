@@ -18,20 +18,11 @@
         return;
     }
     
-    if (!self.tabAnimated) {
-        tabAnimatedLog(@"TABAnimated提醒 - 检测到未进行初始化设置，将以默认属性加载");
-        self.tabAnimated = [[TABViewAnimated alloc] init];
-    }
-    
-    if ([self isKindOfClass:[UICollectionView class]]) {
-        [(UICollectionView *)self setScrollEnabled:NO];
-    }
-    
     self.tabAnimated.isAnimating = YES;
     self.tabAnimated.state = TABViewAnimationStart;
     
     if ([self isKindOfClass:[UICollectionView class]]) {
-        
+
         for (Class class in self.tabAnimated.cellClassArray) {
             [(UICollectionView *)self registerClass:class forCellWithReuseIdentifier:[NSString stringWithFormat:@"tab_%@",NSStringFromClass(class)]];
             [(UICollectionView *)self registerClass:class forCellWithReuseIdentifier:NSStringFromClass(class)];
@@ -40,6 +31,9 @@
         
     }else if ([self isKindOfClass:[UITableView class]]) {
         [(UITableView *)self reloadData];
+    }else {
+        [TABManagerMethod fullData:self];
+        [self layoutSubviews];
     }
 }
 
@@ -64,6 +58,7 @@
             [(UICollectionView *)self setScrollEnabled:YES];
             [(UICollectionView *)self reloadData];
         }else {
+            [TABManagerMethod resetData:self];
             [self layoutSubviews];
         }
     }

@@ -111,7 +111,8 @@
              kText(@"cell中使用多级view 示例"),
              kText(@"UITableView xib 示例"),
              kText(@"嵌套表格 示例"),
-             kText(@"UICollectionView 多section 示例")];
+             kText(@"UICollectionView 多section 示例"),
+             kText(@"UITableView 多section 示例")];
 }
 
 - (NSArray *)controllerClassArray {
@@ -124,7 +125,8 @@
              @"ExampleOfPackageViewController",
              @"XibTestViewController",
              @"NestCollectionViewController",
-             @"SectionsCollectionViewController"];
+             @"SectionsCollectionViewController",
+             @"SectionsTableViewController"];
 }
 
 @end
