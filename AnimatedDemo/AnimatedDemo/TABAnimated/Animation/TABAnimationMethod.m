@@ -11,6 +11,7 @@
 
 @implementation TABAnimationMethod
 
+
 + (CABasicAnimation *)scaleXAnimationDuration:(CGFloat)duration
                                       toValue:(CGFloat)toValue {
     CABasicAnimation *anim = [CABasicAnimation animationWithKeyPath:@"transform.scale.x"];
