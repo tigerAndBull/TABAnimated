@@ -137,7 +137,7 @@
 }
 
 - (UICollectionViewCell *)tab_collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    if (collectionView.tabAnimated.state == TABViewAnimationStart) {
+    if (collectionView.tabAnimated.state == TABViewAnimationStart || collectionView.tabAnimated.state == TABViewAnimationEnd) {
         
         NSInteger index = indexPath.section;
         
@@ -188,7 +188,15 @@
             [cell.layer addSublayer:cell.tabLayer];
         }
         
-        return cell;
+        if (collectionView.tabAnimated.state == TABViewAnimationEnd) {
+            // 修改 骨架结束的时候获取到 骨架的cell  清理数据  释放动画定时器 xiaoxin
+            [TABManagerMethod endAnimationToSubViews:cell];
+            [TABManagerMethod removeMask:cell];
+            [[cell tabAnimatedMethod] destoryTimer];
+            
+        }else{
+            return cell;
+        }
     }
     return [self tab_collectionView:collectionView cellForItemAtIndexPath:indexPath];
 }

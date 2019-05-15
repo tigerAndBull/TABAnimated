@@ -43,7 +43,7 @@
         tabAnimatedLog(@"TABAnimated提醒 - 动画对象已被提前释放");
         return;
     }
-    
+    //修改 ，TABViewAnimationEnd return会导致都调用的时候 不能reload view
     if (self.tabAnimated.state == TABViewAnimationEnd) {
         return;
     }

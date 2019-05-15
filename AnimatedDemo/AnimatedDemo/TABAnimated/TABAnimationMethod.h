@@ -16,6 +16,13 @@ NS_ASSUME_NONNULL_BEGIN
  **/
 @interface TABAnimationMethod : NSObject
 
+//修改  xiaoxin  增加轮播变色 动画  计时器 xiaoxin
+@property (nonatomic,strong)dispatch_source_t timer;
+
+- (void)addChangeColorAnimationWith:(NSArray<TABComponentLayer *>*)layerArr Duration:(CGFloat)duration
+                                key:(NSString *)key;
+- (void)destoryTimer;
+
 + (CABasicAnimation *)scaleXAnimationDuration:(CGFloat)duration
                                       toValue:(CGFloat)toValue;
 

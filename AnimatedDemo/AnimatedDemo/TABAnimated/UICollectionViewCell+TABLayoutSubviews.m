@@ -80,9 +80,10 @@
                     break;
                     
                 case TABViewAnimationEnd: {
-                    // end animations
+                    // end animations   layoutsubView的时候 拿不到cell 所有的cell的属性都是空 xiaoxin
                     [TABManagerMethod endAnimationToSubViews:self];
                     [TABManagerMethod removeMask:self];
+                    [[self tabAnimatedMethod] destoryTimer];
                 }
                     
                     break;
@@ -93,5 +94,14 @@
         });
     }
 }
+
+- (TABAnimationMethod *)tabAnimatedMethod {
+    return objc_getAssociatedObject(self, @selector(tabAnimatedMethod));
+}
+
+- (void)setTabAnimatedMethod:(TABAnimationMethod *)tabAnimatedMethod {
+    objc_setAssociatedObject(self, @selector(tabAnimatedMethod),tabAnimatedMethod, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
 
 @end

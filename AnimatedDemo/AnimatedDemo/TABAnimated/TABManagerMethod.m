@@ -145,8 +145,9 @@
             TABComponentLayer *layer = TABComponentLayer.new;
 
             if (!CGSizeEqualToSize(subV.layer.shadowOffset, CGSizeMake(0, -3))) {
-                rootView.tabLayer.cardOffset = CGPointMake(rootView.bounds.origin.x - subV.frame.origin.x, rootView.bounds.origin.y - subV.frame.origin.y);
-                rootView.tabLayer.frame = subV.frame;
+                //修改 框架拿到有阴影view时候 BUG的问题  xiaoxin
+//                rootView.tabLayer.cardOffset = CGPointMake(rootView.bounds.origin.x - subV.frame.origin.x, rootView.bounds.origin.y - subV.frame.origin.y);
+//                rootView.tabLayer.frame = subV.frame;
                 rootView.tabLayer.shadowOffset = subV.layer.shadowOffset;
                 rootView.tabLayer.shadowColor = subV.layer.shadowColor;
                 rootView.tabLayer.shadowRadius = subV.layer.shadowRadius;
