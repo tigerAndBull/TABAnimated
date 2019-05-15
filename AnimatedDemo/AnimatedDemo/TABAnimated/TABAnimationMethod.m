@@ -23,6 +23,42 @@
     return anim;
 }
 
+- (void)addChangeColorAnimationWith:(NSArray<TABComponentLayer *>*)layerArr Duration:(CGFloat)duration
+                                key:(NSString *)key {
+    
+    NSTimeInterval period = duration; //设置时间间隔
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
+    dispatch_source_set_timer(_timer, dispatch_walltime(NULL, 0), period * NSEC_PER_SEC, 0); //每秒执行
+    dispatch_source_set_event_handler(_timer, ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            CGFloat singleDuration = period / layerArr.count;
+            NSLog(@" 动画定时循环 ");
+            for (int i = 0; i < layerArr.count; i ++) {
+                TABComponentLayer * layer = layerArr[i];
+                CAKeyframeAnimation *keyAnimation = [CAKeyframeAnimation animationWithKeyPath:@"backgroundColor"];
+                keyAnimation.values = @[(id)tab_kBackColor.CGColor,(id)[UIColor lightGrayColor].CGColor];
+                keyAnimation.keyTimes = @[@0,@(1)];
+                keyAnimation.beginTime = CACurrentMediaTime() + (i * singleDuration);
+                keyAnimation.duration = 0;
+                keyAnimation.removedOnCompletion = YES;
+                keyAnimation.fillMode = kCAFillModeForwards;
+                keyAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
+                [layer addAnimation:keyAnimation forKey:[NSString stringWithFormat:@"backgroundColorAnimation%d",i]];
+            }
+        });
+    });
+    dispatch_resume(_timer);
+}
+
+- (void)destoryTimer{
+    if (!_timer) {
+        return;
+    }
+    dispatch_source_cancel(_timer);
+    _timer = nil;
+}
+
 + (void)addAlphaAnimation:(UIView *)view
                  duration:(CGFloat)duration
                       key:(NSString *)key {

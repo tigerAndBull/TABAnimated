@@ -169,26 +169,28 @@ static CGFloat defaultHeight = 16.f;
     BOOL isImageView = layer.fromImageView;
     
     CGFloat height = 0.;
-    
-    if (!isImageView) {
-        if (layer.tabViewHeight > 0.) {
-            height = layer.tabViewHeight;
+    // 修改拿掉 isImageView 限制 开放 tabViewHeight  需要可以修改 imageView的高度  xiaoxin
+    //    if (!isImageView) {
+    if (layer.tabViewHeight > 0.) {
+        
+        height = layer.tabViewHeight;
+        rect = CGRectMake(rect.origin.x, rect.origin.y, rect.size.width,height);
+        
+    }else if (!isImageView) {
+        if (self.animatedHeight > 0.) {
+            height = self.animatedHeight;
         }else {
-            if (self.animatedHeight > 0.) {
-                height = self.animatedHeight;
+            if ([TABAnimated sharedAnimated].useGlobalAnimatedHeight) {
+                height = [TABAnimated sharedAnimated].animatedHeight;
             }else {
-                if ([TABAnimated sharedAnimated].useGlobalAnimatedHeight) {
-                    height = [TABAnimated sharedAnimated].animatedHeight;
-                }else {
-                    if (!isImageView) {
-                        height = rect.size.height*[TABAnimated sharedAnimated].animatedHeightCoefficient;
-                    }
+                if (!isImageView) {
+                    height = rect.size.height*[TABAnimated sharedAnimated].animatedHeightCoefficient;
                 }
             }
         }
-
         rect = CGRectMake(rect.origin.x, rect.origin.y, rect.size.width,height);
     }
+//    }
     
     BOOL isCenterLab = layer.fromCenterLabel;
     if (isCenterLab && !layer.isCancelAlignCenter) {
