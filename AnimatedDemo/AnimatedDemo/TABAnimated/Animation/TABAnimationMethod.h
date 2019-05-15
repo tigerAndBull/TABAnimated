@@ -27,6 +27,14 @@ NS_ASSUME_NONNULL_BEGIN
                  duration:(CGFloat)duration
                       key:(NSString *)key;
 
++ (void)addDropAnimation:(CALayer *)layer
+                   index:(NSInteger)index
+                duration:(CGFloat)duration
+                   count:(NSInteger)count
+                stayTime:(CGFloat)stayTime
+               deepColor:(UIColor *)deepColor
+                     key:(NSString *)key;
+
 @end
 
 NS_ASSUME_NONNULL_END

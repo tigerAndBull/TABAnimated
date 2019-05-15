@@ -56,13 +56,15 @@ _Pragma("clang diagnostic pop") \
 #define kTABAlphaAnimation @"TABAlphaAnimation"
 #define kTABLocationAnimation @"TABLocationAnimation"
 #define kTABShimmerAnimation @"TABShimmerAnimation"
+#define kTABDropAnimation @"TABDropAnimation"
 
 #endif /* TABAnimated_h */
 
 typedef NS_ENUM(NSInteger,TABAnimationType) {
-    TABAnimationTypeOnlySkeleton = 0,    // onlySkeleton for all views in your project.
-    TABAnimationTypeBinAnimation,        // default animation for all registered views in your project.
-    TABAnimationTypeShimmer              // shimmer animation for all views in your project.
+    TABAnimationTypeOnlySkeleton = 0,    // onlySkeleton for all views in your project. 普通骨架层
+    TABAnimationTypeBinAnimation,        // default animation for all registered views in your project.                                        呼吸灯
+    TABAnimationTypeShimmer,             // shimmer animation for all views in your project. 闪光灯
+    TABAnimationTypeDrop                 // drop animation for all views in your project. 豆瓣下坠动画
 };
 
 @interface TABAnimated : NSObject
@@ -84,50 +86,94 @@ typedef NS_ENUM(NSInteger,TABAnimationType) {
  **/
 @property (nonatomic,assign) CGFloat animatedHeightCoefficient;
 
-@property (nonatomic,assign) CGFloat animatedDuration;
-@property (nonatomic,assign) CGFloat longToValue;
-@property (nonatomic,assign) CGFloat shortToValue;
-
-// the duration of shimmer animation back and forth, default is 1.5 seconds.
-// 闪光灯动画来回的时长，默认是1.5秒
-@property (nonatomic,assign) CGFloat animatedDurationShimmer;
-
-@property (nonatomic,assign) CGFloat animatedDurationBin;
-
-// The color of animations' content in your project, default is 0xEEEEEE.
-// 全局动画内容颜色
+/**
+ The color of animations' content in your project, default is 0xEEEEEE.
+ 全局动画内容颜色
+ */
 @property (nonatomic,strong) UIColor *animatedColor;
 
-// The backgroundcolor of animations in your project, default is UIColor.white.
-// 全局动画背景颜色
+/**
+ The backgroundcolor of animations in your project, default is UIColor.white.
+ 全局动画背景颜色
+ */
 @property (nonatomic,strong) UIColor *animatedBackgroundColor;
 
-// The cornerRadius of animations in your project.
-// the value of cornerRadius is the animation's height / 2.0
-// 开启全局圆角
-// 全局圆角默认值为: 动画高度/2.0
-
+/**
+ The cornerRadius of animations in your project.
+ the value of cornerRadius is the animation's height / 2.0
+ 开启全局圆角
+ 全局圆角默认值为: 动画高度/2.0
+ */
 @property (nonatomic,assign) BOOL useGlobalCornerRadius;
 
-// The cornerRadius of animations in your project.
-// If the view's layer had been setted `cornerRadius`, view's' animation
-// 全局圆角
-// 优先级：view设置的圆角 > animatedCornerRadius
+/**
+ The cornerRadius of animations in your project.
+ If the view's layer had been setted `cornerRadius`, view's' animation
+ 全局圆角
+ 优先级：view设置的圆角 > animatedCornerRadius
+ */
 @property (nonatomic,assign) CGFloat animatedCornerRadius;
 
-// 针对UILabel / UIButton
-// 是否需要全局动画高度，拥有最高优先级
+/**
+ 针对UILabel / UIButton
+ 是否需要全局动画高度，拥有最高优先级
+ */
 @property (nonatomic,assign) BOOL useGlobalAnimatedHeight;
 
-// 针对UILabel / UIButton
-// 设置全局动画高度，默认12，拥有最高优先级
+/**
+ 针对UILabel / UIButton
+ 设置全局动画高度，默认12，拥有最高优先级
+ */
 @property (nonatomic,assign) CGFloat animatedHeight;
 
 #pragma mark - Other
 
-// Is opening log or not, default is NO.
-// 是否开启控制台Log提醒
+/**
+ Is opening log or not, default is NO.
+ 是否开启控制台Log提醒
+ */
 @property (nonatomic,assign) BOOL openLog;
+
+#pragma mark - Dynmic Animation Property
+
+/**
+ 伸缩动画来回时长
+ */
+@property (nonatomic,assign) CGFloat animatedDuration;
+
+/**
+ 变长伸缩比例
+ */
+@property (nonatomic,assign) CGFloat longToValue;
+
+/**
+ 变短伸缩比例
+ */
+@property (nonatomic,assign) CGFloat shortToValue;
+
+#pragma mark - Bin Animation Property
+
+@property (nonatomic,assign) CGFloat animatedDurationBin;
+
+#pragma mark - Shimmer Animation Property
+
+/**
+ The duration of shimmer animation back and forth, default is 1.5 seconds.
+ 闪光灯动画来回的时长，默认是1.5秒
+ */
+@property (nonatomic,assign) CGFloat animatedDurationShimmer;
+
+#pragma mark - Drop Animation Property
+
+/**
+ 豆瓣动画帧时长，默认值为0.4，你可以理解为`变色速度`
+ */
+@property (nonatomic,assign) CGFloat dropAnimationDuration;
+
+/**
+ 豆瓣动画变色值
+ */
+@property (nonatomic,strong) UIColor *dropAnimationDeepColor;
 
 /**
  SingleTon
@@ -136,19 +182,18 @@ typedef NS_ENUM(NSInteger,TABAnimationType) {
  */
 + (TABAnimated *)sharedAnimated;
 
-#pragma mark - OnlySkeleton
-
+/**
+ only skeleton
+ */
 - (void)initWithOnlySkeleton;
 
-#pragma mark - Bin Animation
-
+/**
+ bin animation
+ */
 - (void)initWithBinAnimation;
 
-#pragma mark - Shimmer Animation
-
 /**
- shimmer Animation
-
+ shimmer animation
  */
 - (void)initWithShimmerAnimated;
 
@@ -160,5 +205,10 @@ typedef NS_ENUM(NSInteger,TABAnimationType) {
  */
 - (void)initWithShimmerAnimatedDuration:(CGFloat)duration
                               withColor:(UIColor *)color;
+
+/**
+ drop Animation
+ */
+- (void)initWithDropAnimated;
 
 @end

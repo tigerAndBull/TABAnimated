@@ -13,8 +13,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface TABTableAnimated : TABViewAnimated
 
+/**
+ 单section的UITableView的cellHeight
+ */
 @property (nonatomic,assign) CGFloat cellHeight;
+
+/**
+ 多section的UITableView的cellHeight集合
+ */
 @property (nonatomic,copy) NSArray <NSNumber *> *cellHeightArray;
+
+/**
+ 指定section加载动画集合
+ */
 @property (nonatomic,copy) NSArray <NSNumber *> *animatedSectionArray;
 
 /**

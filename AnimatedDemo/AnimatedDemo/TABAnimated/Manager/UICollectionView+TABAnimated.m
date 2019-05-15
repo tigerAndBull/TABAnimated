@@ -168,10 +168,20 @@
         }
         
         UICollectionViewCell *cell = (UICollectionViewCell *)collectionView.tabAnimated.cellClassArray[index].new;
-        cell = [collectionView dequeueReusableCellWithReuseIdentifier:[NSString stringWithFormat:@"tab_%@",NSStringFromClass(collectionView.tabAnimated.cellClassArray[index])] forIndexPath:indexPath];
-        NSString *nibPath = [[NSBundle mainBundle] pathForResource:NSStringFromClass(collectionView.tabAnimated.cellClassArray[index]) ofType:@"nib"];
+        
+        NSString *className = NSStringFromClass(collectionView.tabAnimated.cellClassArray[index]);
+        if ([className containsString:@"."]) {
+            NSRange range = [className rangeOfString:@"."];
+            className = [className substringFromIndex:range.location+1];
+            if (className != nil && className.length > 0) {
+                className = NSStringFromClass(collectionView.tabAnimated.cellClassArray[index]);
+            }
+        }
+        
+        cell = [collectionView dequeueReusableCellWithReuseIdentifier:[NSString stringWithFormat:@"tab_%@",className] forIndexPath:indexPath];
+        NSString *nibPath = [[NSBundle mainBundle] pathForResource:className ofType:@"nib"];
         if (nibPath != nil && nibPath.length > 0) {
-            NSArray *cellArray = [[NSBundle mainBundle] loadNibNamed:NSStringFromClass(collectionView.tabAnimated.cellClassArray[index]) owner:self options:nil];
+            NSArray *cellArray = [[NSBundle mainBundle] loadNibNamed:className owner:self options:nil];
             if (cellArray.count <= 0) {
                 NSAssert(NO, @"No xib file of the cell name.");
             }

@@ -13,25 +13,25 @@
 @class TABComponentLayer;
 
 typedef TABComponentLayer *_Nullable(^TABSearchLayerBlock)(NSInteger);
-typedef NSArray <TABComponentLayer *> *_Nullable(^TABSearchLayerArrayBlock)(NSInteger location,NSInteger length);
+typedef NSArray <TABComponentLayer *> *_Nullable(^TABSearchLayerArrayBlock)(NSInteger location, NSInteger length);
 
 @interface UIView (TABAnimated)
 
 // To the control view
-@property (nonatomic,strong) TABViewAnimated * _Nullable tabAnimated;
+@property (nonatomic, strong) TABViewAnimated * _Nullable tabAnimated;
+
 // To the control view
-@property (nonatomic,strong) TABLayer * _Nullable tabLayer;
+@property (nonatomic, strong) TABLayer * _Nullable tabLayer;
 
 /**
- 单个动画呀组件
+ 获取单个动画组件
  
  @return return value description
  */
 - (TABSearchLayerBlock _Nullable )animation;
 
-
 /**
- 多个动画组件，需要传个参数
+ 获取多个动画组件，需要传递2个参数
  第一个参数为起始下标
  第二个参数长度
  

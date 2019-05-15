@@ -12,8 +12,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface TABCollectionAnimated : TABViewAnimated
 
+/**
+ 单section的UICollectionView的cellSize
+ */
 @property (nonatomic,assign) CGSize cellSize;
+
+/**
+ 多section的UICollectionView的cellSize集合
+ */
 @property (nonatomic,copy) NSArray <NSValue *> *cellSizeArray;
+
+/**
+ 指定section加载动画集合
+ */
 @property (nonatomic,copy) NSArray <NSNumber *> *animatedSectionArray;
 
 /**
@@ -54,9 +65,9 @@ NS_ASSUME_NONNULL_BEGIN
                         animatedCountArray:(NSArray <NSNumber *> *)animatedCountArray;
 
 /**
- 这个初始化方式为部分section需要动画提供
+ 这个初始化方式为部分section需要动画的UICollectionView提供
  
- 上一个初始化方式，section和数组元素顺序对应，所有section都会有动画
+ 上一个初始化方式，section和数组元素依次对应，所有section都会有动画
  现在可以根据animatedSectionArray指定section，不指定的section没有动画。
  
  举个例子：

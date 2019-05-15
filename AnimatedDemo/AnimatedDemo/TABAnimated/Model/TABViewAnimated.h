@@ -39,21 +39,18 @@ typedef NS_ENUM(NSInteger,TABViewSuperAnimationType) {
     TABViewSuperAnimationTypeOnlySkeleton,                   // 骨架层
     TABViewSuperAnimationTypeBinAnimation,                   // 呼吸灯
     TABViewSuperAnimationTypeShimmer,                        // 闪光灯
+    TABViewSuperAnimationTypeDrop,                           // 豆瓣下坠动画
 };
 
 typedef void(^TABAnimatedCategoryBlock)(UIView *view);
-typedef void (^TABFinishedBlock)(BOOL finished);
 
 @interface TABViewAnimated : NSObject
 
 @property (nonatomic,copy) TABAnimatedCategoryBlock categoryBlock;
 
-@property (nonatomic,copy) TABFinishedBlock finishedBlock;
-
 /**
  The state of the animation, you can reset it.
  动画状态，可重置
-
  */
 @property (nonatomic,assign) TABViewAnimationStyle state;
 
@@ -71,7 +68,6 @@ typedef void (^TABFinishedBlock)(BOOL finished);
 @property (nonatomic,copy) NSArray <Class> *cellClassArray;
 
 /**
- 
  If the table has only one section, you can use it to set the count of the animation.
  
  Template Pattern:
@@ -83,7 +79,6 @@ typedef void (^TABFinishedBlock)(BOOL finished);
  如果表格视图只有一个分区，你可以使用该属性设置动画数量
  模版模式：默认数量为 表格的可视区域 / cell的高度
  普通模式：默认数量为 2
- 
  **/
 @property (nonatomic,assign) NSInteger animatedCount;
 
@@ -139,6 +134,18 @@ typedef void (^TABFinishedBlock)(BOOL finished);
  是否可以重复开启动画，默认开启只生效一次。
  */
 @property (nonatomic,assign) BOOL canLoadAgain;
+
+#pragma mark - Only used to drop animation
+
+/**
+ 豆瓣动画变色时长，无默认，默认读取全局属性
+ */
+@property (nonatomic,assign) CGFloat dropAnimationDuration;
+
+/**
+ 豆瓣动画变色值
+ */
+@property (nonatomic,strong) UIColor *dropAnimationDeepColor;
 
 @end
 

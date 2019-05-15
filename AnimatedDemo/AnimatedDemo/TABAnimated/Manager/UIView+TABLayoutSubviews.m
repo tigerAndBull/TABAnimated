@@ -22,7 +22,7 @@
         Method originMethod = class_getInstanceMethod([self class], @selector(layoutSubviews));
         // Get the method you created.
         Method newMethod = class_getInstanceMethod([self class], @selector(tab_layoutSubviews));
-        
+        // Exchange
         method_exchangeImplementations(originMethod, newMethod);
     });
 }
@@ -61,8 +61,8 @@
                         [self.layer addSublayer:self.tabLayer];
                     }
                     
-                    NSMutableArray <TABComponentLayer *> *array = @[].mutableCopy;
                     // start animations
+                    NSMutableArray <TABComponentLayer *> *array = @[].mutableCopy;
                     [TABManagerMethod getNeedAnimationSubViews:self
                                                  withSuperView:self
                                                   withRootView:self
@@ -92,6 +92,39 @@
                     if ([TABManagerMethod canAddBinAnimation:self]) {
                         [TABAnimationMethod addAlphaAnimation:self
                                                      duration:[TABAnimated sharedAnimated].animatedDurationBin key:kTABAlphaAnimation];
+                        break;
+                    }
+                    
+                    // add drop animation
+                    if ([TABManagerMethod canAddDropAnimation:self]) {
+                        
+                        UIColor *deepColor;
+                        if (self.tabAnimated.dropAnimationDeepColor) {
+                            deepColor = self.tabAnimated.dropAnimationDeepColor;
+                        }else {
+                            deepColor = [TABAnimated sharedAnimated].dropAnimationDeepColor;
+                        }
+                        
+                        CGFloat duration = 0;
+                        if (self.tabAnimated.dropAnimationDuration != 0.) {
+                            duration = self.tabAnimated.dropAnimationDuration;
+                        }else {
+                            duration = [TABAnimated sharedAnimated].dropAnimationDuration;
+                        }
+                        
+                        for (NSInteger i = 0; i < self.tabLayer.resultLayerArray.count; i++) {
+                            TABComponentLayer *layer = self.tabLayer.resultLayerArray[i];
+                            if (layer.removeOnDropAnimation) {
+                                continue;
+                            }
+                            [TABAnimationMethod addDropAnimation:layer
+                                                           index:layer.dropAnimationIndex
+                                                        duration:duration*(self.tabLayer.dropAnimationCount+1)
+                                                           count:self.tabLayer.dropAnimationCount+1
+                                                        stayTime:layer.dropAnimationStayTime
+                                                       deepColor:deepColor
+                                                             key:kTABDropAnimation];
+                        }
                     }
                 }
                     

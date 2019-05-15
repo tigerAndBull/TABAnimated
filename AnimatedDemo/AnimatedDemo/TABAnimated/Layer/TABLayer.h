@@ -24,7 +24,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic,assign) CGPoint cardOffset;
 
+@property (nonatomic,strong) NSMutableArray <TABComponentLayer *> *resultLayerArray;
+
 @property (nonatomic,strong) NSMutableArray <TABComponentLayer *> *componentLayerArray;
+
+@property (nonatomic,strong) NSMutableArray <NSArray *> *entireIndexArray;
+
+@property (nonatomic,assign,readonly) NSInteger dropAnimationCount;
 
 - (void)updateSublayers:(NSArray <TABComponentLayer *> *)componentLayerArray;
 

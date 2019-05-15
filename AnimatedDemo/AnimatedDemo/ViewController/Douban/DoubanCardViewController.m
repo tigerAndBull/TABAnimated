@@ -1,12 +1,12 @@
 //
-//  TemplateCardViewController.m
+//  DoubanCardViewController.m
 //  AnimatedDemo
 //
-//  Created by tigerAndBull on 2019/4/15.
+//  Created by tigerAndBull on 2019/5/15.
 //  Copyright © 2019 tigerAndBull. All rights reserved.
 //
 
-#import "CardViewController.h"
+#import "DoubanCardViewController.h"
 
 #import <TABKit/TABKit.h>
 #import "TABAnimated.h"
@@ -15,7 +15,7 @@
 
 #import "CardCollectionViewCell.h"
 
-@interface CardViewController ()<UICollectionViewDelegate,UICollectionViewDataSource> {
+@interface DoubanCardViewController ()<UICollectionViewDelegate,UICollectionViewDataSource> {
     NSMutableArray *dataArray;
 }
 
@@ -23,7 +23,7 @@
 
 @end
 
-@implementation CardViewController
+@implementation DoubanCardViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -32,33 +32,25 @@
     [self.view addSubview:self.collectionView];
     dataArray = @[].mutableCopy;
     [self.collectionView tab_startAnimation];
-    [self.collectionView.mj_header beginRefreshing];
+    [self performSelector:@selector(afterGetData) withObject:nil afterDelay:3.0];
 }
 
 #pragma mark - Target
 
-- (void)loadData {
-    [self performSelector:@selector(afterGetData) withObject:nil afterDelay:2.0];
-}
-
 - (void)afterGetData {
     
-    [dataArray removeAllObjects];
-    // 模拟数据
-    for (int i = 0; i < 10; i ++) {
-        Game *game = [[Game alloc]init];
-        game.gameId = [NSString stringWithFormat:@"%d",i];
-        game.title = [NSString stringWithFormat:@"新赛事开始啦《%d》",i+1];
-        game.cover = @"test.jpg";
-        game.content = @"ACM国际大学生程序设计竞赛已经发展成为全球最具影响力的大学生程序设计竞赛。赛事目前由方正集团赞助";
-        [dataArray addObject:game];
-    }
-    
-    [self.collectionView tab_endAnimation];
-    // 解决结束刷新闪动问题
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, NSEC_PER_SEC*0.1), dispatch_get_main_queue(), ^{
-        [self.collectionView.mj_header endRefreshing];
-    });
+//    [dataArray removeAllObjects];
+//    // 模拟数据
+//    for (int i = 0; i < 10; i ++) {
+//        Game *game = [[Game alloc]init];
+//        game.gameId = [NSString stringWithFormat:@"%d",i];
+//        game.title = [NSString stringWithFormat:@"新赛事开始啦《%d》",i+1];
+//        game.cover = @"test.jpg";
+//        game.content = @"ACM国际大学生程序设计竞赛已经发展成为全球最具影响力的大学生程序设计竞赛。赛事目前由方正集团赞助";
+//        [dataArray addObject:game];
+//    }
+//
+//    [self.collectionView tab_endAnimation];
 }
 
 #pragma mark - UICollectionViewDelegate & UICollectionViewDataSource
@@ -102,7 +94,7 @@
         _collectionView.bounces = YES;
         _collectionView.contentInset = UIEdgeInsetsMake(0, 0, kSafeAreaHeight+10, 0);
         _collectionView.backgroundColor = kColor(0xEEEEEEFF);
-        _collectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadData)];
+        
         if (@available(iOS 11.0, *)) {
             _collectionView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         }
@@ -111,12 +103,19 @@
         _collectionView.tabAnimated =
         [TABCollectionAnimated animatedWithCellClass:[CardCollectionViewCell class]
                                             cellSize:[CardCollectionViewCell cellSize]];
+        _collectionView.tabAnimated.superAnimationType = TABViewSuperAnimationTypeDrop;
+        _collectionView.tabAnimated.animatedHeight = 7.0;
+        _collectionView.tabAnimated.cancelGlobalCornerRadius = YES;
         _collectionView.tabAnimated.categoryBlock = ^(UIView * _Nonnull view) {
-            view.animation(1).width(60);
-            view.animation(2).height(12).down(-5).reducedWidth(45);
-            view.animation(3).up(5);
-            view.animation(4).reducedWidth(40);
-            view.animation(5).width(40).left(10);
+            
+            // 一旦豆瓣动画队列中 其中一个元素的dropIndex被修改了，那么其他元素大概率需要重新设置
+            // 将左侧图片移除豆瓣动画变色队列
+            view.animation(0).removeOnDrop();
+            view.animation(1).width(60).dropIndex(0);
+            view.animation(2).down(-5).reducedWidth(45).dropIndex(1);
+            view.animation(3).up(5).dropFromIndex(2);
+            view.animation(4).reducedWidth(40).dropIndex(5);
+            view.animation(5).width(40).left(10).dropIndex(5);
         };
         
     }

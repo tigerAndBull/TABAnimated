@@ -253,7 +253,8 @@
         return YES;
     }
     
-    if ([TABAnimated sharedAnimated].animationType == TABAnimationTypeShimmer) {
+    if ([TABAnimated sharedAnimated].animationType == TABAnimationTypeShimmer &&
+        view.tabAnimated.superAnimationType == TABViewSuperAnimationTypeDefault) {
         return YES;
     }
     
@@ -266,7 +267,22 @@
         return YES;
     }
     
-    if ([TABAnimated sharedAnimated].animationType == TABAnimationTypeBinAnimation) {
+    if ([TABAnimated sharedAnimated].animationType == TABAnimationTypeBinAnimation &&
+        view.tabAnimated.superAnimationType == TABViewSuperAnimationTypeDefault) {
+        return YES;
+    }
+    
+    return NO;
+}
+
++ (BOOL)canAddDropAnimation:(UIView *)view {
+    
+    if (view.tabAnimated.superAnimationType == TABViewSuperAnimationTypeDrop) {
+        return YES;
+    }
+    
+    if ([TABAnimated sharedAnimated].animationType == TABAnimationTypeDrop &&
+        view.tabAnimated.superAnimationType == TABViewSuperAnimationTypeDefault) {
         return YES;
     }
     
@@ -296,15 +312,18 @@
 
 + (void)removeMask:(UIView *)view {
     
-    [view.tabLayer removeFromSuperlayer];
-    
-    [view.layer removeAnimationForKey:kTABAlphaAnimation];
-    [view.layer removeAnimationForKey:kTABLocationAnimation];
-    [view.layer removeAnimationForKey:kTABShimmerAnimation];
+    if (view.tabLayer != nil) {
+        [view.tabLayer removeFromSuperlayer];
+    }
     
     if (view.layer.mask != nil) {
         [view.layer.mask removeFromSuperlayer];
     }
+    
+    [view.layer removeAnimationForKey:kTABAlphaAnimation];
+    [view.layer removeAnimationForKey:kTABLocationAnimation];
+    [view.layer removeAnimationForKey:kTABShimmerAnimation];
+    [view.layer removeAnimationForKey:kTABDropAnimation];
 }
 
 + (void)removeSubLayers:(NSArray *)subLayers {

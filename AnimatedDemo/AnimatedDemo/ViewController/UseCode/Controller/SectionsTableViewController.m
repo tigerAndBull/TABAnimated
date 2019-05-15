@@ -152,9 +152,11 @@
                                 animatedSectionArray:@[@(1)]];
         
         _tableView.tabAnimated.categoryBlock = ^(UIView * _Nonnull view) {
-            view.animation(1).down(3).height(12).toShortAnimation();
-            view.animation(2).height(12).width(110).toLongAnimation();
-            view.animation(3).down(-5).height(12);
+            if ([view isKindOfClass:[TestTableViewCell class]]) {
+                view.animation(1).down(3).height(12).toShortAnimation();
+                view.animation(2).height(12).width(110).toLongAnimation();
+                view.animation(3).down(-5).height(12);
+            }
         };
     }
     return _tableView;

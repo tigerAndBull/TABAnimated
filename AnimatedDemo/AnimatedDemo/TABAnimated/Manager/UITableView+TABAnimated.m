@@ -173,9 +173,19 @@
         }
         
         UITableViewCell *cell = (UITableViewCell *)tableView.tabAnimated.cellClassArray[index].new;
-        NSString *nibPath = [[NSBundle mainBundle] pathForResource:NSStringFromClass(tableView.tabAnimated.cellClassArray[index]) ofType:@"nib"];
+        
+        NSString *className = NSStringFromClass(tableView.tabAnimated.cellClassArray[index]);
+        if ([className containsString:@"."]) {
+            NSRange range = [className rangeOfString:@"."];
+            className = [className substringFromIndex:range.location+1];
+            if (className != nil && className.length > 0) {
+                className = NSStringFromClass(tableView.tabAnimated.cellClassArray[index]);
+            }
+        }
+        
+        NSString *nibPath = [[NSBundle mainBundle] pathForResource:className ofType:@"nib"];
         if (nibPath != nil && nibPath.length > 0) {
-            NSArray *cellArray = [[NSBundle mainBundle] loadNibNamed:NSStringFromClass(tableView.tabAnimated.cellClassArray[index]) owner:self options:nil];
+            NSArray *cellArray = [[NSBundle mainBundle] loadNibNamed:className owner:self options:nil];
             if (cellArray.count <= 0) {
                 NSAssert(NO, @"No xib file of the cell name.");
             }

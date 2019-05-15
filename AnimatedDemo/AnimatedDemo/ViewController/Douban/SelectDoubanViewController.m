@@ -1,16 +1,16 @@
 //
-//  MainViewController.m
+//  SelectDoubanViewController.m
 //  AnimatedDemo
 //
-//  Created by tigerAndBull on 2018/10/7.
-//  Copyright © 2018年 tigerAndBull. All rights reserved.
+//  Created by tigerAndBull on 2019/5/15.
+//  Copyright © 2019 tigerAndBull. All rights reserved.
 //
 
-#import "MainViewController.h"
+#import "SelectDoubanViewController.h"
 #import <TABKit/TABKit.h>
 #import "AppDelegate.h"
 
-@interface MainViewController () <UITableViewDelegate,UITableViewDataSource>
+@interface SelectDoubanViewController () <UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic,strong) NSArray <NSString *> *titleArray;
 @property (nonatomic,strong) NSArray <NSString *> *controllerClassArray;
@@ -18,7 +18,7 @@
 
 @end
 
-@implementation MainViewController
+@implementation SelectDoubanViewController
 
 #pragma mark - LifeCycle
 
@@ -30,7 +30,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.title = kText(@"主页面");
+    self.title = kText(@"豆瓣效果选择页");
 }
 
 #pragma mark - UITableViewDataSource & UITableViewDelegate
@@ -58,7 +58,7 @@
     }
     
     cell.textLabel.text = self.titleArray[indexPath.row];
-
+    
     return cell;
 }
 
@@ -102,33 +102,19 @@
 }
 
 - (NSArray *)titleArray {
-    return @[kText(@"UITableView 示例"),
-             kText(@"多行文本 示例"),
+    return @[
              kText(@"UICollectionView 示例"),
-             kText(@"UIView 示例"),
              kText(@"卡片投影视图 示例"),
-             kText(@"分段视图 示例"),
-             kText(@"cell中使用多级view 示例"),
-             kText(@"UITableView xib 示例"),
-             kText(@"嵌套表格 示例"),
-             kText(@"UICollectionView 多section 示例"),
-             kText(@"UITableView 多section 示例"),
-             kText(@"仿豆瓣动画演示")];
+             kText(@"UIView 示例"),
+             ];
 }
 
 - (NSArray *)controllerClassArray {
-    return @[@"TestTableViewController",
-             @"LabWithLinesViewController",
-             @"TestCollectionViewController",
-             @"ViewExampleViewController",
-             @"CardViewController",
-             @"SegmentCollectionViewController",
-             @"ExampleOfPackageViewController",
-             @"XibTestViewController",
-             @"NestCollectionViewController",
-             @"SectionsCollectionViewController",
-             @"SectionsTableViewController",
-             @"SelectDoubanViewController"];
+    return @[
+             @"DoubanCollectionViewController",
+             @"DoubanCardViewController",
+             @"DoubanNormalViewController",
+             ];
 }
 
 @end

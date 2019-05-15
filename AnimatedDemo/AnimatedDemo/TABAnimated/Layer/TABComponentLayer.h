@@ -61,20 +61,6 @@ typedef TABComponentLayer *_Nullable(^TABLoadStyleBlock)(void);
 @property (nonatomic,assign) BOOL fromImageView;
 
 /**
- everyone can set it to more, then it will have the same effect as the UILabel which `numberOfLines` > 1.
- 此属性可以根据UILabel组件的numberOflines属性进行调整
- 其他类型组件会被设置为1，你可以对其更改，达到和多行文本一样的效果
- 当然，你可以在预处理动画的时候更改此属性，对于每一个`TABComponentLayer`都会生效
- */
-@property (nonatomic,assign) NSInteger numberOflines;
-
-/**
- if numberOflines > 1, the property is used to setting the space of lines.
- 对于numberOflines > 1，每一行的间距，默认是8.0。
- */
-@property (nonatomic,assign) CGFloat lineSpace;
-
-/**
  Width of the animation appionted by yourself on subViews during animating.
  动画时组件宽度
  如果你觉得动画不够漂亮，可以使用这个属性进行调整
@@ -88,6 +74,37 @@ typedef TABComponentLayer *_Nullable(^TABLoadStyleBlock)(void);
  如果你觉得动画不够漂亮，可以使用这个属性进行调整
  */
 @property (nonatomic,assign) CGFloat tabViewHeight;
+
+#pragma mark - 一个组件映射多个动画元素
+
+/**
+ everyone can set it to more, then it will have the same effect as the UILabel which `numberOfLines` > 1.
+ 此属性可以根据UILabel组件的numberOflines属性进行调整
+ 其他类型组件会被设置为1，你可以对其更改，达到和多行文本一样的效果
+ 当然，你可以在预处理动画的时候更改此属性，对于每一个`TABComponentLayer`都会生效
+ */
+@property (nonatomic,assign) NSInteger numberOflines;
+
+/**
+ if numberOflines > 1, the property is used to setting the space of lines.
+ 对于numberOflines > 1，每一行的间距，默认是8.0。
+ */
+@property (nonatomic,assign) CGFloat lineSpace;
+
+@property (nonatomic,assign) CGFloat lastScale;
+
+@property (nonatomic,assign) NSInteger dropAnimationFromIndex;
+
+#pragma mark - Only used to drop animation
+
+@property (nonatomic,assign) NSInteger dropAnimationIndex;
+
+@property (nonatomic,assign) BOOL removeOnDropAnimation;
+
+/**
+ 默认0.2
+ */
+@property (nonatomic,assign) CGFloat dropAnimationStayTime;
 
 #pragma mark - 链式语法
 
@@ -172,6 +189,8 @@ typedef TABComponentLayer *_Nullable(^TABLoadStyleBlock)(void);
  */
 - (TABComponentLayerBlock)space;
 
+- (TABComponentLayerBlock)lastLineScale;
+
 /**
  remve the layer
  移除该动画组件
@@ -197,6 +216,27 @@ typedef TABComponentLayer *_Nullable(^TABLoadStyleBlock)(void);
  动画来自居中文本，取消居中显示
  */
 - (TABLoadStyleBlock)cancelAlignCenter;
+
+/**
+ 豆瓣动画变色下标，一起变色的元素，设置同一个下标即可
+ */
+- (TABComponentLayerLinesBlock)dropIndex;
+
+/**
+ 适用于多行文本类型动画,
+ 比如设置 dropFromIndex(3), 那么多行动画组中的第一个动画的下标是3，第二个就是4
+ */
+- (TABComponentLayerLinesBlock)dropFromIndex;
+
+/**
+ 将动画层移出豆瓣动画队列，不参与变色
+ */
+- (TABLoadStyleBlock)removeOnDrop;
+
+/**
+ 豆瓣动画变色停留时间比，默认是0.2
+ */
+- (TABComponentLayerBlock)dropStayTime;
 
 @end
 

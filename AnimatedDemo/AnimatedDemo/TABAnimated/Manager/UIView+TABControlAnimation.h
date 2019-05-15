@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
  开启动画
  
  `[self tab_startAnimation]`即使多次调用，也只会生效一次。
- 如有其他需要，请自行修改`TABAnimatedObject`中的`state`属性，然后重新启动动画。
+ 如有其他需要，请自行修改`TABViewAnimated`中的`canLoadAgain`属性，解除限制。
  */
 - (void)tab_startAnimation;
 

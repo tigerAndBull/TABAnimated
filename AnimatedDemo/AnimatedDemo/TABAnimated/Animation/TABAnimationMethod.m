@@ -38,6 +38,7 @@
     [view.layer addAnimation:animation forKey:key];
 }
 
+
 + (void)addShimmerAnimationToView:(UIView *)view
                          duration:(CGFloat)duration
                               key:(NSString *)key {
@@ -97,6 +98,34 @@
     animation.fillMode = kCAFillModeForwards;
     [graLayer addAnimation:animation forKey:key];
     [view.layer setMask:graLayer];
+}
+
++ (void)addDropAnimation:(CALayer *)layer
+                   index:(NSInteger)index
+                duration:(CGFloat)duration
+                   count:(NSInteger)count
+                stayTime:(CGFloat)stayTime
+               deepColor:(UIColor *)deepColor
+                     key:(NSString *)key {
+    
+    CAKeyframeAnimation *animation = [CAKeyframeAnimation animationWithKeyPath:@"backgroundColor"];
+    
+    animation.values = @[
+                         (id)deepColor.CGColor,
+                         (id)layer.backgroundColor,
+                         (id)layer.backgroundColor,
+                         (id)deepColor.CGColor
+                         ];
+    
+    animation.keyTimes = @[@0,@(stayTime),@1,@1];
+    // count+3 为了增加末尾的等待时间，不然显得很急促
+    animation.beginTime = CACurrentMediaTime() + index*(duration/(count+3));
+    animation.duration = duration;
+    animation.removedOnCompletion = NO;
+    animation.repeatCount = HUGE_VALF;
+    animation.fillMode = kCAFillModeForwards;
+    animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    [layer addAnimation:animation forKey:key];
 }
 
 @end

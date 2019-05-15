@@ -17,6 +17,13 @@
         self.position = CGPointMake(0, 0);
         self.opaque = YES;
         self.opacity = 1.0;
+        
+        self.dropAnimationStayTime = 0.2;
+        
+        self.lastScale = 0.5;
+        self.dropAnimationFromIndex = -1;
+        self.dropAnimationIndex = -1;
+        self.removeOnDropAnimation = NO;
     }
     return self;
 }
@@ -115,6 +122,13 @@
     };
 }
 
+- (TABComponentLayerBlock)lastLineScale {
+    return ^TABComponentLayer *(CGFloat value) {
+        self.lastScale = value;
+        return self;
+    };
+}
+
 - (TABLoadStyleBlock)remove {
     return ^TABComponentLayer *(void) {
         self.loadStyle = TABViewLoadAnimationRemove;
@@ -139,6 +153,34 @@
 - (TABLoadStyleBlock)cancelAlignCenter {
     return ^TABComponentLayer *(void) {
         self.isCancelAlignCenter = YES;
+        return self;
+    };
+}
+
+- (TABComponentLayerLinesBlock)dropIndex {
+    return ^TABComponentLayer *(NSInteger value) {
+        self.dropAnimationIndex = value;
+        return self;
+    };
+}
+
+- (TABComponentLayerLinesBlock)dropFromIndex {
+    return ^TABComponentLayer *(NSInteger value) {
+        self.dropAnimationFromIndex = value;
+        return self;
+    };
+}
+
+- (TABLoadStyleBlock)removeOnDrop {
+    return ^TABComponentLayer *(void) {
+        self.removeOnDropAnimation = YES;
+        return self;
+    };
+}
+
+- (TABComponentLayerBlock)dropStayTime {
+    return ^TABComponentLayer *(CGFloat value) {
+        self.dropAnimationStayTime = value;
         return self;
     };
 }

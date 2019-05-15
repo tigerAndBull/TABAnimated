@@ -11,6 +11,12 @@
 
 static CGFloat defaultHeight = 16.f;
 
+@interface TABLayer()
+
+@property (nonatomic,assign,readwrite) NSInteger dropAnimationCount;
+
+@end
+
 @implementation TABLayer
 
 - (instancetype)init {
@@ -22,6 +28,7 @@ static CGFloat defaultHeight = 16.f;
         self.opacity = 1.0;
         self.contentsScale = ([[UIScreen mainScreen] scale] > 3.0) ? [[UIScreen mainScreen] scale]:3.0;
         self.backgroundColor = [self.animatedBackgroundColor CGColor];
+        self.resultLayerArray = @[].mutableCopy;
     }
     return self;
 }
@@ -30,11 +37,11 @@ static CGFloat defaultHeight = 16.f;
     
     self.backgroundColor = [self.animatedBackgroundColor CGColor];
     [TABManagerMethod removeSubLayers:self.sublayers];
+    [self.resultLayerArray removeAllObjects];
     
     for (int i = 0; i < componentLayerArray.count; i++) {
         
         TABComponentLayer *layer = componentLayerArray[i];
-        
         if (layer.loadStyle == TABViewLoadAnimationRemove) {
             continue;
         }
@@ -50,6 +57,10 @@ static CGFloat defaultHeight = 16.f;
                cornerRadius:cornerRadius
                       lines:labelLines
                       space:layer.lineSpace
+                  lastScale:layer.lastScale
+                  fromIndex:layer.dropAnimationFromIndex
+               removeOnDrop:layer.removeOnDropAnimation
+                  tabHeight:layer.tabViewHeight
                   loadStyle:layer.loadStyle];
         }else {
             
@@ -79,8 +90,19 @@ static CGFloat defaultHeight = 16.f;
                     layer.cornerRadius = cornerRadius;
                 }
             }
+    
+            if (!layer.removeOnDropAnimation) {
+                if (layer.dropAnimationIndex == -1) {
+                    layer.dropAnimationIndex = self.resultLayerArray.count;
+                }
+                
+                if (self.dropAnimationCount < layer.dropAnimationIndex) {
+                    self.dropAnimationCount = layer.dropAnimationIndex;
+                }
+            }
             
             [self addSublayer:layer];
+            [self.resultLayerArray addObject:layer];
         }
     }
 }
@@ -89,9 +111,21 @@ static CGFloat defaultHeight = 16.f;
      cornerRadius:(CGFloat)cornerRadius
             lines:(NSInteger)lines
             space:(CGFloat)space
+        lastScale:(CGFloat)lastScale
+        fromIndex:(NSInteger)fromIndex
+     removeOnDrop:(BOOL)removeOnDrop
+        tabHeight:(CGFloat)tabHeight
         loadStyle:(TABViewLoadAnimationStyle)loadStyle {
     
     CGFloat textHeight = defaultHeight*[TABAnimated sharedAnimated].animatedHeightCoefficient;
+    
+    if (self.animatedHeight > 0.) {
+        textHeight = self.animatedHeight;
+    }
+    
+    if (tabHeight > 0.) {
+        textHeight = tabHeight;
+    }
     
     if (lines == 0) {
         lines = (frame.size.height*1.0)/(textHeight+space);
@@ -107,10 +141,10 @@ static CGFloat defaultHeight = 16.f;
         if (i != lines - 1) {
             rect = CGRectMake(frame.origin.x, frame.origin.y+i*(textHeight+space), frame.size.width, textHeight);
         }else {
-            rect = CGRectMake(frame.origin.x, frame.origin.y+i*(textHeight+space), frame.size.width*0.5, textHeight);
+            rect = CGRectMake(frame.origin.x, frame.origin.y+i*(textHeight+space), frame.size.width*lastScale, textHeight);
         }
         
-        CALayer *layer = [[CALayer alloc]init];
+        TABComponentLayer *layer = [[TABComponentLayer alloc]init];
         layer.anchorPoint = CGPointMake(0, 0);
         layer.position = CGPointMake(0, 0);
         layer.frame = rect;
@@ -138,7 +172,20 @@ static CGFloat defaultHeight = 16.f;
             }
         }
         
+        if (!removeOnDrop) {
+            if (fromIndex != -1) {
+                layer.dropAnimationIndex = fromIndex+i;
+            }else {
+                layer.dropAnimationIndex = self.resultLayerArray.count;
+            }
+            
+            if (self.dropAnimationCount < layer.dropAnimationIndex) {
+                self.dropAnimationCount = layer.dropAnimationIndex;
+            }
+        }
+        
         [self addSublayer:layer];
+        [self.resultLayerArray addObject:layer];
     }
 }
 
@@ -169,24 +216,24 @@ static CGFloat defaultHeight = 16.f;
     BOOL isImageView = layer.fromImageView;
     
     CGFloat height = 0.;
-    
-    if (!isImageView) {
-        if (layer.tabViewHeight > 0.) {
-            height = layer.tabViewHeight;
+    // 修改拿掉 isImageView 限制 开放 tabViewHeight  需要可以修改 imageView的高度 xiaoxin
+    if (layer.tabViewHeight > 0.) {
+        
+        height = layer.tabViewHeight;
+        rect = CGRectMake(rect.origin.x, rect.origin.y, rect.size.width,height);
+        
+    }else if (!isImageView) {
+        if (self.animatedHeight > 0.) {
+            height = self.animatedHeight;
         }else {
-            if (self.animatedHeight > 0.) {
-                height = self.animatedHeight;
+            if ([TABAnimated sharedAnimated].useGlobalAnimatedHeight) {
+                height = [TABAnimated sharedAnimated].animatedHeight;
             }else {
-                if ([TABAnimated sharedAnimated].useGlobalAnimatedHeight) {
-                    height = [TABAnimated sharedAnimated].animatedHeight;
-                }else {
-                    if (!isImageView) {
-                        height = rect.size.height*[TABAnimated sharedAnimated].animatedHeightCoefficient;
-                    }
+                if (!isImageView) {
+                    height = rect.size.height*[TABAnimated sharedAnimated].animatedHeightCoefficient;
                 }
             }
         }
-
         rect = CGRectMake(rect.origin.x, rect.origin.y, rect.size.width,height);
     }
     

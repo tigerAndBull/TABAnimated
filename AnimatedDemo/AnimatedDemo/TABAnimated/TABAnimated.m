@@ -42,6 +42,20 @@
     return UIColor.whiteColor;
 }
 
+- (UIColor *)dropAnimationDeepColor {
+    if (_dropAnimationDeepColor) {
+        return _dropAnimationDeepColor;
+    }
+    return tab_kColor(0xE1E1E1FF);
+}
+
+- (CGFloat)dropAnimationDuration {
+    if (_dropAnimationDuration) {
+        return _dropAnimationDuration;
+    }
+    return 0.4;
+}
+
 - (CGFloat)animatedDuration {
     if (_animatedDuration == 0) {
         return 0.7;
@@ -117,6 +131,13 @@
         _animatedDurationShimmer = duration;
         _animatedColor = color;
         _animationType = TABAnimationTypeShimmer;
+    }
+}
+
+- (void)initWithDropAnimated {
+    if (self) {
+        _animationType = TABAnimationTypeDrop;
+        _animatedColor = tab_kBackColor;
     }
 }
 

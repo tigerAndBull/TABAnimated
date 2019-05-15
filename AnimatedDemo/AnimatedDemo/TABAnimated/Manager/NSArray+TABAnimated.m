@@ -119,4 +119,42 @@
     };
 }
 
+#pragma mark - Drop Animation
+
+- (TABAnimatedArrayIntBlock)dropIndex {
+    return ^NSArray <TABComponentLayer *> *(NSInteger value) {
+        for (TABComponentLayer *layer in self) {
+            layer.dropAnimationIndex = value;
+        }
+        return self;
+    };
+}
+
+- (TABAnimatedArrayIntBlock)dropFromIndex {
+    return ^NSArray <TABComponentLayer *> *(NSInteger value) {
+        for (TABComponentLayer *layer in self) {
+            layer.dropAnimationFromIndex = value;
+        }
+        return self;
+    };
+}
+
+- (TABAnimatedArrayBlock)removeOnDrop {
+    return ^NSArray <TABComponentLayer *> *(void) {
+        for (TABComponentLayer *layer in self) {
+            layer.removeOnDropAnimation = YES;
+        }
+        return self;
+    };
+}
+
+- (TABAnimatedArrayFloatBlock)dropStayTime {
+    return ^NSArray <TABComponentLayer *> *(CGFloat offset) {
+        for (TABComponentLayer *layer in self) {
+            layer.dropAnimationStayTime = offset;
+        }
+        return self;
+    };
+}
+
 @end
