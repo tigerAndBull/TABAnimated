@@ -5,7 +5,7 @@ Pod::Spec.new do |s|
 
   #tag方式：填tag名称
   #commit方式：填commit的id
-  s.version      = "2.0.5"
+  s.version      = "2.0.6"
 
   #库的简介
   s.summary      = "TABAnimated是一个ios平台上的网络过渡动画(骨架屏)的封装"
@@ -27,22 +27,10 @@ Pod::Spec.new do |s|
   s.platform     = :ios, "8.0"
 
   #库的地址
-  s.source       = { :git => "https://github.com/tigerAndBull/LoadAnimatedDemo-ios.git", :tag => "2.0.5.3" }
+  s.source       = { :git => "https://github.com/tigerAndBull/LoadAnimatedDemo-ios.git", :tag => "2.0.6" }
   # s.source       = { :git => "https://github.com/tigerAndBull/LoadAnimatedDemo-ios.git", :commit => "e05513581c80a7c899e65de48e8fe474a64734eb" }
-
-  s.subspec 'Manager' do |sManager|
-    sManager.source_files = 'AnimatedDemo/AnimatedDemo/TABAnimated/Manager/*.{h,m}'
-
-  s.subspec 'Layer' do |sLayer|
-    sLayer.source_files = 'AnimatedDemo/AnimatedDemo/TABAnimated/Layer/*.{h,m}'
-
-  s.subspec 'Model' do |sModel|
-    sModel.source_files = 'AnimatedDemo/AnimatedDemo/TABAnimated/Model/*.{h,m}'
-
-  s.subspec 'Animation' do |sAnimation|
-    sAnimation.source_files = 'AnimatedDemo/AnimatedDemo/TABAnimated/Animation/*.{h,m}'
      
-  s.source_files = "AnimatedDemo/AnimatedDemo/TABAnimated/*.{h,m}"
+  s.source_files = "AnimatedDemo/AnimatedDemo/TABAnimated/**/*.{h,m}"
 
 
 end

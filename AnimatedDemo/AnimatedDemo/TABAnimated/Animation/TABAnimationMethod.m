@@ -110,7 +110,6 @@
                      key:(NSString *)key {
     
     CAKeyframeAnimation *animation = [CAKeyframeAnimation animationWithKeyPath:@"backgroundColor"];
-    
     animation.values = @[
                          (id)deepColor.CGColor,
                          (id)layer.backgroundColor,
