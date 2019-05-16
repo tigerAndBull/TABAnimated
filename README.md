@@ -82,9 +82,9 @@ The third picture: for this unsightly animation group, through the callback, pre
 | ------ | ------ | ------ |
 | ![dynmic.gif](https://upload-images.jianshu.io/upload_images/5632003-56c9726a027ca5e2.gif?imageMogr2/auto-orient/strip) | ![card.gif](https://upload-images.jianshu.io/upload_images/5632003-fd01c795bb3f9e1a.gif?imageMogr2/auto-orient/strip) | ![bin.gif](https://upload-images.jianshu.io/upload_images/5632003-683062be0a23d5b8.gif?imageMogr2/auto-orient/strip) |
 
-| Shimmer Animation | Segment View | Nested Tables |
+| Shimmer Animation | Segment View | Drop Animation |
 | ------ | ------ | ------ |
-| ![shimmer.gif](https://upload-images.jianshu.io/upload_images/5632003-6096ab323f4ae075.gif?imageMogr2/auto-orient/strip) | ![segment.gif](https://upload-images.jianshu.io/upload_images/5632003-4da2062be691cf0b.gif?imageMogr2/auto-orient/strip) | ![nest.gif](https://upload-images.jianshu.io/upload_images/5632003-43d1b30bbc3c5654.gif?imageMogr2/auto-orient/strip) |
+| ![shimmer.gif](https://upload-images.jianshu.io/upload_images/5632003-6096ab323f4ae075.gif?imageMogr2/auto-orient/strip) | ![segment.gif](https://upload-images.jianshu.io/upload_images/5632003-4da2062be691cf0b.gif?imageMogr2/auto-orient/strip) | ![drop.gif](https://upload-images.jianshu.io/upload_images/5632003-3ed9d6cc317891a3.gif?imageMogr2/auto-orient/strip) |
 
 ## Installation
 
