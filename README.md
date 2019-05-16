@@ -31,6 +31,7 @@
   * [Manually](#Manual-Import)
 * [Usage](#Usage)
 * [Extension Callback](#Extension-Callback)
+* [Drop Animation](#Drop-Animation)
 * [Tips](#Tips)
 * [Attribute Related](#Attribute-Related)
 * [Author](#Author)
@@ -186,40 +187,42 @@ _collectionView.tabAnimated.categoryBlock = ^(UIView * _Nonnull view) {
 
 **Parameter description** (also detailed in the framework)
 
-view.animation(x): The animation of the specified subscript of the view `TABCompentLayer`
+**view.animation(x)**: The animation of the specified subscript of the view `TABCompentLayer`
 
-view.animations(x,x): An array of animated individuals of the specified range of the view for uniform adjustment
+**view.animations(x,x)**: An array of animated individuals of the specified range of the view for uniform adjustment
 
-up(x): How much to move up
+**up(x)**: How much to move up
 
-down(x): How much to move down
+**down(x)**: How much to move down
 
-left(x): How many moves to the left
+**left(x)**: How many moves to the left
 
-right(x): How many moves to the right
+**right(x)**: How many moves to the right
 
-height(x): modify height
+**height(x)**: modify height
 
-Width(x): modify the width
+**Width(x)**: modify the width
 
-reducedWidth(x): How much is the width compared to before
+**reducedWidth(x)**: How much is the width compared to before
 
-reducedHeight(x): How much is the height compared to before
+**reducedHeight(x)**: How much is the height compared to before
 
-radius(x): rounded corners
+**radius(x)**: rounded corners
 
-line(x): number of lines
+**line(x)**: number of lines
 
-space(x): spacing
+**space(x)**: spacing
 
 These two parameters, if it is multi-line text, take effect by default according to the number of `numberOfLines`
 Ordinary animated individuals can also set these two properties to achieve the same effect.
 
-remove(): Move out the animation group
+**remove()**: Move out the animation group
 
-toLongAnimation(): Give the individual a dynamic variable length animation
+**toLongAnimation()**: Give the individual a dynamic variable length animation
 
-toShortAnimation(): Give the individual a dynamic shortening animation
+**toShortAnimation()**: Give the individual a dynamic shortening animation
+
+**lastScale(x)**: the width ratio of the last line for multiple lines of label, default 0.5
 
 special reminder:
 
@@ -230,6 +233,56 @@ special reminder:
 priority:
 
 Animated Individual Parameter Configuration > Control View Animation Parameter Configuration > Global Animation Parameter Configuration
+
+## Drop Animation
+
+1. **dropIndex(xxx)**: means the subscript setting for discoloration,
+In general, if you don't set it up, the framework will be set up in the order in which the views are added to the view, which of course is far from satisfactory.
+
+for example：
+![example.png](https://upload-images.jianshu.io/upload_images/5632003-0c3bc10031c629a3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/400)
+
+The first three animation elements in this effect are discolored together, and are the first color change, that is, the color change subscript is 0.
+If you follow the default settings of the framework, then their color-changing subscripts are 0, 1, 2, respectively.
+Obviously not meeting the demand.
+
+At this time, you have to set it by **dropIndex(xxx)**.
+The framework is available in 2 ways:
+
+```
+view.animations(0,3).dropIndex(0);
+```
+```
+view.animation(0).dropIndex(0);
+view.animation(1).dropIndex(0);
+view.animation(2).dropIndex(0);
+```
+
+2. Falling multiple lines of label in an animation
+
+![929722EC-1C28-4EE1-A711-802B0AD64CAD.png](https://upload-images.jianshu.io/upload_images/5632003-ecd594f1ed5a2660.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/400)
+
+All skeletons of the framework are mapped based on your original view.
+If your view is `UILabel` and `numberOfLines` is not 1, then the frame will be considered as multiple lines of text.
+At this point, it involves two chained grammars.
+
+**lines(xxx)**, meaning to modify the number of lines in the red box
+
+**space(xxx)**, meaning to modify the spacing in the red box
+
+Of course, if an ordinary element can also be set to achieve the same effect, do you understand? ? ?
+
+At this point, it is only the old content, in case some children have not used it, do not understand.
+
+Based on this particularity,
+**dropFromIndex(xxx)** came into being, meaning that the three elements in the red box start to change color from the subscript xxx
+
+**Specific point: view.animation(xxx).lines(3).dropFromIndex(3);
+Means: Three elements in the red frame, the first color change subscript is 3, the second color change subscript is 4, and the third color change subscript is 5. **
+
+3. **removeOnDrop()**: means that the animated element does not wish to participate in discoloration
+
+4. **dropStayTime(xxx)**: color retention time ratio, default 0.2
 
 ## Tips
 
@@ -307,7 +360,8 @@ _collectionView.tabAnimated.animatedCount = 3;
 | ------ | ------ |
 | initWithOnlySkeleton | Skeleton Screen |
 | initWithBinAnimation | Breathing Light Animation |
-| initWithShimmerAnimated | Flash Animation |
+| initWithShimmerAnimated | Shimmer Animation |
+| initWithDropAnimated | Drop Animation |
 
 If the control view's `superAnimationType` is set, it will be loaded with the animation type declared by `superAnimationType`
 
@@ -326,13 +380,16 @@ Instructions
 | animatedDuration | Dynamic Animation | Move back and forth | 1.0 |
 | longToValue | Dynamic Animation | Scale | 1.9 |
 | shortToValue | Dynamic Animation | Scale | 0.6 |
-| animatedDurationShimmer | Flash | Movement Duration | 1.5 |
-|animatedHeightCoefficient| General | Height Coefficient |0.75|
-|useGlobalCornerRadius| General | Open Global Fillet | NO|
-|animatedCornerRadius| General | Global Fillet |0.|
-|openLog| Universal|Open Log|NO|
-|useGlobalAnimatedHeight| without UIImageView|use Global Animated Height|NO|
-|animatedHeight| without UIImageView|Global Animated Height|12.|
+| animatedDurationShimmer | Shimmer Animation | Movement Duration | 1.5 |
+| animatedHeightCoefficient| General | Height Coefficient |0.75|
+| useGlobalCornerRadius| General | Open Global Fillet | NO|
+| animatedCornerRadius| General | Global Fillet |0.|
+| openLog| Universal|Open Log|NO|
+| useGlobalAnimatedHeight| without UIImageView|use Global Animated Height|NO|
+| animatedHeight| without UIImageView|Global Animated Height|12.|
+| dropAnimationDuration| drop Animation |drop duration|0.4|
+| dropAnimationDeepColor| drop Animation|changed color|0xE1E1E1|
+
 
 **All animation property configurations under control view:**
 
@@ -344,16 +401,18 @@ _tableView.tabAnimated.xxx = xxx;
 
 | Property Name | Scope | Meaning | Default |
 | ------ | ------ | ------ | ------ |
-|superAnimationType| General | This control view animation type | Default global properties |
+| superAnimationType| General | This control view animation type | Default global properties |
 | animatedCount| Table Components | Number of Animations | Filling the Table Visible Area |
 | animatedColor| General | Animated Content Color | UIColor.white |
 | animatedBackgroundColor | General | Animated Background Color | 0xEEEEEE |
 | cancelGlobalCornerRadius | General | Unused Global Fillet | NO |
 | animatedCornerRadius | General | Animated fillets in this control view | 0. |
 | animatedHeight | General | Animation height under this control view | 0. |
-|isAnimating| General | Is it in animation |\|
-|isNest| General | Is it a nested table|NO|
-|canLoadAgain| General|Is it can load again|NO|
+| isAnimating| General | Is it in animation |\|
+| isNest| General | Is it a nested table|NO|
+| canLoadAgain| General|Is it can load again|NO|
+| dropAnimationDuration| drop Animation |drop duration|0.4|
+| dropAnimationDeepColor| drop Animation|changed color|0xE1E1E1|
 
 ## Author
 
