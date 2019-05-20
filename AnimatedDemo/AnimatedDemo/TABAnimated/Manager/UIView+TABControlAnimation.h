@@ -33,6 +33,12 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)tab_endAnimation;
 
+/**
+ end animation to the section
+ 特定分区结束动画，在所有分区都不存在动画，会自动置为结束动画状态
+
+ @param section 指定section
+ */
 - (void)tab_endAnimationWithSection:(NSInteger)section;
 
 @end
