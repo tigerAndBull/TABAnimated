@@ -33,6 +33,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)tab_endAnimation;
 
+- (void)tab_endAnimationWithSection:(NSInteger)section;
+
 @end
 
 NS_ASSUME_NONNULL_END

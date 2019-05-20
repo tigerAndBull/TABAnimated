@@ -54,9 +54,27 @@
     return obj;
 }
 
+- (instancetype)init {
+    if (self = [super init]) {
+        _runAnimationSectionArray = @[].mutableCopy;
+    }
+    return self;
+}
+
 - (void)setCellSize:(CGSize)cellSize {
     _cellSize = cellSize;
     _cellSizeArray = @[[NSValue valueWithCGSize:cellSize]];
+}
+
+- (BOOL)currentSectionIsAnimating:(UICollectionView *)collectionView
+                          section:(NSInteger)section {
+    
+    for (NSNumber *num in self.runAnimationSectionArray) {
+        if ([num integerValue] == section) {
+            return YES;
+        }
+    }
+    return NO;
 }
 
 @end

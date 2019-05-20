@@ -8,7 +8,6 @@
 
 @interface NestCollectionViewCell()<UICollectionViewDelegate,UICollectionViewDataSource>{
     NSMutableArray * dataArray;
-    UILabel * titleLab;
 }
 
 @property (nonatomic, strong) UICollectionView * collectionView;
@@ -18,7 +17,7 @@
 @implementation NestCollectionViewCell
 
 + (CGSize)cellSize {
-    return CGSizeMake(kScreenWidth, ((kScreenWidth-15*3-45)/2)*(3/2.0)+70);
+    return CGSizeMake(kScreenWidth, ((kScreenWidth-15*3-45)/2)*(3/2.0)+10);
 }
 
 - (instancetype)initWithFrame:(CGRect)frame {
@@ -31,23 +30,16 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     
-    [titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self).mas_offset(20);
-        make.left.mas_equalTo(self).mas_offset(20);
-        make.width.mas_offset(80);
-    }];
-    
     [self.collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(self);
         make.left.mas_equalTo(self);
         make.bottom.mas_equalTo(self).mas_offset(10);
-        make.top.mas_equalTo(self).mas_offset(50);
+        make.top.mas_equalTo(self).mas_offset(0);
     }];
 }
 
 - (void)updateCellWithData:(NSMutableArray *)array {
     self->dataArray = array;
-    titleLab.text = @"大扎好";
     [self.collectionView reloadData];
 }
 
@@ -82,15 +74,6 @@
 - (void)initUI {
     [self.contentView addSubview:self.collectionView];
     [ImageCollectionViewCell registerCellInCollectionView:self.collectionView];
-    
-    {
-        UILabel *lab = [[UILabel alloc]init];
-        lab.font = [UIFont systemFontOfSize:24];
-        lab.textColor = [UIColor blackColor];
-        lab.tag = 1000;
-        titleLab = lab;
-        [self.contentView addSubview:lab];
-    }
 }
 
 #pragma mark - Lazy Method

@@ -114,6 +114,9 @@
 		68A78FFB2283DA5500AA47B3 /* SectionsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68A78FFA2283DA5500AA47B3 /* SectionsTableViewController.m */; };
 		68A78FFD2283F6EC00AA47B3 /* test.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 68A78FFC2283F6EB00AA47B3 /* test.jpg */; };
 		68A78FFF2283F76C00AA47B3 /* long.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 68A78FFE2283F76B00AA47B3 /* long.jpg */; };
+		68B214C92292BA1B007E05A7 /* test1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 68B214C72292BA1B007E05A7 /* test1.jpg */; };
+		68B214CA2292BA1B007E05A7 /* test2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 68B214C82292BA1B007E05A7 /* test2.jpg */; };
+		68B214CC2292BA7E007E05A7 /* test0.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 68B214CB2292BA7E007E05A7 /* test0.jpg */; };
 		68D2072C2289135200B32CD1 /* TABAnimated.m in Sources */ = {isa = PBXBuildFile; fileRef = 68D207082289135200B32CD1 /* TABAnimated.m */; };
 		68D2072D2289135200B32CD1 /* TABAnimationMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = 68D2070A2289135200B32CD1 /* TABAnimationMethod.m */; };
 		68D2072E2289135200B32CD1 /* TABComponentLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 68D2070D2289135200B32CD1 /* TABComponentLayer.m */; };
@@ -374,6 +377,9 @@
 		68A78FFA2283DA5500AA47B3 /* SectionsTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SectionsTableViewController.m; sourceTree = "<group>"; };
 		68A78FFC2283F6EB00AA47B3 /* test.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = test.jpg; sourceTree = "<group>"; };
 		68A78FFE2283F76B00AA47B3 /* long.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = long.jpg; sourceTree = "<group>"; };
+		68B214C72292BA1B007E05A7 /* test1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = test1.jpg; sourceTree = "<group>"; };
+		68B214C82292BA1B007E05A7 /* test2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = test2.jpg; sourceTree = "<group>"; };
+		68B214CB2292BA7E007E05A7 /* test0.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = test0.jpg; sourceTree = "<group>"; };
 		68D207082289135200B32CD1 /* TABAnimated.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TABAnimated.m; sourceTree = "<group>"; };
 		68D2070A2289135200B32CD1 /* TABAnimationMethod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TABAnimationMethod.m; sourceTree = "<group>"; };
 		68D2070B2289135200B32CD1 /* TABAnimationMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TABAnimationMethod.h; sourceTree = "<group>"; };
@@ -589,6 +595,9 @@
 				20BFBBA22153FB5300136258 /* head.jpg */,
 				68A78FFE2283F76B00AA47B3 /* long.jpg */,
 				68A78FFC2283F6EB00AA47B3 /* test.jpg */,
+				68B214CB2292BA7E007E05A7 /* test0.jpg */,
+				68B214C72292BA1B007E05A7 /* test1.jpg */,
+				68B214C82292BA1B007E05A7 /* test2.jpg */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -1072,7 +1081,7 @@
 		20A85BE82152248D0005AD62 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1000;
+				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = tigerAndBull;
 				TargetAttributes = {
 					20A85BEF2152248D0005AD62 = {
@@ -1120,9 +1129,12 @@
 				68A78FFD2283F6EC00AA47B3 /* test.jpg in Resources */,
 				6806412C2279C83200D79040 /* comic.jpg in Resources */,
 				685D5AF82265D05F0058A6CC /* MJRefresh.bundle in Resources */,
+				68B214CC2292BA7E007E05A7 /* test0.jpg in Resources */,
 				20A85BFD2152248E0005AD62 /* Assets.xcassets in Resources */,
 				20A01592216A321E0082425D /* XIBTableViewCell.xib in Resources */,
 				68A78FFF2283F76C00AA47B3 /* long.jpg in Resources */,
+				68B214C92292BA1B007E05A7 /* test1.jpg in Resources */,
+				68B214CA2292BA1B007E05A7 /* test2.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1315,6 +1327,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1374,6 +1387,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";

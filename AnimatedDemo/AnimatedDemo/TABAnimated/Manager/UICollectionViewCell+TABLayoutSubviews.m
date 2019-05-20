@@ -35,11 +35,13 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         
         UICollectionView *superView = (UICollectionView *)self.superview;
+        NSIndexPath *indexPath = [superView indexPathForCell:self];
         
-        switch (superView.tabAnimated.state) {
-                
-            case TABViewAnimationStart: {
-                
+        TABCollectionAnimated *tabAnimated = (TABCollectionAnimated *)((UICollectionView *)superView.tabAnimated);
+
+        if (tabAnimated.state == TABViewAnimationStart &&
+            [tabAnimated currentSectionIsAnimating:superView
+                                           section:indexPath.section]) {
                 NSMutableArray <TABComponentLayer *> *array = @[].mutableCopy;
                 // start animations
                 [TABManagerMethod getNeedAnimationSubViews:self
@@ -65,17 +67,15 @@
                         [TABAnimationMethod addShimmerAnimationToView:self
                                                              duration:[TABAnimated sharedAnimated].animatedDurationShimmer
                                                                   key:kTABShimmerAnimation];
-                        break;
                     }
-
+                    
                     // add bin animation
                     if ([TABManagerMethod canAddBinAnimation:superView]) {
                         [TABAnimationMethod addAlphaAnimation:self
                                                      duration:[TABAnimated sharedAnimated].animatedDurationBin
                                                           key:kTABAlphaAnimation];
-                        break;
                     }
-
+                    
                     // add drop animation
                     if ([TABManagerMethod canAddDropAnimation:superView]) {
                         
@@ -109,19 +109,6 @@
                     }
                     
                 }
-            }
-                break;
-                
-            case TABViewAnimationEnd: {
-                // end animations
-                [TABManagerMethod endAnimationToSubViews:self];
-                [TABManagerMethod removeMask:self];
-            }
-                
-                break;
-                
-            default:
-                break;
         }
     });
 }

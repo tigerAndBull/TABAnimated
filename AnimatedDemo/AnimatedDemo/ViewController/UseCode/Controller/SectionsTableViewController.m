@@ -55,7 +55,7 @@
     }
     
     // 停止动画,并刷新数据
-    [self.tableView tab_endAnimation];
+    [self.tableView tab_endAnimationWithSection:1];
 }
 
 #pragma mark - UITableViewDelegate & Datasource
@@ -130,6 +130,8 @@
     self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.tableView];
     [self.tableView tab_startAnimation];   // 开启动画
+    NSLog(@"数量 %ld",self.tableView.tabAnimated.runAnimationSectionArray.count);
+    
 }
 
 - (UITableView *)tableView {
@@ -153,8 +155,8 @@
         
         _tableView.tabAnimated.categoryBlock = ^(UIView * _Nonnull view) {
             if ([view isKindOfClass:[TestTableViewCell class]]) {
-                view.animation(1).down(3).height(12).toShortAnimation();
-                view.animation(2).height(12).width(110).toLongAnimation();
+                view.animation(1).down(3).height(12);
+                view.animation(2).height(12).width(110);
                 view.animation(3).down(-5).height(12);
             }
         };

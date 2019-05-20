@@ -36,7 +36,7 @@
 #pragma mark - Target Methods
 
 - (void)afterGetData {
-    for (int i = 0; i < 10; i++) {
+    for (NSInteger i = 0; i < 10; i++) {
         NSMutableArray *array = [[NSMutableArray alloc] init];
         [array addObject:@"test.jpg"];
         [array addObject:@"test.jpg"];
@@ -45,6 +45,8 @@
         [array addObject:@"test.jpg"];
         [array addObject:@"test.jpg"];
         [self.dataArray addObject:array];
+        [self.collectionView registerClass:[NestCollectionViewCell class]
+                forCellWithReuseIdentifier:[NSString stringWithFormat:@"NestCollectionViewCell %ld",i]];
     }
     [self.collectionView tab_endAnimation];
 }
@@ -53,7 +55,7 @@
 #pragma mark - UICollectionViewDelegate & DataSource
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    if (collectionView.tabAnimated.isAnimating) {
+    if (collectionView.tabAnimated.state == TABViewAnimationStart) {
         return 3;
     }
     return self.dataArray.count;
@@ -77,12 +79,52 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    NestCollectionViewCell *cell = [NestCollectionViewCell cellWithIndexPath:indexPath atCollectionView:collectionView];
+    NestCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[NSString stringWithFormat:@"NestCollectionViewCell %ld",(long)indexPath.row]
+                                                                             forIndexPath:indexPath];;
     
-    NSMutableArray *array = self.dataArray[indexPath.section];
+    NSMutableArray *array = self.dataArray[indexPath.row];
     [cell updateCellWithData:array];
     
     return cell;
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
+    return CGSizeMake(collectionView.frame.size.width, 60);
+}
+
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
+    
+    UICollectionReusableView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader
+                                                                          withReuseIdentifier:@"header"
+                                                                                 forIndexPath:indexPath];
+    header.backgroundColor = [UIColor clearColor];
+    
+    for (UIView *view in header.subviews) {
+        [view removeFromSuperview];
+    }
+    
+    UILabel *lab = [header viewWithTag:1000];
+    if (!lab) {
+        lab = [[UILabel alloc] init];
+        lab.frame = CGRectMake(kWidth(15)+3+4, 10, 100, 50);
+        lab.font = kBlodFont(18);
+        lab.textColor = [UIColor blackColor];
+        lab.tag = 1000;
+        [header addSubview:lab];
+    }
+    lab.text = @"测试嵌套";
+    
+    UIView *view = [header viewWithTag:1001];
+    if (!view) {
+        view = [[UIView alloc] init];
+        view.frame = CGRectMake(kWidth(15), 10+8+10, 3, 14);
+        view.backgroundColor = kColor(0xE74E46FF);
+        view.layer.cornerRadius = 1.5f;
+        view.tag = 1001;
+        [header addSubview:view];
+    }
+    
+    return header;
 }
 
 #pragma mark - Initize Methods
@@ -113,9 +155,12 @@
         _collectionView.showsHorizontalScrollIndicator = NO;
         _collectionView.showsVerticalScrollIndicator = NO;
         
+        [_collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header"];
+        
         _collectionView.tabAnimated =
         [TABCollectionAnimated animatedWithCellClass:[NestCollectionViewCell class]
                                             cellSize:[NestCollectionViewCell cellSize]];
+        _collectionView.tabAnimated.animatedCount = 1;
         
     }
     return _collectionView;

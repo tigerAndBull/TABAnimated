@@ -44,91 +44,79 @@
             superView = (UITableView *)self.superview;
         }
         
-        switch (superView.tabAnimated.state) {
+        NSIndexPath *indexPath = [superView indexPathForCell:self];
+        
+        TABTableAnimated *tabAnimated = (TABTableAnimated *)((UICollectionView *)superView.tabAnimated);
+        
+        if (tabAnimated.state == TABViewAnimationStart &&
+            [tabAnimated currentSectionIsAnimating:superView section:indexPath.section]) {
+            NSMutableArray <TABComponentLayer *> *array = @[].mutableCopy;
+            // start animations
+            [TABManagerMethod getNeedAnimationSubViews:self
+                                         withSuperView:superView
+                                          withRootView:self
+                                     withRootSuperView:superView
+                                                 array:array];
+            
+            self.tabLayer.componentLayerArray = array;
+            
+            __weak typeof(self) weakSelf = self;
+            if (superView.tabAnimated.categoryBlock) {
+                superView.tabAnimated.categoryBlock(weakSelf);
+            }
+            
+            if (!superView.tabAnimated.isNest) {
+                self.tabLayer.animatedBackgroundColor = superView.tabAnimated.animatedBackgroundColor;
+                self.tabLayer.animatedColor = superView.tabAnimated.animatedColor;
+                [self.tabLayer updateSublayers:self.tabLayer.componentLayerArray.mutableCopy];
                 
-            case TABViewAnimationStart: {
-                
-                NSMutableArray <TABComponentLayer *> *array = @[].mutableCopy;
-                // start animations
-                [TABManagerMethod getNeedAnimationSubViews:self
-                                             withSuperView:superView
-                                              withRootView:self
-                                         withRootSuperView:superView
-                                                     array:array];
-                
-                self.tabLayer.componentLayerArray = array;
-                
-                __weak typeof(self) weakSelf = self;
-                if (superView.tabAnimated.categoryBlock) {
-                    superView.tabAnimated.categoryBlock(weakSelf);
+                // add shimmer animation
+                if ([TABManagerMethod canAddShimmer:superView]) {
+                    [TABAnimationMethod addShimmerAnimationToView:self
+                                                         duration:[TABAnimated sharedAnimated].animatedDurationShimmer
+                                                              key:kTABShimmerAnimation];
                 }
                 
-                if (!superView.tabAnimated.isNest) {
-                    self.tabLayer.animatedBackgroundColor = superView.tabAnimated.animatedBackgroundColor;
-                    self.tabLayer.animatedColor = superView.tabAnimated.animatedColor;
-                    [self.tabLayer updateSublayers:self.tabLayer.componentLayerArray.mutableCopy];
-                    
-                    // add shimmer animation
-                    if ([TABManagerMethod canAddShimmer:superView]) {
-                        [TABAnimationMethod addShimmerAnimationToView:self
-                                                             duration:[TABAnimated sharedAnimated].animatedDurationShimmer
-                                                                  key:kTABShimmerAnimation];
-                        break;
-                    }
-
-                    // add bin animation
-                    if ([TABManagerMethod canAddBinAnimation:superView]) {
-                        [TABAnimationMethod addAlphaAnimation:self
-                                                     duration:[TABAnimated sharedAnimated].animatedDurationBin
-                                                          key:kTABAlphaAnimation];
-                        break;
-                    }
-                    
-                    // add drop animation
-                    if ([TABManagerMethod canAddDropAnimation:superView]) {
-                        
-                        UIColor *deepColor;
-                        if (superView.tabAnimated.dropAnimationDeepColor) {
-                            deepColor = superView.tabAnimated.dropAnimationDeepColor;
-                        }else {
-                            deepColor = [TABAnimated sharedAnimated].dropAnimationDeepColor;
-                        }
-                        
-                        CGFloat duration = 0;
-                        if (superView.tabAnimated.dropAnimationDuration != 0.) {
-                            duration = superView.tabAnimated.dropAnimationDuration;
-                        }else {
-                            duration = [TABAnimated sharedAnimated].dropAnimationDuration;
-                        }
-                        
-                        for (NSInteger i = 0; i < self.tabLayer.resultLayerArray.count; i++) {
-                            TABComponentLayer *layer = self.tabLayer.resultLayerArray[i];
-                            if (layer.removeOnDropAnimation) {
-                                continue;
-                            }
-                            [TABAnimationMethod addDropAnimation:layer
-                                                           index:layer.dropAnimationIndex
-                                                        duration:duration*(self.tabLayer.dropAnimationCount+1)
-                                                           count:self.tabLayer.dropAnimationCount+1
-                                                        stayTime:layer.dropAnimationStayTime
-                                                       deepColor:deepColor
-                                                             key:kTABDropAnimation];
-                        }
-                    }
-                    
+                // add bin animation
+                if ([TABManagerMethod canAddBinAnimation:superView]) {
+                    [TABAnimationMethod addAlphaAnimation:self
+                                                 duration:[TABAnimated sharedAnimated].animatedDurationBin
+                                                      key:kTABAlphaAnimation];
                 }
+                
+                // add drop animation
+                if ([TABManagerMethod canAddDropAnimation:superView]) {
+                    
+                    UIColor *deepColor;
+                    if (superView.tabAnimated.dropAnimationDeepColor) {
+                        deepColor = superView.tabAnimated.dropAnimationDeepColor;
+                    }else {
+                        deepColor = [TABAnimated sharedAnimated].dropAnimationDeepColor;
+                    }
+                    
+                    CGFloat duration = 0;
+                    if (superView.tabAnimated.dropAnimationDuration != 0.) {
+                        duration = superView.tabAnimated.dropAnimationDuration;
+                    }else {
+                        duration = [TABAnimated sharedAnimated].dropAnimationDuration;
+                    }
+                    
+                    for (NSInteger i = 0; i < self.tabLayer.resultLayerArray.count; i++) {
+                        TABComponentLayer *layer = self.tabLayer.resultLayerArray[i];
+                        if (layer.removeOnDropAnimation) {
+                            continue;
+                        }
+                        [TABAnimationMethod addDropAnimation:layer
+                                                       index:layer.dropAnimationIndex
+                                                    duration:duration*(self.tabLayer.dropAnimationCount+1)
+                                                       count:self.tabLayer.dropAnimationCount+1
+                                                    stayTime:layer.dropAnimationStayTime
+                                                   deepColor:deepColor
+                                                         key:kTABDropAnimation];
+                    }
+                }
+                
             }
-                
-                break;
-                
-            case TABViewAnimationEnd: {
-                // end animations
-                [TABManagerMethod endAnimationToSubViews:self];
-                [TABManagerMethod removeMask:self];
-            }
-                
-            default:
-                break;
         }
     });
 }

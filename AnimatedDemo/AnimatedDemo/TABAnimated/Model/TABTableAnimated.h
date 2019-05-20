@@ -21,12 +21,17 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  多section的UITableView的cellHeight集合
  */
-@property (nonatomic,copy) NSArray <NSNumber *> *cellHeightArray;
+@property (nonatomic,strong) NSArray <NSNumber *> *cellHeightArray;
 
 /**
  指定section加载动画集合
  */
-@property (nonatomic,copy) NSArray <NSNumber *> *animatedSectionArray;
+@property (nonatomic,strong) NSArray <NSNumber *> *animatedSectionArray;
+
+/**
+ 当前正在动画中的分区
+ */
+@property (nonatomic,strong) NSMutableArray <NSNumber *> *runAnimationSectionArray;
 
 /**
  one section init method
@@ -86,6 +91,9 @@ NS_ASSUME_NONNULL_BEGIN
                            cellHeightArray:(NSArray <NSNumber *> *)cellHeightArray
                         animatedCountArray:(NSArray <NSNumber *> *)animatedCountArray
                       animatedSectionArray:(NSArray <NSNumber *> *)animatedSectionArray;
+
+- (BOOL)currentSectionIsAnimating:(UITableView *)tableView
+                          section:(NSInteger)section;
 
 @end
 

@@ -63,7 +63,8 @@
 
 - (NSInteger)tab_collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     
-    if (collectionView.tabAnimated.isAnimating) {
+    if ([collectionView.tabAnimated currentSectionIsAnimating:collectionView
+                                                      section:section]) {
         
         // 开发者指定section
         if (collectionView.tabAnimated.animatedSectionArray.count > 0) {
@@ -98,9 +99,8 @@
 
 - (CGSize)tab_collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (collectionView.tabAnimated.state == TABViewAnimationStart) {
-        
-        NSAssert(collectionView.tabAnimated, @"TABAnimated模版模式强制提醒 - collectionView未注册模版类");
+    if ([collectionView.tabAnimated currentSectionIsAnimating:collectionView
+                                                      section:indexPath.section]) {
         
         NSInteger index = indexPath.section;
         
@@ -126,7 +126,7 @@
         }else {
             if (indexPath.section > (collectionView.tabAnimated.cellSizeArray.count - 1)) {
                 index = collectionView.tabAnimated.cellSizeArray.count - 1;
-                tabAnimatedLog(@"TABAnimated模版模式提醒 - section的数量和模版类的数量不一致，超出的section，将使用最后一个模版类加载");
+                tabAnimatedLog(@"TABAnimated提醒 - section的数量和指定分区的数量不一致，超出的section，将使用最后一个分区cell加载");
             }
         }
         
@@ -137,7 +137,9 @@
 }
 
 - (UICollectionViewCell *)tab_collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    if (collectionView.tabAnimated.state == TABViewAnimationStart) {
+    
+    if ([collectionView.tabAnimated currentSectionIsAnimating:collectionView
+                                                      section:indexPath.section]) {
         
         NSInteger index = indexPath.section;
         
@@ -163,7 +165,7 @@
         }else {
             if (indexPath.section > (collectionView.tabAnimated.cellClassArray.count - 1)) {
                 index = collectionView.tabAnimated.cellClassArray.count - 1;
-                tabAnimatedLog(@"TABAnimated模版模式提醒 - section的数量和模版类的数量不一致，超出的section，将使用最后一个模版类加载");
+                tabAnimatedLog(@"TABAnimated提醒 - section的数量和指定分区的数量不一致，超出的section，将使用最后一个分区cell加载");
             }
         }
         
@@ -205,14 +207,16 @@
 
 - (void)tab_collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (collectionView.tabAnimated.state == TABViewAnimationStart) {
+    if ([collectionView.tabAnimated currentSectionIsAnimating:collectionView
+                                                      section:indexPath.section]) {
         return;
     }
     [self tab_collectionView:collectionView willDisplayCell:cell forItemAtIndexPath:indexPath];
 }
 
 - (void)tab_collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    if (collectionView.tabAnimated.state == TABViewAnimationStart ||
+    if ([collectionView.tabAnimated currentSectionIsAnimating:collectionView
+                                                      section:indexPath.section] ||
         collectionView.tabAnimated.state == TABViewAnimationRunning) {
         return;
     }

@@ -64,7 +64,8 @@
 - (NSInteger)tab_tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
     // If the animation running, return animatedCount.
-    if (tableView.tabAnimated.isAnimating) {
+    if ([tableView.tabAnimated currentSectionIsAnimating:tableView
+                                                 section:section]) {
         
         // 开发者指定section
         if (tableView.tabAnimated.animatedSectionArray.count > 0) {
@@ -99,10 +100,9 @@
 
 - (CGFloat)tab_tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (tableView.tabAnimated.state == TABViewAnimationStart) {
-        
-        NSAssert(tableView.tabAnimated, @"TABAnimated模版模式强制提醒 - tabAnimated未初始化");
-        
+    if ([tableView.tabAnimated currentSectionIsAnimating:tableView
+                                                 section:indexPath.section]) {
+          
         NSInteger index = indexPath.section;
         
         // 开发者指定section
@@ -127,7 +127,7 @@
         }else {
             if (indexPath.section > (tableView.tabAnimated.cellClassArray.count - 1)) {
                 index = tableView.tabAnimated.cellClassArray.count - 1;
-                tabAnimatedLog(@"TABAnimated模版模式提醒 - section的数量和模版类的数量不一致，超出的section，将使用最后一个模版类加载");
+                tabAnimatedLog(@"TABAnimated提醒 - section的数量和指定分区的数量不一致，超出的section，将使用最后一个分区cell加载");
             }
         }
         
@@ -138,11 +138,8 @@
 
 - (UITableViewCell *)tab_tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (tableView.tabAnimated.state == TABViewAnimationStart) {
-        
-        if (tableView.tabAnimated.cellClassArray.count == 0) {
-            NSAssert(NO,@"TABAnimated - plese alloc your animatedObject");
-        }
+    if ([tableView.tabAnimated currentSectionIsAnimating:tableView
+                                                 section:indexPath.section]) {
         
         NSInteger index = indexPath.section;
         
@@ -168,7 +165,7 @@
         }else {
             if (indexPath.section > (tableView.tabAnimated.cellClassArray.count - 1)) {
                 index = tableView.tabAnimated.cellClassArray.count - 1;
-                tabAnimatedLog(@"TABAnimated - section的数量和模版类的数量不一致，超出的section，将使用最后一个模版类加载");
+                tabAnimatedLog(@"TABAnimated提醒 - section的数量和指定分区的数量不一致，超出的section，将使用最后一个分区cell加载");
             }
         }
         
@@ -216,14 +213,16 @@
 
 - (void)tab_tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (tableView.tabAnimated.state == TABViewAnimationStart) {
+    if ([tableView.tabAnimated currentSectionIsAnimating:tableView
+                                                 section:indexPath.section]) {
         return;
     }
     [self tab_tableView:tableView willDisplayCell:cell forRowAtIndexPath:indexPath];
 }
 
 - (void)tab_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (tableView.tabAnimated.state == TABViewAnimationStart ||
+    if ([tableView.tabAnimated currentSectionIsAnimating:tableView
+                                                 section:indexPath.section] ||
         tableView.tabAnimated.state == TABViewAnimationRunning) {
         return;
     }

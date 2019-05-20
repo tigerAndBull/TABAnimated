@@ -57,9 +57,26 @@
     return obj;
 }
 
+- (instancetype)init {
+    if (self = [super init]) {
+        _runAnimationSectionArray = @[].mutableCopy;
+    }
+    return self;
+}
+
 - (void)setCellHeight:(CGFloat)cellHeight {
     _cellHeight = cellHeight;
     _cellHeightArray = @[[NSNumber numberWithFloat:cellHeight]];
+}
+
+- (BOOL)currentSectionIsAnimating:(UITableView *)tableView
+                          section:(NSInteger)section {
+    for (NSNumber *num in self.runAnimationSectionArray) {
+        if ([num integerValue] == section) {
+            return YES;
+        }
+    }
+    return NO;
 }
 
 @end
