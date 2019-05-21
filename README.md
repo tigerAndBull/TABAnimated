@@ -17,7 +17,7 @@
     </a>
 </p>
 
-###### the lastest version is v2.0.6[release]  [中文文档](https://www.jianshu.com/p/6a0ca4995dff)
+###### the lastest version is v2.0.7  [中文文档](https://www.jianshu.com/p/6a0ca4995dff)
 
 ## Catalog
 
@@ -352,6 +352,16 @@ _collectionView.tabAnimated.categoryBlock = ^(UIView * _Nonnull view) {
 _collectionView.tabAnimated = [[TABAnimatedObject alloc] init];
 _collectionView.tabAnimated.isNest = YES;
 _collectionView.tabAnimated.animatedCount = 3;
+```
+
+6. Specify section end animation
+```
+/**
+  Ending animation for a specific partition, there is no animation in all partitions, it will automatically be set to end animation state
+
+  @param section Specify section
+  */
+- (void)tab_endAnimationWithSection:(NSInteger)section;
 ```
 
 ## Attribute Related
