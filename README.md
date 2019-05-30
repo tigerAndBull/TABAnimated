@@ -186,6 +186,7 @@ _collectionView.tabAnimated.categoryBlock = ^(UIView * _Nonnull view) {
 ```
 
 **Parameter description** (also detailed in the framework)
+
 | Chained Function Name | Meaning |
 | ------ | ------ |
 | view.animation(x) | The animation of the specified subscript of the view `TABCompentLayer`|
