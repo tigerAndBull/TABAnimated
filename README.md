@@ -17,7 +17,7 @@
     </a>
 </p>
 
-###### the lastest version is v2.0.6[release]  [中文文档](https://www.jianshu.com/p/6a0ca4995dff)
+###### the lastest version is v2.0.7  [中文文档](https://www.jianshu.com/p/6a0ca4995dff)
 
 ## Catalog
 
@@ -187,42 +187,33 @@ _collectionView.tabAnimated.categoryBlock = ^(UIView * _Nonnull view) {
 
 **Parameter description** (also detailed in the framework)
 
-**view.animation(x)**: The animation of the specified subscript of the view `TABCompentLayer`
+| Chained Function Name | Meaning |
+| ------ | ------ |
+| view.animation(x) | The animation of the specified subscript of the view `TABCompentLayer`|
+| view.animations(x,x) | The view specifies a range of animated individual arrays for uniform adjustments |
+| up(x) | How much to move up |
+| down(x) | How much to move down |
+| left(x) | How much to move to the left |
+| right(x) | How much to move to the right |
+| height(x) | Modify Height |
+| width(x) | Modify Width |
+| reducedWidth(x) | How much is the width compared to before |
+| reducedHeight(x) | How much is the height compared to before?
+| radius(x) | Fillet |
+| remove() | Move out animation group |
+| toLongAnimation() | Give Dynamic Variable Length Animation |
+| toShortAnimation() | Give Dynamic Short Animation |
 
-**view.animations(x,x)**: An array of animated individuals of the specified range of the view for uniform adjustment
+**Functions that require special instructions:**
 
-**up(x)**: How much to move up
+line(x): number of lines
 
-**down(x)**: How much to move down
+space(x): spacing
 
-**left(x)**: How many moves to the left
+lastScale(x): the scale factor of the last line and the original width. The default value is 0.5.
 
-**right(x)**: How many moves to the right
-
-**height(x)**: modify height
-
-**Width(x)**: modify the width
-
-**reducedWidth(x)**: How much is the width compared to before
-
-**reducedHeight(x)**: How much is the height compared to before
-
-**radius(x)**: rounded corners
-
-**line(x)**: number of lines
-
-**space(x)**: spacing
-
-These two parameters, if it is multi-line text, take effect by default according to the number of `numberOfLines`
-Ordinary animated individuals can also set these two properties to achieve the same effect.
-
-**remove()**: Move out the animation group
-
-**toLongAnimation()**: Give the individual a dynamic variable length animation
-
-**toShortAnimation()**: Give the individual a dynamic shortening animation
-
-**lastScale(x)**: the width ratio of the last line for multiple lines of label, default 0.5
+If it is multi-line text, it will be assigned according to the number of `numberOfLines` of the text.
+Note that ordinary animation elements can also achieve the special effects of multiple lines by setting these three properties.
 
 special reminder:
 
@@ -352,6 +343,16 @@ _collectionView.tabAnimated.categoryBlock = ^(UIView * _Nonnull view) {
 _collectionView.tabAnimated = [[TABAnimatedObject alloc] init];
 _collectionView.tabAnimated.isNest = YES;
 _collectionView.tabAnimated.animatedCount = 3;
+```
+
+6. Specify section end animation
+```
+/**
+  Ending animation for a specific partition, there is no animation in all partitions, it will automatically be set to end animation state
+
+  @param section Specify section
+  */
+- (void)tab_endAnimationWithSection:(NSInteger)section;
 ```
 
 ## Attribute Related
