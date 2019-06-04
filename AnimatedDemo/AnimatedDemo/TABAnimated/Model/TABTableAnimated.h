@@ -33,6 +33,10 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic,strong) NSMutableArray <NSNumber *> *runAnimationSectionArray;
 
+@property (nonatomic,weak) TABViewAnimated *tabHeadViewAnimated;
+
+@property (nonatomic,weak) TABViewAnimated *tabFooterViewAnimated;
+
 /**
  one section init method
  When using it to init, the count decided by the table's contentSize and the cell's height, animatedCount = the table's contentSize / the cell's height.

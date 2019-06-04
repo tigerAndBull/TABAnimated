@@ -31,6 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (void)resetData:(UIView *)view;
 
++ (void)resetDataForNormalView:(UIView *)view;
 
 /**
  映射出所view中的TABComponentLayer
@@ -41,10 +42,17 @@ NS_ASSUME_NONNULL_BEGIN
  @param rootSuperView 根view的父视图
  @param array 得到的TABComponentLayer集合
  */
+//+ (void)getNeedAnimationSubViews:(UIView *)view
+//                   withSuperView:(UIView *)superView
+//                    withRootView:(UIView *)rootView
+//               withRootSuperView:(UIView *)rootSuperView
+//                           array:(NSMutableArray <TABComponentLayer *> *)array;
+
 + (void)getNeedAnimationSubViews:(UIView *)view
                    withSuperView:(UIView *)superView
                     withRootView:(UIView *)rootView
                withRootSuperView:(UIView *)rootSuperView
+                    isInNestView:(BOOL)isInNestView
                            array:(NSMutableArray <TABComponentLayer *> *)array;
 
 /**

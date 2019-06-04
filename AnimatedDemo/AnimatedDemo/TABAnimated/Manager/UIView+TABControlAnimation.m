@@ -22,10 +22,20 @@
     self.tabAnimated.state = TABViewAnimationStart;
     
     if ([self isKindOfClass:[UICollectionView class]]) {
-
+        
         for (Class class in self.tabAnimated.cellClassArray) {
-            [(UICollectionView *)self registerClass:class forCellWithReuseIdentifier:[NSString stringWithFormat:@"tab_%@",NSStringFromClass(class)]];
-            [(UICollectionView *)self registerClass:class forCellWithReuseIdentifier:NSStringFromClass(class)];
+            
+            NSString *classString = NSStringFromClass(class);
+            NSString *nibPath = [[NSBundle mainBundle] pathForResource:classString ofType:@"nib"];
+            
+            if (nil != nibPath && nibPath.length > 0) {
+                [(UICollectionView *)self registerNib:[UINib nibWithNibName:classString bundle:[NSBundle mainBundle]] forCellWithReuseIdentifier:classString];
+                [(UICollectionView *)self registerNib:[UINib nibWithNibName:classString bundle:[NSBundle mainBundle]] forCellWithReuseIdentifier:[NSString stringWithFormat:@"tab_%@",classString]];
+                
+            }else {
+                [(UICollectionView *)self registerClass:class forCellWithReuseIdentifier:[NSString stringWithFormat:@"tab_%@",classString]];
+                [(UICollectionView *)self registerClass:class forCellWithReuseIdentifier:classString];
+            }
         }
         
         TABCollectionAnimated *tabAnimated = (TABCollectionAnimated *)((UICollectionView *)self.tabAnimated);
@@ -48,6 +58,14 @@
     }else if ([self isKindOfClass:[UITableView class]]) {
         
         TABTableAnimated *tabAnimated = (TABTableAnimated *)((UITableView *)self.tabAnimated);
+        
+        if (((UITableView *)self).tableHeaderView.tabAnimated != nil) {
+            [((UITableView *)self).tableHeaderView tab_startAnimation];
+        }
+        if (((UITableView *)self).tableFooterView.tabAnimated != nil) {
+            [((UITableView *)self).tableFooterView tab_startAnimation];
+        }
+        
         [tabAnimated.runAnimationSectionArray removeAllObjects];
         
         if (tabAnimated.animatedSectionArray.count > 0) {
@@ -85,9 +103,25 @@
     
     if ([self isKindOfClass:[UITableView class]]) {
         
+        UITableView *tableView = (UITableView *)self;
+        
         TABTableAnimated *tabAnimated = (TABTableAnimated *)((UITableView *)self.tabAnimated);
         [tabAnimated.runAnimationSectionArray removeAllObjects];
         self.tabAnimated = tabAnimated;
+        
+        if (tableView.tableHeaderView != nil &&
+            tableView.tableHeaderView.tabAnimated != nil) {
+            tableView.tableHeaderView.tabAnimated.state = TABViewAnimationEnd;
+            tableView.tableHeaderView.tabAnimated.isAnimating = NO;
+            [tableView.tableHeaderView layoutSubviews];
+        }
+        
+        if (tableView.tableFooterView != nil &&
+            tableView.tableFooterView.tabAnimated != nil) {
+            tableView.tableFooterView.tabAnimated.state = TABViewAnimationEnd;
+            tableView.tableFooterView.tabAnimated.isAnimating = NO;
+            [tableView.tableFooterView layoutSubviews];
+        }
         
         [(UITableView *)self reloadData];
         
@@ -101,10 +135,14 @@
             [(UICollectionView *)self reloadData];
             
         }else {
-            [TABManagerMethod resetData:self];
             [self layoutSubviews];
         }
     }
+}
+
+- (void)tab_endAnimationEaseOut {
+    [self tab_endAnimation];
+    [TABAnimationMethod addEaseOutAnimation:self];
 }
 
 - (void)tab_endAnimationWithSection:(NSInteger)section {
@@ -159,7 +197,7 @@
         
         self.tabAnimated = tabAnimated;
         
-        [(UITableView *)self reloadSections:[NSIndexSet indexSetWithIndex:section] withRowAnimation:UITableViewRowAnimationFade];
+        [(UITableView *)self reloadSections:[NSIndexSet indexSetWithIndex:section] withRowAnimation:UITableViewRowAnimationNone];
     }
 }
 

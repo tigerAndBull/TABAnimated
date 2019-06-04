@@ -20,8 +20,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,strong) UILabel *timeLab;
 @property (nonatomic,strong) UILabel *priceLab;
 
-@property (nonatomic,strong) UIView *shadowView;
-
 - (void)updateWithModel:(id)model;
 
 @end

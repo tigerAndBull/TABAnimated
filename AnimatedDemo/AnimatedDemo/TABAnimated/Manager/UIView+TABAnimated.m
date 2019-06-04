@@ -53,7 +53,7 @@
             [tempArray addObject:layer];
         }
         
-        //修改添加  需要查看数组内容   length == 0 && location == 0 是返回整个数组   xiaoxin
+        // 修改添加  需要查看数组内容   length == 0 && location == 0 是返回整个数组   xiaoxin
         if (length == 0 && location == 0) {
             tempArray = self.tabLayer.componentLayerArray.mutableCopy;
         }

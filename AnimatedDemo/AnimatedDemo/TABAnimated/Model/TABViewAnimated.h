@@ -147,6 +147,14 @@ typedef void(^TABAnimatedCategoryBlock)(UIView *view);
  */
 @property (nonatomic,strong) UIColor *dropAnimationDeepColor;
 
+/**
+ 控制视图默认是不加入动画队列的，
+ 如果你的控制视图也需要加入动画队列，那么请将此属性置置为YES
+ */
+@property (nonatomic,assign) BOOL addRootView;
+
+@property (nonatomic,weak) UIView *nestView;
+
 @end
 
 NS_ASSUME_NONNULL_END

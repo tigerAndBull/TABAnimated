@@ -48,14 +48,16 @@
         
         TABTableAnimated *tabAnimated = (TABTableAnimated *)((UICollectionView *)superView.tabAnimated);
         
+        // 开启动画
         if (tabAnimated.state == TABViewAnimationStart &&
-            [tabAnimated currentSectionIsAnimating:superView section:indexPath.section]) {
+            [tabAnimated currentSectionIsAnimating:superView section:indexPath.section] && !self.tabLayer.isLoad) {
             NSMutableArray <TABComponentLayer *> *array = @[].mutableCopy;
             // start animations
             [TABManagerMethod getNeedAnimationSubViews:self
                                          withSuperView:superView
                                           withRootView:self
                                      withRootSuperView:superView
+                                          isInNestView:NO
                                                  array:array];
             
             self.tabLayer.componentLayerArray = array;
@@ -65,10 +67,17 @@
                 superView.tabAnimated.categoryBlock(weakSelf);
             }
             
+            self.tabLayer.animatedBackgroundColor = superView.tabAnimated.animatedBackgroundColor;
+            self.tabLayer.animatedColor = superView.tabAnimated.animatedColor;
+            [self.tabLayer updateSublayers:self.tabLayer.componentLayerArray.mutableCopy];
+            
+            if (self.tabLayer.nestView) {
+                self.tabLayer.backgroundColor = UIColor.clearColor.CGColor;
+                [TABManagerMethod resetData:self];
+            }
+            self.tabLayer.isLoad = YES;
+            
             if (!superView.tabAnimated.isNest) {
-                self.tabLayer.animatedBackgroundColor = superView.tabAnimated.animatedBackgroundColor;
-                self.tabLayer.animatedColor = superView.tabAnimated.animatedColor;
-                [self.tabLayer updateSublayers:self.tabLayer.componentLayerArray.mutableCopy];
                 
                 // add shimmer animation
                 if ([TABManagerMethod canAddShimmer:superView]) {
@@ -117,6 +126,15 @@
                 }
                 
             }
+            
+            if (self.tabLayer.nestView) {
+                [self.tabLayer.nestView tab_startAnimation];
+            }
+        }
+        
+        // 结束动画
+        if (tabAnimated.state == TABViewAnimationEnd) {
+            [TABManagerMethod endAnimationToSubViews:self];
         }
     });
 }

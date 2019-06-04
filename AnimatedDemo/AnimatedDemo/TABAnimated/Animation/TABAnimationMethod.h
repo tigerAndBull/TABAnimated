@@ -35,6 +35,8 @@ NS_ASSUME_NONNULL_BEGIN
                deepColor:(UIColor *)deepColor
                      key:(NSString *)key;
 
++ (void)addEaseOutAnimation:(UIView *)view;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -111,9 +111,10 @@
              kText(@"cell中使用多级view 示例"),
              kText(@"UITableView xib 示例"),
              kText(@"嵌套表格 示例"),
-             kText(@"UICollectionView 指定sectionk结束动画"),
+             kText(@"UICollectionView 指定section结束动画"),
              kText(@"UITableView 指定section开启动画"),
-             kText(@"仿豆瓣动画演示")];
+             kText(@"仿豆瓣动画演示"),
+             kText(@"UICollectionView xib 示例")];
 }
 
 - (NSArray *)controllerClassArray {
@@ -128,7 +129,8 @@
              @"NestCollectionViewController",
              @"SectionsCollectionViewController",
              @"SectionsTableViewController",
-             @"SelectDoubanViewController"];
+             @"SelectDoubanViewController",
+             @"XibCollectionViewController"];
 }
 
 @end

@@ -9,10 +9,9 @@
 #import "UICollectionView+TABAnimated.h"
 #import "UIView+TABAnimated.h"
 #import "UIView+TABControlAnimation.m"
+
 #import "TABViewAnimated.h"
-
 #import "TABCollectionAnimated.h"
-
 #import "TABAnimated.h"
 
 #import <objc/runtime.h>
@@ -181,22 +180,24 @@
         }
         
         cell = [collectionView dequeueReusableCellWithReuseIdentifier:[NSString stringWithFormat:@"tab_%@",className] forIndexPath:indexPath];
-        NSString *nibPath = [[NSBundle mainBundle] pathForResource:className ofType:@"nib"];
-        if (nibPath != nil && nibPath.length > 0) {
-            NSArray *cellArray = [[NSBundle mainBundle] loadNibNamed:className owner:self options:nil];
-            if (cellArray.count <= 0) {
-                NSAssert(NO, @"No xib file of the cell name.");
-            }
-            cell = [cellArray objectAtIndex:0];
-        }
-        
+
         if (nil == cell.tabLayer) {
             [TABManagerMethod fullData:cell];
             cell.tabLayer = TABLayer.new;
             cell.tabLayer.frame = cell.bounds;
+            
+//            if (collectionView.tabAnimated.nestView) {
+//                cell.tabLayer.frame = CGRectMake(0, 0, kScreenWidth, 30);
+//            }
+            
             cell.tabLayer.animatedHeight = collectionView.tabAnimated.animatedHeight;
             cell.tabLayer.animatedCornerRadius = collectionView.tabAnimated.animatedCornerRadius;
             cell.tabLayer.cancelGlobalCornerRadius = collectionView.tabAnimated.cancelGlobalCornerRadius;
+            if (cell.tabLayer.animatedCornerRadius > 0) {
+                cell.tabLayer.cornerRadius = cell.contentView.layer.cornerRadius;
+            }else {
+                cell.tabLayer.animatedCornerRadius = collectionView.tabAnimated.animatedCornerRadius;
+            }
             [cell.layer addSublayer:cell.tabLayer];
         }
         

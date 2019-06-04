@@ -34,6 +34,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)updateSublayers:(NSArray <TABComponentLayer *> *)componentLayerArray;
 
+@property (nonatomic,weak) UIView *nestView;
+
+@property (nonatomic,assign) BOOL isLoad;
+
 @end
 
 NS_ASSUME_NONNULL_END

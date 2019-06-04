@@ -127,4 +127,12 @@
     [layer addAnimation:animation forKey:key];
 }
 
++ (void)addEaseOutAnimation:(UIView *)view {
+    CATransition *animation = [CATransition animation];
+    animation.duration = 0.2;
+    animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
+    animation.type = kCATransitionFade;
+    [view.layer addAnimation:animation forKey:@"animation"];
+}
+
 @end

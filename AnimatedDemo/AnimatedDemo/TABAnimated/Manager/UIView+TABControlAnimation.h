@@ -10,6 +10,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef enum : NSUInteger {
+    TABEndAnimationOptionEaseOut,
+    TABEndAnimationOptionNone,
+} TABEndAnimationOptions;
+
 @interface UIView (TABControlAnimation)
 
 /**
@@ -27,15 +32,23 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  end animation
- 结束动画
+ 结束动画, 默认不加入任何动画效果
  
  simmer to `tab_startAnimation`
  */
 - (void)tab_endAnimation;
 
 /**
+ end animation
+ 结束动画, 加入淡入淡出效果
+ 
+ simmer to `tab_startAnimation`
+ */
+- (void)tab_endAnimationEaseOut;
+
+/**
  end animation to the section
- 特定分区结束动画，在所有分区都不存在动画，会自动置为结束动画状态
+ 指定分区结束动画，当表格的所有分区都不存在动画，会自动置为结束动画的状态
 
  @param section 指定section
  */

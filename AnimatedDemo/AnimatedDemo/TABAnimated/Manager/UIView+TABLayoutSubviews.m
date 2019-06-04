@@ -67,6 +67,7 @@
                                                  withSuperView:self
                                                   withRootView:self
                                              withRootSuperView:self
+                                                  isInNestView:NO
                                                          array:array];
                     
                     self.tabLayer.componentLayerArray = array;
@@ -79,6 +80,11 @@
                     self.tabLayer.animatedBackgroundColor = self.tabAnimated.animatedBackgroundColor;
                     self.tabLayer.animatedColor = self.tabAnimated.animatedColor;
                     [self.tabLayer updateSublayers:self.tabLayer.componentLayerArray.mutableCopy];
+                    
+                    if (self.tabLayer.nestView) {
+                        self.tabLayer.backgroundColor = UIColor.clearColor.CGColor;
+                        [TABManagerMethod resetDataForNormalView:self];
+                    }
                     
                     // add shimmer animation
                     if ([TABManagerMethod canAddShimmer:self]) {
@@ -126,14 +132,18 @@
                                                              key:kTABDropAnimation];
                         }
                     }
+                    
+                    if (self.tabLayer.nestView) {
+                        [self.tabLayer.nestView tab_startAnimation];
+                    }
                 }
                     
                     break;
                     
                 case TABViewAnimationEnd: {
                     // end animations
-                    [TABManagerMethod endAnimationToSubViews:self];
                     [TABManagerMethod removeMask:self];
+                    [TABManagerMethod endAnimationToSubViews:self];
                 }
                     
                     break;

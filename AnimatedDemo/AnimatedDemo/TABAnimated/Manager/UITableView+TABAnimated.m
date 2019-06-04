@@ -45,6 +45,12 @@
     SEL oldHeightDelegate = @selector(tableView:heightForRowAtIndexPath:);
     SEL newHeightDelegate = @selector(tab_tableView:heightForRowAtIndexPath:);
     
+    SEL oldEstimatedHeightDelegate = @selector(tableView:estimatedHeightForRowAtIndexPath:);
+    SEL newEstimatedHeightDelegate = @selector(tab_tableView:estimatedHeightForRowAtIndexPath:);
+    
+//    SEL oldHeadViewDelegate = @selector(tableView:viewForHeaderInSection:);
+//    SEL newHeadViewDelegate = @selector(tab_tableView:viewForHeaderInSection:);
+    
     SEL oldClickDelegate = @selector(tableView:didSelectRowAtIndexPath:);
     SEL newClickDelegate = @selector(tab_tableView:didSelectRowAtIndexPath:);
     
@@ -54,6 +60,9 @@
         [self exchangeTableDelegateMethod:oldCell withNewSel:newCell withTableDelegate:delegate];
         [self exchangeTableDelegateMethod:oldHeightDelegate withNewSel:newHeightDelegate withTableDelegate:delegate];
         [self exchangeTableDelegateMethod:oldClickDelegate withNewSel:newClickDelegate withTableDelegate:delegate];
+        [self exchangeTableDelegateMethod:oldEstimatedHeightDelegate withNewSel:newEstimatedHeightDelegate withTableDelegate:delegate];
+        
+//        [self exchangeTableDelegateMethod:oldHeadViewDelegate withNewSel:newHeadViewDelegate withTableDelegate:delegate];
     }
 
     [self tab_setDelegate:delegate];
@@ -134,6 +143,43 @@
         return [tableView.tabAnimated.cellHeightArray[index] floatValue];
     }
     return [self tab_tableView:tableView heightForRowAtIndexPath:indexPath];
+}
+
+- (CGFloat)tab_tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if ([tableView.tabAnimated currentSectionIsAnimating:tableView
+                                                 section:indexPath.section]) {
+        
+        NSInteger index = indexPath.section;
+        
+        // 开发者指定section
+        if (tableView.tabAnimated.animatedSectionArray.count > 0) {
+            
+            // 匹配当前section
+            for (NSNumber *num in tableView.tabAnimated.animatedSectionArray) {
+                if ([num integerValue] == indexPath.section) {
+                    NSInteger currentIndex = [tableView.tabAnimated.animatedSectionArray indexOfObject:num];
+                    if (currentIndex > tableView.tabAnimated.cellHeightArray.count - 1) {
+                        index = [tableView.tabAnimated.cellHeightArray count] - 1;
+                    }else {
+                        index = currentIndex;
+                    }
+                    break;
+                }
+                
+                if ([num isEqual:[tableView.tabAnimated.animatedSectionArray lastObject]]) {
+                    return [self tab_tableView:tableView heightForRowAtIndexPath:indexPath];
+                }
+            }
+        }else {
+            if (indexPath.section > (tableView.tabAnimated.cellClassArray.count - 1)) {
+                index = tableView.tabAnimated.cellClassArray.count - 1;
+                tabAnimatedLog(@"TABAnimated提醒 - section的数量和指定分区的数量不一致，超出的section，将使用最后一个分区cell加载");
+            }
+        }
+        
+        return [tableView.tabAnimated.cellHeightArray[index] floatValue];
+    }
+    return [self tab_tableView:tableView estimatedHeightForRowAtIndexPath:indexPath];
 }
 
 - (UITableViewCell *)tab_tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -269,6 +315,16 @@
 
 - (void)setTabAnimated:(TABTableAnimated *)tabAnimated {
     objc_setAssociatedObject(self, @selector(tabAnimated),tabAnimated, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    
+    if (self.tableHeaderView != nil && self.tableHeaderView.tabAnimated == nil) {
+        self.tableHeaderView.tabAnimated = TABViewAnimated.new;
+        self.tabAnimated.tabHeadViewAnimated = self.tableHeaderView.tabAnimated;
+    }
+    
+    if (self.tableFooterView != nil && self.tableFooterView.tabAnimated == nil) {
+        self.tableFooterView.tabAnimated = TABViewAnimated.new;
+        self.tabAnimated.tabFooterViewAnimated = self.tableFooterView.tabAnimated;
+    }
 }
 
 @end

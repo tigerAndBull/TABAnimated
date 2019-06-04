@@ -63,10 +63,13 @@
 
 - (void)categoryView:(JXCategoryBaseView *)categoryView didSelectedItemAtIndex:(NSInteger)index {
     self.currentIndex = index;
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, NSEC_PER_SEC*0.1), dispatch_get_main_queue(), ^{
-        [self.currentCollectionView tab_startAnimation];
-        [self.currentCollectionView.mj_header beginRefreshing];
-    });
+}
+
+- (void)categoryView:(JXCategoryBaseView *)categoryView scrollingFromLeftIndex:(NSInteger)leftIndex toRightIndex:(NSInteger)rightIndex ratio:(CGFloat)ratio {
+    if (self.dataCenterArray[rightIndex].count == 0) {
+        [self.collectionViewArray[rightIndex] tab_startAnimation];
+        [self.collectionViewArray[rightIndex].mj_header beginRefreshing];
+    }
 }
 
 #pragma mark - UICollectionViewDelegate
@@ -153,7 +156,6 @@
             collectionView.tabAnimated =
             [TABCollectionAnimated animatedWithCellClass:[LawyerCollectionViewCell class]
                                                 cellSize:[LawyerCollectionViewCell cellSize]];
-            collectionView.tabAnimated.canLoadAgain = YES;
             collectionView.tabAnimated.categoryBlock = ^(UIView * _Nonnull view) {
                 view.animation(1).height(12).down(-2).reducedWidth(-90);
                 view.animation(2).height(12).down(7).reducedWidth(-30);
@@ -165,7 +167,6 @@
             collectionView.tabAnimated =
             [TABCollectionAnimated animatedWithCellClass:[LawyerArticleCollectionViewCell class]
                                                 cellSize:[LawyerArticleCollectionViewCell cellSize]];
-            collectionView.tabAnimated.canLoadAgain = YES;
             collectionView.tabAnimated.categoryBlock = ^(UIView * _Nonnull view) {
                 view.animation(1).height(12).up(-3).width(60);
                 view.animation(2).height(12).width(90).up(2);

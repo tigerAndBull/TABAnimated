@@ -28,7 +28,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.view.backgroundColor = kColor(0xEEEEEEFF);
+    self.view.backgroundColor = UIColor.whiteColor;
     [self.view addSubview:self.collectionView];
     dataArray = @[].mutableCopy;
     [self.collectionView tab_startAnimation];
@@ -72,14 +72,11 @@
 }
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
-    return UIEdgeInsetsMake(0, 10, 0, 10);
+    return UIEdgeInsetsMake(12, 12, 0, 12);
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
-    if (section == 0) {
-        return .1;
-    }
-    return 8;
+    return 12;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -101,7 +98,7 @@
         _collectionView.showsVerticalScrollIndicator = NO;
         _collectionView.bounces = YES;
         _collectionView.contentInset = UIEdgeInsetsMake(0, 0, kSafeAreaHeight+10, 0);
-        _collectionView.backgroundColor = kColor(0xEEEEEEFF);
+        _collectionView.backgroundColor = [UIColor whiteColor];
         _collectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadData)];
         if (@available(iOS 11.0, *)) {
             _collectionView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;

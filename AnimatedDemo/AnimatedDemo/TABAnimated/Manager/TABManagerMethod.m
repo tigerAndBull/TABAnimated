@@ -58,6 +58,41 @@
     }
 }
 
++ (void)resetDataForNormalView:(UIView *)view {
+    
+    if ([view isKindOfClass:[UITableView class]] ||
+        [view isKindOfClass:[UICollectionView class]]) {
+        return;
+    }
+    
+    NSArray *subViews = [view subviews];
+    if ([subViews count] == 0) {
+        return;
+    }
+    
+    for (int i = 0; i < subViews.count;i++) {
+        
+        UIView *subV = subViews[i];
+        [self resetData:subV];
+        
+        if ([subV isKindOfClass:[UILabel class]]) {
+            UILabel *lab = (UILabel *)subV;
+            if ([lab.text isEqualToString:kLongDataString] ||
+                [lab.text isEqualToString:kShortDataString]) {
+                lab.text = @"";
+            }
+        }else {
+            if ([subV isKindOfClass:[UIButton class]]) {
+                UIButton *btn = (UIButton *)subV;
+                if ([btn.titleLabel.text isEqualToString:kLongDataString] ||
+                    [btn.titleLabel.text isEqualToString:kShortDataString]) {
+                    [btn setTitle:@"" forState:UIControlStateNormal];
+                }
+            }
+        }
+    }
+}
+
 + (void)resetData:(UIView *)view {
     
     if ([view isKindOfClass:[UITableView class]] ||
@@ -77,17 +112,11 @@
         
         if ([subV isKindOfClass:[UILabel class]]) {
             UILabel *lab = (UILabel *)subV;
-            if ([lab.text isEqualToString:kShortDataString] ||
-                [lab.text isEqualToString:kLongDataString]) {
-                lab.text = @"";
-            }
+            lab.text = @"";
         }else {
             if ([subV isKindOfClass:[UIButton class]]) {
                 UIButton *btn = (UIButton *)subV;
-                if ([btn.titleLabel.text isEqualToString:kShortDataString] ||
-                    [btn.titleLabel.text isEqualToString:kLongDataString]) {
-                    [btn setTitle:@"" forState:UIControlStateNormal];
-                }
+                [btn setTitle:@"" forState:UIControlStateNormal];
             }
         }
     }
@@ -97,6 +126,7 @@
                    withSuperView:(UIView *)superView
                     withRootView:(UIView *)rootView
                withRootSuperView:(UIView *)rootSuperView
+                    isInNestView:(BOOL)isInNestView
                            array:(NSMutableArray <TABComponentLayer *> *)array {
     
     NSArray *subViews = [view subviews];
@@ -108,10 +138,17 @@
         
         UIView *subV = subViews[i];
         
+        if (subV.tabAnimated.isNest &&
+            ![subV isEqual:rootSuperView]) {
+            rootView.tabLayer.nestView = subV;
+            isInNestView = YES;
+        }
+        
         [self getNeedAnimationSubViews:subV
                          withSuperView:subV.superview
                           withRootView:rootView
                      withRootSuperView:rootSuperView
+                          isInNestView:isInNestView
                                  array:array];
 
         // remove lineView for the cell created by xib
@@ -119,18 +156,8 @@
             [subV removeFromSuperview];
         }
         
-        // start animation for the nest view
-        // 如果父视图中嵌套了表格组件，为表格组件开启动画
-        if ([subV isKindOfClass:[UITableView class]]) {
-            UITableView *view = (UITableView *)subV;
-            [view tab_startAnimation];
-            continue;
-        }else {
-            if ([subV isKindOfClass:[UICollectionView class]]) {
-                UICollectionView *view = (UICollectionView *)subV;
-                [view tab_startAnimation];
-                continue;
-            }
+        if (isInNestView) {
+            break;
         }
         
         if ([subV.superview isKindOfClass:[UITableViewCell class]] ||
@@ -312,11 +339,11 @@
 
 + (void)removeMask:(UIView *)view {
     
-    if (view.tabLayer != nil) {
+    if (view.tabLayer) {
         [view.tabLayer removeFromSuperlayer];
     }
     
-    if (view.layer.mask != nil) {
+    if (view.layer.mask) {
         [view.layer.mask removeFromSuperlayer];
     }
     

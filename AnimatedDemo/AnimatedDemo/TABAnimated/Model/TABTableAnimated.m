@@ -10,6 +10,13 @@
 
 @implementation TABTableAnimated
 
+- (instancetype)init {
+    if (self = [super init]) {
+        _runAnimationSectionArray = @[].mutableCopy;
+    }
+    return self;
+}
+
 + (instancetype)animatedWithCellClass:(Class)cellClass
                            cellHeight:(CGFloat)cellHeight {
     
@@ -55,13 +62,6 @@
                                           animatedCountArray:animatedCountArray];
     obj.animatedSectionArray = animatedSectionArray;
     return obj;
-}
-
-- (instancetype)init {
-    if (self = [super init]) {
-        _runAnimationSectionArray = @[].mutableCopy;
-    }
-    return self;
 }
 
 - (void)setCellHeight:(CGFloat)cellHeight {
