@@ -17,7 +17,7 @@
     </a>
 </p>
 
-###### the lastest version is v2.0.7  [中文文档](https://www.jianshu.com/p/6a0ca4995dff)
+###### the lastest version is v2.0.8  [中文文档](https://www.jianshu.com/p/6a0ca4995dff)
 
 ## Catalog
 
@@ -344,6 +344,7 @@ _collectionView.tabAnimated = [[TABAnimatedObject alloc] init];
 _collectionView.tabAnimated.isNest = YES;
 _collectionView.tabAnimated.animatedCount = 3;
 ```
+[detail description about nest view](https://www.jianshu.com/p/cf8e37195c11)
 
 6. Specify section end animation
 ```
