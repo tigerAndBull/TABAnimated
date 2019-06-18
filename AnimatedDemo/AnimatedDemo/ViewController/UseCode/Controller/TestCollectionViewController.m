@@ -32,8 +32,15 @@
     [self initData];
     [self initUI];
     
-    // 假设3秒后，获取到数据
-    [self performSelector:@selector(afterGetData) withObject:nil afterDelay:3];
+    // 启动动画
+    // 默认延迟时间0.4s
+    [self.collectionView tab_startAnimationWithCompletion:^{
+        // 请求数据
+        // ...
+        // 获得数据
+        // ...
+        [self afterGetData];
+    }];
 }
 
 - (void)dealloc {
@@ -53,7 +60,7 @@
     }
     
     // 停止动画,并刷新数据
-    [self.collectionView tab_endAnimation];
+    [self.collectionView tab_endAnimationEaseOut];
 }
 
 #pragma mark - UICollectionViewDelegate & UICollectionViewDataSource
@@ -88,10 +95,8 @@
  初始化视图
  */
 - (void)initUI {
-    
     self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.collectionView];
-    [self.collectionView tab_startAnimation];
 }
 
 #pragma mark - Lazy Methods

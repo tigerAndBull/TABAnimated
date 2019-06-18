@@ -29,8 +29,15 @@
     [self initData];
     [self initUI];
     
-    // 假设3秒后，获取到数据了，代码具体位置看你项目了。
-    [self performSelector:@selector(afterGetData) withObject:nil afterDelay:3.0];
+    // 启动动画
+    // 默认延迟时间0.4s
+    [self.collectionView tab_startAnimationWithCompletion:^{
+        // 请求数据
+        // ...
+        // 获得数据
+        // ...
+        [self afterGetData];
+    }];
 }
 
 #pragma mark - Target Methods
@@ -48,7 +55,7 @@
         [self.collectionView registerClass:[NestCollectionViewCell class]
                 forCellWithReuseIdentifier:[NSString stringWithFormat:@"NestCollectionViewCell %ld",i]];
     }
-    [self.collectionView tab_endAnimation];
+    [self.collectionView tab_endAnimationEaseOut];
 }
 
 
@@ -140,7 +147,6 @@
 - (void)initUI {
     [self.view addSubview:self.collectionView];
     [NestCollectionViewCell registerCellInCollectionView:self.collectionView];
-    [self.collectionView tab_startAnimation];
 }
 
 #pragma mark - Lazy Methods

@@ -35,14 +35,14 @@
     SEL oldSectionSelector = @selector(collectionView:numberOfItemsInSection:);
     SEL newSectionSelector = @selector(tab_collectionView:numberOfItemsInSection:);
     
-    SEL old = @selector(collectionView:willDisplayCell:forItemAtIndexPath:);
-    SEL new = @selector(tab_collectionView:willDisplayCell:forItemAtIndexPath:);
+    SEL oldHeightSel = @selector(collectionView:layout:sizeForItemAtIndexPath:);
+    SEL newHeightSel = @selector(tab_collectionView:layout:sizeForItemAtIndexPath:);
     
     SEL oldCell = @selector(collectionView:cellForItemAtIndexPath:);
     SEL newCell = @selector(tab_collectionView:cellForItemAtIndexPath:);
     
-    SEL oldHeightSel = @selector(collectionView:layout:sizeForItemAtIndexPath:);
-    SEL newHeightSel = @selector(tab_collectionView:layout:sizeForItemAtIndexPath:);
+    SEL old = @selector(collectionView:willDisplayCell:forItemAtIndexPath:);
+    SEL new = @selector(tab_collectionView:willDisplayCell:forItemAtIndexPath:);
     
     SEL oldClickSel = @selector(collectionView:didSelectItemAtIndexPath:);
     SEL newClickSel = @selector(tab_collectionView:didSelectItemAtIndexPath:);

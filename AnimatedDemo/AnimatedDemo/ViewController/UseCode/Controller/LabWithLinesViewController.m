@@ -33,8 +33,15 @@
     [self initData];
     [self initUI];
     
-    // 假设3秒后，获取到数据
-    [self performSelector:@selector(afterGetData) withObject:nil afterDelay:3.0];
+    // 启动动画
+    // 默认延迟时间0.4s
+    [self.tableView tab_startAnimationWithCompletion:^{
+        // 请求数据
+        // ...
+        // 获得数据
+        // ...
+        [self afterGetData];
+    }];
 }
 
 - (void)dealloc {
@@ -58,7 +65,7 @@
         [dataArray addObject:game];
     }
     
-    [self.tableView tab_endAnimation];
+    [self.tableView tab_endAnimationEaseOut];
 }
 
 #pragma mark - UITableViewDataSource & UITableViewDelegate
@@ -109,7 +116,6 @@
 - (void)initUI {
     self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.tableView];
-    [self.tableView tab_startAnimation];
 }
 
 #pragma mark - Lazy Methods

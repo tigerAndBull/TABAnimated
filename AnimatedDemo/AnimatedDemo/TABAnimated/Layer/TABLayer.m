@@ -61,7 +61,8 @@ static CGFloat defaultHeight = 16.f;
                   fromIndex:layer.dropAnimationFromIndex
                removeOnDrop:layer.removeOnDropAnimation
                   tabHeight:layer.tabViewHeight
-                  loadStyle:layer.loadStyle];
+                  loadStyle:layer.loadStyle
+                      index:i];
         }else {
             
             layer.backgroundColor = self.animatedColor.CGColor;
@@ -90,7 +91,7 @@ static CGFloat defaultHeight = 16.f;
                     layer.cornerRadius = cornerRadius;
                 }
             }
-    
+            
             if (!layer.removeOnDropAnimation) {
                 if (layer.dropAnimationIndex == -1) {
                     layer.dropAnimationIndex = self.resultLayerArray.count;
@@ -104,6 +105,28 @@ static CGFloat defaultHeight = 16.f;
             [self addSublayer:layer];
             [self.resultLayerArray addObject:layer];
         }
+        
+        
+#ifdef DEBUG
+        if ([TABAnimated sharedAnimated].openAnimationTag) {
+            CATextLayer *lary = [CATextLayer layer];
+            lary.string = [NSString stringWithFormat:@"%d",i];
+            
+            if (!layer.fromImageView) {
+                lary.bounds = CGRectMake(layer.bounds.origin.x, layer.bounds.origin.y, layer.bounds.size.width, 20);
+            }else {
+                lary.frame = CGRectMake(0, layer.frame.size.height/2.0, layer.frame.size.width, 20);
+            }
+            
+            lary.font = (__bridge CFTypeRef)(@"HiraKakuProN-W3");
+            lary.fontSize = 12.f;
+            lary.alignmentMode = kCAAlignmentRight;
+            lary.foregroundColor = [UIColor redColor].CGColor;
+            [layer addSublayer:lary];
+        }
+#else
+        
+#endif
     }
 }
 
@@ -115,7 +138,8 @@ static CGFloat defaultHeight = 16.f;
         fromIndex:(NSInteger)fromIndex
      removeOnDrop:(BOOL)removeOnDrop
         tabHeight:(CGFloat)tabHeight
-        loadStyle:(TABViewLoadAnimationStyle)loadStyle {
+        loadStyle:(TABViewLoadAnimationStyle)loadStyle
+            index:(NSInteger)index {
     
     CGFloat textHeight = defaultHeight*[TABAnimated sharedAnimated].animatedHeightCoefficient;
     
@@ -170,6 +194,21 @@ static CGFloat defaultHeight = 16.f;
             if (loadStyle != TABAnimationTypeOnlySkeleton) {
                 [layer addAnimation:[self getAnimationWithLoadStyle:loadStyle] forKey:kTABLocationAnimation];
             }
+            
+#ifdef DEBUG
+            if ([TABAnimated sharedAnimated].openAnimationTag) {
+                CATextLayer *lary = [CATextLayer layer];
+                lary.string = [NSString stringWithFormat:@"%ld",(long)index];
+                lary.frame = CGRectMake(0, 0, rect.size.width, 20);
+                lary.font = (__bridge CFTypeRef)(@"HiraKakuProN-W3");
+                lary.fontSize = 12.f;
+                lary.alignmentMode = kCAAlignmentRight;
+                lary.foregroundColor = [UIColor redColor].CGColor;
+                [layer addSublayer:lary];
+            }
+#else
+            
+#endif
         }
         
         if (!removeOnDrop) {

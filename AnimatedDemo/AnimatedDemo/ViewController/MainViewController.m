@@ -102,35 +102,39 @@
 }
 
 - (NSArray *)titleArray {
-    return @[kText(@"UITableView 示例"),
+    return @[
+             kText(@"UITableView 示例"),
              kText(@"多行文本 示例"),
              kText(@"UICollectionView 示例"),
              kText(@"UIView 示例"),
              kText(@"卡片投影视图 示例"),
              kText(@"分段视图 示例"),
              kText(@"cell中使用多级view 示例"),
-             kText(@"UITableView xib 示例"),
              kText(@"嵌套表格 示例"),
              kText(@"UICollectionView 指定section结束动画"),
              kText(@"UITableView 指定section开启动画"),
              kText(@"仿豆瓣动画演示"),
-             kText(@"UICollectionView xib 示例")];
+             kText(@"UITableView xib 示例"),
+             kText(@"UICollectionView xib 示例"),
+             ];
 }
 
 - (NSArray *)controllerClassArray {
-    return @[@"TestTableViewController",
+    return @[
+             @"TestTableViewController",
              @"LabWithLinesViewController",
              @"TestCollectionViewController",
              @"ViewExampleViewController",
              @"CardViewController",
              @"SegmentCollectionViewController",
              @"ExampleOfPackageViewController",
-             @"XibTestViewController",
              @"NestCollectionViewController",
              @"SectionsCollectionViewController",
              @"SectionsTableViewController",
              @"SelectDoubanViewController",
-             @"XibCollectionViewController"];
+             @"XibTestViewController",
+             @"XibCollectionViewController",
+             ];
 }
 
 @end

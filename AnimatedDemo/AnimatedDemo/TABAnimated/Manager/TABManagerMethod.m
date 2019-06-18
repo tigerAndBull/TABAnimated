@@ -11,8 +11,8 @@
 
 #import <CoreGraphics/CoreGraphics.h>
 
-#define kShortDataString @"tab_testtesttest"
-#define kLongDataString @"tab_testtesttesttesttesttesttesttesttesttesttest"
+static NSString * const kShortDataString = @"tab_testtesttest";
+static NSString * const kLongDataString = @"tab_testtesttesttesttesttesttesttesttesttesttest";
 
 @implementation TABManagerMethod
 

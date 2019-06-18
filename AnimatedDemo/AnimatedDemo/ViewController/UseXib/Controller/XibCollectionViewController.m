@@ -24,11 +24,9 @@
     // Do any additional setup after loading the view.
     self.dataArray = @[].mutableCopy;
     [self.view addSubview:self.collectionView];
-    [self.collectionView tab_startAnimation];
-    
-    // 假设3秒后，获取到数据了，代码具体位置看你项目了。
-    [self performSelector:@selector(afterGetData) withObject:nil afterDelay:3.0];
-    
+    [self.collectionView tab_startAnimationWithCompletion:^{
+        [self afterGetData];
+    }];
 }
 
 /**
@@ -42,7 +40,7 @@
     }
     
     // 停止动画,并刷新数据
-    [self.collectionView tab_endAnimation];
+    [self.collectionView tab_endAnimationEaseOut];
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {

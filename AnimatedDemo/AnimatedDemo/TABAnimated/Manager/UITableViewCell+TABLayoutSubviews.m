@@ -76,6 +76,7 @@
                 [TABManagerMethod resetData:self];
             }
             self.tabLayer.isLoad = YES;
+//            [TABManagerMethod resetData:self];
             
             if (!superView.tabAnimated.isNest) {
                 

@@ -42,8 +42,25 @@
     [self initData];
     [self initUI];
     
-    // 假设3秒后，获取到数据了，代码具体位置看你项目了。
-    [self performSelector:@selector(afterGetData) withObject:nil afterDelay:3.0];
+    /*
+        说明：
+        在使用原有的启动动画方法`tab_startAnimation`发现一个问题，
+        网络非常好的情况下，动画基本没机会展示出来，甚至会有一闪而过的效果。
+        如果该方法配合MJRefresh，则会减缓这样的问题，原因是MJRefresh本身有一个延迟效果（为了说明，这么称呼的），大概是0.4秒。
+        所以，增加了一个带有延迟时间的启动函数，
+        这样的话，在网络卡的情况下，0.4秒并不会造成太大的影响，在网络不卡的情况下，可以有一个短暂的视觉效果。
+     */
+    
+    // 启动动画
+    // 这里使用了自定义延迟时间的启动函数，设置5秒是为了演示效果。
+    // 非特殊场景情况下，建议使用`tab_startAnimationWithCompletion`。
+    [self.tableView tab_startAnimationWithDelayTime:5. completion:^{
+        // 请求数据
+        // ...
+        // 获得数据
+        // ...
+        [self afterGetData];
+    }];
 }
 
 - (void)dealloc {
@@ -67,7 +84,7 @@
     }
 
     // 停止动画,并刷新数据
-    [self.tableView tab_endAnimation];
+    [self.tableView tab_endAnimationEaseOut];
 }
 
 #pragma mark - UITableViewDelegate & Datasource
@@ -79,29 +96,6 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 100;
 }
-//
-//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-//    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 120)];
-//    UIImageView *imageV = [[UIImageView alloc] initWithFrame:CGRectMake((kScreenWidth - 80)/2.0, 20, 80, 80)];
-//    imageV.image = [UIImage imageNamed:@"comic.jpg"];
-//    imageV.layer.cornerRadius = 80/2.0;
-//    imageV.layer.masksToBounds  = YES;
-//    [view addSubview:imageV];
-//    return view;
-//}
-//
-//- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
-//    view.tabAnimated = TABViewAnimated.new;
-//    [view tab_startAnimation];
-//}
-
-//- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    return 100;
-//}
-//
-//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-//    return 120;
-//}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     return .1;
@@ -136,7 +130,6 @@
 - (void)initUI {
     self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.tableView];
-    [self.tableView tab_startAnimation];   // 开启动画
 }
 
 #pragma mark - Lazy Methods
@@ -146,7 +139,7 @@
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:UITableViewStyleGrouped];
         _tableView.dataSource = self;
         _tableView.delegate = self;
-//        _tableView.estimatedRowHeight = 100;
+        _tableView.estimatedRowHeight = 30;
         _tableView.estimatedSectionFooterHeight = 0;
         _tableView.estimatedSectionHeaderHeight = 0;
         _tableView.backgroundColor = [UIColor whiteColor];

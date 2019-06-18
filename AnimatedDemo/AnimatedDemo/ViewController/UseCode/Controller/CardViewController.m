@@ -31,8 +31,16 @@
     self.view.backgroundColor = UIColor.whiteColor;
     [self.view addSubview:self.collectionView];
     dataArray = @[].mutableCopy;
-    [self.collectionView tab_startAnimation];
-    [self.collectionView.mj_header beginRefreshing];
+    
+    // 启动动画
+    // 默认延迟时间0.4s
+    [self.collectionView tab_startAnimationWithCompletion:^{
+        // 请求数据
+        // ...
+        // 获得数据
+        // ...
+        [self afterGetData];
+    }];
 }
 
 #pragma mark - Target
@@ -55,10 +63,6 @@
     }
     
     [self.collectionView tab_endAnimation];
-    // 解决结束刷新闪动问题
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, NSEC_PER_SEC*0.1), dispatch_get_main_queue(), ^{
-        [self.collectionView.mj_header endRefreshing];
-    });
 }
 
 #pragma mark - UICollectionViewDelegate & UICollectionViewDataSource

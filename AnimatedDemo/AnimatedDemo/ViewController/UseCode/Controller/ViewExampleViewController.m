@@ -32,8 +32,22 @@
     // Do any additional setup after loading the view.
     [self initUI];
     
-    // 假设3秒后，获取到数据
-    [self performSelector:@selector(afterGetData) withObject:nil afterDelay:3.0];
+    self.mainView.tabAnimated = TABViewAnimated.new;
+    self.mainView.tabAnimated.categoryBlock = ^(UIView * _Nonnull view) {
+        view.animation(1).width(200);
+        view.animation(2).width(220);
+        view.animation(3).width(180);
+    };
+    
+    // 启动动画
+    // 默认延迟时间0.4s
+    [self.mainView tab_startAnimationWithCompletion:^{
+        // 请求数据
+        // ...
+        // 获得数据
+        // ...
+        [self afterGetData];
+    }];
 }
 
 - (void)dealloc {
@@ -41,7 +55,7 @@
 }
 
 - (void)afterGetData {
-    [self.mainView tab_endAnimation];
+    [self.mainView tab_endAnimationEaseOut];
     
     _topImg.image = [UIImage imageNamed:@"test.jpg"];
     _titleLab.text = @"您不会没有骨架过渡吧？";
@@ -66,14 +80,6 @@
     [self.mainView addSubview:self.firstInfoLab];
     [self.mainView addSubview:self.secondInfoLab];
     [self.mainView addSubview:self.commitBtn];
-    
-    self.mainView.tabAnimated = TABViewAnimated.new;
-    self.mainView.tabAnimated.categoryBlock = ^(UIView * _Nonnull view) {
-        view.animation(1).width(200);
-        view.animation(2).width(220);
-        view.animation(3).width(180);
-    };
-    [self.mainView tab_startAnimation];
 }
 
 #pragma mark - Lazy Method

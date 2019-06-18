@@ -130,8 +130,6 @@
     self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.tableView];
     [self.tableView tab_startAnimation];   // 开启动画
-    NSLog(@"数量 %ld",self.tableView.tabAnimated.runAnimationSectionArray.count);
-    
 }
 
 - (UITableView *)tableView {

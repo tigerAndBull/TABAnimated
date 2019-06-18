@@ -36,36 +36,42 @@
     SEL oldSelector = @selector(tableView:numberOfRowsInSection:);
     SEL newSelector = @selector(tab_tableView:numberOfRowsInSection:);
     
-    SEL old = @selector(tableView:willDisplayCell:forRowAtIndexPath:);
-    SEL new = @selector(tab_tableView:willDisplayCell:forRowAtIndexPath:);
-    
-    SEL oldCell = @selector(tableView:cellForRowAtIndexPath:);
-    SEL newCell = @selector(tab_tableView:cellForRowAtIndexPath:);
-    
     SEL oldHeightDelegate = @selector(tableView:heightForRowAtIndexPath:);
     SEL newHeightDelegate = @selector(tab_tableView:heightForRowAtIndexPath:);
     
     SEL oldEstimatedHeightDelegate = @selector(tableView:estimatedHeightForRowAtIndexPath:);
     SEL newEstimatedHeightDelegate = @selector(tab_tableView:estimatedHeightForRowAtIndexPath:);
     
-//    SEL oldHeadViewDelegate = @selector(tableView:viewForHeaderInSection:);
-//    SEL newHeadViewDelegate = @selector(tab_tableView:viewForHeaderInSection:);
+    SEL oldCell = @selector(tableView:cellForRowAtIndexPath:);
+    SEL newCell = @selector(tab_tableView:cellForRowAtIndexPath:);
+    
+    SEL old = @selector(tableView:willDisplayCell:forRowAtIndexPath:);
+    SEL new = @selector(tab_tableView:willDisplayCell:forRowAtIndexPath:);
     
     SEL oldClickDelegate = @selector(tableView:didSelectRowAtIndexPath:);
     SEL newClickDelegate = @selector(tab_tableView:didSelectRowAtIndexPath:);
     
     if ([self respondsToSelector:newSelector]) {
+        
         [self exchangeTableDelegateMethod:oldSelector withNewSel:newSelector withTableDelegate:delegate];
         [self exchangeTableDelegateMethod:old withNewSel:new withTableDelegate:delegate];
         [self exchangeTableDelegateMethod:oldCell withNewSel:newCell withTableDelegate:delegate];
         [self exchangeTableDelegateMethod:oldHeightDelegate withNewSel:newHeightDelegate withTableDelegate:delegate];
         [self exchangeTableDelegateMethod:oldClickDelegate withNewSel:newClickDelegate withTableDelegate:delegate];
         [self exchangeTableDelegateMethod:oldEstimatedHeightDelegate withNewSel:newEstimatedHeightDelegate withTableDelegate:delegate];
-        
-//        [self exchangeTableDelegateMethod:oldHeadViewDelegate withNewSel:newHeadViewDelegate withTableDelegate:delegate];
     }
 
     [self tab_setDelegate:delegate];
+    
+//    dispatch_after(DISPATCH_TIME_NOW, dispatch_get_main_queue(), ^{
+//        if (![delegate respondsToSelector:oldHeightDelegate]) {
+//            if (self.estimatedRowHeight > 0) {
+//                
+//            }else {
+//                
+//            }
+//        }
+//    });
 }
 
 #pragma mark - TABTableViewDataSource

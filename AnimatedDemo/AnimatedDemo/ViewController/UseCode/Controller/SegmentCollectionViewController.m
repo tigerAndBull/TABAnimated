@@ -44,8 +44,17 @@
     // Do any additional setup after loading the view.
     self.currentIndex = 0;
     [self initUI];
-    [self.currentCollectionView tab_startAnimation];
-    [self.currentCollectionView.mj_header beginRefreshing];
+    
+    // 启动动画
+    // 默认延迟时间0.4s
+    [self.currentCollectionView tab_startAnimationWithCompletion:^{
+        // 请求数据
+        // ...
+        // 获得数据
+        // ...
+        [self afterGetData];
+    }];
+    
     // 解决与手势冲突
     NSArray *gestureArray = self.navigationController.view.gestureRecognizers;
     for (UIGestureRecognizer *gestureRecognizer in gestureArray) {
@@ -63,12 +72,14 @@
 
 - (void)categoryView:(JXCategoryBaseView *)categoryView didSelectedItemAtIndex:(NSInteger)index {
     self.currentIndex = index;
-}
-
-- (void)categoryView:(JXCategoryBaseView *)categoryView scrollingFromLeftIndex:(NSInteger)leftIndex toRightIndex:(NSInteger)rightIndex ratio:(CGFloat)ratio {
-    if (self.dataCenterArray[rightIndex].count == 0) {
-        [self.collectionViewArray[rightIndex] tab_startAnimation];
-        [self.collectionViewArray[rightIndex].mj_header beginRefreshing];
+    if (self.dataCenterArray[index].count == 0) {
+        [self.currentCollectionView tab_startAnimationWithDelayTime:0.6 completion:^{
+            // 请求数据
+            // ...
+            // 获得数据
+            // ...
+            [self afterGetData];
+        }];
     }
 }
 

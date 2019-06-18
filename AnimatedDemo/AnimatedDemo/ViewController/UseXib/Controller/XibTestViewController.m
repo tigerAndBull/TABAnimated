@@ -30,8 +30,10 @@
     // Do any additional setup after loading the view.
     dataArray = [NSMutableArray array];
     [self initUI];
-    // 假设3秒后，获取到数据了，代码具体位置看你项目了。
-    [self performSelector:@selector(afterGetData) withObject:nil afterDelay:3.0];
+    
+    [self.mainTV tab_startAnimationWithCompletion:^{
+        [self afterGetData];
+    }];
 }
 
 - (void)dealloc {
@@ -56,7 +58,7 @@
     }
     
     // 停止动画,并刷新数据
-    [self.mainTV tab_endAnimation];
+    [self.mainTV tab_endAnimationEaseOut];
 }
 
 #pragma mark - UITableViewDataSource & UITableViewDelegate
@@ -103,7 +105,6 @@
 - (void)initUI {
     self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.mainTV];
-    [self.mainTV tab_startAnimation];
 }
 
 #pragma mark - Lazy Methods
@@ -121,7 +122,7 @@
         
         // 注意！！！
         // xib 动画数组的顺序是组件关联xib文件的顺序。
-        // 这里做了一个错误示范，有坑慎入。
+        // v2.0.9以后，增加openAnimationTag属性，方便快速定位动画元素。
         _mainTV.tabAnimated = [TABTableAnimated animatedWithCellClass:[XIBTableViewCell class] cellHeight:115];
         _mainTV.tabAnimated.cancelGlobalCornerRadius = YES;
         _mainTV.tabAnimated.animatedHeight = 14.f;
@@ -129,9 +130,10 @@
             
             // 注意！！！
             // xib 动画数组的顺序是组件关联xib文件的顺序。
-            // 这里做了一个错误示范，有坑慎入。
+            // v2.0.9以后，增加openAnimationTag属性，方便快速定位动画元素。
             view.animation(4).width(80).down(4);
             view.animation(3).width(110).up(2);
+            view.animation(5).remove();
         };
     }
     return _mainTV;

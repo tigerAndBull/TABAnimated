@@ -53,10 +53,10 @@ _Pragma("clang diagnostic pop") \
 #define tab_kColor(c) [UIColor colorWithRed:((c>>24)&0xFF)/255.0 green:((c>>16)&0xFF)/255.0 blue:((c>>8)&0xFF)/255.0 alpha:((c)&0xFF)/255.0]
 #define tab_kBackColor tab_kColor(0xEEEEEEFF)
 
-#define kTABAlphaAnimation @"TABAlphaAnimation"
-#define kTABLocationAnimation @"TABLocationAnimation"
-#define kTABShimmerAnimation @"TABShimmerAnimation"
-#define kTABDropAnimation @"TABDropAnimation"
+static NSString * const kTABAlphaAnimation = @"TABAlphaAnimation";
+static NSString * const kTABLocationAnimation = @"TABLocationAnimation";
+static NSString * const kTABShimmerAnimation = @"TABShimmerAnimation";
+static NSString * const kTABDropAnimation = @"TABDropAnimation";
 
 #endif /* TABAnimated_h */
 
@@ -80,9 +80,9 @@ typedef NS_ENUM(NSInteger,TABAnimationType) {
  You can alse reset it.
  
  属性含义：动画高度与视图原有高度比例系数，该属性将对所有subViews生效，除了`UIImageView`
- 在实践中发现，对于UILabel,UIButton等视图，当动画的高度与原视图的高度一致时，效果并美观，
- 大概保持在0.75的比例，动画效果比较美观，具体还需要您自己尝试，稍作调整.
- 你也可以改变这个值
+ 在实践中发现，对于UILabel,UIButton等视图，当动画的高度与原视图的高度一致时，效果并不美观。
+ 大概保持在0.75的比例，动画效果比较美观，具体还需要您自己尝试，稍作调整。
+ 你完全可以改变这个值。
  **/
 @property (nonatomic,assign) CGFloat animatedHeightCoefficient;
 
@@ -133,6 +133,12 @@ typedef NS_ENUM(NSInteger,TABAnimationType) {
  是否开启控制台Log提醒
  */
 @property (nonatomic,assign) BOOL openLog;
+
+/**
+ 是否开启动画坐标标记，如果开启，也仅在debug环境下有效。
+ 开启后，会在每一个动画元素上增加一个红色的数字，该数字表示该动画元素所在下标，方便快速定位某个动画元素。
+ */
+@property (nonatomic,assign) BOOL openAnimationTag;
 
 #pragma mark - Dynmic Animation Property
 
