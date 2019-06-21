@@ -43,7 +43,7 @@
         }else {
             superView = (UITableView *)self.superview;
         }
-        
+         
         if (![superView isKindOfClass:[UITableView class]]) {
             return;
         }
