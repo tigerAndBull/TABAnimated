@@ -17,7 +17,7 @@
     </a>
 </p>
 
-###### the lastest version is v2.0.8  [中文文档](https://www.jianshu.com/p/6a0ca4995dff)
+###### the lastest version is v2.0.9  [中文文档](https://www.jianshu.com/p/6a0ca4995dff)
 
 ## Catalog
 
