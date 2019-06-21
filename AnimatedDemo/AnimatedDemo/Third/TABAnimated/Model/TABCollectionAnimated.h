@@ -33,10 +33,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,strong) NSMutableArray <NSNumber *> *runAnimationSectionArray;
 
 /**
+ 控制动画时的分区数量
+ */
+@property (nonatomic,assign) NSInteger animatedSectionCount;
+
+/**
+ 单section表格组件初始化方式，row值以填充contentSize的数量为标准
  one section init method
  When using it to init, the count decided by the table's contentSize and the cell's height, animatedCount = the table's contentSize / the cell's height.
- 
- 单section表格组件初始化方式
  
  @param cellClass cell，以填充contentSize的数量为标准
  @param cellSize  cell的高度
@@ -46,8 +50,8 @@ NS_ASSUME_NONNULL_BEGIN
                              cellSize:(CGSize)cellSize;
 
 /**
+ 单section表格组件初始化方式，row值以填充contentSize的数量为标准
  one section init method, specific animation count
- 单section表格组件初始化方式
  
  @param cellClass 模版cell
  @param animatedCount 动画时row值
@@ -58,8 +62,8 @@ NS_ASSUME_NONNULL_BEGIN
                         animatedCount:(NSInteger)animatedCount;
 
 /**
- sections
  多section表格组件初始化方式
+ for sections
  
  @param cellClassArray 模版cell数组
  @param animatedCountArray 动画时row值的集合
@@ -90,6 +94,13 @@ NS_ASSUME_NONNULL_BEGIN
                         animatedCountArray:(NSArray <NSNumber *> *)animatedCountArray
                       animatedSectionArray:(NSArray <NSNumber *> *)animatedSectionArray;
 
+/**
+ 判断指定分区是否在动画中
+
+ @param collectionView collectionView 目标组件
+ @param section section 目标section
+ @return return value 是否在动画中
+ */
 - (BOOL)currentSectionIsAnimating:(UICollectionView *)collectionView
                           section:(NSInteger)section;
 

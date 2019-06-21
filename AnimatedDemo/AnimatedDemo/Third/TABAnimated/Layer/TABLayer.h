@@ -11,6 +11,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+// 该文件开发者不需要关心。
+
 @class TABComponentLayer;
 
 @interface TABLayer : CALayer
@@ -32,11 +34,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic,assign,readonly) NSInteger dropAnimationCount;
 
-- (void)updateSublayers:(NSArray <TABComponentLayer *> *)componentLayerArray;
-
 @property (nonatomic,weak) UIView *nestView;
 
 @property (nonatomic,assign) BOOL isLoad;
+
+- (void)updateSublayers:(NSArray <TABComponentLayer *> *)componentLayerArray;
 
 @end
 

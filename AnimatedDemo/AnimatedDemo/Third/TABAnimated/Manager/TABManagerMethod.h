@@ -13,6 +13,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
+ 该文件用于内部管理动画组件，开发者不需要关心。
  Methods in the file are used to manager the animation.
  **/
 @interface TABManagerMethod : NSObject
@@ -42,12 +43,6 @@ NS_ASSUME_NONNULL_BEGIN
  @param rootSuperView 根view的父视图
  @param array 得到的TABComponentLayer集合
  */
-//+ (void)getNeedAnimationSubViews:(UIView *)view
-//                   withSuperView:(UIView *)superView
-//                    withRootView:(UIView *)rootView
-//               withRootSuperView:(UIView *)rootSuperView
-//                           array:(NSMutableArray <TABComponentLayer *> *)array;
-
 + (void)getNeedAnimationSubViews:(UIView *)view
                    withSuperView:(UIView *)superView
                     withRootView:(UIView *)rootView

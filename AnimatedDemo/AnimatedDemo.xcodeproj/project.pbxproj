@@ -114,13 +114,15 @@
 		68A78FFB2283DA5500AA47B3 /* SectionsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68A78FFA2283DA5500AA47B3 /* SectionsTableViewController.m */; };
 		68A78FFD2283F6EC00AA47B3 /* test.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 68A78FFC2283F6EB00AA47B3 /* test.jpg */; };
 		68A78FFF2283F76C00AA47B3 /* long.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 68A78FFE2283F76B00AA47B3 /* long.jpg */; };
+		68B0457322BB7965006FED14 /* EstimatedTableViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 68B0457222BB7965006FED14 /* EstimatedTableViewDelegate.m */; };
+		68B0457A22BB9B98006FED14 /* TTTViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68B0457922BB9B98006FED14 /* TTTViewController.m */; };
+		68B045E822BC88EE006FED14 /* TestLayoutTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68B045E722BC88ED006FED14 /* TestLayoutTableViewController.m */; };
 		68B214C92292BA1B007E05A7 /* test1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 68B214C72292BA1B007E05A7 /* test1.jpg */; };
 		68B214CA2292BA1B007E05A7 /* test2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 68B214C82292BA1B007E05A7 /* test2.jpg */; };
 		68B214CC2292BA7E007E05A7 /* test0.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 68B214CB2292BA7E007E05A7 /* test0.jpg */; };
 		68CFCF0F2294DCBC007D167F /* XibCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 68CFCF0D2294DCBC007D167F /* XibCollectionViewCell.m */; };
 		68CFCF102294DCBC007D167F /* XibCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68CFCF0E2294DCBC007D167F /* XibCollectionViewCell.xib */; };
 		68CFCF162294DFA0007D167F /* XibCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68CFCF152294DFA0007D167F /* XibCollectionViewController.m */; };
-		68D2074E228BE45200B32CD1 /* SelectDoubanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68D2074D228BE45200B32CD1 /* SelectDoubanViewController.m */; };
 		68D20752228BE55400B32CD1 /* DoubanCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68D20751228BE55400B32CD1 /* DoubanCollectionViewController.m */; };
 		68D20755228BE5C900B32CD1 /* DoubanCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68D20754228BE5C900B32CD1 /* DoubanCardViewController.m */; };
 		68D20758228BE7A400B32CD1 /* DoubanNormalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68D20757228BE7A400B32CD1 /* DoubanNormalViewController.m */; };
@@ -380,6 +382,12 @@
 		68A78FFA2283DA5500AA47B3 /* SectionsTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SectionsTableViewController.m; sourceTree = "<group>"; };
 		68A78FFC2283F6EB00AA47B3 /* test.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = test.jpg; sourceTree = "<group>"; };
 		68A78FFE2283F76B00AA47B3 /* long.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = long.jpg; sourceTree = "<group>"; };
+		68B0457122BB7965006FED14 /* EstimatedTableViewDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EstimatedTableViewDelegate.h; sourceTree = "<group>"; };
+		68B0457222BB7965006FED14 /* EstimatedTableViewDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EstimatedTableViewDelegate.m; sourceTree = "<group>"; };
+		68B0457822BB9B98006FED14 /* TTTViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTTViewController.h; sourceTree = "<group>"; };
+		68B0457922BB9B98006FED14 /* TTTViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TTTViewController.m; sourceTree = "<group>"; };
+		68B045E622BC88ED006FED14 /* TestLayoutTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestLayoutTableViewController.h; sourceTree = "<group>"; };
+		68B045E722BC88ED006FED14 /* TestLayoutTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestLayoutTableViewController.m; sourceTree = "<group>"; };
 		68B214C72292BA1B007E05A7 /* test1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = test1.jpg; sourceTree = "<group>"; };
 		68B214C82292BA1B007E05A7 /* test2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = test2.jpg; sourceTree = "<group>"; };
 		68B214CB2292BA7E007E05A7 /* test0.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = test0.jpg; sourceTree = "<group>"; };
@@ -388,8 +396,6 @@
 		68CFCF0E2294DCBC007D167F /* XibCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = XibCollectionViewCell.xib; sourceTree = "<group>"; };
 		68CFCF142294DFA0007D167F /* XibCollectionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XibCollectionViewController.h; sourceTree = "<group>"; };
 		68CFCF152294DFA0007D167F /* XibCollectionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XibCollectionViewController.m; sourceTree = "<group>"; };
-		68D2074C228BE45200B32CD1 /* SelectDoubanViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelectDoubanViewController.h; sourceTree = "<group>"; };
-		68D2074D228BE45200B32CD1 /* SelectDoubanViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SelectDoubanViewController.m; sourceTree = "<group>"; };
 		68D20750228BE55400B32CD1 /* DoubanCollectionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DoubanCollectionViewController.h; sourceTree = "<group>"; };
 		68D20751228BE55400B32CD1 /* DoubanCollectionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DoubanCollectionViewController.m; sourceTree = "<group>"; };
 		68D20753228BE5C900B32CD1 /* DoubanCardViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DoubanCardViewController.h; sourceTree = "<group>"; };
@@ -619,7 +625,6 @@
 			isa = PBXGroup;
 			children = (
 				20A85BF22152248D0005AD62 /* AnimatedDemo */,
-				680641232279B99900D79040 /* Localizable.strings */,
 				20A85BF12152248D0005AD62 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -637,19 +642,11 @@
 		20A85BF22152248D0005AD62 /* AnimatedDemo */ = {
 			isa = PBXGroup;
 			children = (
-				68E8E2E922B7B918006C99B9 /* TABAnimated */,
-				685D5AC32265D05E0058A6CC /* MJRefresh */,
-				681566AF2264214F00293AB4 /* JXCategoryView */,
-				2039EF7C21DA17A600AE09FC /* Masonry */,
+				68B045E222BC829B006FED14 /* AppConfig */,
+				68B045E922BC891C006FED14 /* Third */,
 				20A01594216A51A80082425D /* Sources */,
 				20A85C25215224B10005AD62 /* Model */,
 				20A85C32215224B10005AD62 /* ViewController */,
-				20A85BF32152248D0005AD62 /* AppDelegate.h */,
-				20A85BF42152248D0005AD62 /* AppDelegate.m */,
-				20A85BFC2152248E0005AD62 /* Assets.xcassets */,
-				20A85C012152248E0005AD62 /* Info.plist */,
-				20A85C022152248E0005AD62 /* main.m */,
-				680641282279BBE400D79040 /* TABAnimatedDemo.pch */,
 			);
 			path = AnimatedDemo;
 			sourceTree = "<group>";
@@ -668,9 +665,10 @@
 		20A85C32215224B10005AD62 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				68D2074F228BE54400B32CD1 /* Douban */,
 				20878B17222EE3BF00CF7472 /* UseCode */,
 				20878B1A222EE3BF00CF7472 /* UseXib */,
+				68D2074F228BE54400B32CD1 /* Douban */,
+				68B045E322BC88A6006FED14 /* AutoLayout */,
 				20A01598216A538F0082425D /* MainViewController.h */,
 				20A01599216A538F0082425D /* MainViewController.m */,
 			);
@@ -946,11 +944,54 @@
 			path = Base;
 			sourceTree = "<group>";
 		};
+		68B0457422BB8E92006FED14 /* Estimated */ = {
+			isa = PBXGroup;
+			children = (
+				68B0457122BB7965006FED14 /* EstimatedTableViewDelegate.h */,
+				68B0457222BB7965006FED14 /* EstimatedTableViewDelegate.m */,
+			);
+			path = Estimated;
+			sourceTree = "<group>";
+		};
+		68B045E222BC829B006FED14 /* AppConfig */ = {
+			isa = PBXGroup;
+			children = (
+				680641232279B99900D79040 /* Localizable.strings */,
+				20A85BF32152248D0005AD62 /* AppDelegate.h */,
+				20A85BF42152248D0005AD62 /* AppDelegate.m */,
+				20A85BFC2152248E0005AD62 /* Assets.xcassets */,
+				20A85C012152248E0005AD62 /* Info.plist */,
+				20A85C022152248E0005AD62 /* main.m */,
+				680641282279BBE400D79040 /* TABAnimatedDemo.pch */,
+			);
+			path = AppConfig;
+			sourceTree = "<group>";
+		};
+		68B045E322BC88A6006FED14 /* AutoLayout */ = {
+			isa = PBXGroup;
+			children = (
+				68B045E622BC88ED006FED14 /* TestLayoutTableViewController.h */,
+				68B045E722BC88ED006FED14 /* TestLayoutTableViewController.m */,
+				68B0457822BB9B98006FED14 /* TTTViewController.h */,
+				68B0457922BB9B98006FED14 /* TTTViewController.m */,
+			);
+			path = AutoLayout;
+			sourceTree = "<group>";
+		};
+		68B045E922BC891C006FED14 /* Third */ = {
+			isa = PBXGroup;
+			children = (
+				68E8E2E922B7B918006C99B9 /* TABAnimated */,
+				685D5AC32265D05E0058A6CC /* MJRefresh */,
+				681566AF2264214F00293AB4 /* JXCategoryView */,
+				2039EF7C21DA17A600AE09FC /* Masonry */,
+			);
+			path = Third;
+			sourceTree = "<group>";
+		};
 		68D2074F228BE54400B32CD1 /* Douban */ = {
 			isa = PBXGroup;
 			children = (
-				68D2074C228BE45200B32CD1 /* SelectDoubanViewController.h */,
-				68D2074D228BE45200B32CD1 /* SelectDoubanViewController.m */,
 				68D20750228BE55400B32CD1 /* DoubanCollectionViewController.h */,
 				68D20751228BE55400B32CD1 /* DoubanCollectionViewController.m */,
 				68D20753228BE5C900B32CD1 /* DoubanCardViewController.h */,
@@ -966,6 +1007,7 @@
 			children = (
 				68E8E35022B7BA58006C99B9 /* TABAnimated.h */,
 				68E8E34F22B7BA58006C99B9 /* TABAnimated.m */,
+				68B0457422BB8E92006FED14 /* Estimated */,
 				68E8E33622B7BA51006C99B9 /* Animation */,
 				68E8E31E22B7BA50006C99B9 /* Layer */,
 				68E8E32322B7BA50006C99B9 /* Manager */,
@@ -1013,8 +1055,8 @@
 		68E8E33622B7BA51006C99B9 /* Animation */ = {
 			isa = PBXGroup;
 			children = (
-				68E8E33722B7BA51006C99B9 /* TABAnimationMethod.m */,
 				68E8E33822B7BA51006C99B9 /* TABAnimationMethod.h */,
+				68E8E33722B7BA51006C99B9 /* TABAnimationMethod.m */,
 			);
 			path = Animation;
 			sourceTree = "<group>";
@@ -1022,12 +1064,12 @@
 		68E8E33922B7BA51006C99B9 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				68E8E33A22B7BA51006C99B9 /* TABViewAnimated.m */,
-				68E8E33B22B7BA51006C99B9 /* TABCollectionAnimated.m */,
-				68E8E33C22B7BA51006C99B9 /* TABTableAnimated.m */,
 				68E8E33D22B7BA51006C99B9 /* TABCollectionAnimated.h */,
-				68E8E33E22B7BA51006C99B9 /* TABViewAnimated.h */,
+				68E8E33B22B7BA51006C99B9 /* TABCollectionAnimated.m */,
 				68E8E33F22B7BA51006C99B9 /* TABTableAnimated.h */,
+				68E8E33C22B7BA51006C99B9 /* TABTableAnimated.m */,
+				68E8E33E22B7BA51006C99B9 /* TABViewAnimated.h */,
+				68E8E33A22B7BA51006C99B9 /* TABViewAnimated.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1184,6 +1226,7 @@
 				6815671F2264214F00293AB4 /* JXCategoryDotView.m in Sources */,
 				68E8E34422B7BA51006C99B9 /* UICollectionViewCell+TABLayoutSubviews.m in Sources */,
 				20A85C3E215224B10005AD62 /* TestTableViewCell.m in Sources */,
+				68B0457322BB7965006FED14 /* EstimatedTableViewDelegate.m in Sources */,
 				68E8E34E22B7BA51006C99B9 /* TABTableAnimated.m in Sources */,
 				681567132264214F00293AB4 /* JXCategoryIndicatorLineView.m in Sources */,
 				6815671A2264214F00293AB4 /* JXCategoryIndicatorBackgroundView.m in Sources */,
@@ -1211,6 +1254,7 @@
 				681567122264214F00293AB4 /* JXCategoryTitleVerticalZoomView.m in Sources */,
 				2083176521A0451A000A0D95 /* ExampleOfPackageViewController.m in Sources */,
 				685D5B002265D05F0058A6CC /* MJRefreshAutoGifFooter.m in Sources */,
+				68B045E822BC88EE006FED14 /* TestLayoutTableViewController.m in Sources */,
 				685D5B092265D05F0058A6CC /* MJRefreshComponent.m in Sources */,
 				68958D6022753D43002C4295 /* LawyerArticleCollectionViewCell.m in Sources */,
 				6815671D2264214F00293AB4 /* JXCategoryIndicatorView.m in Sources */,
@@ -1233,7 +1277,6 @@
 				68D20758228BE7A400B32CD1 /* DoubanNormalViewController.m in Sources */,
 				2039EFA321DA17A600AE09FC /* MASViewAttribute.m in Sources */,
 				685D5B082265D05F0058A6CC /* MJRefreshAutoFooter.m in Sources */,
-				68D2074E228BE45200B32CD1 /* SelectDoubanViewController.m in Sources */,
 				68958D542274AA40002C4295 /* CardViewController.m in Sources */,
 				6815672B2264214F00293AB4 /* JXCategoryNumberCell.m in Sources */,
 				68CFCF0F2294DCBC007D167F /* XibCollectionViewCell.m in Sources */,
@@ -1248,6 +1291,7 @@
 				2039EFA121DA17A600AE09FC /* MASConstraint.m in Sources */,
 				68D20755228BE5C900B32CD1 /* DoubanCardViewController.m in Sources */,
 				68E8E34A22B7BA51006C99B9 /* UIView+TABLayoutSubviews.m in Sources */,
+				68B0457A22BB9B98006FED14 /* TTTViewController.m in Sources */,
 				681567172264214F00293AB4 /* JXCategoryIndicatorBallView.m in Sources */,
 				202D40BE22297D92005CF7E3 /* CourseCollectionViewCell.m in Sources */,
 				68958D572274AA7B002C4295 /* CardCollectionViewCell.m in Sources */,
@@ -1467,8 +1511,8 @@
 					"$(PROJECT_DIR)/AnimatedDemo/Sources",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = AnimatedDemo/TABAnimatedDemo.pch;
-				INFOPLIST_FILE = AnimatedDemo/Info.plist;
+				GCC_PREFIX_HEADER = AnimatedDemo/AppConfig/TABAnimatedDemo.pch;
+				INFOPLIST_FILE = "$(SRCROOT)/AnimatedDemo/AppConfig/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1495,8 +1539,8 @@
 					"$(PROJECT_DIR)/AnimatedDemo/Sources",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = AnimatedDemo/TABAnimatedDemo.pch;
-				INFOPLIST_FILE = AnimatedDemo/Info.plist;
+				GCC_PREFIX_HEADER = AnimatedDemo/AppConfig/TABAnimatedDemo.pch;
+				INFOPLIST_FILE = "$(SRCROOT)/AnimatedDemo/AppConfig/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

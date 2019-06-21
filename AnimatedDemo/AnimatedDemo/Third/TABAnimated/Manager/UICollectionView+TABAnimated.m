@@ -24,22 +24,21 @@
     static dispatch_once_t onceToken;
     
     dispatch_once(&onceToken, ^{
+        
         Method originMethod = class_getInstanceMethod([self class], @selector(setDelegate:));
         Method newMethod = class_getInstanceMethod([self class], @selector(tab_setDelegate:));
         method_exchangeImplementations(originMethod, newMethod);
+        
+        Method originSourceMethod = class_getInstanceMethod([self class], @selector(setDataSource:));
+        Method newSourceMethod = class_getInstanceMethod([self class], @selector(tab_setDataSource:));
+        method_exchangeImplementations(originSourceMethod, newSourceMethod);
     });
 }
 
 - (void)tab_setDelegate:(id<UICollectionViewDelegate>)delegate {
     
-    SEL oldSectionSelector = @selector(collectionView:numberOfItemsInSection:);
-    SEL newSectionSelector = @selector(tab_collectionView:numberOfItemsInSection:);
-    
     SEL oldHeightSel = @selector(collectionView:layout:sizeForItemAtIndexPath:);
     SEL newHeightSel = @selector(tab_collectionView:layout:sizeForItemAtIndexPath:);
-    
-    SEL oldCell = @selector(collectionView:cellForItemAtIndexPath:);
-    SEL newCell = @selector(tab_collectionView:cellForItemAtIndexPath:);
     
     SEL old = @selector(collectionView:willDisplayCell:forItemAtIndexPath:);
     SEL new = @selector(tab_collectionView:willDisplayCell:forItemAtIndexPath:);
@@ -47,18 +46,40 @@
     SEL oldClickSel = @selector(collectionView:didSelectItemAtIndexPath:);
     SEL newClickSel = @selector(tab_collectionView:didSelectItemAtIndexPath:);
     
-    if ([self respondsToSelector:newSectionSelector]) {
-        [self exchangeCollectionDelegateMethod:oldSectionSelector withNewSel:newSectionSelector withCollectionDelegate:delegate];
-        [self exchangeCollectionDelegateMethod:old withNewSel:new withCollectionDelegate:delegate];
-        [self exchangeCollectionDelegateMethod:oldCell withNewSel:newCell withCollectionDelegate:delegate];
-        [self exchangeCollectionDelegateMethod:oldHeightSel withNewSel:newHeightSel withCollectionDelegate:delegate];
-        [self exchangeCollectionDelegateMethod:oldClickSel withNewSel:newClickSel withCollectionDelegate:delegate];
-    }
-
+    [self exchangeDelegateOldSel:old withNewSel:new withDelegate:delegate];
+    [self exchangeDelegateOldSel:oldHeightSel withNewSel:newHeightSel withDelegate:delegate];
+    [self exchangeDelegateOldSel:oldClickSel withNewSel:newClickSel withDelegate:delegate];
+    
     [self tab_setDelegate:delegate];
 }
 
+- (void)tab_setDataSource:(id<UICollectionViewDataSource>)dataSource {
+    
+    SEL oldSelector = @selector(numberOfSectionsInCollectionView:);
+    SEL newSelector = @selector(tab_numberOfSectionsInCollectionView:);
+    
+    SEL oldSectionSelector = @selector(collectionView:numberOfItemsInSection:);
+    SEL newSectionSelector = @selector(tab_collectionView:numberOfItemsInSection:);
+    
+    SEL oldCell = @selector(collectionView:cellForItemAtIndexPath:);
+    SEL newCell = @selector(tab_collectionView:cellForItemAtIndexPath:);
+    
+    [self exchangeDelegateOldSel:oldSelector withNewSel:newSelector withDelegate:dataSource];
+    [self exchangeDelegateOldSel:oldSectionSelector withNewSel:newSectionSelector withDelegate:dataSource];
+    [self exchangeDelegateOldSel:oldCell withNewSel:newCell withDelegate:dataSource];
+    
+    [self tab_setDataSource:dataSource];
+}
+
 #pragma mark - TABCollectionViewDelegate
+
+- (NSInteger)tab_numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    if (collectionView.tabAnimated.state == TABViewAnimationStart &&
+        collectionView.tabAnimated.animatedSectionCount != 0) {
+        return collectionView.tabAnimated.animatedSectionCount;
+    }
+    return [self tab_numberOfSectionsInCollectionView:collectionView];
+}
 
 - (NSInteger)tab_collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     
@@ -180,16 +201,11 @@
         }
         
         cell = [collectionView dequeueReusableCellWithReuseIdentifier:[NSString stringWithFormat:@"tab_%@",className] forIndexPath:indexPath];
-
+        
         if (nil == cell.tabLayer) {
             [TABManagerMethod fullData:cell];
             cell.tabLayer = TABLayer.new;
             cell.tabLayer.frame = cell.bounds;
-            
-//            if (collectionView.tabAnimated.nestView) {
-//                cell.tabLayer.frame = CGRectMake(0, 0, kScreenWidth, 30);
-//            }
-            
             cell.tabLayer.animatedHeight = collectionView.tabAnimated.animatedHeight;
             cell.tabLayer.animatedCornerRadius = collectionView.tabAnimated.animatedCornerRadius;
             cell.tabLayer.cancelGlobalCornerRadius = collectionView.tabAnimated.cancelGlobalCornerRadius;
@@ -226,20 +242,27 @@
 
 #pragma mark - Private Methods
 
-- (void)exchangeCollectionDelegateMethod:(SEL)oldSelector
-                              withNewSel:(SEL)newSelector
-                  withCollectionDelegate:(id<UICollectionViewDelegate>)delegate {
+/**
+ exchange method
+ 
+ @param oldSelector old method's sel
+ @param newSelector new method's sel
+ @param delegate return nil
+ */
+- (void)exchangeDelegateOldSel:(SEL)oldSelector
+                    withNewSel:(SEL)newSelector
+                  withDelegate:(id)delegate {
+    
+    if (![delegate respondsToSelector:oldSelector]) {
+        return;
+    }
     
     Method oldMethod = class_getInstanceMethod([delegate class], oldSelector);
     Method newMethod = class_getInstanceMethod([self class], newSelector);
     
     if ([self isKindOfClass:[delegate class]]) {
-        // 如果你采用了将数据代理给予表格本身，这种愚蠢的做法暂不做处理，将无法使用动画库。
+        tabAnimatedLog(@"注意：你采用了`self.delegate = self`,将delegate方法封装在了子类。那么，delegate方法的IMP地址为类对象所有，所以由该类创建的UITableView的代理方法的IMP地址始终唯一，本库不支持这种做法。");
     }else {
-        
-        if (oldMethod == nil) {
-            return;
-        }
         
         // 代理对象添加newMethod，指向oldImp
         BOOL isVictory = class_addMethod([delegate class], newSelector, class_getMethodImplementation([delegate class], oldSelector), method_getTypeEncoding(oldMethod));

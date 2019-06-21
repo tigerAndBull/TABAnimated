@@ -139,7 +139,7 @@
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:UITableViewStyleGrouped];
         _tableView.dataSource = self;
         _tableView.delegate = self;
-        _tableView.estimatedRowHeight = 30;
+        _tableView.estimatedRowHeight = 0;
         _tableView.estimatedSectionFooterHeight = 0;
         _tableView.estimatedSectionHeaderHeight = 0;
         _tableView.backgroundColor = [UIColor whiteColor];

@@ -46,6 +46,9 @@ typedef void(^TABAnimatedCategoryBlock)(UIView *view);
 
 @interface TABViewAnimated : NSObject
 
+/**
+ 预处理回调，可以在其中使用链式语法便捷调整每一个动画元素
+ */
 @property (nonatomic,copy) TABAnimatedCategoryBlock categoryBlock;
 
 /**
@@ -68,17 +71,7 @@ typedef void(^TABAnimatedCategoryBlock)(UIView *view);
 @property (nonatomic,copy) NSArray <Class> *cellClassArray;
 
 /**
- If the table has only one section, you can use it to set the count of the animation.
- 
- Template Pattern:
- use `animatedWithTemplateClass` to init, the count decided by the table's contentSize and the templateCell's height, animatedCount = the table's contentSize / the templateCell's height.
- 
- Normal Pattern:
- default is 2.
- 
- 如果表格视图只有一个分区，你可以使用该属性设置动画数量
- 模版模式：默认数量为 表格的可视区域 / cell的高度
- 普通模式：默认数量为 2
+ 动画时row数量，默认填充屏幕为准
  **/
 @property (nonatomic,assign) NSInteger animatedCount;
 
@@ -146,14 +139,6 @@ typedef void(^TABAnimatedCategoryBlock)(UIView *view);
  豆瓣动画变色值
  */
 @property (nonatomic,strong) UIColor *dropAnimationDeepColor;
-
-/**
- 控制视图默认是不加入动画队列的，
- 如果你的控制视图也需要加入动画队列，那么请将此属性置置为YES
- */
-@property (nonatomic,assign) BOOL addRootView;
-
-@property (nonatomic,weak) UIView *nestView;
 
 @end
 

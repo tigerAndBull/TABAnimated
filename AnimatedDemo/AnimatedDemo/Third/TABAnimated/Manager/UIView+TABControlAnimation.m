@@ -8,6 +8,8 @@
 
 #import "UIView+TABControlAnimation.h"
 #import "TABAnimated.h"
+#import "EstimatedTableViewDelegate.h"
+#import <objc/runtime.h>
 
 #define kDelayReloadDataTime 0.4
 
@@ -38,7 +40,6 @@
         self.tabAnimated.state == TABViewAnimationEnd) {
         return;
     }
-    
     
     self.tabAnimated.state = TABViewAnimationStart;
     
@@ -72,9 +73,15 @@
     if ([self isKindOfClass:[UITableView class]]) {
         
         UITableView *tableView = (UITableView *)self;
-        
         TABTableAnimated *tabAnimated = (TABTableAnimated *)((UITableView *)self.tabAnimated);
+        
+        if (tabAnimated.oldEstimatedRowHeight > 0) {
+            NSLog(@"值 %lf",tabAnimated.oldEstimatedRowHeight);
+            tableView.estimatedRowHeight = tabAnimated.oldEstimatedRowHeight;
+            tableView.rowHeight = UITableViewAutomaticDimension;
+        }
         [tabAnimated.runAnimationSectionArray removeAllObjects];
+        
         self.tabAnimated = tabAnimated;
         
         if (tableView.tableHeaderView != nil &&
@@ -91,7 +98,7 @@
             [tableView.tableFooterView layoutSubviews];
         }
         
-        [(UITableView *)self reloadData];
+        [tableView reloadData];
         
     }else {
         if ([self isKindOfClass:[UICollectionView class]]) {
@@ -208,13 +215,21 @@
         
     }else if ([self isKindOfClass:[UITableView class]]) {
         
+        UITableView *tableView = (UITableView *)self;
         TABTableAnimated *tabAnimated = (TABTableAnimated *)((UITableView *)self.tabAnimated);
         
-        if (((UITableView *)self).tableHeaderView.tabAnimated != nil) {
-            [((UITableView *)self).tableHeaderView tab_startAnimation];
+        if (tableView.estimatedRowHeight != UITableViewAutomaticDimension ||
+            tableView.estimatedRowHeight != 0) {
+            tabAnimated.oldEstimatedRowHeight = tableView.estimatedRowHeight;
+            tableView.estimatedRowHeight = UITableViewAutomaticDimension;
+            tableView.rowHeight = [[tabAnimated.cellHeightArray lastObject] floatValue];
         }
-        if (((UITableView *)self).tableFooterView.tabAnimated != nil) {
-            [((UITableView *)self).tableFooterView tab_startAnimation];
+        
+        if (tableView.tableHeaderView.tabAnimated != nil) {
+            [tableView.tableHeaderView tab_startAnimation];
+        }
+        if (tableView.tableFooterView.tabAnimated != nil) {
+            [tableView.tableFooterView tab_startAnimation];
         }
         
         [tabAnimated.runAnimationSectionArray removeAllObjects];
@@ -230,7 +245,7 @@
         }
         
         self.tabAnimated = tabAnimated;
-        [(UITableView *)self reloadData];
+        [tableView reloadData];
     }else {
         [TABManagerMethod fullData:self];
         [self layoutSubviews];

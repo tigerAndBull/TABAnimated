@@ -28,11 +28,6 @@
     [self initUI];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    self.title = kText(@"主页面");
-}
-
 #pragma mark - UITableViewDataSource & UITableViewDelegate
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -66,9 +61,16 @@
     NSString *className = self.controllerClassArray[indexPath.row];
     Class class = NSClassFromString(className);
     if (class) {
-        UIViewController *vc = class.new;
-        vc.title = self.titleArray[indexPath.row];
-        [kAPPDELEGATE.nav pushViewController:vc animated:YES];
+        if ([className isEqualToString:@"MainViewController"]) {
+            MainViewController *vc = (MainViewController *)class.new;
+            vc.title = self.titleArray[indexPath.row];
+            vc.type = indexPath.row+1;
+            [kAPPDELEGATE.nav pushViewController:vc animated:YES];
+        }else {
+            UIViewController *vc = class.new;
+            vc.title = self.titleArray[indexPath.row];
+            [kAPPDELEGATE.nav pushViewController:vc animated:YES];
+        }
     }
 }
 
@@ -102,38 +104,146 @@
 }
 
 - (NSArray *)titleArray {
+    
+    switch (self.type) {
+        case MainViewControllerMain: {
+            
+            return @[
+                     kText(@"纯代码与Masonry 示例"),
+                     kText(@"Xib 示例"),
+                     kText(@"豆瓣动画 示例"),
+                     kText(@"自适应高度 示例"),
+                     ];
+        }
+            
+            break;
+            
+        case MainViewControllerCode:
+            
+            return @[
+                     kText(@"UITableView 示例"),
+                     kText(@"多行文本 示例"),
+                     kText(@"UICollectionView 示例"),
+                     kText(@"UIView 示例"),
+                     kText(@"卡片投影视图 示例"),
+                     kText(@"分段视图 示例"),
+                     kText(@"cell中使用多级view 示例"),
+                     kText(@"嵌套表格 示例"),
+                     kText(@"UICollectionView 指定section结束动画"),
+                     kText(@"UITableView 指定section开启动画"),
+                     ];
+            
+            break;
+            
+        case MainViewControllerXib:
+            
+            return @[
+                     kText(@"UITableView 示例"),
+                     kText(@"UICollectionView 示例"),
+                     ];
+            
+            break;
+            
+        case MainViewControllerDouban:
+            
+            return @[
+                     kText(@"UICollectionView 示例"),
+                     kText(@"卡片投影视图 示例"),
+                     kText(@"UIView 示例"),
+                     ];
+            
+            break;
+            
+        case MainViewControllerAutoLayout:
+            
+            return @[
+                     kText(@"UITableView 自适应高度 属性示例"),
+                     kText(@"UITableView 自适应高度 代理示例"),
+                     ];
+            
+            break;
+            
+        default:
+            break;
+    }
+    
     return @[
-             kText(@"UITableView 示例"),
-             kText(@"多行文本 示例"),
-             kText(@"UICollectionView 示例"),
-             kText(@"UIView 示例"),
-             kText(@"卡片投影视图 示例"),
-             kText(@"分段视图 示例"),
-             kText(@"cell中使用多级view 示例"),
-             kText(@"嵌套表格 示例"),
-             kText(@"UICollectionView 指定section结束动画"),
-             kText(@"UITableView 指定section开启动画"),
-             kText(@"仿豆瓣动画演示"),
-             kText(@"UITableView xib 示例"),
-             kText(@"UICollectionView xib 示例"),
+             kText(@"纯代码与Masonry 示例"),
+             kText(@"xib 示例"),
+             kText(@"自适应高度 示例"),
+             kText(@"豆瓣动画 示例"),
              ];
 }
 
 - (NSArray *)controllerClassArray {
+    
+    switch (self.type) {
+        case MainViewControllerMain: {
+
+            return @[
+                     @"MainViewController",
+                     @"MainViewController",
+                     @"MainViewController",
+                     @"MainViewController",
+                     ];
+        }
+            
+            break;
+            
+        case MainViewControllerCode:
+            
+            return @[
+                     @"TestTableViewController",
+                     @"LabWithLinesViewController",
+                     @"TestCollectionViewController",
+                     @"ViewExampleViewController",
+                     @"CardViewController",
+                     @"SegmentCollectionViewController",
+                     @"ExampleOfPackageViewController",
+                     @"NestCollectionViewController",
+                     @"SectionsCollectionViewController",
+                     @"SectionsTableViewController",
+                     ];
+            
+            break;
+            
+        case MainViewControllerXib:
+            
+            return @[
+                     @"XibTestViewController",
+                     @"XibCollectionViewController",
+                     ];
+            
+            break;
+            
+        case MainViewControllerDouban:
+            
+            return @[
+                     @"DoubanCollectionViewController",
+                     @"DoubanCardViewController",
+                     @"DoubanNormalViewController",
+                     ];
+            
+            break;
+            
+        case MainViewControllerAutoLayout:
+            
+            return @[
+                     @"TestLayoutTableViewController",
+                     @"TTTViewController",
+                     ];
+            
+            break;
+            
+        default:
+            break;
+    }
+    
     return @[
-             @"TestTableViewController",
-             @"LabWithLinesViewController",
-             @"TestCollectionViewController",
-             @"ViewExampleViewController",
-             @"CardViewController",
-             @"SegmentCollectionViewController",
-             @"ExampleOfPackageViewController",
-             @"NestCollectionViewController",
-             @"SectionsCollectionViewController",
-             @"SectionsTableViewController",
-             @"SelectDoubanViewController",
-             @"XibTestViewController",
-             @"XibCollectionViewController",
+             @"MainViewController",
+             @"MainViewController",
+             @"MainViewController",
+             @"MainViewController",
              ];
 }
 

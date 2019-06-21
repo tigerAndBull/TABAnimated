@@ -62,9 +62,6 @@
 #pragma mark - UICollectionViewDelegate & DataSource
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    if (collectionView.tabAnimated.state == TABViewAnimationStart) {
-        return 3;
-    }
     return self.dataArray.count;
 }
 
@@ -167,6 +164,7 @@
         [TABCollectionAnimated animatedWithCellClass:[NestCollectionViewCell class]
                                             cellSize:[NestCollectionViewCell cellSize]];
         _collectionView.tabAnimated.animatedCount = 1;
+        _collectionView.tabAnimated.animatedSectionCount = 3;
         
     }
     return _collectionView;

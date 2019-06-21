@@ -35,6 +35,7 @@
     [TABAnimated sharedAnimated].openAnimationTag = YES;
     
     MainViewController *vc = [[MainViewController alloc] init];
+    vc.title = kText(@"主页面");
     _nav = [[UINavigationController alloc]initWithRootViewController:vc];
     
     [self.window setRootViewController:_nav];

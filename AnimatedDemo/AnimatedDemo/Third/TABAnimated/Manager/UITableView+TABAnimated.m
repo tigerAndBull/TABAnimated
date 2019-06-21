@@ -28,19 +28,53 @@
         Method newMethod = class_getInstanceMethod([self class], @selector(tab_setDelegate:));
         // Exchange
         method_exchangeImplementations(originMethod, newMethod);
+        
+        // Gets the viewDidLoad method to the class,whose type is a pointer to a objc_method structure.
+        Method originSourceMethod = class_getInstanceMethod([self class], @selector(setDataSource:));
+        // Get the method you created.
+        Method newSourceMethod = class_getInstanceMethod([self class], @selector(tab_setDataSource:));
+        // Exchange
+        method_exchangeImplementations(originSourceMethod, newSourceMethod);
     });
 }
 
 - (void)tab_setDelegate:(id<UITableViewDelegate>)delegate {
     
-    SEL oldSelector = @selector(tableView:numberOfRowsInSection:);
-    SEL newSelector = @selector(tab_tableView:numberOfRowsInSection:);
-    
     SEL oldHeightDelegate = @selector(tableView:heightForRowAtIndexPath:);
     SEL newHeightDelegate = @selector(tab_tableView:heightForRowAtIndexPath:);
     
-    SEL oldEstimatedHeightDelegate = @selector(tableView:estimatedHeightForRowAtIndexPath:);
-    SEL newEstimatedHeightDelegate = @selector(tab_tableView:estimatedHeightForRowAtIndexPath:);
+    SEL oldClickDelegate = @selector(tableView:didSelectRowAtIndexPath:);
+    SEL newClickDelegate = @selector(tab_tableView:didSelectRowAtIndexPath:);
+    
+    SEL estimatedHeightDelegateSel = @selector(tableView:estimatedHeightForRowAtIndexPath:);
+    
+    if ([delegate respondsToSelector:estimatedHeightDelegateSel] &&
+        ![delegate respondsToSelector:oldHeightDelegate]) {
+        
+        EstimatedTableViewDelegate *edelegate = EstimatedTableViewDelegate.new;
+        
+        Method method = class_getClassMethod(edelegate.class, oldHeightDelegate);
+        BOOL isSuccess = class_addMethod([delegate class], oldHeightDelegate, class_getMethodImplementation(edelegate.class, oldHeightDelegate), method_getTypeEncoding(method));
+        if (isSuccess) {
+            [self exchangeDelegateOldSel:oldHeightDelegate withNewSel:newHeightDelegate withDelegate:delegate];
+        }
+        
+    }else {
+        [self exchangeDelegateOldSel:oldHeightDelegate withNewSel:newHeightDelegate withDelegate:delegate];
+    }
+    
+    [self exchangeDelegateOldSel:oldClickDelegate withNewSel:newClickDelegate withDelegate:delegate];
+
+    [self tab_setDelegate:delegate];
+}
+
+- (void)tab_setDataSource:(id<UITableViewDataSource>)dataSource {
+    
+    SEL oldSectionSelector = @selector(numberOfSectionsInTableView:);
+    SEL newSectionSelector = @selector(tab_numberOfSectionsInTableView:);
+    
+    SEL oldSelector = @selector(tableView:numberOfRowsInSection:);
+    SEL newSelector = @selector(tab_tableView:numberOfRowsInSection:);
     
     SEL oldCell = @selector(tableView:cellForRowAtIndexPath:);
     SEL newCell = @selector(tab_tableView:cellForRowAtIndexPath:);
@@ -48,33 +82,34 @@
     SEL old = @selector(tableView:willDisplayCell:forRowAtIndexPath:);
     SEL new = @selector(tab_tableView:willDisplayCell:forRowAtIndexPath:);
     
-    SEL oldClickDelegate = @selector(tableView:didSelectRowAtIndexPath:);
-    SEL newClickDelegate = @selector(tab_tableView:didSelectRowAtIndexPath:);
+    [self exchangeDelegateOldSel:oldSectionSelector
+                      withNewSel:newSectionSelector
+                    withDelegate:dataSource];
     
-    if ([self respondsToSelector:newSelector]) {
-        
-        [self exchangeTableDelegateMethod:oldSelector withNewSel:newSelector withTableDelegate:delegate];
-        [self exchangeTableDelegateMethod:old withNewSel:new withTableDelegate:delegate];
-        [self exchangeTableDelegateMethod:oldCell withNewSel:newCell withTableDelegate:delegate];
-        [self exchangeTableDelegateMethod:oldHeightDelegate withNewSel:newHeightDelegate withTableDelegate:delegate];
-        [self exchangeTableDelegateMethod:oldClickDelegate withNewSel:newClickDelegate withTableDelegate:delegate];
-        [self exchangeTableDelegateMethod:oldEstimatedHeightDelegate withNewSel:newEstimatedHeightDelegate withTableDelegate:delegate];
-    }
-
-    [self tab_setDelegate:delegate];
+    [self exchangeDelegateOldSel:oldSelector
+                      withNewSel:newSelector
+                    withDelegate:dataSource];
     
-//    dispatch_after(DISPATCH_TIME_NOW, dispatch_get_main_queue(), ^{
-//        if (![delegate respondsToSelector:oldHeightDelegate]) {
-//            if (self.estimatedRowHeight > 0) {
-//                
-//            }else {
-//                
-//            }
-//        }
-//    });
+    [self exchangeDelegateOldSel:old
+                      withNewSel:new
+                    withDelegate:dataSource];
+    
+    [self exchangeDelegateOldSel:oldCell
+                      withNewSel:newCell
+                    withDelegate:dataSource];
+    
+    [self tab_setDataSource:dataSource];
 }
 
 #pragma mark - TABTableViewDataSource
+
+- (NSInteger)tab_numberOfSectionsInTableView:(UITableView *)tableView {
+    if (tableView.tabAnimated.state == TABViewAnimationStart &&
+        tableView.tabAnimated.animatedSectionCount != 0) {
+        return tableView.tabAnimated.animatedSectionCount;
+    }
+    return [self tab_numberOfSectionsInTableView:tableView];
+}
 
 - (NSInteger)tab_tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
@@ -117,7 +152,7 @@
     
     if ([tableView.tabAnimated currentSectionIsAnimating:tableView
                                                  section:indexPath.section]) {
-          
+        
         NSInteger index = indexPath.section;
         
         // 开发者指定section
@@ -173,7 +208,7 @@
                 }
                 
                 if ([num isEqual:[tableView.tabAnimated.animatedSectionArray lastObject]]) {
-                    return [self tab_tableView:tableView heightForRowAtIndexPath:indexPath];
+                    return [self tab_tableView:tableView estimatedHeightForRowAtIndexPath:indexPath];
                 }
             }
         }else {
@@ -257,7 +292,7 @@
             cell.tabLayer.cancelGlobalCornerRadius = tableView.tabAnimated.cancelGlobalCornerRadius;
             [cell.layer addSublayer:cell.tabLayer];
         }
-
+        
         return cell;
     }
     return [self tab_tableView:tableView cellForRowAtIndexPath:indexPath];
@@ -291,20 +326,20 @@
  @param newSelector new method's sel
  @param delegate return nil
  */
-- (void)exchangeTableDelegateMethod:(SEL)oldSelector
-                         withNewSel:(SEL)newSelector
-                  withTableDelegate:(id<UITableViewDelegate>)delegate {
+- (void)exchangeDelegateOldSel:(SEL)oldSelector
+                    withNewSel:(SEL)newSelector
+                  withDelegate:(id)delegate {
+    
+    if (![delegate respondsToSelector:oldSelector]) {
+        return;
+    }
     
     Method oldMethod = class_getInstanceMethod([delegate class], oldSelector);
     Method newMethod = class_getInstanceMethod([self class], newSelector);
     
     if ([self isKindOfClass:[delegate class]]) {
-        // 如果你采用了将数据代理给予表格本身，这种愚蠢的做法暂不做处理，将无法使用动画库。
+        tabAnimatedLog(@"注意：你采用了`self.delegate = self`,将delegate方法封装在了子类。那么，delegate方法的IMP地址为类对象所有，所以由该类创建的UITableView的代理方法的IMP地址始终唯一，本库不支持这种做法。");
     }else {
-        
-        if (oldMethod == nil) {
-            return;
-        }
         
         // 代理对象添加newMethod，指向oldImp
         BOOL isVictory = class_addMethod([delegate class], newSelector, class_getMethodImplementation([delegate class], oldSelector), method_getTypeEncoding(oldMethod));

@@ -10,7 +10,17 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef enum : NSUInteger {
+    MainViewControllerMain = 0,
+    MainViewControllerCode,
+    MainViewControllerXib,
+    MainViewControllerDouban,
+    MainViewControllerAutoLayout,
+} MainViewControllerType;
+
 @interface MainViewController : UIViewController
+
+@property (nonatomic) MainViewControllerType type;
 
 @end
 

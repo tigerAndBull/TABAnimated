@@ -44,9 +44,13 @@
             superView = (UITableView *)self.superview;
         }
         
+        if (![superView isKindOfClass:[UITableView class]]) {
+            return;
+        }
+        
         NSIndexPath *indexPath = [superView indexPathForCell:self];
         
-        TABTableAnimated *tabAnimated = (TABTableAnimated *)((UICollectionView *)superView.tabAnimated);
+        TABTableAnimated *tabAnimated = (TABTableAnimated *)((UITableView *)superView.tabAnimated);
         
         // 开启动画
         if (tabAnimated.state == TABViewAnimationStart &&
@@ -76,7 +80,6 @@
                 [TABManagerMethod resetData:self];
             }
             self.tabLayer.isLoad = YES;
-//            [TABManagerMethod resetData:self];
             
             if (!superView.tabAnimated.isNest) {
                 

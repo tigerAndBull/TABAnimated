@@ -1,18 +1,19 @@
 //
-//  TestLayoutTableViewController.m
+//  TTTViewController.m
 //  AnimatedDemo
 //
-//  Created by Dianshi on 2019/5/24.
+//  Created by tigerAndBull on 2019/6/20.
 //  Copyright © 2019 tigerAndBull. All rights reserved.
 //
 
-#import "TestLayoutTableViewController.h"
+#import "TTTViewController.h"
 #import "Game.h"
 #import "TABAnimated.h"
 #import <TABKit/TABKit.h>
 #import "Masonry.h"
+#import "TestLayoutTableViewController.h"
 
-@interface TestLayoutTableViewController ()<UITableViewDelegate,UITableViewDataSource> {
+@interface TTTViewController ()<UITableViewDelegate,UITableViewDataSource> {
     NSMutableArray *dataArray;
 }
 
@@ -20,7 +21,7 @@
 
 @end
 
-@implementation TestLayoutTableViewController
+@implementation TTTViewController
 
 - (instancetype)init {
     if (self = [super init]) {
@@ -64,6 +65,7 @@
         game.cover = @"test.jpg";
         [dataArray addObject:game];
     }
+    //    [_tableView reloadData];
     // 停止动画,并刷新数据
     [self.tableView tab_endAnimation];
 }
@@ -75,12 +77,15 @@
 }
 
 //- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    return 100;
+//    if (tableView.tabAnimated.state == TABViewAnimationStart) {
+//        return 100;
+//    }
+//    return UITableViewAutomaticDimension;
 //}
 
-//- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    return 100;
-//}
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 44;
+}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return .1;
@@ -129,89 +134,22 @@
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:UITableViewStylePlain];
         _tableView.dataSource = self;
         _tableView.delegate = self;
-        _tableView.estimatedRowHeight = 100;
+        //        _tableView.estimatedRowHeight = 44;
         //        _tableView.estimatedSectionFooterHeight = 0;
         //        _tableView.estimatedSectionHeaderHeight = 0;
         _tableView.backgroundColor = [UIColor whiteColor];
-//        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        //        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         
         // 设置tabAnimated相关属性
         // 可以不进行手动初始化，将使用默认属性
         _tableView.tabAnimated = [TABTableAnimated animatedWithCellClass:[TestLayoutCell class]
                                                               cellHeight:100];
-//        _tableView.tabAnimated.categoryBlock = ^(UIView * _Nonnull view) {
-//            view.animation(1).down(3).height(12).toShortAnimation();
-////            view.animation(2).height(12).width(110).toLongAnimation();
-//        };
+        //        _tableView.tabAnimated.categoryBlock = ^(UIView * _Nonnull view) {
+        //            view.animation(1).down(3).height(12).toShortAnimation();
+        ////            view.animation(2).height(12).width(110).toLongAnimation();
+        //        };
     }
     return _tableView;
 }
 
-@end
-
-#import "UITableViewCell+TABLayoutSubviews.h"
-#import "UIView+TABAnimated.h"
-
-@interface TestLayoutCell ()
-@property (nonatomic,strong) UILabel *titleLab;
-@property (nonatomic,strong) UILabel *timeLab;
-
-@end
-
-
-@implementation TestLayoutCell
-
-- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
-{
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
-        [self setupUI];
-    }
-    return self;
-}
-
-- (void)setupUI{
-    [self.contentView addSubview:self.titleLab];
-    [self.contentView addSubview:self.timeLab];
-    
-    [_titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(10);
-        make.left.mas_equalTo(self.contentView.mas_leftMargin);
-        make.right.mas_equalTo(self.contentView.mas_rightMargin);
-    }];
-    
-    [_timeLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.titleLab.mas_bottom).offset(8);
-        make.left.mas_equalTo(self.titleLab);
-        make.bottom.mas_equalTo(-10);
-    }];
-    
-}
-
-- (void)initWithData:(Game *)game {
-    
-    self.titleLab.text = game.title;
-    self.timeLab.text = @"发布时间：2018-09-12";
-}
-
-
-
-- (UILabel *)titleLab {
-    if (!_titleLab) {
-        _titleLab = [[UILabel alloc] init];
-        [_titleLab setFont:kFont(15)];
-        [_titleLab setTextColor:[UIColor blackColor]];
-        
-        _titleLab.numberOfLines = 0;
-    }
-    return _titleLab;
-}
-
-- (UILabel *)timeLab {
-    if (!_timeLab) {
-        _timeLab = [[UILabel alloc] init];
-        [_timeLab setFont:kFont(12)];
-    }
-    return _timeLab;
-}
 @end

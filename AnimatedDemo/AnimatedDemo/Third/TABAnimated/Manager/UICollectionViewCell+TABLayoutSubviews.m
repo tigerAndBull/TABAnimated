@@ -35,6 +35,11 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         
         UICollectionView *superView = (UICollectionView *)self.superview;
+        
+        if (![superView isKindOfClass:[UICollectionView class]]) {
+            return;
+        }
+        
         NSIndexPath *indexPath = [superView indexPathForCell:self];
         
         TABCollectionAnimated *tabAnimated = (TABCollectionAnimated *)((UICollectionView *)superView.tabAnimated);
