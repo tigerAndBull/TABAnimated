@@ -58,8 +58,11 @@
 `TABAnimated` 需要一个控制视图，进行开关动画。该控制视图下的所有subViews都将加入动画队列。
 
 `TABAnimated`通过控制视图的subViews的位置及相关信息创建`TABCompentLayer`。
+
 普通控制视图，有一个`TABLayer`
+
 表格视图，每一个cell都有一个`TABLayer`
+
 `TABLayer`负责管理并显示所有的`TABCompentLayer`。
 
 当使用约束进行布局时，约束不足且没有数据时，致使subViews的位置信息不能体现出来，TABAnimated会进行数据预填充。
@@ -77,8 +80,11 @@
 ![原视图.png](https://upload-images.jianshu.io/upload_images/5632003-8a373e3d07820664.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 **简单说明一下**：
+
 第一张图：项目原来的视图, 有数据时的展示情况
+
 第二张图：在该组件（控制视图）开启动画后，映射出的动画，相信你可以看出来，效果并不是很美观。
+
 第三张图：针对这个不美观的动画组，通过回调结合链式语法，进行预处理，这点下文会进行说明。
 
 ## 效果图
@@ -89,7 +95,7 @@
 
 | 闪光灯（v2.1.0重做）  | 分段视图 | 豆瓣效果 |
 | ------ | ------ | ------ | 
-| ![闪光灯.png](https://upload-images.jianshu.io/upload_images/5632003-090490494d856c76.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240) | ![分段视图.gif](https://upload-images.jianshu.io/upload_images/5632003-4da2062be691cf0b.gif?imageMogr2/auto-orient/strip) | ![豆瓣.gif](https://upload-images.jianshu.io/upload_images/5632003-3ed9d6cc317891a3.gif?imageMogr2/auto-orient/strip) | 
+| ![闪光灯改版.gif](https://upload-images.jianshu.io/upload_images/5632003-93ab2cf6950498ab.gif?imageMogr2/auto-orient/strip)| ![分段视图.gif](https://upload-images.jianshu.io/upload_images/5632003-4da2062be691cf0b.gif?imageMogr2/auto-orient/strip) | ![豆瓣.gif](https://upload-images.jianshu.io/upload_images/5632003-3ed9d6cc317891a3.gif?imageMogr2/auto-orient/strip) | 
 
 ## 安装
 
@@ -155,7 +161,9 @@ view.animations(4,3).radius(3).down(5);
 ```
 
 UIView 对应 `TABViewAnimated`
+
 UITableView 对应 `TABTableAnimated`
+
 UICollectionView 对应 `TABCollectionAnimated`
 
 还配有其他的初始化方式，开启关闭动画方式，同时支持多section，指定section。
@@ -184,6 +192,7 @@ view.animations(4,3).radius(3).down(5);
 ```
 
 **参数说明**（框架中也有详细注释）
+
 | 链式函数名称 | 含义 | 
 | ------ |   ------ |
 | view.animation(x) | 该view的指定下标的动画个体`TABCompentLayer`|
@@ -202,9 +211,13 @@ view.animations(4,3).radius(3).down(5);
 | toShortAnimation() | 赋予动态变短动画 |
 
 **需要特别说明的函数：**
+
 line(x): 行数
+
 space(x): 间距
+
 lastScale(x): 最后一行和原宽度的比例系数，默认值0.5
+
 如果是多行文本，根据会根据文本的`numberOfLines`数量相应赋值。
 注意，普通的动画元素也可以通过设置这三个属性，达到多行的特殊效果。
 
