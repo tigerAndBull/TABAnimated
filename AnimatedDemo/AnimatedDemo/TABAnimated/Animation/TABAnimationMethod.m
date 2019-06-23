@@ -31,73 +31,37 @@
     animation.toValue = [NSNumber numberWithFloat:0.6f];
     animation.autoreverses = YES;
     animation.duration = 1.0;
-    animation.repeatCount = MAXFLOAT;
+    animation.repeatCount = HUGE_VALF;
     animation.removedOnCompletion = NO;
     animation.fillMode = kCAFillModeForwards;
     animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
     [view.layer addAnimation:animation forKey:key];
 }
 
-
-+ (void)addShimmerAnimationToView:(UIView *)view
-                         duration:(CGFloat)duration
-                              key:(NSString *)key {
-    UIColor *color = [UIColor whiteColor];
-    CAGradientLayer *graLayer = [CAGradientLayer layer];
-    graLayer.frame = view.bounds;
-    graLayer.name = @"TABLayer";
++ (void)addShimmerAnimationToLayer:(CALayer *)layer
+                          duration:(CGFloat)duration
+                               key:(NSString *)key
+                         direction:(TABShimmerDirection)direction {
     
-    graLayer.colors = @[(__bridge id)[color colorWithAlphaComponent:0.90].CGColor,
-                        (__bridge id)[color colorWithAlphaComponent:0.70].CGColor,
-                        (__bridge id)[color colorWithAlphaComponent:0.50].CGColor,
-                        (__bridge id)[color colorWithAlphaComponent:0.40].CGColor,
-                        (__bridge id)[color colorWithAlphaComponent:0.40].CGColor,
-                        (__bridge id)[color colorWithAlphaComponent:0.50].CGColor,
-                        (__bridge id)[color colorWithAlphaComponent:0.70].CGColor,
-                        (__bridge id)[color colorWithAlphaComponent:0.90].CGColor];
+    TABShimmerTransition startPointTransition = transitionMaker(direction, TABShimmerPropertyStartPoint);
+    TABShimmerTransition endPointTransition = transitionMaker(direction, TABShimmerPropertyEndPoint);
     
-    graLayer.startPoint = CGPointMake(0, 0.6);
-    graLayer.endPoint = CGPointMake(1, 1);
+    CABasicAnimation *startPointAnim = [CABasicAnimation animationWithKeyPath:@"startPoint"];
+    startPointAnim.fromValue = [NSValue valueWithCGPoint:startPointTransition.startValue];
+    startPointAnim.toValue = [NSValue valueWithCGPoint:startPointTransition.endValue];
     
-    graLayer.locations = @[@(0.3),
-                           @(0.33),
-                           @(0.36),
-                           @(0.39),
-                           @(0.42),
-                           @(0.45),
-                           @(0.48),
-                           @(0.50)];
+    CABasicAnimation *endPointAnim = [CABasicAnimation animationWithKeyPath:@"endPoint"];
+    endPointAnim.fromValue = [NSValue valueWithCGPoint:endPointTransition.startValue];
+    endPointAnim.toValue = [NSValue valueWithCGPoint:endPointTransition.endValue];
     
-
-    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"locations"];
-    animation.duration = (duration > 0.)?duration:1.5f;
+    CAAnimationGroup *animGroup = [[CAAnimationGroup alloc] init];
+    animGroup.animations = @[startPointAnim, endPointAnim];
+    animGroup.duration = duration;
+    animGroup.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
+    animGroup.repeatCount = HUGE_VALF;
+    animGroup.removedOnCompletion = NO;
     
-    CGFloat cutFloat = 0.6f;
-    CGFloat addFloat = 0.5f;
-    
-    animation.fromValue = @[@(0.3-cutFloat),
-                            @(0.33-cutFloat),
-                            @(0.36-cutFloat),
-                            @(0.39-cutFloat),
-                            @(0.42-cutFloat),
-                            @(0.45-cutFloat),
-                            @(0.48-cutFloat),
-                            @(0.50-cutFloat)];
-    
-    animation.toValue = @[@(0.3+addFloat),
-                          @(0.33+addFloat),
-                          @(0.36+addFloat),
-                          @(0.39+addFloat),
-                          @(0.42+addFloat),
-                          @(0.45+addFloat),
-                          @(0.48+addFloat),
-                          @(0.50+addFloat)];
-    
-    animation.removedOnCompletion = NO;
-    animation.repeatCount = HUGE_VALF;
-    animation.fillMode = kCAFillModeForwards;
-    [graLayer addAnimation:animation forKey:key];
-    [view.layer setMask:graLayer];
+    [layer addAnimation:animGroup forKey:key];
 }
 
 + (void)addDropAnimation:(CALayer *)layer
@@ -130,9 +94,43 @@
 + (void)addEaseOutAnimation:(UIView *)view {
     CATransition *animation = [CATransition animation];
     animation.duration = 0.2;
-    animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
+    animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
     animation.type = kCATransitionFade;
     [view.layer addAnimation:animation forKey:@"animation"];
+}
+
+static TABShimmerTransition transitionMaker(TABShimmerDirection dir, TABShimmerProperty position) {
+    
+    if (dir == TABShimmerDirectionToLeft) {
+        TABShimmerTransition transition;
+        if (position == TABShimmerPropertyStartPoint) {
+            transition.startValue = CGPointMake(1, 0.5);
+            transition.endValue = CGPointMake(-1, 0.5);
+        }else {
+            transition.startValue = CGPointMake(2, 0.5);
+            transition.endValue = CGPointMake(0, 0.5);
+        }
+        
+        return transition;
+    }
+    
+    TABShimmerTransition transition;
+    if (position == TABShimmerPropertyStartPoint) {
+        transition.startValue = CGPointMake(-1, 0.5);
+        transition.endValue = CGPointMake(1, 0.5);
+    }else {
+        transition.startValue = CGPointMake(0, 0.5);
+        transition.endValue = CGPointMake(2, 0.5);
+    }
+    
+    return transition;
+}
+
++ (UIColor *)brightenedColor:(UIColor *)color
+                  brightness:(CGFloat)brightness {
+    CGFloat h,s,b,a;
+    [color getHue:&h saturation:&s brightness:&b alpha:&a];
+    return [UIColor colorWithHue:h saturation:s brightness:b*brightness alpha:a];
 }
 
 @end

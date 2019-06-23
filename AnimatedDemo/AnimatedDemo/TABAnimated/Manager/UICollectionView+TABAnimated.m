@@ -215,6 +215,7 @@
                 cell.tabLayer.animatedCornerRadius = collectionView.tabAnimated.animatedCornerRadius;
             }
             [cell.layer addSublayer:cell.tabLayer];
+            [collectionView.tabAnimated.tabLayerArray addObject:cell.tabLayer];
         }
         
         return cell;

@@ -33,7 +33,7 @@
     [self initUI];
     
     // 假设3秒后，获取到数据
-    [self performSelector:@selector(afterGetData) withObject:nil afterDelay:4.0];
+    [self performSelector:@selector(afterGetData) withObject:nil afterDelay:100.0];
 }
 
 - (void)dealloc {
@@ -110,6 +110,8 @@
         _collectionView.tabAnimated.cancelGlobalCornerRadius = YES;
         _collectionView.tabAnimated.animatedHeight = 6.0;
         _collectionView.tabAnimated.superAnimationType = TABViewSuperAnimationTypeDrop;
+        _collectionView.tabAnimated.animatedColor = kColor(0xF3F3F3FF);
+        _collectionView.tabAnimated.dropAnimationDeepColor = kColor(0xE6E6E6FF);
         _collectionView.tabAnimated.categoryBlock = ^(UIView * _Nonnull view) {
             
             // 一旦动画队列中 其中一个元素的dropIndex被修改了，那么其他元素大概率需要重新设置

@@ -32,7 +32,7 @@
 #import "TABLayer.h"
 
 /*
- v2.1.0
+ v2.0.0+
  */
 #import "TABComponentLayer.h"
 #import "TABViewAnimated.h"
@@ -51,7 +51,9 @@ _Pragma("clang diagnostic pop") \
 #define tabAnimatedLog(x) {if([TABAnimated sharedAnimated].openLog) NSLog(x);}
 
 #define tab_kColor(c) [UIColor colorWithRed:((c>>24)&0xFF)/255.0 green:((c>>16)&0xFF)/255.0 blue:((c>>8)&0xFF)/255.0 alpha:((c)&0xFF)/255.0]
+
 #define tab_kBackColor tab_kColor(0xEEEEEEFF)
+#define tab_kShimmerBackColor tab_kColor(0xDFDFDFFF)
 
 static NSString * const kTABAlphaAnimation = @"TABAlphaAnimation";
 static NSString * const kTABLocationAnimation = @"TABLocationAnimation";
@@ -151,7 +153,7 @@ typedef NS_ENUM(NSInteger,TABAnimationType) {
  */
 @property (nonatomic,assign) BOOL openAnimationTag;
 
-#pragma mark - 和动态动画相关的全局属性
+#pragma mark - 动态伸缩动画相关的全局属性
 
 /**
  伸缩动画来回时长
@@ -168,19 +170,37 @@ typedef NS_ENUM(NSInteger,TABAnimationType) {
  */
 @property (nonatomic,assign) CGFloat shortToValue;
 
-#pragma mark - 和呼吸灯动画相关的全局属性
-
-@property (nonatomic,assign) CGFloat animatedDurationBin;
-
-#pragma mark - 和闪光灯动画相关的全局属性
+#pragma mark - 呼吸灯动画相关的全局属性
 
 /**
- 闪光灯动画来回的时长，默认是1.5秒。
- The duration of shimmer animation back and forth, default is 1.5 seconds.
+ 呼吸灯时长
+ */
+@property (nonatomic,assign) CGFloat animatedDurationBin;
+
+#pragma mark - 闪光灯动画相关的全局属性
+
+/**
+ 闪光灯动画时长，默认是1秒。
+ The duration of shimmer animation, default is 1 seconds.
  */
 @property (nonatomic,assign) CGFloat animatedDurationShimmer;
 
-#pragma mark - 和豆瓣动画相关的全局属性
+/**
+ 闪光灯动画方向，默认是`TABShimmerDirectionToRight`,意为从左往右。
+ */
+@property (nonatomic,assign) TABShimmerDirection shimmerDirection;
+
+/**
+ 变色值，默认值0xDFDFDF
+ */
+@property (nonatomic,strong) UIColor *shimmerBackColor;
+
+/**
+ 闪光灯的亮度，默认值0.92
+ */
+@property (nonatomic,assign) CGFloat shimmerBrightness;
+
+#pragma mark - 豆瓣动画相关的全局属性
 
 /**
  豆瓣动画帧时长，默认值为0.4，你可以理解为`变色速度`
@@ -221,8 +241,8 @@ typedef NS_ENUM(NSInteger,TABAnimationType) {
  闪光灯
  shimmer Animation
  
- @param duration back and forth
- @param color backgroundcolor
+ @param duration 时长
+ @param color 动画内容颜色
  */
 - (void)initWithShimmerAnimatedDuration:(CGFloat)duration
                               withColor:(UIColor *)color;

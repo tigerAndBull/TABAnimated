@@ -120,8 +120,11 @@
 - (void)initWithShimmerAnimated {
     if (self) {
         _animationType = TABAnimationTypeShimmer;
-        _animatedDurationShimmer = 1.5f;
+        _animatedDurationShimmer = 1.;
         _animatedColor = tab_kBackColor;
+        _shimmerDirection = TABShimmerDirectionToRight;
+        _shimmerBackColor = tab_kShimmerBackColor;
+        _shimmerBrightness = 0.92;
     }
 }
 
@@ -131,6 +134,9 @@
         _animatedDurationShimmer = duration;
         _animatedColor = color;
         _animationType = TABAnimationTypeShimmer;
+        _shimmerDirection = TABShimmerDirectionToRight;
+        _shimmerBackColor = tab_kShimmerBackColor;
+        _shimmerBrightness = 0.92;
     }
 }
 

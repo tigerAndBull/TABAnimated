@@ -340,6 +340,7 @@ static NSString * const kLongDataString = @"tab_testtesttesttesttesttesttesttest
 + (void)removeMask:(UIView *)view {
     
     if (view.tabLayer) {
+//        view.tabLayer.hidden = YES;
         [view.tabLayer removeFromSuperlayer];
     }
     

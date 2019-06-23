@@ -642,6 +642,7 @@
 		20A85BF22152248D0005AD62 /* AnimatedDemo */ = {
 			isa = PBXGroup;
 			children = (
+				68E8E2E922B7B918006C99B9 /* TABAnimated */,
 				68B045E222BC829B006FED14 /* AppConfig */,
 				68B045E922BC891C006FED14 /* Third */,
 				20A01594216A51A80082425D /* Sources */,
@@ -981,7 +982,6 @@
 		68B045E922BC891C006FED14 /* Third */ = {
 			isa = PBXGroup;
 			children = (
-				68E8E2E922B7B918006C99B9 /* TABAnimated */,
 				685D5AC32265D05E0058A6CC /* MJRefresh */,
 				681566AF2264214F00293AB4 /* JXCategoryView */,
 				2039EF7C21DA17A600AE09FC /* Masonry */,
@@ -1007,11 +1007,11 @@
 			children = (
 				68E8E35022B7BA58006C99B9 /* TABAnimated.h */,
 				68E8E34F22B7BA58006C99B9 /* TABAnimated.m */,
+				68E8E33922B7BA51006C99B9 /* Model */,
 				68B0457422BB8E92006FED14 /* Estimated */,
 				68E8E33622B7BA51006C99B9 /* Animation */,
 				68E8E31E22B7BA50006C99B9 /* Layer */,
 				68E8E32322B7BA50006C99B9 /* Manager */,
-				68E8E33922B7BA51006C99B9 /* Model */,
 			);
 			path = TABAnimated;
 			sourceTree = "<group>";

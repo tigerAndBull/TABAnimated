@@ -88,9 +88,21 @@
                     
                     // add shimmer animation
                     if ([TABManagerMethod canAddShimmer:self]) {
-                        [TABAnimationMethod addShimmerAnimationToView:self
-                                                             duration:[TABAnimated sharedAnimated].animatedDurationShimmer
-                                                                  key:kTABShimmerAnimation];
+                        for (NSInteger i = 0; i < self.tabLayer.resultLayerArray.count; i++) {
+                            TABComponentLayer *layer = self.tabLayer.resultLayerArray[i];
+                            UIColor *baseColor = [TABAnimated sharedAnimated].shimmerBackColor;
+                            CGFloat brigtness = [TABAnimated sharedAnimated].shimmerBrightness;
+                            layer.colors = @[
+                                             (id)baseColor.CGColor,
+                                             (id)[TABAnimationMethod brightenedColor:baseColor brightness:brigtness].CGColor,
+                                             (id) baseColor.CGColor
+                                             ];
+                            [TABAnimationMethod addShimmerAnimationToLayer:layer
+                                                                  duration:[TABAnimated sharedAnimated].animatedDurationShimmer
+                                                                       key:kTABShimmerAnimation
+                                                                 direction:[TABAnimated sharedAnimated].shimmerDirection];
+                            
+                        }
                         break;
                     }
                     
@@ -112,6 +124,8 @@
                         }
                         
                         CGFloat duration = 0;
+                        CGFloat cutTime = 0.02;
+                        CGFloat allCutTime = cutTime*(self.tabLayer.resultLayerArray.count-1)*(self.tabLayer.resultLayerArray.count)/2.0;
                         if (self.tabAnimated.dropAnimationDuration != 0.) {
                             duration = self.tabAnimated.dropAnimationDuration;
                         }else {
@@ -125,9 +139,9 @@
                             }
                             [TABAnimationMethod addDropAnimation:layer
                                                            index:layer.dropAnimationIndex
-                                                        duration:duration*(self.tabLayer.dropAnimationCount+1)
+                                                        duration:duration*(self.tabLayer.dropAnimationCount+1)-allCutTime
                                                            count:self.tabLayer.dropAnimationCount+1
-                                                        stayTime:layer.dropAnimationStayTime
+                                                        stayTime:layer.dropAnimationStayTime-i*cutTime
                                                        deepColor:deepColor
                                                              key:kTABDropAnimation];
                         }
@@ -136,14 +150,6 @@
                     if (self.tabLayer.nestView) {
                         [self.tabLayer.nestView tab_startAnimation];
                     }
-                }
-                    
-                    break;
-                    
-                case TABViewAnimationEnd: {
-                    // end animations
-                    [TABManagerMethod removeMask:self];
-                    [TABManagerMethod endAnimationToSubViews:self];
                 }
                     
                     break;

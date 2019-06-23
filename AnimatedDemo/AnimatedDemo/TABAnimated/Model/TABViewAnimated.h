@@ -97,6 +97,10 @@ typedef void(^TABAnimatedCategoryBlock)(UIView *view);
  */
 @property (nonatomic,strong) UIColor *animatedBackgroundColor;
 
+/**
+ 如果开启了全局圆角，当该属性设置为YES，则该控制视图下圆角将取消，
+ 但是视图本身如果有圆角，则保持不变。
+ */
 @property (nonatomic,assign) BOOL cancelGlobalCornerRadius;
 
 /**
@@ -128,7 +132,7 @@ typedef void(^TABAnimatedCategoryBlock)(UIView *view);
  */
 @property (nonatomic,assign) BOOL canLoadAgain;
 
-#pragma mark - Only used to drop animation
+#pragma mark - 豆瓣动画属性
 
 /**
  豆瓣动画变色时长，无默认，默认读取全局属性

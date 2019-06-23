@@ -81,14 +81,26 @@
             }
             self.tabLayer.isLoad = YES;
             
-            if (!superView.tabAnimated.isNest) {
-                
-                // add shimmer animation
-                if ([TABManagerMethod canAddShimmer:superView]) {
-                    [TABAnimationMethod addShimmerAnimationToView:self
-                                                         duration:[TABAnimated sharedAnimated].animatedDurationShimmer
-                                                              key:kTABShimmerAnimation];
+            // add shimmer animation
+            if ([TABManagerMethod canAddShimmer:superView]) {
+                for (NSInteger i = 0; i < self.tabLayer.resultLayerArray.count; i++) {
+                    TABComponentLayer *layer = self.tabLayer.resultLayerArray[i];
+                    UIColor *baseColor = [TABAnimated sharedAnimated].shimmerBackColor;
+                    CGFloat brigtness = [TABAnimated sharedAnimated].shimmerBrightness;
+                    layer.colors = @[
+                                     (id)baseColor.CGColor,
+                                     (id)[TABAnimationMethod brightenedColor:baseColor brightness:brigtness].CGColor,
+                                     (id) baseColor.CGColor
+                                     ];
+                    [TABAnimationMethod addShimmerAnimationToLayer:layer
+                                                          duration:[TABAnimated sharedAnimated].animatedDurationShimmer
+                                                               key:kTABShimmerAnimation
+                                                         direction:[TABAnimated sharedAnimated].shimmerDirection];
+                    
                 }
+            }
+            
+            if (!superView.tabAnimated.isNest) {
                 
                 // add bin animation
                 if ([TABManagerMethod canAddBinAnimation:superView]) {
@@ -108,6 +120,8 @@
                     }
                     
                     CGFloat duration = 0;
+                    CGFloat cutTime = 0.02;
+                    CGFloat allCutTime = cutTime*(self.tabLayer.resultLayerArray.count-1)*(self.tabLayer.resultLayerArray.count)/2.0;
                     if (superView.tabAnimated.dropAnimationDuration != 0.) {
                         duration = superView.tabAnimated.dropAnimationDuration;
                     }else {
@@ -121,9 +135,10 @@
                         }
                         [TABAnimationMethod addDropAnimation:layer
                                                        index:layer.dropAnimationIndex
-                                                    duration:duration*(self.tabLayer.dropAnimationCount+1)
+                                                    duration:duration*(self.tabLayer.dropAnimationCount+1)-allCutTime
+                         
                                                        count:self.tabLayer.dropAnimationCount+1
-                                                    stayTime:layer.dropAnimationStayTime
+                                                    stayTime:layer.dropAnimationStayTime-i*cutTime
                                                    deepColor:deepColor
                                                          key:kTABDropAnimation];
                     }

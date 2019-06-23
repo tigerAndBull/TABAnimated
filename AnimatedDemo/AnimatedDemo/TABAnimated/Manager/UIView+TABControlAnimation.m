@@ -86,20 +86,22 @@
         
         if (tableView.tableHeaderView != nil &&
             tableView.tableHeaderView.tabAnimated != nil) {
-            tableView.tableHeaderView.tabAnimated.state = TABViewAnimationEnd;
-            tableView.tableHeaderView.tabAnimated.isAnimating = NO;
-            [tableView.tableHeaderView layoutSubviews];
+            [tableView.tableHeaderView tab_endAnimation];
         }
         
         if (tableView.tableFooterView != nil &&
             tableView.tableFooterView.tabAnimated != nil) {
-            tableView.tableFooterView.tabAnimated.state = TABViewAnimationEnd;
-            tableView.tableFooterView.tabAnimated.isAnimating = NO;
-            [tableView.tableFooterView layoutSubviews];
+            [tableView.tableFooterView tab_endAnimation];
         }
         
-        [tableView reloadData];
+        [UIView transitionWithView:tableView duration:0.2 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+            
+        } completion:^(BOOL finished) {
+            
+        }];
         
+        [tableView reloadData];
+
     }else {
         if ([self isKindOfClass:[UICollectionView class]]) {
             
@@ -110,7 +112,8 @@
             [(UICollectionView *)self reloadData];
             
         }else {
-            [self layoutSubviews];
+            [TABManagerMethod removeMask:self];
+            [TABManagerMethod endAnimationToSubViews:self];
         }
     }
 }
