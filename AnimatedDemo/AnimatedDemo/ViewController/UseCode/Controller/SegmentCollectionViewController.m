@@ -35,6 +35,10 @@
 @property (nonatomic,strong) UICollectionView *currentCollectionView;
 @property (nonatomic,assign) NSInteger currentIndex;
 
+@property (nonatomic,assign) NSInteger reloadTargetIndex;
+
+@property (nonatomic,strong) NSMutableArray <NSNumber *> *isReloadArray;
+
 @end
 
 @implementation SegmentCollectionViewController
@@ -52,7 +56,7 @@
         // ...
         // 获得数据
         // ...
-        [self afterGetData];
+        [self afterGetData:self.currentIndex];
     }];
     
     // 解决与手势冲突
@@ -70,6 +74,31 @@
 
 #pragma mark - JXCategoryViewDelegate
 
+- (void)categoryView:(JXCategoryBaseView *)categoryView scrollingFromLeftIndex:(NSInteger)leftIndex toRightIndex:(NSInteger)rightIndex ratio:(CGFloat)ratio {
+    
+    if (![self.isReloadArray[rightIndex] boolValue]) {
+        self.reloadTargetIndex = rightIndex;
+        [self.collectionViewArray[rightIndex] tab_startAnimationWithDelayTime:0.6 completion:^{
+            // 请求数据
+            // ...
+            // 获得数据
+            // ...
+            [self afterGetData:rightIndex];
+        }];
+    }
+    
+    if (![self.isReloadArray[leftIndex] boolValue]) {
+        self.reloadTargetIndex = leftIndex;
+        [self.collectionViewArray[leftIndex] tab_startAnimationWithDelayTime:0.6 completion:^{
+            // 请求数据
+            // ...
+            // 获得数据
+            // ...
+            [self afterGetData:leftIndex];
+        }];
+    }
+}
+
 - (void)categoryView:(JXCategoryBaseView *)categoryView didSelectedItemAtIndex:(NSInteger)index {
     self.currentIndex = index;
     if (self.dataCenterArray[index].count == 0) {
@@ -78,7 +107,7 @@
             // ...
             // 获得数据
             // ...
-            [self afterGetData];
+            [self afterGetData:index];
         }];
     }
 }
@@ -86,7 +115,7 @@
 #pragma mark - UICollectionViewDelegate
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return self.dataCenterArray[self.currentIndex].count;
+    return self.dataCenterArray[self.reloadTargetIndex].count;
 }
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
@@ -119,21 +148,17 @@
 
 #pragma mark - Network
 
-- (void)requestData {
-    [self performSelector:@selector(afterGetData) withObject:nil afterDelay:2.0];
-}
-
-- (void)afterGetData {
+- (void)afterGetData:(NSInteger)index {
     
-    [self.dataCenterArray[self.currentIndex] removeAllObjects];
+    self.reloadTargetIndex = index;
+    [self.isReloadArray replaceObjectAtIndex:index withObject:@(YES)];
+    
+    [self.dataCenterArray[index] removeAllObjects];
     for (NSInteger i = 0; i < 8; i++) {
-        [self.dataCenterArray[self.currentIndex] addObject:NSObject.new];
+        [self.dataCenterArray[index] addObject:NSObject.new];
     }
     
-    [self.currentCollectionView tab_endAnimation];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, NSEC_PER_SEC*0.1), dispatch_get_main_queue(), ^{
-        [self.currentCollectionView.mj_header endRefreshing];
-    });
+    [self.collectionViewArray[index] tab_endAnimation];
 }
 
 #pragma mark - Init Method
@@ -185,9 +210,7 @@
             };
         }
         
-        collectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(requestData)];
         collectionView.backgroundColor = UIColor.whiteColor;
-        
         [self.collectionViewArray addObject:collectionView];
         [self.mainScrollView addSubview:collectionView];
     }
@@ -208,6 +231,16 @@
         _collectionViewArray = [NSMutableArray array];
     }
     return _collectionViewArray;
+}
+
+- (NSMutableArray *)isReloadArray {
+    if (!_isReloadArray) {
+        _isReloadArray = [NSMutableArray array];
+        for (int i = 0; i < categoryCount; i++) {
+            [_isReloadArray addObject:@(NO)];
+        }
+    }
+    return _isReloadArray;
 }
 
 - (NSMutableArray *)dataCenterArray {

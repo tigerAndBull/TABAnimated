@@ -20,11 +20,9 @@
 
 + (void)load {
     
-    // Ensure that the exchange method executed only once.
     static dispatch_once_t onceToken;
     
     dispatch_once(&onceToken, ^{
-        
         Method originMethod = class_getInstanceMethod([self class], @selector(setDelegate:));
         Method newMethod = class_getInstanceMethod([self class], @selector(tab_setDelegate:));
         method_exchangeImplementations(originMethod, newMethod);
@@ -195,9 +193,6 @@
         if ([className containsString:@"."]) {
             NSRange range = [className rangeOfString:@"."];
             className = [className substringFromIndex:range.location+1];
-            if (className != nil && className.length > 0) {
-                className = NSStringFromClass(collectionView.tabAnimated.cellClassArray[index]);
-            }
         }
         
         cell = [collectionView dequeueReusableCellWithReuseIdentifier:[NSString stringWithFormat:@"tab_%@",className] forIndexPath:indexPath];
@@ -215,7 +210,6 @@
                 cell.tabLayer.animatedCornerRadius = collectionView.tabAnimated.animatedCornerRadius;
             }
             [cell.layer addSublayer:cell.tabLayer];
-            [collectionView.tabAnimated.tabLayerArray addObject:cell.tabLayer];
         }
         
         return cell;

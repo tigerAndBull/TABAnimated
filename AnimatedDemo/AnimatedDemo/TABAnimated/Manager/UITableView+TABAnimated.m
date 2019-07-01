@@ -18,22 +18,15 @@
 
 + (void)load {
     
-    // Ensure that the exchange method executed only once.
     static dispatch_once_t onceToken;
     
     dispatch_once(&onceToken, ^{
-        // Gets the viewDidLoad method to the class,whose type is a pointer to a objc_method structure.
         Method originMethod = class_getInstanceMethod([self class], @selector(setDelegate:));
-        // Get the method you created.
         Method newMethod = class_getInstanceMethod([self class], @selector(tab_setDelegate:));
-        // Exchange
         method_exchangeImplementations(originMethod, newMethod);
-        
-        // Gets the viewDidLoad method to the class,whose type is a pointer to a objc_method structure.
+
         Method originSourceMethod = class_getInstanceMethod([self class], @selector(setDataSource:));
-        // Get the method you created.
         Method newSourceMethod = class_getInstanceMethod([self class], @selector(tab_setDataSource:));
-        // Exchange
         method_exchangeImplementations(originSourceMethod, newSourceMethod);
     });
 }
@@ -120,6 +113,11 @@
         // 开发者指定section
         if (tableView.tabAnimated.animatedSectionArray.count > 0) {
             
+            // 没有获取到动画时row数量
+            if (tableView.tabAnimated.animatedCountArray.count == 0) {
+                return 0;
+            }
+            
             // 匹配当前section
             for (NSNumber *num in tableView.tabAnimated.animatedSectionArray) {
                 if ([num integerValue] == section) {
@@ -131,8 +129,9 @@
                     }
                 }
                 
+                // 没有匹配到指定的数量
                 if ([num isEqual:[tableView.tabAnimated.animatedSectionArray lastObject]]) {
-                    return [self tab_tableView:tableView numberOfRowsInSection:section];
+                    return 0;
                 }
             }
         }
@@ -170,8 +169,9 @@
                     break;
                 }
                 
+                // 没有匹配到注册的cell
                 if ([num isEqual:[tableView.tabAnimated.animatedSectionArray lastObject]]) {
-                    return [self tab_tableView:tableView heightForRowAtIndexPath:indexPath];
+                    return 1.;
                 }
             }
         }else {
@@ -186,42 +186,6 @@
     return [self tab_tableView:tableView heightForRowAtIndexPath:indexPath];
 }
 
-- (CGFloat)tab_tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if ([tableView.tabAnimated currentSectionIsAnimating:tableView
-                                                 section:indexPath.section]) {
-        
-        NSInteger index = indexPath.section;
-        
-        // 开发者指定section
-        if (tableView.tabAnimated.animatedSectionArray.count > 0) {
-            
-            // 匹配当前section
-            for (NSNumber *num in tableView.tabAnimated.animatedSectionArray) {
-                if ([num integerValue] == indexPath.section) {
-                    NSInteger currentIndex = [tableView.tabAnimated.animatedSectionArray indexOfObject:num];
-                    if (currentIndex > tableView.tabAnimated.cellHeightArray.count - 1) {
-                        index = [tableView.tabAnimated.cellHeightArray count] - 1;
-                    }else {
-                        index = currentIndex;
-                    }
-                    break;
-                }
-                
-                if ([num isEqual:[tableView.tabAnimated.animatedSectionArray lastObject]]) {
-                    return [self tab_tableView:tableView estimatedHeightForRowAtIndexPath:indexPath];
-                }
-            }
-        }else {
-            if (indexPath.section > (tableView.tabAnimated.cellClassArray.count - 1)) {
-                index = tableView.tabAnimated.cellClassArray.count - 1;
-                tabAnimatedLog(@"TABAnimated提醒 - section的数量和指定分区的数量不一致，超出的section，将使用最后一个分区cell加载");
-            }
-        }
-        
-        return [tableView.tabAnimated.cellHeightArray[index] floatValue];
-    }
-    return [self tab_tableView:tableView estimatedHeightForRowAtIndexPath:indexPath];
-}
 
 - (UITableViewCell *)tab_tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -232,6 +196,10 @@
         
         // 开发者指定section
         if (tableView.tabAnimated.animatedSectionArray.count > 0) {
+            
+            if (tableView.tabAnimated.cellClassArray.count == 0) {
+                return UITableViewCell.new;
+            }
             
             // 匹配当前section
             for (NSNumber *num in tableView.tabAnimated.animatedSectionArray) {
@@ -246,7 +214,7 @@
                 }
                 
                 if ([num isEqual:[tableView.tabAnimated.animatedSectionArray lastObject]]) {
-                    return [self tab_tableView:tableView cellForRowAtIndexPath:indexPath];
+                    return UITableViewCell.new;
                 }
             }
         }else {

@@ -57,7 +57,6 @@
 - (instancetype)init {
     if (self = [super init]) {
         _runAnimationSectionArray = @[].mutableCopy;
-        _tabLayerArray = @[].mutableCopy;
         _animatedSectionCount = 0;
     }
     return self;

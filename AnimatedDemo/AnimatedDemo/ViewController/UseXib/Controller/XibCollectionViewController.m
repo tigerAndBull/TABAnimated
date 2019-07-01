@@ -40,7 +40,7 @@
     }
     
     // 停止动画,并刷新数据
-    [self.collectionView tab_endAnimationEaseOut];
+    [self.collectionView tab_endAnimation];
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
@@ -55,7 +55,9 @@
         NSArray *cellArray = [[NSBundle mainBundle] loadNibNamed:str owner:self options:nil];
         cell = [cellArray objectAtIndex:0];
     }
-    
+    cell.leftLab.text = @"111";
+    cell.bottomLab.text = @"333";
+    [cell.rightBtn setTitle:@"222" forState:UIControlStateNormal];
     return cell;
     
 }
@@ -75,7 +77,9 @@
         _collectionView.delegate = self;
         _collectionView.showsHorizontalScrollIndicator = NO;
         _collectionView.showsVerticalScrollIndicator = NO;
-        _collectionView.tabAnimated = [TABCollectionAnimated animatedWithCellClass:[XibCollectionViewCell class] cellSize:CGSizeMake(kScreenWidth, 148)];
+        _collectionView.tabAnimated =
+        [TABCollectionAnimated animatedWithCellClass:[XibCollectionViewCell class]
+                                            cellSize:CGSizeMake(kScreenWidth, 148)];
         
     }
     return _collectionView;

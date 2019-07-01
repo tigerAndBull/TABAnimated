@@ -52,9 +52,9 @@
      */
     
     // 启动动画
-    // 这里使用了自定义延迟时间的启动函数，设置5秒是为了演示效果。
+    // 这里使用了自定义延迟时间的启动函数，设置3秒是为了演示效果。
     // 非特殊场景情况下，建议使用`tab_startAnimationWithCompletion`。
-    [self.tableView tab_startAnimationWithDelayTime:5. completion:^{
+    [self.tableView tab_startAnimationWithDelayTime:3. completion:^{
         // 请求数据
         // ...
         // 获得数据
@@ -82,15 +82,19 @@
         game.cover = @"test.jpg";
         [dataArray addObject:game];
     }
-
+    
     // 停止动画,并刷新数据
     [self.tableView tab_endAnimationEaseOut];
 }
 
 #pragma mark - UITableViewDelegate & Datasource
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return dataArray.count;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 1;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -136,7 +140,7 @@
 
 - (UITableView *)tableView {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:UITableViewStyleGrouped];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:UITableViewStylePlain];
         _tableView.dataSource = self;
         _tableView.delegate = self;
         _tableView.estimatedRowHeight = 0;
@@ -157,13 +161,14 @@
         // 可以不进行手动初始化，将使用默认属性
         _tableView.tabAnimated = [TABTableAnimated animatedWithCellClass:[TestTableViewCell class]
                                                               cellHeight:100];
+        _tableView.tabAnimated.animatedSectionCount = 3;
         _tableView.tabAnimated.categoryBlock = ^(UIView * _Nonnull view) {
             view.animation(1).down(3).height(12);
             view.animation(2).height(12).width(110);
             view.animation(3).down(-5).height(12);
         };
         
-        // 头视图扩展回调使用方法
+        // 静态头视图扩展回调使用方法
         _tableView.tableHeaderView.tabAnimated.categoryBlock = ^(UIView * _Nonnull view) {
             
         };

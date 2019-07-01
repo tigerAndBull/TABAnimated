@@ -12,6 +12,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface XibCollectionViewCell : UICollectionViewCell
 
+@property (weak, nonatomic) IBOutlet UILabel *leftLab;
+@property (weak, nonatomic) IBOutlet UIButton *rightBtn;
+@property (weak, nonatomic) IBOutlet UILabel *bottomLab;
+
+
 @end
 
 NS_ASSUME_NONNULL_END

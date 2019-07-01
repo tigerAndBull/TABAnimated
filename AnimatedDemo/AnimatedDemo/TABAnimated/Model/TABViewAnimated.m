@@ -8,7 +8,6 @@
 
 #import "TABViewAnimated.h"
 
-
 @implementation TABViewAnimated
 
 - (instancetype)init {

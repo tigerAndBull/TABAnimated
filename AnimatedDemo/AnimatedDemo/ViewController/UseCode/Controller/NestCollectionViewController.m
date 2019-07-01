@@ -98,11 +98,12 @@
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
     
+    
     UICollectionReusableView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader
                                                                           withReuseIdentifier:@"header"
                                                                                  forIndexPath:indexPath];
     header.backgroundColor = [UIColor clearColor];
-    
+
     for (UIView *view in header.subviews) {
         [view removeFromSuperview];
     }
@@ -165,7 +166,6 @@
                                             cellSize:[NestCollectionViewCell cellSize]];
         _collectionView.tabAnimated.animatedCount = 1;
         _collectionView.tabAnimated.animatedSectionCount = 3;
-        
     }
     return _collectionView;
 }

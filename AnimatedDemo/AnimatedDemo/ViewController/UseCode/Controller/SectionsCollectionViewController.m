@@ -194,8 +194,8 @@
                                        animatedWithCellClassArray:classArray
                                        cellSizeArray:sizeArray
                                        animatedCountArray:@[@(1),@(3)]];
+        
         _collectionView.tabAnimated.categoryBlock = ^(UIView * _Nonnull view) {
-            
             if ([view isKindOfClass:[LawyerCollectionViewCell class]]) {
                 view.animation(1).height(12).down(-2).reducedWidth(-90);
                 view.animation(2).height(12).down(7).reducedWidth(-30);

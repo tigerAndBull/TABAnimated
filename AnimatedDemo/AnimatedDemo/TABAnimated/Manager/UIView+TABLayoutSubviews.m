@@ -32,17 +32,17 @@
 - (void)tab_layoutSubviews {
     
     [self tab_layoutSubviews];
-
-    if ([self isKindOfClass:[UITableView class]] ||
-        [self isKindOfClass:[UICollectionView class]] ||
-        [self isKindOfClass:[UICollectionViewCell class]] ||
-        [self isKindOfClass:[UITableViewCell class]]) {
-        return;
-    }
     
     // start animation/end animation
     dispatch_async(dispatch_get_main_queue(), ^{
 
+        if ([self isKindOfClass:[UITableView class]] ||
+            [self isKindOfClass:[UICollectionView class]] ||
+            [self isKindOfClass:[UICollectionViewCell class]] ||
+            [self isKindOfClass:[UITableViewCell class]]) {
+            return;
+        }
+        
         if (nil != self.tabAnimated) {
             
             switch (self.tabAnimated.state) {
@@ -51,15 +51,6 @@
                     
                     // change status
                     self.tabAnimated.state = TABViewAnimationRunning;
-                    
-                    if (nil == self.tabLayer) {
-                        self.tabLayer = TABLayer.new;
-                        self.tabLayer.frame = self.bounds;
-                        self.tabLayer.animatedHeight = self.tabAnimated.animatedHeight;
-                        self.tabLayer.animatedCornerRadius = self.tabAnimated.animatedCornerRadius;
-                        self.tabLayer.cancelGlobalCornerRadius = self.tabAnimated.cancelGlobalCornerRadius;
-                        [self.layer addSublayer:self.tabLayer];
-                    }
                     
                     // start animations
                     NSMutableArray <TABComponentLayer *> *array = @[].mutableCopy;
@@ -72,9 +63,11 @@
                     
                     self.tabLayer.componentLayerArray = array;
                     
-                    __weak typeof(self) weakSelf = self;
-                    if (self.tabAnimated.categoryBlock) {
-                        self.tabAnimated.categoryBlock(weakSelf);
+                    if (self.tabLayer.componentLayerArray.count != 0) {
+                        __weak typeof(self) weakSelf = self;
+                        if (self.tabAnimated.categoryBlock) {
+                            self.tabAnimated.categoryBlock(weakSelf);
+                        }
                     }
                     
                     self.tabLayer.animatedBackgroundColor = self.tabAnimated.animatedBackgroundColor;

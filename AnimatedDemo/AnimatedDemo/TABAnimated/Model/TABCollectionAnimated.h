@@ -37,8 +37,6 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic,assign) NSInteger animatedSectionCount;
 
-@property (nonatomic,strong) NSMutableArray <TABLayer *> *tabLayerArray;
-
 /**
  单section表格组件初始化方式，row值以填充contentSize的数量为标准
  one section init method

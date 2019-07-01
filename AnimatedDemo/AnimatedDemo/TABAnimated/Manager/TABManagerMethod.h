@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
  该文件用于内部管理动画组件，开发者不需要关心。
  Methods in the file are used to manager the animation.
  **/
+
 @interface TABManagerMethod : NSObject
 
 /**

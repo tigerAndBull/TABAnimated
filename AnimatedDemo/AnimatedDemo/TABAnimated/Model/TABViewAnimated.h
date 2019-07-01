@@ -132,6 +132,11 @@ typedef void(^TABAnimatedCategoryBlock)(UIView *view);
  */
 @property (nonatomic,assign) BOOL canLoadAgain;
 
+/**
+ 结束动画时不自动结束被嵌套的表格视图，默认为NO。
+ */
+@property (nonatomic,assign) BOOL endAnimatedWithoutNestView;
+
 #pragma mark - 豆瓣动画属性
 
 /**
