@@ -11,7 +11,7 @@
 #import "TABViewAnimated.h"
 #import "TABAnimated.h"
 #import "TABTableAnimated.h"
-
+#import "EstimatedTableViewDelegate.h"
 #import <objc/runtime.h>
 
 @implementation UITableView (TABAnimated)
