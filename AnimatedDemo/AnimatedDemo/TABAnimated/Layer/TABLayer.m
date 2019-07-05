@@ -26,9 +26,9 @@ static CGFloat defaultHeight = 16.f;
         self.anchorPoint = CGPointMake(0, 0);
         self.position = CGPointMake(0, 0);
         self.opaque = YES;
-        self.opacity = 1.0;
         self.contentsScale = ([[UIScreen mainScreen] scale] > 3.0) ? [[UIScreen mainScreen] scale]:3.0;
         self.backgroundColor = [self.animatedBackgroundColor CGColor];
+        
         self.resultLayerArray = @[].mutableCopy;
     }
     return self;
