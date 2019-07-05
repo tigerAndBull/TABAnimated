@@ -86,6 +86,7 @@
 		681567342264214F00293AB4 /* JXCategoryBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6815670B2264214F00293AB4 /* JXCategoryBaseView.m */; };
 		681567352264214F00293AB4 /* JXCategoryBaseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6815670C2264214F00293AB4 /* JXCategoryBaseCell.m */; };
 		681567362264214F00293AB4 /* JXCategoryBaseCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6815670D2264214F00293AB4 /* JXCategoryBaseCellModel.m */; };
+		682CD1DF22CF722000E51B80 /* TABAnimated.m in Sources */ = {isa = PBXBuildFile; fileRef = 682CD1DD22CF722000E51B80 /* TABAnimated.m */; };
 		685D5AF62265D05F0058A6CC /* UIScrollView+MJRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 685D5AC62265D05E0058A6CC /* UIScrollView+MJRefresh.m */; };
 		685D5AF72265D05F0058A6CC /* MJRefreshConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 685D5AC72265D05E0058A6CC /* MJRefreshConst.m */; };
 		685D5AF82265D05F0058A6CC /* MJRefresh.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 685D5ACB2265D05E0058A6CC /* MJRefresh.bundle */; };
@@ -122,7 +123,6 @@
 		68CFCF0F2294DCBC007D167F /* XibCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 68CFCF0D2294DCBC007D167F /* XibCollectionViewCell.m */; };
 		68CFCF102294DCBC007D167F /* XibCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68CFCF0E2294DCBC007D167F /* XibCollectionViewCell.xib */; };
 		68CFCF162294DFA0007D167F /* XibCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68CFCF152294DFA0007D167F /* XibCollectionViewController.m */; };
-		68D0B6C022C5AC65008DA458 /* TABAnimated.m in Sources */ = {isa = PBXBuildFile; fileRef = 68D0B69922C5AC65008DA458 /* TABAnimated.m */; };
 		68D0B6C122C5AC65008DA458 /* TABAnimationMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = 68D0B69B22C5AC65008DA458 /* TABAnimationMethod.m */; };
 		68D0B6C222C5AC65008DA458 /* UIView+TABControlAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 68D0B69E22C5AC65008DA458 /* UIView+TABControlAnimation.m */; };
 		68D0B6C322C5AC65008DA458 /* UICollectionView+TABAnimated.m in Sources */ = {isa = PBXBuildFile; fileRef = 68D0B6A022C5AC65008DA458 /* UICollectionView+TABAnimated.m */; };
@@ -328,6 +328,8 @@
 		6815670B2264214F00293AB4 /* JXCategoryBaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXCategoryBaseView.m; sourceTree = "<group>"; };
 		6815670C2264214F00293AB4 /* JXCategoryBaseCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXCategoryBaseCell.m; sourceTree = "<group>"; };
 		6815670D2264214F00293AB4 /* JXCategoryBaseCellModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JXCategoryBaseCellModel.m; sourceTree = "<group>"; };
+		682CD1DD22CF722000E51B80 /* TABAnimated.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TABAnimated.m; sourceTree = "<group>"; };
+		682CD1DE22CF722000E51B80 /* TABAnimated.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TABAnimated.h; sourceTree = "<group>"; };
 		685D5AC62265D05E0058A6CC /* UIScrollView+MJRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+MJRefresh.m"; sourceTree = "<group>"; };
 		685D5AC72265D05E0058A6CC /* MJRefreshConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJRefreshConst.m; sourceTree = "<group>"; };
 		685D5AC82265D05E0058A6CC /* UIScrollView+MJExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+MJExtension.h"; sourceTree = "<group>"; };
@@ -394,7 +396,6 @@
 		68CFCF0E2294DCBC007D167F /* XibCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = XibCollectionViewCell.xib; sourceTree = "<group>"; };
 		68CFCF142294DFA0007D167F /* XibCollectionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XibCollectionViewController.h; sourceTree = "<group>"; };
 		68CFCF152294DFA0007D167F /* XibCollectionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XibCollectionViewController.m; sourceTree = "<group>"; };
-		68D0B69922C5AC65008DA458 /* TABAnimated.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TABAnimated.m; sourceTree = "<group>"; };
 		68D0B69B22C5AC65008DA458 /* TABAnimationMethod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TABAnimationMethod.m; sourceTree = "<group>"; };
 		68D0B69C22C5AC65008DA458 /* TABAnimationMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TABAnimationMethod.h; sourceTree = "<group>"; };
 		68D0B69E22C5AC65008DA458 /* UIView+TABControlAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+TABControlAnimation.m"; sourceTree = "<group>"; };
@@ -425,7 +426,6 @@
 		68D0B6B922C5AC65008DA458 /* TABCollectionAnimated.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TABCollectionAnimated.h; sourceTree = "<group>"; };
 		68D0B6BA22C5AC65008DA458 /* TABViewAnimated.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TABViewAnimated.h; sourceTree = "<group>"; };
 		68D0B6BB22C5AC65008DA458 /* TABTableAnimated.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TABTableAnimated.h; sourceTree = "<group>"; };
-		68D0B6BC22C5AC65008DA458 /* TABAnimated.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TABAnimated.h; sourceTree = "<group>"; };
 		68D0B6BE22C5AC65008DA458 /* EstimatedTableViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EstimatedTableViewDelegate.m; sourceTree = "<group>"; };
 		68D0B6BF22C5AC65008DA458 /* EstimatedTableViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EstimatedTableViewDelegate.h; sourceTree = "<group>"; };
 		68D20750228BE55400B32CD1 /* DoubanCollectionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DoubanCollectionViewController.h; sourceTree = "<group>"; };
@@ -852,6 +852,15 @@
 			path = Base;
 			sourceTree = "<group>";
 		};
+		682CD1DC22CF722000E51B80 /* Gobal */ = {
+			isa = PBXGroup;
+			children = (
+				682CD1DE22CF722000E51B80 /* TABAnimated.h */,
+				682CD1DD22CF722000E51B80 /* TABAnimated.m */,
+			);
+			path = Gobal;
+			sourceTree = "<group>";
+		};
 		685D5AC32265D05E0058A6CC /* MJRefresh */ = {
 			isa = PBXGroup;
 			children = (
@@ -983,13 +992,11 @@
 		68D0B69822C5AC65008DA458 /* TABAnimated */ = {
 			isa = PBXGroup;
 			children = (
+				682CD1DC22CF722000E51B80 /* Gobal */,
 				68D0B69A22C5AC65008DA458 /* Animation */,
-				68D0B6BD22C5AC65008DA458 /* Estimated */,
 				68D0B6B022C5AC65008DA458 /* Layer */,
 				68D0B69D22C5AC65008DA458 /* Manager */,
 				68D0B6B522C5AC65008DA458 /* Model */,
-				68D0B6BC22C5AC65008DA458 /* TABAnimated.h */,
-				68D0B69922C5AC65008DA458 /* TABAnimated.m */,
 			);
 			path = TABAnimated;
 			sourceTree = "<group>";
@@ -1006,6 +1013,8 @@
 		68D0B69D22C5AC65008DA458 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
+				68D0B6BF22C5AC65008DA458 /* EstimatedTableViewDelegate.h */,
+				68D0B6BE22C5AC65008DA458 /* EstimatedTableViewDelegate.m */,
 				68D0B6A922C5AC65008DA458 /* NSArray+TABAnimated.h */,
 				68D0B6A322C5AC65008DA458 /* NSArray+TABAnimated.m */,
 				68D0B69F22C5AC65008DA458 /* TABManagerMethod.h */,
@@ -1050,15 +1059,6 @@
 				68D0B6B622C5AC65008DA458 /* TABViewAnimated.m */,
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		68D0B6BD22C5AC65008DA458 /* Estimated */ = {
-			isa = PBXGroup;
-			children = (
-				68D0B6BF22C5AC65008DA458 /* EstimatedTableViewDelegate.h */,
-				68D0B6BE22C5AC65008DA458 /* EstimatedTableViewDelegate.m */,
-			);
-			path = Estimated;
 			sourceTree = "<group>";
 		};
 		68D2074F228BE54400B32CD1 /* Douban */ = {
@@ -1275,6 +1275,7 @@
 				2039EFA321DA17A600AE09FC /* MASViewAttribute.m in Sources */,
 				685D5B082265D05F0058A6CC /* MJRefreshAutoFooter.m in Sources */,
 				68958D542274AA40002C4295 /* CardViewController.m in Sources */,
+				682CD1DF22CF722000E51B80 /* TABAnimated.m in Sources */,
 				6815672B2264214F00293AB4 /* JXCategoryNumberCell.m in Sources */,
 				68CFCF0F2294DCBC007D167F /* XibCollectionViewCell.m in Sources */,
 				685D5AF92265D05F0058A6CC /* UIScrollView+MJExtension.m in Sources */,
@@ -1315,7 +1316,6 @@
 				681567262264214F00293AB4 /* JXCategoryTitleView.m in Sources */,
 				68D0B6CE22C5AC65008DA458 /* TABCollectionAnimated.m in Sources */,
 				6815671B2264214F00293AB4 /* JXCategoryIndicatorCellModel.m in Sources */,
-				68D0B6C022C5AC65008DA458 /* TABAnimated.m in Sources */,
 				2039EF9D21DA17A600AE09FC /* MASConstraintMaker.m in Sources */,
 				681567282264214F00293AB4 /* JXCategoryImageCell.m in Sources */,
 				685D5AFB2265D05F0058A6CC /* UIView+MJExtension.m in Sources */,

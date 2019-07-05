@@ -8,7 +8,6 @@
 
 #import "UIView+TABControlAnimation.h"
 #import "TABAnimated.h"
-#import "EstimatedTableViewDelegate.h"
 #import <objc/runtime.h>
 
 #define kDelayReloadDataTime 0.4
