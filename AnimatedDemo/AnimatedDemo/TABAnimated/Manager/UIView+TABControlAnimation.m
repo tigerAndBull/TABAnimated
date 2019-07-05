@@ -109,11 +109,16 @@
             tableView.rowHeight = [[tabAnimated.cellHeightArray lastObject] floatValue];
         }
         
-        if (tableView.tableHeaderView.tabAnimated != nil) {
-            [tableView.tableHeaderView tab_startAnimation];
+        if (tableView.tabAnimated.showTableHeaderView) {
+            if (tableView.tableHeaderView.tabAnimated != nil) {
+                [tableView.tableHeaderView tab_startAnimation];
+            }
         }
-        if (tableView.tableFooterView.tabAnimated != nil) {
-            [tableView.tableFooterView tab_startAnimation];
+        
+        if (tableView.tabAnimated.showTableFooterView) {
+            if (tableView.tableFooterView.tabAnimated != nil) {
+                [tableView.tableFooterView tab_startAnimation];
+            }
         }
         
         [tabAnimated.runAnimationSectionArray removeAllObjects];
@@ -140,9 +145,8 @@
             self.tabLayer.animatedCornerRadius = self.tabAnimated.animatedCornerRadius;
             self.tabLayer.cancelGlobalCornerRadius = self.tabAnimated.cancelGlobalCornerRadius;
             [self.layer addSublayer:self.tabLayer];
+            [TABManagerMethod fullData:self];
         }
-        
-        [TABManagerMethod fullData:self];
         [self layoutSubviews];
     }
 }
@@ -198,6 +202,7 @@
             [(UICollectionView *)self reloadData];
             
         }else {
+            [TABManagerMethod resetData:self];
             [TABManagerMethod removeMask:self];
             if (!self.tabAnimated.endAnimatedWithoutNestView) {
                 [TABManagerMethod endAnimationToSubViews:self];

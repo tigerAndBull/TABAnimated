@@ -7,7 +7,6 @@
 //
 
 #import "TABAnimationMethod.h"
-#import "TABViewAnimated.h"
 
 @implementation TABAnimationMethod
 

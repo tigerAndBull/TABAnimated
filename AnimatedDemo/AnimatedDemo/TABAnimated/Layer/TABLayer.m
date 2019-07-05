@@ -7,6 +7,7 @@
 //
 
 #import "TABLayer.h"
+#import "TABComponentLayer.h"
 #import "TABAnimated.h"
 
 static CGFloat defaultHeight = 16.f;
@@ -36,7 +37,7 @@ static CGFloat defaultHeight = 16.f;
 - (void)updateSublayers:(NSArray <TABComponentLayer *> *)componentLayerArray {
     
     self.backgroundColor = [self.animatedBackgroundColor CGColor];
-    [TABManagerMethod removeSubLayers:self.sublayers];
+    [self removeSubLayers:self.sublayers];
     [self.resultLayerArray removeAllObjects];
     
     for (int i = 0; i < componentLayerArray.count; i++) {
@@ -229,6 +230,17 @@ static CGFloat defaultHeight = 16.f;
 }
 
 #pragma mark - Private
+
+- (void)removeSubLayers:(NSArray *)subLayers {
+    
+    NSArray <CALayer *> *removedLayers = [subLayers filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id  _Nullable evaluatedObject, NSDictionary<NSString *,id> * _Nullable bindings) {
+        return YES;
+    }]];
+    
+    [removedLayers enumerateObjectsUsingBlock:^(CALayer * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [obj removeFromSuperlayer];
+    }];
+}
 
 - (CABasicAnimation *)getAnimationWithLoadStyle:(TABViewLoadAnimationStyle)loadStyle {
     CGFloat duration = [TABAnimated sharedAnimated].animatedDuration;

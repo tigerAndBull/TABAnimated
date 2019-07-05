@@ -58,7 +58,7 @@ static NSString * const kLongDataString = @"tab_testtesttesttesttesttesttesttest
     }
 }
 
-+ (void)resetDataForNormalView:(UIView *)view {
++ (void)resetData:(UIView *)view {
     
     if ([view isKindOfClass:[UITableView class]] ||
         [view isKindOfClass:[UICollectionView class]]) {
@@ -88,35 +88,6 @@ static NSString * const kLongDataString = @"tab_testtesttesttesttesttesttesttest
                     [btn.titleLabel.text isEqualToString:kShortDataString]) {
                     [btn setTitle:@"" forState:UIControlStateNormal];
                 }
-            }
-        }
-    }
-}
-
-+ (void)resetData:(UIView *)view {
-    
-    if ([view isKindOfClass:[UITableView class]] ||
-        [view isKindOfClass:[UICollectionView class]]) {
-        return;
-    }
-    
-    NSArray *subViews = [view subviews];
-    if ([subViews count] == 0) {
-        return;
-    }
-    
-    for (int i = 0; i < subViews.count;i++) {
-        
-        UIView *subV = subViews[i];
-        [self resetData:subV];
-        
-        if ([subV isKindOfClass:[UILabel class]]) {
-            UILabel *lab = (UILabel *)subV;
-            lab.text = @"";
-        }else {
-            if ([subV isKindOfClass:[UIButton class]]) {
-                UIButton *btn = (UIButton *)subV;
-                [btn setTitle:@"" forState:UIControlStateNormal];
             }
         }
     }

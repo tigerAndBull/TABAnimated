@@ -149,12 +149,15 @@
         _tableView.backgroundColor = [UIColor whiteColor];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         
-        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 120)];
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 160)];
         UIImageView *imageV = [[UIImageView alloc] initWithFrame:CGRectMake((kScreenWidth - 80)/2.0, 20, 80, 80)];
         imageV.image = [UIImage imageNamed:@"comic.jpg"];
         imageV.layer.cornerRadius = 80/2.0;
         imageV.layer.masksToBounds = YES;
         [view addSubview:imageV];
+        
+        UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(0, 120+10, kScreenWidth, 20)];
+        [view addSubview:lab];
         _tableView.tableHeaderView = view;
         
         // 设置tabAnimated相关属性
@@ -162,6 +165,7 @@
         _tableView.tabAnimated = [TABTableAnimated animatedWithCellClass:[TestTableViewCell class]
                                                               cellHeight:100];
         _tableView.tabAnimated.animatedSectionCount = 3;
+        _tableView.tabAnimated.showTableHeaderView = YES;
         _tableView.tabAnimated.categoryBlock = ^(UIView * _Nonnull view) {
             view.animation(1).down(3).height(12);
             view.animation(2).height(12).width(110);

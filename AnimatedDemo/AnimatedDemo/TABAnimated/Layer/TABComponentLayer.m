@@ -16,10 +16,8 @@
         self.anchorPoint = CGPointMake(0, 0);
         self.position = CGPointMake(0, 0);
         self.opaque = YES;
-        self.opacity = 1.0;
         
         self.dropAnimationStayTime = 0.2;
-        
         self.lastScale = 0.5;
         self.dropAnimationFromIndex = -1;
         self.dropAnimationIndex = -1;

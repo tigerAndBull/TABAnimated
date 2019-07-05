@@ -12,7 +12,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /*
- 集成时，该文件开发者不需要关心。
+ * 集成时，该文件开发者不需要关心。
+ * 用于管理TABComponentLayer集合
  */
 
 @class TABComponentLayer;

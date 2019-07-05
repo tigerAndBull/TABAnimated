@@ -7,13 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "UIView+TABAnimated.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- 这个文件存放的是`热插拔`的动画，集成不需要关心的文件
- Methods in the file are about to animation type.
+ * 这个文件存放的是`热插拔`的动画，集成不需要关心的文件
+ * Methods in the file are about to animation type.
  **/
 
 typedef enum : NSUInteger {

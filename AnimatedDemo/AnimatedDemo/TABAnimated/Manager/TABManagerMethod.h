@@ -13,36 +13,35 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- 该文件用于内部管理动画组件，开发者不需要关心。
- Methods in the file are used to manager the animation.
+ * 集成时，开发者不需要关心。
+ * 该文件用于管理动画上层依赖的view。
+ * Methods in the file are used to manager the animation.
  **/
 
 @interface TABManagerMethod : NSObject
 
 /**
- 填充数据
-
- @param view 上层view
+ * 填充数据
+ *
+ * @param view 上层view
  */
 + (void)fullData:(UIView *)view;
 
 /**
- 恢复数据
-
- @param view 上层view
+ * 恢复数据
+ *
+ * @param view 上层view
  */
 + (void)resetData:(UIView *)view;
 
-+ (void)resetDataForNormalView:(UIView *)view;
-
 /**
- 映射出所view中的TABComponentLayer
-
- @param view 需要映射的view
- @param superView view的父视图
- @param rootView 根view
- @param rootSuperView 根view的父视图
- @param array 得到的TABComponentLayer集合
+ * 映射出所view中的TABComponentLayer
+ *
+ * @param view 需要映射的view
+ * @param superView view的父视图
+ * @param rootView 根view
+ * @param rootSuperView 根view的父视图
+ * @param array 得到的TABComponentLayer集合
  */
 + (void)getNeedAnimationSubViews:(UIView *)view
                    withSuperView:(UIView *)superView
@@ -52,41 +51,41 @@ NS_ASSUME_NONNULL_BEGIN
                            array:(NSMutableArray <TABComponentLayer *> *)array;
 
 /**
- 排除部分不符合条件的view
-
- @param view 目标view
- @return 结果
+ * 排除部分不符合条件的view
+ *
+ * @param view 目标view
+ * @return 结果
  */
 + (BOOL)judgeViewIsNeedAddAnimation:(UIView *)view;
 
 /**
- 是否可以添加闪光灯动画
-
- @param view 目标view
- @return 结果
+ * 是否可以添加闪光灯动画
+ *
+ * @param view 目标view
+ * @return 结果
  */
 + (BOOL)canAddShimmer:(UIView *)view;
 
 /**
- 是否可以添加呼吸灯动画
-
- @param view 目标view
- @return 结果
+ * 是否可以添加呼吸灯动画
+ *
+ * @param view 目标view
+ * @return 结果
  */
 + (BOOL)canAddBinAnimation:(UIView *)view;
 
 /**
- 是否可以添加跳跃动画
-
- @param view 目标view
- @return 结果
+ * 是否可以添加跳跃动画
+ *
+ * @param view 目标view
+ * @return 结果
  */
 + (BOOL)canAddDropAnimation:(UIView *)view;
 
 /**
- 结束动画后移除相关TABCompentLayer
-
- @param view 目标view
+ * 结束被嵌套视图的动画
+ *
+ * @param view 目标view
  */
 + (void)endAnimationToSubViews:(UIView *)view;
 

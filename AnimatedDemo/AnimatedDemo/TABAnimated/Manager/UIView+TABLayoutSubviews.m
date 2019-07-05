@@ -76,7 +76,7 @@
                     
                     if (self.tabLayer.nestView) {
                         self.tabLayer.backgroundColor = UIColor.clearColor.CGColor;
-                        [TABManagerMethod resetDataForNormalView:self];
+                        [TABManagerMethod resetData:self];
                     }
                     
                     // add shimmer animation

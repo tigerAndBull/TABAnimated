@@ -33,7 +33,7 @@
     dispatch_async(dispatch_get_main_queue(), ^{
 
         UITableView *superView;
-        // adapt to different ios versions.
+        // adapt to different iOS versions.
         if ([[[self superview] superview] isKindOfClass:[UITableView class]]) {
             superView = (UITableView *)self.superview.superview;
         }else {
