@@ -852,15 +852,6 @@
 			path = Base;
 			sourceTree = "<group>";
 		};
-		682CD1DC22CF722000E51B80 /* Gobal */ = {
-			isa = PBXGroup;
-			children = (
-				682CD1DE22CF722000E51B80 /* TABAnimated.h */,
-				682CD1DD22CF722000E51B80 /* TABAnimated.m */,
-			);
-			path = Gobal;
-			sourceTree = "<group>";
-		};
 		685D5AC32265D05E0058A6CC /* MJRefresh */ = {
 			isa = PBXGroup;
 			children = (
@@ -992,7 +983,8 @@
 		68D0B69822C5AC65008DA458 /* TABAnimated */ = {
 			isa = PBXGroup;
 			children = (
-				682CD1DC22CF722000E51B80 /* Gobal */,
+				682CD1DE22CF722000E51B80 /* TABAnimated.h */,
+				682CD1DD22CF722000E51B80 /* TABAnimated.m */,
 				68D0B69A22C5AC65008DA458 /* Animation */,
 				68D0B6B022C5AC65008DA458 /* Layer */,
 				68D0B69D22C5AC65008DA458 /* Manager */,

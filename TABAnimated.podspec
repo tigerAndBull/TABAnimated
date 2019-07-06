@@ -30,7 +30,7 @@ Pod::Spec.new do |s|
   s.source       = { :git => "https://github.com/tigerAndBull/LoadAnimatedDemo-ios.git", :tag => "2.1.2.2" }
   # s.source       = { :git => "https://github.com/tigerAndBull/LoadAnimatedDemo-ios.git", :commit => "e05513581c80a7c899e65de48e8fe474a64734eb" }
      
-  s.source_files = "AnimatedDemo/AnimatedDemo/TABAnimated/**/*.{h,m}"
+  # s.source_files = "AnimatedDemo/AnimatedDemo/TABAnimated/**/*.{h,m}"
 
   #Animation文件夹
   s.subspec 'Animation' do |animation|
@@ -41,6 +41,9 @@ Pod::Spec.new do |s|
   s.subspec 'Gobal' do |gobal|
     gobal.source_files = 'AnimatedDemo/AnimatedDemo/TABAnimated/Gobal/*.{h,m}'
     gobal.dependency 'TABAnimated/Animation'
+    gobal.dependency 'TABAnimated/Gobal'
+    gobal.dependency 'TABAnimated/Layer'
+    gobal.dependency 'TABAnimated/Model'
   end
 
   #Layer文件夹
@@ -59,7 +62,6 @@ Pod::Spec.new do |s|
     manager.source_files = 'AnimatedDemo/AnimatedDemo/TABAnimated/Manager/*.{h,m}'
     manager.dependency 'TABAnimated/Gobal'
     manager.dependency 'TABAnimated/Animation'
-    manager.dependency 'TABAnimated/Estimated'
     manager.dependency 'TABAnimated/Layer'
     manager.dependency 'TABAnimated/Model'
   end
