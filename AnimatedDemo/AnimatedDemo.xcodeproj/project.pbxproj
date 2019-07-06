@@ -107,6 +107,7 @@
 		685D5B082265D05F0058A6CC /* MJRefreshAutoFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 685D5AEF2265D05E0058A6CC /* MJRefreshAutoFooter.m */; };
 		685D5B092265D05F0058A6CC /* MJRefreshComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 685D5AF12265D05E0058A6CC /* MJRefreshComponent.m */; };
 		688BBA2822578F160008FD5D /* TestTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 688BBA2622578F160008FD5D /* TestTableViewController.m */; };
+		68933DE022D07900001B1151 /* TABComponentLayer+TABAnimated.m in Sources */ = {isa = PBXBuildFile; fileRef = 68933DDF22D07900001B1151 /* TABComponentLayer+TABAnimated.m */; };
 		68958D542274AA40002C4295 /* CardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68958D522274AA3F002C4295 /* CardViewController.m */; };
 		68958D572274AA7B002C4295 /* CardCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 68958D562274AA7A002C4295 /* CardCollectionViewCell.m */; };
 		68958D5A22753D00002C4295 /* SegmentCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68958D5922753D00002C4295 /* SegmentCollectionViewController.m */; };
@@ -370,6 +371,8 @@
 		685D5AF32265D05E0058A6CC /* MJRefreshBackFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshBackFooter.h; sourceTree = "<group>"; };
 		688BBA2622578F160008FD5D /* TestTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestTableViewController.m; sourceTree = "<group>"; };
 		688BBA2722578F160008FD5D /* TestTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestTableViewController.h; sourceTree = "<group>"; };
+		68933DDE22D07900001B1151 /* TABComponentLayer+TABAnimated.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TABComponentLayer+TABAnimated.h"; sourceTree = "<group>"; };
+		68933DDF22D07900001B1151 /* TABComponentLayer+TABAnimated.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "TABComponentLayer+TABAnimated.m"; sourceTree = "<group>"; };
 		68958D522274AA3F002C4295 /* CardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardViewController.m; sourceTree = "<group>"; };
 		68958D532274AA3F002C4295 /* CardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardViewController.h; sourceTree = "<group>"; };
 		68958D552274AA7A002C4295 /* CardCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardCollectionViewCell.h; sourceTree = "<group>"; };
@@ -931,16 +934,16 @@
 		685D5AE92265D05E0058A6CC /* Base */ = {
 			isa = PBXGroup;
 			children = (
-				685D5AEA2265D05E0058A6CC /* MJRefreshFooter.m */,
-				685D5AEB2265D05E0058A6CC /* MJRefreshComponent.h */,
-				685D5AEC2265D05E0058A6CC /* MJRefreshHeader.m */,
 				685D5AED2265D05E0058A6CC /* MJRefreshAutoFooter.h */,
-				685D5AEE2265D05E0058A6CC /* MJRefreshBackFooter.m */,
 				685D5AEF2265D05E0058A6CC /* MJRefreshAutoFooter.m */,
-				685D5AF02265D05E0058A6CC /* MJRefreshHeader.h */,
+				685D5AF32265D05E0058A6CC /* MJRefreshBackFooter.h */,
+				685D5AEE2265D05E0058A6CC /* MJRefreshBackFooter.m */,
+				685D5AEB2265D05E0058A6CC /* MJRefreshComponent.h */,
 				685D5AF12265D05E0058A6CC /* MJRefreshComponent.m */,
 				685D5AF22265D05E0058A6CC /* MJRefreshFooter.h */,
-				685D5AF32265D05E0058A6CC /* MJRefreshBackFooter.h */,
+				685D5AEA2265D05E0058A6CC /* MJRefreshFooter.m */,
+				685D5AF02265D05E0058A6CC /* MJRefreshHeader.h */,
+				685D5AEC2265D05E0058A6CC /* MJRefreshHeader.m */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -988,7 +991,7 @@
 				68D0B69A22C5AC65008DA458 /* Animation */,
 				68D0B6B022C5AC65008DA458 /* Layer */,
 				68D0B69D22C5AC65008DA458 /* Manager */,
-				68D0B6B522C5AC65008DA458 /* Model */,
+				68D0B6B522C5AC65008DA458 /* ControlModel */,
 			);
 			path = TABAnimated;
 			sourceTree = "<group>";
@@ -1005,12 +1008,10 @@
 		68D0B69D22C5AC65008DA458 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
-				68D0B6BF22C5AC65008DA458 /* EstimatedTableViewDelegate.h */,
-				68D0B6BE22C5AC65008DA458 /* EstimatedTableViewDelegate.m */,
-				68D0B6A922C5AC65008DA458 /* NSArray+TABAnimated.h */,
-				68D0B6A322C5AC65008DA458 /* NSArray+TABAnimated.m */,
 				68D0B69F22C5AC65008DA458 /* TABManagerMethod.h */,
 				68D0B6A722C5AC65008DA458 /* TABManagerMethod.m */,
+				68D0B6BF22C5AC65008DA458 /* EstimatedTableViewDelegate.h */,
+				68D0B6BE22C5AC65008DA458 /* EstimatedTableViewDelegate.m */,
 				68D0B6AC22C5AC65008DA458 /* UICollectionView+TABAnimated.h */,
 				68D0B6A022C5AC65008DA458 /* UICollectionView+TABAnimated.m */,
 				68D0B6AA22C5AC65008DA458 /* UICollectionViewCell+TABLayoutSubviews.h */,
@@ -1034,23 +1035,27 @@
 			children = (
 				68D0B6B322C5AC65008DA458 /* TABComponentLayer.h */,
 				68D0B6B122C5AC65008DA458 /* TABComponentLayer.m */,
+				68933DDE22D07900001B1151 /* TABComponentLayer+TABAnimated.h */,
+				68933DDF22D07900001B1151 /* TABComponentLayer+TABAnimated.m */,
+				68D0B6A922C5AC65008DA458 /* NSArray+TABAnimated.h */,
+				68D0B6A322C5AC65008DA458 /* NSArray+TABAnimated.m */,
 				68D0B6B222C5AC65008DA458 /* TABLayer.h */,
 				68D0B6B422C5AC65008DA458 /* TABLayer.m */,
 			);
 			path = Layer;
 			sourceTree = "<group>";
 		};
-		68D0B6B522C5AC65008DA458 /* Model */ = {
+		68D0B6B522C5AC65008DA458 /* ControlModel */ = {
 			isa = PBXGroup;
 			children = (
-				68D0B6B922C5AC65008DA458 /* TABCollectionAnimated.h */,
-				68D0B6B722C5AC65008DA458 /* TABCollectionAnimated.m */,
-				68D0B6BB22C5AC65008DA458 /* TABTableAnimated.h */,
-				68D0B6B822C5AC65008DA458 /* TABTableAnimated.m */,
 				68D0B6BA22C5AC65008DA458 /* TABViewAnimated.h */,
 				68D0B6B622C5AC65008DA458 /* TABViewAnimated.m */,
+				68D0B6BB22C5AC65008DA458 /* TABTableAnimated.h */,
+				68D0B6B822C5AC65008DA458 /* TABTableAnimated.m */,
+				68D0B6B922C5AC65008DA458 /* TABCollectionAnimated.h */,
+				68D0B6B722C5AC65008DA458 /* TABCollectionAnimated.m */,
 			);
-			path = Model;
+			path = ControlModel;
 			sourceTree = "<group>";
 		};
 		68D2074F228BE54400B32CD1 /* Douban */ = {
@@ -1236,6 +1241,7 @@
 				20A01591216A321E0082425D /* XIBTableViewCell.m in Sources */,
 				681567302264214F00293AB4 /* JXCategoryIndicatorParamsModel.m in Sources */,
 				685D5AFC2265D05F0058A6CC /* MJRefreshBackGifFooter.m in Sources */,
+				68933DE022D07900001B1151 /* TABComponentLayer+TABAnimated.m in Sources */,
 				68D0B6C822C5AC65008DA458 /* TABManagerMethod.m in Sources */,
 				681567322264214F00293AB4 /* JXCategoryListCollectionContainerView.m in Sources */,
 				681567122264214F00293AB4 /* JXCategoryTitleVerticalZoomView.m in Sources */,

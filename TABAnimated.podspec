@@ -27,16 +27,16 @@ Pod::Spec.new do |s|
   s.platform     = :ios, "8.0"
 
   #库的地址
-  s.source       = { :git => "https://github.com/tigerAndBull/LoadAnimatedDemo-ios.git", :tag => "2.1.2.4" }
+  s.source       = { :git => "https://github.com/tigerAndBull/LoadAnimatedDemo-ios.git", :tag => "2.1.2.5" }
   # s.source       = { :git => "https://github.com/tigerAndBull/LoadAnimatedDemo-ios.git", :commit => "e05513581c80a7c899e65de48e8fe474a64734eb" }
      
-  s.source_files = "AnimatedDemo/AnimatedDemo/TABAnimated/*.{h,m}"
-  s.public_header_files = "AnimatedDemo/AnimatedDemo/TABAnimated/TABAnimated.h"
+  s.source_files = "AnimatedDemo/AnimatedDemo/TABAnimated/Animation/*.{h,m}", "AnimatedDemo/AnimatedDemo/TABAnimated/Layer/*.{h,m}", "AnimatedDemo/AnimatedDemo/TABAnimated/Manager/*.{h,m}", 
+  "AnimatedDemo/AnimatedDemo/TABAnimated/ControlModel/*.{h,m}", "AnimatedDemo/AnimatedDemo/TABAnimated/*.{h,m}"
 
   #Animation文件夹
-  s.subspec 'Animation' do |animation|
-    animation.source_files = 'AnimatedDemo/AnimatedDemo/TABAnimated/Animation/*.{h,m}'
-  end
+  # s.subspec 'Animation' do |animation|
+  #   animation.source_files = 'AnimatedDemo/AnimatedDemo/TABAnimated/Animation/*.{h,m}'
+  # end
 
   # #Gobal文件夹
   # s.subspec 'Gobal' do |gobal|
@@ -45,21 +45,21 @@ Pod::Spec.new do |s|
   # end
 
   #Layer文件夹
-  s.subspec 'Layer' do |layer|
-    layer.source_files = 'AnimatedDemo/AnimatedDemo/TABAnimated/Layer/*.{h,m}'
-  end
+  # s.subspec 'Layer' do |layer|
+  #   layer.source_files = 'AnimatedDemo/AnimatedDemo/TABAnimated/Layer/*.{h,m}'
+  # end
 
   #Model文件夹
-  s.subspec 'Model' do |model|
-    model.source_files = 'AnimatedDemo/AnimatedDemo/TABAnimated/Model/*.{h,m}'
-  end
+  # s.subspec 'Model' do |model|
+  #   model.source_files = 'AnimatedDemo/AnimatedDemo/TABAnimated/Model/*.{h,m}'
+  # end
 
   #Manager文件夹
-  s.subspec 'Manager' do |manager|
-    manager.source_files = 'AnimatedDemo/AnimatedDemo/TABAnimated/Manager/*.{h,m}'
-    manager.dependency 'TABAnimated/Animation'
-    manager.dependency 'TABAnimated/Layer'
-    manager.dependency 'TABAnimated/Model'
-  end
+  # s.subspec 'Manager' do |manager|
+  #   manager.source_files = 'AnimatedDemo/AnimatedDemo/TABAnimated/Manager/*.{h,m}'
+  #   manager.dependency 'TABAnimated/Animation'
+  #   manager.dependency 'TABAnimated/Layer'
+  #   manager.dependency 'TABAnimated/Model'
+  # end
 
 end

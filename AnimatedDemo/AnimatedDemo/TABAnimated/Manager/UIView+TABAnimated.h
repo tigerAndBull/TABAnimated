@@ -1,6 +1,14 @@
 //
 //  UIView+Animated.h
-//  lifeAndSport
+//  AnimatedDemo
+//
+//  github: https://github.com/tigerAndBull/TABAnimated
+//  jianshu: https://www.jianshu.com/p/6a0ca4995dff
+//
+//  历史更新文档：https://www.jianshu.com/p/e3e9ea295e8a
+//  动画下标说明：https://www.jianshu.com/p/8c361ba5aa18
+//  豆瓣效果说明：https://www.jianshu.com/p/1a92158ce83a
+//  嵌套视图说明：https://www.jianshu.com/p/cf8e37195c11
 //
 //  Created by tigerAndBull on 2018/9/14.
 //  Copyright © 2018年 tigerAndBull. All rights reserved.
@@ -24,18 +32,18 @@ typedef NSArray <TABComponentLayer *> *_Nullable(^TABSearchLayerArrayBlock)(NSIn
 @property (nonatomic, strong) TABLayer * _Nullable tabLayer;
 
 /**
- 获取单个动画组件
- 
- @return return value description
+ * 获取单个动画组件
+ *
+ * @return return value description
  */
 - (TABSearchLayerBlock _Nullable )animation;
 
 /**
- 获取多个动画组件，需要传递2个参数
- 第一个参数为起始下标
- 第二个参数长度
- 
- @return return value description
+ * 获取多个动画组件，需要传递2个参数
+ * 第一个参数为起始下标
+ * 第二个参数长度
+ *
+ * @return return value description
  */
 - (TABSearchLayerArrayBlock _Nullable)animations;
 
