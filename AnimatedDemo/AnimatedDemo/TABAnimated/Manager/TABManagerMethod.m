@@ -7,8 +7,6 @@
 //
 
 #import "TABManagerMethod.h"
-#import "TABAnimated.h"
-
 #import <CoreGraphics/CoreGraphics.h>
 
 static NSString * const kShortDataString = @"tab_testtesttest";

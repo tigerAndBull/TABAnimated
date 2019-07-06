@@ -7,8 +7,6 @@
 //
 
 #import "UICollectionViewCell+TABLayoutSubviews.h"
-#import "TABAnimated.h"
-
 #import <objc/runtime.h>
 
 @implementation UICollectionViewCell (TABLayoutSubviews)

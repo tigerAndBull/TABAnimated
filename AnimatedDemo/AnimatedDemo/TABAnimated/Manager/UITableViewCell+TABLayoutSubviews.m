@@ -7,8 +7,6 @@
 //
 
 #import "UITableViewCell+TABLayoutSubviews.h"
-#import "TABAnimated.h"
-
 #import <objc/runtime.h>
 
 @implementation UITableViewCell (TABLayoutSubviews)

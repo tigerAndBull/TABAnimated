@@ -8,12 +8,8 @@
 
 #import "UICollectionView+TABAnimated.h"
 #import "UIView+TABAnimated.h"
-#import "UIView+TABControlAnimation.m"
-
 #import "TABViewAnimated.h"
 #import "TABCollectionAnimated.h"
-#import "TABAnimated.h"
-
 #import <objc/runtime.h>
 
 @implementation UICollectionView (TABAnimated)

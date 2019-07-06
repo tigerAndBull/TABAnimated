@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
 #import "UIView+TABAnimated.h"
+#import "TABAnimated.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -7,9 +7,7 @@
 //
 
 #import "UITableView+TABAnimated.h"
-
 #import "TABViewAnimated.h"
-#import "TABAnimated.h"
 #import "TABTableAnimated.h"
 #import "EstimatedTableViewDelegate.h"
 #import <objc/runtime.h>
