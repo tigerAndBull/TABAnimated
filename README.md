@@ -17,7 +17,7 @@
     </a>
 </p>
 
-#### the lastest version is v2.1.2  [简体中文](https://github.com/tigerAndBull/TABAnimated/blob/master/README_zh.md)
+#### the lastest version is v2.1.3 [简体中文](https://github.com/tigerAndBull/TABAnimated/blob/master/README_zh.md)
 
 ## Catalog
 
