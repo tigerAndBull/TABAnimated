@@ -117,6 +117,7 @@
             view.animation(2).reducedWidth(-10).up(1);
             view.animation(3).down(5).line(4);
             view.animations(4,3).radius(3).down(5);
+            view.animations(4,3).placeholder(@"placeholder.png");
         };
         
     }

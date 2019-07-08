@@ -25,6 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 typedef NSArray <TABComponentLayer *> *_Nullable(^TABAnimatedArrayFloatBlock)(CGFloat);
 typedef NSArray <TABComponentLayer *> *_Nullable(^TABAnimatedArrayIntBlock)(NSInteger);
 typedef NSArray <TABComponentLayer *> *_Nullable(^TABAnimatedArrayBlock)(void);
+typedef NSArray <TABComponentLayer *> *_Nullable(^TABAnimatedArrayStringBlock)(NSString *);
 
 /**
  * 向左平移
@@ -119,6 +120,13 @@ typedef NSArray <TABComponentLayer *> *_Nullable(^TABAnimatedArrayBlock)(void);
  * @return return value description
  */
 - (TABAnimatedArrayBlock)remove;
+
+/**
+ * 添加占位图
+ *
+ * @return 占位图名称
+ */
+- (TABAnimatedArrayStringBlock)placeholder;
 
 #pragma mark - Drop Animation
 

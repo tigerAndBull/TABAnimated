@@ -116,6 +116,7 @@
 		68A78FFB2283DA5500AA47B3 /* SectionsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68A78FFA2283DA5500AA47B3 /* SectionsTableViewController.m */; };
 		68A78FFD2283F6EC00AA47B3 /* test.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 68A78FFC2283F6EB00AA47B3 /* test.jpg */; };
 		68A78FFF2283F76C00AA47B3 /* long.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 68A78FFE2283F76B00AA47B3 /* long.jpg */; };
+		68A7FDB122D1CE1F0060CEEA /* placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 68A7FDB022D1CE1F0060CEEA /* placeholder.png */; };
 		68B0457A22BB9B98006FED14 /* TTTViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68B0457922BB9B98006FED14 /* TTTViewController.m */; };
 		68B045E822BC88EE006FED14 /* TestLayoutTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68B045E722BC88ED006FED14 /* TestLayoutTableViewController.m */; };
 		68B214C92292BA1B007E05A7 /* test1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 68B214C72292BA1B007E05A7 /* test1.jpg */; };
@@ -387,6 +388,7 @@
 		68A78FFA2283DA5500AA47B3 /* SectionsTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SectionsTableViewController.m; sourceTree = "<group>"; };
 		68A78FFC2283F6EB00AA47B3 /* test.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = test.jpg; sourceTree = "<group>"; };
 		68A78FFE2283F76B00AA47B3 /* long.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = long.jpg; sourceTree = "<group>"; };
+		68A7FDB022D1CE1F0060CEEA /* placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = placeholder.png; sourceTree = "<group>"; };
 		68B0457822BB9B98006FED14 /* TTTViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTTViewController.h; sourceTree = "<group>"; };
 		68B0457922BB9B98006FED14 /* TTTViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TTTViewController.m; sourceTree = "<group>"; };
 		68B045E622BC88ED006FED14 /* TestLayoutTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestLayoutTableViewController.h; sourceTree = "<group>"; };
@@ -613,6 +615,7 @@
 			isa = PBXGroup;
 			children = (
 				2013CA9D222B0C0C00E928E1 /* TABKit.framework */,
+				68A7FDB022D1CE1F0060CEEA /* placeholder.png */,
 				6806412B2279C83200D79040 /* comic.jpg */,
 				20BFBBA22153FB5300136258 /* head.jpg */,
 				68A78FFE2283F76B00AA47B3 /* long.jpg */,
@@ -1179,6 +1182,7 @@
 				20BFBBA32153FB5300136258 /* head.jpg in Resources */,
 				680641212279B99900D79040 /* Localizable.strings in Resources */,
 				68A78FFD2283F6EC00AA47B3 /* test.jpg in Resources */,
+				68A7FDB122D1CE1F0060CEEA /* placeholder.png in Resources */,
 				6806412C2279C83200D79040 /* comic.jpg in Resources */,
 				68CFCF102294DCBC007D167F /* XibCollectionViewCell.xib in Resources */,
 				685D5AF82265D05F0058A6CC /* MJRefresh.bundle in Resources */,

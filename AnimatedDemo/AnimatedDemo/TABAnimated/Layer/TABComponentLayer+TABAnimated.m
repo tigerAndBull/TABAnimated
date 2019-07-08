@@ -111,6 +111,13 @@
     };
 }
 
+- (TABComponentStringBlock)placeholder {
+    return ^TABComponentLayer *(NSString *string) {
+        self.contents = (id)[UIImage imageNamed:string].CGImage;
+        return self;
+    };
+}
+
 - (TABLoadStyleBlock)toLongAnimation {
     return ^TABComponentLayer *(void) {
         self.loadStyle = TABViewLoadAnimationToLong;

@@ -149,16 +149,12 @@
         _tableView.backgroundColor = [UIColor whiteColor];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         
-        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 160)];
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 120)];
         UIImageView *imageV = [[UIImageView alloc] initWithFrame:CGRectMake((kScreenWidth - 80)/2.0, 20, 80, 80)];
         imageV.image = [UIImage imageNamed:@"comic.jpg"];
         imageV.layer.cornerRadius = 80/2.0;
         imageV.layer.masksToBounds = YES;
         [view addSubview:imageV];
-        
-        UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(0, 120+10, kScreenWidth, 20)];
-        [view addSubview:lab];
-        _tableView.tableHeaderView = view;
         
         // 设置tabAnimated相关属性
         // 可以不进行手动初始化，将使用默认属性

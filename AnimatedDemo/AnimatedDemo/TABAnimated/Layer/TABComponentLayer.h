@@ -38,10 +38,6 @@ typedef NS_ENUM(NSInteger,TABViewLoadAnimationStyle) {
     TABViewLoadAnimationRemove
 };
 
-typedef TABComponentLayer *_Nullable(^TABComponentLayerBlock)(CGFloat);
-typedef TABComponentLayer *_Nullable(^TABComponentLayerLinesBlock)(NSInteger);
-typedef TABComponentLayer *_Nullable(^TABLoadStyleBlock)(void);
-
 #pragma mark - 属性
 
 /**

@@ -119,6 +119,15 @@
     };
 }
 
+- (TABAnimatedArrayStringBlock)placeholder {
+    return ^NSArray <TABComponentLayer *> *(NSString *string) {
+        for (TABComponentLayer *layer in self) {
+            layer.contents = (id)[UIImage imageNamed:string].CGImage;
+        }
+        return self;
+    };
+}
+
 #pragma mark - Drop Animation
 
 - (TABAnimatedArrayIntBlock)dropIndex {

@@ -20,6 +20,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface TABComponentLayer (TABAnimated)
 
+typedef TABComponentLayer *_Nullable(^TABComponentLayerBlock)(CGFloat);
+typedef TABComponentLayer *_Nullable(^TABComponentLayerLinesBlock)(NSInteger);
+typedef TABComponentLayer *_Nullable(^TABLoadStyleBlock)(void);
+typedef TABComponentLayer *_Nullable(^TABComponentStringBlock)(NSString *);
+
 #pragma mark - 链式语法
 
 /**
@@ -123,6 +128,13 @@ NS_ASSUME_NONNULL_BEGIN
  * @return return value description
  */
 - (TABLoadStyleBlock)remove;
+
+/**
+ * 添加占位图
+ *
+ * @return 占位图名称
+ */
+- (TABComponentStringBlock)placeholder;
 
 /**
  * 赋予该动画组件画由长到短的动画
