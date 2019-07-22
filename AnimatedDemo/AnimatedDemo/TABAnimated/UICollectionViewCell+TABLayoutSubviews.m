@@ -31,10 +31,6 @@
 
         UICollectionView *superView = (UICollectionView *)self.superview;
 
-        if (!self.tabComponentManager) {
-            return;
-        }
-
         if (![superView isKindOfClass:[UICollectionView class]]) {
             return;
         }

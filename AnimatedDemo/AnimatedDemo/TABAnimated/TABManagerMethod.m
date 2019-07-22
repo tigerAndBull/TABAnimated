@@ -103,20 +103,23 @@ static NSString * const kLongDataString = @"tab_testtesttesttesttesttesttesttest
         return;
     }
     
-    if (view.tabComponentManager == nil && rootSuperView.tabComponentManager &&
+    if (view.tabComponentManager == nil
+        && rootSuperView.tabComponentManager &&
         ![view isKindOfClass:[UIButton class]]
         && ![view isKindOfClass:[UITableViewCell class]]
         && ![view isKindOfClass:[UICollectionViewCell class]]) {
-        view.tabComponentManager.tabLayer = CALayer.new;
-        CGRect rect = [rootSuperView convertRect:view.frame fromView:view.superview];
-        view.tabComponentManager.tabLayer.frame = rect;
-        view.tabComponentManager.tabLayer.backgroundColor = view.backgroundColor.CGColor;
-        view.tabComponentManager.tabLayer.shadowOffset = view.layer.shadowOffset;
-        view.tabComponentManager.tabLayer.shadowColor = view.layer.shadowColor;
-        view.tabComponentManager.tabLayer.shadowRadius = view.layer.shadowRadius;
-        view.tabComponentManager.tabLayer.shadowOpacity = view.layer.shadowOpacity;
-        view.tabComponentManager.tabLayer.cornerRadius = view.layer.cornerRadius;
-        [rootSuperView.tabComponentManager.tabLayer addSublayer:view.tabComponentManager.tabLayer];
+        view.tabComponentManager = TABComponentManager.new;
+        CALayer *layer = CALayer.new;
+        layer.name = @"TABLayer";
+        CGRect rect = [rootView convertRect:view.frame fromView:view.superview];
+        layer.frame = rect;
+        layer.backgroundColor = view.backgroundColor.CGColor;
+        layer.shadowOffset = view.layer.shadowOffset;
+        layer.shadowColor = view.layer.shadowColor;
+        layer.shadowRadius = view.layer.shadowRadius;
+        layer.shadowOpacity = view.layer.shadowOpacity;
+        layer.cornerRadius = view.layer.cornerRadius;
+        [rootSuperView.tabComponentManager.tabLayer addSublayer:layer];
     }
     
     for (int i = 0; i < subViews.count;i++) {
@@ -127,8 +130,8 @@ static NSString * const kLongDataString = @"tab_testtesttesttesttesttesttesttest
             ![subV isEqual:rootSuperView]) {
             rootView.tabComponentManager.nestView = subV;
             
-            CGRect cutRect = [rootSuperView convertRect:subV.frame fromView:subV.superview];
-            UIBezierPath *path = [UIBezierPath bezierPathWithRect:rootView.frame];
+            CGRect cutRect = [rootView convertRect:subV.frame fromView:subV.superview];
+            UIBezierPath *path = [UIBezierPath bezierPathWithRect:rootView.bounds];
             [path appendPath:[[UIBezierPath bezierPathWithRoundedRect:cutRect cornerRadius:0.]bezierPathByReversingPath]];
             CAShapeLayer *shapeLayer = [CAShapeLayer layer];
             shapeLayer.path = path.CGPath;
@@ -171,6 +174,7 @@ static NSString * const kLongDataString = @"tab_testtesttesttesttesttesttesttest
                 rootView.tabComponentManager.tabLayer.shadowColor = subV.layer.shadowColor;
                 rootView.tabComponentManager.tabLayer.shadowRadius = subV.layer.shadowRadius;
                 rootView.tabComponentManager.tabLayer.shadowOpacity = subV.layer.shadowOpacity;
+                rootView.tabComponentManager.tabLayer.cornerRadius = subV.layer.cornerRadius;
                 rootView.tabComponentManager.tabLayer.masksToBounds = YES;
                 continue;
             }
@@ -222,10 +226,7 @@ static NSString * const kLongDataString = @"tab_testtesttesttesttesttesttesttest
         [self endAnimationToSubViews:subV];
         
         if (subV.tabAnimated) {
-            if (subV.tabAnimated.isAnimating) {
-                subV.tabAnimated.state = TABViewAnimationEnd;
-                subV.tabAnimated.isAnimating = NO;
-            }
+            [subV tab_endAnimation];
         }
     }
 }
@@ -334,10 +335,6 @@ static NSString * const kLongDataString = @"tab_testtesttesttesttesttesttesttest
     
     if (view.tabComponentManager.tabLayer) {
         [view.tabComponentManager.tabLayer removeFromSuperlayer];
-    }
-    
-    if (view.layer.mask) {
-        [view.layer.mask removeFromSuperlayer];
     }
     
     [view.layer removeAnimationForKey:kTABAlphaAnimation];

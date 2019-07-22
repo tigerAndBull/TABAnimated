@@ -37,10 +37,6 @@
         }else {
             superView = (UITableView *)self.superview;
         }
-
-        if (!self.tabComponentManager) {
-            return;
-        }
         
         if (![superView isKindOfClass:[UITableView class]]) {
             return;

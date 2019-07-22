@@ -16,6 +16,7 @@
         self.anchorPoint = CGPointMake(0, 0);
         self.position = CGPointMake(0, 0);
         self.opaque = YES;
+        self.contentsGravity = kCAGravityResizeAspect;
         
         self.dropAnimationStayTime = 0.2;
         self.lastScale = 0.5;
