@@ -33,11 +33,11 @@
     [self initUI];
     
     self.mainView.tabAnimated = TABViewAnimated.new;
-    self.mainView.tabAnimated.categoryBlock = ^(UIView * _Nonnull view) {
-        view.animation(1).width(200);
-        view.animation(2).width(220);
-        view.animation(3).width(180);
-    };
+//    self.mainView.tabAnimated.categoryBlock = ^(UIView * _Nonnull view) {
+//        view.animation(1).width(200);
+//        view.animation(2).width(220);
+//        view.animation(3).width(180);
+//    };
     
     self.mainView.tabAnimated.adjustBlock = ^(TABComponentManager * _Nonnull manager) {
         manager.animation(1).width(200);

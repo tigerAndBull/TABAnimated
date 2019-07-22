@@ -994,26 +994,18 @@
 			children = (
 				682CD1DE22CF722000E51B80 /* TABAnimated.h */,
 				682CD1DD22CF722000E51B80 /* TABAnimated.m */,
-				68D0B69A22C5AC65008DA458 /* Animation */,
-				68D0B6B022C5AC65008DA458 /* Layer */,
-				68D0B69D22C5AC65008DA458 /* Manager */,
-				68D0B6B522C5AC65008DA458 /* ControlModel */,
-			);
-			path = TABAnimated;
-			sourceTree = "<group>";
-		};
-		68D0B69A22C5AC65008DA458 /* Animation */ = {
-			isa = PBXGroup;
-			children = (
 				68D0B69C22C5AC65008DA458 /* TABAnimationMethod.h */,
 				68D0B69B22C5AC65008DA458 /* TABAnimationMethod.m */,
-			);
-			path = Animation;
-			sourceTree = "<group>";
-		};
-		68D0B69D22C5AC65008DA458 /* Manager */ = {
-			isa = PBXGroup;
-			children = (
+				68D0B6B322C5AC65008DA458 /* TABComponentLayer.h */,
+				68D0B6B122C5AC65008DA458 /* TABComponentLayer.m */,
+				68933DDE22D07900001B1151 /* TABComponentLayer+TABAnimated.h */,
+				68933DDF22D07900001B1151 /* TABComponentLayer+TABAnimated.m */,
+				68D0B6A922C5AC65008DA458 /* NSArray+TABAnimated.h */,
+				68D0B6A322C5AC65008DA458 /* NSArray+TABAnimated.m */,
+				6893D71A22DDC0ED0097917A /* TABComponentManager.h */,
+				6893D71B22DDC0ED0097917A /* TABComponentManager.m */,
+				6893D71D22DDC15E0097917A /* TABBaseComponent.h */,
+				6893D71E22DDC15E0097917A /* TABBaseComponent.m */,
 				68D0B69F22C5AC65008DA458 /* TABManagerMethod.h */,
 				68D0B6A722C5AC65008DA458 /* TABManagerMethod.m */,
 				68D0B6BF22C5AC65008DA458 /* EstimatedTableViewDelegate.h */,
@@ -1032,30 +1024,6 @@
 				68D0B69E22C5AC65008DA458 /* UIView+TABControlAnimation.m */,
 				68D0B6A522C5AC65008DA458 /* UIView+TABLayoutSubviews.h */,
 				68D0B6AE22C5AC65008DA458 /* UIView+TABLayoutSubviews.m */,
-			);
-			path = Manager;
-			sourceTree = "<group>";
-		};
-		68D0B6B022C5AC65008DA458 /* Layer */ = {
-			isa = PBXGroup;
-			children = (
-				68D0B6B322C5AC65008DA458 /* TABComponentLayer.h */,
-				68D0B6B122C5AC65008DA458 /* TABComponentLayer.m */,
-				68933DDE22D07900001B1151 /* TABComponentLayer+TABAnimated.h */,
-				68933DDF22D07900001B1151 /* TABComponentLayer+TABAnimated.m */,
-				68D0B6A922C5AC65008DA458 /* NSArray+TABAnimated.h */,
-				68D0B6A322C5AC65008DA458 /* NSArray+TABAnimated.m */,
-				6893D71A22DDC0ED0097917A /* TABComponentManager.h */,
-				6893D71B22DDC0ED0097917A /* TABComponentManager.m */,
-				6893D71D22DDC15E0097917A /* TABBaseComponent.h */,
-				6893D71E22DDC15E0097917A /* TABBaseComponent.m */,
-			);
-			path = Layer;
-			sourceTree = "<group>";
-		};
-		68D0B6B522C5AC65008DA458 /* ControlModel */ = {
-			isa = PBXGroup;
-			children = (
 				68D0B6BA22C5AC65008DA458 /* TABViewAnimated.h */,
 				68D0B6B622C5AC65008DA458 /* TABViewAnimated.m */,
 				68D0B6BB22C5AC65008DA458 /* TABTableAnimated.h */,
@@ -1063,7 +1031,7 @@
 				68D0B6B922C5AC65008DA458 /* TABCollectionAnimated.h */,
 				68D0B6B722C5AC65008DA458 /* TABCollectionAnimated.m */,
 			);
-			path = ControlModel;
+			path = TABAnimated;
 			sourceTree = "<group>";
 		};
 		68D2074F228BE54400B32CD1 /* Douban */ = {
