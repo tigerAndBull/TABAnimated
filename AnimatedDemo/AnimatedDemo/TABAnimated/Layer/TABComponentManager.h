@@ -11,6 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @class TABBaseComponent;
+@class TABComponentLayer;
 
 typedef TABBaseComponent * _Nullable (^TABBaseComponentBlock)(NSInteger);
 typedef NSArray <TABBaseComponent *> * _Nullable (^TABBaseComponentArrayBlock)(NSInteger location, NSInteger length);
