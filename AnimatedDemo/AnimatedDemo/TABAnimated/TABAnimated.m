@@ -84,6 +84,27 @@
     return _shortToValue;
 }
 
+- (UIColor *)shimmerBackColor {
+    if (_shimmerBackColor == nil) {
+        return tab_kShimmerBackColor;
+    }
+    return _shimmerBackColor;
+}
+
+- (CGFloat)shimmerBrightness {
+    if (_shimmerBrightness == 0) {
+        return 0.92;
+    }
+    return _shimmerBrightness;
+}
+
+- (CGFloat)animatedDurationShimmer {
+    if (_animatedDurationShimmer == 0) {
+        return 1.;
+    }
+    return _animatedDurationShimmer;
+}
+
 #pragma mark - Initize Method
 
 + (TABAnimated *)sharedAnimated {

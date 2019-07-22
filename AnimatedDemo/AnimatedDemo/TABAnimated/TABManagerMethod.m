@@ -108,7 +108,7 @@ static NSString * const kLongDataString = @"tab_testtesttesttesttesttesttesttest
         ![view isKindOfClass:[UIButton class]]
         && ![view isKindOfClass:[UITableViewCell class]]
         && ![view isKindOfClass:[UICollectionViewCell class]]) {
-        view.tabComponentManager = TABComponentManager.new;
+//        view.tabComponentManager = TABComponentManager.new;
         CALayer *layer = CALayer.new;
         layer.name = @"TABLayer";
         CGRect rect = [rootView convertRect:view.frame fromView:view.superview];

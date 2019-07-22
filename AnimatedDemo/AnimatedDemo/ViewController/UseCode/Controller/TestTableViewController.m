@@ -154,6 +154,7 @@
                                                               cellHeight:90];
         _tableView.tabAnimated.animatedSectionCount = 3;
         _tableView.tabAnimated.showTableHeaderView = YES;
+        _tableView.tabAnimated.superAnimationType = TABViewSuperAnimationTypeShimmer;
         
 //      // 旧回调
 //        _tableView.tabAnimated.categoryBlock = ^(UIView * _Nonnull view) {

@@ -93,7 +93,7 @@
                     layer.colors = @[
                                      (id)baseColor.CGColor,
                                      (id)[TABAnimationMethod brightenedColor:baseColor brightness:brigtness].CGColor,
-                                     (id) baseColor.CGColor
+                                     (id)baseColor.CGColor
                                      ];
                     [TABAnimationMethod addShimmerAnimationToLayer:layer
                                                           duration:[TABAnimated sharedAnimated].animatedDurationShimmer

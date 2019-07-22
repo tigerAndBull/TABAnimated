@@ -187,12 +187,14 @@
         
         if (tableView.tabAnimated.showTableHeaderView) {
             if (tableView.tableHeaderView.tabAnimated != nil) {
+                tableView.tableHeaderView.tabAnimated.superAnimationType = tableView.tabAnimated.superAnimationType;
                 [tableView.tableHeaderView tab_startAnimation];
             }
         }
         
         if (tableView.tabAnimated.showTableFooterView) {
             if (tableView.tableFooterView.tabAnimated != nil) {
+                tableView.tableFooterView.tabAnimated.superAnimationType = tableView.tabAnimated.superAnimationType;
                 [tableView.tableFooterView tab_startAnimation];
             }
         }
