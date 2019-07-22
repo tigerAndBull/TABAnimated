@@ -35,7 +35,7 @@ typedef NS_ENUM(NSInteger,TABViewLoadAnimationStyle) {
     TABViewLoadAnimationWithOnlySkeleton,
     TABViewLoadAnimationToLong,
     TABViewLoadAnimationToShort,
-    TABViewLoadAnimationRemove
+    TABViewLoadAnimationRemove,
 };
 
 #pragma mark - 属性
@@ -50,7 +50,7 @@ typedef NS_ENUM(NSInteger,TABViewLoadAnimationStyle) {
 
 /**
  * 动画元素来自居中文本
- * is from the UILabel of `NSTextAligentCenter`or not
+ * Is from the UILabel of `NSTextAligentCenter`or not.
  */
 @property (nonatomic,assign) BOOL fromCenterLabel;
 
@@ -62,16 +62,9 @@ typedef NS_ENUM(NSInteger,TABViewLoadAnimationStyle) {
 
 /**
  * 动画来自UIImageView。
- * is from UIImageView or not
+ * Is from UIImageView or not.
  */
 @property (nonatomic,assign) BOOL fromImageView;
-
-/**
- * 动画时组件宽度，
- * 如果你觉得动画不够漂亮，可以使用这个属性进行调整
- * Width of the animation appionted by yourself on subViews during animating.
- */
-@property (nonatomic,assign) CGFloat tabViewWidth;
 
 /**
  * 动画时组件高度，
@@ -86,13 +79,13 @@ typedef NS_ENUM(NSInteger,TABViewLoadAnimationStyle) {
 /**
  * 此属性的值是根据UILabel组件的numberOflines属性的值映射出来的。
  * 由其他类型组件映射出的动画元素，该属性会被设置为1，你可以对其更改，达到多行的效果。
- * everyone can set it to more, then it will have the same effect as the UILabel which `numberOfLines` > 1.
+ * Everyone can set it to more, then it will have the same effect as the UILabel which `numberOfLines` > 1.
  */
 @property (nonatomic,assign) NSInteger numberOflines;
 
 /**
  * 对于`numberOflines` > 1的动画元素，设置行与行之间的间距，默认是8.0。
- * if numberOflines > 1, the property is used to setting the space of lines.
+ * If numberOflines > 1, the property is used to setting the space of lines.
  */
 @property (nonatomic,assign) CGFloat lineSpace;
 

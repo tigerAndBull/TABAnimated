@@ -54,6 +54,32 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)tab_startAnimationWithDelayTime:(CGFloat)delayTime
                              completion:(void (^)(void))completion;
 
+
+/**
+ * 启动动画并指定section
+ *
+ @param section UITableView或者UICollectionView的section
+ */
+- (void)tab_startAnimationWithSection:(NSInteger)section;
+
+/**
+ * 启动动画并指定section，默认延迟时间0.4s
+ *
+ * @param section UITableView或者UICollectionView的section
+ * @param completion 延迟回调
+ */
+- (void)tab_startAnimationWithSection:(NSInteger)section completion:(void (^)(void))completion;
+
+
+/**
+ * 启动动画并指定section，同时可以自定义延迟时间
+ *
+ * @param section UITableView或者UICollectionView的section
+ * @param delayTime 延迟时间
+ * @param completion 完成回调
+ */
+- (void)tab_startAnimationWithSection:(NSInteger)section delayTime:(CGFloat)delayTime completion:(void (^)(void))completion;
+
 /**
  * end animation
  * 结束动画, 默认不加入任何动画效果

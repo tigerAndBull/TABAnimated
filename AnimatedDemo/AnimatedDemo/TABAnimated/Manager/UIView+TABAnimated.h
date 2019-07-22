@@ -16,9 +16,9 @@
 
 #import <UIKit/UIKit.h>
 
-@class TABLayer;
 @class TABViewAnimated;
 @class TABComponentLayer;
+@class TABComponentManager;
 
 typedef TABComponentLayer *_Nullable(^TABSearchLayerBlock)(NSInteger);
 typedef NSArray <TABComponentLayer *> *_Nullable(^TABSearchLayerArrayBlock)(NSInteger location, NSInteger length);
@@ -29,14 +29,14 @@ typedef NSArray <TABComponentLayer *> *_Nullable(^TABSearchLayerArrayBlock)(NSIn
 @property (nonatomic, strong) TABViewAnimated * _Nullable tabAnimated;
 
 // To the control view
-@property (nonatomic, strong) TABLayer * _Nullable tabLayer;
+@property (nonatomic, strong) TABComponentManager * _Nullable tabComponentManager;
 
 /**
  * 获取单个动画组件
  *
  * @return return value description
  */
-- (TABSearchLayerBlock _Nullable )animation;
+- (TABSearchLayerBlock _Nullable)animation;
 
 /**
  * 获取多个动画组件，需要传递2个参数

@@ -22,18 +22,9 @@
 
 @property (nonatomic,strong) UITableView *tableView;
 
-@property (nonatomic,strong) UIImageView *topImg;
-
 @end
 
 @implementation TestTableViewController
-
-- (instancetype)init {
-    if (self = [super init]) {
-        [self tableView];
-    }
-    return self;
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -54,7 +45,7 @@
     // 启动动画
     // 这里使用了自定义延迟时间的启动函数，设置3秒是为了演示效果。
     // 非特殊场景情况下，建议使用`tab_startAnimationWithCompletion`。
-    [self.tableView tab_startAnimationWithDelayTime:3. completion:^{
+    [self.tableView tab_startAnimationWithDelayTime:5. completion:^{
         // 请求数据
         // ...
         // 获得数据
@@ -155,21 +146,31 @@
         imageV.layer.cornerRadius = 80/2.0;
         imageV.layer.masksToBounds = YES;
         [view addSubview:imageV];
+        _tableView.tableHeaderView = view;
         
         // 设置tabAnimated相关属性
         // 可以不进行手动初始化，将使用默认属性
         _tableView.tabAnimated = [TABTableAnimated animatedWithCellClass:[TestTableViewCell class]
-                                                              cellHeight:100];
+                                                              cellHeight:90];
         _tableView.tabAnimated.animatedSectionCount = 3;
         _tableView.tabAnimated.showTableHeaderView = YES;
-        _tableView.tabAnimated.categoryBlock = ^(UIView * _Nonnull view) {
-            view.animation(1).down(3).height(12);
-            view.animation(2).height(12).width(110);
-            view.animation(3).down(-5).height(12);
+        
+//      // 旧回调
+//        _tableView.tabAnimated.categoryBlock = ^(UIView * _Nonnull view) {
+//            view.animation(1).down(3).height(1);
+//            view.animation(2).height(12).width(110);
+//            view.animation(3).down(-5).height(12);
+//        };
+
+        // 新回调
+        _tableView.tabAnimated.adjustBlock = ^(TABComponentManager * _Nonnull manager) {
+            manager.animation(1).down(3).height(12);
+            manager.animation(2).height(12).width(110);
+            manager.animation(3).down(-5).height(12);
         };
         
-        // 静态头视图扩展回调使用方法
-        _tableView.tableHeaderView.tabAnimated.categoryBlock = ^(UIView * _Nonnull view) {
+        // 静态头视图扩展新回调使用方法
+        _tableView.tableHeaderView.tabAnimated.adjustBlock = ^(TABComponentManager * _Nonnull manager) {
             
         };
     }

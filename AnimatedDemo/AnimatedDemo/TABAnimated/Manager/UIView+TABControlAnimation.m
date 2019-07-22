@@ -25,7 +25,7 @@
     self.tabAnimated.isAnimating = YES;
     self.tabAnimated.state = TABViewAnimationStart;
     
-    [self startAnimation];
+    [self startAnimationIsAll:YES section:0];
 }
 
 - (void)tab_startAnimationWithCompletion:(void (^)(void))completion {
@@ -38,13 +38,16 @@
     
     if (!self.tabAnimated.canLoadAgain &&
         self.tabAnimated.state == TABViewAnimationEnd) {
+        if (completion) {
+            completion();
+        }
         return;
     }
     
     self.tabAnimated.state = TABViewAnimationStart;
     
     if (!self.tabAnimated.isAnimating) {
-        [self startAnimation];
+        [self startAnimationIsAll:YES section:0];
         
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, NSEC_PER_SEC*delayTime), dispatch_get_main_queue(), ^{
             if (completion) {
@@ -56,7 +59,53 @@
     self.tabAnimated.isAnimating = YES;
 }
 
-- (void)startAnimation {
+- (void)tab_startAnimationWithSection:(NSInteger)section {
+    
+    if (!self.tabAnimated.canLoadAgain &&
+        self.tabAnimated.state == TABViewAnimationEnd) {
+        return;
+    }
+    
+    self.tabAnimated.isAnimating = YES;
+    self.tabAnimated.state = TABViewAnimationStart;
+    
+    [self startAnimationIsAll:NO section:section];
+}
+
+- (void)tab_startAnimationWithSection:(NSInteger)section
+                           completion:(void (^)(void))completion {
+    [self tab_startAnimationWithSection:section
+                              delayTime:kDelayReloadDataTime
+                             completion:completion];
+}
+
+- (void)tab_startAnimationWithSection:(NSInteger)section
+                            delayTime:(CGFloat)delayTime
+                           completion:(void (^)(void))completion {
+    if (!self.tabAnimated.canLoadAgain &&
+        self.tabAnimated.state == TABViewAnimationEnd) {
+        if (completion) {
+            completion();
+        }
+        return;
+    }
+    
+    self.tabAnimated.state = TABViewAnimationStart;
+    
+    if (!self.tabAnimated.isAnimating) {
+        [self startAnimationIsAll:NO section:section];
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, NSEC_PER_SEC*delayTime), dispatch_get_main_queue(), ^{
+            if (completion) {
+                completion();
+            }
+        });
+    }
+    
+    self.tabAnimated.isAnimating = YES;
+}
+
+- (void)startAnimationIsAll:(BOOL)isAll section:(NSInteger)section {
     
     if ([self isKindOfClass:[UICollectionView class]]) {
         
@@ -80,25 +129,54 @@
         }
         
         TABCollectionAnimated *tabAnimated = (TABCollectionAnimated *)((UICollectionView *)self.tabAnimated);
+        
         [tabAnimated.runAnimationSectionArray removeAllObjects];
         
-        if (tabAnimated.animatedSectionArray.count > 0) {
-            for (NSNumber *num in tabAnimated.animatedSectionArray) {
-                [tabAnimated.runAnimationSectionArray addObject:num];
+        if (isAll) {
+            if (tabAnimated.animatedSectionArray.count > 0) {
+                for (NSNumber *num in tabAnimated.animatedSectionArray) {
+                    [tabAnimated.runAnimationSectionArray addObject:num];
+                }
+            }else {
+                for (NSInteger i = 0; i < [(UICollectionView *)self numberOfSections]; i++) {
+                    [tabAnimated.runAnimationSectionArray addObject:[NSNumber numberWithInteger:i]];
+                }
             }
         }else {
-            for (NSInteger i = 0; i < [(UICollectionView *)self numberOfSections]; i++) {
-                [tabAnimated.runAnimationSectionArray addObject:[NSNumber numberWithInteger:i]];
-            }
+            [tabAnimated.runAnimationSectionArray addObject:@(section)];
         }
         
         self.tabAnimated = tabAnimated;
-        [(UICollectionView *)self reloadData];
+        
+        if (isAll) {
+            [(UICollectionView *)self reloadData];
+        }else {
+            [(UICollectionView *)self reloadSections:[NSIndexSet indexSetWithIndex:section]];
+        }
         
     }else if ([self isKindOfClass:[UITableView class]]) {
         
         UITableView *tableView = (UITableView *)self;
         TABTableAnimated *tabAnimated = (TABTableAnimated *)((UITableView *)self.tabAnimated);
+        
+        for (Class class in self.tabAnimated.cellClassArray) {
+            
+            NSString *classString = NSStringFromClass(class);
+            if ([classString containsString:@"."]) {
+                NSRange range = [classString rangeOfString:@"."];
+                classString = [classString substringFromIndex:range.location+1];
+            }
+            
+            NSString *nibPath = [[NSBundle mainBundle] pathForResource:classString ofType:@"nib"];
+            
+            if (nil != nibPath && nibPath.length > 0) {
+                [(UITableView *)self registerNib:[UINib nibWithNibName:classString bundle:[NSBundle mainBundle]] forCellReuseIdentifier:[NSString stringWithFormat:@"tab_%@",classString]];
+                [(UITableView *)self registerNib:[UINib nibWithNibName:classString bundle:[NSBundle mainBundle]] forCellReuseIdentifier:classString];
+            }else {
+                [(UITableView *)self registerClass:class forCellReuseIdentifier:[NSString stringWithFormat:@"tab_%@",classString]];
+                [(UITableView *)self registerClass:class forCellReuseIdentifier:classString];
+            }
+        }
         
         if (tableView.estimatedRowHeight != UITableViewAutomaticDimension ||
             tableView.estimatedRowHeight != 0) {
@@ -121,28 +199,35 @@
         
         [tabAnimated.runAnimationSectionArray removeAllObjects];
         
-        if (tabAnimated.animatedSectionArray.count > 0) {
-            for (NSNumber *num in tabAnimated.animatedSectionArray) {
-                [tabAnimated.runAnimationSectionArray addObject:num];
+        if (isAll) {
+            if (tabAnimated.animatedSectionArray.count > 0) {
+                for (NSNumber *num in tabAnimated.animatedSectionArray) {
+                    [tabAnimated.runAnimationSectionArray addObject:num];
+                }
+            }else {
+                for (NSInteger i = 0; i < [(UITableView *)self numberOfSections]; i++) {
+                    [tabAnimated.runAnimationSectionArray addObject:[NSNumber numberWithInteger:i]];
+                }
             }
         }else {
-            for (NSInteger i = 0; i < [(UITableView *)self numberOfSections]; i++) {
-                [tabAnimated.runAnimationSectionArray addObject:[NSNumber numberWithInteger:i]];
-            }
+            [tabAnimated.runAnimationSectionArray addObject:@(section)];
         }
         
         self.tabAnimated = tabAnimated;
-        [tableView reloadData];
+        if (isAll) {
+            [tableView reloadData];
+        }else {
+            [(UITableView *)self reloadSections:[NSIndexSet indexSetWithIndex:section] withRowAnimation:UITableViewRowAnimationNone];
+        }
         
     }else {
         
-        if (nil == self.tabLayer) {
-            self.tabLayer = TABLayer.new;
-            self.tabLayer.frame = self.bounds;
-            self.tabLayer.animatedHeight = self.tabAnimated.animatedHeight;
-            self.tabLayer.animatedCornerRadius = self.tabAnimated.animatedCornerRadius;
-            self.tabLayer.cancelGlobalCornerRadius = self.tabAnimated.cancelGlobalCornerRadius;
-            [self.layer addSublayer:self.tabLayer];
+        if (nil == self.tabComponentManager) {
+            self.tabComponentManager = [TABComponentManager initWithView:self];
+            self.tabComponentManager.tabLayer.frame = self.bounds;
+            self.tabComponentManager.animatedHeight = self.tabAnimated.animatedHeight;
+            self.tabComponentManager.animatedCornerRadius = self.tabAnimated.animatedCornerRadius;
+            self.tabComponentManager.cancelGlobalCornerRadius = self.tabAnimated.cancelGlobalCornerRadius;
             [TABManagerMethod fullData:self];
         }
         [self layoutSubviews];
@@ -202,9 +287,7 @@
         }else {
             [TABManagerMethod resetData:self];
             [TABManagerMethod removeMask:self];
-            if (!self.tabAnimated.endAnimatedWithoutNestView) {
-                [TABManagerMethod endAnimationToSubViews:self];
-            }
+            [TABManagerMethod endAnimationToSubViews:self];
         }
     }
     
@@ -256,7 +339,6 @@
         }
         
         self.tabAnimated = tabAnimated;
-        
         [(UICollectionView *)self reloadSections:[NSIndexSet indexSetWithIndex:section]];
         
     }else if ([self isKindOfClass:[UITableView class]]) {
@@ -272,7 +354,6 @@
         }
         
         self.tabAnimated = tabAnimated;
-        
         [(UITableView *)self reloadSections:[NSIndexSet indexSetWithIndex:section] withRowAnimation:UITableViewRowAnimationNone];
     }
 }

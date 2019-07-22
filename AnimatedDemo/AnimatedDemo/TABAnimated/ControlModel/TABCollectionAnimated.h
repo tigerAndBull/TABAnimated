@@ -32,6 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  * 指定section加载动画集合
+ * 不设置默认为工程中所有的section
  */
 @property (nonatomic,strong) NSArray <NSNumber *> *animatedSectionArray;
 
@@ -41,9 +42,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,strong) NSMutableArray <NSNumber *> *runAnimationSectionArray;
 
 /**
- * 控制动画时的分区数量
+ * 设置动画时的分区数量
  */
 @property (nonatomic,assign) NSInteger animatedSectionCount;
+
+/**
+ * 设置单section动画时row数量，默认填充屏幕为准
+ **/
+@property (nonatomic,assign) NSInteger animatedCount;
 
 /**
  * 单section表格组件初始化方式，row值以填充contentSize的数量为标准
@@ -68,6 +74,33 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)animatedWithCellClass:(Class)cellClass
                              cellSize:(CGSize)cellSize
                         animatedCount:(NSInteger)animatedCount;
+
+/**
+ * 如果原UICollectionView是多个section，但是只想指定一个section启动动画，使用该初始化方法
+ * 动画数量以填充contentSize的数量为标准
+ *
+ * @param cellClass 注册的cell类型
+ * @param cellSize 动画时cell的size
+ * @param section 被指定的section
+ * @return object
+ */
++ (instancetype)animatedWithCellClass:(Class)cellClass
+                             cellSize:(CGSize)cellSize
+                            toSection:(NSInteger)section;
+
+/**
+ * 如果原UICollectionView是多个section，但是只想指定一个section启动动画，使用该初始化方法
+ *
+ * @param cellClass 注册的cell类型
+ * @param cellSize 动画时cell的size
+ * @param animatedCount 指定section的动画数量
+ * @param section 被指定的section
+ * @return object
+ */
++ (instancetype)animatedWithCellClass:(Class)cellClass
+                             cellSize:(CGSize)cellSize
+                        animatedCount:(NSInteger)animatedCount
+                            toSection:(NSInteger)section;
 
 /**
  * 多section表格组件初始化方式

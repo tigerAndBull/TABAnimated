@@ -39,6 +39,12 @@
         view.animation(3).width(180);
     };
     
+    self.mainView.tabAnimated.adjustBlock = ^(TABComponentManager * _Nonnull manager) {
+        manager.animation(1).width(200);
+        manager.animation(2).width(220);
+        manager.animation(3).width(180);
+    };
+    
     // 启动动画
     // 默认延迟时间0.4s
     [self.mainView tab_startAnimationWithCompletion:^{

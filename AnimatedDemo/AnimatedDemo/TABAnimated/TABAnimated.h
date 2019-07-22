@@ -30,11 +30,9 @@
 
 #import "UIView+TABControlAnimation.h"
 
-#import "TABViewAnimated.h"
 #import "TABAnimationMethod.h"
 #import "TABManagerMethod.h"
 
-#import "TABLayer.h"
 #import "TABComponentLayer.h"
 #import "TABComponentLayer+TABAnimated.h"
 #import "NSArray+TABAnimated.h"
@@ -42,6 +40,9 @@
 #import "TABViewAnimated.h"
 #import "TABTableAnimated.h"
 #import "TABCollectionAnimated.h"
+
+#import "TABBaseComponent.h"
+#import "TABComponentManager.h"
 
 #define tabAnimatedLog(x) {if([TABAnimated sharedAnimated].openLog) NSLog(x);}
 

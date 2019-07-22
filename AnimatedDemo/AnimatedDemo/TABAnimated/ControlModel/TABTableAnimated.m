@@ -28,21 +28,32 @@
     return obj;
 }
 
++ (instancetype)animatedWithCellClass:(Class)cellClass
+                           cellHeight:(CGFloat)cellHeight
+                            toSection:(NSInteger)section {
+    TABTableAnimated *obj = [self animatedWithCellClass:cellClass cellHeight:cellHeight];
+    obj.animatedCountArray = @[@(ceilf([UIScreen mainScreen].bounds.size.height/cellHeight*1.0))];
+    obj.animatedSectionArray = @[@(section)];
+    return obj;
+}
+
++ (instancetype)animatedWithCellClass:(Class)cellClass
+                           cellHeight:(CGFloat)cellHeight
+                        animatedCount:(NSInteger)animatedCount
+                            toSection:(NSInteger)section {
+    TABTableAnimated *obj = [self animatedWithCellClass:cellClass cellHeight:cellHeight];
+    obj.animatedCountArray = @[@(animatedCount)];
+    obj.animatedSectionArray = @[@(section)];
+    return obj;
+}
+
 + (instancetype)animatedWithCellClassArray:(NSArray<Class> *)cellClassArray
                            cellHeightArray:(NSArray<NSNumber *> *)cellHeightArray
                         animatedCountArray:(NSArray<NSNumber *> *)animatedCountArray {
-    
     TABTableAnimated *obj = [[TABTableAnimated alloc] init];
     obj.animatedCountArray = animatedCountArray;
-    NSInteger result = 0;
-    for (NSNumber *num in animatedCountArray) {
-        NSInteger count = [num integerValue];
-        result += count;
-    }
-    obj.animatedCount = result;
     obj.cellHeightArray = cellHeightArray;
     obj.cellClassArray = cellClassArray;
-    
     return obj;
 }
 
@@ -61,6 +72,7 @@
     if (self = [super init]) {
         _runAnimationSectionArray = @[].mutableCopy;
         _animatedSectionCount = 0;
+        _animatedCount = 1;
     }
     return self;
 }

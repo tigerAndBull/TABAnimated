@@ -125,15 +125,25 @@
         // v2.0.9以后，增加openAnimationTag属性，方便快速定位动画元素。
         _mainTV.tabAnimated = [TABTableAnimated animatedWithCellClass:[XIBTableViewCell class] cellHeight:115];
         _mainTV.tabAnimated.cancelGlobalCornerRadius = YES;
-        _mainTV.tabAnimated.animatedHeight = 14.f;
-        _mainTV.tabAnimated.categoryBlock = ^(UIView * _Nonnull view) {
-            
+        _mainTV.tabAnimated.animatedHeight = 12.f;
+        
+//        _mainTV.tabAnimated.categoryBlock = ^(UIView * _Nonnull view) {
+//
+//            // 注意！！！
+//            // xib 动画数组的顺序是组件关联xib文件的顺序。
+//            // v2.0.9以后，增加openAnimationTag属性，方便快速定位动画元素。
+//            view.animation(4).width(80).down(4);
+//            view.animation(3).width(110).up(2);
+//            view.animation(5).remove();
+//        };
+        
+        _mainTV.tabAnimated.adjustBlock = ^(TABComponentManager * _Nonnull manager) {
             // 注意！！！
             // xib 动画数组的顺序是组件关联xib文件的顺序。
             // v2.0.9以后，增加openAnimationTag属性，方便快速定位动画元素。
-            view.animation(4).width(80).down(4);
-            view.animation(3).width(110).up(2);
-            view.animation(5).remove();
+            manager.animation(4).width(80).down(4);
+            manager.animation(3).width(110).up(2);
+            manager.animation(5).remove();
         };
     }
     return _mainTV;

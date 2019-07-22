@@ -58,9 +58,13 @@
     SEL oldCell = @selector(collectionView:cellForItemAtIndexPath:);
     SEL newCell = @selector(tab_collectionView:cellForItemAtIndexPath:);
     
+//    SEL oldReuseableCell = @selector(collectionView:viewForSupplementaryElementOfKind:atIndexPath:);
+//    SEL newReuseableCell = @selector(collectionView:viewForSupplementaryElementOfKind:atIndexPath:);
+    
     [self exchangeDelegateOldSel:oldSelector withNewSel:newSelector withDelegate:dataSource];
     [self exchangeDelegateOldSel:oldSectionSelector withNewSel:newSectionSelector withDelegate:dataSource];
     [self exchangeDelegateOldSel:oldCell withNewSel:newCell withDelegate:dataSource];
+//    [self exchangeDelegateOldSel:oldReuseableCell withNewSel:newReuseableCell withDelegate:dataSource];
     
     [self tab_setDataSource:dataSource];
 }
@@ -70,6 +74,9 @@
 - (NSInteger)tab_numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     if (collectionView.tabAnimated.state == TABViewAnimationStart &&
         collectionView.tabAnimated.animatedSectionCount != 0) {
+        for (NSInteger i = 0; i < collectionView.tabAnimated.animatedSectionCount; i++) {
+            [collectionView.tabAnimated.runAnimationSectionArray addObject:[NSNumber numberWithInteger:i]];
+        }
         return collectionView.tabAnimated.animatedSectionCount;
     }
     return [self tab_numberOfSectionsInCollectionView:collectionView];
@@ -183,29 +190,30 @@
             }
         }
         
-        UICollectionViewCell *cell = (UICollectionViewCell *)collectionView.tabAnimated.cellClassArray[index].new;
-        
         NSString *className = NSStringFromClass(collectionView.tabAnimated.cellClassArray[index]);
         if ([className containsString:@"."]) {
             NSRange range = [className rangeOfString:@"."];
             className = [className substringFromIndex:range.location+1];
         }
         
-        cell = [collectionView dequeueReusableCellWithReuseIdentifier:[NSString stringWithFormat:@"tab_%@",className] forIndexPath:indexPath];
+        UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[NSString stringWithFormat:@"tab_%@",className] forIndexPath:indexPath];
         
-        if (nil == cell.tabLayer) {
+        if (nil == cell.tabComponentManager) {
             [TABManagerMethod fullData:cell];
-            cell.tabLayer = TABLayer.new;
-            cell.tabLayer.frame = cell.bounds;
-            cell.tabLayer.animatedHeight = collectionView.tabAnimated.animatedHeight;
-            cell.tabLayer.animatedCornerRadius = collectionView.tabAnimated.animatedCornerRadius;
-            cell.tabLayer.cancelGlobalCornerRadius = collectionView.tabAnimated.cancelGlobalCornerRadius;
-            if (cell.tabLayer.animatedCornerRadius > 0) {
-                cell.tabLayer.cornerRadius = cell.contentView.layer.cornerRadius;
-            }else {
-                cell.tabLayer.animatedCornerRadius = collectionView.tabAnimated.animatedCornerRadius;
+            
+            cell.tabComponentManager = [TABComponentManager initWithView:cell];
+            cell.tabComponentManager.tabLayer.frame = cell.bounds;
+            cell.tabComponentManager.currentSection = indexPath.section;
+            cell.tabComponentManager.animatedHeight = collectionView.tabAnimated.animatedHeight;
+            cell.tabComponentManager.animatedCornerRadius = collectionView.tabAnimated.animatedCornerRadius;
+            cell.tabComponentManager.cancelGlobalCornerRadius = collectionView.tabAnimated.cancelGlobalCornerRadius;
+            
+            if (collectionView.tabAnimated.animatedBackViewCornerRadius > 0) {
+                cell.tabComponentManager.tabLayer.cornerRadius = collectionView.tabAnimated.animatedBackViewCornerRadius;
             }
-            [cell.layer addSublayer:cell.tabLayer];
+            
+            cell.tabComponentManager.animatedBackgroundColor = collectionView.tabAnimated.animatedBackgroundColor;
+            cell.tabComponentManager.animatedColor = collectionView.tabAnimated.animatedColor;
         }
         
         return cell;

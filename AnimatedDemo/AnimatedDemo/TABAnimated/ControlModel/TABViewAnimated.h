@@ -16,6 +16,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "TABComponentManager.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -56,12 +57,43 @@ typedef NS_ENUM(NSInteger,TABViewSuperAnimationType) {
  */
 typedef void(^TABAnimatedCategoryBlock)(UIView *view);
 
+/**
+ * 新预处理回调
+ *
+ * @param manager 管理动画组对象
+ */
+typedef void(^TABAdjustBlock)(TABComponentManager *manager);
+
+/**
+ * 新预处理回调，适用于多cell
+ * 默认情况下，cellArray的下标就是section的值
+ * 指定section的情况，就是你所指定的值
+ *
+ * @param manager 管理动画组对象
+ * @param section 多cell情况，对应的数组下标
+ */
+typedef void(^TABAdjustWithSectionBlock)(TABComponentManager *manager, NSInteger section);
+
+
 @interface TABViewAnimated : NSObject
+
+/**
+ * v2.2.0新预处理回调, 职责更明确
+ * 可以在其中使用链式语法便捷调整每一个动画元素
+ */
+@property (nonatomic,copy) TABAdjustBlock adjustBlock;
+
+/**
+ * v2.2.0新预处理回调, 职责更明确
+ * 可以在其中使用链式语法便捷调整每一个动画元素,
+ * section是指数组中不同cell的下标
+ */
+@property (nonatomic,copy) TABAdjustWithSectionBlock adjustWithSectionBlock;
 
 /**
  * 预处理回调，可以在其中使用链式语法便捷调整每一个动画元素
  */
-@property (nonatomic,copy) TABAnimatedCategoryBlock categoryBlock;
+@property (nonatomic,copy) TABAnimatedCategoryBlock categoryBlock  DEPRECATED_MSG_ATTRIBUTE("该回调在v2.1.4被弃用，请使用新的回调`adjustBlock`或者`adjustWithSectionBlock`取代");
 
 /**
  * The state of the animation, you can reset it.
@@ -81,11 +113,6 @@ typedef void(^TABAnimatedCategoryBlock)(UIView *view);
  * 一个section对应一个templateClass
  */
 @property (nonatomic,copy) NSArray <Class> *cellClassArray;
-
-/**
- * 动画时row数量，默认填充屏幕为准
- **/
-@property (nonatomic,assign) NSInteger animatedCount;
 
 /**
  * Similar to `animatedCount`.
@@ -117,9 +144,14 @@ typedef void(^TABAnimatedCategoryBlock)(UIView *view);
 
 /**
  * It determines the cornerRadius of all animations on the control view.
- * 决定当前视图动画圆角
+ * 决定当前视图动画元素圆角
  */
 @property (nonatomic,assign) CGFloat animatedCornerRadius;
+
+/**
+ * 如果你的背景视图的圆角失效了，请使用这个属性设置其圆角
+ */
+@property (nonatomic,assign) CGFloat animatedBackViewCornerRadius;
 
 /**
  * It determines the cornerRadius of all animations without the class of `UIImageView` on the control view.
@@ -143,11 +175,6 @@ typedef void(^TABAnimatedCategoryBlock)(UIView *view);
  * 是否可以重复开启动画，默认开启只生效一次。
  */
 @property (nonatomic,assign) BOOL canLoadAgain;
-
-/**
- * 结束动画时不自动结束被嵌套的表格视图，默认为NO。
- */
-@property (nonatomic,assign) BOOL endAnimatedWithoutNestView;
 
 #pragma mark - 豆瓣动画属性
 

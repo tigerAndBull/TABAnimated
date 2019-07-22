@@ -10,6 +10,20 @@
 
 @implementation TABComponentLayer (TABAnimated)
 
+- (TABComponentLayerBlock)x {
+    return ^TABComponentLayer *(CGFloat offset) {
+        self.frame = CGRectMake(offset, self.frame.origin.y, self.frame.size.width, self.frame.size.height);
+        return self;
+    };
+}
+
+- (TABComponentLayerBlock)y {
+    return ^TABComponentLayer *(CGFloat offset) {
+        self.frame = CGRectMake(self.frame.origin.x, offset, self.frame.size.width, self.frame.size.height);
+        return self;
+    };
+}
+
 - (TABComponentLayerBlock)left {
     return ^TABComponentLayer *(CGFloat offset) {
         self.frame = CGRectMake(self.frame.origin.x - offset, self.frame.origin.y, self.frame.size.width, self.frame.size.height);
@@ -45,7 +59,7 @@
             return self;
         }
         
-        self.tabViewWidth = offset;
+        self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, offset, self.frame.size.height);
         return self;
     };
 }
@@ -71,7 +85,7 @@
 
 - (TABComponentLayerBlock)reducedWidth {
     return ^TABComponentLayer *(CGFloat offset) {
-        self.tabViewWidth = self.frame.size.width - offset;
+        self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width - offset, self.frame.size.height);
         return self;
     };
 }

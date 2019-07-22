@@ -192,21 +192,35 @@
             collectionView.tabAnimated =
             [TABCollectionAnimated animatedWithCellClass:[LawyerCollectionViewCell class]
                                                 cellSize:[LawyerCollectionViewCell cellSize]];
-            collectionView.tabAnimated.categoryBlock = ^(UIView * _Nonnull view) {
-                view.animation(1).height(12).down(-2).reducedWidth(-90);
-                view.animation(2).height(12).down(7).reducedWidth(-30);
-                view.animation(3).height(12).down(-2).reducedWidth(150);
-                view.animations(5,3).down(4).right(30);
+//            collectionView.tabAnimated.categoryBlock = ^(UIView * _Nonnull view) {
+//                view.animation(1).height(12).down(-2).reducedWidth(-90);
+//                view.animation(2).height(12).down(7).reducedWidth(-30);
+//                view.animation(3).height(12).down(-2).reducedWidth(150);
+//                view.animations(5,3).down(4).right(30);
+//            };
+            
+            collectionView.tabAnimated.adjustBlock = ^(TABComponentManager * _Nonnull manager) {
+                manager.animation(1).height(12).down(-2).reducedWidth(-90);
+                manager.animation(2).height(12).down(7).reducedWidth(-30);
+                manager.animation(3).height(12).down(-2).reducedWidth(150);
+                manager.animations(5,3).down(4).right(30);
             };
+            
         }else {
             [collectionView registerClass:[LawyerArticleCollectionViewCell class] forCellWithReuseIdentifier:[LawyerArticleCollectionViewCell cellIdentifier]];
             collectionView.tabAnimated =
             [TABCollectionAnimated animatedWithCellClass:[LawyerArticleCollectionViewCell class]
                                                 cellSize:[LawyerArticleCollectionViewCell cellSize]];
-            collectionView.tabAnimated.categoryBlock = ^(UIView * _Nonnull view) {
-                view.animation(1).height(12).up(-3).width(60);
-                view.animation(2).height(12).width(90).up(2);
-                view.animation(3).up(10);
+//            collectionView.tabAnimated.categoryBlock = ^(UIView * _Nonnull view) {
+//                view.animation(1).height(12).up(-3).width(60);
+//                view.animation(2).height(12).width(90).up(2);
+//                view.animation(3).up(10);
+//            };
+            
+            collectionView.tabAnimated.adjustBlock = ^(TABComponentManager * _Nonnull manager) {
+                manager.animation(1).height(12).up(-3).width(60);
+                manager.animation(2).height(12).width(90).up(2);
+                manager.animation(3).up(10);
             };
         }
         

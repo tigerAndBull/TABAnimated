@@ -65,7 +65,6 @@
         game.cover = @"test.jpg";
         [dataArray addObject:game];
     }
-    //    [_tableView reloadData];
     // 停止动画,并刷新数据
     [self.tableView tab_endAnimation];
 }
@@ -75,13 +74,6 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return dataArray.count;
 }
-
-//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    if (tableView.tabAnimated.state == TABViewAnimationStart) {
-//        return 100;
-//    }
-//    return UITableViewAutomaticDimension;
-//}
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 44;
@@ -134,20 +126,12 @@
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:UITableViewStylePlain];
         _tableView.dataSource = self;
         _tableView.delegate = self;
-        //        _tableView.estimatedRowHeight = 44;
-        //        _tableView.estimatedSectionFooterHeight = 0;
-        //        _tableView.estimatedSectionHeaderHeight = 0;
         _tableView.backgroundColor = [UIColor whiteColor];
-        //        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         
         // 设置tabAnimated相关属性
         // 可以不进行手动初始化，将使用默认属性
         _tableView.tabAnimated = [TABTableAnimated animatedWithCellClass:[TestLayoutCell class]
                                                               cellHeight:100];
-        //        _tableView.tabAnimated.categoryBlock = ^(UIView * _Nonnull view) {
-        //            view.animation(1).down(3).height(12).toShortAnimation();
-        ////            view.animation(2).height(12).width(110).toLongAnimation();
-        //        };
     }
     return _tableView;
 }

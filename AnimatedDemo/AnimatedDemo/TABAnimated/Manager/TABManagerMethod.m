@@ -103,13 +103,37 @@ static NSString * const kLongDataString = @"tab_testtesttesttesttesttesttesttest
         return;
     }
     
+    if (view.tabComponentManager == nil && rootSuperView.tabComponentManager &&
+        ![view isKindOfClass:[UIButton class]]
+        && ![view isKindOfClass:[UITableViewCell class]]
+        && ![view isKindOfClass:[UICollectionViewCell class]]) {
+        view.tabComponentManager.tabLayer = CALayer.new;
+        CGRect rect = [rootSuperView convertRect:view.frame fromView:view.superview];
+        view.tabComponentManager.tabLayer.frame = rect;
+        view.tabComponentManager.tabLayer.backgroundColor = view.backgroundColor.CGColor;
+        view.tabComponentManager.tabLayer.shadowOffset = view.layer.shadowOffset;
+        view.tabComponentManager.tabLayer.shadowColor = view.layer.shadowColor;
+        view.tabComponentManager.tabLayer.shadowRadius = view.layer.shadowRadius;
+        view.tabComponentManager.tabLayer.shadowOpacity = view.layer.shadowOpacity;
+        view.tabComponentManager.tabLayer.cornerRadius = view.layer.cornerRadius;
+        [rootSuperView.tabComponentManager.tabLayer addSublayer:view.tabComponentManager.tabLayer];
+    }
+    
     for (int i = 0; i < subViews.count;i++) {
         
         UIView *subV = subViews[i];
         
         if (subV.tabAnimated.isNest &&
             ![subV isEqual:rootSuperView]) {
-            rootView.tabLayer.nestView = subV;
+            rootView.tabComponentManager.nestView = subV;
+            
+            CGRect cutRect = [rootSuperView convertRect:subV.frame fromView:subV.superview];
+            UIBezierPath *path = [UIBezierPath bezierPathWithRect:rootView.frame];
+            [path appendPath:[[UIBezierPath bezierPathWithRoundedRect:cutRect cornerRadius:0.]bezierPathByReversingPath]];
+            CAShapeLayer *shapeLayer = [CAShapeLayer layer];
+            shapeLayer.path = path.CGPath;
+            [rootView.tabComponentManager.tabLayer setMask:shapeLayer];
+            
             isInNestView = YES;
         }
         
@@ -141,14 +165,13 @@ static NSString * const kLongDataString = @"tab_testtesttesttesttesttesttesttest
             TABComponentLayer *layer = TABComponentLayer.new;
 
             if (!CGSizeEqualToSize(subV.layer.shadowOffset, CGSizeMake(0, -3))) {
-                rootView.tabLayer.cardOffset = CGPointMake(rootView.bounds.origin.x - subV.frame.origin.x, rootView.bounds.origin.y - subV.frame.origin.y);
-                rootView.tabLayer.frame = subV.frame;
-                rootView.tabLayer.shadowOffset = subV.layer.shadowOffset;
-                rootView.tabLayer.shadowColor = subV.layer.shadowColor;
-                rootView.tabLayer.shadowRadius = subV.layer.shadowRadius;
-                rootView.tabLayer.shadowOpacity = subV.layer.shadowOpacity;
-                rootView.tabLayer.cornerRadius = subV.layer.cornerRadius;
-                rootView.tabLayer.masksToBounds = YES;
+                rootView.tabComponentManager.cardOffset = CGPointMake(rootView.bounds.origin.x - subV.frame.origin.x, rootView.bounds.origin.y - subV.frame.origin.y);
+                rootView.tabComponentManager.tabLayer.frame = subV.frame;
+                rootView.tabComponentManager.tabLayer.shadowOffset = subV.layer.shadowOffset;
+                rootView.tabComponentManager.tabLayer.shadowColor = subV.layer.shadowColor;
+                rootView.tabComponentManager.tabLayer.shadowRadius = subV.layer.shadowRadius;
+                rootView.tabComponentManager.tabLayer.shadowOpacity = subV.layer.shadowOpacity;
+                rootView.tabComponentManager.tabLayer.masksToBounds = YES;
                 continue;
             }
             
@@ -200,7 +223,8 @@ static NSString * const kLongDataString = @"tab_testtesttesttesttesttesttesttest
         
         if (subV.tabAnimated) {
             if (subV.tabAnimated.isAnimating) {
-                [subV tab_endAnimation];
+                subV.tabAnimated.state = TABViewAnimationEnd;
+                subV.tabAnimated.isAnimating = NO;
             }
         }
     }
@@ -308,8 +332,8 @@ static NSString * const kLongDataString = @"tab_testtesttesttesttesttesttesttest
 
 + (void)removeMask:(UIView *)view {
     
-    if (view.tabLayer) {
-        [view.tabLayer removeFromSuperlayer];
+    if (view.tabComponentManager.tabLayer) {
+        [view.tabComponentManager.tabLayer removeFromSuperlayer];
     }
     
     if (view.layer.mask) {

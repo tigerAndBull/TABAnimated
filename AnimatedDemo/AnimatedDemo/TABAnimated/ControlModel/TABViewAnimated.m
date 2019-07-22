@@ -14,7 +14,6 @@
     if (self = [super init]) {
         _animatedCountArray = @[].mutableCopy;
         _cellClassArray = @[].mutableCopy;
-        _animatedCount = 1;
         _superAnimationType = TABViewSuperAnimationTypeDefault;
         _dropAnimationDuration = 0;
     }

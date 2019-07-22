@@ -69,12 +69,21 @@
     
     self.mainView.tabAnimated = TABViewAnimated.new;
     self.mainView.tabAnimated.superAnimationType = TABViewSuperAnimationTypeDrop;
-    self.mainView.tabAnimated.categoryBlock = ^(UIView * _Nonnull view) {
-        view.animation(0).dropStayTime(0.6);
-        view.animation(1).width(200);
-        view.animation(2).width(220);
-        view.animation(3).width(180);
+    
+//    self.mainView.tabAnimated.categoryBlock = ^(UIView * _Nonnull view) {
+//        view.animation(0).dropStayTime(0.6);
+//        view.animation(1).width(200);
+//        view.animation(2).width(220);
+//        view.animation(3).width(180);
+//    };
+    
+    self.mainView.tabAnimated.adjustBlock = ^(TABComponentManager * _Nonnull manager) {
+        manager.animation(0).dropStayTime(0.6);
+        manager.animation(1).width(200);
+        manager.animation(2).width(220);
+        manager.animation(3).width(180);
     };
+    
     [self.mainView tab_startAnimation];
 }
 

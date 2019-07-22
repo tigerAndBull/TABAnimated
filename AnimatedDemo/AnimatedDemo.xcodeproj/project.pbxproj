@@ -108,6 +108,8 @@
 		685D5B092265D05F0058A6CC /* MJRefreshComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 685D5AF12265D05E0058A6CC /* MJRefreshComponent.m */; };
 		688BBA2822578F160008FD5D /* TestTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 688BBA2622578F160008FD5D /* TestTableViewController.m */; };
 		68933DE022D07900001B1151 /* TABComponentLayer+TABAnimated.m in Sources */ = {isa = PBXBuildFile; fileRef = 68933DDF22D07900001B1151 /* TABComponentLayer+TABAnimated.m */; };
+		6893D71C22DDC0ED0097917A /* TABComponentManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6893D71B22DDC0ED0097917A /* TABComponentManager.m */; };
+		6893D71F22DDC15E0097917A /* TABBaseComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 6893D71E22DDC15E0097917A /* TABBaseComponent.m */; };
 		68958D542274AA40002C4295 /* CardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68958D522274AA3F002C4295 /* CardViewController.m */; };
 		68958D572274AA7B002C4295 /* CardCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 68958D562274AA7A002C4295 /* CardCollectionViewCell.m */; };
 		68958D5A22753D00002C4295 /* SegmentCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68958D5922753D00002C4295 /* SegmentCollectionViewController.m */; };
@@ -136,7 +138,6 @@
 		68D0B6C922C5AC65008DA458 /* UITableView+TABAnimated.m in Sources */ = {isa = PBXBuildFile; fileRef = 68D0B6AB22C5AC65008DA458 /* UITableView+TABAnimated.m */; };
 		68D0B6CA22C5AC65008DA458 /* UIView+TABLayoutSubviews.m in Sources */ = {isa = PBXBuildFile; fileRef = 68D0B6AE22C5AC65008DA458 /* UIView+TABLayoutSubviews.m */; };
 		68D0B6CB22C5AC65008DA458 /* TABComponentLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 68D0B6B122C5AC65008DA458 /* TABComponentLayer.m */; };
-		68D0B6CC22C5AC65008DA458 /* TABLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 68D0B6B422C5AC65008DA458 /* TABLayer.m */; };
 		68D0B6CD22C5AC65008DA458 /* TABViewAnimated.m in Sources */ = {isa = PBXBuildFile; fileRef = 68D0B6B622C5AC65008DA458 /* TABViewAnimated.m */; };
 		68D0B6CE22C5AC65008DA458 /* TABCollectionAnimated.m in Sources */ = {isa = PBXBuildFile; fileRef = 68D0B6B722C5AC65008DA458 /* TABCollectionAnimated.m */; };
 		68D0B6CF22C5AC65008DA458 /* TABTableAnimated.m in Sources */ = {isa = PBXBuildFile; fileRef = 68D0B6B822C5AC65008DA458 /* TABTableAnimated.m */; };
@@ -374,6 +375,10 @@
 		688BBA2722578F160008FD5D /* TestTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestTableViewController.h; sourceTree = "<group>"; };
 		68933DDE22D07900001B1151 /* TABComponentLayer+TABAnimated.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TABComponentLayer+TABAnimated.h"; sourceTree = "<group>"; };
 		68933DDF22D07900001B1151 /* TABComponentLayer+TABAnimated.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "TABComponentLayer+TABAnimated.m"; sourceTree = "<group>"; };
+		6893D71A22DDC0ED0097917A /* TABComponentManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TABComponentManager.h; sourceTree = "<group>"; };
+		6893D71B22DDC0ED0097917A /* TABComponentManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TABComponentManager.m; sourceTree = "<group>"; };
+		6893D71D22DDC15E0097917A /* TABBaseComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TABBaseComponent.h; sourceTree = "<group>"; };
+		6893D71E22DDC15E0097917A /* TABBaseComponent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TABBaseComponent.m; sourceTree = "<group>"; };
 		68958D522274AA3F002C4295 /* CardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardViewController.m; sourceTree = "<group>"; };
 		68958D532274AA3F002C4295 /* CardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardViewController.h; sourceTree = "<group>"; };
 		68958D552274AA7A002C4295 /* CardCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardCollectionViewCell.h; sourceTree = "<group>"; };
@@ -422,9 +427,7 @@
 		68D0B6AE22C5AC65008DA458 /* UIView+TABLayoutSubviews.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+TABLayoutSubviews.m"; sourceTree = "<group>"; };
 		68D0B6AF22C5AC65008DA458 /* UIView+TABAnimated.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+TABAnimated.h"; sourceTree = "<group>"; };
 		68D0B6B122C5AC65008DA458 /* TABComponentLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TABComponentLayer.m; sourceTree = "<group>"; };
-		68D0B6B222C5AC65008DA458 /* TABLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TABLayer.h; sourceTree = "<group>"; };
 		68D0B6B322C5AC65008DA458 /* TABComponentLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TABComponentLayer.h; sourceTree = "<group>"; };
-		68D0B6B422C5AC65008DA458 /* TABLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TABLayer.m; sourceTree = "<group>"; };
 		68D0B6B622C5AC65008DA458 /* TABViewAnimated.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TABViewAnimated.m; sourceTree = "<group>"; };
 		68D0B6B722C5AC65008DA458 /* TABCollectionAnimated.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TABCollectionAnimated.m; sourceTree = "<group>"; };
 		68D0B6B822C5AC65008DA458 /* TABTableAnimated.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TABTableAnimated.m; sourceTree = "<group>"; };
@@ -1042,8 +1045,10 @@
 				68933DDF22D07900001B1151 /* TABComponentLayer+TABAnimated.m */,
 				68D0B6A922C5AC65008DA458 /* NSArray+TABAnimated.h */,
 				68D0B6A322C5AC65008DA458 /* NSArray+TABAnimated.m */,
-				68D0B6B222C5AC65008DA458 /* TABLayer.h */,
-				68D0B6B422C5AC65008DA458 /* TABLayer.m */,
+				6893D71A22DDC0ED0097917A /* TABComponentManager.h */,
+				6893D71B22DDC0ED0097917A /* TABComponentManager.m */,
+				6893D71D22DDC15E0097917A /* TABBaseComponent.h */,
+				6893D71E22DDC15E0097917A /* TABBaseComponent.m */,
 			);
 			path = Layer;
 			sourceTree = "<group>";
@@ -1235,6 +1240,7 @@
 				685D5AFA2265D05F0058A6CC /* NSBundle+MJRefresh.m in Sources */,
 				68D0B6C622C5AC65008DA458 /* UITableViewCell+TABLayoutSubviews.m in Sources */,
 				685D5B022265D05F0058A6CC /* MJRefreshNormalHeader.m in Sources */,
+				6893D71C22DDC0ED0097917A /* TABComponentManager.m in Sources */,
 				681567232264214F00293AB4 /* JXCategoryTitleImageCellModel.m in Sources */,
 				20E72D7A2226E2D200E781C9 /* DailyCollectionViewCell.m in Sources */,
 				68CFCF162294DFA0007D167F /* XibCollectionViewController.m in Sources */,
@@ -1246,6 +1252,7 @@
 				681567302264214F00293AB4 /* JXCategoryIndicatorParamsModel.m in Sources */,
 				685D5AFC2265D05F0058A6CC /* MJRefreshBackGifFooter.m in Sources */,
 				68933DE022D07900001B1151 /* TABComponentLayer+TABAnimated.m in Sources */,
+				6893D71F22DDC15E0097917A /* TABBaseComponent.m in Sources */,
 				68D0B6C822C5AC65008DA458 /* TABManagerMethod.m in Sources */,
 				681567322264214F00293AB4 /* JXCategoryListCollectionContainerView.m in Sources */,
 				681567122264214F00293AB4 /* JXCategoryTitleVerticalZoomView.m in Sources */,
@@ -1334,7 +1341,6 @@
 				2039EF7521DA07F200AE09FC /* NestCollectionViewCell.m in Sources */,
 				68D0B6C322C5AC65008DA458 /* UICollectionView+TABAnimated.m in Sources */,
 				2039EFA221DA17A600AE09FC /* MASViewConstraint.m in Sources */,
-				68D0B6CC22C5AC65008DA458 /* TABLayer.m in Sources */,
 				688BBA2822578F160008FD5D /* TestTableViewController.m in Sources */,
 				20BFBFFA2170D912001887A9 /* TestCollectionViewCell.m in Sources */,
 				20A85C38215224B10005AD62 /* Game.m in Sources */,
@@ -1506,7 +1512,8 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = JGZKPAYJ7R;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = R9KZ6JCDP2;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/AnimatedDemo",
@@ -1534,7 +1541,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = JGZKPAYJ7R;
+				DEVELOPMENT_TEAM = R9KZ6JCDP2;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/AnimatedDemo",

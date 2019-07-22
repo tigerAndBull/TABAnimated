@@ -195,12 +195,21 @@
                                        cellSizeArray:sizeArray
                                        animatedCountArray:@[@(1),@(3)]];
         
-        _collectionView.tabAnimated.categoryBlock = ^(UIView * _Nonnull view) {
-            if ([view isKindOfClass:[LawyerCollectionViewCell class]]) {
-                view.animation(1).height(12).down(-2).reducedWidth(-90);
-                view.animation(2).height(12).down(7).reducedWidth(-30);
-                view.animation(3).height(12).down(-2).reducedWidth(150);
-                view.animations(5,3).down(4).right(30);
+//        _collectionView.tabAnimated.categoryBlock = ^(UIView * _Nonnull view) {
+//            if ([view isKindOfClass:[LawyerCollectionViewCell class]]) {
+//                view.animation(1).height(12).down(-2).reducedWidth(-90);
+//                view.animation(2).height(12).down(7).reducedWidth(-30);
+//                view.animation(3).height(12).down(-2).reducedWidth(150);
+//                view.animations(5,3).down(4).right(30);
+//            }
+//        };
+        
+        _collectionView.tabAnimated.adjustWithSectionBlock = ^(TABComponentManager * _Nonnull manager, NSInteger section) {
+            if (section == 0) {
+                manager.animation(1).height(12).down(-2).reducedWidth(-90);
+                manager.animation(2).height(12).down(7).reducedWidth(-30);
+                manager.animation(3).height(12).down(-2).reducedWidth(150);
+                manager.animations(5,3).down(4).right(30);
             }
         };
     }

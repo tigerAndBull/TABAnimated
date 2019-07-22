@@ -106,14 +106,25 @@
         _collectionView.tabAnimated.dropAnimationDuration = 0.34;
         _collectionView.tabAnimated.animatedColor = kColor(0xF3F3F3FF);
         _collectionView.tabAnimated.dropAnimationDeepColor = kColor(0xEBEBEBFF);
-        _collectionView.tabAnimated.categoryBlock = ^(UIView * _Nonnull view) {
-            
+        _collectionView.tabAnimated.animatedBackViewCornerRadius = 5.;
+        
+//        _collectionView.tabAnimated.categoryBlock = ^(UIView * _Nonnull view) {
+//
+//            // 一旦豆瓣动画队列中 其中一个元素的dropIndex被修改了，那么其他元素大概率需要重新设置
+//            // 将左侧图片移除豆瓣动画变色队列
+//            view.animation(0).removeOnDrop();
+//            view.animations(1,2).remove().removeOnDrop();
+//            view.animations(4,2).remove().removeOnDrop();
+//            view.animation(3).up(50).lastLineScale(0.7).width(200).dropFromIndex(0).space(10.);
+//        };
+        
+        _collectionView.tabAnimated.adjustBlock = ^(TABComponentManager * _Nonnull manager) {
             // 一旦豆瓣动画队列中 其中一个元素的dropIndex被修改了，那么其他元素大概率需要重新设置
             // 将左侧图片移除豆瓣动画变色队列
-            view.animation(0).removeOnDrop();
-            view.animations(1,2).remove().removeOnDrop();
-            view.animations(4,2).remove().removeOnDrop();
-            view.animation(3).up(50).lastLineScale(0.7).width(200).dropFromIndex(0).space(10.);
+            manager.animation(0).removeOnDrop();
+            manager.animations(1,2).remove().removeOnDrop();
+            manager.animations(4,2).remove().removeOnDrop();
+            manager.animation(3).up(50).lastLineScale(0.7).width(200).dropFromIndex(0).space(10.);
         };
         
     }

@@ -82,8 +82,6 @@
     return .1;
 }
 
-
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     static NSString *str = @"LabWithLinesViewCell";
@@ -93,11 +91,7 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
-    // 在加载动画的时候，即未获得数据时，不要走加载控件数据的方法
-    if (!self.tableView.tabAnimated.isAnimating) {
-        [cell initWithData:dataArray[indexPath.row]];
-    }
-    
+    [cell initWithData:dataArray[indexPath.row]];
     return cell;
 }
 
@@ -135,8 +129,12 @@
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         
         _tableView.tabAnimated = [TABTableAnimated animatedWithCellClass:[LabWithLinesViewCell class] cellHeight:100];
-        _tableView.tabAnimated.categoryBlock = ^(UIView * _Nonnull view) {
-            view.animation(1).down(3).line(3);
+        
+//        _tableView.tabAnimated.categoryBlock = ^(UIView * _Nonnull view) {
+//            view.animation(1).down(3).line(3);
+//        };
+        _tableView.tabAnimated.adjustBlock = ^(TABComponentManager * _Nonnull manager) {
+            manager.animation(1).down(3).line(3);
         };
     }
     return _tableView;

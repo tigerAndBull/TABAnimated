@@ -112,12 +112,20 @@
         _collectionView.tabAnimated =
         [TABCollectionAnimated animatedWithCellClass:[CardCollectionViewCell class]
                                             cellSize:[CardCollectionViewCell cellSize]];
-        _collectionView.tabAnimated.categoryBlock = ^(UIView * _Nonnull view) {
-            view.animation(1).width(60);
-            view.animation(2).height(12).down(-5).reducedWidth(45);
-            view.animation(3).up(5);
-            view.animation(4).reducedWidth(40);
-            view.animation(5).width(40).left(10);
+//        _collectionView.tabAnimated.categoryBlock = ^(UIView * _Nonnull view) {
+//            view.animation(1).width(60);
+//            view.animation(2).height(12).down(-5).reducedWidth(45);
+//            view.animation(3).up(5);
+//            view.animation(4).reducedWidth(40);
+//            view.animation(5).width(40).left(10);
+//        };
+        
+        _collectionView.tabAnimated.adjustBlock = ^(TABComponentManager * _Nonnull manager) {
+            manager.animation(1).width(60);
+            manager.animation(2).height(12).down(-5).reducedWidth(45);
+            manager.animation(3).up(5);
+            manager.animation(4).reducedWidth(40);
+            manager.animation(5).width(40).left(10);
         };
         
     }

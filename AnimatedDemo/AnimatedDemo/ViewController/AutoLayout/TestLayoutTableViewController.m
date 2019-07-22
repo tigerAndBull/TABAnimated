@@ -75,17 +75,6 @@
     return dataArray.count;
 }
 
-//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    if (tableView.tabAnimated.state == TABViewAnimationStart) {
-//        return 100;
-//    }
-//    return UITableViewAutomaticDimension;
-//}
-
-//- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    return 44;
-//}
-
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return .1;
 }
@@ -140,10 +129,6 @@
         // 可以不进行手动初始化，将使用默认属性
         _tableView.tabAnimated = [TABTableAnimated animatedWithCellClass:[TestLayoutCell class]
                                                               cellHeight:100];
-//        _tableView.tabAnimated.categoryBlock = ^(UIView * _Nonnull view) {
-//            view.animation(1).down(3).height(12).toShortAnimation();
-////            view.animation(2).height(12).width(110).toLongAnimation();
-//        };
     }
     return _tableView;
 }
@@ -194,8 +179,6 @@
     self.titleLab.text = game.title;
     self.timeLab.text = @"发布时间：2018-09-12";
 }
-
-
 
 - (UILabel *)titleLab {
     if (!_titleLab) {

@@ -9,7 +9,7 @@
 #import "UIView+TABAnimated.h"
 #import "TABViewAnimated.h"
 #import "UIView+TABControlAnimation.h"
-#import "TABLayer.h"
+#import "TABComponentManager.h"
 
 #import <objc/runtime.h>
 
@@ -25,37 +25,37 @@
     objc_setAssociatedObject(self, @selector(tabAnimated),tabAnimated, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-- (TABLayer *)tabLayer {
-    return objc_getAssociatedObject(self, @selector(tabLayer));
+- (TABComponentManager *)tabComponentManager {
+    return objc_getAssociatedObject(self, @selector(tabComponentManager));
 }
 
-- (void)setTabLayer:(TABLayer *)tabLayer {
-    objc_setAssociatedObject(self, @selector(tabLayer),tabLayer, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+- (void)setTabComponentManager:(TABComponentManager *)tabComponentManager {
+    objc_setAssociatedObject(self, @selector(tabComponentManager),tabComponentManager, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 - (TABSearchLayerBlock)animation {
     return ^TABComponentLayer *(NSInteger index) {
-        if (index >= self.tabLayer.componentLayerArray.count) {
+        if (index >= self.tabComponentManager.componentLayerArray.count) {
             NSAssert(NO, @"Array bound, please check it carefully.");
         }
-        return self.tabLayer.componentLayerArray[index];
+        return self.tabComponentManager.componentLayerArray[index];
     };
 }
 
 - (TABSearchLayerArrayBlock)animations {
     return ^NSArray <TABComponentLayer *> *(NSInteger location, NSInteger length) {
-        if (location + length > self.tabLayer.componentLayerArray.count) {
+        if (location + length > self.tabComponentManager.componentLayerArray.count) {
             NSAssert(NO, @"Array bound, please check it carefully.");
         }
         NSMutableArray <TABComponentLayer *> *tempArray = @[].mutableCopy;
         for (NSInteger i = location; i < location+length; i++) {
-            TABComponentLayer *layer = self.tabLayer.componentLayerArray[i];
+            TABComponentLayer *layer = self.tabComponentManager.componentLayerArray[i];
             [tempArray addObject:layer];
         }
         
         // 修改添加  需要查看数组内容   length == 0 && location == 0 是返回整个数组   xiaoxin
         if (length == 0 && location == 0) {
-            tempArray = self.tabLayer.componentLayerArray.mutableCopy;
+            tempArray = self.tabComponentManager.componentLayerArray.mutableCopy;
         }
         
         return tempArray.mutableCopy;

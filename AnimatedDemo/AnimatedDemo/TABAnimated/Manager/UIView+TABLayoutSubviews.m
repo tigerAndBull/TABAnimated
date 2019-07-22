@@ -59,28 +59,33 @@
                                                   isInNestView:NO
                                                          array:array];
                     
-                    self.tabLayer.componentLayerArray = array;
+                    [self.tabComponentManager installBaseComponent:array.copy];
                     
-                    if (self.tabLayer.componentLayerArray.count != 0) {
+                    if (self.tabComponentManager.baseComponentArray.count != 0) {
+                        
                         __weak typeof(self) weakSelf = self;
+                        
                         if (self.tabAnimated.categoryBlock) {
                             self.tabAnimated.categoryBlock(weakSelf);
                         }
+                        
+                        if (self.tabAnimated.adjustBlock) {
+                            self.tabAnimated.adjustBlock(weakSelf.tabComponentManager);
+                        }
                     }
                     
-                    self.tabLayer.animatedBackgroundColor = self.tabAnimated.animatedBackgroundColor;
-                    self.tabLayer.animatedColor = self.tabAnimated.animatedColor;
-                    [self.tabLayer updateSublayers:self.tabLayer.componentLayerArray.mutableCopy];
+                    self.tabComponentManager.animatedBackgroundColor = self.tabAnimated.animatedBackgroundColor;
+                    self.tabComponentManager.animatedColor = self.tabAnimated.animatedColor;
+                    [self.tabComponentManager updateComponentLayers];
                     
-                    if (self.tabLayer.nestView) {
-                        self.tabLayer.backgroundColor = UIColor.clearColor.CGColor;
+                    if (self.tabComponentManager.nestView) {
                         [TABManagerMethod resetData:self];
                     }
                     
                     // add shimmer animation
                     if ([TABManagerMethod canAddShimmer:self]) {
-                        for (NSInteger i = 0; i < self.tabLayer.resultLayerArray.count; i++) {
-                            TABComponentLayer *layer = self.tabLayer.resultLayerArray[i];
+                        for (NSInteger i = 0; i < self.tabComponentManager.resultLayerArray.count; i++) {
+                            TABComponentLayer *layer = self.tabComponentManager.resultLayerArray[i];
                             UIColor *baseColor = [TABAnimated sharedAnimated].shimmerBackColor;
                             CGFloat brigtness = [TABAnimated sharedAnimated].shimmerBrightness;
                             layer.colors = @[
@@ -116,30 +121,30 @@
                         
                         CGFloat duration = 0;
                         CGFloat cutTime = 0.02;
-                        CGFloat allCutTime = cutTime*(self.tabLayer.resultLayerArray.count-1)*(self.tabLayer.resultLayerArray.count)/2.0;
+                        CGFloat allCutTime = cutTime*(self.tabComponentManager.resultLayerArray.count-1)*(self.tabComponentManager.resultLayerArray.count)/2.0;
                         if (self.tabAnimated.dropAnimationDuration != 0.) {
                             duration = self.tabAnimated.dropAnimationDuration;
                         }else {
                             duration = [TABAnimated sharedAnimated].dropAnimationDuration;
                         }
                         
-                        for (NSInteger i = 0; i < self.tabLayer.resultLayerArray.count; i++) {
-                            TABComponentLayer *layer = self.tabLayer.resultLayerArray[i];
+                        for (NSInteger i = 0; i < self.tabComponentManager.resultLayerArray.count; i++) {
+                            TABComponentLayer *layer = self.tabComponentManager.resultLayerArray[i];
                             if (layer.removeOnDropAnimation) {
                                 continue;
                             }
                             [TABAnimationMethod addDropAnimation:layer
                                                            index:layer.dropAnimationIndex
-                                                        duration:duration*(self.tabLayer.dropAnimationCount+1)-allCutTime
-                                                           count:self.tabLayer.dropAnimationCount+1
+                                                        duration:duration*(self.tabComponentManager.dropAnimationCount+1)-allCutTime
+                                                           count:self.tabComponentManager.dropAnimationCount+1
                                                         stayTime:layer.dropAnimationStayTime-i*cutTime
                                                        deepColor:deepColor
                                                              key:kTABDropAnimation];
                         }
                     }
                     
-                    if (self.tabLayer.nestView) {
-                        [self.tabLayer.nestView tab_startAnimation];
+                    if (self.tabComponentManager.nestView) {
+                        [self.tabComponentManager.nestView tab_startAnimation];
                     }
                 }
                     

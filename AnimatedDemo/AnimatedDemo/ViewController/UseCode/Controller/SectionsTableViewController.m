@@ -146,17 +146,23 @@
         // 设置tabAnimated相关属性
         // 部分section有动画
         _tableView.tabAnimated =
-        [TABTableAnimated animatedWithCellClassArray:@[[TestTableViewCell class]]
-                                     cellHeightArray:@[@(100)]
-                                  animatedCountArray:@[@(1)]
-                                animatedSectionArray:@[@(1)]];
+        [TABTableAnimated animatedWithCellClass:[TestTableViewCell class]
+                                     cellHeight:100
+                                  animatedCount:1
+                                      toSection:1];
         
-        _tableView.tabAnimated.categoryBlock = ^(UIView * _Nonnull view) {
-            if ([view isKindOfClass:[TestTableViewCell class]]) {
-                view.animation(1).down(3).height(12).toShortAnimation();
-                view.animation(2).height(12).width(110).toLongAnimation();
-                view.animation(3).down(-5).height(12);
-            }
+//        _tableView.tabAnimated.categoryBlock = ^(UIView * _Nonnull view) {
+//            if ([view isKindOfClass:[TestTableViewCell class]]) {
+//                view.animation(1).down(3).height(12).toShortAnimation();
+//                view.animation(2).height(12).width(110).toLongAnimation();
+//                view.animation(3).down(-5).height(12);
+//            }
+//        };
+        
+        _tableView.tabAnimated.adjustBlock = ^(TABComponentManager * _Nonnull manager) {
+            manager.animation(1).down(3).height(12).toShortAnimation();
+            manager.animation(2).height(12).width(110).toLongAnimation();
+            manager.animation(3).down(-5).height(12);
         };
     }
     return _tableView;

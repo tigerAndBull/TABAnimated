@@ -57,9 +57,15 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,assign) CGFloat oldEstimatedRowHeight;
 
 /**
- * 控制动画时的分区数量
+ * 设置动画时的分区数量
  */
 @property (nonatomic,assign) NSInteger animatedSectionCount;
+
+/**
+ * 设置单section动画时row数量，默认填充屏幕为准
+ **/
+@property (nonatomic,assign) NSInteger animatedCount;
+
 
 /**
  * UITableView动画启动时，同时启动UITableViewHeaderView
@@ -96,7 +102,35 @@ NS_ASSUME_NONNULL_BEGIN
                         animatedCount:(NSInteger)animatedCount;
 
 /**
+ * 如果原UITableView是多个section，但是只想指定一个section启动动画，使用该初始化方法
+ * 动画数量以填充contentSize的数量为标准
+ *
+ * @param cellClass 注册的cell类型
+ * @param cellHeight 动画时cell高度
+ * @param section 被指定的section
+ * @return object
+ */
++ (instancetype)animatedWithCellClass:(Class)cellClass
+                           cellHeight:(CGFloat)cellHeight
+                            toSection:(NSInteger)section;
+
+/**
+ * 如果原UITableView是多个section，但是只想指定一个section启动动画，使用该初始化方法
+ *
+ * @param cellClass 注册的cell类型
+ * @param cellHeight 动画时cell高度
+ * @param animatedCount 指定section的动画数量
+ * @param section 被指定的section
+ * @return object
+ */
++ (instancetype)animatedWithCellClass:(Class)cellClass
+                           cellHeight:(CGFloat)cellHeight
+                        animatedCount:(NSInteger)animatedCount
+                            toSection:(NSInteger)section;
+
+/**
  * 多section表格组件初始化方式
+ * 数组一一对应
  * to sections
  *
  * @param cellClassArray 目标cell数组

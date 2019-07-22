@@ -11,27 +11,27 @@
 @implementation NSArray (TABAnimated)
 
 - (TABAnimatedArrayFloatBlock)up {
-    return ^NSArray <TABComponentLayer *> *(CGFloat offset) {
-        for (TABComponentLayer *layer in self) {
-            layer.frame = CGRectMake(layer.frame.origin.x, layer.frame.origin.y - offset, layer.frame.size.width, layer.frame.size.height);
+    return ^NSArray <TABBaseComponent *> *(CGFloat offset) {
+        for (TABBaseComponent *component in self) {
+            component.up(offset);
         }
         return self;
     };
 }
 
 - (TABAnimatedArrayFloatBlock)down {
-    return ^NSArray <TABComponentLayer *> *(CGFloat offset) {
-        for (TABComponentLayer *layer in self) {
-            layer.frame = CGRectMake(layer.frame.origin.x, layer.frame.origin.y + offset, layer.frame.size.width, layer.frame.size.height);
+    return ^NSArray <TABBaseComponent *> *(CGFloat offset) {
+        for (TABBaseComponent *component in self) {
+            component.down(offset);
         }
         return self;
     };
 }
 
 - (TABAnimatedArrayFloatBlock)left {
-    return ^NSArray <TABComponentLayer *> *(CGFloat offset) {
-        for (TABComponentLayer *layer in self) {
-            layer.frame = CGRectMake(layer.frame.origin.x - offset, layer.frame.origin.y, layer.frame.size.width, layer.frame.size.height);
+    return ^NSArray <TABBaseComponent *> *(CGFloat offset) {
+        for (TABBaseComponent *component in self) {
+            component.left(offset);
         }
         return self;
     };
@@ -39,90 +39,108 @@
 }
 
 - (TABAnimatedArrayFloatBlock)right {
-    return ^NSArray <TABComponentLayer *> *(CGFloat offset) {
-        for (TABComponentLayer *layer in self) {
-            layer.frame = CGRectMake(layer.frame.origin.x + offset, layer.frame.origin.y, layer.frame.size.width, layer.frame.size.height);
+    return ^NSArray <TABBaseComponent *> *(CGFloat offset) {
+        for (TABBaseComponent *component in self) {
+            component.right(offset);
         }
         return self;
     };
 }
 
 - (TABAnimatedArrayFloatBlock)width {
-    return ^NSArray <TABComponentLayer *> *(CGFloat offset) {
-        for (TABComponentLayer *layer in self) {
-            layer.tabViewWidth = offset;
+    return ^NSArray <TABBaseComponent *> *(CGFloat offset) {
+        for (TABBaseComponent *component in self) {
+            component.width(offset);
         }
         return self;
     };
 }
 
 - (TABAnimatedArrayFloatBlock)height {
-    return ^NSArray <TABComponentLayer *> *(CGFloat offset) {
-        for (TABComponentLayer *layer in self) {
-            layer.tabViewHeight = offset;
+    return ^NSArray <TABBaseComponent *> *(CGFloat offset) {
+        for (TABBaseComponent *component in self) {
+            component.height(offset);
         }
         return self;
     };
 }
 
 - (TABAnimatedArrayFloatBlock)reducedWidth {
-    return ^NSArray <TABComponentLayer *> *(CGFloat offset) {
-        for (TABComponentLayer *layer in self) {
-            layer.tabViewWidth = layer.frame.size.width - offset;
+    return ^NSArray <TABBaseComponent *> *(CGFloat offset) {
+        for (TABBaseComponent *component in self) {
+            component.reducedWidth(offset);
         }
         return self;
     };
 }
 
 - (TABAnimatedArrayFloatBlock)reducedHeight {
-    return ^NSArray <TABComponentLayer *> *(CGFloat offset) {
-        for (TABComponentLayer *layer in self) {
-            layer.tabViewHeight = layer.frame.size.height - offset;
+    return ^NSArray <TABBaseComponent *> *(CGFloat offset) {
+        for (TABBaseComponent *component in self) {
+            component.reducedHeight(offset);
         }
         return self;
     };
 }
 
 - (TABAnimatedArrayFloatBlock)radius {
-    return ^NSArray <TABComponentLayer *> *(CGFloat offset) {
-        for (TABComponentLayer *layer in self) {
-            layer.cornerRadius = offset;
+    return ^NSArray <TABBaseComponent *> *(CGFloat offset) {
+        for (TABBaseComponent *component in self) {
+            component.radius(offset);
         }
         return self;
     };
 }
 
 - (TABAnimatedArrayIntBlock)line {
-    return ^NSArray <TABComponentLayer *> *(NSInteger value) {
-        for (TABComponentLayer *layer in self) {
-            layer.numberOflines = value;
+    return ^NSArray <TABBaseComponent *> *(NSInteger value) {
+        for (TABBaseComponent *component in self) {
+            component.line(value);
         }
         return self;
     };
 }
 
 - (TABAnimatedArrayFloatBlock)space {
-    return ^NSArray <TABComponentLayer *> *(CGFloat offset) {
-        for (TABComponentLayer *layer in self) {
-            layer.lineSpace = offset;
+    return ^NSArray <TABBaseComponent *> *(CGFloat offset) {
+        for (TABBaseComponent *component in self) {
+            component.space(offset);
         }
         return self;
     };
 }
 
 - (TABAnimatedArrayBlock)remove {
-    return ^NSArray <TABComponentLayer *> *(void) {
-        for (TABComponentLayer *layer in self) {
-            layer.loadStyle = TABViewLoadAnimationRemove;
+    return ^NSArray <TABBaseComponent *> *(void) {
+        for (TABBaseComponent *component in self) {
+            component.remove();
         }
         return self;
     };
 }
 
 - (TABAnimatedArrayStringBlock)placeholder {
-    return ^NSArray <TABComponentLayer *> *(NSString *string) {
-        for (TABComponentLayer *layer in self) {
-            layer.contents = (id)[UIImage imageNamed:string].CGImage;
+    return ^NSArray <TABBaseComponent *> *(NSString *string) {
+        for (TABBaseComponent *component in self) {
+            component.placeholder(string);
+        }
+        return self;
+    };
+}
+
+- (TABAnimatedArrayFloatBlock)x {
+    return ^NSArray <TABBaseComponent *> *(CGFloat offset) {
+        for (TABBaseComponent *component in self) {
+            component.x(offset);
+        }
+        return self;
+    };
+}
+
+- (TABAnimatedArrayFloatBlock)y {
+    return ^NSArray <TABBaseComponent *> *(CGFloat offset) {
+        for (TABBaseComponent *component in self) {
+            component.y(offset);
         }
         return self;
     };
@@ -131,36 +149,36 @@
 #pragma mark - Drop Animation
 
 - (TABAnimatedArrayIntBlock)dropIndex {
-    return ^NSArray <TABComponentLayer *> *(NSInteger value) {
-        for (TABComponentLayer *layer in self) {
-            layer.dropAnimationIndex = value;
+    return ^NSArray <TABBaseComponent *> *(NSInteger value) {
+        for (TABBaseComponent *component in self) {
+            component.dropIndex(value);
         }
         return self;
     };
 }
 
 - (TABAnimatedArrayIntBlock)dropFromIndex {
-    return ^NSArray <TABComponentLayer *> *(NSInteger value) {
-        for (TABComponentLayer *layer in self) {
-            layer.dropAnimationFromIndex = value;
+    return ^NSArray <TABBaseComponent *> *(NSInteger value) {
+        for (TABBaseComponent *component in self) {
+            component.dropFromIndex(value);
         }
         return self;
     };
 }
 
 - (TABAnimatedArrayBlock)removeOnDrop {
-    return ^NSArray <TABComponentLayer *> *(void) {
-        for (TABComponentLayer *layer in self) {
-            layer.removeOnDropAnimation = YES;
+    return ^NSArray <TABBaseComponent *> *(void) {
+        for (TABBaseComponent *component in self) {
+            component.removeOnDrop();
         }
         return self;
     };
 }
 
 - (TABAnimatedArrayFloatBlock)dropStayTime {
-    return ^NSArray <TABComponentLayer *> *(CGFloat offset) {
-        for (TABComponentLayer *layer in self) {
-            layer.dropAnimationStayTime = offset;
+    return ^NSArray <TABBaseComponent *> *(CGFloat offset) {
+        for (TABBaseComponent *component in self) {
+            component.dropStayTime(offset);
         }
         return self;
     };

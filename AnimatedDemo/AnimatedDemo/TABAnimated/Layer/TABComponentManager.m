@@ -1,47 +1,103 @@
 //
-//  TABLayer.m
+//  TABComponentManager.m
 //  AnimatedDemo
 //
-//  Created by tigerAndBull on 2019/3/24.
-//  Copyright © 2019年 tigerAndBull. All rights reserved.
+//  Created by tigerAndBull on 2019/7/16.
+//  Copyright © 2019 tigerAndBull. All rights reserved.
 //
 
-#import "TABLayer.h"
-#import "TABComponentLayer.h"
+#import "TABComponentManager.h"
+#import "TABBaseComponent.h"
 
 static CGFloat defaultHeight = 16.f;
 
-@interface TABLayer()
+@interface TABComponentManager()
+
+@property (nonatomic,strong) NSMutableArray <TABBaseComponent *> *baseComponentArray;
+@property (nonatomic,strong,readwrite) NSMutableArray <TABComponentLayer *> *componentLayerArray;
+@property (nonatomic,strong,readwrite) NSMutableArray <TABComponentLayer *> *resultLayerArray;
 
 @property (nonatomic,assign,readwrite) NSInteger dropAnimationCount;
 
 @end
 
-@implementation TABLayer
+@implementation TABComponentManager
+
++ (instancetype)initWithView:(UIView *)view {
+    TABComponentManager *manager = [[TABComponentManager alloc] init];
+    [view.layer addSublayer:manager.tabLayer];
+    return manager;
+}
 
 - (instancetype)init {
     if (self = [super init]) {
-        self.name = @"TABLayer";
-        self.anchorPoint = CGPointMake(0, 0);
-        self.position = CGPointMake(0, 0);
-        self.opaque = YES;
-        self.contentsScale = ([[UIScreen mainScreen] scale] > 3.0) ? [[UIScreen mainScreen] scale]:3.0;
-        self.backgroundColor = [self.animatedBackgroundColor CGColor];
         
-        self.resultLayerArray = @[].mutableCopy;
+        _baseComponentArray = @[].mutableCopy;
+        _resultLayerArray = @[].mutableCopy;
+        _componentLayerArray = @[].mutableCopy;
+        
+        _tabLayer = CALayer.new;
+        _tabLayer.name = @"TABLayer";
+        _tabLayer.anchorPoint = CGPointMake(0, 0);
+        _tabLayer.position = CGPointMake(0, 0);
+        _tabLayer.opaque = YES;
+        _tabLayer.contentsScale = ([[UIScreen mainScreen] scale] > 3.0) ? [[UIScreen mainScreen] scale]:3.0;
+        _tabLayer.backgroundColor = [self.animatedBackgroundColor CGColor];
     }
     return self;
 }
 
-- (void)updateSublayers:(NSArray <TABComponentLayer *> *)componentLayerArray {
+- (TABBaseComponentBlock _Nullable)animation {
+    return ^TABBaseComponent *(NSInteger index) {
+        if (index >= self.baseComponentArray.count) {
+            NSAssert(NO, @"Array bound, please check it carefully.");
+        }
+        return self.baseComponentArray[index];
+    };
+}
+
+- (TABBaseComponentArrayBlock _Nullable)animations {
+    return ^NSArray <TABBaseComponent *> *(NSInteger location, NSInteger length) {
+        
+        if (location + length > self.baseComponentArray.count) {
+            NSAssert(NO, @"Array bound, please check it carefully.");
+        }
+        
+        NSMutableArray <TABBaseComponent *> *tempArray = @[].mutableCopy;
+        for (NSInteger i = location; i < location+length; i++) {
+            TABBaseComponent *layer = self.baseComponentArray[i];
+            [tempArray addObject:layer];
+        }
+        
+        // 修改添加  需要查看数组内容  length == 0 && location == 0 是返回整个数组   xiaoxin
+        if (length == 0 && location == 0) {
+            tempArray = self.baseComponentArray.mutableCopy;
+        }
+        
+        return tempArray.mutableCopy;
+    };
+}
+
+#pragma mark -
+
+- (void)installBaseComponent:(NSArray <TABComponentLayer *> *)array {
+    self.componentLayerArray = array.mutableCopy;
+    [self.baseComponentArray removeAllObjects];
+    for (NSInteger i = 0; i < array.count; i++) {
+        TABBaseComponent *component = [TABBaseComponent initWithComponentLayer:array[i]];
+        [self.baseComponentArray addObject:component];
+    }
+}
+
+- (void)updateComponentLayers {
     
-    self.backgroundColor = [self.animatedBackgroundColor CGColor];
-    [self removeSubLayers:self.sublayers];
     [self.resultLayerArray removeAllObjects];
     
-    for (int i = 0; i < componentLayerArray.count; i++) {
+    for (NSInteger i = 0; i < self.baseComponentArray.count; i++) {
         
-        TABComponentLayer *layer = componentLayerArray[i];
+        TABBaseComponent *component = self.baseComponentArray[i];
+        TABComponentLayer *layer = component.layer;
+        
         if (layer.loadStyle == TABViewLoadAnimationRemove) {
             continue;
         }
@@ -65,7 +121,11 @@ static CGFloat defaultHeight = 16.f;
                       index:i];
         }else {
             
-            layer.backgroundColor = self.animatedColor.CGColor;
+            if (layer.contents) {
+                layer.backgroundColor = UIColor.clearColor.CGColor;
+            }else {
+                layer.backgroundColor = self.animatedColor.CGColor;
+            }
             
             // 设置动画
             if (layer.loadStyle != TABAnimationTypeOnlySkeleton) {
@@ -102,22 +162,21 @@ static CGFloat defaultHeight = 16.f;
                 }
             }
             
-            [self addSublayer:layer];
+            [self.tabLayer addSublayer:layer];
             [self.resultLayerArray addObject:layer];
         }
-        
         
 #ifdef DEBUG
         if ([TABAnimated sharedAnimated].openAnimationTag) {
             CATextLayer *lary = [CATextLayer layer];
-            lary.string = [NSString stringWithFormat:@"%d",i];
+            lary.string = [NSString stringWithFormat:@"%ld",(long)i];
             
             if (!layer.fromImageView) {
                 lary.bounds = CGRectMake(layer.bounds.origin.x, layer.bounds.origin.y, layer.bounds.size.width, 20);
             }else {
                 lary.frame = CGRectMake(0, layer.frame.size.height/2.0, layer.frame.size.width, 20);
             }
-            
+            lary.contentsScale = ([[UIScreen mainScreen] scale] > 3.0) ? [[UIScreen mainScreen] scale]:3.0;
             lary.font = (__bridge CFTypeRef)(@"HiraKakuProN-W3");
             lary.fontSize = 12.f;
             lary.alignmentMode = kCAAlignmentRight;
@@ -204,6 +263,7 @@ static CGFloat defaultHeight = 16.f;
                 lary.fontSize = 12.f;
                 lary.alignmentMode = kCAAlignmentRight;
                 lary.foregroundColor = [UIColor redColor].CGColor;
+                lary.contentsScale = ([[UIScreen mainScreen] scale] > 3.0) ? [[UIScreen mainScreen] scale]:3.0;
                 [layer addSublayer:lary];
             }
 #else
@@ -223,7 +283,7 @@ static CGFloat defaultHeight = 16.f;
             }
         }
         
-        [self addSublayer:layer];
+        [self.tabLayer addSublayer:layer];
         [self.resultLayerArray addObject:layer];
     }
 }
@@ -242,6 +302,7 @@ static CGFloat defaultHeight = 16.f;
 }
 
 - (CABasicAnimation *)getAnimationWithLoadStyle:(TABViewLoadAnimationStyle)loadStyle {
+    
     CGFloat duration = [TABAnimated sharedAnimated].animatedDuration;
     CGFloat value = 0.;
     
@@ -258,11 +319,6 @@ static CGFloat defaultHeight = 16.f;
     
     rect = CGRectMake(rect.origin.x + self.cardOffset.x, rect.origin.y + self.cardOffset.y, rect.size.width, rect.size.height);
     
-    CGFloat tabWidth = layer.tabViewWidth;
-    if (tabWidth > 0.) {
-        rect = CGRectMake(rect.origin.x, rect.origin.y, tabWidth, rect.size.height);
-    }
-    
     BOOL isImageView = layer.fromImageView;
     
     CGFloat height = 0.;
@@ -270,7 +326,7 @@ static CGFloat defaultHeight = 16.f;
     if (layer.tabViewHeight > 0.) {
         
         height = layer.tabViewHeight;
-        rect = CGRectMake(rect.origin.x, rect.origin.y, rect.size.width,height);
+        rect = CGRectMake(rect.origin.x, rect.origin.y, rect.size.width, height);
         
     }else if (!isImageView) {
         if (self.animatedHeight > 0.) {
@@ -289,7 +345,7 @@ static CGFloat defaultHeight = 16.f;
     
     BOOL isCenterLab = layer.fromCenterLabel;
     if (isCenterLab && !layer.isCancelAlignCenter) {
-        rect = CGRectMake((self.frame.size.width - rect.size.width)/2.0, rect.origin.y, rect.size.width, rect.size.height);
+        rect = CGRectMake((self.tabLayer.frame.size.width - rect.size.width)/2.0, rect.origin.y, rect.size.width, rect.size.height);
     }
     
     return rect;
@@ -319,6 +375,9 @@ static CGFloat defaultHeight = 16.f;
 
 - (void)setAnimatedBackgroundColor:(UIColor *)animatedBackgroundColor {
     _animatedBackgroundColor = animatedBackgroundColor;
+    if (animatedBackgroundColor) {
+        self.tabLayer.backgroundColor = animatedBackgroundColor.CGColor;
+    }
 }
 
 @end

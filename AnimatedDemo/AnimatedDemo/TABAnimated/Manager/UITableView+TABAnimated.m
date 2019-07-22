@@ -97,6 +97,9 @@
 - (NSInteger)tab_numberOfSectionsInTableView:(UITableView *)tableView {
     if (tableView.tabAnimated.state == TABViewAnimationStart &&
         tableView.tabAnimated.animatedSectionCount != 0) {
+        for (NSInteger i = 0; i < tableView.tabAnimated.animatedSectionCount; i++) {
+            [tableView.tabAnimated.runAnimationSectionArray addObject:[NSNumber numberWithInteger:i]];
+        }
         return tableView.tabAnimated.animatedSectionCount;
     }
     return [self tab_numberOfSectionsInTableView:tableView];
@@ -184,7 +187,6 @@
     return [self tab_tableView:tableView heightForRowAtIndexPath:indexPath];
 }
 
-
 - (UITableViewCell *)tab_tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if ([tableView.tabAnimated currentSectionIsAnimating:tableView
@@ -222,16 +224,13 @@
             }
         }
         
-        UITableViewCell *cell = (UITableViewCell *)tableView.tabAnimated.cellClassArray[index].new;
-        
         NSString *className = NSStringFromClass(tableView.tabAnimated.cellClassArray[index]);
         if ([className containsString:@"."]) {
             NSRange range = [className rangeOfString:@"."];
             className = [className substringFromIndex:range.location+1];
-            if (className != nil && className.length > 0) {
-                className = NSStringFromClass(tableView.tabAnimated.cellClassArray[index]);
-            }
         }
+        
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[NSString stringWithFormat:@"tab_%@",className] forIndexPath:indexPath];
         
         NSString *nibPath = [[NSBundle mainBundle] pathForResource:className ofType:@"nib"];
         if (nibPath != nil && nibPath.length > 0) {
@@ -243,25 +242,48 @@
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
-        if (nil == cell.tabLayer) {
+        if (nil == cell.tabComponentManager) {
             [TABManagerMethod fullData:cell];
-            cell.tabLayer = TABLayer.new;
+            cell.tabComponentManager = [TABComponentManager initWithView:cell];
+            
             CGFloat height = 0.;
             if (index > tableView.tabAnimated.cellHeightArray.count - 1) {
                 height = [[tableView.tabAnimated.cellHeightArray lastObject] floatValue];
             }else {
                 height = [tableView.tabAnimated.cellHeightArray[index] floatValue];
             }
-            cell.tabLayer.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, height);
-            cell.tabLayer.animatedHeight = tableView.tabAnimated.animatedHeight;
-            cell.tabLayer.animatedCornerRadius = tableView.tabAnimated.animatedCornerRadius;
-            cell.tabLayer.cancelGlobalCornerRadius = tableView.tabAnimated.cancelGlobalCornerRadius;
-            [cell.layer addSublayer:cell.tabLayer];
+            
+            cell.tabComponentManager.currentSection = indexPath.section;
+            cell.tabComponentManager.tabLayer.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, height);
+            cell.tabComponentManager.animatedHeight = tableView.tabAnimated.animatedHeight;
+            cell.tabComponentManager.animatedCornerRadius = tableView.tabAnimated.animatedCornerRadius;
+            cell.tabComponentManager.cancelGlobalCornerRadius = tableView.tabAnimated.cancelGlobalCornerRadius;
+            if (tableView.tabAnimated.animatedBackViewCornerRadius > 0) {
+                cell.tabComponentManager.tabLayer.cornerRadius = tableView.tabAnimated.animatedBackViewCornerRadius;
+            }
+            cell.tabComponentManager.animatedBackgroundColor = tableView.tabAnimated.animatedBackgroundColor;
+            cell.tabComponentManager.animatedColor = tableView.tabAnimated.animatedColor;
         }
         
         return cell;
     }
     return [self tab_tableView:tableView cellForRowAtIndexPath:indexPath];
+}
+
+- (nullable UIView *)tab_tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    if ([tableView.tabAnimated currentSectionIsAnimating:tableView
+                                                 section:section]) {
+//        UIView *view = 
+    }
+    return [self tab_tableView:tableView viewForHeaderInSection:section];
+}
+
+- (nullable UIView *)tab_tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    if ([tableView.tabAnimated currentSectionIsAnimating:tableView
+                                                 section:section]) {
+        
+    }
+    return [self tab_tableView:tableView viewForFooterInSection:section];
 }
 
 - (void)tab_tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {

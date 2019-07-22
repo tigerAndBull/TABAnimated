@@ -112,12 +112,21 @@
         _collectionView.showsVerticalScrollIndicator = NO;
         
         _collectionView.tabAnimated = [TABCollectionAnimated animatedWithCellClass:[NewsCollectionViewCell class] cellSize:[NewsCollectionViewCell cellSize]];
-        _collectionView.tabAnimated.categoryBlock = ^(UIView * _Nonnull view) {
-            view.animation(1).reducedWidth(20).down(2);
-            view.animation(2).reducedWidth(-10).up(1);
-            view.animation(3).down(5).line(4);
-            view.animations(4,3).radius(3).down(5);
-            view.animations(4,3).placeholder(@"placeholder.png");
+        _collectionView.tabAnimated.animatedCount = 10;
+//        _collectionView.tabAnimated.categoryBlock = ^(UIView * _Nonnull view) {
+//            view.animation(1).reducedWidth(20).down(2);
+//            view.animation(2).reducedWidth(-10).up(1);
+//            view.animation(3).down(5).line(4);
+//            view.animations(4,3).radius(3).down(5);
+//            view.animations(4,3).placeholder(@"placeholder.png");
+//        };
+        
+        _collectionView.tabAnimated.adjustBlock = ^(TABComponentManager * _Nonnull manager) {
+            manager.animation(1).reducedWidth(20).down(2);
+            manager.animation(2).reducedWidth(-10).up(1);
+            manager.animation(3).down(5).line(4);
+            manager.animations(4,3).radius(3).down(5);
+            manager.animations(4,3).placeholder(@"placeholder.png");
         };
         
     }
