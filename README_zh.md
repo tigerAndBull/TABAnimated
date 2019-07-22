@@ -59,11 +59,11 @@
 
 `TABAnimated`通过控制视图的subViews的位置及相关信息创建`TABCompentLayer`。
 
-普通控制视图，有一个`TABLayer`
+普通控制视图，有一个`TABComponentManager`
 
-表格视图，每一个cell都有一个`TABLayer`
+表格视图，每一个cell都有一个`TABComponentManager`
 
-`TABLayer`负责管理并显示所有的`TABCompentLayer`。
+`TABComponentManager`负责管理并显示所有的`TABCompentLayer`。
 
 当使用约束进行布局时，约束不足且没有数据时，致使subViews的位置信息不能体现出来，TABAnimated会进行数据预填充。
 
@@ -132,10 +132,10 @@ pod 'TABAnimated'
 普通view:
 ```
 self.mainView.tabAnimated = TABViewAnimated.new;
-self.mainView.tabAnimated.categoryBlock = ^(UIView * _Nonnull view) {
-view.animation(1).width(200);
-view.animation(2).width(220);
-view.animation(3).width(180);
+self.mainView.tabAnimated.adjustBlock = ^(TABComponentManager * _Nonnull manager) {
+    manager.animation(1).width(200);
+    manager.animation(2).width(220);
+    manager.animation(3).width(180);
 };
 ```
 表格组件：
@@ -143,11 +143,12 @@ view.animation(3).width(180);
 _collectionView.tabAnimated = 
 [TABCollectionAnimated animatedWithCellClass:[NewsCollectionViewCell class] 
 cellSize:[NewsCollectionViewCell cellSize]];
-_collectionView.tabAnimated.categoryBlock = ^(UIView * _Nonnull view) {
-view.animation(1).reducedWidth(20).down(2);
-view.animation(2).reducedWidth(-10).up(1);
-view.animation(3).down(5).line(4);
-view.animations(4,3).radius(3).down(5);
+_collectionView.tabAnimated.adjustBlock = ^(TABComponentManager * _Nonnull manager) {
+    manager.animation(1).reducedWidth(20).down(2);
+    manager.animation(2).reducedWidth(-10).up(1);
+    manager.animation(3).down(5).line(4);
+    manager.animations(4,3).radius(3).down(5);
+    manager.animations(4,3).placeholder(@"placeholder.png");
 };
 ```
 
@@ -183,11 +184,12 @@ UICollectionView 对应 `TABCollectionAnimated`
 扩展回调将动画组给予开发者，开发者可以对其进行调整。
 因为是调整，所以加入了链式语法，让开发者快速且方便地调整。
 ```
-_collectionView.tabAnimated.categoryBlock = ^(UIView * _Nonnull view) {
-view.animation(1).reducedWidth(20).down(2);
-view.animation(2).reducedWidth(-10).up(1);
-view.animation(3).down(5).line(4);
-view.animations(4,3).radius(3).down(5);
+_collectionView.tabAnimated.adjustBlock = ^(TABComponentManager * _Nonnull manager) {
+    manager.animation(1).reducedWidth(20).down(2);
+    manager.animation(2).reducedWidth(-10).up(1);
+    manager.animation(3).down(5).line(4);
+    manager.animations(4,3).radius(3).down(5);
+    manager.animations(4,3).placeholder(@"placeholder.png");
 };
 ```
 
@@ -260,34 +262,34 @@ demo中的xib做了一个错误示范，有坑慎入。
 
 ```
 // 部分section有动画
-_tableView.tabAnimated =
-[TABTableAnimated animatedWithCellClassArray:@[[TestTableViewCell class]]
-cellHeightArray:@[@(100)]
-animatedCountArray:@[@(1)]
-animatedSectionArray:@[@(1)]];
+ _tableView.tabAnimated =
+        [TABTableAnimated animatedWithCellClass:[TestTableViewCell class]
+                                     cellHeight:100
+                                  animatedCount:1
+                                      toSection:1];
 
-_tableView.tabAnimated.categoryBlock = ^(UIView * _Nonnull view) {
-view.animation(1).down(3).height(12).toShortAnimation();
-view.animation(2).height(12).width(110).toLongAnimation();
-view.animation(3).down(-5).height(12);
+_tableView.tabAnimated.adjustBlock = ^(TABComponentManager * _Nonnull manager) {
+    manager.animation(1).down(3).height(12).toShortAnimation();
+    manager.animation(2).height(12).width(110).toLongAnimation();
+    manager.animation(3).down(-5).height(12);
 };
 ```
 
 4. 多section时扩展回调使用
 ```
-_collectionView.tabAnimated.categoryBlock = ^(UIView * _Nonnull view) { 
-if ([view isKindOfClass:[DailyCollectionViewCell class]]) {
-view.animations(1,3).height(14);
-view.animation(2).down(6);
-view.animation(1).up(1);
-view.animation(3).up(6);
-}
+_collectionView.tabAnimated.adjustWithSectionBlock = ^(TABComponentManager * _Nonnull manager, NSInteger section) {
+    if (section == 0) {
+        manager.animation(1).height(12).down(-2).reducedWidth(-90);
+        manager.animation(2).height(12).down(7).reducedWidth(-30);
+        manager.animation(3).height(12).down(-2).reducedWidth(150);
+        manager.animations(5,3).down(4).right(30);
+    }
 };
 ```
 
 5. 对于嵌套表格组件，需要在被嵌套在内的表格组件的`isNest`属性设为`YES`，详情请看demo。
 ```
-_collectionView.tabAnimated = [[TABAnimatedObject alloc] init];
+_collectionView.tabAnimated = TABCollectionAnimated.new;
 _collectionView.tabAnimated.isNest = YES;
 _collectionView.tabAnimated.animatedCount = 3;
 ```
