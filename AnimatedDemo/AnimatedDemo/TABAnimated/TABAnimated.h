@@ -42,7 +42,6 @@
 #import "TABCollectionAnimated.h"
 
 #import "TABBaseComponent.h"
-#import "TABComponentManager.h"
 
 #define tabAnimatedLog(x) {if([TABAnimated sharedAnimated].openLog) NSLog(x);}
 

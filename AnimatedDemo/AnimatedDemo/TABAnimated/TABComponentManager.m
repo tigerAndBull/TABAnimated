@@ -7,8 +7,7 @@
 //
 
 #import "TABComponentManager.h"
-#import "TABBaseComponent.h"
-#import "TABComponentLayer.h"
+#import "TABAnimated.h"
 
 static CGFloat defaultHeight = 16.f;
 
