@@ -195,8 +195,8 @@
                                        cellSizeArray:sizeArray
                                        animatedCountArray:@[@(1),@(3)]];
         
-        _collectionView.tabAnimated.adjustWithSectionBlock = ^(TABComponentManager * _Nonnull manager, NSInteger section) {
-            if (section == 0) {
+        _collectionView.tabAnimated.adjustWithClassBlock = ^(TABComponentManager * _Nonnull manager, Class  _Nonnull __unsafe_unretained targetClass) {
+            if ([targetClass isKindOfClass:[LawyerCollectionViewCell class]]) {
                 manager.animation(1).height(12).down(-2).reducedWidth(-90);
                 manager.animation(2).height(12).down(7).reducedWidth(-30);
                 manager.animation(3).height(12).down(-2).reducedWidth(150);

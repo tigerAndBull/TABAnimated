@@ -20,4 +20,8 @@
     return self;
 }
 
+- (BOOL)currentSectionIsAnimatingWithSection:(NSInteger)section {
+    return YES;
+}
+
 @end

@@ -31,12 +31,12 @@
 
 - (void)tab_setDelegate:(id<UITableViewDelegate>)delegate {
     
-    SEL oldHeightDelegate = @selector(tableView:heightForRowAtIndexPath:);
-    SEL newHeightDelegate = @selector(tab_tableView:heightForRowAtIndexPath:);
-    
     SEL oldClickDelegate = @selector(tableView:didSelectRowAtIndexPath:);
     SEL newClickDelegate = @selector(tab_tableView:didSelectRowAtIndexPath:);
+    [self exchangeDelegateOldSel:oldClickDelegate withNewSel:newClickDelegate withDelegate:delegate];
     
+    SEL oldHeightDelegate = @selector(tableView:heightForRowAtIndexPath:);
+    SEL newHeightDelegate = @selector(tab_tableView:heightForRowAtIndexPath:);
     SEL estimatedHeightDelegateSel = @selector(tableView:estimatedHeightForRowAtIndexPath:);
     
     if ([delegate respondsToSelector:estimatedHeightDelegateSel] &&
@@ -54,7 +54,21 @@
         [self exchangeDelegateOldSel:oldHeightDelegate withNewSel:newHeightDelegate withDelegate:delegate];
     }
     
-    [self exchangeDelegateOldSel:oldClickDelegate withNewSel:newClickDelegate withDelegate:delegate];
+    SEL oldHeadViewDelegate = @selector(tableView:viewForHeaderInSection:);
+    SEL newHeadViewDelegate = @selector(tab_tableView:viewForHeaderInSection:);
+    [self exchangeDelegateOldSel:oldHeadViewDelegate withNewSel:newHeadViewDelegate withDelegate:delegate];
+    
+    SEL oldFooterViewDelegate = @selector(tableView:viewForFooterInSection:);
+    SEL newFooterViewDelegate = @selector(tab_tableView:viewForFooterInSection:);
+    [self exchangeDelegateOldSel:oldFooterViewDelegate withNewSel:newFooterViewDelegate withDelegate:delegate];
+    
+    SEL oldHeadHeightDelegate = @selector(tableView:heightForHeaderInSection:);
+    SEL newHeadHeightDelegate = @selector(tab_tableView:heightForHeaderInSection:);
+    [self exchangeDelegateOldSel:oldHeadHeightDelegate withNewSel:newHeadHeightDelegate withDelegate:delegate];
+    
+    SEL oldFooterHeightDelegate = @selector(tableView:heightForFooterInSection:);
+    SEL newFooterHeightDelegate = @selector(tab_tableView:heightForFooterInSection:);
+    [self exchangeDelegateOldSel:oldFooterHeightDelegate withNewSel:newFooterHeightDelegate withDelegate:delegate];
 
     [self tab_setDelegate:delegate];
 }
@@ -100,6 +114,16 @@
         for (NSInteger i = 0; i < tableView.tabAnimated.animatedSectionCount; i++) {
             [tableView.tabAnimated.runAnimationSectionArray addObject:[NSNumber numberWithInteger:i]];
         }
+        if (tableView.tabAnimated.headerClassArray.count > 0) {
+            for (NSInteger i = 0; i < tableView.tabAnimated.animatedSectionCount; i++) {
+                [tableView.tabAnimated.headerSectionArray addObject:[NSNumber numberWithInteger:i]];
+            }
+        }
+        if (tableView.tabAnimated.footerClassArray.count > 0) {
+            for (NSInteger i = 0; i < tableView.tabAnimated.animatedSectionCount; i++) {
+                [tableView.tabAnimated.footerSectionArray addObject:[NSNumber numberWithInteger:i]];
+            }
+        }
         return tableView.tabAnimated.animatedSectionCount;
     }
     return [self tab_numberOfSectionsInTableView:tableView];
@@ -108,8 +132,7 @@
 - (NSInteger)tab_tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
     // If the animation running, return animatedCount.
-    if ([tableView.tabAnimated currentSectionIsAnimating:tableView
-                                                 section:section]) {
+    if ([tableView.tabAnimated currentSectionIsAnimatingWithSection:section]) {
         
         // 开发者指定section
         if (tableView.tabAnimated.animatedSectionArray.count > 0) {
@@ -150,8 +173,7 @@
 
 - (CGFloat)tab_tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if ([tableView.tabAnimated currentSectionIsAnimating:tableView
-                                                 section:indexPath.section]) {
+    if ([tableView.tabAnimated currentSectionIsAnimatingWithSection:indexPath.section]) {
         
         NSInteger index = indexPath.section;
         
@@ -189,8 +211,7 @@
 
 - (UITableViewCell *)tab_tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if ([tableView.tabAnimated currentSectionIsAnimating:tableView
-                                                 section:indexPath.section]) {
+    if ([tableView.tabAnimated currentSectionIsAnimatingWithSection:indexPath.section]) {
         
         NSInteger index = indexPath.section;
         
@@ -224,45 +245,22 @@
             }
         }
         
-        NSString *className = NSStringFromClass(tableView.tabAnimated.cellClassArray[index]);
+        Class currentClass = tableView.tabAnimated.cellClassArray[index];
+        NSString *className = NSStringFromClass(currentClass);
         if ([className containsString:@"."]) {
             NSRange range = [className rangeOfString:@"."];
             className = [className substringFromIndex:range.location+1];
         }
         
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[NSString stringWithFormat:@"tab_%@",className] forIndexPath:indexPath];
-        
-        NSString *nibPath = [[NSBundle mainBundle] pathForResource:className ofType:@"nib"];
-        if (nibPath != nil && nibPath.length > 0) {
-            NSArray *cellArray = [[NSBundle mainBundle] loadNibNamed:className owner:self options:nil];
-            if (cellArray.count <= 0) {
-                NSAssert(NO, @"No xib file of the cell name.");
-            }
-            cell = [cellArray objectAtIndex:0];
-        }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
         if (nil == cell.tabComponentManager) {
             [TABManagerMethod fullData:cell];
-            cell.tabComponentManager = [TABComponentManager initWithView:cell];
-            
-            CGFloat height = 0.;
-            if (index > tableView.tabAnimated.cellHeightArray.count - 1) {
-                height = [[tableView.tabAnimated.cellHeightArray lastObject] floatValue];
-            }else {
-                height = [tableView.tabAnimated.cellHeightArray[index] floatValue];
-            }
-            
+            cell.tabComponentManager = [TABComponentManager initWithView:cell
+                                                             tabAnimated:tableView.tabAnimated];
             cell.tabComponentManager.currentSection = indexPath.section;
-            cell.tabComponentManager.tabLayer.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, height);
-            cell.tabComponentManager.animatedHeight = tableView.tabAnimated.animatedHeight;
-            cell.tabComponentManager.animatedCornerRadius = tableView.tabAnimated.animatedCornerRadius;
-            cell.tabComponentManager.cancelGlobalCornerRadius = tableView.tabAnimated.cancelGlobalCornerRadius;
-            if (tableView.tabAnimated.animatedBackViewCornerRadius > 0) {
-                cell.tabComponentManager.tabLayer.cornerRadius = tableView.tabAnimated.animatedBackViewCornerRadius;
-            }
-            cell.tabComponentManager.animatedBackgroundColor = tableView.tabAnimated.animatedBackgroundColor;
-            cell.tabComponentManager.animatedColor = tableView.tabAnimated.animatedColor;
+            cell.tabComponentManager.tabTargetClass = currentClass;
         }
         
         return cell;
@@ -270,38 +268,111 @@
     return [self tab_tableView:tableView cellForRowAtIndexPath:indexPath];
 }
 
-- (nullable UIView *)tab_tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    if ([tableView.tabAnimated currentSectionIsAnimating:tableView
-                                                 section:section]) {
-//        UIView *view = 
-    }
-    return [self tab_tableView:tableView viewForHeaderInSection:section];
-}
-
-- (nullable UIView *)tab_tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-    if ([tableView.tabAnimated currentSectionIsAnimating:tableView
-                                                 section:section]) {
-        
-    }
-    return [self tab_tableView:tableView viewForFooterInSection:section];
-}
-
 - (void)tab_tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if ([tableView.tabAnimated currentSectionIsAnimating:tableView
-                                                 section:indexPath.section]) {
+    if ([tableView.tabAnimated currentSectionIsAnimatingWithSection:indexPath.section]) {
         return;
     }
     [self tab_tableView:tableView willDisplayCell:cell forRowAtIndexPath:indexPath];
 }
 
 - (void)tab_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if ([tableView.tabAnimated currentSectionIsAnimating:tableView
-                                                 section:indexPath.section] ||
-        tableView.tabAnimated.state == TABViewAnimationRunning) {
+    if ([tableView.tabAnimated currentSectionIsAnimatingWithSection:indexPath.section]) {
         return;
     }
     [self tab_tableView:tableView didSelectRowAtIndexPath:indexPath];
+}
+
+#pragma mark - About HeaderFooterView
+
+- (CGFloat)tab_tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    if ([tableView.tabAnimated currentSectionIsAnimatingWithSection:section]) {
+        NSInteger index = [tableView.tabAnimated headerNeedAnimationOnSection:section];
+        if (index != tab_animated_error_code) {
+            NSNumber *value = nil;
+            if (index > tableView.tabAnimated.headerHeightArray.count - 1) {
+                value = tableView.tabAnimated.headerHeightArray.lastObject;
+            }else {
+                value = tableView.tabAnimated.headerHeightArray[index];
+            }
+            return [value floatValue];
+        }
+        return [self tab_tableView:tableView heightForHeaderInSection:section];
+    }
+    return [self tab_tableView:tableView heightForHeaderInSection:section];
+}
+
+- (CGFloat)tab_tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    if ([tableView.tabAnimated currentSectionIsAnimatingWithSection:section]) {
+        NSInteger index = [tableView.tabAnimated footerNeedAnimationOnSection:section];
+        if (index != tab_animated_error_code) {
+            NSNumber *value = nil;
+            if (index > tableView.tabAnimated.footerHeightArray.count - 1) {
+                value = tableView.tabAnimated.footerHeightArray.lastObject;
+            }else {
+                value = tableView.tabAnimated.footerHeightArray[index];
+            }
+            return [value floatValue];
+        }
+        return [self tab_tableView:tableView heightForFooterInSection:section];
+    }
+    return [self tab_tableView:tableView heightForFooterInSection:section];
+}
+
+- (nullable UIView *)tab_tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    if ([tableView.tabAnimated currentSectionIsAnimatingWithSection:section]) {
+        NSInteger index = [tableView.tabAnimated headerNeedAnimationOnSection:section];
+        if (index != tab_animated_error_code) {
+            
+            Class class;
+            if (index > tableView.tabAnimated.headerClassArray.count - 1) {
+                class = tableView.tabAnimated.headerClassArray.lastObject;
+            }else {
+                class = tableView.tabAnimated.headerClassArray[index];
+            }
+
+            UIView *headerFooterView = class.new;
+            headerFooterView.tabAnimated = TABViewAnimated.new;
+            [headerFooterView tab_startAnimation];
+            
+            if (nil == headerFooterView.tabComponentManager) {
+                [TABManagerMethod fullData:headerFooterView];
+                headerFooterView.tabComponentManager = [TABComponentManager initWithView:headerFooterView tabAnimated:tableView.tabAnimated];
+                headerFooterView.tabComponentManager.currentSection = section;
+            }
+            return headerFooterView;
+        }
+        return [self tab_tableView:tableView viewForHeaderInSection:section];
+    }
+    return [self tab_tableView:tableView viewForHeaderInSection:section];
+}
+
+- (nullable UIView *)tab_tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    if ([tableView.tabAnimated currentSectionIsAnimatingWithSection:section]) {
+        NSInteger index = [tableView.tabAnimated footerNeedAnimationOnSection:section];
+        if (index != tab_animated_error_code) {
+            
+            Class class;
+            if (index > tableView.tabAnimated.footerClassArray.count - 1) {
+                class = tableView.tabAnimated.footerClassArray.lastObject;
+            }else {
+                class = tableView.tabAnimated.footerClassArray[index];
+            }
+            
+            UIView *headerFooterView = class.new;
+            headerFooterView.tabAnimated = TABViewAnimated.new;
+            [headerFooterView tab_startAnimation];
+            
+            if (nil == headerFooterView.tabComponentManager) {
+                [TABManagerMethod fullData:headerFooterView];
+                headerFooterView.tabComponentManager = [TABComponentManager initWithView:headerFooterView tabAnimated:tableView.tabAnimated];
+                headerFooterView.tabComponentManager.currentSection = section;
+            }
+            return headerFooterView;
+        }
+        return [self tab_tableView:tableView viewForFooterInSection:section];
+    }
+    return [self tab_tableView:tableView viewForFooterInSection:section];
 }
 
 #pragma mark - Private Methods

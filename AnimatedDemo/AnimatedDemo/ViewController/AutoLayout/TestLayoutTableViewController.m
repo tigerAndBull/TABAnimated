@@ -122,7 +122,8 @@
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:UITableViewStylePlain];
         _tableView.dataSource = self;
         _tableView.delegate = self;
-        _tableView.estimatedRowHeight = 44;
+        _tableView.estimatedRowHeight = 200;
+        _tableView.rowHeight = UITableViewAutomaticDimension;
         _tableView.backgroundColor = [UIColor whiteColor];
         
         // 设置tabAnimated相关属性

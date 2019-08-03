@@ -8,9 +8,11 @@
 
 #import "NestCollectionViewController.h"
 #import "NestCollectionViewCell.h"
+#import "TestCollectionReusableView.h"
 
 #import "TABAnimated.h"
 #import <TABKit/TABKit.h>
+#import "TestHeadView.h"
 
 @interface NestCollectionViewController ()<UICollectionViewDelegate,UICollectionViewDataSource>
 
@@ -74,11 +76,11 @@
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
-    return 0.1;
+    return .1;
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
-    return 0.1;
+    return .1;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -97,38 +99,10 @@
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
-    
-    
-    UICollectionReusableView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader
+    TestCollectionReusableView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader
                                                                           withReuseIdentifier:@"header"
                                                                                  forIndexPath:indexPath];
-    header.backgroundColor = [UIColor clearColor];
-
-    for (UIView *view in header.subviews) {
-        [view removeFromSuperview];
-    }
-    
-    UILabel *lab = [header viewWithTag:1000];
-    if (!lab) {
-        lab = [[UILabel alloc] init];
-        lab.frame = CGRectMake(kWidth(15)+3+4, 10, 100, 50);
-        lab.font = kBlodFont(18);
-        lab.textColor = [UIColor blackColor];
-        lab.tag = 1000;
-        [header addSubview:lab];
-    }
-    lab.text = @"测试嵌套";
-    
-    UIView *view = [header viewWithTag:1001];
-    if (!view) {
-        view = [[UIView alloc] init];
-        view.frame = CGRectMake(kWidth(15), 10+8+10, 3, 14);
-        view.backgroundColor = kColor(0xE74E46FF);
-        view.layer.cornerRadius = 1.5f;
-        view.tag = 1001;
-        [header addSubview:view];
-    }
-    
+    header.titleLab.text = @"测试嵌套";
     return header;
 }
 
@@ -159,13 +133,28 @@
         _collectionView.showsHorizontalScrollIndicator = NO;
         _collectionView.showsVerticalScrollIndicator = NO;
         
-        [_collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header"];
+        [_collectionView registerClass:[TestCollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header"];
         
         _collectionView.tabAnimated =
         [TABCollectionAnimated animatedWithCellClass:[NestCollectionViewCell class]
                                             cellSize:[NestCollectionViewCell cellSize]];
         _collectionView.tabAnimated.animatedCount = 1;
         _collectionView.tabAnimated.animatedSectionCount = 3;
+        
+        
+        // 添加区头动画，普通UIView类型
+//        [_collectionView.tabAnimated addHeaderViewClass:[TestHeadView class]
+//                                               viewSize:CGSizeMake(kScreenWidth, 100)];
+        
+        // 添加区头动画，UICollectionReusableView类型
+        [_collectionView.tabAnimated addHeaderViewClass:[TestCollectionReusableView class]
+                                               viewSize:CGSizeMake(kScreenWidth, 60)];
+        
+        _collectionView.tabAnimated.adjustWithClassBlock = ^(TABComponentManager * _Nonnull manager, Class  _Nonnull __unsafe_unretained targetClass) {
+            if (targetClass == [TestCollectionReusableView class]) {
+                manager.animation(0).height(16).down(16).reducedWidth(20);
+            }
+        };
     }
     return _collectionView;
 }

@@ -17,8 +17,8 @@
     </a>
 </p>
 
-#### the lastest version is 2.1.7
-#### the release version is 2.1.3
+#### the lastest version is 2.1.8
+
 [简体中文](https://github.com/tigerAndBull/TABAnimated/blob/master/README_zh.md)
 
 ## Catalog

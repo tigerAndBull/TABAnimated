@@ -58,13 +58,22 @@
     SEL oldCell = @selector(collectionView:cellForItemAtIndexPath:);
     SEL newCell = @selector(tab_collectionView:cellForItemAtIndexPath:);
     
-//    SEL oldReuseableCell = @selector(collectionView:viewForSupplementaryElementOfKind:atIndexPath:);
-//    SEL newReuseableCell = @selector(collectionView:viewForSupplementaryElementOfKind:atIndexPath:);
+    SEL oldReuseableCell = @selector(collectionView:viewForSupplementaryElementOfKind:atIndexPath:);
+    SEL newReuseableCell = @selector(tab_collectionView:viewForSupplementaryElementOfKind:atIndexPath:);
+    
+    SEL oldHeaderCell = @selector(collectionView:layout:referenceSizeForHeaderInSection:);
+    SEL newHeaderCell = @selector(tab_collectionView:layout:referenceSizeForHeaderInSection:);
+    
+    SEL oldFooterCell = @selector(collectionView:layout:referenceSizeForFooterInSection:);
+    SEL newFooterCell = @selector(tab_collectionView:layout:referenceSizeForFooterInSection:);
     
     [self exchangeDelegateOldSel:oldSelector withNewSel:newSelector withDelegate:dataSource];
     [self exchangeDelegateOldSel:oldSectionSelector withNewSel:newSectionSelector withDelegate:dataSource];
     [self exchangeDelegateOldSel:oldCell withNewSel:newCell withDelegate:dataSource];
-//    [self exchangeDelegateOldSel:oldReuseableCell withNewSel:newReuseableCell withDelegate:dataSource];
+    
+    [self exchangeDelegateOldSel:oldReuseableCell withNewSel:newReuseableCell withDelegate:dataSource];
+    [self exchangeDelegateOldSel:oldHeaderCell withNewSel:newHeaderCell withDelegate:dataSource];
+    [self exchangeDelegateOldSel:oldFooterCell withNewSel:newFooterCell withDelegate:dataSource];
     
     [self tab_setDataSource:dataSource];
 }
@@ -77,6 +86,16 @@
         for (NSInteger i = 0; i < collectionView.tabAnimated.animatedSectionCount; i++) {
             [collectionView.tabAnimated.runAnimationSectionArray addObject:[NSNumber numberWithInteger:i]];
         }
+        if (collectionView.tabAnimated.headerClassArray.count > 0) {
+            for (NSInteger i = 0; i < collectionView.tabAnimated.animatedSectionCount; i++) {
+                [collectionView.tabAnimated.headerSectionArray addObject:[NSNumber numberWithInteger:i]];
+            }
+        }
+        if (collectionView.tabAnimated.footerClassArray.count > 0) {
+            for (NSInteger i = 0; i < collectionView.tabAnimated.animatedSectionCount; i++) {
+                [collectionView.tabAnimated.footerSectionArray addObject:[NSNumber numberWithInteger:i]];
+            }
+        }
         return collectionView.tabAnimated.animatedSectionCount;
     }
     return [self tab_numberOfSectionsInCollectionView:collectionView];
@@ -84,8 +103,7 @@
 
 - (NSInteger)tab_collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     
-    if ([collectionView.tabAnimated currentSectionIsAnimating:collectionView
-                                                      section:section]) {
+    if ([collectionView.tabAnimated currentSectionIsAnimatingWithSection:section]) {
         
         // 开发者指定section
         if (collectionView.tabAnimated.animatedSectionArray.count > 0) {
@@ -120,8 +138,7 @@
 
 - (CGSize)tab_collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    if ([collectionView.tabAnimated currentSectionIsAnimating:collectionView
-                                                      section:indexPath.section]) {
+    if ([collectionView.tabAnimated currentSectionIsAnimatingWithSection:indexPath.section]) {
         
         NSInteger index = indexPath.section;
         
@@ -159,8 +176,7 @@
 
 - (UICollectionViewCell *)tab_collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    if ([collectionView.tabAnimated currentSectionIsAnimating:collectionView
-                                                      section:indexPath.section]) {
+    if ([collectionView.tabAnimated currentSectionIsAnimatingWithSection:indexPath.section]) {
         
         NSInteger index = indexPath.section;
         
@@ -190,7 +206,8 @@
             }
         }
         
-        NSString *className = NSStringFromClass(collectionView.tabAnimated.cellClassArray[index]);
+        Class currentClass = collectionView.tabAnimated.cellClassArray[index];
+        NSString *className = NSStringFromClass(currentClass);
         if ([className containsString:@"."]) {
             NSRange range = [className rangeOfString:@"."];
             className = [className substringFromIndex:range.location+1];
@@ -200,20 +217,10 @@
         
         if (nil == cell.tabComponentManager) {
             [TABManagerMethod fullData:cell];
-            
-            cell.tabComponentManager = [TABComponentManager initWithView:cell];
-            cell.tabComponentManager.tabLayer.frame = cell.bounds;
+            cell.tabComponentManager = [TABComponentManager initWithView:cell
+                                                             tabAnimated:collectionView.tabAnimated];
             cell.tabComponentManager.currentSection = indexPath.section;
-            cell.tabComponentManager.animatedHeight = collectionView.tabAnimated.animatedHeight;
-            cell.tabComponentManager.animatedCornerRadius = collectionView.tabAnimated.animatedCornerRadius;
-            cell.tabComponentManager.cancelGlobalCornerRadius = collectionView.tabAnimated.cancelGlobalCornerRadius;
-            
-            if (collectionView.tabAnimated.animatedBackViewCornerRadius > 0) {
-                cell.tabComponentManager.tabLayer.cornerRadius = collectionView.tabAnimated.animatedBackViewCornerRadius;
-            }
-            
-            cell.tabComponentManager.animatedBackgroundColor = collectionView.tabAnimated.animatedBackgroundColor;
-            cell.tabComponentManager.animatedColor = collectionView.tabAnimated.animatedColor;
+            cell.tabComponentManager.tabTargetClass = currentClass;
         }
         
         return cell;
@@ -223,20 +230,144 @@
 
 - (void)tab_collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    if ([collectionView.tabAnimated currentSectionIsAnimating:collectionView
-                                                      section:indexPath.section]) {
+    if ([collectionView.tabAnimated currentSectionIsAnimatingWithSection:indexPath.section]) {
         return;
     }
     [self tab_collectionView:collectionView willDisplayCell:cell forItemAtIndexPath:indexPath];
 }
 
 - (void)tab_collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    if ([collectionView.tabAnimated currentSectionIsAnimating:collectionView
-                                                      section:indexPath.section] ||
+    if ([collectionView.tabAnimated currentSectionIsAnimatingWithSection:indexPath.section] ||
         collectionView.tabAnimated.state == TABViewAnimationRunning) {
         return;
     }
     [self tab_collectionView:collectionView didSelectItemAtIndexPath:indexPath];
+}
+
+#pragma mark - About HeaderFooterView
+
+- (CGSize)tab_collectionView:(UICollectionView *)collectionView
+                      layout:(UICollectionViewLayout*)collectionViewLayout
+referenceSizeForHeaderInSection:(NSInteger)section {
+    
+    if ([collectionView.tabAnimated currentSectionIsAnimatingWithSection:section]) {
+        NSInteger index = [collectionView.tabAnimated headerFooterNeedAnimationOnSection:section
+                                                                                    kind:UICollectionElementKindSectionHeader];
+        if (index != tab_animated_error_code) {
+            NSValue *value = nil;
+            if (index > collectionView.tabAnimated.headerSizeArray.count - 1) {
+                value = collectionView.tabAnimated.headerSizeArray.lastObject;
+            }else {
+                value = collectionView.tabAnimated.headerSizeArray[index];
+            }
+            return [value CGSizeValue];
+        }
+        return [self tab_collectionView:collectionView
+                                 layout:collectionViewLayout
+        referenceSizeForHeaderInSection:section];
+    }
+    
+    return [self tab_collectionView:collectionView
+                             layout:collectionViewLayout
+    referenceSizeForHeaderInSection:section];
+}
+
+- (CGSize)tab_collectionView:(UICollectionView *)collectionView
+                      layout:(UICollectionViewLayout*)collectionViewLayout
+referenceSizeForFooterInSection:(NSInteger)section {
+    
+    if ([collectionView.tabAnimated currentSectionIsAnimatingWithSection:section]) {
+        NSInteger index = [collectionView.tabAnimated headerFooterNeedAnimationOnSection:section
+                                                                                    kind:UICollectionElementKindSectionFooter];
+        if (index != tab_animated_error_code) {
+            NSValue *value = nil;
+            if (index > collectionView.tabAnimated.footerSizeArray.count - 1) {
+                value = collectionView.tabAnimated.footerSizeArray.lastObject;
+            }else {
+                value = collectionView.tabAnimated.footerSizeArray[index];
+            }
+        }
+        return [self tab_collectionView:collectionView
+                                 layout:collectionViewLayout
+        referenceSizeForFooterInSection:section];
+    }
+    
+    return [self tab_collectionView:collectionView
+                             layout:collectionViewLayout
+    referenceSizeForFooterInSection:section];
+}
+
+- (UICollectionReusableView *)tab_collectionView:(UICollectionView *)collectionView
+               viewForSupplementaryElementOfKind:(NSString *)kind
+                                     atIndexPath:(NSIndexPath *)indexPath {
+    if ([collectionView.tabAnimated currentSectionIsAnimatingWithSection:indexPath.section]) {
+        
+        NSInteger index = [collectionView.tabAnimated headerFooterNeedAnimationOnSection:indexPath.section
+                                                                                    kind:kind];
+        
+        if (index == tab_animated_error_code) {
+            return [self tab_collectionView:collectionView
+          viewForSupplementaryElementOfKind:kind
+                                atIndexPath:indexPath];
+        }
+        
+        Class resuableClass = nil;
+        NSString *identifier = nil;
+        NSString *defaultPredix = nil;
+        
+        if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
+            if (index > collectionView.tabAnimated.headerClassArray.count - 1) {
+                resuableClass = collectionView.tabAnimated.headerClassArray.lastObject;
+            }else {
+                resuableClass = collectionView.tabAnimated.headerClassArray[index];
+            }
+            defaultPredix = tab_header_prefix;
+            identifier = [NSString stringWithFormat:@"%@%@",tab_header_prefix,NSStringFromClass(resuableClass)];
+        }else {
+            if (index > collectionView.tabAnimated.footerClassArray.count - 1) {
+                resuableClass = collectionView.tabAnimated.footerClassArray.lastObject;
+            }else {
+                resuableClass = collectionView.tabAnimated.footerClassArray[index];
+            }
+            defaultPredix = tab_footer_prefix;
+            identifier = [NSString stringWithFormat:@"%@%@",tab_footer_prefix,NSStringFromClass(resuableClass)];
+        }
+        
+        if (resuableClass == nil) {
+            return [self tab_collectionView:collectionView
+          viewForSupplementaryElementOfKind:kind
+                                atIndexPath:indexPath];
+        }
+        
+        UIView *view = resuableClass.new;
+        UICollectionReusableView *reusableView;
+        
+        if (![view isKindOfClass:[UICollectionReusableView class]]) {
+            reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:kind
+                                                              withReuseIdentifier:[NSString stringWithFormat:@"%@%@",defaultPredix,tab_default_suffix]
+                                                                     forIndexPath:indexPath];
+            for (UIView *view in reusableView.subviews) {
+                [view removeFromSuperview];
+            }
+            view.frame = reusableView.bounds;
+            [reusableView addSubview:view];
+        }else {
+            reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:kind
+                                                              withReuseIdentifier:identifier
+                                                                     forIndexPath:indexPath];
+        }
+        
+        if (nil == reusableView.tabComponentManager) {
+            [TABManagerMethod fullData:reusableView];
+            reusableView.tabComponentManager = [TABComponentManager initWithView:reusableView tabAnimated:collectionView.tabAnimated];
+            reusableView.tabComponentManager.currentSection = indexPath.section;
+            reusableView.tabComponentManager.tabTargetClass = resuableClass;
+        }
+        
+        return reusableView;
+        
+    }
+    return [self tab_collectionView:collectionView viewForSupplementaryElementOfKind:kind atIndexPath:indexPath];
 }
 
 #pragma mark - Private Methods

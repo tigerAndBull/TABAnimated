@@ -104,6 +104,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)removeSubLayers:(NSArray *)subLayers;
 
++ (void)addExtraAnimationWithSuperView:(UIView *)superView
+                            targetView:(UIView *)targetView
+                               manager:(TABComponentManager *)manager;
+
++ (void)runAnimationWithSuperView:(UIView *)superView
+                       targetView:(UIView *)targetView
+                         section:(NSInteger)section
+                          manager:(TABComponentManager *)manager;
+
 @end
 
 NS_ASSUME_NONNULL_END

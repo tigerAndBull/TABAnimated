@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+#import "TABViewAnimated.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -37,6 +39,8 @@ typedef NSArray <TABBaseComponent *> * _Nullable (^TABBaseComponentArrayBlock)(N
 - (TABBaseComponentArrayBlock _Nullable)animations;
 
 #pragma mark - 相关属性
+
+@property (nonatomic) Class tabTargetClass;
 
 @property (nonatomic,strong) CALayer *tabLayer;
 
@@ -90,6 +94,9 @@ typedef NSArray <TABBaseComponent *> * _Nullable (^TABBaseComponentArrayBlock)(N
 @property (nonatomic,strong) NSMutableArray <NSArray *> *entireIndexArray;
 
 + (instancetype)initWithView:(UIView *)view;
+
++ (instancetype)initWithView:(UIView *)view
+                 tabAnimated:(TABViewAnimated *)tabAnimated;
 
 - (void)installBaseComponent:(NSArray <TABComponentLayer *> *)array;
 

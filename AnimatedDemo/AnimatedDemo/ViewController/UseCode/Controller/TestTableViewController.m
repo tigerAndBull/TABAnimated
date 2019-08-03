@@ -10,6 +10,7 @@
 #import "TestTableViewCell.h"
 #import "XIBTableViewCell.h"
 #import "TestHeadView.h"
+#import "TestTableHeaderFooterView.h"
 
 #import "TABAnimated.h"
 #import <TABKit/TABKit.h>
@@ -108,6 +109,14 @@
     return cell;
 }
 
+//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+//    return 100.;
+//}
+//
+//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+//    return UIView.new;
+//}
+
 #pragma mark - Initize Methods
 
 /**
@@ -156,12 +165,11 @@
         _tableView.tabAnimated.showTableHeaderView = YES;
         _tableView.tabAnimated.superAnimationType = TABViewSuperAnimationTypeShimmer;
         
-//      // 旧回调
-//        _tableView.tabAnimated.categoryBlock = ^(UIView * _Nonnull view) {
-//            view.animation(1).down(3).height(1);
-//            view.animation(2).height(12).width(110);
-//            view.animation(3).down(-5).height(12);
-//        };
+        // 区头动画, 建立在实现区头代理方法的前提下
+        // 同时支持UIView和UITableViewHeaderFooterView类型
+        // 非动态分区，必须指定section
+//        [_tableView.tabAnimated addHeaderViewClass:[TestHeadView class] viewHeight:100 toSection:0];
+//        [_tableView.tabAnimated addHeaderViewClass:[TestTableHeaderFooterView class] viewHeight:100 toSection:0];
 
         // 新回调
         _tableView.tabAnimated.adjustBlock = ^(TABComponentManager * _Nonnull manager) {
@@ -170,7 +178,7 @@
             manager.animation(3).down(-5).height(12);
         };
         
-        // 静态头视图扩展新回调使用方法
+        // 静态头视图回调使用方法
         _tableView.tableHeaderView.tabAnimated.adjustBlock = ^(TABComponentManager * _Nonnull manager) {
             
         };

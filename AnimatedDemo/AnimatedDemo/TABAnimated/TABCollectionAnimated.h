@@ -52,6 +52,22 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,assign) NSInteger animatedCount;
 
 /**
+ * 存储头视图相关，在完全理解原理的情况下，可以采用直接赋值
+ * 否则建议使用`addHeaderViewClass:viewSize:toSection`
+ */
+@property (nonatomic,strong,readonly) NSMutableArray <Class> *headerClassArray;
+@property (nonatomic,strong,readonly) NSMutableArray <NSValue *> *headerSizeArray;
+@property (nonatomic,strong,readonly) NSMutableArray <NSNumber *> *headerSectionArray;
+
+/**
+ * 存储尾视图相关，在完全理解原理的情况下，可以采用直接赋值
+ * 否则建议使用`addFooterViewClass:viewSize:toSection`
+ */
+@property (nonatomic,strong,readonly) NSMutableArray <Class> *footerClassArray;
+@property (nonatomic,strong,readonly) NSMutableArray <NSValue *> *footerSizeArray;
+@property (nonatomic,strong,readonly) NSMutableArray <NSNumber *> *footerSectionArray;
+
+/**
  * 单section表格组件初始化方式，row值以填充contentSize的数量为标准
  * one section init method
  * When using it to init, the count decided by the table's contentSize and the cell's height, animatedCount = the table's contentSize / the cell's height.
@@ -136,14 +152,51 @@ NS_ASSUME_NONNULL_BEGIN
                       animatedSectionArray:(NSArray <NSNumber *> *)animatedSectionArray;
 
 /**
- * 判断指定分区是否在动画中
+ * 添加区头动画，指定section
  *
- * @param collectionView collectionView 目标组件
- * @param section section 目标section
- * @return return value 是否在动画中
+ * @param headerViewClass 区头类对象
+ * @param viewSize 区头size
+ * @param section 指定的section
  */
-- (BOOL)currentSectionIsAnimating:(UICollectionView *)collectionView
-                          section:(NSInteger)section;
+- (void)addHeaderViewClass:(_Nonnull Class)headerViewClass
+                  viewSize:(CGSize)viewSize
+                 toSection:(NSInteger)section;
+
+/**
+ * 添加区头动画
+ * 不指定section，意味着所有section都会加入该区头动画，
+ * 仅设置animatedSectionCount属性生效
+ *
+ * @param headerViewClass 区头类对象
+ * @param viewSize 区头size
+ */
+- (void)addHeaderViewClass:(_Nonnull Class)headerViewClass
+                  viewSize:(CGSize)viewSize;
+
+/**
+ * 添加区尾动画，指定section
+ *
+ * @param footerViewClass 区尾类对象
+ * @param viewSize 区尾size
+ * @param section 指定的section
+ */
+- (void)addFooterViewClass:(_Nonnull Class)footerViewClass
+                  viewSize:(CGSize)viewSize
+                 toSection:(NSInteger)section;
+
+/**
+ * 添加区尾动画
+ * 不指定section，意味着所有section都会加入该区尾动画，
+ * 仅设置animatedSectionCount属性生效
+ *
+ * @param footerViewClass 区尾类对象
+ * @param viewSize 区尾size
+ */
+- (void)addFooterViewClass:(_Nonnull Class)footerViewClass
+                  viewSize:(CGSize)viewSize;
+
+- (NSInteger)headerFooterNeedAnimationOnSection:(NSInteger)section
+                                           kind:(NSString *)kind;
 
 @end
 

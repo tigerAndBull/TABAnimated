@@ -8,6 +8,18 @@
 
 #import "TABCollectionAnimated.h"
 
+@interface TABCollectionAnimated()
+
+@property (nonatomic,strong,readwrite) NSMutableArray <Class> *headerClassArray;
+@property (nonatomic,strong,readwrite) NSMutableArray <NSValue *> *headerSizeArray;
+@property (nonatomic,strong,readwrite) NSMutableArray <NSNumber *> *headerSectionArray;
+
+@property (nonatomic,strong,readwrite) NSMutableArray <Class> *footerClassArray;
+@property (nonatomic,strong,readwrite) NSMutableArray <NSValue *> *footerSizeArray;
+@property (nonatomic,strong,readwrite) NSMutableArray <NSNumber *> *footerSectionArray;
+
+@end
+
 @implementation TABCollectionAnimated
 
 + (instancetype)animatedWithCellClass:(Class)cellClass
@@ -72,6 +84,14 @@
         _runAnimationSectionArray = @[].mutableCopy;
         _animatedSectionCount = 0;
         _animatedCount = 1;
+        
+        _headerSizeArray = @[].mutableCopy;
+        _headerClassArray = @[].mutableCopy;
+        _headerSectionArray = @[].mutableCopy;
+        
+        _footerSizeArray = @[].mutableCopy;
+        _footerClassArray = @[].mutableCopy;
+        _footerSectionArray = @[].mutableCopy;
     }
     return self;
 }
@@ -81,15 +101,74 @@
     _cellSizeArray = @[[NSValue valueWithCGSize:cellSize]];
 }
 
-- (BOOL)currentSectionIsAnimating:(UICollectionView *)collectionView
-                          section:(NSInteger)section {
-    
+- (BOOL)currentSectionIsAnimatingWithSection:(NSInteger)section {
     for (NSNumber *num in self.runAnimationSectionArray) {
         if ([num integerValue] == section) {
             return YES;
         }
     }
     return NO;
+}
+
+- (NSInteger)headerFooterNeedAnimationOnSection:(NSInteger)section
+                                           kind:(NSString *)kind {
+    
+    if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
+        
+        if (self.headerSectionArray.count == 0) {
+            return tab_animated_error_code;
+        }
+        
+        for (NSInteger i = 0; i < self.headerSectionArray.count; i++) {
+            NSNumber *num = self.headerSectionArray[i];
+            if ([num integerValue] == section) {
+                return i;
+            }
+        }
+        
+        return tab_animated_error_code;
+    }
+    
+    if (self.footerSectionArray.count == 0) {
+        return tab_animated_error_code;
+    }
+    
+    for (NSInteger i = 0; i < self.footerSectionArray.count; i++) {
+        NSNumber *num = self.footerSectionArray[i];
+        if ([num integerValue] == section) {
+            return i;
+        }
+    }
+    
+    return tab_animated_error_code;
+}
+
+- (void)addHeaderViewClass:(_Nonnull Class)headerViewClass
+                  viewSize:(CGSize)viewSize {
+    [_headerClassArray addObject:headerViewClass];
+    [_headerSizeArray addObject:@(viewSize)];
+}
+
+- (void)addHeaderViewClass:(_Nonnull Class)headerViewClass
+                  viewSize:(CGSize)viewSize
+                 toSection:(NSInteger)section {
+    [_headerClassArray addObject:headerViewClass];
+    [_headerSizeArray addObject:@(viewSize)];
+    [_headerSectionArray addObject:@(section)];
+}
+
+- (void)addFooterViewClass:(_Nonnull Class)footerViewClass
+                  viewSize:(CGSize)viewSize {
+    [_footerClassArray addObject:footerViewClass];
+    [_footerSizeArray addObject:@(viewSize)];
+}
+
+- (void)addFooterViewClass:(_Nonnull Class)footerViewClass
+                  viewSize:(CGSize)viewSize
+                 toSection:(NSInteger)section {
+    [_footerClassArray addObject:footerViewClass];
+    [_footerSizeArray addObject:@(viewSize)];
+    [_footerSectionArray addObject:@(section)];
 }
 
 @end

@@ -76,7 +76,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 44;
+    return 100;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -132,6 +132,7 @@
         // 可以不进行手动初始化，将使用默认属性
         _tableView.tabAnimated = [TABTableAnimated animatedWithCellClass:[TestLayoutCell class]
                                                               cellHeight:100];
+        _tableView.tabAnimated.superAnimationType = TABViewSuperAnimationTypeShimmer;
     }
     return _tableView;
 }

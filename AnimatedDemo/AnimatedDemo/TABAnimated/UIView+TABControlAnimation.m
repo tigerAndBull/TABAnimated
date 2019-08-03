@@ -130,6 +130,14 @@
         
         TABCollectionAnimated *tabAnimated = (TABCollectionAnimated *)((UICollectionView *)self.tabAnimated);
         
+        if (tabAnimated.headerClassArray.count > 0) {
+            [self registerHeaderOrFooter:YES tabAnimated:tabAnimated];
+        }
+        
+        if (tabAnimated.footerClassArray.count > 0) {
+            [self registerHeaderOrFooter:NO tabAnimated:tabAnimated];
+        }
+
         [tabAnimated.runAnimationSectionArray removeAllObjects];
         
         if (isAll) {
@@ -182,7 +190,9 @@
             tableView.estimatedRowHeight != 0) {
             tabAnimated.oldEstimatedRowHeight = tableView.estimatedRowHeight;
             tableView.estimatedRowHeight = UITableViewAutomaticDimension;
-            tableView.rowHeight = [[tabAnimated.cellHeightArray lastObject] floatValue];
+            if (tabAnimated.cellClassArray.count == 1) {
+                tableView.rowHeight = [tabAnimated.cellHeightArray.lastObject floatValue];
+            }
         }
         
         if (tableView.tabAnimated.showTableHeaderView) {
@@ -225,11 +235,7 @@
     }else {
         
         if (nil == self.tabComponentManager) {
-            self.tabComponentManager = [TABComponentManager initWithView:self];
-            self.tabComponentManager.tabLayer.frame = self.bounds;
-            self.tabComponentManager.animatedHeight = self.tabAnimated.animatedHeight;
-            self.tabComponentManager.animatedCornerRadius = self.tabAnimated.animatedCornerRadius;
-            self.tabComponentManager.cancelGlobalCornerRadius = self.tabAnimated.cancelGlobalCornerRadius;
+            self.tabComponentManager = [TABComponentManager initWithView:self tabAnimated:self.tabAnimated];
             [TABManagerMethod fullData:self];
         }
         [self layoutSubviews];
@@ -368,6 +374,56 @@
     if (array.count == 0) {
         self.tabAnimated.state = TABViewAnimationEnd;
         self.tabAnimated.isAnimating = NO;
+    }
+}
+
+- (void)registerHeaderOrFooter:(BOOL)isHeader
+                   tabAnimated:(TABCollectionAnimated *)tabAnimated {
+    
+    UICollectionView *collectionView = (UICollectionView *)self;
+    NSString *defaultPrefix = nil;
+    NSMutableArray *classArray = @[].mutableCopy;
+    NSString *kind = nil;
+    
+    if (isHeader) {
+        defaultPrefix = tab_header_prefix;
+        classArray = tabAnimated.headerClassArray;
+        kind = UICollectionElementKindSectionHeader;
+    }else {
+        defaultPrefix = tab_footer_prefix;
+        classArray = tabAnimated.footerClassArray;
+        kind = UICollectionElementKindSectionFooter;
+    }
+    
+    [collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:kind withReuseIdentifier:[NSString stringWithFormat:@"%@%@",defaultPrefix,tab_default_suffix]];
+    
+    for (Class class in classArray) {
+        
+        NSString *classString = NSStringFromClass(class);
+        if ([classString containsString:@"."]) {
+            NSRange range = [classString rangeOfString:@"."];
+            classString = [classString substringFromIndex:range.location+1];
+        }
+        
+        NSString *nibPath = [[NSBundle mainBundle] pathForResource:classString ofType:@"nib"];
+        
+        if (nil != nibPath && nibPath.length > 0) {
+            [collectionView registerNib:[UINib nibWithNibName:classString
+                                                       bundle:[NSBundle mainBundle]]
+             forSupplementaryViewOfKind:kind
+                    withReuseIdentifier:[NSString stringWithFormat:@"%@%@",defaultPrefix,classString]];
+            [collectionView registerNib:[UINib nibWithNibName:classString
+                                                       bundle:[NSBundle mainBundle]]
+             forSupplementaryViewOfKind:kind
+                    withReuseIdentifier:classString];
+        }else {
+            [collectionView registerClass:class
+               forSupplementaryViewOfKind:kind
+                      withReuseIdentifier:[NSString stringWithFormat:@"%@%@",defaultPrefix,classString]];
+            [collectionView registerClass:class
+               forSupplementaryViewOfKind:kind
+                      withReuseIdentifier:classString];
+        }
     }
 }
 

@@ -16,9 +16,15 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import "TABComponentManager.h"
 
 NS_ASSUME_NONNULL_BEGIN
+
+@class TABComponentManager;
+
+#define tab_animated_error_code -1000
+#define tab_header_prefix @"tab_header_"
+#define tab_footer_prefix @"tab_footer_"
+#define tab_default_suffix @"default_resuable_view"
 
 /**
  * The status of the animation on the control view.
@@ -65,15 +71,14 @@ typedef void(^TABAnimatedCategoryBlock)(UIView *view);
 typedef void(^TABAdjustBlock)(TABComponentManager *manager);
 
 /**
- * 新预处理回调，适用于多cell
+ * 适用于多cell, 建议使用该回调
  * 默认情况下，cellArray的下标就是section的值
  * 指定section的情况，就是你所指定的值
  *
  * @param manager 管理动画组对象
- * @param section 多cell情况，对应的数组下标
+ * @param targetClass 多cell情况，对应的数组下标
  */
-typedef void(^TABAdjustWithSectionBlock)(TABComponentManager *manager, NSInteger section);
-
+typedef void(^TABAdjustWithClassBlock)(TABComponentManager *manager, Class targetClass);
 
 @interface TABViewAnimated : NSObject
 
@@ -88,7 +93,7 @@ typedef void(^TABAdjustWithSectionBlock)(TABComponentManager *manager, NSInteger
  * 可以在其中使用链式语法便捷调整每一个动画元素,
  * section是指数组中不同cell的下标
  */
-@property (nonatomic,copy) TABAdjustWithSectionBlock adjustWithSectionBlock;
+@property (nonatomic,copy) TABAdjustWithClassBlock adjustWithClassBlock;
 
 /**
  * 预处理回调，可以在其中使用链式语法便捷调整每一个动画元素
@@ -187,6 +192,14 @@ typedef void(^TABAdjustWithSectionBlock)(TABComponentManager *manager, NSInteger
  * 豆瓣动画变色值
  */
 @property (nonatomic,strong) UIColor *dropAnimationDeepColor;
+
+/**
+ * 判断指定分区是否在动画中
+ *
+ * @param section section 目标section
+ * @return return value 是否在动画中
+ */
+- (BOOL)currentSectionIsAnimatingWithSection:(NSInteger)section;
 
 @end
 

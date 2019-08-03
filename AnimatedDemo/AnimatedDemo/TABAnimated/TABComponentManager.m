@@ -23,8 +23,41 @@ static CGFloat defaultHeight = 16.f;
 
 @implementation TABComponentManager
 
++ (instancetype)initWithView:(UIView *)view
+                 tabAnimated:(TABViewAnimated *)tabAnimated {
+    TABComponentManager *manager = [self initWithView:view];
+    manager.animatedHeight = tabAnimated.animatedHeight;
+    manager.animatedCornerRadius = tabAnimated.animatedCornerRadius;
+    manager.cancelGlobalCornerRadius = tabAnimated.cancelGlobalCornerRadius;
+    if (tabAnimated.animatedBackViewCornerRadius > 0) {
+        manager.tabLayer.cornerRadius = tabAnimated.animatedBackViewCornerRadius;
+    }else {
+        if (view.layer.cornerRadius > 0.) {
+            manager.tabLayer.cornerRadius = view.layer.cornerRadius;
+        }else {
+            if ([view isKindOfClass:[UITableViewCell class]]) {
+                UITableViewCell *cell = (UITableViewCell *)view;
+                if (cell.contentView.layer.cornerRadius > 0.) {
+                    manager.tabLayer.cornerRadius = cell.contentView.layer.cornerRadius;
+                }
+            }else {
+                if ([view isKindOfClass:[UICollectionViewCell class]]) {
+                    UICollectionViewCell *cell = (UICollectionViewCell *)view;
+                    if (cell.contentView.layer.cornerRadius > 0.) {
+                        manager.tabLayer.cornerRadius = cell.contentView.layer.cornerRadius;
+                    }
+                }
+            }
+        }
+    }
+    manager.animatedBackgroundColor = tabAnimated.animatedBackgroundColor;
+    manager.animatedColor = tabAnimated.animatedColor;
+    return manager;
+}
+
 + (instancetype)initWithView:(UIView *)view {
     TABComponentManager *manager = [[TABComponentManager alloc] init];
+    manager.tabLayer.frame = view.bounds;
     [view.layer addSublayer:manager.tabLayer];
     return manager;
 }
@@ -90,8 +123,6 @@ static CGFloat defaultHeight = 16.f;
 }
 
 - (void)updateComponentLayers {
-    
-    [self.resultLayerArray removeAllObjects];
     
     for (NSInteger i = 0; i < self.baseComponentArray.count; i++) {
         

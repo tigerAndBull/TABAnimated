@@ -66,7 +66,6 @@ NS_ASSUME_NONNULL_BEGIN
  **/
 @property (nonatomic,assign) NSInteger animatedCount;
 
-
 /**
  * UITableView动画启动时，同时启动UITableViewHeaderView
  */
@@ -76,6 +75,21 @@ NS_ASSUME_NONNULL_BEGIN
  * UITableView动画启动时，同时启动UITableViewFooterView
  */
 @property (nonatomic,assign) BOOL showTableFooterView;
+
+/**
+ * 存储头视图相关，在完全理解原理的情况下，可以采用直接赋值
+ * 否则建议使用`addHeaderViewClass:viewHeight:toSection`
+ */
+@property (nonatomic,strong,readonly) NSMutableArray <Class> *headerClassArray;
+@property (nonatomic,strong,readonly) NSMutableArray <NSNumber *> *headerHeightArray;
+@property (nonatomic,strong,readonly) NSMutableArray <NSNumber *> *headerSectionArray;
+
+/**
+ * 存储尾视图相关
+ */
+@property (nonatomic,strong,readonly) NSMutableArray <Class> *footerClassArray;
+@property (nonatomic,strong,readonly) NSMutableArray <NSNumber *> *footerHeightArray;
+@property (nonatomic,strong,readonly) NSMutableArray <NSNumber *> *footerSectionArray;
 
 /**
  * 单section表格组件初始化方式，row值以填充contentSize的数量为标准
@@ -164,14 +178,52 @@ NS_ASSUME_NONNULL_BEGIN
                       animatedSectionArray:(NSArray <NSNumber *> *)animatedSectionArray;
 
 /**
- * 判断指定分区是否在动画中
- * 
- * @param tableView tableView 目标组件
- * @param section section 目标section
- * @return return value 是否在动画中
+ * 添加区头动画，指定section
+ *
+ * @param headerViewClass 区头类对象
+ * @param viewHeight 区头高度
+ * @param section 指定的section
  */
-- (BOOL)currentSectionIsAnimating:(UITableView *)tableView
-                          section:(NSInteger)section;
+- (void)addHeaderViewClass:(__nonnull Class)headerViewClass
+                viewHeight:(CGFloat)viewHeight
+                 toSection:(NSInteger)section;
+
+/**
+ * 添加区头动画
+ * 不指定section，意味着所有section都会加入该区头动画，
+ * 仅设置animatedSectionCount属性生效
+ *
+ * @param headerViewClass 区头类对象
+ * @param viewHeight 区头高度
+ */
+- (void)addHeaderViewClass:(__nonnull Class)headerViewClass
+                viewHeight:(CGFloat)viewHeight;
+
+/**
+ * 添加区尾动画，指定section
+ *
+ * @param footerViewClass 区尾类对象
+ * @param viewHeight 区尾高度
+ * @param section 指定的section
+ */
+- (void)addFooterViewClass:(__nonnull Class)footerViewClass
+                viewHeight:(CGFloat)viewHeight
+                 toSection:(NSInteger)section;
+
+/**
+ * 添加区尾动画
+ * 不指定section，意味着所有section都会加入该区尾动画，
+ * 仅设置animatedSectionCount属性生效
+ *
+ * @param footerViewClass 区尾类对象
+ * @param viewHeight 区尾高度
+ */
+- (void)addFooterViewClass:(__nonnull Class)footerViewClass
+                viewHeight:(CGFloat)viewHeight;
+
+- (NSInteger)headerNeedAnimationOnSection:(NSInteger)section;
+
+- (NSInteger)footerNeedAnimationOnSection:(NSInteger)section;
 
 @end
 

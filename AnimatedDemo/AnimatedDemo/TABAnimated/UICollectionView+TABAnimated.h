@@ -17,6 +17,7 @@
 #import <UIKit/UIKit.h>
 #import "UIView+TABAnimated.h"
 #import "TABAnimated.h"
+#import "TABComponentManager.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

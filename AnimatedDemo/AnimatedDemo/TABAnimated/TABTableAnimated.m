@@ -8,6 +8,18 @@
 
 #import "TABTableAnimated.h"
 
+@interface TABTableAnimated()
+
+@property (nonatomic,strong,readwrite) NSMutableArray <Class> *headerClassArray;
+@property (nonatomic,strong,readwrite) NSMutableArray <NSNumber *> *headerHeightArray;
+@property (nonatomic,strong,readwrite) NSMutableArray <NSNumber *> *headerSectionArray;
+
+@property (nonatomic,strong,readwrite) NSMutableArray <Class> *footerClassArray;
+@property (nonatomic,strong,readwrite) NSMutableArray <NSNumber *> *footerHeightArray;
+@property (nonatomic,strong,readwrite) NSMutableArray <NSNumber *> *footerSectionArray;
+
+@end
+
 @implementation TABTableAnimated
 
 + (instancetype)animatedWithCellClass:(Class)cellClass
@@ -73,8 +85,44 @@
         _runAnimationSectionArray = @[].mutableCopy;
         _animatedSectionCount = 0;
         _animatedCount = 1;
+        
+        _headerClassArray = @[].mutableCopy;
+        _headerHeightArray = @[].mutableCopy;
+        _headerSectionArray = @[].mutableCopy;
+        
+        _footerClassArray = @[].mutableCopy;
+        _footerHeightArray = @[].mutableCopy;
+        _footerSectionArray = @[].mutableCopy;
     }
     return self;
+}
+
+- (void)addHeaderViewClass:(__nonnull Class)headerViewClass
+                viewHeight:(CGFloat)viewHeight
+                 toSection:(NSInteger)section {
+    [_headerClassArray addObject:headerViewClass];
+    [_headerHeightArray addObject:@(viewHeight)];
+    [_headerSectionArray addObject:@(section)];
+}
+
+- (void)addHeaderViewClass:(__nonnull Class)headerViewClass
+                viewHeight:(CGFloat)viewHeight {
+    [_headerClassArray addObject:headerViewClass];
+    [_headerHeightArray addObject:@(viewHeight)];
+}
+
+- (void)addFooterViewClass:(__nonnull Class)footerViewClass
+                viewHeight:(CGFloat)viewHeight
+                 toSection:(NSInteger)section {
+    [_footerClassArray addObject:footerViewClass];
+    [_footerHeightArray addObject:@(viewHeight)];
+    [_footerSectionArray addObject:@(section)];
+}
+
+- (void)addFooterViewClass:(__nonnull Class)footerViewClass
+                viewHeight:(CGFloat)viewHeight {
+    [_footerClassArray addObject:footerViewClass];
+    [_footerHeightArray addObject:@(viewHeight)];
 }
 
 - (void)setCellHeight:(CGFloat)cellHeight {
@@ -82,14 +130,45 @@
     _cellHeightArray = @[[NSNumber numberWithFloat:cellHeight]];
 }
 
-- (BOOL)currentSectionIsAnimating:(UITableView *)tableView
-                          section:(NSInteger)section {
+- (BOOL)currentSectionIsAnimatingWithSection:(NSInteger)section {
     for (NSNumber *num in self.runAnimationSectionArray) {
         if ([num integerValue] == section) {
             return YES;
         }
     }
     return NO;
+}
+
+- (NSInteger)headerNeedAnimationOnSection:(NSInteger)section {
+    
+    if (self.headerSectionArray.count == 0) {
+        return tab_animated_error_code;
+    }
+    
+    for (NSInteger i = 0; i < self.headerSectionArray.count; i++) {
+        NSNumber *num = self.headerSectionArray[i];
+        if ([num integerValue] == section) {
+            return i;
+        }
+    }
+    
+    return tab_animated_error_code;
+}
+
+- (NSInteger)footerNeedAnimationOnSection:(NSInteger)section {
+    
+    if (self.footerSectionArray.count == 0) {
+        return tab_animated_error_code;
+    }
+    
+    for (NSInteger i = 0; i < self.footerSectionArray.count; i++) {
+        NSNumber *num = self.footerSectionArray[i];
+        if ([num integerValue] == section) {
+            return i;
+        }
+    }
+    
+    return tab_animated_error_code;
 }
 
 @end
