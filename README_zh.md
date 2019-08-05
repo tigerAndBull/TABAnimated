@@ -23,6 +23,7 @@
 建议先花上几分钟，认真阅读本文。
 
 其他相关文档：
+- [问答文档和集成注意点](https://www.jianshu.com/p/34417897915a)
 - [历史更新文档](https://www.jianshu.com/p/e3e9ea295e8a)
 - [解决动画下标问题，极大提高集成效率](https://www.jianshu.com/p/8c361ba5aa18)
 - [豆瓣效果使用地址](https://www.jianshu.com/p/1a92158ce83a)
