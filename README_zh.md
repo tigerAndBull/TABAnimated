@@ -19,10 +19,10 @@
 
 ### 最新版稳定版 2.1.9 ，新加和弃用了api，老用户谨慎升级
 
-
 建议先花上几分钟，认真阅读本文。
 
 其他相关文档：
+- [问答文档和集成注意点](https://www.jianshu.com/p/34417897915a)
 - [历史更新文档](https://www.jianshu.com/p/e3e9ea295e8a)
 - [解决动画下标问题，极大提高集成效率](https://www.jianshu.com/p/8c361ba5aa18)
 - [豆瓣效果使用地址](https://www.jianshu.com/p/1a92158ce83a)
@@ -305,6 +305,21 @@ end animation to the section
 */
 - (void)tab_endAnimationWithSection:(NSInteger)section;
 ```
+
+7. UITableView和UICollectionView区头区尾
+
+(1) 非动态section的区头区尾，必须指定section
+```
+- (void)addHeaderViewClass:(__nonnull Class)headerViewClass
+                viewHeight:(CGFloat)viewHeight
+                 toSection:(NSInteger)section;
+```
+(2) 动态section的区头区尾用此方法
+```
+- (void)addHeaderViewClass:(__nonnull Class)headerViewClass
+                viewHeight:(CGFloat)viewHeight;
+```
+(3) 支持UITableViewHeaderFooterView和UICollectionReusableView的同时，也支持基础视图UIView
 
 ## 属性相关
 
