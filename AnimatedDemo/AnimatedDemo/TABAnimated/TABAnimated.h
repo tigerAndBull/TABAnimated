@@ -5,6 +5,7 @@
 //  github: https://github.com/tigerAndBull/TABAnimated
 //  jianshu: https://www.jianshu.com/p/6a0ca4995dff
 //
+//  集成问答文档：https://www.jianshu.com/p/34417897915a
 //  历史更新文档：https://www.jianshu.com/p/e3e9ea295e8a
 //  动画下标说明：https://www.jianshu.com/p/8c361ba5aa18
 //  豆瓣效果说明：https://www.jianshu.com/p/1a92158ce83a
@@ -34,7 +35,6 @@
 #import "TABManagerMethod.h"
 
 #import "TABComponentLayer.h"
-#import "TABComponentLayer+TABAnimated.h"
 #import "NSArray+TABAnimated.h"
 
 #import "TABViewAnimated.h"
@@ -48,6 +48,11 @@
 #define tab_kColor(c) [UIColor colorWithRed:((c>>24)&0xFF)/255.0 green:((c>>16)&0xFF)/255.0 blue:((c>>8)&0xFF)/255.0 alpha:((c)&0xFF)/255.0]
 #define tab_kBackColor tab_kColor(0xEEEEEEFF)
 #define tab_kShimmerBackColor tab_kColor(0xDFDFDFFF)
+
+#define tab_animated_error_code -1000
+#define tab_header_prefix @"tab_header_"
+#define tab_footer_prefix @"tab_footer_"
+#define tab_default_suffix @"default_resuable_view"
 
 #endif
 

@@ -11,11 +11,32 @@
 NS_ASSUME_NONNULL_BEGIN
 
 typedef enum : NSUInteger {
+    // 一级
     MainViewControllerMain = 0,
+    
+    // 二级
     MainViewControllerCode,
     MainViewControllerXib,
     MainViewControllerDouban,
     MainViewControllerAutoLayout,
+    
+    // 三级
+    MainViewControllerCodeUseTableView,
+    MainViewControllerCodeUseCollectionView,
+    MainViewControllerCodeUseCustomView,
+    
+    MainViewControllerXibUseTableView,
+    MainViewControllerXibUseCollectionView,
+    MainViewControllerXibUseCustomView,
+    
+    MainViewControllerDoubanUseTableView,
+    MainViewControllerDoubanUseCollectionView,
+    MainViewControllerDoubanUseCustomView,
+    
+    MainViewControllerAutoLayoutUseTableView,
+    MainViewControllerAutoLayoutUseCollectionView,
+    MainViewControllerAutoLayoutUseCustomView,
+    
 } MainViewControllerType;
 
 @interface MainViewController : UIViewController

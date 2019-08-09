@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+
 @class Game;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -16,7 +17,9 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @interface TestLayoutCell : UITableViewCell
+
 - (void)initWithData:(Game *)game;
+
 @end
 
 NS_ASSUME_NONNULL_END

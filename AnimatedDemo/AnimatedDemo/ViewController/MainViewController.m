@@ -12,9 +12,9 @@
 
 @interface MainViewController () <UITableViewDelegate,UITableViewDataSource>
 
-@property (nonatomic,strong) NSArray <NSString *> *titleArray;
-@property (nonatomic,strong) NSArray <NSString *> *controllerClassArray;
-@property (nonatomic,strong) UITableView *tableView;
+@property (nonatomic, strong) NSArray <NSString *> *titleArray;
+@property (nonatomic, strong) NSArray <NSString *> *controllerClassArray;
+@property (nonatomic, strong) UITableView *tableView;
 
 @end
 
@@ -51,9 +51,7 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
-    
     cell.textLabel.text = self.titleArray[indexPath.row];
-
     return cell;
 }
 
@@ -106,10 +104,11 @@
 - (NSArray *)titleArray {
     
     switch (self.type) {
+            
         case MainViewControllerMain: {
             
             return @[
-                     kText(@"纯代码与Masonry 示例"),
+                     kText(@"纯代码构建、Masonry布局 示例"),
                      kText(@"Xib 示例"),
                      kText(@"豆瓣动画 示例"),
                      kText(@"自适应高度 示例"),

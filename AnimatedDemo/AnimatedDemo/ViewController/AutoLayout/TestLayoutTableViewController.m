@@ -64,7 +64,6 @@
         game.cover = @"test.jpg";
         [dataArray addObject:game];
     }
-//    [_tableView reloadData];
     // 停止动画,并刷新数据
     [self.tableView tab_endAnimation];
 }
@@ -122,14 +121,18 @@
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:UITableViewStylePlain];
         _tableView.dataSource = self;
         _tableView.delegate = self;
-        _tableView.estimatedRowHeight = 200;
+        _tableView.estimatedRowHeight = 100;
         _tableView.rowHeight = UITableViewAutomaticDimension;
         _tableView.backgroundColor = [UIColor whiteColor];
         
         // 设置tabAnimated相关属性
         // 可以不进行手动初始化，将使用默认属性
-        _tableView.tabAnimated = [TABTableAnimated animatedWithCellClass:[TestLayoutCell class]
-                                                              cellHeight:100];
+        // 自适应高度需要撑开，目前没有确定最终的适配方案
+        _tableView.tabAnimated = [TABTableAnimated animatedWithCellClass:[TestLayoutCell class]];
+        _tableView.tabAnimated.animatedCount = 20;
+        _tableView.tabAnimated.adjustBlock = ^(TABComponentManager * _Nonnull manager) {
+            manager.animation(0).line(1);
+        };
     }
     return _tableView;
 }
@@ -176,7 +179,6 @@
 }
 
 - (void)initWithData:(Game *)game {
-    
     self.titleLab.text = game.title;
     self.timeLab.text = @"发布时间：2018-09-12";
 }
