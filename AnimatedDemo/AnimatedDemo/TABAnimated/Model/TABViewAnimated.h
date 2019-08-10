@@ -20,6 +20,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+#define tab_animated_error_code -1000
+#define tab_header_prefix @"tab_header_"
+#define tab_footer_prefix @"tab_footer_"
+#define tab_default_suffix @"default_resuable_view"
+
 @class TABComponentManager;
 
 /**

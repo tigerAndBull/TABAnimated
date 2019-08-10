@@ -61,7 +61,7 @@ static CGFloat defaultHeight = 16.f;
     if (view.frame.size.width > 0.) {
         manager.tabLayer.frame = view.bounds;
     }else {
-        manager.tabLayer.frame = CGRectMake(view.bounds.origin.x, view.bounds.origin.y, kScreenWidth, view.bounds.size.height);
+        manager.tabLayer.frame = CGRectMake(view.bounds.origin.x, view.bounds.origin.y, [UIScreen mainScreen].bounds.size.width, view.bounds.size.height);
     }
     [view.layer addSublayer:manager.tabLayer];
     return manager;

@@ -51,19 +51,6 @@
 #define tab_kBackColor tab_kColor(0xEEEEEEFF)
 #define tab_kShimmerBackColor tab_kColor(0xDFDFDFFF)
 
-#define tab_animated_error_code -1000
-#define tab_header_prefix @"tab_header_"
-#define tab_footer_prefix @"tab_footer_"
-#define tab_default_suffix @"default_resuable_view"
-
-#define tab_suppressSelectorDeclaredpWarning(Stuff) \
-do { \
-_Pragma("clang diagnostic push") \
-_Pragma("clang diagnostic ignored \"-Wundeclared-selector\"") \
-Stuff; \
-_Pragma("clang diagnostic pop") \
-} while (0)
-
 #endif
 
 static NSString * const kTABAlphaAnimation = @"TABAlphaAnimation";
