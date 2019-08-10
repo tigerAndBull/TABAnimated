@@ -7,7 +7,6 @@
 //
 
 #import "TABTableAnimated.h"
-#import "TABViewAnimated.h"
 
 @interface TABTableAnimated()
 

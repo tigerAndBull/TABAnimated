@@ -15,9 +15,9 @@
 //  Copyright © 2019 tigerAndBull. All rights reserved.
 //
 
-NS_ASSUME_NONNULL_BEGIN
+#import "TABViewAnimated.h"
 
-@class TABViewAnimated;
+NS_ASSUME_NONNULL_BEGIN
 
 @interface TABCollectionAnimated : TABViewAnimated
 

@@ -7,7 +7,6 @@
 //
 
 #import "TABCollectionAnimated.h"
-#import "TABViewAnimated.h"
 
 @interface TABCollectionAnimated()
 

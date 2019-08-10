@@ -16,10 +16,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "TABViewAnimated.h"
 
 NS_ASSUME_NONNULL_BEGIN
-
-@class TABViewAnimated;
 
 @interface TABTableAnimated : TABViewAnimated
 
