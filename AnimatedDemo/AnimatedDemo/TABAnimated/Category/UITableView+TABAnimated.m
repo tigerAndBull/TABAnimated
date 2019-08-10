@@ -19,6 +19,7 @@
     static dispatch_once_t onceToken;
     
     dispatch_once(&onceToken, ^{
+        
         Method originMethod = class_getInstanceMethod([self class], @selector(setDelegate:));
         Method newMethod = class_getInstanceMethod([self class], @selector(tab_setDelegate:));
         method_exchangeImplementations(originMethod, newMethod);
@@ -32,12 +33,15 @@
 - (void)tab_setDelegate:(id<UITableViewDelegate>)delegate {
     
     if ([self isKindOfClass:[delegate class]]) {
-        //        tabAnimatedLog(@"注意：你采用了`self.delegate = self`,将delegate方法封装在了子类。那么，delegate方法的IMP地址为类对象所有，所以由该类创建的UITableView的代理方法的IMP地址始终唯一，本库不支持这种做法。");
+        
+        //  tabAnimatedLog(@"注意：你采用了`self.delegate = self`,将delegate方法封装在了子类。那么，delegate方法的IMP地址为类对象所有，所以由该类创建的UITableView的代理方法的IMP地址始终唯一，本库不支持这种做法。");
+        
         TableDeDaSelfModel *model = [[TABAnimated sharedAnimated] getTableDeDaModelAboutDeDaSelfWithClassName:NSStringFromClass(delegate.class)];
         if (!model.isExhangeDelegate) {
             [self exchangeDelegateMethods:delegate model:model];
             model.isExhangeDelegate = YES;
         }
+        
     }else {
         [self exchangeDelegateMethods:delegate model:nil];
     }
@@ -405,7 +409,7 @@
     }else {
         newHeightDelegate = @selector(tab_tableView:heightForRowAtIndexPath:);
     }
-    
+
     SEL estimatedHeightDelegateSel = @selector(tableView:estimatedHeightForRowAtIndexPath:);
     
     if ([delegate respondsToSelector:estimatedHeightDelegateSel] &&

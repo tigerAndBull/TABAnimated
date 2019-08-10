@@ -7,6 +7,7 @@
 //
 
 #import "TableDeDaSelfModel.h"
+#import "TABAnimated.h"
 
 @implementation TableDeDaSelfModel
 
