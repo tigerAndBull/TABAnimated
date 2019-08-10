@@ -7,8 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "TestBaseModel.h"
 
-@interface Game:NSObject
+@interface Game : TestBaseModel
 
 @property (nonatomic,strong) NSString *gameId;
 @property (nonatomic,strong) NSString *content;

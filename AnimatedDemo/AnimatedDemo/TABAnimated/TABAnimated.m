@@ -17,6 +17,12 @@
 
 #import <objc/runtime.h>
 
+@interface TABAnimated()
+
+@property (nonatomic,strong,readwrite) NSMutableArray <TableDeDaSelfModel *> *tableDeDaSelfModelArray;
+
+@end
+
 @implementation TABAnimated
 
 #pragma mark - Getter
@@ -120,6 +126,7 @@
 - (instancetype)init {
     if (self = [super init]) {
         _animationType = TABAnimationTypeOnlySkeleton;
+        _tableDeDaSelfModelArray = @[].mutableCopy;
     }
     return self;
 }
@@ -166,6 +173,21 @@
         _animationType = TABAnimationTypeDrop;
         _animatedColor = tab_kBackColor;
     }
+}
+
+#pragma mark - Other Method
+
+- (TableDeDaSelfModel *)getTableDeDaModelAboutDeDaSelfWithClassName:(NSString *)className {
+    for (TableDeDaSelfModel *model in self.tableDeDaSelfModelArray) {
+        if ([model.targetClassName isEqualToString:className]) {
+            return model;
+        }
+    }
+    
+    TableDeDaSelfModel *newModel = TableDeDaSelfModel.new;
+    newModel.targetClassName = className;
+    [self.tableDeDaSelfModelArray addObject:newModel];
+    return newModel;
 }
 
 @end

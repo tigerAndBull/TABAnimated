@@ -19,6 +19,7 @@ typedef enum : NSUInteger {
     MainViewControllerXib,
     MainViewControllerDouban,
     MainViewControllerAutoLayout,
+    MainViewControllerDelegateSelf,
     
     // 三级
     MainViewControllerCodeUseTableView,

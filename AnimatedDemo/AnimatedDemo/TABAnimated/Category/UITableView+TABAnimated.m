@@ -31,77 +31,35 @@
 
 - (void)tab_setDelegate:(id<UITableViewDelegate>)delegate {
     
-    SEL oldClickDelegate = @selector(tableView:didSelectRowAtIndexPath:);
-    SEL newClickDelegate = @selector(tab_tableView:didSelectRowAtIndexPath:);
-    [self exchangeDelegateOldSel:oldClickDelegate withNewSel:newClickDelegate withDelegate:delegate];
-    
-    SEL oldHeightDelegate = @selector(tableView:heightForRowAtIndexPath:);
-    SEL newHeightDelegate = @selector(tab_tableView:heightForRowAtIndexPath:);
-    SEL estimatedHeightDelegateSel = @selector(tableView:estimatedHeightForRowAtIndexPath:);
-    
-    if ([delegate respondsToSelector:estimatedHeightDelegateSel] &&
-        ![delegate respondsToSelector:oldHeightDelegate]) {
-        
-        EstimatedTableViewDelegate *edelegate = EstimatedTableViewDelegate.new;
-        
-        Method method = class_getClassMethod(edelegate.class, oldHeightDelegate);
-        BOOL isSuccess = class_addMethod([delegate class], oldHeightDelegate, class_getMethodImplementation(edelegate.class, oldHeightDelegate), method_getTypeEncoding(method));
-        if (isSuccess) {
-            [self exchangeDelegateOldSel:oldHeightDelegate withNewSel:newHeightDelegate withDelegate:delegate];
+    if ([self isKindOfClass:[delegate class]]) {
+        //        tabAnimatedLog(@"注意：你采用了`self.delegate = self`,将delegate方法封装在了子类。那么，delegate方法的IMP地址为类对象所有，所以由该类创建的UITableView的代理方法的IMP地址始终唯一，本库不支持这种做法。");
+        TableDeDaSelfModel *model = [[TABAnimated sharedAnimated] getTableDeDaModelAboutDeDaSelfWithClassName:NSStringFromClass(delegate.class)];
+        if (!model.isExhangeDelegate) {
+            [self exchangeDelegateMethods:delegate model:model];
+            model.isExhangeDelegate = YES;
         }
-        
     }else {
-        [self exchangeDelegateOldSel:oldHeightDelegate withNewSel:newHeightDelegate withDelegate:delegate];
+        [self exchangeDelegateMethods:delegate model:nil];
     }
-    
-    SEL oldHeadViewDelegate = @selector(tableView:viewForHeaderInSection:);
-    SEL newHeadViewDelegate = @selector(tab_tableView:viewForHeaderInSection:);
-    [self exchangeDelegateOldSel:oldHeadViewDelegate withNewSel:newHeadViewDelegate withDelegate:delegate];
-    
-    SEL oldFooterViewDelegate = @selector(tableView:viewForFooterInSection:);
-    SEL newFooterViewDelegate = @selector(tab_tableView:viewForFooterInSection:);
-    [self exchangeDelegateOldSel:oldFooterViewDelegate withNewSel:newFooterViewDelegate withDelegate:delegate];
-    
-    SEL oldHeadHeightDelegate = @selector(tableView:heightForHeaderInSection:);
-    SEL newHeadHeightDelegate = @selector(tab_tableView:heightForHeaderInSection:);
-    [self exchangeDelegateOldSel:oldHeadHeightDelegate withNewSel:newHeadHeightDelegate withDelegate:delegate];
-    
-    SEL oldFooterHeightDelegate = @selector(tableView:heightForFooterInSection:);
-    SEL newFooterHeightDelegate = @selector(tab_tableView:heightForFooterInSection:);
-    [self exchangeDelegateOldSel:oldFooterHeightDelegate withNewSel:newFooterHeightDelegate withDelegate:delegate];
 
     [self tab_setDelegate:delegate];
 }
 
 - (void)tab_setDataSource:(id<UITableViewDataSource>)dataSource {
     
-    SEL oldSectionSelector = @selector(numberOfSectionsInTableView:);
-    SEL newSectionSelector = @selector(tab_numberOfSectionsInTableView:);
-    
-    SEL oldSelector = @selector(tableView:numberOfRowsInSection:);
-    SEL newSelector = @selector(tab_tableView:numberOfRowsInSection:);
-    
-    SEL oldCell = @selector(tableView:cellForRowAtIndexPath:);
-    SEL newCell = @selector(tab_tableView:cellForRowAtIndexPath:);
-    
-    SEL old = @selector(tableView:willDisplayCell:forRowAtIndexPath:);
-    SEL new = @selector(tab_tableView:willDisplayCell:forRowAtIndexPath:);
-    
-    [self exchangeDelegateOldSel:oldSectionSelector
-                      withNewSel:newSectionSelector
-                    withDelegate:dataSource];
-    
-    [self exchangeDelegateOldSel:oldSelector
-                      withNewSel:newSelector
-                    withDelegate:dataSource];
-    
-    [self exchangeDelegateOldSel:old
-                      withNewSel:new
-                    withDelegate:dataSource];
-    
-    [self exchangeDelegateOldSel:oldCell
-                      withNewSel:newCell
-                    withDelegate:dataSource];
+    if ([self isKindOfClass:[dataSource class]]) {
+        TableDeDaSelfModel *model = [[TABAnimated sharedAnimated] getTableDeDaModelAboutDeDaSelfWithClassName:NSStringFromClass(dataSource.class)];
+        if (!model.isExhangeDataSource) {
+            [self exchangeDataSourceMethods:dataSource model:model];
+#pragma clang diagnostic pop
+            model.isExhangeDataSource = YES;
+        }
+    }else {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+        [self exchangeDataSourceMethods:dataSource model:nil];
+#pragma clang diagnostic pop
+    }
     
     [self tab_setDataSource:dataSource];
 }
@@ -388,26 +346,179 @@
  */
 - (void)exchangeDelegateOldSel:(SEL)oldSelector
                     withNewSel:(SEL)newSelector
-                  withDelegate:(id)delegate {
+                  withDelegate:(id)delegate
+                         model:(TableDeDaSelfModel *)model {
     
     if (![delegate respondsToSelector:oldSelector]) {
         return;
     }
     
     Method oldMethod = class_getInstanceMethod([delegate class], oldSelector);
-    Method newMethod = class_getInstanceMethod([self class], newSelector);
+    Method newMethod;
     
-    if ([self isKindOfClass:[delegate class]]) {
-        tabAnimatedLog(@"注意：你采用了`self.delegate = self`,将delegate方法封装在了子类。那么，delegate方法的IMP地址为类对象所有，所以由该类创建的UITableView的代理方法的IMP地址始终唯一，本库不支持这种做法。");
-    }else {
+    if (model) {
         
-        // 代理对象添加newMethod，指向oldImp
+        newMethod = class_getInstanceMethod(model.class, newSelector);
+
+        if (newMethod == nil) {
+            return;
+        }
+
         BOOL isVictory = class_addMethod([delegate class], newSelector, class_getMethodImplementation([delegate class], oldSelector), method_getTypeEncoding(oldMethod));
         if (isVictory) {
-            // 添加成功后，将oldMethod指向当前类的新的
+            class_replaceMethod([delegate class], oldSelector, class_getMethodImplementation(model.class, newSelector), method_getTypeEncoding(newMethod));
+        }
+        
+    }else {
+        newMethod = class_getInstanceMethod([self class], newSelector);
+        
+        if (newMethod == nil) {
+            return;
+        }
+
+        BOOL isVictory = class_addMethod([delegate class], newSelector, class_getMethodImplementation([delegate class], oldSelector), method_getTypeEncoding(oldMethod));
+        if (isVictory) {
             class_replaceMethod([delegate class], oldSelector, class_getMethodImplementation([self class], newSelector), method_getTypeEncoding(newMethod));
         }
     }
+}
+
+- (void)exchangeDelegateMethods:(id<UITableViewDelegate>)delegate
+                          model:(TableDeDaSelfModel *)model {
+    
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+    
+    SEL oldClickDelegate = @selector(tableView:didSelectRowAtIndexPath:);
+    SEL newClickDelegate;
+    if (model) {
+        newClickDelegate = @selector(tab_deda_tableView:didSelectRowAtIndexPath:);
+    }else {
+        newClickDelegate = @selector(tab_tableView:didSelectRowAtIndexPath:);
+    }
+    [self exchangeDelegateOldSel:oldClickDelegate withNewSel:newClickDelegate withDelegate:delegate model:model];
+    
+    SEL oldHeightDelegate = @selector(tableView:heightForRowAtIndexPath:);
+    SEL newHeightDelegate;
+    if (model) {
+        newHeightDelegate = @selector(tab_deda_tableView:heightForRowAtIndexPath:);
+    }else {
+        newHeightDelegate = @selector(tab_tableView:heightForRowAtIndexPath:);
+    }
+    
+    SEL estimatedHeightDelegateSel = @selector(tableView:estimatedHeightForRowAtIndexPath:);
+    
+    if ([delegate respondsToSelector:estimatedHeightDelegateSel] &&
+        ![delegate respondsToSelector:oldHeightDelegate]) {
+        
+        EstimatedTableViewDelegate *edelegate = EstimatedTableViewDelegate.new;
+        Method method = class_getClassMethod(edelegate.class, oldHeightDelegate);
+
+        BOOL isSuccess = class_addMethod([delegate class], oldHeightDelegate, class_getMethodImplementation(edelegate.class, oldHeightDelegate), method_getTypeEncoding(method));
+        if (isSuccess) {
+            [self exchangeDelegateOldSel:oldHeightDelegate withNewSel:newHeightDelegate withDelegate:delegate model:model];
+        }
+        
+    }else {
+        [self exchangeDelegateOldSel:oldHeightDelegate withNewSel:newHeightDelegate withDelegate:delegate model:model];
+    }
+    
+    SEL oldHeadViewDelegate = @selector(tableView:viewForHeaderInSection:);
+    SEL newHeadViewDelegate;
+    if (model) {
+        newHeadViewDelegate= @selector(tab_deda_tableView:viewForHeaderInSection:);
+    }else {
+        newHeadViewDelegate= @selector(tab_tableView:viewForHeaderInSection:);
+    }
+    [self exchangeDelegateOldSel:oldHeadViewDelegate withNewSel:newHeadViewDelegate withDelegate:delegate model:model];
+    
+    SEL oldFooterViewDelegate = @selector(tableView:viewForFooterInSection:);
+    SEL newFooterViewDelegate;
+    if (model) {
+        newFooterViewDelegate = @selector(tab_deda_tableView:viewForFooterInSection:);
+    }else {
+        newFooterViewDelegate = @selector(tab_tableView:viewForFooterInSection:);
+    }
+    [self exchangeDelegateOldSel:oldFooterViewDelegate withNewSel:newFooterViewDelegate withDelegate:delegate model:model];
+    
+    SEL oldHeadHeightDelegate = @selector(tableView:heightForHeaderInSection:);
+    SEL newHeadHeightDelegate;
+    if (model) {
+        newHeadHeightDelegate = @selector(tab_deda_tableView:heightForHeaderInSection:);
+    }else {
+        newHeadHeightDelegate = @selector(tab_tableView:heightForHeaderInSection:);
+    }
+    [self exchangeDelegateOldSel:oldHeadHeightDelegate withNewSel:newHeadHeightDelegate withDelegate:delegate model:model];
+    
+    SEL oldFooterHeightDelegate = @selector(tableView:heightForFooterInSection:);
+    SEL newFooterHeightDelegate;
+    if (model) {
+        newFooterHeightDelegate = @selector(tab_deda_tableView:heightForFooterInSection:);
+    }else {
+        newFooterHeightDelegate = @selector(tab_tableView:heightForFooterInSection:);
+    }
+    [self exchangeDelegateOldSel:oldFooterHeightDelegate withNewSel:newFooterHeightDelegate withDelegate:delegate model:model];
+#pragma clang diagnostic pop
+}
+
+- (void)exchangeDataSourceMethods:(id<UITableViewDataSource>)dataSource
+                            model:(TableDeDaSelfModel *)model {
+    
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+    SEL oldSectionSelector = @selector(numberOfSectionsInTableView:);
+    SEL newSectionSelector;
+    if (model) {
+        newSectionSelector = @selector(tab_deda_numberOfSectionsInTableView:);
+    }else {
+        newSectionSelector = @selector(tab_numberOfSectionsInTableView:);
+    }
+    
+    SEL oldSelector = @selector(tableView:numberOfRowsInSection:);
+    SEL newSelector;
+    if (model) {
+        newSelector = @selector(tab_deda_tableView:numberOfRowsInSection:);
+    }else {
+        newSelector = @selector(tab_tableView:numberOfRowsInSection:);
+    }
+    
+    SEL oldCell = @selector(tableView:cellForRowAtIndexPath:);
+    SEL newCell;
+    if (model) {
+        newCell = @selector(tab_deda_tableView:cellForRowAtIndexPath:);
+    }else {
+        newCell = @selector(tab_tableView:cellForRowAtIndexPath:);
+    }
+    
+    SEL old = @selector(tableView:willDisplayCell:forRowAtIndexPath:);
+    SEL new;
+    if (model) {
+        new = @selector(tab_deda_tableView:willDisplayCell:forRowAtIndexPath:);
+    }else {
+        new = @selector(tab_tableView:willDisplayCell:forRowAtIndexPath:);
+    }
+    
+#pragma clang diagnostic pop
+    
+    [self exchangeDelegateOldSel:oldSectionSelector
+                      withNewSel:newSectionSelector
+                    withDelegate:dataSource
+                           model:model];
+    
+    [self exchangeDelegateOldSel:oldSelector
+                      withNewSel:newSelector
+                    withDelegate:dataSource
+                           model:model];
+    
+    [self exchangeDelegateOldSel:old
+                      withNewSel:new
+                    withDelegate:dataSource
+                           model:model];
+    
+    [self exchangeDelegateOldSel:oldCell
+                      withNewSel:newCell
+                    withDelegate:dataSource
+                           model:model];
 }
 
 - (TABTableAnimated *)tabAnimated {

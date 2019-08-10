@@ -43,6 +43,8 @@
 
 #import "TABBaseComponent.h"
 
+#import "TableDeDaSelfModel.h"
+
 #define tabAnimatedLog(x) {if([TABAnimated sharedAnimated].openLog) NSLog(x);}
 
 #define tab_kColor(c) [UIColor colorWithRed:((c>>24)&0xFF)/255.0 green:((c>>16)&0xFF)/255.0 blue:((c>>8)&0xFF)/255.0 alpha:((c)&0xFF)/255.0]
@@ -53,6 +55,14 @@
 #define tab_header_prefix @"tab_header_"
 #define tab_footer_prefix @"tab_footer_"
 #define tab_default_suffix @"default_resuable_view"
+
+#define tab_suppressSelectorDeclaredpWarning(Stuff) \
+do { \
+_Pragma("clang diagnostic push") \
+_Pragma("clang diagnostic ignored \"-Wundeclared-selector\"") \
+Stuff; \
+_Pragma("clang diagnostic pop") \
+} while (0)
 
 #endif
 
@@ -199,6 +209,12 @@ typedef NS_ENUM(NSInteger,TABAnimationType) {
  */
 @property (nonatomic,assign) CGFloat shimmerBrightness;
 
+#pragma mark - 记录`self.delegate = self`地址
+
+@property (nonatomic,strong,readonly) NSMutableArray <TableDeDaSelfModel *> *tableDeDaSelfModelArray;
+
+- (TableDeDaSelfModel *)getTableDeDaModelAboutDeDaSelfWithClassName:(NSString *)className;
+
 #pragma mark - 豆瓣动画相关的全局属性
 
 /**
@@ -207,7 +223,7 @@ typedef NS_ENUM(NSInteger,TABAnimationType) {
 @property (nonatomic,assign) CGFloat dropAnimationDuration;
 
 /**
- * 豆瓣动画变色值
+ * 豆瓣动画变色值，默认值为0xE1E1E1
  */
 @property (nonatomic,strong) UIColor *dropAnimationDeepColor;
 

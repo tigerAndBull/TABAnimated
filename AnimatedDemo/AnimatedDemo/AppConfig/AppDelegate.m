@@ -11,6 +11,9 @@
 #import "MainViewController.h"
 #import "TABAnimated.h"
 
+//#import "EstimatedTableViewDelegate.h"
+//#import <objc/runtime.h>
+
 @interface AppDelegate ()
 
 @end
@@ -21,6 +24,15 @@
     // Override point for customization after application launch.
     
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    
+//    SEL oldHeightDelegate = @selector(tableView:heightForRowAtIndexPath:);
+//    EstimatedTableViewDelegate *edelegate = EstimatedTableViewDelegate.new;
+//    Method method = class_getClassMethod(edelegate.class, oldHeightDelegate);
+//
+//    EstimatedTableViewDelegate *edelegate2 = EstimatedTableViewDelegate.new;
+//    Method method2 = class_getClassMethod(edelegate2.class, oldHeightDelegate);
+
+//    NSLog(@"%p %p",&method,&method2);
     
     // Init `TABAnimated`, and set the properties you need.
     // 初始化TABAnimated，并设置TABAnimated相关属性

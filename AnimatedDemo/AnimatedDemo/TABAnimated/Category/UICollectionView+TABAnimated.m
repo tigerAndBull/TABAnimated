@@ -33,15 +33,14 @@
     
     SEL oldHeightSel = @selector(collectionView:layout:sizeForItemAtIndexPath:);
     SEL newHeightSel = @selector(tab_collectionView:layout:sizeForItemAtIndexPath:);
+    [self exchangeDelegateOldSel:oldHeightSel withNewSel:newHeightSel withDelegate:delegate];
     
-    SEL old = @selector(collectionView:willDisplayCell:forItemAtIndexPath:);
-    SEL new = @selector(tab_collectionView:willDisplayCell:forItemAtIndexPath:);
+    SEL oldDisplaySel = @selector(collectionView:willDisplayCell:forItemAtIndexPath:);
+    SEL newDisplaySel = @selector(tab_collectionView:willDisplayCell:forItemAtIndexPath:);
+    [self exchangeDelegateOldSel:oldDisplaySel withNewSel:newDisplaySel withDelegate:delegate];
     
     SEL oldClickSel = @selector(collectionView:didSelectItemAtIndexPath:);
     SEL newClickSel = @selector(tab_collectionView:didSelectItemAtIndexPath:);
-    
-    [self exchangeDelegateOldSel:old withNewSel:new withDelegate:delegate];
-    [self exchangeDelegateOldSel:oldHeightSel withNewSel:newHeightSel withDelegate:delegate];
     [self exchangeDelegateOldSel:oldClickSel withNewSel:newClickSel withDelegate:delegate];
     
     [self tab_setDelegate:delegate];
@@ -49,31 +48,29 @@
 
 - (void)tab_setDataSource:(id<UICollectionViewDataSource>)dataSource {
     
-    SEL oldSelector = @selector(numberOfSectionsInCollectionView:);
-    SEL newSelector = @selector(tab_numberOfSectionsInCollectionView:);
+    SEL oldSectionsSel = @selector(numberOfSectionsInCollectionView:);
+    SEL newSectionsSel = @selector(tab_numberOfSectionsInCollectionView:);
+    [self exchangeDelegateOldSel:oldSectionsSel withNewSel:newSectionsSel withDelegate:dataSource];
     
-    SEL oldSectionSelector = @selector(collectionView:numberOfItemsInSection:);
-    SEL newSectionSelector = @selector(tab_collectionView:numberOfItemsInSection:);
+    SEL oldItemsSel = @selector(collectionView:numberOfItemsInSection:);
+    SEL newItemsSel = @selector(tab_collectionView:numberOfItemsInSection:);
+    [self exchangeDelegateOldSel:oldItemsSel withNewSel:newItemsSel withDelegate:dataSource];
     
-    SEL oldCell = @selector(collectionView:cellForItemAtIndexPath:);
-    SEL newCell = @selector(tab_collectionView:cellForItemAtIndexPath:);
+    SEL oldCellSel = @selector(collectionView:cellForItemAtIndexPath:);
+    SEL newCellSel = @selector(tab_collectionView:cellForItemAtIndexPath:);
+    [self exchangeDelegateOldSel:oldCellSel withNewSel:newCellSel withDelegate:dataSource];
     
-    SEL oldReuseableCell = @selector(collectionView:viewForSupplementaryElementOfKind:atIndexPath:);
-    SEL newReuseableCell = @selector(tab_collectionView:viewForSupplementaryElementOfKind:atIndexPath:);
+    SEL oldReuseableCellSel = @selector(collectionView:viewForSupplementaryElementOfKind:atIndexPath:);
+    SEL newReuseableCellSel = @selector(tab_collectionView:viewForSupplementaryElementOfKind:atIndexPath:);
+    [self exchangeDelegateOldSel:oldReuseableCellSel withNewSel:newReuseableCellSel withDelegate:dataSource];
     
-    SEL oldHeaderCell = @selector(collectionView:layout:referenceSizeForHeaderInSection:);
-    SEL newHeaderCell = @selector(tab_collectionView:layout:referenceSizeForHeaderInSection:);
+    SEL oldHeaderCellSel = @selector(collectionView:layout:referenceSizeForHeaderInSection:);
+    SEL newHeaderCellSel = @selector(tab_collectionView:layout:referenceSizeForHeaderInSection:);
+    [self exchangeDelegateOldSel:oldHeaderCellSel withNewSel:newHeaderCellSel withDelegate:dataSource];
     
-    SEL oldFooterCell = @selector(collectionView:layout:referenceSizeForFooterInSection:);
-    SEL newFooterCell = @selector(tab_collectionView:layout:referenceSizeForFooterInSection:);
-    
-    [self exchangeDelegateOldSel:oldSelector withNewSel:newSelector withDelegate:dataSource];
-    [self exchangeDelegateOldSel:oldSectionSelector withNewSel:newSectionSelector withDelegate:dataSource];
-    [self exchangeDelegateOldSel:oldCell withNewSel:newCell withDelegate:dataSource];
-    
-    [self exchangeDelegateOldSel:oldReuseableCell withNewSel:newReuseableCell withDelegate:dataSource];
-    [self exchangeDelegateOldSel:oldHeaderCell withNewSel:newHeaderCell withDelegate:dataSource];
-    [self exchangeDelegateOldSel:oldFooterCell withNewSel:newFooterCell withDelegate:dataSource];
+    SEL oldFooterCellSel = @selector(collectionView:layout:referenceSizeForFooterInSection:);
+    SEL newFooterCellSel = @selector(tab_collectionView:layout:referenceSizeForFooterInSection:);
+    [self exchangeDelegateOldSel:oldFooterCellSel withNewSel:newFooterCellSel withDelegate:dataSource];
     
     [self tab_setDataSource:dataSource];
 }

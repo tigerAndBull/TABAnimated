@@ -12,14 +12,14 @@
 
 + (CABasicAnimation *)scaleXAnimationDuration:(CGFloat)duration
                                       toValue:(CGFloat)toValue {
-    CABasicAnimation *anim = [CABasicAnimation animationWithKeyPath:@"transform.scale.x"];
-    anim.removedOnCompletion = NO;
-    anim.duration = duration;
-    anim.autoreverses = YES;
-    anim.repeatCount = HUGE_VALF;
-    anim.toValue = (toValue == 0.)?@0.6:@(toValue);
-    anim.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-    return anim;
+    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"transform.scale.x"];
+    animation.removedOnCompletion = NO;
+    animation.duration = duration;
+    animation.autoreverses = YES;
+    animation.repeatCount = HUGE_VALF;
+    animation.toValue = (toValue == 0.)?@0.6:@(toValue);
+    animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    return animation;
 }
 
 + (void)addAlphaAnimation:(UIView *)view

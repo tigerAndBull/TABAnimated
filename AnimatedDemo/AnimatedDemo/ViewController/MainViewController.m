@@ -112,6 +112,7 @@
                      kText(@"Xib 示例"),
                      kText(@"豆瓣动画 示例"),
                      kText(@"自适应高度 示例"),
+                     kText(@"`self.delegate = self` 示例"),
                      ];
         }
             
@@ -162,6 +163,15 @@
             
             break;
             
+        case MainViewControllerDelegateSelf:
+            
+            return @[
+                     kText(@"`self.delegate = self` 示例"),
+                     kText(@"`self.delegate = self` 示例二")
+                     ];
+            
+            break;
+            
         default:
             break;
     }
@@ -180,6 +190,7 @@
         case MainViewControllerMain: {
 
             return @[
+                     @"MainViewController",
                      @"MainViewController",
                      @"MainViewController",
                      @"MainViewController",
@@ -230,6 +241,15 @@
             return @[
                      @"TestLayoutTableViewController",
                      @"TTTViewController",
+                     ];
+            
+            break;
+            
+        case MainViewControllerDelegateSelf:
+            
+            return @[
+                     @"DeleagteSelfTableViewController",
+                     @"DeleagteSelfSecondExampleViewController"
                      ];
             
             break;

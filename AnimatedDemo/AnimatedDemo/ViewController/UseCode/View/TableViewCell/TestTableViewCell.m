@@ -24,8 +24,8 @@
 
 @implementation TestTableViewCell
 
-+ (NSNumber *)cellHeight {
-    return [NSNumber numberWithFloat:100.0];
++ (CGFloat)cellHeight {
+    return 90;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -79,6 +79,11 @@
     
     [self.statusBtn setTitle:@"未观看" forState:UIControlStateNormal];
     [self.statusBtn setBackgroundColor:[UIColor grayColor]];
+}
+
+- (void)updateWithModel:(id)model {
+    Game *game = model;
+    [self initWithData:game];
 }
 
 #pragma mark - Initize Methods
