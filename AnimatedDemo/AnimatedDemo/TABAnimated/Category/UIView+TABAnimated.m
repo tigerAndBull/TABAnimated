@@ -7,10 +7,7 @@
 //
 
 #import "UIView+TABAnimated.h"
-#import "TABViewAnimated.h"
-#import "UIView+TABControlAnimation.h"
-#import "TABComponentManager.h"
-
+#import "TABComponentLayer.h"
 #import <objc/runtime.h>
 
 @implementation UIView (TABAnimated)

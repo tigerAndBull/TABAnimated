@@ -13,6 +13,8 @@
 #import "Game.h"
 #import <TABKit/TABKit.h>
 
+#import "MJRefresh.h"
+
 @interface TestCollectionViewController () <UICollectionViewDelegate,UICollectionViewDataSource> {
     NSMutableArray *dataArray;
 }
@@ -59,6 +61,7 @@
         [dataArray addObject:[NSObject new]];
     }
     
+    [self.collectionView.mj_header endRefreshing];
     // 停止动画,并刷新数据
     [self.collectionView tab_endAnimationEaseOut];
 }
@@ -113,6 +116,7 @@
         
         _collectionView.tabAnimated = [TABCollectionAnimated animatedWithCellClass:[NewsCollectionViewCell class] cellSize:[NewsCollectionViewCell cellSize]];
         _collectionView.tabAnimated.animatedCount = 10;
+        _collectionView.tabAnimated.canLoadAgain = YES;
         _collectionView.tabAnimated.adjustBlock = ^(TABComponentManager * _Nonnull manager) {
             manager.animation(1).reducedWidth(20).down(2);
             manager.animation(2).reducedWidth(-10).up(1);
@@ -121,6 +125,15 @@
             manager.animations(4,3).placeholder(@"placeholder.png");
         };
         
+        _collectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+            [self.collectionView tab_startAnimationWithDelayTime:5. completion:^{
+                // 请求数据
+                // ...
+                // 获得数据
+                // ...
+                [self afterGetData];
+            }];
+        }];
     }
     return _collectionView;
 }

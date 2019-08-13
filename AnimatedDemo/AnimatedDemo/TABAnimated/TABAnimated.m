@@ -14,12 +14,22 @@
 #import "UIView+TABAnimated.h"
 #import "UITableView+TABAnimated.h"
 #import "UICollectionView+TABAnimated.h"
+#import "TableDeDaSelfModel.h"
 
 #import <objc/runtime.h>
 
+#define tab_kColor(c) [UIColor colorWithRed:((c>>24)&0xFF)/255.0 green:((c>>16)&0xFF)/255.0 blue:((c>>8)&0xFF)/255.0 alpha:((c)&0xFF)/255.0]
+#define tab_kBackColor tab_kColor(0xEEEEEEFF)
+#define tab_kShimmerBackColor tab_kColor(0xDFDFDFFF)
+
+NSString * const kTABAlphaAnimation = @"TABAlphaAnimation";
+NSString * const kTABLocationAnimation = @"TABLocationAnimation";
+NSString * const kTABShimmerAnimation = @"TABShimmerAnimation";
+NSString * const kTABDropAnimation = @"TABDropAnimation";
+
 @interface TABAnimated()
 
-@property (nonatomic,strong,readwrite) NSMutableArray <TableDeDaSelfModel *> *tableDeDaSelfModelArray;
+@property (nonatomic, strong, readwrite) NSMutableArray <TableDeDaSelfModel *> *tableDeDaSelfModelArray;
 
 @end
 

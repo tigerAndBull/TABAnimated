@@ -8,6 +8,8 @@
 
 #import "TableDeDaSelfModel.h"
 #import "TABAnimated.h"
+#import "TABComponentManager.h"
+#import "TABManagerMethod.h"
 
 @implementation TableDeDaSelfModel
 

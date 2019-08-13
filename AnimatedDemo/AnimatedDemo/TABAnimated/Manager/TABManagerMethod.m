@@ -8,6 +8,9 @@
 
 #import "TABManagerMethod.h"
 
+#import "TABAnimated.h"
+#import "TABComponentLayer.h"
+
 static NSString * const kShortDataString = @"tab_testtesttest";
 static NSString * const kLongDataString = @"tab_testtesttesttesttesttesttesttesttesttesttest";
 
@@ -347,9 +350,12 @@ static NSString * const kLongDataString = @"tab_testtesttesttesttesttesttesttest
         if (targetView.tabComponentManager.baseComponentArray.count != 0) {
             __weak typeof(targetView) weakSelf = targetView;
             
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
             if (superView.tabAnimated.categoryBlock) {
                 superView.tabAnimated.categoryBlock(weakSelf);
             }
+#pragma clang diagnostic pop
             
             if (superView.tabAnimated.adjustBlock) {
                 superView.tabAnimated.adjustBlock(weakSelf.tabComponentManager);
@@ -524,10 +530,10 @@ static NSString * const kLongDataString = @"tab_testtesttesttesttesttesttesttest
         [view.tabComponentManager.tabLayer removeFromSuperlayer];
     }
     
-    [view.layer removeAnimationForKey:kTABAlphaAnimation];
-    [view.layer removeAnimationForKey:kTABLocationAnimation];
-    [view.layer removeAnimationForKey:kTABShimmerAnimation];
-    [view.layer removeAnimationForKey:kTABDropAnimation];
+//    [view.layer removeAnimationForKey:kTABAlphaAnimation];
+//    [view.layer removeAnimationForKey:kTABLocationAnimation];
+//    [view.layer removeAnimationForKey:kTABShimmerAnimation];
+//    [view.layer removeAnimationForKey:kTABDropAnimation];
 }
 
 + (void)removeSubLayers:(NSArray *)subLayers {

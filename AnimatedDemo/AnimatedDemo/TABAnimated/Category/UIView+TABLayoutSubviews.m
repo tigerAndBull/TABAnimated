@@ -7,7 +7,13 @@
 //
 
 #import "UIView+TABLayoutSubviews.h"
+
+#import "UIView+TABAnimated.h"
+#import "TABViewAnimated.h"
+#import "TABManagerMethod.h"
+
 #import <objc/runtime.h>
+
 
 @implementation UIView (TABLayoutSubviews)
 

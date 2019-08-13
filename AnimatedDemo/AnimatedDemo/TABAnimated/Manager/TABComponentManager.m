@@ -9,6 +9,9 @@
 #import "TABComponentManager.h"
 #import "TABAnimated.h"
 #import "TABViewAnimated.h"
+#import "TABBaseComponent.h"
+#import "TABComponentLayer.h"
+#import <UIKit/UIKit.h>
 
 static CGFloat defaultHeight = 16.f;
 

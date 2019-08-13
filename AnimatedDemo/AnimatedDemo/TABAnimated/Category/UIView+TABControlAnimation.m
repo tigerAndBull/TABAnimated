@@ -7,9 +7,13 @@
 //
 
 #import "UIView+TABControlAnimation.h"
+
+#import "TABAnimated.h"
+#import "TABManagerMethod.h"
+
 #import <objc/runtime.h>
 
-#define kDelayReloadDataTime 0.4
+static const NSTimeInterval kDelayReloadDataTime = 0.4;
 
 @implementation UIView (TABControlAnimation)
 
@@ -196,14 +200,14 @@
             }
         }
         
-        if (tableView.tabAnimated.showTableHeaderView) {
+        if (tabAnimated.showTableHeaderView) {
             if (tableView.tableHeaderView.tabAnimated != nil) {
                 tableView.tableHeaderView.tabAnimated.superAnimationType = tableView.tabAnimated.superAnimationType;
                 [tableView.tableHeaderView tab_startAnimation];
             }
         }
         
-        if (tableView.tabAnimated.showTableFooterView) {
+        if (tabAnimated.showTableFooterView) {
             if (tableView.tableFooterView.tabAnimated != nil) {
                 tableView.tableFooterView.tabAnimated.superAnimationType = tableView.tabAnimated.superAnimationType;
                 [tableView.tableFooterView tab_startAnimation];

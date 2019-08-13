@@ -7,6 +7,11 @@
 //
 
 #import "UITableViewCell+TABLayoutSubviews.h"
+
+#import "UIView+TABAnimated.h"
+#import "TABTableAnimated.h"
+#import "TABManagerMethod.h"
+
 #import <objc/runtime.h>
 
 @implementation UITableViewCell (TABLayoutSubviews)
@@ -45,8 +50,8 @@
             return;
         }
         
-        if (superView.tabAnimated &&
-            superView.tabAnimated.oldEstimatedRowHeight > 0.) {
+        TABTableAnimated *tabAnimated = (TABTableAnimated *)superView.tabAnimated;
+        if (tabAnimated.oldEstimatedRowHeight > 0.) {
             self.tabComponentManager.tabLayer.frame = self.bounds;
         }
 

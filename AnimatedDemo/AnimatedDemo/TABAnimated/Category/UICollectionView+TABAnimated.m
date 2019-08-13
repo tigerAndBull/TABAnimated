@@ -7,9 +7,10 @@
 //
 
 #import "UICollectionView+TABAnimated.h"
-#import "UIView+TABAnimated.h"
-#import "TABViewAnimated.h"
-#import "TABCollectionAnimated.h"
+
+#import "TABAnimated.h"
+#import "TABManagerMethod.h"
+
 #import <objc/runtime.h>
 
 @implementation UICollectionView (TABAnimated)
@@ -161,7 +162,7 @@
         }else {
             if (indexPath.section > (collectionView.tabAnimated.cellSizeArray.count - 1)) {
                 index = collectionView.tabAnimated.cellSizeArray.count - 1;
-                tabAnimatedLog(@"TABAnimated提醒 - section的数量和指定分区的数量不一致，超出的section，将使用最后一个分区cell加载");
+                tabAnimatedLog(@"TABAnimated提醒 - 获取到的分区的数量和设置的分区数量不一致，超出的分区值部分，将使用最后一个分区cell加载");
             }
         }
         
@@ -199,7 +200,7 @@
         }else {
             if (indexPath.section > (collectionView.tabAnimated.cellClassArray.count - 1)) {
                 index = collectionView.tabAnimated.cellClassArray.count - 1;
-                tabAnimatedLog(@"TABAnimated提醒 - section的数量和指定分区的数量不一致，超出的section，将使用最后一个分区cell加载");
+                tabAnimatedLog(@"TABAnimated提醒 - 获取到的分区的数量和设置的分区数量不一致，超出的分区值部分，将使用最后一个分区cell加载");
             }
         }
         

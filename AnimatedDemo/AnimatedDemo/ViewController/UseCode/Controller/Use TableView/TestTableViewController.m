@@ -17,6 +17,8 @@
 
 #import "Game.h"
 
+#import "MJRefresh.h"
+
 @interface TestTableViewController () <UITableViewDelegate,UITableViewDataSource> {
     NSMutableArray *dataArray;
 }
@@ -155,7 +157,8 @@
                                                               cellHeight:90];
         _tableView.tabAnimated.animatedSectionCount = 3;
         _tableView.tabAnimated.showTableHeaderView = YES;
-        _tableView.tabAnimated.superAnimationType = TABViewSuperAnimationTypeShimmer;
+        _tableView.tabAnimated.superAnimationType = TABViewSuperAnimationTypeBinAnimation;
+        _tableView.tabAnimated.canLoadAgain = YES;
         
         // 区头动画, 建立在实现区头代理方法的前提下
         // 同时支持UIView和UITableViewHeaderFooterView类型
@@ -174,6 +177,15 @@
         _tableView.tableHeaderView.tabAnimated.adjustBlock = ^(TABComponentManager * _Nonnull manager) {
             
         };
+        _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+            [self.tableView tab_startAnimationWithDelayTime:5. completion:^{
+                // 请求数据
+                // ...
+                // 获得数据
+                // ...
+                [self afterGetData];
+            }];
+        }];
     }
     return _tableView;
 }

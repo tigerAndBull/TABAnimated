@@ -17,8 +17,6 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import "TABComponentLayer.h"
-#import "TABAnimated.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -27,6 +25,8 @@ NS_ASSUME_NONNULL_BEGIN
  * 该文件用于管理动画上层依赖的view。
  * Methods in the file are used to manager the animation.
  **/
+
+@class TABComponentManager, TABComponentLayer;
 
 @interface TABManagerMethod : NSObject
 

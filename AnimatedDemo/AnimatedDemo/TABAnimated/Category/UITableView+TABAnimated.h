@@ -16,7 +16,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TABAnimated.h"
 
 @class TABTableAnimated;
 

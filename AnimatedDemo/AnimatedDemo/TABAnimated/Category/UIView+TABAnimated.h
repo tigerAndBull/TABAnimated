@@ -17,9 +17,7 @@
 
 #import <UIKit/UIKit.h>
 
-@class TABViewAnimated;
-@class TABBaseComponent;
-@class TABComponentManager;
+@class TABViewAnimated, TABBaseComponent, TABComponentManager;
 
 typedef TABBaseComponent * _Nullable (^TABSearchLayerBlock)(NSInteger);
 typedef NSArray <TABBaseComponent *> * _Nullable (^TABSearchLayerArrayBlock)(NSInteger location, NSInteger length);

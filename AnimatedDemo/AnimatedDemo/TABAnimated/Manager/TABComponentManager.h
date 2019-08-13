@@ -20,9 +20,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class TABViewAnimated;
-@class TABBaseComponent;
-@class TABComponentLayer;
+@class TABViewAnimated, TABBaseComponent, TABComponentLayer;
 
 typedef TABBaseComponent * _Nullable (^TABBaseComponentBlock)(NSInteger);
 typedef NSArray <TABBaseComponent *> * _Nullable (^TABBaseComponentArrayBlock)(NSInteger location, NSInteger length);

@@ -7,6 +7,11 @@
 //
 
 #import "UICollectionViewCell+TABLayoutSubviews.h"
+
+#import "UIView+TABAnimated.h"
+#import "TABCollectionAnimated.h"
+#import "TABManagerMethod.h"
+
 #import <objc/runtime.h>
 
 @implementation UICollectionViewCell (TABLayoutSubviews)

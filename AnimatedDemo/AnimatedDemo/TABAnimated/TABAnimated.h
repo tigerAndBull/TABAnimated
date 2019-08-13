@@ -19,44 +19,31 @@
 #define TABAnimated_h
 
 #import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
 
 #import "UIView+TABAnimated.h"
 #import "UITableView+TABAnimated.h"
 #import "UICollectionView+TABAnimated.h"
 
-#import "UIView+TABLayoutSubviews.h"
-#import "UITableViewCell+TABLayoutSubviews.h"
-#import "UICollectionViewCell+TABLayoutSubviews.h"
-
 #import "UIView+TABControlAnimation.h"
-
-#import "TABAnimationMethod.h"
-#import "TABManagerMethod.h"
-
-#import "TABComponentLayer.h"
 #import "NSArray+TABAnimated.h"
 
 #import "TABViewAnimated.h"
 #import "TABTableAnimated.h"
 #import "TABCollectionAnimated.h"
 
-#import "TABBaseComponent.h"
+#import "TABAnimationMethod.h"
 
-#import "TableDeDaSelfModel.h"
+#import "TABComponentManager.h"
+#import "TABBaseComponent.h"
 
 #define tabAnimatedLog(x) {if([TABAnimated sharedAnimated].openLog) NSLog(x);}
 
-#define tab_kColor(c) [UIColor colorWithRed:((c>>24)&0xFF)/255.0 green:((c>>16)&0xFF)/255.0 blue:((c>>8)&0xFF)/255.0 alpha:((c)&0xFF)/255.0]
-#define tab_kBackColor tab_kColor(0xEEEEEEFF)
-#define tab_kShimmerBackColor tab_kColor(0xDFDFDFFF)
-
 #endif
 
-static NSString * const kTABAlphaAnimation = @"TABAlphaAnimation";
-static NSString * const kTABLocationAnimation = @"TABLocationAnimation";
-static NSString * const kTABShimmerAnimation = @"TABShimmerAnimation";
-static NSString * const kTABDropAnimation = @"TABDropAnimation";
+extern NSString * const kTABAlphaAnimation;
+extern NSString * const kTABLocationAnimation;
+extern NSString * const kTABShimmerAnimation;
+extern NSString * const kTABDropAnimation;
 
 typedef NS_ENUM(NSInteger,TABAnimationType) {
     TABAnimationTypeOnlySkeleton = 0,    // onlySkeleton for all views in your project. 普通骨架层
@@ -65,13 +52,15 @@ typedef NS_ENUM(NSInteger,TABAnimationType) {
     TABAnimationTypeDrop                 // drop animation for all views in your project. 豆瓣下坠动画
 };
 
+@class TableDeDaSelfModel;
+
 @interface TABAnimated : NSObject
 
 /**
  * 全局动画类型
  * 默认是只有骨架屏，后三者是在骨架屏的基础之上，采用`热插拔`的方式，植入的动画效果。
  */
-@property (nonatomic,assign) TABAnimationType animationType;
+@property (nonatomic, assign) TABAnimationType animationType;
 
 /**
  *
@@ -87,19 +76,19 @@ typedef NS_ENUM(NSInteger,TABAnimationType) {
  * You can alse reset it.
  *
  **/
-@property (nonatomic,assign) CGFloat animatedHeightCoefficient;
+@property (nonatomic, assign) CGFloat animatedHeightCoefficient;
 
 /**
  * 全局动画内容颜色
  * The color of animations' content in your project, default is 0xEEEEEE.
  */
-@property (nonatomic,strong) UIColor *animatedColor;
+@property (nonatomic, strong) UIColor *animatedColor;
 
 /**
  * 全局动画背景颜色
  * The backgroundcolor of animations in your project, default is UIColor.white.
  */
-@property (nonatomic,strong) UIColor *animatedBackgroundColor;
+@property (nonatomic, strong) UIColor *animatedBackgroundColor;
 
 /**
  * 开启全局圆角
@@ -107,7 +96,7 @@ typedef NS_ENUM(NSInteger,TABAnimationType) {
  * The cornerRadius of animations in your project.
  * the value of cornerRadius is the animation's height / 2.0
  */
-@property (nonatomic,assign) BOOL useGlobalCornerRadius;
+@property (nonatomic, assign) BOOL useGlobalCornerRadius;
 
 /**
  * 全局圆角的值
@@ -115,7 +104,7 @@ typedef NS_ENUM(NSInteger,TABAnimationType) {
  * The cornerRadius of animations in your project.
  * If the view's layer had been setted `cornerRadius`, view's' animation
  */
-@property (nonatomic,assign) CGFloat animatedCornerRadius;
+@property (nonatomic, assign) CGFloat animatedCornerRadius;
 
 /**
  *
@@ -128,12 +117,12 @@ typedef NS_ENUM(NSInteger,TABAnimationType) {
  * 优先级：全局高度animatedHeight < TABViewAnimated中animatedHeight < 单个设置动画元素的高度
  *
  */
-@property (nonatomic,assign) BOOL useGlobalAnimatedHeight;
+@property (nonatomic, assign) BOOL useGlobalAnimatedHeight;
 
 /**
  * 全局动画高度（不包含`UIImageView`类型映射出的动画元素），默认12
  */
-@property (nonatomic,assign) CGFloat animatedHeight;
+@property (nonatomic, assign) CGFloat animatedHeight;
 
 #pragma mark - Other
 
@@ -141,37 +130,37 @@ typedef NS_ENUM(NSInteger,TABAnimationType) {
  * 是否开启控制台Log提醒
  * Is opening log or not, default is NO.
  */
-@property (nonatomic,assign) BOOL openLog;
+@property (nonatomic, assign) BOOL openLog;
 
 /**
  * 是否开启动画坐标标记，如果开启，也仅在debug环境下有效。
  * 开启后，会在每一个动画元素上增加一个红色的数字，该数字表示该动画元素所在下标，方便快速定位某个动画元素。
  */
-@property (nonatomic,assign) BOOL openAnimationTag;
+@property (nonatomic, assign) BOOL openAnimationTag;
 
 #pragma mark - 动态伸缩动画相关的全局属性
 
 /**
  * 伸缩动画来回时长
  */
-@property (nonatomic,assign) CGFloat animatedDuration;
+@property (nonatomic, assign) CGFloat animatedDuration;
 
 /**
  * 变长伸缩比例
  */
-@property (nonatomic,assign) CGFloat longToValue;
+@property (nonatomic, assign) CGFloat longToValue;
 
 /**
  * 变短伸缩比例
  */
-@property (nonatomic,assign) CGFloat shortToValue;
+@property (nonatomic, assign) CGFloat shortToValue;
 
 #pragma mark - 呼吸灯动画相关的全局属性
 
 /**
  * 呼吸灯时长
  */
-@property (nonatomic,assign) CGFloat animatedDurationBin;
+@property (nonatomic, assign) CGFloat animatedDurationBin;
 
 #pragma mark - 闪光灯动画相关的全局属性
 
@@ -179,26 +168,26 @@ typedef NS_ENUM(NSInteger,TABAnimationType) {
  * 闪光灯动画时长，默认是1秒。
  * The duration of shimmer animation, default is 1 seconds.
  */
-@property (nonatomic,assign) CGFloat animatedDurationShimmer;
+@property (nonatomic, assign) CGFloat animatedDurationShimmer;
 
 /**
  * 闪光灯动画方向，默认是`TABShimmerDirectionToRight`,意为从左往右。
  */
-@property (nonatomic,assign) TABShimmerDirection shimmerDirection;
+@property (nonatomic, assign) TABShimmerDirection shimmerDirection;
 
 /**
  * 变色值，默认值0xDFDFDF
  */
-@property (nonatomic,strong) UIColor *shimmerBackColor;
+@property (nonatomic, strong) UIColor *shimmerBackColor;
 
 /**
  * 闪光灯的亮度，默认值0.92
  */
-@property (nonatomic,assign) CGFloat shimmerBrightness;
+@property (nonatomic, assign) CGFloat shimmerBrightness;
 
 #pragma mark - 记录`self.delegate = self`地址
 
-@property (nonatomic,strong,readonly) NSMutableArray <TableDeDaSelfModel *> *tableDeDaSelfModelArray;
+@property (nonatomic, strong, readonly) NSMutableArray <TableDeDaSelfModel *> *tableDeDaSelfModelArray;
 
 - (TableDeDaSelfModel *)getTableDeDaModelAboutDeDaSelfWithClassName:(NSString *)className;
 
@@ -207,12 +196,12 @@ typedef NS_ENUM(NSInteger,TABAnimationType) {
 /**
  * 豆瓣动画帧时长，默认值为0.4，你可以理解为`变色速度`
  */
-@property (nonatomic,assign) CGFloat dropAnimationDuration;
+@property (nonatomic, assign) CGFloat dropAnimationDuration;
 
 /**
  * 豆瓣动画变色值，默认值为0xE1E1E1
  */
-@property (nonatomic,strong) UIColor *dropAnimationDeepColor;
+@property (nonatomic, strong) UIColor *dropAnimationDeepColor;
 
 #pragma mark - 初始化方法
 

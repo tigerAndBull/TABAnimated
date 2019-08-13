@@ -7,9 +7,12 @@
 //
 
 #import "UITableView+TABAnimated.h"
-#import "TABViewAnimated.h"
-#import "TABTableAnimated.h"
+
+#import "TABAnimated.h"
 #import "EstimatedTableViewDelegate.h"
+#import "TableDeDaSelfModel.h"
+#import "TABManagerMethod.h"
+
 #import <objc/runtime.h>
 
 @implementation UITableView (TABAnimated)
@@ -55,14 +58,10 @@
         TableDeDaSelfModel *model = [[TABAnimated sharedAnimated] getTableDeDaModelAboutDeDaSelfWithClassName:NSStringFromClass(dataSource.class)];
         if (!model.isExhangeDataSource) {
             [self exchangeDataSourceMethods:dataSource model:model];
-#pragma clang diagnostic pop
             model.isExhangeDataSource = YES;
         }
     }else {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wundeclared-selector"
         [self exchangeDataSourceMethods:dataSource model:nil];
-#pragma clang diagnostic pop
     }
     
     [self tab_setDataSource:dataSource];
