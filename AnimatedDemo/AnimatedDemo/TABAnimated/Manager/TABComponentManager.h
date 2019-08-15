@@ -25,6 +25,8 @@ NS_ASSUME_NONNULL_BEGIN
 typedef TABBaseComponent * _Nullable (^TABBaseComponentBlock)(NSInteger);
 typedef NSArray <TABBaseComponent *> * _Nullable (^TABBaseComponentArrayBlock)(NSInteger location, NSInteger length);
 
+typedef NSArray <TABBaseComponent *> * _Nullable (^TABBaseComponentArrayWithIndexsBlock)(NSInteger index,...);
+
 @interface TABComponentManager : NSObject
 
 /**
@@ -44,6 +46,8 @@ typedef NSArray <TABBaseComponent *> * _Nullable (^TABBaseComponentArrayBlock)(N
  * @return return value description
  */
 - (TABBaseComponentArrayBlock _Nullable)animations;
+
+- (TABBaseComponentArrayWithIndexsBlock)animationsWithIndexs;
 
 #pragma mark - 相关属性
 

@@ -11,9 +11,9 @@
 #import "UIView+TABAnimated.h"
 #import "TABViewAnimated.h"
 #import "TABManagerMethod.h"
+#import "TABComponentManager.h"
 
 #import <objc/runtime.h>
-
 
 @implementation UIView (TABLayoutSubviews)
 

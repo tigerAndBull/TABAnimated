@@ -11,8 +11,6 @@
 #import "MainViewController.h"
 #import "TABAnimated.h"
 
-//#import "EstimatedTableViewDelegate.h"
-//#import <objc/runtime.h>
 
 @interface AppDelegate ()
 
@@ -24,15 +22,6 @@
     // Override point for customization after application launch.
     
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    
-//    SEL oldHeightDelegate = @selector(tableView:heightForRowAtIndexPath:);
-//    EstimatedTableViewDelegate *edelegate = EstimatedTableViewDelegate.new;
-//    Method method = class_getClassMethod(edelegate.class, oldHeightDelegate);
-//
-//    EstimatedTableViewDelegate *edelegate2 = EstimatedTableViewDelegate.new;
-//    Method method2 = class_getClassMethod(edelegate2.class, oldHeightDelegate);
-
-//    NSLog(@"%p %p",&method,&method2);
     
     // Init `TABAnimated`, and set the properties you need.
     // 初始化TABAnimated，并设置TABAnimated相关属性
@@ -46,7 +35,7 @@
     [TABAnimated sharedAnimated].useGlobalCornerRadius = NO;
     // 是否开启动画坐标标记，如果开启，也仅在debug环境下有效。
     // 开启后，会在每一个动画元素上增加一个红色的数字，该数字表示该动画元素所在下标，方便快速定位某个动画元素。
-    [TABAnimated sharedAnimated].openAnimationTag = NO;
+    [TABAnimated sharedAnimated].openAnimationTag = YES;
     
     MainViewController *vc = [[MainViewController alloc] init];
     vc.title = kText(@"主页面");
