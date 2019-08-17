@@ -21,7 +21,7 @@
 
 @interface UITableView (TABAnimated)
 
-// To the control view
-@property (nonatomic,strong) TABTableAnimated * _Nullable tabAnimated;
+// used to the control view
+@property (nonatomic, strong) TABTableAnimated * _Nullable tabAnimated;
 
 @end

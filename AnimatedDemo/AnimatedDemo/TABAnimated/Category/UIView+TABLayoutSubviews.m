@@ -22,11 +22,8 @@
     static dispatch_once_t onceToken;
     
     dispatch_once(&onceToken, ^{
-        // Gets the layoutSubviews method to the class,whose type is a pointer to a objc_method structure.
         Method originMethod = class_getInstanceMethod([self class], @selector(layoutSubviews));
-        // Get the method you created.
         Method newMethod = class_getInstanceMethod([self class], @selector(tab_layoutSubviews));
-        // Exchange
         method_exchangeImplementations(originMethod, newMethod);
     });
 }
@@ -46,6 +43,7 @@
         
         UIView *superView = nil;
         
+        // header / footer
         if (([self isKindOfClass:[UICollectionReusableView class]] &&
              ![self isKindOfClass:[UICollectionViewCell class]]) ||
             ([self isKindOfClass:[UITableViewHeaderFooterView class]])) {
@@ -75,6 +73,7 @@
             
         }
         
+        // custom view
         if (nil != self.tabAnimated) {
             [TABManagerMethod runAnimationWithSuperView:self
                                              targetView:self

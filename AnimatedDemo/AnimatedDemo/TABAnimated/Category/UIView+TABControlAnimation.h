@@ -68,7 +68,8 @@ NS_ASSUME_NONNULL_BEGIN
  * @param section UITableView或者UICollectionView的section
  * @param completion 延迟回调
  */
-- (void)tab_startAnimationWithSection:(NSInteger)section completion:(void (^)(void))completion;
+- (void)tab_startAnimationWithSection:(NSInteger)section
+                           completion:(void (^)(void))completion;
 
 
 /**
@@ -78,7 +79,9 @@ NS_ASSUME_NONNULL_BEGIN
  * @param delayTime 延迟时间
  * @param completion 完成回调
  */
-- (void)tab_startAnimationWithSection:(NSInteger)section delayTime:(CGFloat)delayTime completion:(void (^)(void))completion;
+- (void)tab_startAnimationWithSection:(NSInteger)section
+                            delayTime:(CGFloat)delayTime
+                           completion:(void (^)(void))completion;
 
 /**
  * end animation

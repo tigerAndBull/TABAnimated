@@ -252,7 +252,7 @@ referenceSizeForHeaderInSection:(NSInteger)section {
     if ([collectionView.tabAnimated currentSectionIsAnimatingWithSection:section]) {
         NSInteger index = [collectionView.tabAnimated headerFooterNeedAnimationOnSection:section
                                                                                     kind:UICollectionElementKindSectionHeader];
-        if (index != tab_animated_error_code) {
+        if (index != TABViewAnimatedErrorCode) {
             NSValue *value = nil;
             if (index > collectionView.tabAnimated.headerSizeArray.count - 1) {
                 value = collectionView.tabAnimated.headerSizeArray.lastObject;
@@ -278,7 +278,7 @@ referenceSizeForFooterInSection:(NSInteger)section {
     if ([collectionView.tabAnimated currentSectionIsAnimatingWithSection:section]) {
         NSInteger index = [collectionView.tabAnimated headerFooterNeedAnimationOnSection:section
                                                                                     kind:UICollectionElementKindSectionFooter];
-        if (index != tab_animated_error_code) {
+        if (index != TABViewAnimatedErrorCode) {
             NSValue *value = nil;
             if (index > collectionView.tabAnimated.footerSizeArray.count - 1) {
                 value = collectionView.tabAnimated.footerSizeArray.lastObject;
@@ -304,7 +304,7 @@ referenceSizeForFooterInSection:(NSInteger)section {
         NSInteger index = [collectionView.tabAnimated headerFooterNeedAnimationOnSection:indexPath.section
                                                                                     kind:kind];
         
-        if (index == tab_animated_error_code) {
+        if (index == TABViewAnimatedErrorCode) {
             return [self tab_collectionView:collectionView
           viewForSupplementaryElementOfKind:kind
                                 atIndexPath:indexPath];
@@ -320,16 +320,16 @@ referenceSizeForFooterInSection:(NSInteger)section {
             }else {
                 resuableClass = collectionView.tabAnimated.headerClassArray[index];
             }
-            defaultPredix = tab_header_prefix;
-            identifier = [NSString stringWithFormat:@"%@%@",tab_header_prefix,NSStringFromClass(resuableClass)];
+            defaultPredix = TABViewAnimatedHeaderPrefixString;
+            identifier = [NSString stringWithFormat:@"%@%@",TABViewAnimatedHeaderPrefixString,NSStringFromClass(resuableClass)];
         }else {
             if (index > collectionView.tabAnimated.footerClassArray.count - 1) {
                 resuableClass = collectionView.tabAnimated.footerClassArray.lastObject;
             }else {
                 resuableClass = collectionView.tabAnimated.footerClassArray[index];
             }
-            defaultPredix = tab_footer_prefix;
-            identifier = [NSString stringWithFormat:@"%@%@",tab_footer_prefix,NSStringFromClass(resuableClass)];
+            defaultPredix = TABViewAnimatedFooterPrefixString;
+            identifier = [NSString stringWithFormat:@"%@%@",TABViewAnimatedFooterPrefixString,NSStringFromClass(resuableClass)];
         }
         
         if (resuableClass == nil) {
@@ -343,7 +343,7 @@ referenceSizeForFooterInSection:(NSInteger)section {
         
         if (![view isKindOfClass:[UICollectionReusableView class]]) {
             reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:kind
-                                                              withReuseIdentifier:[NSString stringWithFormat:@"%@%@",defaultPredix,tab_default_suffix]
+                                                              withReuseIdentifier:[NSString stringWithFormat:@"%@%@",defaultPredix,TABViewAnimatedDefaultSuffixString]
                                                                      forIndexPath:indexPath];
             for (UIView *view in reusableView.subviews) {
                 [view removeFromSuperview];

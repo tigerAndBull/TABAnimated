@@ -40,10 +40,10 @@
 
 #endif
 
-extern NSString * const kTABAlphaAnimation;
-extern NSString * const kTABLocationAnimation;
-extern NSString * const kTABShimmerAnimation;
-extern NSString * const kTABDropAnimation;
+extern NSString * const TABAnimatedAlphaAnimation;
+extern NSString * const TABAnimatedLocationAnimation;
+extern NSString * const TABAnimatedShimmerAnimation;
+extern NSString * const TABAnimatedDropAnimation;
 
 typedef NS_ENUM(NSInteger,TABAnimationType) {
     TABAnimationTypeOnlySkeleton = 0,    // onlySkeleton for all views in your project. 普通骨架层

@@ -116,7 +116,7 @@
     if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
         
         if (self.headerSectionArray.count == 0) {
-            return tab_animated_error_code;
+            return TABViewAnimatedErrorCode;
         }
         
         for (NSInteger i = 0; i < self.headerSectionArray.count; i++) {
@@ -126,11 +126,11 @@
             }
         }
         
-        return tab_animated_error_code;
+        return TABViewAnimatedErrorCode;
     }
     
     if (self.footerSectionArray.count == 0) {
-        return tab_animated_error_code;
+        return TABViewAnimatedErrorCode;
     }
     
     for (NSInteger i = 0; i < self.footerSectionArray.count; i++) {
@@ -140,7 +140,7 @@
         }
     }
     
-    return tab_animated_error_code;
+    return TABViewAnimatedErrorCode;
 }
 
 - (void)addHeaderViewClass:(_Nonnull Class)headerViewClass

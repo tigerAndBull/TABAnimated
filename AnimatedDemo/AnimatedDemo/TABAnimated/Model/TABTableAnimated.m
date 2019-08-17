@@ -148,7 +148,7 @@
 - (NSInteger)headerNeedAnimationOnSection:(NSInteger)section {
     
     if (self.headerSectionArray.count == 0) {
-        return tab_animated_error_code;
+        return TABViewAnimatedErrorCode;
     }
     
     for (NSInteger i = 0; i < self.headerSectionArray.count; i++) {
@@ -158,13 +158,13 @@
         }
     }
     
-    return tab_animated_error_code;
+    return TABViewAnimatedErrorCode;
 }
 
 - (NSInteger)footerNeedAnimationOnSection:(NSInteger)section {
     
     if (self.footerSectionArray.count == 0) {
-        return tab_animated_error_code;
+        return TABViewAnimatedErrorCode;
     }
     
     for (NSInteger i = 0; i < self.footerSectionArray.count; i++) {
@@ -174,7 +174,7 @@
         }
     }
     
-    return tab_animated_error_code;
+    return TABViewAnimatedErrorCode;
 }
 
 @end

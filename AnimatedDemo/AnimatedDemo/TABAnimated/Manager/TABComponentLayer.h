@@ -47,25 +47,25 @@ typedef NS_ENUM(NSInteger,TABViewLoadAnimationStyle) {
  * When the control view starts animation, all subViews' `loadStyle` onto the control view will be setted
  * to `TABViewLoadAnimationWithOnlySkeleton`
  */
-@property (nonatomic,assign) TABViewLoadAnimationStyle loadStyle;
+@property (nonatomic, assign) TABViewLoadAnimationStyle loadStyle;
 
 /**
  * 动画元素来自居中文本
  * Is from the UILabel of `NSTextAligentCenter`or not.
  */
-@property (nonatomic,assign) BOOL fromCenterLabel;
+@property (nonatomic, assign) BOOL fromCenterLabel;
 
 /**
  * 动画元素来自居中文本,取消居中显示
  * If it is from the UILabel of `NSTextAligentCenter`,canceling show in center.
  */
-@property (nonatomic,assign) BOOL isCancelAlignCenter;
+@property (nonatomic, assign) BOOL isCancelAlignCenter;
 
 /**
  * 动画来自UIImageView。
  * Is from UIImageView or not.
  */
-@property (nonatomic,assign) BOOL fromImageView;
+@property (nonatomic, assign) BOOL fromImageView;
 
 /**
  * 动画时组件高度，
@@ -73,7 +73,7 @@ typedef NS_ENUM(NSInteger,TABViewLoadAnimationStyle) {
  * Height of the animation appionted by yourself on subViews.
  * If the animation of the view is not beautiful, you can use it.
  */
-@property (nonatomic,assign) CGFloat tabViewHeight;
+@property (nonatomic, assign) CGFloat tabViewHeight;
 
 #pragma mark - 一个组件映射多个动画元素
 
@@ -82,40 +82,40 @@ typedef NS_ENUM(NSInteger,TABViewLoadAnimationStyle) {
  * 由其他类型组件映射出的动画元素，该属性会被设置为1，你可以对其更改，达到多行的效果。
  * Everyone can set it to more, then it will have the same effect as the UILabel which `numberOfLines` > 1.
  */
-@property (nonatomic,assign) NSInteger numberOflines;
+@property (nonatomic, assign) NSInteger numberOflines;
 
 /**
  * 对于`numberOflines` > 1的动画元素，设置行与行之间的间距，默认是8.0。
  * If numberOflines > 1, the property is used to setting the space of lines.
  */
-@property (nonatomic,assign) CGFloat lineSpace;
+@property (nonatomic, assign) CGFloat lineSpace;
 
 /**
  * 对于`numberOflines` > 1的动画元素，设置最后一行的宽度比例，默认是0.5，即原宽度的一半。
  */
-@property (nonatomic,assign) CGFloat lastScale;
+@property (nonatomic, assign) CGFloat lastScale;
 
 #pragma mark - Only used to drop animation
 
 /**
  * 该动画元素在豆瓣动画队列中的下标
  */
-@property (nonatomic,assign) NSInteger dropAnimationIndex;
+@property (nonatomic, assign) NSInteger dropAnimationIndex;
 
 /**
  * 对于多行的动画元素，在豆瓣动画队列中，设置它的起点下标
  */
-@property (nonatomic,assign) NSInteger dropAnimationFromIndex;
+@property (nonatomic, assign) NSInteger dropAnimationFromIndex;
 
 /**
  * 是否将该元素从豆瓣动画队列中移除
  */
-@property (nonatomic,assign) BOOL removeOnDropAnimation;
+@property (nonatomic, assign) BOOL removeOnDropAnimation;
 
 /**
  * 豆瓣动画间隔时间，默认0.2。
  */
-@property (nonatomic,assign) CGFloat dropAnimationStayTime;
+@property (nonatomic, assign) CGFloat dropAnimationStayTime;
 
 @end
 

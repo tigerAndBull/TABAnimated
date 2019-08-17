@@ -408,7 +408,7 @@ static NSString * const kLongDataString = @"tab_testtesttesttesttesttesttesttest
                              ];
             [TABAnimationMethod addShimmerAnimationToLayer:layer
                                                   duration:[TABAnimated sharedAnimated].animatedDurationShimmer
-                                                       key:kTABShimmerAnimation
+                                                       key:TABAnimatedShimmerAnimation
                                                  direction:[TABAnimated sharedAnimated].shimmerDirection];
             
         }
@@ -420,7 +420,7 @@ static NSString * const kLongDataString = @"tab_testtesttesttesttesttesttesttest
         if ([TABManagerMethod canAddBinAnimation:superView]) {
             [TABAnimationMethod addAlphaAnimation:targetView
                                          duration:[TABAnimated sharedAnimated].animatedDurationBin
-                                              key:kTABAlphaAnimation];
+                                              key:TABAnimatedAlphaAnimation];
         }
         
         // add drop animation
@@ -454,7 +454,7 @@ static NSString * const kLongDataString = @"tab_testtesttesttesttesttesttesttest
                                                count:manager.dropAnimationCount+1
                                             stayTime:layer.dropAnimationStayTime-i*cutTime
                                            deepColor:deepColor
-                                                 key:kTABDropAnimation];
+                                                 key:TABAnimatedDropAnimation];
             }
         }
         

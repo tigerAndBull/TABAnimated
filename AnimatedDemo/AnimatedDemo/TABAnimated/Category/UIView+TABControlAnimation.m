@@ -391,16 +391,16 @@ static const NSTimeInterval kDelayReloadDataTime = 0.4;
     NSString *kind = nil;
     
     if (isHeader) {
-        defaultPrefix = tab_header_prefix;
+        defaultPrefix = TABViewAnimatedHeaderPrefixString;
         classArray = tabAnimated.headerClassArray;
         kind = UICollectionElementKindSectionHeader;
     }else {
-        defaultPrefix = tab_footer_prefix;
+        defaultPrefix = TABViewAnimatedFooterPrefixString;
         classArray = tabAnimated.footerClassArray;
         kind = UICollectionElementKindSectionFooter;
     }
     
-    [collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:kind withReuseIdentifier:[NSString stringWithFormat:@"%@%@",defaultPrefix,tab_default_suffix]];
+    [collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:kind withReuseIdentifier:[NSString stringWithFormat:@"%@%@",defaultPrefix,TABViewAnimatedDefaultSuffixString]];
     
     for (Class class in classArray) {
         

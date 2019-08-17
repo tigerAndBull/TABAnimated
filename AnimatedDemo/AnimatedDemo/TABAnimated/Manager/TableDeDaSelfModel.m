@@ -194,7 +194,7 @@
 - (CGFloat)tab_deda_tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     if ([tableView.tabAnimated currentSectionIsAnimatingWithSection:section]) {
         NSInteger index = [tableView.tabAnimated headerNeedAnimationOnSection:section];
-        if (index != tab_animated_error_code) {
+        if (index != TABViewAnimatedErrorCode) {
             NSNumber *value = nil;
             if (index > tableView.tabAnimated.headerHeightArray.count - 1) {
                 value = tableView.tabAnimated.headerHeightArray.lastObject;
@@ -211,7 +211,7 @@
 - (CGFloat)tab_deda_tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     if ([tableView.tabAnimated currentSectionIsAnimatingWithSection:section]) {
         NSInteger index = [tableView.tabAnimated footerNeedAnimationOnSection:section];
-        if (index != tab_animated_error_code) {
+        if (index != TABViewAnimatedErrorCode) {
             NSNumber *value = nil;
             if (index > tableView.tabAnimated.footerHeightArray.count - 1) {
                 value = tableView.tabAnimated.footerHeightArray.lastObject;
@@ -228,7 +228,7 @@
 - (nullable UIView *)tab_deda_tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     if ([tableView.tabAnimated currentSectionIsAnimatingWithSection:section]) {
         NSInteger index = [tableView.tabAnimated headerNeedAnimationOnSection:section];
-        if (index != tab_animated_error_code) {
+        if (index != TABViewAnimatedErrorCode) {
             
             Class class;
             if (index > tableView.tabAnimated.headerClassArray.count - 1) {
@@ -256,7 +256,7 @@
 - (nullable UIView *)tab_deda_tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
     if ([tableView.tabAnimated currentSectionIsAnimatingWithSection:section]) {
         NSInteger index = [tableView.tabAnimated footerNeedAnimationOnSection:section];
-        if (index != tab_animated_error_code) {
+        if (index != TABViewAnimatedErrorCode) {
             
             Class class;
             if (index > tableView.tabAnimated.footerClassArray.count - 1) {

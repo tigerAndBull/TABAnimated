@@ -8,6 +8,12 @@
 
 #import "TABViewAnimated.h"
 
+const NSInteger TABViewAnimatedErrorCode = -1000;
+
+NSString * const TABViewAnimatedHeaderPrefixString = @"tab_header_";
+NSString * const TABViewAnimatedFooterPrefixString = @"tab_footer_";
+NSString * const TABViewAnimatedDefaultSuffixString = @"default_resuable_view";
+
 @implementation TABViewAnimated
 
 - (instancetype)init {

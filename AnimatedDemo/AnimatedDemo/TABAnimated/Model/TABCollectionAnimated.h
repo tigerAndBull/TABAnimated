@@ -24,49 +24,49 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * 单section的UICollectionView的cellSize
  */
-@property (nonatomic,assign) CGSize cellSize;
+@property (nonatomic, assign) CGSize cellSize;
 
 /**
  * 多section的UICollectionView的cellSize集合
  */
-@property (nonatomic,strong) NSArray <NSValue *> *cellSizeArray;
+@property (nonatomic, strong) NSArray <NSValue *> *cellSizeArray;
 
 /**
  * 指定section加载动画集合
  * 不设置默认为工程中所有的section
  */
-@property (nonatomic,strong) NSArray <NSNumber *> *animatedSectionArray;
+@property (nonatomic, strong) NSArray <NSNumber *> *animatedSectionArray;
 
 /**
  * 当前正在动画中的分区
  */
-@property (nonatomic,strong) NSMutableArray <NSNumber *> *runAnimationSectionArray;
+@property (nonatomic, strong) NSMutableArray <NSNumber *> *runAnimationSectionArray;
 
 /**
  * 设置动画时的分区数量
  */
-@property (nonatomic,assign) NSInteger animatedSectionCount;
+@property (nonatomic, assign) NSInteger animatedSectionCount;
 
 /**
  * 设置单section动画时row数量，默认填充屏幕为准
  **/
-@property (nonatomic,assign) NSInteger animatedCount;
+@property (nonatomic, assign) NSInteger animatedCount;
 
 /**
  * 存储头视图相关，在完全理解原理的情况下，可以采用直接赋值
  * 否则建议使用`addHeaderViewClass:viewSize:toSection`
  */
-@property (nonatomic,strong,readonly) NSMutableArray <Class> *headerClassArray;
-@property (nonatomic,strong,readonly) NSMutableArray <NSValue *> *headerSizeArray;
-@property (nonatomic,strong,readonly) NSMutableArray <NSNumber *> *headerSectionArray;
+@property (nonatomic, strong, readonly) NSMutableArray <Class> *headerClassArray;
+@property (nonatomic, strong, readonly) NSMutableArray <NSValue *> *headerSizeArray;
+@property (nonatomic, strong, readonly) NSMutableArray <NSNumber *> *headerSectionArray;
 
 /**
  * 存储尾视图相关，在完全理解原理的情况下，可以采用直接赋值
  * 否则建议使用`addFooterViewClass:viewSize:toSection`
  */
-@property (nonatomic,strong,readonly) NSMutableArray <Class> *footerClassArray;
-@property (nonatomic,strong,readonly) NSMutableArray <NSValue *> *footerSizeArray;
-@property (nonatomic,strong,readonly) NSMutableArray <NSNumber *> *footerSectionArray;
+@property (nonatomic, strong, readonly) NSMutableArray <Class> *footerClassArray;
+@property (nonatomic, strong, readonly) NSMutableArray <NSValue *> *footerSizeArray;
+@property (nonatomic, strong, readonly) NSMutableArray <NSNumber *> *footerSectionArray;
 
 /**
  * 单section表格组件初始化方式，row值以填充contentSize的数量为标准

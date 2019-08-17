@@ -25,72 +25,72 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * 单section的UITableView的cellHeight
  */
-@property (nonatomic,assign) CGFloat cellHeight;
+@property (nonatomic, assign) CGFloat cellHeight;
 
 /**
  * 多section的UITableView的cellHeight集合
  */
-@property (nonatomic,strong) NSArray <NSNumber *> *cellHeightArray;
+@property (nonatomic, strong) NSArray <NSNumber *> *cellHeightArray;
 
 /**
  * 指定section加载动画集合
  */
-@property (nonatomic,strong) NSArray <NSNumber *> *animatedSectionArray;
+@property (nonatomic, strong) NSArray <NSNumber *> *animatedSectionArray;
 
 /**
  * 当前正在动画中的分区
  */
-@property (nonatomic,strong) NSMutableArray <NSNumber *> *runAnimationSectionArray;
+@property (nonatomic, strong) NSMutableArray <NSNumber *> *runAnimationSectionArray;
 
 /**
  * 头视图动画对象
  */
-@property (nonatomic,weak) TABViewAnimated *tabHeadViewAnimated;
+@property (nonatomic, weak) TABViewAnimated *tabHeadViewAnimated;
 
 /**
  * 尾视图动画对象
  */
-@property (nonatomic,weak) TABViewAnimated *tabFooterViewAnimated;
+@property (nonatomic, weak) TABViewAnimated *tabFooterViewAnimated;
 
 /**
  * 缓存自适应高度值
  */
-@property (nonatomic,assign) CGFloat oldEstimatedRowHeight;
+@property (nonatomic, assign) CGFloat oldEstimatedRowHeight;
 
 /**
  * 设置动画时的分区数量
  */
-@property (nonatomic,assign) NSInteger animatedSectionCount;
+@property (nonatomic, assign) NSInteger animatedSectionCount;
 
 /**
  * 设置单section动画时row数量，默认填充屏幕为准
  **/
-@property (nonatomic,assign) NSInteger animatedCount;
+@property (nonatomic, assign) NSInteger animatedCount;
 
 /**
  * UITableView动画启动时，同时启动UITableViewHeaderView
  */
-@property (nonatomic,assign) BOOL showTableHeaderView;
+@property (nonatomic, assign) BOOL showTableHeaderView;
 
 /**
  * UITableView动画启动时，同时启动UITableViewFooterView
  */
-@property (nonatomic,assign) BOOL showTableFooterView;
+@property (nonatomic, assign) BOOL showTableFooterView;
 
 /**
  * 存储头视图相关，在完全理解原理的情况下，可以采用直接赋值
  * 否则建议使用`addHeaderViewClass:viewHeight:toSection`
  */
-@property (nonatomic,strong,readonly) NSMutableArray <Class> *headerClassArray;
-@property (nonatomic,strong,readonly) NSMutableArray <NSNumber *> *headerHeightArray;
-@property (nonatomic,strong,readonly) NSMutableArray <NSNumber *> *headerSectionArray;
+@property (nonatomic, strong, readonly) NSMutableArray <Class> *headerClassArray;
+@property (nonatomic, strong, readonly) NSMutableArray <NSNumber *> *headerHeightArray;
+@property (nonatomic, strong, readonly) NSMutableArray <NSNumber *> *headerSectionArray;
 
 /**
  * 存储尾视图相关
  */
-@property (nonatomic,strong,readonly) NSMutableArray <Class> *footerClassArray;
-@property (nonatomic,strong,readonly) NSMutableArray <NSNumber *> *footerHeightArray;
-@property (nonatomic,strong,readonly) NSMutableArray <NSNumber *> *footerSectionArray;
+@property (nonatomic, strong, readonly) NSMutableArray <Class> *footerClassArray;
+@property (nonatomic, strong, readonly) NSMutableArray <NSNumber *> *footerHeightArray;
+@property (nonatomic, strong, readonly) NSMutableArray <NSNumber *> *footerSectionArray;
 
 /**
  * 单section表格组件初始化方式，row值以填充contentSize的数量为标准

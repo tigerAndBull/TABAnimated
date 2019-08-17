@@ -23,8 +23,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UICollectionView (TABAnimated)
 
-// To the control view
-@property (nonatomic,strong) TABCollectionAnimated * _Nullable tabAnimated;
+// used to the control view
+@property (nonatomic, strong) TABCollectionAnimated * _Nullable tabAnimated;
 
 @end
 

@@ -24,7 +24,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef TABBaseComponent * _Nullable (^TABBaseComponentBlock)(NSInteger);
 typedef NSArray <TABBaseComponent *> * _Nullable (^TABBaseComponentArrayBlock)(NSInteger location, NSInteger length);
-
 typedef NSArray <TABBaseComponent *> * _Nullable (^TABBaseComponentArrayWithIndexsBlock)(NSInteger index,...);
 
 @interface TABComponentManager : NSObject
@@ -33,7 +32,7 @@ typedef NSArray <TABBaseComponent *> * _Nullable (^TABBaseComponentArrayWithInde
  * 获取单个动画组件
  * 使用方式：.animation(x)
  *
- * @return return value description
+ * @return TABBaseComponent对象
  */
 - (TABBaseComponentBlock _Nullable)animation;
 
@@ -43,73 +42,77 @@ typedef NSArray <TABBaseComponent *> * _Nullable (^TABBaseComponentArrayWithInde
  * 第二个参数长度
  * 使用方式：.animations(x,x)
  *
- * @return return value description
+ * @return 装有`TABBaseComponent`类型的数组
  */
 - (TABBaseComponentArrayBlock _Nullable)animations;
 
+/**
+ * 获取不定量动画组件，参数 >= 1
+ * 例如: animationsWithIndexs(1,5,7)，意为获取下标为1，5，7的动画组件
+ *
+ * @return 装有`TABBaseComponent`类型的数组
+ */
 - (TABBaseComponentArrayWithIndexsBlock)animationsWithIndexs;
 
 #pragma mark - 相关属性
 
 @property (nonatomic) Class tabTargetClass;
 
-@property (nonatomic,strong) CALayer *tabLayer;
+@property (nonatomic, strong) CALayer *tabLayer;
 
-@property (nonatomic,strong) UIColor *animatedColor;
+@property (nonatomic, strong) UIColor *animatedColor;
 
-@property (nonatomic,strong) UIColor *animatedBackgroundColor;
+@property (nonatomic, strong) UIColor *animatedBackgroundColor;
 
-@property (nonatomic,assign) CGFloat animatedHeight;
+@property (nonatomic, assign) CGFloat animatedHeight;
 
-@property (nonatomic,assign) CGFloat animatedCornerRadius;
+@property (nonatomic, assign) CGFloat animatedCornerRadius;
 
-@property (nonatomic,assign) BOOL cancelGlobalCornerRadius;
+@property (nonatomic, assign) BOOL cancelGlobalCornerRadius;
 
-@property (nonatomic,assign) CGPoint cardOffset;
+@property (nonatomic, assign) CGPoint cardOffset;
 
 /**
  * 兼容旧回调保留属性
  */
-@property (nonatomic,strong,readonly) NSMutableArray <TABComponentLayer *> *componentLayerArray;
+@property (nonatomic, strong, readonly) NSMutableArray <TABComponentLayer *> *componentLayerArray;
 
 /**
  * 存放最终显示在屏幕上的动画组
  */
-@property (nonatomic,strong,readonly) NSMutableArray <TABComponentLayer *> *resultLayerArray;
+@property (nonatomic, strong, readonly) NSMutableArray <TABComponentLayer *> *resultLayerArray;
 
-@property (nonatomic,strong,readonly) NSMutableArray <TABBaseComponent *> *baseComponentArray;
+@property (nonatomic, strong, readonly) NSMutableArray <TABBaseComponent *> *baseComponentArray;
 
 /**
  * 暂存被嵌套的表格视图
  */
-@property (nonatomic,weak) UIView *nestView;
+@property (nonatomic, weak) UIView *nestView;
 
 /**
  * 是否已经加载过
  */
-@property (nonatomic,assign) BOOL isLoad;
+@property (nonatomic, assign) BOOL isLoad;
 
 /**
  * 对于表格视图的cell和头尾视图，当前所处section
  */
-@property (nonatomic,assign) NSInteger currentSection;
+@property (nonatomic, assign) NSInteger currentSection;
 
 /**
  * 对于表格视图的cell，当前所处row
  */
-@property (nonatomic,assign) NSInteger currentRow;
+@property (nonatomic, assign) NSInteger currentRow;
 
 /**
  * 豆瓣动画组动画元素的数量
  */
-@property (nonatomic,assign,readonly) NSInteger dropAnimationCount;
+@property (nonatomic, assign, readonly) NSInteger dropAnimationCount;
 
 /**
  * 豆瓣动画
  */
-@property (nonatomic,strong) NSMutableArray <NSArray *> *entireIndexArray;
-
-+ (instancetype)initWithView:(UIView *)view;
+@property (nonatomic, strong) NSMutableArray <NSArray *> *entireIndexArray;
 
 + (instancetype)initWithView:(UIView *)view
                  tabAnimated:(TABViewAnimated *)tabAnimated;

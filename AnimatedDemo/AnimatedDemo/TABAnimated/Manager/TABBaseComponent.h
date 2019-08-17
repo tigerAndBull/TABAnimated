@@ -214,7 +214,7 @@ typedef TABBaseComponent * _Nullable (^TABBaseComponentColorBlock)(UIColor *);
 
 + (instancetype)initWithComponentLayer:(TABComponentLayer *)layer;
 
-@property (nonatomic,strong,readonly) TABComponentLayer *layer;
+@property (nonatomic, strong, readonly) TABComponentLayer *layer;
 
 @end
 

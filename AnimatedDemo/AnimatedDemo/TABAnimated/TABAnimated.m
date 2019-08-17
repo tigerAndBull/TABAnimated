@@ -22,10 +22,10 @@
 #define tab_kBackColor tab_kColor(0xEEEEEEFF)
 #define tab_kShimmerBackColor tab_kColor(0xDFDFDFFF)
 
-NSString * const kTABAlphaAnimation = @"TABAlphaAnimation";
-NSString * const kTABLocationAnimation = @"TABLocationAnimation";
-NSString * const kTABShimmerAnimation = @"TABShimmerAnimation";
-NSString * const kTABDropAnimation = @"TABDropAnimation";
+NSString * const TABAnimatedAlphaAnimation = @"TABAlphaAnimation";
+NSString * const TABAnimatedLocationAnimation = @"TABLocationAnimation";
+NSString * const TABAnimatedShimmerAnimation = @"TABShimmerAnimation";
+NSString * const TABAnimatedDropAnimation = @"TABDropAnimation";
 
 @interface TABAnimated()
 
@@ -73,7 +73,7 @@ NSString * const kTABDropAnimation = @"TABDropAnimation";
 }
 
 - (CGFloat)animatedDuration {
-    if (_animatedDuration == 0) {
+    if (_animatedDuration == 0.) {
         return 0.7;
     }
     return _animatedDuration;
@@ -87,14 +87,14 @@ NSString * const kTABDropAnimation = @"TABDropAnimation";
 }
 
 - (CGFloat)longToValue {
-    if (_longToValue == 0) {
+    if (_longToValue == 0.) {
         return 1.9;
     }
     return _longToValue;
 }
 
 - (CGFloat)shortToValue {
-    if (_shortToValue == 0) {
+    if (_shortToValue == 0.) {
         return 0.6;
     }
     return _shortToValue;
@@ -108,14 +108,14 @@ NSString * const kTABDropAnimation = @"TABDropAnimation";
 }
 
 - (CGFloat)shimmerBrightness {
-    if (_shimmerBrightness == 0) {
+    if (_shimmerBrightness == 0.) {
         return 0.92;
     }
     return _shimmerBrightness;
 }
 
 - (CGFloat)animatedDurationShimmer {
-    if (_animatedDurationShimmer == 0) {
+    if (_animatedDurationShimmer == 0.) {
         return 1.;
     }
     return _animatedDurationShimmer;

@@ -13,15 +13,16 @@
 #import "TABComponentLayer.h"
 #import <UIKit/UIKit.h>
 
-static CGFloat defaultHeight = 16.f;
+static const CGFloat kDefaultHeight = 16.f;
+static NSString * const kTagDefaultFontName = @"HiraKakuProN-W3";
 
 @interface TABComponentManager()
 
-@property (nonatomic,strong) NSMutableArray <TABBaseComponent *> *baseComponentArray;
-@property (nonatomic,strong,readwrite) NSMutableArray <TABComponentLayer *> *componentLayerArray;
-@property (nonatomic,strong,readwrite) NSMutableArray <TABComponentLayer *> *resultLayerArray;
+@property (nonatomic, strong) NSMutableArray <TABBaseComponent *> *baseComponentArray;
+@property (nonatomic, strong, readwrite) NSMutableArray <TABComponentLayer *> *componentLayerArray;
+@property (nonatomic, strong, readwrite) NSMutableArray <TABComponentLayer *> *resultLayerArray;
 
-@property (nonatomic,assign,readwrite) NSInteger dropAnimationCount;
+@property (nonatomic, assign, readwrite) NSInteger dropAnimationCount;
 
 @end
 
@@ -168,7 +169,6 @@ static CGFloat defaultHeight = 16.f;
         }
         // 清空参数列表，并置参数指针args无效
         va_end(args);
-        
         return resultArray.copy;
         
     };
@@ -269,7 +269,7 @@ static CGFloat defaultHeight = 16.f;
             
             // 设置动画
             if (layer.loadStyle != TABAnimationTypeOnlySkeleton) {
-                [layer addAnimation:[self getAnimationWithLoadStyle:layer.loadStyle] forKey:kTABLocationAnimation];
+                [layer addAnimation:[self getAnimationWithLoadStyle:layer.loadStyle] forKey:TABAnimatedLocationAnimation];
             }
             
             BOOL isImageView = layer.fromImageView;
@@ -317,7 +317,7 @@ static CGFloat defaultHeight = 16.f;
                 lary.frame = CGRectMake(0, layer.frame.size.height/2.0, layer.frame.size.width, 20);
             }
             lary.contentsScale = ([[UIScreen mainScreen] scale] > 3.0) ? [[UIScreen mainScreen] scale]:3.0;
-            lary.font = (__bridge CFTypeRef)(@"HiraKakuProN-W3");
+            lary.font = (__bridge CFTypeRef)(kTagDefaultFontName);
             lary.fontSize = 12.f;
             lary.alignmentMode = kCAAlignmentRight;
             lary.foregroundColor = [UIColor redColor].CGColor;
@@ -340,7 +340,7 @@ static CGFloat defaultHeight = 16.f;
         loadStyle:(TABViewLoadAnimationStyle)loadStyle
             index:(NSInteger)index {
     
-    CGFloat textHeight = defaultHeight*[TABAnimated sharedAnimated].animatedHeightCoefficient;
+    CGFloat textHeight = kDefaultHeight*[TABAnimated sharedAnimated].animatedHeightCoefficient;
     
     if (self.animatedHeight > 0.) {
         textHeight = self.animatedHeight;
@@ -391,7 +391,7 @@ static CGFloat defaultHeight = 16.f;
         
         if (i == lines - 1) {
             if (loadStyle != TABAnimationTypeOnlySkeleton) {
-                [layer addAnimation:[self getAnimationWithLoadStyle:loadStyle] forKey:kTABLocationAnimation];
+                [layer addAnimation:[self getAnimationWithLoadStyle:loadStyle] forKey:TABAnimatedLocationAnimation];
             }
             
 #ifdef DEBUG
@@ -399,7 +399,7 @@ static CGFloat defaultHeight = 16.f;
                 CATextLayer *lary = [CATextLayer layer];
                 lary.string = [NSString stringWithFormat:@"%ld",(long)index];
                 lary.frame = CGRectMake(0, 0, rect.size.width, 20);
-                lary.font = (__bridge CFTypeRef)(@"HiraKakuProN-W3");
+                lary.font = (__bridge CFTypeRef)(kTagDefaultFontName);
                 lary.fontSize = 12.f;
                 lary.alignmentMode = kCAAlignmentRight;
                 lary.foregroundColor = [UIColor redColor].CGColor;
