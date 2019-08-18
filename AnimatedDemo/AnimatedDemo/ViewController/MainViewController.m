@@ -240,7 +240,7 @@
             
             return @[
                      @"TestLayoutTableViewController",
-                     @"TTTViewController",
+                     @"TestLayoutDelegateTableViewController",
                      ];
             
             break;

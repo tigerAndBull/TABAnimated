@@ -21,8 +21,6 @@
 #import <Foundation/Foundation.h>
 
 #import "UIView+TABAnimated.h"
-#import "UITableView+TABAnimated.h"
-#import "UICollectionView+TABAnimated.h"
 
 #import "UIView+TABControlAnimation.h"
 #import "NSArray+TABAnimated.h"

@@ -6,29 +6,26 @@
 //  Copyright © 2019 tigerAndBull. All rights reserved.
 //
 
-#import "TTTViewController.h"
 #import "Game.h"
 #import "TABAnimated.h"
 #import <TABKit/TABKit.h>
 #import "Masonry.h"
 #import "TestLayoutTableViewController.h"
+#import "TestLayoutDelegateTableViewController.h"
 
-@interface TTTViewController ()<UITableViewDelegate,UITableViewDataSource> {
+@interface TestLayoutDelegateTableViewController ()
+<UITableViewDelegate,
+UITableViewDataSource
+>
+{
     NSMutableArray *dataArray;
 }
 
-@property (nonatomic,strong) UITableView *tableView;
+@property (nonatomic, strong) UITableView *tableView;
 
 @end
 
-@implementation TTTViewController
-
-- (instancetype)init {
-    if (self = [super init]) {
-        [self tableView];
-    }
-    return self;
-}
+@implementation TestLayoutDelegateTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

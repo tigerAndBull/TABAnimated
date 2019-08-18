@@ -53,6 +53,16 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSInteger animatedCount;
 
 /**
+ * 是否已经交换了delegate的IMP地址
+ */
+@property (nonatomic, assign, readonly) BOOL isExhangeDelegateIMP;
+
+/**
+ * 是否已经交换了dataSource的IMP地址
+ */
+@property (nonatomic, assign, readonly) BOOL isExhangeDataSourceIMP;
+
+/**
  * 存储头视图相关，在完全理解原理的情况下，可以采用直接赋值
  * 否则建议使用`addHeaderViewClass:viewSize:toSection`
  */
@@ -198,6 +208,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSInteger)headerFooterNeedAnimationOnSection:(NSInteger)section
                                            kind:(NSString *)kind;
+
+- (void)exchangeCollectionViewDelegate:(UICollectionView *)target;
+
+- (void)exchangeCollectionViewDataSource:(UICollectionView *)target;
 
 @end
 

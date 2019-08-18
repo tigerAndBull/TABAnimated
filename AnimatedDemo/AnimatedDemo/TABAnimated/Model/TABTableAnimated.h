@@ -78,6 +78,16 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL showTableFooterView;
 
 /**
+ * 是否已经交换了delegate的IMP地址
+ */
+@property (nonatomic, assign, readonly) BOOL isExhangeDelegateIMP;
+
+/**
+ * 是否已经交换了dataSource的IMP地址
+ */
+@property (nonatomic, assign, readonly) BOOL isExhangeDataSourceIMP;
+
+/**
  * 存储头视图相关，在完全理解原理的情况下，可以采用直接赋值
  * 否则建议使用`addHeaderViewClass:viewHeight:toSection`
  */
@@ -234,6 +244,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSInteger)footerNeedAnimationOnSection:(NSInteger)section;
 
+- (void)exchangeTableViewDelegate:(UITableView *)target;
+
+- (void)exchangeTableViewDataSource:(UITableView *)target;
+
 @end
+
+@interface EstimatedTableViewDelegate : NSObject<UITableViewDelegate>
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
+
+@end
+
 
 NS_ASSUME_NONNULL_END

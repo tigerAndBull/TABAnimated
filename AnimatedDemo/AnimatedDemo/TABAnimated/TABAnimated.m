@@ -12,8 +12,6 @@
 #import "TABManagerMethod.h"
 
 #import "UIView+TABAnimated.h"
-#import "UITableView+TABAnimated.h"
-#import "UICollectionView+TABAnimated.h"
 #import "TableDeDaSelfModel.h"
 
 #import <objc/runtime.h>

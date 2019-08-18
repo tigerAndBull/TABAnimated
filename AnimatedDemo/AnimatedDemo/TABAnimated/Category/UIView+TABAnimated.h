@@ -47,3 +47,22 @@ typedef NSArray <TABBaseComponent *> * _Nullable (^TABSearchLayerArrayBlock)(NSI
 - (TABSearchLayerArrayBlock _Nullable)animations;
 
 @end
+
+@class TABTableAnimated;
+
+@interface UITableView (TABAnimated)
+
+// used to the control view
+@property (nonatomic, strong) TABTableAnimated * _Nullable tabAnimated;
+
+@end
+
+@class TABCollectionAnimated;
+
+@interface UICollectionView (TABAnimated)
+
+// used to the control view
+@property (nonatomic, strong) TABCollectionAnimated * _Nullable tabAnimated;
+
+@end
+

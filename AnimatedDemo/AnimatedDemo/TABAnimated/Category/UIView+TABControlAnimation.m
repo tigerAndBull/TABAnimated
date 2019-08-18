@@ -134,6 +134,8 @@ static const NSTimeInterval kDelayReloadDataTime = 0.4;
         }
         
         TABCollectionAnimated *tabAnimated = (TABCollectionAnimated *)((UICollectionView *)self.tabAnimated);
+        [tabAnimated exchangeCollectionViewDelegate:(UICollectionView *)self];
+        [tabAnimated exchangeCollectionViewDataSource:(UICollectionView *)self];
         
         if (tabAnimated.headerClassArray.count > 0) {
             [self registerHeaderOrFooter:YES tabAnimated:tabAnimated];
@@ -171,6 +173,8 @@ static const NSTimeInterval kDelayReloadDataTime = 0.4;
         
         UITableView *tableView = (UITableView *)self;
         TABTableAnimated *tabAnimated = (TABTableAnimated *)((UITableView *)self.tabAnimated);
+        [tabAnimated exchangeTableViewDelegate:tableView];
+        [tabAnimated exchangeTableViewDataSource:tableView];
         
         for (Class class in self.tabAnimated.cellClassArray) {
             

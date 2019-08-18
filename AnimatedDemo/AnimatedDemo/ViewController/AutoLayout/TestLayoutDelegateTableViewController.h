@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface TTTViewController : UIViewController
+@interface TestLayoutDelegateTableViewController : UIViewController
 
 @end
 
