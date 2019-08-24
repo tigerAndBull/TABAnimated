@@ -125,11 +125,4 @@ static TABShimmerTransition transitionMaker(TABShimmerDirection dir, TABShimmerP
     return transition;
 }
 
-+ (UIColor *)brightenedColor:(UIColor *)color
-                  brightness:(CGFloat)brightness {
-    CGFloat h,s,b,a;
-    [color getHue:&h saturation:&s brightness:&b alpha:&a];
-    return [UIColor colorWithHue:h saturation:s brightness:b*brightness alpha:a];
-}
-
 @end

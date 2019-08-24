@@ -33,182 +33,182 @@ typedef TABBaseComponent * _Nullable (^TABBaseComponentColorBlock)(UIColor *);
 #pragma mark - 基础属性
 
 /**
- * 向左平移
- * Translation to the left
- *
- * @return return value 向左平移的值
+ 向左平移
+
+ @return 目标动画元素
  */
 - (TABBaseComponentFloatBlock)left;
 
 /**
- * 向右平移
- * Translation to the right
- *
- * @return return value 向右平移的值
+ 向右平移
+
+ @return 目标动画元素
  */
 - (TABBaseComponentFloatBlock)right;
 
 /**
- * 向上平移
- * Upward translation
- *
- * @return return value 向上平移的值
+ 向上平移
+
+ @return 目标动画元素
  */
 - (TABBaseComponentFloatBlock)up;
 
 /**
- * 向下平移
- * Downward translation
- *
- * @return return value 向下平移的值
+ 向下平移
+
+ @return 目标动画元素
  */
 - (TABBaseComponentFloatBlock)down;
 
 /**
- * 设置动画组件的宽度
- * Set width
- *
- * @return return value 宽度
+ 设置动画元素的宽度
+
+ @return 目标动画元素
  */
 - (TABBaseComponentFloatBlock)width;
 
 /**
- * 设置动画组件的高度
- * Set height
- *
- * @return return value 高度
+ 设置动画元素的高度
+
+ @return 目标动画元素
  */
 - (TABBaseComponentFloatBlock)height;
 
 /**
- * 设置动画组件的圆角
- *
- * @return return value 圆角
+ 设置动画元素的圆角
+ 
+ @return 目标动画元素
  */
 - (TABBaseComponentFloatBlock)radius;
 
 /**
- * 需要减少的宽度：与当前宽度相比，所减少的宽度
- * 负数则为增加
- *
- * @return return value 减少的宽度
+ 需要减少的宽度：与当前宽度相比，所减少的宽度
+ 负数则为增加
+ 
+ @return 目标动画元素
  */
 - (TABBaseComponentFloatBlock)reducedWidth;
 
 /**
- * 减少的高度：与当前高度相比，所减少的高度
- * 负数则为增加
- *
- * @return return value 减少的高度
+ 减少的高度：与当前高度相比，所减少的高度
+ 负数则为增加
+ 
+ @return 目标动画元素
  */
 - (TABBaseComponentFloatBlock)reducedHeight;
 
 /**
- * 减少的圆角
- *
- * @return return value 减少的圆角值
+ 减少的圆角
+ 
+ @return 目标动画元素
  */
 - (TABBaseComponentFloatBlock)reducedRadius;
 
 /**
- * 横坐标
- *
- * @return return value 设置横坐标的值
+ 设置横坐标
+ 
+ @return 目标动画元素
  */
 - (TABBaseComponentFloatBlock)x;
 
 /**
- * 纵坐标
- *
- * @return return value 设置纵坐标的值
+ 设置纵坐标
+ 
+ @return 目标动画元素
  */
 - (TABBaseComponentFloatBlock)y;
 
 /**
- * 设置动画组件的行数
- * Set numberOflines
- *
- * @return return value 设置的行数
+ 设置动画元素的行数
+
+ @return 目标动画元素
  */
 - (TABBaseComponentIntegerBlock)line;
 
 /**
- * 设置多行动画组件的间距，即行数超过1时生效，默认为8.0。
- * Set linespace
- *
- * @return return value 间距值
+ 设置多行动画元素的间距，即行数超过1时生效，默认为8.0。
+ 
+ @return 目标动画元素
  */
 - (TABBaseComponentFloatBlock)space;
 
 /**
- * 对于`行数` > 1的动画元素，设置最后一行的宽度比例，默认是0.5，即原宽度的一半。
- *
- * @return return value 最后一行的宽度比例
+ 对于`行数` > 1的动画元素，设置最后一行的宽度比例，默认是0.5，即原宽度的一半。
+ 
+ @return 目标动画元素
  */
 - (TABBaseComponentFloatBlock)lastLineScale;
 
 /**
- * 从动画组中移除
- * Remve the layer
- *
- * @return return value description
+ 从动画组中移除
+ 
+ @return 目标动画元素
  */
 - (TABBaseComponentVoidBlock)remove;
 
 /**
- * 添加占位图，不支持圆角，建议切图使用圆角
- *
- * @return 占位图名称
+ 添加占位图，不支持圆角，建议切图使用圆角
+ 
+ @return 目标动画元素
  */
 - (TABBaseComponentStringBlock)placeholder;
 
 /**
- * 赋予动画组件画由长到短的动画
- * Add the long animation to the layer
+ 赋予动画元素画由长到短的动画
+ 
+ @return 目标动画元素
  */
 - (TABBaseComponentVoidBlock)toLongAnimation;
 
 /**
- * 赋予动画组件画由短到长的动画
- * Add the short animation to the layer
+ 赋予动画元素画由短到长的动画
+ 
+ @return 目标动画元素
  */
 - (TABBaseComponentVoidBlock)toShortAnimation;
 
 /**
- * 如果动画组件来自居中文本，设置后取消居中显示，
- * If it is from the UILabel of `NSTextAligentCenter`,canceling show in center.
+ 如果动画元素来自居中文本，设置后取消居中显示，
+ 
+ @return 目标动画元素
  */
 - (TABBaseComponentVoidBlock)cancelAlignCenter;
 
 /**
- * 设置动画组件颜色
- *
- * @return return value UIColor对象
+ 设置动画元素颜色
+
+ @return 目标动画元素
  */
 - (TABBaseComponentColorBlock)color;
-
-//- (TABBaseComponentStringBlock)fill;
 
 #pragma mark - 豆瓣动画需要用到的属性
 
 /**
- * 豆瓣动画 - 变色下标，一起变色的元素，设置同一个下标即可。
+ 豆瓣动画 - 变色下标，一起变色的元素，设置同一个下标即可。
+ 
+ @return 目标动画元素
  */
 - (TABBaseComponentIntegerBlock)dropIndex;
 
 /**
- * 豆瓣动画 - 用于多行的动画组件,
- * 比如设置 dropFromIndex(3), 那么多行动画组中的第一行的下标是3，第二行就是4，依次类推。
+ 豆瓣动画 - 用于多行的动画元素,
+ 比如设置 dropFromIndex(3), 那么多行动画组中的第一行的下标是3，第二行就是4，依次类推。
+ 
+ @return 目标动画元素
  */
 - (TABBaseComponentIntegerBlock)dropFromIndex;
 
 /**
- * 豆瓣动画 - 将动画层移出豆瓣动画队列，不参与变色。
+ 豆瓣动画 - 将动画层移出豆瓣动画队列，不参与变色。
+ 
+ @return 目标动画元素
  */
 - (TABBaseComponentVoidBlock)removeOnDrop;
 
 /**
- * 豆瓣动画 - 豆瓣动画变色停留时间比，默认是0.2。
+ 豆瓣动画 - 豆瓣动画变色停留时间比，默认是0.2。
+ 
+ @return 目标动画元素
  */
 - (TABBaseComponentFloatBlock)dropStayTime;
 

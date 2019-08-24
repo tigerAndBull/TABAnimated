@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSString *targetClassName;
 
 @property (nonatomic, assign) BOOL isExhangeDelegate;
+
 @property (nonatomic, assign) BOOL isExhangeDataSource;
 
 @end

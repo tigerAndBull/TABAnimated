@@ -41,6 +41,7 @@
             return;
         }
         
+        // 获取当前视图类型
         UIView *superView = nil;
         
         // header / footer
@@ -65,6 +66,7 @@
                 return;
             }
             
+            // header/footer 加载动画
             [TABManagerMethod runAnimationWithSuperView:superView
                                              targetView:self
                                                 section:self.tabComponentManager.currentSection
@@ -73,7 +75,7 @@
             
         }
         
-        // custom view
+        // 普通view加载动画
         if (nil != self.tabAnimated) {
             [TABManagerMethod runAnimationWithSuperView:self
                                              targetView:self

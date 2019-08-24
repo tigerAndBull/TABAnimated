@@ -21,7 +21,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- * 链式语法相关的文件
+ 链式语法相关的文件
  */
 
 @class TABBaseComponent;
@@ -34,140 +34,138 @@ typedef NSArray <TABBaseComponent *> * _Nullable (^TABAnimatedArrayBlock)(void);
 typedef NSArray <TABBaseComponent *> * _Nullable (^TABAnimatedArrayStringBlock)(NSString *);
 
 /**
- * 链式语法：向左平移
- * Translation to the left
- *
- * @return return value 向左平移的值
+ 所有元素向左平移
+ 
+ @return 目标动画元素数组
  */
 - (TABAnimatedArrayFloatBlock)left;
 
 /**
- * 链式语法：向右平移
- * Translation to the right
- *
- * @return return value 向右平移的值
+ 所有元素向右平移
+
+ @return 目标动画元素数组
  */
 - (TABAnimatedArrayFloatBlock)right;
 
 /**
- * 链式语法：向上平移
- * Upward translation
- *
- * @return return value 向上平移的值
+ 所有元素向上平移
+
+ @return 目标动画元素数组
  */
 - (TABAnimatedArrayFloatBlock)up;
 
 /**
- * 链式语法：向下平移
- * Downward translation
- *
- * @return return value 向下平移的值
+ 所有元素向下平移
+
+ @return 目标动画元素数组
  */
 - (TABAnimatedArrayFloatBlock)down;
 
 /**
- * 链式语法：设置该动画组件数组所有组件的宽度，设置的是`tabViewWidth`这个属性。
- * Set width
- *
- * @return return value 宽度
+ 设置所有元素的宽度
+ 
+ @return 目标动画元素数组
  */
 - (TABAnimatedArrayFloatBlock)width;
 
 /**
- * 链式语法：设置该动画组件数组所有组件的高度，设置的就是`tabViewHeight`这个属性。
- * Set height
- *
- * @return return value 高度
+ 设置所有元素的高度
+
+ * @return 目标动画元素数组
  */
 - (TABAnimatedArrayFloatBlock)height;
 
 /**
- * 链式语法：设置该动画组件数组所有组件的圆角
- * Set animation cornerRadius
- *
- * @return return value 圆角
+ 设置所有元素的圆角
+ 
+ @return 目标动画元素数组
  */
 - (TABAnimatedArrayFloatBlock)radius;
 
 /**
- * 链式语法：减少的宽度：与当前宽度相比，所减少的宽度，负数则增加。
- *
- * @return return value 减少的宽度
+ 减少的宽度：与当前宽度相比，所减少的宽度，负数则增加。
+
+ @return 目标动画元素数组
  */
 - (TABAnimatedArrayFloatBlock)reducedWidth;
 
 /**
- * 链式语法：减少的高度：与当前高度相比，所减少的高度，负数则增加。
- *
- * @return return value 减少的高度
+ 减少的高度：与当前高度相比，所减少的高度，负数则增加。
+
+ @return 目标动画元素数组
  */
 - (TABAnimatedArrayFloatBlock)reducedHeight;
 
 /**
- * 链式语法：设置行数
- * set numberOflines
- *
- * @return return value 设置的行数
+ 设置行数
+ 
+ @return 目标动画元素数组
  */
 - (TABAnimatedArrayIntBlock)line;
 
 /**
- * 链式语法：间距，行数超过1时生效，默认为8.0。
- * set linespace
- *
- * @return return value 间距值
+ 间距，行数超过1时生效，默认为8.0。
+ 
+ @return 目标动画元素数组
  */
 - (TABAnimatedArrayFloatBlock)space;
 
 /**
- * 链式语法：移除该动画组件数组中的所有组件
- * remve the layer
- *
- * @return return value description
+ 移除该动画组件数组中的所有组件
+
+ @return 目标动画元素数组
  */
 - (TABAnimatedArrayBlock)remove;
 
 /**
- * 链式语法：添加占位图，不支持圆角，建议切图使用圆角
- *
- * @return 占位图名称
+ 添加占位图，不支持圆角，建议切图使用圆角
+
+ @return 目标动画元素数组
  */
 - (TABAnimatedArrayStringBlock)placeholder;
 
 /**
- * 链式语法：横坐标
- *
- * @return return value 设置横坐标的值
+ 设置横坐标
+
+ @return 目标动画元素数组
  */
 - (TABAnimatedArrayFloatBlock)x;
 
 /**
- * 链式语法：纵坐标
- *
- * @return return value 设置纵坐标的值
+ 设置纵坐标
+
+ @return 目标动画元素数组
  */
 - (TABAnimatedArrayFloatBlock)y;
 
-#pragma mark - Drop Animation
+#pragma mark - Drop Animation 以下属性均针对豆瓣动画
 
 /**
- * 链式语法：豆瓣动画变色下标，一起变色的元素，设置同一个下标即可。
+ 豆瓣动画变色下标，一起变色的元素，设置同一个下标即可。
+ 
+ @return 目标动画元素数组
  */
 - (TABAnimatedArrayIntBlock)dropIndex;
 
 /**
- * 链式语法：适用于多行文本类型动画,
- * 比如设置 dropFromIndex(3), 那么多行动画组中的第一个动画的下标是3，第二个就是4，依次类推。
+ 适用于多行的动画元素,
+ 比如设置 dropFromIndex(3), 那么多行动画组中的第一个动画的下标是3，第二个就是4，依次类推。
+ 
+ @return 目标动画元素数组
  */
 - (TABAnimatedArrayIntBlock)dropFromIndex;
 
 /**
- * 链式语法：将动画层移出豆瓣动画队列，不参与变色。
+ 将动画层移出豆瓣动画队列，不参与变色。
+ 
+ @return 目标动画元素数组
  */
 - (TABAnimatedArrayBlock)removeOnDrop;
 
 /**
- * 链式语法：豆瓣动画变色停留时间比，默认是0.2。
+ 豆瓣动画变色停留时间比，默认是0.2。
+ 
+ @return 目标动画元素数组
  */
 - (TABAnimatedArrayFloatBlock)dropStayTime;
 

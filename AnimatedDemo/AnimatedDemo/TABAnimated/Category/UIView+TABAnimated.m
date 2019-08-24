@@ -8,7 +8,9 @@
 
 #import "UIView+TABAnimated.h"
 #import "TABComponentLayer.h"
+
 #import <objc/runtime.h>
+
 #import "TABComponentManager.h"
 #import "TABBaseComponent.h"
 

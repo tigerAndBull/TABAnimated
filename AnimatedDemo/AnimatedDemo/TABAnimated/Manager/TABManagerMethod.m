@@ -403,7 +403,7 @@ static NSString * const kLongDataString = @"tab_testtesttesttesttesttesttesttest
             CGFloat brigtness = [TABAnimated sharedAnimated].shimmerBrightness;
             layer.colors = @[
                              (id)baseColor.CGColor,
-                             (id)[TABAnimationMethod brightenedColor:baseColor brightness:brigtness].CGColor,
+                             (id)[TABManagerMethod brightenedColor:baseColor brightness:brigtness].CGColor,
                              (id)baseColor.CGColor
                              ];
             [TABAnimationMethod addShimmerAnimationToLayer:layer
@@ -545,6 +545,22 @@ static NSString * const kLongDataString = @"tab_testtesttesttesttesttesttesttest
     [removedLayers enumerateObjectsUsingBlock:^(CALayer * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         [obj removeFromSuperlayer];
     }];
+}
+
+#pragma mark - Private Method
+
+/**
+ 改变UIColor的亮度
+ 
+ @param color 目标颜色
+ @param brightness 亮度
+ @return 改变亮度后颜色
+ */
++ (UIColor *)brightenedColor:(UIColor *)color
+                  brightness:(CGFloat)brightness {
+    CGFloat h,s,b,a;
+    [color getHue:&h saturation:&s brightness:&b alpha:&a];
+    return [UIColor colorWithHue:h saturation:s brightness:b*brightness alpha:a];
 }
 
 @end

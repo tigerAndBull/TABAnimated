@@ -36,8 +36,10 @@
     // start/end animation.
     dispatch_async(dispatch_get_main_queue(), ^{
 
+        // 获取控制视图
         UITableView *superView;
-        // adapt to different iOS versions.
+        
+        // 适配不同版本的视图层级
         if ([[[self superview] superview] isKindOfClass:[UITableView class]]) {
             superView = (UITableView *)self.superview.superview;
         }else {
@@ -51,12 +53,16 @@
             return;
         }
         
+        // 当UITableView使用自适应高度属性时，需要重新设置骨架屏背景层的frame
         TABTableAnimated *tabAnimated = (TABTableAnimated *)superView.tabAnimated;
         if (tabAnimated.oldEstimatedRowHeight > 0.) {
             self.tabComponentManager.tabLayer.frame = self.bounds;
         }
 
+        // 获取当前所在indexPath
         NSIndexPath *indexPath = [superView indexPathForCell:self];
+        
+        // 加载动画
         [TABManagerMethod runAnimationWithSuperView:superView
                                          targetView:self
                                             section:indexPath.section

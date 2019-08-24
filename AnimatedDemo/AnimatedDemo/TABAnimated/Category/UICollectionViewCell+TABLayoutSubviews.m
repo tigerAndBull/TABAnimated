@@ -34,6 +34,7 @@
 
     dispatch_async(dispatch_get_main_queue(), ^{
 
+        // 获取控制视图
         UICollectionView *superView = (UICollectionView *)self.superview;
 
         if (superView == nil ||
@@ -43,8 +44,10 @@
             return;
         }
         
+        // 获取当前所在indexPath
         NSIndexPath *indexPath = [superView indexPathForCell:self];
         
+        // 加载动画
         [TABManagerMethod runAnimationWithSuperView:superView
                                          targetView:self
                                             section:indexPath.section

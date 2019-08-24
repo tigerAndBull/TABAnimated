@@ -29,28 +29,28 @@ typedef NSArray <TABBaseComponent *> * _Nullable (^TABBaseComponentArrayWithInde
 @interface TABComponentManager : NSObject
 
 /**
- * 获取单个动画组件
- * 使用方式：.animation(x)
- *
- * @return TABBaseComponent对象
+ 获取单个动画元素
+ 使用方式：.animation(x)
+ 
+ @return TABBaseComponent对象
  */
 - (TABBaseComponentBlock _Nullable)animation;
 
 /**
- * 获取多个动画组件，需要传递2个参数
- * 第一个参数为起始下标
- * 第二个参数长度
- * 使用方式：.animations(x,x)
- *
- * @return 装有`TABBaseComponent`类型的数组
+ 获取多个动画元素，需要传递2个参数
+ 第一个参数为起始下标
+ 第二个参数长度
+ 使用方式：.animations(x,x)
+ 
+ @return 装有`TABBaseComponent`类型的数组
  */
 - (TABBaseComponentArrayBlock _Nullable)animations;
 
 /**
- * 获取不定量动画组件，参数 >= 1
- * 例如: animationsWithIndexs(1,5,7)，意为获取下标为1，5，7的动画组件
- *
- * @return 装有`TABBaseComponent`类型的数组
+ 获取不定量动画元素，参数 >= 1
+ 例如: animationsWithIndexs(1,5,7)，意为获取下标为1，5，7的动画元素
+ 
+ @return 装有`TABBaseComponent`类型的数组
  */
 - (TABBaseComponentArrayWithIndexsBlock)animationsWithIndexs;
 
@@ -73,44 +73,44 @@ typedef NSArray <TABBaseComponent *> * _Nullable (^TABBaseComponentArrayWithInde
 @property (nonatomic, assign) CGPoint cardOffset;
 
 /**
- * 兼容旧回调保留属性
+ 兼容旧回调保留属性
  */
 @property (nonatomic, strong, readonly) NSMutableArray <TABComponentLayer *> *componentLayerArray;
 
 /**
- * 存放最终显示在屏幕上的动画组
+ 存放最终显示在屏幕上的动画组
  */
 @property (nonatomic, strong, readonly) NSMutableArray <TABComponentLayer *> *resultLayerArray;
 
 @property (nonatomic, strong, readonly) NSMutableArray <TABBaseComponent *> *baseComponentArray;
 
 /**
- * 暂存被嵌套的表格视图
+ 暂存被嵌套的表格视图
  */
 @property (nonatomic, weak) UIView *nestView;
 
 /**
- * 是否已经加载过
+ 是否已经装载并加载过动画
  */
 @property (nonatomic, assign) BOOL isLoad;
 
 /**
- * 对于表格视图的cell和头尾视图，当前所处section
+ 对于表格视图的cell和头尾视图，当前所处section
  */
 @property (nonatomic, assign) NSInteger currentSection;
 
 /**
- * 对于表格视图的cell，当前所处row
+ 对于表格视图的cell，当前所处row
  */
 @property (nonatomic, assign) NSInteger currentRow;
 
 /**
- * 豆瓣动画组动画元素的数量
+ 豆瓣动画组动画元素的数量
  */
 @property (nonatomic, assign, readonly) NSInteger dropAnimationCount;
 
 /**
- * 豆瓣动画
+ 豆瓣动画
  */
 @property (nonatomic, strong) NSMutableArray <NSArray *> *entireIndexArray;
 

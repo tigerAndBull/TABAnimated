@@ -23,27 +23,27 @@ NS_ASSUME_NONNULL_BEGIN
 @interface TABTableAnimated : TABViewAnimated
 
 /**
- * 单section的UITableView的cellHeight
+ section == 1时，UITableView的cellHeight
  */
 @property (nonatomic, assign) CGFloat cellHeight;
 
 /**
- * 多section的UITableView的cellHeight集合
+ section > 1 时，UITableView的cellHeight集合
  */
 @property (nonatomic, strong) NSArray <NSNumber *> *cellHeightArray;
 
 /**
- * 指定section加载动画集合
+ 指定section加载动画集合
  */
 @property (nonatomic, strong) NSArray <NSNumber *> *animatedSectionArray;
 
 /**
- * 当前正在动画中的分区
+ 当前正在动画中的分区
  */
 @property (nonatomic, strong) NSMutableArray <NSNumber *> *runAnimationSectionArray;
 
 /**
- * 头视图动画对象
+ 头视图动画对象
  */
 @property (nonatomic, weak) TABViewAnimated *tabHeadViewAnimated;
 
@@ -197,45 +197,45 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)animatedWithCellClass:(Class)cellClass;
 
 /**
- * 添加区头动画，指定section
- *
- * @param headerViewClass 区头类对象
- * @param viewHeight 区头高度
- * @param section 指定的section
+ 添加区头动画，指定section
+ 
+ @param headerViewClass 区头类对象
+ @param viewHeight 区头高度
+ @param section 指定的section
  */
 - (void)addHeaderViewClass:(__nonnull Class)headerViewClass
                 viewHeight:(CGFloat)viewHeight
                  toSection:(NSInteger)section;
 
 /**
- * 添加区头动画
- * 不指定section，意味着所有section都会加入该区头动画，
- * 仅设置animatedSectionCount属性生效
- *
- * @param headerViewClass 区头类对象
- * @param viewHeight 区头高度
+ 添加区头动画
+ 不指定section，意味着所有section都会加入该区头动画，
+ 仅设置animatedSectionCount属性生效
+ 
+ @param headerViewClass 区头类对象
+ @param viewHeight 区头高度
  */
 - (void)addHeaderViewClass:(__nonnull Class)headerViewClass
                 viewHeight:(CGFloat)viewHeight;
 
 /**
- * 添加区尾动画，指定section
- *
- * @param footerViewClass 区尾类对象
- * @param viewHeight 区尾高度
- * @param section 指定的section
+ 添加区尾动画，指定section
+
+ @param footerViewClass 区尾类对象
+ @param viewHeight 区尾高度
+ @param section 指定的section
  */
 - (void)addFooterViewClass:(__nonnull Class)footerViewClass
                 viewHeight:(CGFloat)viewHeight
                  toSection:(NSInteger)section;
 
 /**
- * 添加区尾动画
- * 不指定section，意味着所有section都会加入该区尾动画，
- * 仅设置animatedSectionCount属性生效
- *
- * @param footerViewClass 区尾类对象
- * @param viewHeight 区尾高度
+ 添加区尾动画
+ 不指定section，意味着所有section都会加入该区尾动画，
+ 仅设置animatedSectionCount属性生效
+ 
+ @param footerViewClass 区尾类对象
+ @param viewHeight 区尾高度
  */
 - (void)addFooterViewClass:(__nonnull Class)footerViewClass
                 viewHeight:(CGFloat)viewHeight;
