@@ -647,8 +647,9 @@
                 [TABManagerMethod fullData:headerFooterView];
                 headerFooterView.tabComponentManager = [TABComponentManager initWithView:headerFooterView tabAnimated:tableView.tabAnimated];
                 headerFooterView.tabComponentManager.currentSection = section;
-                headerFooterView.tabComponentManager.tabTargetClass = class;
             }
+            headerFooterView.tabComponentManager.tabTargetClass = class;
+
             return headerFooterView;
         }
         return [self tab_tableView:tableView viewForHeaderInSection:section];
@@ -676,8 +677,9 @@
                 [TABManagerMethod fullData:headerFooterView];
                 headerFooterView.tabComponentManager = [TABComponentManager initWithView:headerFooterView tabAnimated:tableView.tabAnimated];
                 headerFooterView.tabComponentManager.currentSection = section;
-                headerFooterView.tabComponentManager.tabTargetClass = class;
             }
+            headerFooterView.tabComponentManager.tabTargetClass = class;
+            
             return headerFooterView;
         }
         return [self tab_tableView:tableView viewForFooterInSection:section];
