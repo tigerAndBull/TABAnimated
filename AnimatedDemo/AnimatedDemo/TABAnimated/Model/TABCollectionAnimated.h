@@ -43,7 +43,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSMutableArray <NSNumber *> *runAnimationSectionArray;
 
 /**
- 设置动画时的分区数量
+ 特殊情况下才需要使用，
+ 仅用于动态section，即section的数量是根据获取到的数据而变化的。
  */
 @property (nonatomic, assign) NSInteger animatedSectionCount;
 

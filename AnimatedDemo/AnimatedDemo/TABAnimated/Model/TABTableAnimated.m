@@ -418,14 +418,20 @@
 - (NSInteger)tab_numberOfSectionsInTableView:(UITableView *)tableView {
     if (tableView.tabAnimated.state == TABViewAnimationStart &&
         tableView.tabAnimated.animatedSectionCount != 0) {
+        
+        [tableView.tabAnimated.runAnimationSectionArray removeAllObjects];
         for (NSInteger i = 0; i < tableView.tabAnimated.animatedSectionCount; i++) {
             [tableView.tabAnimated.runAnimationSectionArray addObject:[NSNumber numberWithInteger:i]];
         }
+        
+        [tableView.tabAnimated.headerSectionArray removeAllObjects];
         if (tableView.tabAnimated.headerClassArray.count > 0) {
             for (NSInteger i = 0; i < tableView.tabAnimated.animatedSectionCount; i++) {
                 [tableView.tabAnimated.headerSectionArray addObject:[NSNumber numberWithInteger:i]];
             }
         }
+        
+        [tableView.tabAnimated.footerSectionArray removeAllObjects];
         if (tableView.tabAnimated.footerClassArray.count > 0) {
             for (NSInteger i = 0; i < tableView.tabAnimated.animatedSectionCount; i++) {
                 [tableView.tabAnimated.footerSectionArray addObject:[NSNumber numberWithInteger:i]];

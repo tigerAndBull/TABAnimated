@@ -265,14 +265,20 @@
 - (NSInteger)tab_numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     if (collectionView.tabAnimated.state == TABViewAnimationStart &&
         collectionView.tabAnimated.animatedSectionCount != 0) {
+        
+        [collectionView.tabAnimated.runAnimationSectionArray removeAllObjects];
         for (NSInteger i = 0; i < collectionView.tabAnimated.animatedSectionCount; i++) {
             [collectionView.tabAnimated.runAnimationSectionArray addObject:[NSNumber numberWithInteger:i]];
         }
+        
+        [collectionView.tabAnimated.headerSectionArray removeAllObjects];
         if (collectionView.tabAnimated.headerClassArray.count > 0) {
             for (NSInteger i = 0; i < collectionView.tabAnimated.animatedSectionCount; i++) {
                 [collectionView.tabAnimated.headerSectionArray addObject:[NSNumber numberWithInteger:i]];
             }
         }
+        
+        [collectionView.tabAnimated.footerSectionArray removeAllObjects];
         if (collectionView.tabAnimated.footerClassArray.count > 0) {
             for (NSInteger i = 0; i < collectionView.tabAnimated.animatedSectionCount; i++) {
                 [collectionView.tabAnimated.footerSectionArray addObject:[NSNumber numberWithInteger:i]];
