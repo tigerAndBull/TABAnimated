@@ -17,7 +17,7 @@
     </a>
 </p>
 
-#### the lastest version is 2.2.0 release
+#### the lastest version is 2.2.1 release
 
 
 [简体中文](https://github.com/tigerAndBull/TABAnimated/blob/master/README_zh.md)

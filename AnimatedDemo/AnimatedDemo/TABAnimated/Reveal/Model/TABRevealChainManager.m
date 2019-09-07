@@ -70,7 +70,7 @@
             resultString = [NSString stringWithFormat:@"%.lf",[(NSNumber *)value floatValue]];
             break;
         case TABRevealChainNSInteger:
-            resultString = [NSString stringWithFormat:@"%ld",[(NSNumber *)value integerValue]];
+            resultString = [NSString stringWithFormat:@"%ld",(long)[(NSNumber *)value integerValue]];
             break;
         case TABRevealChainString:
             resultString = (NSString *)value;
