@@ -32,6 +32,7 @@ typedef NSArray <TABBaseComponent *> * _Nullable (^TABAnimatedArrayFloatBlock)(C
 typedef NSArray <TABBaseComponent *> * _Nullable (^TABAnimatedArrayIntBlock)(NSInteger);
 typedef NSArray <TABBaseComponent *> * _Nullable (^TABAnimatedArrayBlock)(void);
 typedef NSArray <TABBaseComponent *> * _Nullable (^TABAnimatedArrayStringBlock)(NSString *);
+typedef NSArray <TABBaseComponent *> * _Nullable (^TABAnimatedArrayColorBlock)(UIColor *);
 
 /**
  所有元素向左平移
@@ -97,6 +98,13 @@ typedef NSArray <TABBaseComponent *> * _Nullable (^TABAnimatedArrayStringBlock)(
 - (TABAnimatedArrayFloatBlock)reducedHeight;
 
 /**
+ 减少的圆角：与当前圆角相比，所减少的圆角，负数则增加。
+ 
+ @return 目标动画元素数组
+ */
+- (TABAnimatedArrayFloatBlock)reducedRadius;
+
+/**
  设置行数
  
  @return 目标动画元素数组
@@ -137,6 +145,13 @@ typedef NSArray <TABBaseComponent *> * _Nullable (^TABAnimatedArrayStringBlock)(
  @return 目标动画元素数组
  */
 - (TABAnimatedArrayFloatBlock)y;
+
+/**
+ 设置动画数组颜色
+ 
+ @return 目标动画元素数组
+ */
+- (TABAnimatedArrayColorBlock)color;
 
 #pragma mark - Drop Animation 以下属性均针对豆瓣动画
 

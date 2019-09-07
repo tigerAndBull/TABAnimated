@@ -575,6 +575,8 @@
             cell.tabComponentManager.currentSection = indexPath.section;
             cell.tabComponentManager.currentRow = indexPath.row;
             cell.tabComponentManager.tabTargetClass = currentClass;
+        }else {
+            cell.tabComponentManager.tabLayer.hidden = NO;
         }
         
         return cell;
@@ -653,6 +655,8 @@
                 [TABManagerMethod fullData:headerFooterView];
                 headerFooterView.tabComponentManager = [TABComponentManager initWithView:headerFooterView tabAnimated:tableView.tabAnimated];
                 headerFooterView.tabComponentManager.currentSection = section;
+            }else {
+                headerFooterView.tabComponentManager.tabLayer.hidden = NO;
             }
             headerFooterView.tabComponentManager.tabTargetClass = class;
 
@@ -683,6 +687,8 @@
                 [TABManagerMethod fullData:headerFooterView];
                 headerFooterView.tabComponentManager = [TABComponentManager initWithView:headerFooterView tabAnimated:tableView.tabAnimated];
                 headerFooterView.tabComponentManager.currentSection = section;
+            }else {
+                headerFooterView.tabComponentManager.tabLayer.hidden = NO;
             }
             headerFooterView.tabComponentManager.tabTargetClass = class;
             

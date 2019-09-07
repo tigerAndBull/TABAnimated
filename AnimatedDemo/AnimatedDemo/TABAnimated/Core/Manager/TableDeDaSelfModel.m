@@ -16,14 +16,20 @@
 - (NSInteger)tab_deda_numberOfSectionsInTableView:(UITableView *)tableView {
     if (tableView.tabAnimated.state == TABViewAnimationStart &&
         tableView.tabAnimated.animatedSectionCount != 0) {
+        
+        [tableView.tabAnimated.runAnimationSectionArray removeAllObjects];
         for (NSInteger i = 0; i < tableView.tabAnimated.animatedSectionCount; i++) {
             [tableView.tabAnimated.runAnimationSectionArray addObject:[NSNumber numberWithInteger:i]];
         }
+        
+        [tableView.tabAnimated.headerSectionArray removeAllObjects];
         if (tableView.tabAnimated.headerClassArray.count > 0) {
             for (NSInteger i = 0; i < tableView.tabAnimated.animatedSectionCount; i++) {
                 [tableView.tabAnimated.headerSectionArray addObject:[NSNumber numberWithInteger:i]];
             }
         }
+        
+        [tableView.tabAnimated.footerSectionArray removeAllObjects];
         if (tableView.tabAnimated.footerClassArray.count > 0) {
             for (NSInteger i = 0; i < tableView.tabAnimated.animatedSectionCount; i++) {
                 [tableView.tabAnimated.footerSectionArray addObject:[NSNumber numberWithInteger:i]];
@@ -167,6 +173,8 @@
             cell.tabComponentManager.currentSection = indexPath.section;
             cell.tabComponentManager.currentRow = indexPath.row;
             cell.tabComponentManager.tabTargetClass = currentClass;
+        }else {
+            cell.tabComponentManager.tabLayer.hidden = NO;
         }
         
         return cell;
@@ -245,7 +253,11 @@
                 [TABManagerMethod fullData:headerFooterView];
                 headerFooterView.tabComponentManager = [TABComponentManager initWithView:headerFooterView tabAnimated:tableView.tabAnimated];
                 headerFooterView.tabComponentManager.currentSection = section;
+            }else {
+                headerFooterView.tabComponentManager.tabLayer.hidden = NO;
             }
+            headerFooterView.tabComponentManager.tabTargetClass = class;
+            
             return headerFooterView;
         }
         return [self tab_deda_tableView:tableView viewForHeaderInSection:section];
@@ -273,7 +285,11 @@
                 [TABManagerMethod fullData:headerFooterView];
                 headerFooterView.tabComponentManager = [TABComponentManager initWithView:headerFooterView tabAnimated:tableView.tabAnimated];
                 headerFooterView.tabComponentManager.currentSection = section;
+            }else {
+                headerFooterView.tabComponentManager.tabLayer.hidden = NO;
             }
+            headerFooterView.tabComponentManager.tabTargetClass = class;
+            
             return headerFooterView;
         }
         return [self tab_deda_tableView:tableView viewForFooterInSection:section];

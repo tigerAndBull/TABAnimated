@@ -105,7 +105,9 @@ static NSString * const kLongDataString = @"tab_testtesttesttesttesttesttesttest
         UIView *subV = subViews[i];
         [self hiddenAllView:subV];
         
-        subV.hidden = YES;
+        if (CGSizeEqualToSize(subV.layer.shadowOffset, CGSizeMake(0, -3))) {
+            subV.hidden = YES;
+        }
     }
 }
 
@@ -215,18 +217,6 @@ static NSString * const kLongDataString = @"tab_testtesttesttesttesttesttesttest
         if ([TABManagerMethod judgeViewIsNeedAddAnimation:subV]) {
             
             TABComponentLayer *layer = TABComponentLayer.new;
-
-            if (!CGSizeEqualToSize(subV.layer.shadowOffset, CGSizeMake(0, -3))) {
-                rootView.tabComponentManager.cardOffset = CGPointMake(rootView.bounds.origin.x - subV.frame.origin.x, rootView.bounds.origin.y - subV.frame.origin.y);
-                rootView.tabComponentManager.tabLayer.frame = subV.frame;
-                rootView.tabComponentManager.tabLayer.shadowOffset = subV.layer.shadowOffset;
-                rootView.tabComponentManager.tabLayer.shadowColor = subV.layer.shadowColor;
-                rootView.tabComponentManager.tabLayer.shadowRadius = subV.layer.shadowRadius;
-                rootView.tabComponentManager.tabLayer.shadowOpacity = subV.layer.shadowOpacity;
-                rootView.tabComponentManager.tabLayer.cornerRadius = subV.layer.cornerRadius;
-                rootView.tabComponentManager.tabLayer.masksToBounds = YES;
-                continue;
-            }
             
             if (needRemove) {
                 layer.loadStyle = TABViewLoadAnimationRemove;
@@ -294,6 +284,7 @@ static NSString * const kLongDataString = @"tab_testtesttesttesttesttesttesttest
         }else {
             return YES;
         }
+        return NO;
     }
     
     // 将UIButton中的UILabel移除动画队列
@@ -383,7 +374,7 @@ static NSString * const kLongDataString = @"tab_testtesttesttesttesttesttesttest
             [targetView.tabComponentManager.nestView tab_startAnimation];
         }
     }
-    
+
     // 结束动画
     if (superView.tabAnimated.state == TABViewAnimationEnd) {
         [TABManagerMethod endAnimationToSubViews:targetView];
@@ -525,15 +516,9 @@ static NSString * const kLongDataString = @"tab_testtesttesttesttesttesttesttest
 }
 
 + (void)removeMask:(UIView *)view {
-    
     if (view.tabComponentManager.tabLayer) {
-        [view.tabComponentManager.tabLayer removeFromSuperlayer];
+        view.tabComponentManager.tabLayer.hidden = YES;
     }
-    
-//    [view.layer removeAnimationForKey:kTABAlphaAnimation];
-//    [view.layer removeAnimationForKey:kTABLocationAnimation];
-//    [view.layer removeAnimationForKey:kTABShimmerAnimation];
-//    [view.layer removeAnimationForKey:kTABDropAnimation];
 }
 
 + (void)removeSubLayers:(NSArray *)subLayers {

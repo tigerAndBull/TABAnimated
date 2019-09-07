@@ -83,6 +83,15 @@
     };
 }
 
+- (TABAnimatedArrayFloatBlock)reducedRadius {
+    return ^NSArray <TABBaseComponent *> *(CGFloat offset) {
+        for (TABBaseComponent *component in self) {
+            component.reducedRadius(offset);
+        }
+        return self;
+    };
+}
+
 - (TABAnimatedArrayFloatBlock)radius {
     return ^NSArray <TABBaseComponent *> *(CGFloat offset) {
         for (TABBaseComponent *component in self) {
@@ -141,6 +150,15 @@
     return ^NSArray <TABBaseComponent *> *(CGFloat offset) {
         for (TABBaseComponent *component in self) {
             component.y(offset);
+        }
+        return self;
+    };
+}
+
+- (TABAnimatedArrayColorBlock)color {
+    return ^NSArray <TABBaseComponent *> *(UIColor *color) {
+        for (TABBaseComponent *component in self) {
+            component.color(color);
         }
         return self;
     };

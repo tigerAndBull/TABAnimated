@@ -244,10 +244,10 @@ static const NSTimeInterval kDelayReloadDataTime = 0.4;
     }else {
         
         if (nil == self.tabComponentManager) {
-            self.tabComponentManager = [TABComponentManager initWithView:self tabAnimated:self.tabAnimated];
             [TABManagerMethod fullData:self];
+            [self setNeedsLayout];
+            self.tabComponentManager = [TABComponentManager initWithView:self tabAnimated:self.tabAnimated];
         }
-        [self layoutSubviews];
     }
 }
 

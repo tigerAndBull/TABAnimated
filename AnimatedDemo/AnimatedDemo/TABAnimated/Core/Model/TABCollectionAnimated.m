@@ -410,6 +410,8 @@
             cell.tabComponentManager.currentSection = indexPath.section;
             cell.tabComponentManager.currentRow = indexPath.row;
             cell.tabComponentManager.tabTargetClass = currentClass;
+        }else {
+            cell.tabComponentManager.tabLayer.hidden = NO;
         }
         
         return cell;
@@ -551,6 +553,8 @@ referenceSizeForFooterInSection:(NSInteger)section {
             reusableView.tabComponentManager = [TABComponentManager initWithView:reusableView tabAnimated:collectionView.tabAnimated];
             reusableView.tabComponentManager.currentSection = indexPath.section;
             reusableView.tabComponentManager.tabTargetClass = resuableClass;
+        }else {
+            reusableView.tabComponentManager.tabLayer.hidden = NO;
         }
         
         return reusableView;

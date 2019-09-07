@@ -70,8 +70,6 @@ typedef NSArray <TABBaseComponent *> * _Nullable (^TABBaseComponentArrayWithInde
 
 @property (nonatomic, assign) BOOL cancelGlobalCornerRadius;
 
-@property (nonatomic, assign) CGPoint cardOffset;
-
 /**
  兼容旧回调保留属性
  */

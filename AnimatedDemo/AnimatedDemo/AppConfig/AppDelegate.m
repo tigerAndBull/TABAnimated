@@ -11,6 +11,7 @@
 #import "MainViewController.h"
 #import "TABAnimated.h"
 
+#import "TABAnimatedBall.h"
 
 @interface AppDelegate ()
 
@@ -23,6 +24,10 @@
     
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     
+    // 骨架屏core部分不依赖reveal工具
+    // reveal工具依赖骨架屏core，实时预览效果，无需编译
+    [[TABAnimatedBall shared] install];
+
     // Init `TABAnimated`, and set the properties you need.
     // 初始化TABAnimated，并设置TABAnimated相关属性
     // 初始化方法仅仅设置的是全局的动画效果

@@ -16,9 +16,8 @@
 
 #import <objc/runtime.h>
 
-#define tab_kColor(c) [UIColor colorWithRed:((c>>24)&0xFF)/255.0 green:((c>>16)&0xFF)/255.0 blue:((c>>8)&0xFF)/255.0 alpha:((c)&0xFF)/255.0]
-#define tab_kBackColor tab_kColor(0xEEEEEEFF)
-#define tab_kShimmerBackColor tab_kColor(0xDFDFDFFF)
+#define tab_kBackColor tab_kColor(0xEEEEEE)
+#define tab_kShimmerBackColor tab_kColor(0xDFDFDF)
 
 NSString * const TABAnimatedAlphaAnimation = @"TABAlphaAnimation";
 NSString * const TABAnimatedLocationAnimation = @"TABLocationAnimation";
@@ -60,7 +59,7 @@ NSString * const TABAnimatedDropAnimation = @"TABDropAnimation";
     if (_dropAnimationDeepColor) {
         return _dropAnimationDeepColor;
     }
-    return tab_kColor(0xE1E1E1FF);
+    return tab_kColor(0xE1E1E1);
 }
 
 - (CGFloat)dropAnimationDuration {
