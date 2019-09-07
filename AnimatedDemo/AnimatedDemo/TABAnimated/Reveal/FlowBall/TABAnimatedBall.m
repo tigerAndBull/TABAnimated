@@ -11,7 +11,7 @@
 @implementation TABAnimatedBall
 
 + (TABAnimatedBall *)shared {
-    dispatch_once_t token;
+    static dispatch_once_t token;
     static TABAnimatedBall *ball;
     dispatch_once(&token, ^{
         ball = TABAnimatedBall.new;
