@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface TABAnimatedCacheModel : NSObject<NSCoding>
+@interface TABAnimatedCacheModel : NSObject<NSSecureCoding>
 
 @property (nonatomic, copy) NSString *fileName;
 @property (nonatomic, assign) NSInteger loadCount;

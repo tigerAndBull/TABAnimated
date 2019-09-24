@@ -23,6 +23,10 @@
     return self;
 }
 
++ (BOOL)supportsSecureCoding {
+    return YES;
+}
+
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [aCoder encodeObject:_fileName forKey:@"fileName"];
     [aCoder encodeInteger:_loadCount forKey:@"loadCount"];
