@@ -19,7 +19,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface TABComponentLayer : CAGradientLayer
+@interface TABComponentLayer : CAGradientLayer <NSCopying, NSSecureCoding>
 
 /**
  如果控制视图开启的动画，那么该控制视图下的所有subViews将被设置为`TABViewLoadAnimationWithOnlySkeleton`
@@ -64,6 +64,8 @@ typedef NS_ENUM(NSInteger,TABViewLoadAnimationStyle) {
  */
 @property (nonatomic, assign) CGFloat tabViewHeight;
 
+@property (nonatomic, assign) NSInteger tagIndex;
+
 #pragma mark - 一个组件映射多个动画元素
 
 /**
@@ -103,6 +105,9 @@ typedef NS_ENUM(NSInteger,TABViewLoadAnimationStyle) {
  豆瓣动画间隔时间，默认0.2。
  */
 @property (nonatomic, assign) CGFloat dropAnimationStayTime;
+
+@property (nonatomic, strong) NSValue *resultFrameValue;
+@property (nonatomic, copy) NSString *placeholderName;
 
 @end
 

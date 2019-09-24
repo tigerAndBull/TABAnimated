@@ -11,7 +11,7 @@
 
 @interface TABBaseComponent()
 
-@property (nonatomic,strong,readwrite) TABComponentLayer *layer;
+@property (nonatomic, strong, readwrite) TABComponentLayer *layer;
 
 @end
 
@@ -321,6 +321,7 @@
 }
 
 - (void)result_placeholder:(NSString *)value {
+    self.layer.placeholderName = value;
     self.layer.contents = (id)[UIImage imageNamed:value].CGImage;
 }
 

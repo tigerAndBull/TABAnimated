@@ -11,7 +11,9 @@
 #import "MainViewController.h"
 #import "TABAnimated.h"
 
+#ifdef DEBUG
 #import "TABAnimatedBall.h"
+#endif
 
 @interface AppDelegate ()
 
@@ -24,10 +26,13 @@
     
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     
+#ifdef DEBUG
     // 骨架屏core部分不依赖reveal工具
     // reveal工具依赖骨架屏core，实时预览效果，无需编译
+    // 请务必放在debug环境下
     [[TABAnimatedBall shared] install];
-
+#endif
+    
     // Init `TABAnimated`, and set the properties you need.
     // 初始化TABAnimated，并设置TABAnimated相关属性
     // 初始化方法仅仅设置的是全局的动画效果
@@ -36,11 +41,21 @@
     // open log
     // 开启日志
     [TABAnimated sharedAnimated].openLog = NO;
-    // set gobal cornerRadius
-    [TABAnimated sharedAnimated].useGlobalCornerRadius = NO;
     // 是否开启动画坐标标记，如果开启，也仅在debug环境下有效。
     // 开启后，会在每一个动画元素上增加一个红色的数字，该数字表示该动画元素所在下标，方便快速定位某个动画元素。
-    [TABAnimated sharedAnimated].openAnimationTag = YES;
+    [TABAnimated sharedAnimated].openAnimationTag = NO;
+    
+    /*****************************************
+     *****************************************
+     ************     重要必读    *************
+     *****************************************
+     *****************************************
+     */
+    // debug 环境下，默认关闭缓存功能（为了方便调试预处理回调)
+    // release 环境下，默认开启缓存功能
+    // 如果你想在 debug 环境下测试缓存功能，可以手动置为NO
+    // 如果你始终都不想使用缓存功能，可以手动置为YES
+    [TABAnimated sharedAnimated].closeCache = NO;
     
     MainViewController *vc = [[MainViewController alloc] init];
     vc.title = kText(@"主页面");

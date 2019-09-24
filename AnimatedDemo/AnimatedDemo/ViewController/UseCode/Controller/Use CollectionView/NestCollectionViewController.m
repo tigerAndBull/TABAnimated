@@ -117,6 +117,7 @@
  初始化视图
  */
 - (void)initUI {
+    self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.collectionView];
     [NestCollectionViewCell registerCellInCollectionView:self.collectionView];
 }

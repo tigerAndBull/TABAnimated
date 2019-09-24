@@ -17,16 +17,17 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "TABComponentLayer.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class TABViewAnimated, TABBaseComponent, TABComponentLayer;
+@class TABViewAnimated, TABBaseComponent;
 
 typedef TABBaseComponent * _Nullable (^TABBaseComponentBlock)(NSInteger);
 typedef NSArray <TABBaseComponent *> * _Nullable (^TABBaseComponentArrayBlock)(NSInteger location, NSInteger length);
 typedef NSArray <TABBaseComponent *> * _Nullable (^TABBaseComponentArrayWithIndexsBlock)(NSInteger index,...);
 
-@interface TABComponentManager : NSObject
+@interface TABComponentManager : NSObject <NSCopying, NSSecureCoding>
 
 /**
  获取单个动画元素
@@ -58,7 +59,7 @@ typedef NSArray <TABBaseComponent *> * _Nullable (^TABBaseComponentArrayWithInde
 
 @property (nonatomic) Class tabTargetClass;
 
-@property (nonatomic, strong) CALayer *tabLayer;
+@property (nonatomic, strong) TABComponentLayer *tabLayer;
 
 @property (nonatomic, strong) UIColor *animatedColor;
 
@@ -71,12 +72,12 @@ typedef NSArray <TABBaseComponent *> * _Nullable (^TABBaseComponentArrayWithInde
 @property (nonatomic, assign) BOOL cancelGlobalCornerRadius;
 
 /**
- 兼容旧回调保留属性
+ 初始动画组
  */
 @property (nonatomic, strong, readonly) NSMutableArray <TABComponentLayer *> *componentLayerArray;
 
 /**
- 存放最终显示在屏幕上的动画组
+ 最终显示在屏幕上的动画组
  */
 @property (nonatomic, strong, readonly) NSMutableArray <TABComponentLayer *> *resultLayerArray;
 
@@ -98,7 +99,7 @@ typedef NSArray <TABBaseComponent *> * _Nullable (^TABBaseComponentArrayWithInde
 @property (nonatomic, assign) NSInteger currentSection;
 
 /**
- 对于表格视图的cell，当前所处row
+ 对于表格视图的cell和头尾视图，当前所处row
  */
 @property (nonatomic, assign) NSInteger currentRow;
 
@@ -112,12 +113,20 @@ typedef NSArray <TABBaseComponent *> * _Nullable (^TABBaseComponentArrayWithInde
  */
 @property (nonatomic, strong) NSMutableArray <NSArray *> *entireIndexArray;
 
+@property (nonatomic, copy) NSString *fileName;
+@property (nonatomic, copy) NSString *version;
+@property (nonatomic, assign) BOOL needChangeRowStatus;
+
+@property (nonatomic, assign, readonly) BOOL needUpdate;
+
 + (instancetype)initWithView:(UIView *)view
                  tabAnimated:(TABViewAnimated *)tabAnimated;
 
-- (void)installBaseComponent:(NSArray <TABComponentLayer *> *)array;
+- (void)installBaseComponentArray:(NSArray <TABComponentLayer *> *)array;
 
 - (void)updateComponentLayers;
+
+- (void)reAddToView:(UIView *)view;
 
 @end
 

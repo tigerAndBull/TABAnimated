@@ -165,6 +165,8 @@ typedef void(^TABAdjustWithClassBlock)(TABComponentManager *manager, Class targe
  */
 @property (nonatomic, assign) BOOL canLoadAgain;
 
+@property (nonatomic, copy) NSString *targetControllerClassName;
+
 #pragma mark - 过滤条件
 
 /**

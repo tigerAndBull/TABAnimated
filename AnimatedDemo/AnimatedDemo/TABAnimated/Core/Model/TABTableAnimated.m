@@ -11,6 +11,8 @@
 #import "TABManagerMethod.h"
 #import "TableDeDaSelfModel.h"
 #import "TABAnimated.h"
+#import "TABAnimatedCacheManager.h"
+#import "TABAnimatedDocumentMethod.h"
 
 #import <objc/runtime.h>
 
@@ -112,6 +114,8 @@
     return self;
 }
 
+#pragma mark - Public Method
+
 - (void)addHeaderViewClass:(__nonnull Class)headerViewClass
                 viewHeight:(CGFloat)viewHeight
                  toSection:(NSInteger)section {
@@ -139,6 +143,8 @@
     [_footerClassArray addObject:footerViewClass];
     [_footerHeightArray addObject:@(viewHeight)];
 }
+
+#pragma mark -
 
 - (void)setCellHeight:(CGFloat)cellHeight {
     _cellHeight = cellHeight;
@@ -554,7 +560,7 @@
         }else {
             if (indexPath.section > (tableView.tabAnimated.cellClassArray.count - 1)) {
                 index = tableView.tabAnimated.cellClassArray.count - 1;
-                tabAnimatedLog(@"TABAnimated提醒 - section的数量和指定分区的数量不一致，超出的section，将使用最后一个分区cell加载");
+                tabAnimatedLog(@"TABAnimated - section的数量和指定分区的数量不一致，超出的section，将使用最后一个分区cell加载");
             }
         }
         
@@ -568,15 +574,66 @@
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[NSString stringWithFormat:@"tab_%@",className] forIndexPath:indexPath];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
+        NSString *fileName = [className stringByAppendingString:[NSString stringWithFormat:@"_%@",tableView.tabAnimated.targetControllerClassName]];
+        
         if (nil == cell.tabComponentManager) {
-            [TABManagerMethod fullData:cell];
-            cell.tabComponentManager = [TABComponentManager initWithView:cell
-                                                             tabAnimated:tableView.tabAnimated];
-            cell.tabComponentManager.currentSection = indexPath.section;
-            cell.tabComponentManager.currentRow = indexPath.row;
-            cell.tabComponentManager.tabTargetClass = currentClass;
+            
+            TABComponentManager *manager = [[TABAnimated sharedAnimated].cacheManager getComponentManagerWithFileName:fileName];
+
+            if (manager &&
+                !manager.needChangeRowStatus) {
+                
+                manager.fileName = fileName;
+                manager.isLoad = YES;
+                manager.tabTargetClass = currentClass;
+                manager.currentSection = indexPath.section;
+                [manager reAddToView:cell];
+                cell.tabComponentManager = manager;
+                
+                [TABManagerMethod startAnimationToSubViews:cell
+                                                  rootView:cell];
+                
+                [TABManagerMethod addExtraAnimationWithSuperView:tableView
+                                                      targetView:cell
+                                                         manager:cell.tabComponentManager];
+            }else {
+                
+                [TABManagerMethod fullData:cell];
+                cell.tabComponentManager = [TABComponentManager initWithView:cell
+                                                                 tabAnimated:tableView.tabAnimated];
+                cell.tabComponentManager.currentSection = indexPath.section;
+                cell.tabComponentManager.fileName = fileName;
+                cell.tabComponentManager.tabTargetClass = currentClass;
+            
+                __weak typeof(cell) weakCell = cell;
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                    TABTableAnimated *tabAnimated = (TABTableAnimated *)tableView.tabAnimated;
+                    
+                    if (weakCell && tabAnimated && weakCell.tabComponentManager) {
+                        [TABManagerMethod runAnimationWithSuperView:tableView
+                                                         targetView:weakCell
+                                                            section:indexPath.section
+                                                             isCell:weakCell
+                                                            manager:weakCell.tabComponentManager];
+                    }
+                });
+            }
+        
         }else {
-            cell.tabComponentManager.tabLayer.hidden = NO;
+            if (cell.tabComponentManager.tabLayer.hidden) {
+                cell.tabComponentManager.tabLayer.hidden = NO;
+            }
+        }
+        cell.tabComponentManager.currentRow = indexPath.row;
+        
+        if (tableView.tabAnimated.oldEstimatedRowHeight > 0) {
+            [TABManagerMethod fullData:cell];
+            __weak typeof(cell) weakCell = cell;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                weakCell.tabComponentManager.tabLayer.frame = weakCell.bounds;
+                [TABManagerMethod resetData:cell];
+            });
         }
         
         return cell;
@@ -651,14 +708,61 @@
             headerFooterView.tabAnimated = TABViewAnimated.new;
             [headerFooterView tab_startAnimation];
             
+            NSString *fileName = [NSStringFromClass(class) stringByAppendingString:[NSString stringWithFormat:@"_%@",tableView.tabAnimated.targetControllerClassName]];
+            
             if (nil == headerFooterView.tabComponentManager) {
-                [TABManagerMethod fullData:headerFooterView];
-                headerFooterView.tabComponentManager = [TABComponentManager initWithView:headerFooterView tabAnimated:tableView.tabAnimated];
-                headerFooterView.tabComponentManager.currentSection = section;
+                
+                TABComponentManager *manager = [[TABAnimated sharedAnimated].cacheManager getComponentManagerWithFileName:fileName];
+                
+                if (manager) {
+                    manager.fileName = fileName;
+                    manager.isLoad = YES;
+                    manager.tabTargetClass = class;
+                    manager.currentSection = section;
+                    [manager reAddToView:headerFooterView];
+                    headerFooterView.tabComponentManager = manager;
+                    [TABManagerMethod startAnimationToSubViews:headerFooterView
+                                                      rootView:headerFooterView];
+                    [TABManagerMethod addExtraAnimationWithSuperView:tableView
+                                                          targetView:headerFooterView
+                                                             manager:headerFooterView.tabComponentManager];
+                }else {
+                    [TABManagerMethod fullData:headerFooterView];
+                    headerFooterView.tabComponentManager = [TABComponentManager initWithView:headerFooterView tabAnimated:tableView.tabAnimated];
+                    headerFooterView.tabComponentManager.currentSection = section;
+                    headerFooterView.tabComponentManager.fileName = fileName;
+                    
+                    __weak typeof(headerFooterView) weakView = headerFooterView;
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        if (weakView && weakView.tabComponentManager) {
+                            
+                            BOOL isCell = NO;
+                            if ([weakView isKindOfClass:[UITableViewHeaderFooterView class]]) {
+                                isCell = YES;
+                            }
+                            
+                            [TABManagerMethod runAnimationWithSuperView:tableView
+                                                             targetView:weakView
+                                                                section:section
+                                                                 isCell:isCell
+                                                                manager:weakView.tabComponentManager];
+                        }
+                    });
+                }
             }else {
-                headerFooterView.tabComponentManager.tabLayer.hidden = NO;
+                if (headerFooterView.tabComponentManager.tabLayer.hidden) {
+                    headerFooterView.tabComponentManager.tabLayer.hidden = NO;
+                }
             }
             headerFooterView.tabComponentManager.tabTargetClass = class;
+            if (tableView.tabAnimated.oldEstimatedRowHeight > 0) {
+                [TABManagerMethod fullData:headerFooterView];
+                __weak typeof(headerFooterView) weakView = headerFooterView;
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    weakView.tabComponentManager.tabLayer.frame = weakView.bounds;
+                    [TABManagerMethod resetData:weakView];
+                });
+            }
 
             return headerFooterView;
         }
@@ -683,14 +787,65 @@
             headerFooterView.tabAnimated = TABViewAnimated.new;
             [headerFooterView tab_startAnimation];
             
+            NSString *fileName = [NSStringFromClass(class) stringByAppendingString:[NSString stringWithFormat:@"_%@",tableView.tabAnimated.targetControllerClassName]];
+            
             if (nil == headerFooterView.tabComponentManager) {
-                [TABManagerMethod fullData:headerFooterView];
-                headerFooterView.tabComponentManager = [TABComponentManager initWithView:headerFooterView tabAnimated:tableView.tabAnimated];
-                headerFooterView.tabComponentManager.currentSection = section;
+                
+                TABComponentManager *manager = [[TABAnimated sharedAnimated].cacheManager getComponentManagerWithFileName:fileName];
+                
+                if (manager) {
+                    manager.fileName = fileName;
+                    manager.isLoad = YES;
+                    manager.tabTargetClass = class;
+                    manager.currentSection = section;
+                    [manager reAddToView:headerFooterView];
+                    headerFooterView.tabComponentManager = manager;
+                    
+                    [TABManagerMethod startAnimationToSubViews:headerFooterView
+                                                      rootView:headerFooterView];
+                    [TABManagerMethod addExtraAnimationWithSuperView:tableView
+                                                          targetView:headerFooterView
+                                                             manager:headerFooterView.tabComponentManager];
+                    
+                }else {
+                    [TABManagerMethod fullData:headerFooterView];
+                    headerFooterView.tabComponentManager = [TABComponentManager initWithView:headerFooterView tabAnimated:tableView.tabAnimated];
+                    headerFooterView.tabComponentManager.currentSection = section;
+                    headerFooterView.tabComponentManager.fileName = fileName;
+                    
+                    __weak typeof(headerFooterView) weakView = headerFooterView;
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        if (weakView && weakView.tabComponentManager) {
+                            
+                            BOOL isCell = NO;
+                            if ([weakView isKindOfClass:[UITableViewHeaderFooterView class]]) {
+                                isCell = YES;
+                            }
+                            
+                            [TABManagerMethod runAnimationWithSuperView:tableView
+                                                             targetView:weakView
+                                                                section:section
+                                                                 isCell:isCell
+                                                                manager:weakView.tabComponentManager];
+                        }
+                    });
+                }
             }else {
-                headerFooterView.tabComponentManager.tabLayer.hidden = NO;
+                if (headerFooterView.tabComponentManager.tabLayer.hidden) {
+                    headerFooterView.tabComponentManager.tabLayer.hidden = NO;
+                }
             }
+            
             headerFooterView.tabComponentManager.tabTargetClass = class;
+            
+            if (tableView.tabAnimated.oldEstimatedRowHeight > 0) {
+                [TABManagerMethod fullData:headerFooterView];
+                __weak typeof(headerFooterView) weakView = headerFooterView;
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    weakView.tabComponentManager.tabLayer.frame = weakView.bounds;
+                    [TABManagerMethod resetData:weakView];
+                });
+            }
             
             return headerFooterView;
         }

@@ -7,7 +7,6 @@
 //
 
 #import "TestTableViewCell.h"
-#import "UITableViewCell+TABLayoutSubviews.h"
 #import "UIView+TABAnimated.h"
 #import "Game.h"
 #import "Masonry.h"

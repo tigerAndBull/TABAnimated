@@ -10,6 +10,8 @@
 
 #import "TABManagerMethod.h"
 #import "TABAnimated.h"
+#import "TABAnimatedCacheManager.h"
+
 #import "objc/runtime.h"
 
 @interface TABCollectionAnimated()
@@ -403,16 +405,53 @@
         
         UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[NSString stringWithFormat:@"tab_%@",className] forIndexPath:indexPath];
         
+        NSString *fileName = [className stringByAppendingString:[NSString stringWithFormat:@"_%@",collectionView.tabAnimated.targetControllerClassName]];
+        
         if (nil == cell.tabComponentManager) {
-            [TABManagerMethod fullData:cell];
-            cell.tabComponentManager = [TABComponentManager initWithView:cell
-                                                             tabAnimated:collectionView.tabAnimated];
-            cell.tabComponentManager.currentSection = indexPath.section;
-            cell.tabComponentManager.currentRow = indexPath.row;
-            cell.tabComponentManager.tabTargetClass = currentClass;
+            
+            TABComponentManager *manager = [[TABAnimated sharedAnimated].cacheManager getComponentManagerWithFileName:fileName];
+
+            if (manager &&
+                !manager.needChangeRowStatus) {
+                manager.fileName = fileName;
+                manager.isLoad = YES;
+                manager.tabTargetClass = currentClass;
+                manager.currentSection = indexPath.section;
+                [manager reAddToView:cell];
+                cell.tabComponentManager = manager;
+                [TABManagerMethod startAnimationToSubViews:cell
+                                                  rootView:cell];
+                [TABManagerMethod addExtraAnimationWithSuperView:collectionView
+                                                      targetView:cell
+                                                         manager:cell.tabComponentManager];
+
+            }else {
+                [TABManagerMethod fullData:cell];
+                cell.tabComponentManager = [TABComponentManager initWithView:cell
+                                                                 tabAnimated:collectionView.tabAnimated];
+                cell.tabComponentManager.currentSection = indexPath.section;
+                cell.tabComponentManager.fileName = fileName;
+                
+                __weak typeof(cell) weakCell = cell;
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (weakCell && weakCell.tabComponentManager) {
+                        weakCell.tabComponentManager.tabTargetClass = weakCell.class;
+                        // 加载动画
+                        [TABManagerMethod runAnimationWithSuperView:collectionView
+                                                         targetView:weakCell
+                                                            section:indexPath.section
+                                                             isCell:weakCell
+                                                            manager:weakCell.tabComponentManager];
+                    }
+                });
+            }
+        
         }else {
-            cell.tabComponentManager.tabLayer.hidden = NO;
+            if (cell.tabComponentManager.tabLayer.hidden) {
+                cell.tabComponentManager.tabLayer.hidden = NO;
+            }
         }
+        cell.tabComponentManager.currentRow = indexPath.row;
         
         return cell;
     }
@@ -477,6 +516,7 @@ referenceSizeForFooterInSection:(NSInteger)section {
             }else {
                 value = collectionView.tabAnimated.footerSizeArray[index];
             }
+            return [value CGSizeValue];
         }
         return [self tab_collectionView:collectionView
                                  layout:collectionViewLayout
@@ -548,14 +588,55 @@ referenceSizeForFooterInSection:(NSInteger)section {
                                                                      forIndexPath:indexPath];
         }
         
+        NSString *fileName = [NSStringFromClass(resuableClass) stringByAppendingString:[NSString stringWithFormat:@"_%@",collectionView.tabAnimated.targetControllerClassName]];
+        
         if (nil == reusableView.tabComponentManager) {
-            [TABManagerMethod fullData:reusableView];
-            reusableView.tabComponentManager = [TABComponentManager initWithView:reusableView tabAnimated:collectionView.tabAnimated];
-            reusableView.tabComponentManager.currentSection = indexPath.section;
-            reusableView.tabComponentManager.tabTargetClass = resuableClass;
+            
+            TABComponentManager *manager = [[TABAnimated sharedAnimated].cacheManager getComponentManagerWithFileName:fileName];
+            
+            if (manager &&
+                !manager.needChangeRowStatus) {
+                manager.fileName = fileName;
+                manager.isLoad = YES;
+                manager.tabTargetClass = resuableClass;
+                manager.currentSection = indexPath.section;
+                [manager reAddToView:reusableView];
+                reusableView.tabComponentManager = manager;
+                [TABManagerMethod startAnimationToSubViews:reusableView
+                                                  rootView:reusableView];
+                [TABManagerMethod addExtraAnimationWithSuperView:collectionView
+                                                      targetView:reusableView
+                                                         manager:reusableView.tabComponentManager];
+            }else {
+                [TABManagerMethod fullData:reusableView];
+                reusableView.tabComponentManager = [TABComponentManager initWithView:reusableView tabAnimated:collectionView.tabAnimated];
+                reusableView.tabComponentManager.currentSection = indexPath.section;
+                reusableView.tabComponentManager.tabTargetClass = resuableClass;
+                reusableView.tabComponentManager.fileName = fileName;
+                
+                __weak typeof(reusableView) weakView = reusableView;
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (weakView && weakView.tabComponentManager) {
+                        
+                        BOOL isCell = NO;
+                        if ([weakView isKindOfClass:[UICollectionReusableView class]]) {
+                            isCell = YES;
+                        }
+                        
+                        [TABManagerMethod runAnimationWithSuperView:collectionView
+                                                         targetView:weakView
+                                                            section:indexPath.section
+                                                             isCell:YES
+                                                            manager:weakView.tabComponentManager];
+                    }
+                });
+            }
         }else {
-            reusableView.tabComponentManager.tabLayer.hidden = NO;
+            if (reusableView.tabComponentManager.tabLayer.hidden) {
+                reusableView.tabComponentManager.tabLayer.hidden = NO;
+            }
         }
+        reusableView.tabComponentManager.currentRow = indexPath.row;
         
         return reusableView;
         

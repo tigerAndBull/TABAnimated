@@ -10,10 +10,12 @@
 
 #import "TABAnimated.h"
 #import "TABManagerMethod.h"
+#import "TABAnimatedCacheManager.h"
+#import "TABAnimatedDocumentMethod.h"
 
 #import <objc/runtime.h>
 
-static const NSTimeInterval kDelayReloadDataTime = 0.4;
+static const NSTimeInterval kDelayReloadDataTime = 40;
 
 @implementation UIView (TABControlAnimation)
 
@@ -26,6 +28,10 @@ static const NSTimeInterval kDelayReloadDataTime = 0.4;
         return;
     }
     
+    UIViewController *controller = [self tab_viewController];
+    if (controller) {
+        self.tabAnimated.targetControllerClassName = NSStringFromClass(controller.class);
+    }
     self.tabAnimated.isAnimating = YES;
     self.tabAnimated.state = TABViewAnimationStart;
     
@@ -117,6 +123,7 @@ static const NSTimeInterval kDelayReloadDataTime = 0.4;
         for (Class class in self.tabAnimated.cellClassArray) {
             
             NSString *classString = NSStringFromClass(class);
+            
             if ([classString containsString:@"."]) {
                 NSRange range = [classString rangeOfString:@"."];
                 classString = [classString substringFromIndex:range.location+1];
@@ -169,6 +176,23 @@ static const NSTimeInterval kDelayReloadDataTime = 0.4;
             [(UICollectionView *)self reloadSections:[NSIndexSet indexSetWithIndex:section]];
         }
         
+        dispatch_async(dispatch_get_main_queue(), ^{
+            for (Class class in self.tabAnimated.cellClassArray) {
+                NSString *classString = NSStringFromClass(class);
+                [self tab_addLoadCount:classString];
+            }
+            
+            for (Class class in tabAnimated.headerClassArray) {
+                NSString *classString = NSStringFromClass(class);
+                [self tab_addLoadCount:classString];
+            }
+            
+            for (Class class in tabAnimated.footerClassArray) {
+                NSString *classString = NSStringFromClass(class);
+                [self tab_addLoadCount:classString];
+            }
+        });
+        
     }else if ([self isKindOfClass:[UITableView class]]) {
         
         UITableView *tableView = (UITableView *)self;
@@ -179,6 +203,7 @@ static const NSTimeInterval kDelayReloadDataTime = 0.4;
         for (Class class in self.tabAnimated.cellClassArray) {
             
             NSString *classString = NSStringFromClass(class);
+        
             if ([classString containsString:@"."]) {
                 NSRange range = [classString rangeOfString:@"."];
                 classString = [classString substringFromIndex:range.location+1];
@@ -241,12 +266,39 @@ static const NSTimeInterval kDelayReloadDataTime = 0.4;
             [(UITableView *)self reloadSections:[NSIndexSet indexSetWithIndex:section] withRowAnimation:UITableViewRowAnimationNone];
         }
         
-    }else {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            for (Class class in self.tabAnimated.cellClassArray) {
+                NSString *classString = NSStringFromClass(class);
+                [self tab_addLoadCount:classString];
+            }
+
+            for (Class class in tabAnimated.headerClassArray) {
+                NSString *classString = NSStringFromClass(class);
+                [self tab_addLoadCount:classString];
+            }
+
+            for (Class class in tabAnimated.footerClassArray) {
+                NSString *classString = NSStringFromClass(class);
+                [self tab_addLoadCount:classString];
+            }
+        });
         
+    }else {
         if (nil == self.tabComponentManager) {
+
             [TABManagerMethod fullData:self];
             [self setNeedsLayout];
             self.tabComponentManager = [TABComponentManager initWithView:self tabAnimated:self.tabAnimated];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (nil != self.tabAnimated) {
+                    [TABManagerMethod runAnimationWithSuperView:self
+                                                     targetView:self
+                                                        section:0
+                                                         isCell:NO
+                                                        manager:self.tabComponentManager];
+                }
+            });
         }
     }
 }
@@ -377,6 +429,24 @@ static const NSTimeInterval kDelayReloadDataTime = 0.4;
 
 #pragma mark - Private Method
 
+- (void)tab_addLoadCount:(NSString *)className {
+    NSString *fileName = [className stringByAppendingString:[NSString stringWithFormat:@"_%@",self.tabAnimated.targetControllerClassName]];
+    if (fileName) {
+        [[TABAnimated sharedAnimated].cacheManager updateCacheModelLoadCountWithTargetFileName:fileName];
+    }
+}
+
+- (UIViewController*)tab_viewController {
+    for (UIView *next = [self superview]; next; next = next.superview) {
+        UIResponder *nextResponder = [next nextResponder];
+        if ([nextResponder isKindOfClass:[UIViewController
+                                          class]]) {
+            return (UIViewController*)nextResponder;
+        }
+    }
+    return nil;
+}
+
 - (void)tab_removeObjectAtIndex:(NSInteger)index
                       withArray:(NSMutableArray *)array {
     [array removeObjectAtIndex:index];
@@ -409,6 +479,13 @@ static const NSTimeInterval kDelayReloadDataTime = 0.4;
     for (Class class in classArray) {
         
         NSString *classString = NSStringFromClass(class);
+        
+        
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//        // update loadCount
+//            [self tab_addLoadCount:classString];
+//        });
+        
         if ([classString containsString:@"."]) {
             NSRange range = [classString rangeOfString:@"."];
             classString = [classString substringFromIndex:range.location+1];

@@ -17,6 +17,7 @@
         _chainModelArray = @[].mutableCopy;
     }
     return self;
+    
 }
 
 - (void)installChainStatementByModelArray:(NSArray <TABRevealChainModel *> *)modelArray {

@@ -13,6 +13,8 @@
 
 #import "UIView+TABAnimated.h"
 #import "TableDeDaSelfModel.h"
+#import "TABAnimatedDocumentMethod.h"
+#import "TABAnimatedCacheManager.h"
 
 #import <objc/runtime.h>
 
@@ -28,11 +30,104 @@ NSString * const TABAnimatedDropAnimation = @"TABDropAnimation";
 
 @property (nonatomic, strong, readwrite) NSMutableArray <TableDeDaSelfModel *> *tableDeDaSelfModelArray;
 
+@property (nonatomic, strong, readwrite) TABAnimatedCacheManager *cacheManager;
+
 @end
 
 @implementation TABAnimated
 
-#pragma mark - Getter
+#pragma mark - Initize Method
+
++ (TABAnimated *)sharedAnimated {
+    static dispatch_once_t token;
+    static TABAnimated *tabAnimated;
+    dispatch_once(&token, ^{
+        tabAnimated = [[TABAnimated alloc] init];
+    });
+    return tabAnimated;
+}
+
+- (instancetype)init {
+    if (self = [super init]) {
+        _tableDeDaSelfModelArray = @[].mutableCopy;
+        _animationType = TABAnimationTypeOnlySkeleton;
+        [TABAnimatedDocumentMethod createFile:TABCacheManagerFolderName
+                                        isDir:YES];
+        
+#ifdef DEBUG
+        _closeCache = YES;
+#endif
+        
+        _cacheManager = TABAnimatedCacheManager.new;
+        
+        __weak typeof(self) weakSelf = self;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [weakSelf.cacheManager install];
+        });
+    }
+    return self;
+}
+
+- (void)initWithOnlySkeleton {
+    if (self) {
+        _animationType = TABAnimationTypeOnlySkeleton;
+        _animatedColor = tab_kBackColor;
+    }
+}
+
+- (void)initWithBinAnimation {
+    if (self) {
+        _animationType = TABAnimationTypeBinAnimation;
+        _animatedColor = tab_kBackColor;
+    }
+}
+
+- (void)initWithShimmerAnimated {
+    if (self) {
+        _animationType = TABAnimationTypeShimmer;
+        _animatedDurationShimmer = 1.;
+        _animatedColor = tab_kBackColor;
+        _shimmerDirection = TABShimmerDirectionToRight;
+        _shimmerBackColor = tab_kShimmerBackColor;
+        _shimmerBrightness = 0.92;
+    }
+}
+
+- (void)initWithShimmerAnimatedDuration:(CGFloat)duration
+                              withColor:(UIColor *)color {
+    if (self) {
+        _animatedDurationShimmer = duration;
+        _animatedColor = color;
+        _animationType = TABAnimationTypeShimmer;
+        _shimmerDirection = TABShimmerDirectionToRight;
+        _shimmerBackColor = tab_kShimmerBackColor;
+        _shimmerBrightness = 0.92;
+    }
+}
+
+- (void)initWithDropAnimated {
+    if (self) {
+        _animationType = TABAnimationTypeDrop;
+        _animatedColor = tab_kBackColor;
+    }
+}
+
+#pragma mark - Other Method
+
+- (TableDeDaSelfModel *)getTableDeDaModelAboutDeDaSelfWithClassName:(NSString *)className {
+    for (TableDeDaSelfModel *model in self.tableDeDaSelfModelArray) {
+        if ([model.targetClassName isEqualToString:className]) {
+            return model;
+        }
+    }
+    
+    TableDeDaSelfModel *newModel = TableDeDaSelfModel.new;
+    newModel.targetClassName = className;
+    [self.tableDeDaSelfModelArray addObject:newModel];
+    return newModel;
+}
+
+#pragma mark - Getter / Setter
 
 - (CGFloat)animatedHeightCoefficient {
     if (_animatedHeightCoefficient == 0.) {
@@ -116,85 +211,6 @@ NSString * const TABAnimatedDropAnimation = @"TABDropAnimation";
         return 1.;
     }
     return _animatedDurationShimmer;
-}
-
-#pragma mark - Initize Method
-
-+ (TABAnimated *)sharedAnimated {
-    
-    static TABAnimated *tabAnimated;
-    
-    if (nil == tabAnimated) {
-        tabAnimated = [[TABAnimated alloc] init];
-    }
-    return tabAnimated;
-}
-
-- (instancetype)init {
-    if (self = [super init]) {
-        _animationType = TABAnimationTypeOnlySkeleton;
-        _tableDeDaSelfModelArray = @[].mutableCopy;
-    }
-    return self;
-}
-
-- (void)initWithOnlySkeleton {
-    if (self) {
-        _animationType = TABAnimationTypeOnlySkeleton;
-        _animatedColor = tab_kBackColor;
-    }
-}
-
-- (void)initWithBinAnimation {
-    if (self) {
-        _animationType = TABAnimationTypeBinAnimation;
-        _animatedColor = tab_kBackColor;
-    }
-}
-
-- (void)initWithShimmerAnimated {
-    if (self) {
-        _animationType = TABAnimationTypeShimmer;
-        _animatedDurationShimmer = 1.;
-        _animatedColor = tab_kBackColor;
-        _shimmerDirection = TABShimmerDirectionToRight;
-        _shimmerBackColor = tab_kShimmerBackColor;
-        _shimmerBrightness = 0.92;
-    }
-}
-
-- (void)initWithShimmerAnimatedDuration:(CGFloat)duration
-                              withColor:(UIColor *)color {
-    if (self) {
-        _animatedDurationShimmer = duration;
-        _animatedColor = color;
-        _animationType = TABAnimationTypeShimmer;
-        _shimmerDirection = TABShimmerDirectionToRight;
-        _shimmerBackColor = tab_kShimmerBackColor;
-        _shimmerBrightness = 0.92;
-    }
-}
-
-- (void)initWithDropAnimated {
-    if (self) {
-        _animationType = TABAnimationTypeDrop;
-        _animatedColor = tab_kBackColor;
-    }
-}
-
-#pragma mark - Other Method
-
-- (TableDeDaSelfModel *)getTableDeDaModelAboutDeDaSelfWithClassName:(NSString *)className {
-    for (TableDeDaSelfModel *model in self.tableDeDaSelfModelArray) {
-        if ([model.targetClassName isEqualToString:className]) {
-            return model;
-        }
-    }
-    
-    TableDeDaSelfModel *newModel = TableDeDaSelfModel.new;
-    newModel.targetClassName = className;
-    [self.tableDeDaSelfModelArray addObject:newModel];
-    return newModel;
 }
 
 @end

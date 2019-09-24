@@ -8,7 +8,6 @@
 
 #import "XIBTableViewCell.h"
 
-#import "UITableViewCell+TABLayoutSubviews.h"
 #import "UIView+TABAnimated.h"
 
 @interface XIBTableViewCell ()

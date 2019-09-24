@@ -10,6 +10,7 @@
 
 #import "TABAnimated.h"
 #import "TABComponentLayer.h"
+#import "TABAnimatedCacheManager.h"
 
 static NSString * const kShortDataString = @"tab_testtesttest";
 static NSString * const kLongDataString = @"tab_testtesttesttesttesttesttesttesttesttesttest";
@@ -274,6 +275,38 @@ static NSString * const kLongDataString = @"tab_testtesttesttesttesttesttesttest
     }
 }
 
++ (void)startAnimationToSubViews:(UIView *)view
+                        rootView:(UIView *)rootView {
+    
+    NSArray *subViews = [view subviews];
+    if ([subViews count] == 0) {
+        return;
+    }
+    
+    for (int i = 0; i < subViews.count;i++) {
+        
+        UIView *subV = subViews[i];
+        [self startAnimationToSubViews:subV
+                              rootView:rootView];
+        
+        if (subV.tabAnimated) {
+            
+            dispatch_after(DISPATCH_TIME_NOW, dispatch_get_main_queue(), ^{
+                CGRect cutRect = [rootView convertRect:subV.frame
+                                              fromView:subV.superview];
+                UIBezierPath *path = [UIBezierPath bezierPathWithRect:rootView.bounds];
+                [path appendPath:[[UIBezierPath bezierPathWithRoundedRect:cutRect
+                                                             cornerRadius:0.] bezierPathByReversingPath]];
+                CAShapeLayer *shapeLayer = [CAShapeLayer layer];
+                shapeLayer.path = path.CGPath;
+                [rootView.tabComponentManager.tabLayer setMask:shapeLayer];
+            });
+        
+            [subV tab_startAnimation];
+        }
+    }
+}
+
 + (BOOL)judgeViewIsNeedAddAnimation:(UIView *)view {
     
     if ([view isKindOfClass:[UICollectionView class]] ||
@@ -336,11 +369,10 @@ static NSString * const kLongDataString = @"tab_testtesttesttesttesttesttesttest
                                       isInNestView:NO
                                              array:array];
         
-        [targetView.tabComponentManager installBaseComponent:array.copy];
+        [targetView.tabComponentManager installBaseComponentArray:array.copy];
         
         if (targetView.tabComponentManager.baseComponentArray.count != 0) {
             __weak typeof(targetView) weakSelf = targetView;
-            
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
             if (superView.tabAnimated.categoryBlock) {
@@ -373,6 +405,7 @@ static NSString * const kLongDataString = @"tab_testtesttesttesttesttesttesttest
         if (targetView.tabComponentManager.nestView) {
             [targetView.tabComponentManager.nestView tab_startAnimation];
         }
+        [[TABAnimated sharedAnimated].cacheManager cacheComponentManager:targetView.tabComponentManager];
     }
 
     // 结束动画

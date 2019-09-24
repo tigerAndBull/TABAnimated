@@ -7,13 +7,19 @@
 //
 
 #import "TABComponentManager.h"
+
+#import <UIKit/UIKit.h>
+
 #import "TABAnimated.h"
+
 #import "TABViewAnimated.h"
 #import "TABBaseComponent.h"
 #import "TABComponentLayer.h"
-#import <UIKit/UIKit.h>
+#import "TABAnimatedCacheManager.h"
 
 static const CGFloat kDefaultHeight = 16.f;
+static const CGFloat kTagDefaultFontSize = 12.;
+
 static NSString * const kTagDefaultFontName = @"HiraKakuProN-W3";
 
 @interface TABComponentManager()
@@ -23,10 +29,13 @@ static NSString * const kTagDefaultFontName = @"HiraKakuProN-W3";
 @property (nonatomic, strong, readwrite) NSMutableArray <TABComponentLayer *> *resultLayerArray;
 
 @property (nonatomic, assign, readwrite) NSInteger dropAnimationCount;
+@property (nonatomic, assign, readwrite) BOOL haveCachedWithDisk;
 
 @end
 
 @implementation TABComponentManager
+
+#pragma mark - Init Method
 
 + (instancetype)initWithView:(UIView *)view
                  tabAnimated:(TABViewAnimated *)tabAnimated {
@@ -34,29 +43,11 @@ static NSString * const kTagDefaultFontName = @"HiraKakuProN-W3";
     manager.animatedHeight = tabAnimated.animatedHeight;
     manager.animatedCornerRadius = tabAnimated.animatedCornerRadius;
     manager.cancelGlobalCornerRadius = tabAnimated.cancelGlobalCornerRadius;
-    if (tabAnimated.animatedBackViewCornerRadius > 0) {
-        manager.tabLayer.cornerRadius = tabAnimated.animatedBackViewCornerRadius;
-    }else {
-        if (view.layer.cornerRadius > 0.) {
-            manager.tabLayer.cornerRadius = view.layer.cornerRadius;
-        }else {
-            if ([view isKindOfClass:[UITableViewCell class]]) {
-                UITableViewCell *cell = (UITableViewCell *)view;
-                if (cell.contentView.layer.cornerRadius > 0.) {
-                    manager.tabLayer.cornerRadius = cell.contentView.layer.cornerRadius;
-                }
-            }else {
-                if ([view isKindOfClass:[UICollectionViewCell class]]) {
-                    UICollectionViewCell *cell = (UICollectionViewCell *)view;
-                    if (cell.contentView.layer.cornerRadius > 0.) {
-                        manager.tabLayer.cornerRadius = cell.contentView.layer.cornerRadius;
-                    }
-                }
-            }
-        }
-    }
-    manager.animatedBackgroundColor = tabAnimated.animatedBackgroundColor;
     manager.animatedColor = tabAnimated.animatedColor;
+    manager.animatedBackgroundColor = tabAnimated.animatedBackgroundColor;
+    
+    [manager setCornerRadiusWithView:view
+                         tabAnimated:tabAnimated];
     return manager;
 }
 
@@ -73,21 +64,35 @@ static NSString * const kTagDefaultFontName = @"HiraKakuProN-W3";
 
 - (instancetype)init {
     if (self = [super init]) {
-        
-        _baseComponentArray = @[].mutableCopy;
         _resultLayerArray = @[].mutableCopy;
+        _baseComponentArray = @[].mutableCopy;
         _componentLayerArray = @[].mutableCopy;
         
-        _tabLayer = CALayer.new;
-        _tabLayer.name = @"TABLayer";
-        _tabLayer.anchorPoint = CGPointMake(0, 0);
-        _tabLayer.position = CGPointMake(0, 0);
+        _tabLayer = TABComponentLayer.new;
         _tabLayer.opaque = YES;
-        _tabLayer.contentsScale = ([[UIScreen mainScreen] scale] > 3.0) ? [[UIScreen mainScreen] scale]:3.0;
+        _tabLayer.name = @"TABLayer";
+        _tabLayer.position = CGPointMake(0, 0);
+        _tabLayer.anchorPoint = CGPointMake(0, 0);
         _tabLayer.backgroundColor = [self.animatedBackgroundColor CGColor];
+        _tabLayer.contentsScale = ([[UIScreen mainScreen] scale] > 3.0) ? [[UIScreen mainScreen] scale]:3.0;
     }
     return self;
 }
+
+- (void)reAddToView:(UIView *)view {
+    if (view.frame.size.width > 0.) {
+        self.tabLayer.frame = view.bounds;
+    }else {
+        self.tabLayer.frame = CGRectMake(view.bounds.origin.x, view.bounds.origin.y, [UIScreen mainScreen].bounds.size.width, view.bounds.size.height);
+    }
+    [view.layer addSublayer:self.tabLayer];
+    
+    [self setCornerRadiusWithView:view
+                      tabAnimated:view.tabAnimated];
+    [self updateComponentLayersWithArray:self.resultLayerArray];
+}
+
+#pragma mark - Public Method
 
 - (TABBaseComponentBlock _Nullable)animation {
     return ^TABBaseComponent *(NSInteger index) {
@@ -170,13 +175,12 @@ static NSString * const kTagDefaultFontName = @"HiraKakuProN-W3";
         // 清空参数列表，并置参数指针args无效
         va_end(args);
         return resultArray.copy;
-        
     };
 }
 
 #pragma mark -
 
-- (void)installBaseComponent:(NSArray <TABComponentLayer *> *)array {
+- (void)installBaseComponentArray:(NSArray <TABComponentLayer *> *)array {
     self.componentLayerArray = array.mutableCopy;
     [self.baseComponentArray removeAllObjects];
     for (NSInteger i = 0; i < array.count; i++) {
@@ -185,7 +189,42 @@ static NSString * const kTagDefaultFontName = @"HiraKakuProN-W3";
     }
 }
 
+- (void)updateComponentLayersWithArray:(NSMutableArray <TABComponentLayer *> *)componentLayerArray {
+    for (int i = 0; i < componentLayerArray.count; i++) {
+        TABComponentLayer *layer = componentLayerArray[i];
+        
+        if (layer.placeholderName && layer.placeholderName.length > 0) {
+            layer.contents = (id)[UIImage imageNamed:layer.placeholderName].CGImage;
+        }
+        
+        // 设置伸缩动画
+        if (layer.loadStyle != TABViewLoadAnimationWithOnlySkeleton) {
+            [layer addAnimation:[self getAnimationWithLoadStyle:layer.loadStyle] forKey:TABAnimatedLocationAnimation];
+        }
+        
+        if (self.dropAnimationCount < layer.dropAnimationIndex) {
+            self.dropAnimationCount = layer.dropAnimationIndex;
+        }
+        
+        [self.tabLayer addSublayer:layer];
+        
+        // 添加红色标记
+#ifdef DEBUG
+        if ([TABAnimated sharedAnimated].openAnimationTag) {
+            BOOL isFromLines = (layer.numberOflines != 1) ? YES : NO;
+            if (layer.tagIndex != TABViewAnimatedErrorCode) {
+                [self addAnimatedTagWithComponentLayer:layer
+                                                 index:layer.tagIndex
+                                          isFromeLines:isFromLines];
+            }
+        }
+#endif
+    }
+}
+
 - (void)updateComponentLayers {
+    
+    [self.resultLayerArray removeAllObjects];
     
     for (NSInteger i = 0; i < self.baseComponentArray.count; i++) {
         
@@ -215,6 +254,7 @@ static NSString * const kTagDefaultFontName = @"HiraKakuProN-W3";
                       index:i];
         }else {
             
+            layer.tagIndex = i;
             if (layer.contents) {
                 layer.backgroundColor = UIColor.clearColor.CGColor;
             }else {
@@ -262,27 +302,66 @@ static NSString * const kTagDefaultFontName = @"HiraKakuProN-W3";
             [self.resultLayerArray addObject:layer];
         }
         
+        // 添加红色标记
 #ifdef DEBUG
         if ([TABAnimated sharedAnimated].openAnimationTag) {
-            CATextLayer *lary = [CATextLayer layer];
-            lary.string = [NSString stringWithFormat:@"%ld",(long)i];
-            
-            if (!layer.fromImageView) {
-                lary.bounds = CGRectMake(layer.bounds.origin.x, layer.bounds.origin.y, layer.bounds.size.width, 20);
-            }else {
-                lary.frame = CGRectMake(0, layer.frame.size.height/2.0, layer.frame.size.width, 20);
-            }
-            lary.contentsScale = ([[UIScreen mainScreen] scale] > 3.0) ? [[UIScreen mainScreen] scale]:3.0;
-            lary.font = (__bridge CFTypeRef)(kTagDefaultFontName);
-            lary.fontSize = 12.f;
-            lary.alignmentMode = kCAAlignmentRight;
-            lary.foregroundColor = [UIColor redColor].CGColor;
-            [layer addSublayer:lary];
+            [self addAnimatedTagWithComponentLayer:layer
+                                             index:i
+                                      isFromeLines:NO];
         }
-#else
-        
 #endif
     }
+}
+
+#pragma mark - Private
+
+- (void)setCornerRadiusWithView:(UIView *)view
+                    tabAnimated:(__kindof TABViewAnimated *)tabAnimated {
+    if (tabAnimated.animatedBackViewCornerRadius > 0) {
+        self.tabLayer.cornerRadius = tabAnimated.animatedBackViewCornerRadius;
+    }else {
+        if (view.layer.cornerRadius > 0.) {
+            self.tabLayer.cornerRadius = view.layer.cornerRadius;
+        }else {
+            if ([view isKindOfClass:[UITableViewCell class]]) {
+                UITableViewCell *cell = (UITableViewCell *)view;
+                if (cell.contentView.layer.cornerRadius > 0.) {
+                    self.tabLayer.cornerRadius = cell.contentView.layer.cornerRadius;
+                }
+            }else {
+                if ([view isKindOfClass:[UICollectionViewCell class]]) {
+                    UICollectionViewCell *cell = (UICollectionViewCell *)view;
+                    if (cell.contentView.layer.cornerRadius > 0.) {
+                        self.tabLayer.cornerRadius = cell.contentView.layer.cornerRadius;
+                    }
+                }
+            }
+        }
+    }
+}
+
+- (void)addAnimatedTagWithComponentLayer:(TABComponentLayer *)layer
+                                   index:(NSInteger)index
+                            isFromeLines:(BOOL)isFromeLines {
+    CATextLayer *textLayer = [CATextLayer layer];
+    textLayer.string = [NSString stringWithFormat:@"%ld",(long)index];
+    
+    if (isFromeLines) {
+        textLayer.frame = CGRectMake(0, 0, layer.frame.size.width, 20);
+    }else {
+        if (!layer.fromImageView) {
+            textLayer.bounds = CGRectMake(layer.bounds.origin.x, layer.bounds.origin.y, layer.bounds.size.width, 20);
+        }else {
+            textLayer.frame = CGRectMake(0, layer.frame.size.height/2.0, layer.frame.size.width, 20);
+        }
+    }
+    
+    textLayer.contentsScale = ([[UIScreen mainScreen] scale] > 3.0) ? [[UIScreen mainScreen] scale]:3.0;
+    textLayer.font = (__bridge CFTypeRef)(kTagDefaultFontName);
+    textLayer.fontSize = kTagDefaultFontSize;
+    textLayer.alignmentMode = kCAAlignmentRight;
+    textLayer.foregroundColor = [UIColor redColor].CGColor;
+    [layer addSublayer:textLayer];
 }
 
 - (void)addLayers:(CGRect)frame
@@ -346,25 +425,22 @@ static NSString * const kTagDefaultFontName = @"HiraKakuProN-W3";
         }
         
         if (i == lines - 1) {
-            if (loadStyle != TABAnimationTypeOnlySkeleton) {
+            
+            layer.tagIndex = index;
+            
+            if (loadStyle != TABViewLoadAnimationWithOnlySkeleton) {
                 [layer addAnimation:[self getAnimationWithLoadStyle:loadStyle] forKey:TABAnimatedLocationAnimation];
             }
-            
+            // 添加红色标记
 #ifdef DEBUG
             if ([TABAnimated sharedAnimated].openAnimationTag) {
-                CATextLayer *lary = [CATextLayer layer];
-                lary.string = [NSString stringWithFormat:@"%ld",(long)index];
-                lary.frame = CGRectMake(0, 0, rect.size.width, 20);
-                lary.font = (__bridge CFTypeRef)(kTagDefaultFontName);
-                lary.fontSize = 12.f;
-                lary.alignmentMode = kCAAlignmentRight;
-                lary.foregroundColor = [UIColor redColor].CGColor;
-                lary.contentsScale = ([[UIScreen mainScreen] scale] > 3.0) ? [[UIScreen mainScreen] scale]:3.0;
-                [layer addSublayer:lary];
+                [self addAnimatedTagWithComponentLayer:layer
+                                                 index:index
+                                          isFromeLines:YES];
             }
-#else
-            
 #endif
+        }else {
+            layer.tagIndex = TABViewAnimatedErrorCode;
         }
         
         if (!removeOnDrop) {
@@ -384,21 +460,7 @@ static NSString * const kTagDefaultFontName = @"HiraKakuProN-W3";
     }
 }
 
-#pragma mark - Private
-
-- (void)removeSubLayers:(NSArray *)subLayers {
-    
-    NSArray <CALayer *> *removedLayers = [subLayers filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id  _Nullable evaluatedObject, NSDictionary<NSString *,id> * _Nullable bindings) {
-        return YES;
-    }]];
-    
-    [removedLayers enumerateObjectsUsingBlock:^(CALayer * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        [obj removeFromSuperlayer];
-    }];
-}
-
 - (CABasicAnimation *)getAnimationWithLoadStyle:(TABViewLoadAnimationStyle)loadStyle {
-    
     CGFloat duration = [TABAnimated sharedAnimated].animatedDuration;
     CGFloat value = 0.;
     
@@ -407,6 +469,7 @@ static NSString * const kTagDefaultFontName = @"HiraKakuProN-W3";
     }else {
         value = [TABAnimated sharedAnimated].shortToValue;
     }
+    
     return [TABAnimationMethod scaleXAnimationDuration:duration toValue:value];
 }
 
@@ -447,7 +510,94 @@ static NSString * const kTagDefaultFontName = @"HiraKakuProN-W3";
     return rect;
 }
 
+#pragma mark - NSCoding / NSCopying / NSSecureCoding
+
++ (BOOL)supportsSecureCoding {
+    return YES;
+}
+
+- (id)copyWithZone:(NSZone *)zone {
+    TABComponentManager *manager = [[[self class] allocWithZone:zone] init];
+    manager.fileName = self.fileName;
+    
+    manager.resultLayerArray = @[].mutableCopy;
+    for (TABComponentLayer *layer in self.resultLayerArray) {
+        [manager.resultLayerArray addObject:layer.copy];
+    }
+    
+    manager.tabLayer = self.tabLayer.copy;
+    manager.animatedColor = self.animatedColor;
+    manager.animatedBackgroundColor = self.animatedBackgroundColor;
+    manager.animatedHeight = self.animatedHeight;
+    manager.animatedCornerRadius = self.animatedCornerRadius;
+    manager.cancelGlobalCornerRadius = self.cancelGlobalCornerRadius;
+    manager.dropAnimationCount = self.dropAnimationCount;
+    manager.entireIndexArray = self.entireIndexArray.mutableCopy;
+    
+    manager.version = self.version;
+    manager.needChangeRowStatus = self.needChangeRowStatus;
+
+    return manager;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+    [aCoder encodeObject:_fileName forKey:@"fileName"];
+    [aCoder encodeObject:_tabLayer forKey:@"tabLayer"];
+    [aCoder encodeObject:_resultLayerArray forKey:@"resultLayerArray"];
+    
+    [aCoder encodeObject:_animatedColor forKey:@"animatedColor"];
+    [aCoder encodeObject:_animatedBackgroundColor forKey:@"animatedBackgroundColor"];
+    [aCoder encodeFloat:_animatedHeight forKey:@"animatedHeight"];
+    [aCoder encodeFloat:_animatedCornerRadius forKey:@"animatedCornerRadius"];
+    [aCoder encodeBool:_cancelGlobalCornerRadius forKey:@"cancelGlobalCornerRadius"];
+    
+    [aCoder encodeInteger:_dropAnimationCount forKey:@"dropAnimationCount"];
+    [aCoder encodeObject:_entireIndexArray forKey:@"entireIndexArray"];
+    
+    [aCoder encodeObject:_version forKey:@"version"];
+    [aCoder encodeBool:_needChangeRowStatus forKey:@"needChangeRowStatus"];
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    if (self = [super init]) {
+        self.fileName = [aDecoder decodeObjectForKey:@"fileName"];
+        self.tabLayer = [aDecoder decodeObjectForKey:@"tabLayer"];
+        self.resultLayerArray = [aDecoder decodeObjectForKey:@"resultLayerArray"];
+        
+        self.animatedColor = [aDecoder decodeObjectForKey:@"animatedColor"];
+        self.animatedBackgroundColor = [aDecoder decodeObjectForKey:@"animatedBackgroundColor"];
+        self.animatedHeight = [aDecoder decodeFloatForKey:@"animatedHeight"];
+        self.animatedCornerRadius = [aDecoder decodeFloatForKey:@"animatedCornerRadius"];
+        self.cancelGlobalCornerRadius = [aDecoder decodeObjectForKey:@"cancelGlobalCornerRadius"];
+        
+        self.dropAnimationCount = [aDecoder decodeIntegerForKey:@"dropAnimationCount"];
+        self.entireIndexArray = [aDecoder decodeObjectForKey:@"entireIndexArray"];
+        
+        self.version = [aDecoder decodeObjectForKey:@"version"];
+        self.needChangeRowStatus = [aDecoder decodeBoolForKey:@"needChangeRowStatus"];
+
+    }
+    return self;
+}
+
 #pragma mark - Getter / Setter
+
+- (BOOL)needUpdate {
+    if (self.version && self.version.length > 0 &&
+        [TABAnimated sharedAnimated].cacheManager.currentSystemVersion &&
+        [TABAnimated sharedAnimated].cacheManager.currentSystemVersion.length > 0) {
+        if ([self.version isEqualToString:[TABAnimated sharedAnimated].cacheManager.currentSystemVersion]) {
+            return NO;
+        }
+        return YES;
+    }
+    return YES;
+}
+
+- (NSInteger)currentRow {
+    _needChangeRowStatus = YES;
+    return _currentRow;
+}
 
 @synthesize animatedColor = _animatedColor;
 - (UIColor *)animatedColor {

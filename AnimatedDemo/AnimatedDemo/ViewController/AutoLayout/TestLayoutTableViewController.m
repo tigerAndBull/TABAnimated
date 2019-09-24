@@ -139,10 +139,10 @@
 
 @end
 
-#import "UITableViewCell+TABLayoutSubviews.h"
 #import "UIView+TABAnimated.h"
 
 @interface TestLayoutCell ()
+
 @property (nonatomic,strong) UILabel *titleLab;
 @property (nonatomic,strong) UILabel *timeLab;
 
@@ -151,8 +151,8 @@
 
 @implementation TestLayoutCell
 
-- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
-{
+- (instancetype)initWithStyle:(UITableViewCellStyle)style
+              reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         [self setupUI];
@@ -160,7 +160,7 @@
     return self;
 }
 
-- (void)setupUI{
+- (void)setupUI {
     [self.contentView addSubview:self.titleLab];
     [self.contentView addSubview:self.timeLab];
     

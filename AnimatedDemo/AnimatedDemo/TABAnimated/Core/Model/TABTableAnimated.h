@@ -20,6 +20,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class TABComponentManager;
+
 @interface TABTableAnimated : TABViewAnimated
 
 /**
@@ -102,6 +104,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly) NSMutableArray <Class> *footerClassArray;
 @property (nonatomic, strong, readonly) NSMutableArray <NSNumber *> *footerHeightArray;
 @property (nonatomic, strong, readonly) NSMutableArray <NSNumber *> *footerSectionArray;
+
+#pragma mark -
 
 /**
  单section表格组件初始化方式，row值以填充contentSize的数量为标准
@@ -194,6 +198,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (instancetype)animatedWithCellClass:(Class)cellClass;
 
+#pragma mark -
+
 /**
  添加区头动画，指定section
  
@@ -238,6 +244,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)addFooterViewClass:(__nonnull Class)footerViewClass
                 viewHeight:(CGFloat)viewHeight;
 
+#pragma mark -
+
 - (NSInteger)headerNeedAnimationOnSection:(NSInteger)section;
 
 - (NSInteger)footerNeedAnimationOnSection:(NSInteger)section;
@@ -247,6 +255,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)exchangeTableViewDataSource:(UITableView *)target;
 
 @end
+
+#pragma mark -
 
 @interface EstimatedTableViewDelegate : NSObject<UITableViewDelegate>
 

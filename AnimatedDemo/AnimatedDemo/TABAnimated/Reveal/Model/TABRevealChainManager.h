@@ -18,7 +18,7 @@ typedef enum : NSUInteger {
     TABRevealChainManagerMoreNotContinuous,
 } TABRevealChainManagerType;
 
-@interface TABRevealChainManager : NSObject<NSCoding>
+@interface TABRevealChainManager : NSObject <NSCoding>
 
 @property (nonatomic) TABRevealChainManagerType managerType;
 @property (nonatomic, copy) NSString *prefixString;

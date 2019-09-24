@@ -40,58 +40,138 @@
 
 #endif
 
-extern NSString * const TABAnimatedAlphaAnimation;
-extern NSString * const TABAnimatedLocationAnimation;
-extern NSString * const TABAnimatedShimmerAnimation;
-extern NSString * const TABAnimatedDropAnimation;
+extern NSString * const TABAnimatedAlphaAnimation;  /// the key of bin animation
+extern NSString * const TABAnimatedLocationAnimation;  /// the key of flex animation
+extern NSString * const TABAnimatedShimmerAnimation;  ///the key of shimmer animation
+extern NSString * const TABAnimatedDropAnimation;   /// the key of drop animation
 
-typedef NS_ENUM(NSInteger,TABAnimationType) {
-    TABAnimationTypeOnlySkeleton = 0,    // 普通骨架层
-    TABAnimationTypeBinAnimation,        // 呼吸灯
-    TABAnimationTypeShimmer,             // 闪光灯
-    TABAnimationTypeDrop                 // 豆瓣下坠动画
+@class TableDeDaSelfModel, TABAnimatedCacheManager;
+
+/**
+ Gobal animation type,
+ which determines whether you need to add additional animations on top of the skeleton layer.
+ 
+ Besides `TABAnimationTypeOnlySkeleton` outside value, can add additional an animation.
+ 
+ When you have a specified view that doesn't need a global animation type that's already set,
+ You can use a `TABViewSuperAnimationType` covering the local properties `TABAnimationType` values.
+ 
+ 全局动画类型，它决定了你是否需要在骨架层的基础之上，增加额外的动画。
+ 
+ 除了`TABAnimationTypeOnlySkeleton`以外的值，都会添加额外的一种动画。
+ 
+ 当你有一个指定的view不需要已经设置好的全局的动画类型时，
+ 你可以使用`TABViewSuperAnimationType`这个局部属性覆盖`TABAnimationType`的值。
+ */
+typedef NS_ENUM(NSInteger, TABAnimationType) {
+    
+    /// only contain the skeleton of your view created by CALayer
+    /// 骨架层
+    TABAnimationTypeOnlySkeleton = 0,
+    
+    /// the skeleton of your view with bin animation
+    /// 骨架层 + 呼吸灯动画
+    TABAnimationTypeBinAnimation,
+    
+    /// the skeleton of your view with shimmer animation
+    /// 骨架层 + 闪光灯
+    TABAnimationTypeShimmer,
+    
+    /// the skeleton of your view with drop animation
+    /// 骨架层 + 豆瓣下坠动画
+    TABAnimationTypeDrop
 };
 
-@class TableDeDaSelfModel;
-
+/**
+ Control some global attributes,
+ including breath lamp animation, flash animation, douban drop animation global parameter Settings.
+ At the same time, there are auxiliary development, debugging parameter Settings.
+ 
+ Init types of methods, must be in `didFinishLaunchingWithOptions` first use.
+ 
+ 控制一些全局的属性，包含了呼吸灯动画、闪光灯动画、豆瓣下坠动画的全局参数设置。
+ 同时还有辅助开发、调试的参数设置。
+ 
+ init类型的方法，必须要在`didFinishLaunchingWithOptions`首先使用
+ */
 @interface TABAnimated : NSObject
 
 /**
- 全局动画类型，优先级：全局动画类型 < 控制视图声明的动画类型，即
- 默认是只有骨架屏，后三者是在骨架屏的基础之上，采用`热插拔`的方式，植入的动画效果。
+ Global animation type
+ 
+ Default is to include the skeleton layer.
+ The last three values are based on the skeleton layer, with additional animations added by default.
+ 
+ 全局动画类型
+ 
+ 默认是只有骨架层，后三者是在骨架层的基础之上，还会默认加上额外的动画。
+ 优先级：全局动画类型 < 控制视图声明的动画类型
  */
 @property (nonatomic, assign) TABAnimationType animationType;
 
 /**
- 属性含义：动画高度与视图原有高度的比例系数，该属性对除了`[view isKindOfClass:[UIImageView class]]`的所有子视图生效
- 在实践中发现，对于UILabel,UIButton等视图，当动画的高度与原视图的高度一致时，效果并不美观（太粗）。
+ The ratio of the height of the animation to the original height of the view,
+ This property is valid for all subviews except for the type 'UIImageView'.
+ 
+ In practice, it is found that for UILabel, UIButton and other views, when the height of animation is the same as the height of the original view, the effect is not beautiful (too thick).
+ Keep the ratio around 0.75, the animation effect will look more beautiful, the specific coefficient can be modified according to your own aesthetic.
+ 
+ 动画高度与视图原有高度的比例系数，
+ 该属性对除了`UIImageView`类型的所有子视图生效。
+ 
+ 在实践中发现，对于UILabel, UIButton等视图，当动画的高度与原视图的高度一致时，效果并不美观（太粗）。
  大概保持在0.75的比例，动画效果会看起来比较美观，具体系数可以根据你自己的审美进行修改。
  */
 @property (nonatomic, assign) CGFloat animatedHeightCoefficient;
 
 /**
- 全局动画内容颜色，默认值0xEEEEEE
+ Global animation content color, default value 0xEEEEEE
+ 
+ 全局动画内容颜色，默认值为0xEEEEEE
  */
 @property (nonatomic, strong) UIColor *animatedColor;
 
 /**
- 全局动画背景颜色
+ Global animation background color, the default value is UIColor.whiteColor
+ 
+ 全局动画背景颜色，默认值为UIColor.whiteColor
  */
 @property (nonatomic, strong) UIColor *animatedBackgroundColor;
 
 /**
- 开启全局圆角
+ Whether global rounded corners are enabled.
+ When enabled, global rounded corners default to animation height / 2.0.
+ 
+ 是否开启全局圆角
  开启后，全局圆角默认值为: 动画高度/2.0
  */
 @property (nonatomic, assign) BOOL useGlobalCornerRadius;
 
 /**
- 全局圆角的值，优先级：此属性 < view自身的圆角
+ Global rounded corner value
+ 
+ priority: this property < view's own rounded corner
+ 
+ When you need to personalize rounded corners,
+ you can override the value of this property by chain-syntax '.radius(x)'.
+ 
+ 全局圆角的值
+ 
+ 优先级：此属性 < view自身的圆角
+ 
  当需要个性化设置圆角的时候，你可以通过链式语法`.radius(x)`覆盖此属性的值。
  */
 @property (nonatomic, assign) CGFloat animatedCornerRadius;
 
 /**
+ It determines whether setting the global animation height
+ After use it, all animation elements except those based on the 'UIImageView' type mapping are set to the value of 'animatedHeight'.
+ 
+ When the developer sets 'animatedHeight' in 'TABViewAnimated', the change will be overwritten,
+ When developers use the chain function '.height(x)' to set the height, it has the highest priority.
+ 
+ Priority: global height animatedHeight < TABViewAnimated animatedHeight < the height of a single animation element
+ 
  是否需要全局动画高度，
  使用后，所有除了基于`UIImageView`类型映射的动画元素，高度都会设置为`animatedHeight`的高度。
  
@@ -103,92 +183,140 @@ typedef NS_ENUM(NSInteger,TABAnimationType) {
 @property (nonatomic, assign) BOOL useGlobalAnimatedHeight;
 
 /**
- 全局动画高度（不包含`UIImageView`类型映射出的动画元素），默认12
+ Global animation height
+ Set to take effect, and does not contain animation elements that are mapped by the 'UIImageView' type.
+ 
+ 全局动画高度
+ 设置后生效，且不包含`UIImageView`类型映射出的动画元素。
  */
 @property (nonatomic, assign) CGFloat animatedHeight;
+
+@property (nonatomic, strong, readonly) TABAnimatedCacheManager *cacheManager;
 
 #pragma mark - Other
 
 /**
- 是否开启控制台Log提醒
+ Whether to turn on console Log reminder, default is NO.
+ 
+ 是否开启控制台Log提醒，默认不开启
  */
 @property (nonatomic, assign) BOOL openLog;
 
 /**
- 是否开启动画坐标标记，如果开启，也仅在debug环境下有效。
- 开启后，会在每一个动画元素上增加一个红色的数字，该数字表示该动画元素所在下标，方便快速定位某个动画元素。
+ Whether to turn on the animation subscript mark, default is NO.
+ This property, even if it is 'YES', will only take effect in the debug environment.
+ 
+ When opened, a red number will be added to each animation element, which represents the subscript of the animation element, so as to quickly locate an animation element.
+ 
+ 是否开启动画下标标记，默认不开启
+ 这个属性即使是`YES`，也仅会在debug环境下生效。
+ 
+ 开启后，会在每一个动画元素上增加一个红色的数字，该数字表示该动画元素所在的下标，方便快速定位某个动画元素。
  */
 @property (nonatomic, assign) BOOL openAnimationTag;
 
-#pragma mark - 动态伸缩动画相关的全局属性
+/**
+ 关闭缓存功能
+ DEBUG环境下，默认关闭缓存功能（为了方便调试预处理回调），即为YES
+ RELEASE环境下，默认开启缓存功能，即为NO
+ 
+ 如果你想在DEBUG环境下测试缓存功能，可以手动置为YES
+ 如果你始终都不想使用缓存功能，可以手动置为NO
+ */
+@property (nonatomic, assign) BOOL closeCache;
+
+#pragma mark - Flex Aniamtion
 
 /**
+ Flex animation back and forth duration
+ 
  伸缩动画来回时长
  */
 @property (nonatomic, assign) CGFloat animatedDuration;
 
 /**
+ Variable length scaling
+ 
  变长伸缩比例
  */
 @property (nonatomic, assign) CGFloat longToValue;
 
 /**
+ Shortening scaling
+ 
  变短伸缩比例
  */
 @property (nonatomic, assign) CGFloat shortToValue;
 
-#pragma mark - 呼吸灯动画相关的全局属性
+#pragma mark - Bin Animation
 
 /**
- 呼吸灯时长
+ bin animation duration, default is 1s.
+ 
+ 呼吸灯动画的时长，默认是1s。
  */
 @property (nonatomic, assign) CGFloat animatedDurationBin;
 
-#pragma mark - 闪光灯动画相关的全局属性
+#pragma mark - Shimmer Animation
 
 /**
- 闪光灯动画时长，默认是1秒。
+ Shimmer animation duration, default is 1s.
  
- The duration of shimmer animation, default is 1 seconds.
+ 闪光灯动画的时长，默认是1s。
  */
 @property (nonatomic, assign) CGFloat animatedDurationShimmer;
 
 /**
- 闪光灯动画方向，默认是`TABShimmerDirectionToRight`,意为从左往右。
+ Shimmer animation direction,
+ The default is `TABShimmerDirectionToRight`, means from left to right.
+ 
+ 闪光灯动画的方向，
+ 默认是`TABShimmerDirectionToRight`,意思为从左往右。
  */
 @property (nonatomic, assign) TABShimmerDirection shimmerDirection;
 
 /**
- 变色值，默认值0xDFDFDF
+ Shimmer animation color change value, default 0xDFDFDF.
+ 
+ 闪光灯变色值，默认值0xDFDFDF
  */
 @property (nonatomic, strong) UIColor *shimmerBackColor;
 
 /**
- 闪光灯的亮度，默认值0.92
+ Shimmer animation brightness, default 0.92.
+ 
+ 闪光灯亮度，默认值0.92
  */
 @property (nonatomic, assign) CGFloat shimmerBrightness;
 
-#pragma mark - 记录`self.delegate = self`地址
+#pragma mark - Douban animation
+
+/**
+ Douban animation frame length,
+ the default value is 0.4, you can understand as 'discoloration speed'.
+ 
+ 豆瓣动画帧时长，默认值为0.4，你可以理解为`变色速度`。
+ */
+@property (nonatomic, assign) CGFloat dropAnimationDuration;
+
+/**
+ Douban animation color change value, default value is 0xE1E1E1.
+ 
+ 豆瓣动画变色值，默认值为0xE1E1E1
+ */
+@property (nonatomic, strong) UIColor *dropAnimationDeepColor;
+
+#pragma mark - `self.delegate = self`
 
 @property (nonatomic, strong, readonly) NSMutableArray <TableDeDaSelfModel *> *tableDeDaSelfModelArray;
 
 - (TableDeDaSelfModel *)getTableDeDaModelAboutDeDaSelfWithClassName:(NSString *)className;
 
-#pragma mark - 豆瓣动画相关的全局属性
+#pragma mark - Init Method
 
 /**
- 豆瓣动画帧时长，默认值为0.4，你可以理解为`变色速度`
- */
-@property (nonatomic, assign) CGFloat dropAnimationDuration;
-
-/**
- 豆瓣动画变色值，默认值为0xE1E1E1
- */
-@property (nonatomic, strong) UIColor *dropAnimationDeepColor;
-
-#pragma mark - 初始化方法
-
-/**
+ SingleTon
+ 
  单例模式
 
  @return return object
@@ -196,32 +324,46 @@ typedef NS_ENUM(NSInteger,TABAnimationType) {
 + (TABAnimated *)sharedAnimated;
 
 /**
- 只有骨架屏
+ Only contain the skeleton of your view created by CALayer
+ 
+ 骨架层
  */
 - (void)initWithOnlySkeleton;
 
 /**
+ the skeleton layer + bin animation
+ 
  全局呼吸灯动画
  */
 - (void)initWithBinAnimation;
 
 /**
+ the skeleton layer + shimmer animation
+ 
  全局闪光灯动画
  */
 - (void)initWithShimmerAnimated;
 
 /**
+ the skeleton layer + shimmer animation
+ 
  全局闪光灯动画
  
- @param duration 时长
- @param color 动画内容颜色
+ @param duration 时长 (duration of one trip)
+ @param color 动画内容颜色 (animation content color)
  */
 - (void)initWithShimmerAnimatedDuration:(CGFloat)duration
                               withColor:(UIColor *)color;
 
 /**
+ the skeleton layer + drop animation
+ 
  全局豆瓣动画
  */
 - (void)initWithDropAnimated;
+
+#pragma mark -
+
+//- (void)startCache;
 
 @end

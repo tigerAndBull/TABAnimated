@@ -79,6 +79,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly) NSMutableArray <NSValue *> *footerSizeArray;
 @property (nonatomic, strong, readonly) NSMutableArray <NSNumber *> *footerSectionArray;
 
+#pragma mark -
+
 /**
  单section表格组件初始化方式，row值以填充contentSize的数量为标准
  
@@ -159,6 +161,8 @@ NS_ASSUME_NONNULL_BEGIN
                         animatedCountArray:(NSArray <NSNumber *> *)animatedCountArray
                       animatedSectionArray:(NSArray <NSNumber *> *)animatedSectionArray;
 
+#pragma mark -
+
 /**
  添加区头动画，指定section
  
@@ -202,6 +206,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)addFooterViewClass:(_Nonnull Class)footerViewClass
                   viewSize:(CGSize)viewSize;
+
+#pragma mark -
 
 - (NSInteger)headerFooterNeedAnimationOnSection:(NSInteger)section
                                            kind:(NSString *)kind;

@@ -47,7 +47,7 @@
     // 这里使用了自定义延迟时间的启动函数，设置3秒是为了演示效果。
     // 非特殊场景情况下，建议使用`tab_startAnimationWithCompletion`。
     [self.tableView tab_startAnimationWithDelayTime:5. completion:^{
-        // 请求数据
+        // 请求数  据
         // ...
         // 获得数据
         // ...
@@ -153,7 +153,8 @@
         // 可以不进行手动初始化，将使用默认属性
         _tableView.tabAnimated = [TABTableAnimated animatedWithCellClass:[TestTableViewCell class]
                                                               cellHeight:90];
-        _tableView.tabAnimated.animatedSectionCount = 3;
+        _tableView.tabAnimated.animatedSectionCount = 1;
+        _tableView.tabAnimated.animatedCount = 10;
         _tableView.tabAnimated.showTableHeaderView = YES;
         _tableView.tabAnimated.superAnimationType = TABViewSuperAnimationTypeShimmer;
         _tableView.tabAnimated.canLoadAgain = YES;
@@ -163,7 +164,7 @@
         // 非动态分区，必须指定section
 //        [_tableView.tabAnimated addHeaderViewClass:[TestHeadView class] viewHeight:100 toSection:0];
 //        [_tableView.tabAnimated addHeaderViewClass:[TestTableHeaderFooterView class] viewHeight:100 toSection:0];
-
+        
         // 新回调
         _tableView.tabAnimated.adjustBlock = ^(TABComponentManager * _Nonnull manager) {
             manager.animation(1).down(3).height(12);
