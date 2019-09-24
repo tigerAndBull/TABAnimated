@@ -17,7 +17,8 @@
     </a>
 </p>
 
-#### the lastest version is 2.2.1 release
+#### the lastest release version is 2.2.1
+#### the beta version is 2.2.2.20190925_beta
 
 
 [简体中文](https://github.com/tigerAndBull/TABAnimated/blob/master/README_zh.md)
