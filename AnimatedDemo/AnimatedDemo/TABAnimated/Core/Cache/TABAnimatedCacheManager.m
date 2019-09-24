@@ -82,7 +82,7 @@ static const NSInteger kMemeoryModelMaxCount = 20;
         [TABAnimatedDocumentMethod createFile:documentDir
                                         isDir:YES];
     }
-    NSLog(@"沙盒目录 - %@",documentDir);
+
     NSString *modelDirPath = [documentDir stringByAppendingPathComponent:TABCacheManagerCacheModelFolderName];
     NSString *managerDirPath = [documentDir stringByAppendingPathComponent:TABCacheManagerCacheManagerFolderName];
     

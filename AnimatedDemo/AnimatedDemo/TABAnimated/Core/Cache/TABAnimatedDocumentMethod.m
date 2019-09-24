@@ -21,67 +21,6 @@
     return [[self documentPath] stringByAppendingPathComponent:filePacketName];
 }
 
-+ (NSString *)getAndCreateTABDocPathByFilePacketName:(NSString *)filePacketName
-                                        documentName:(NSString *)documentName
-                                            fileType:(NSString *)fileType {
-    
-    NSString *documentPath = [self documentPath];
-    NSString *path = [documentPath stringByAppendingPathComponent:filePacketName];
-    NSString *filePath = [path stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.%@",documentName,fileType]];
-    
-    // 判断文件夹是否存在
-    if ([kAnimatedFileManager fileExistsAtPath:path]) {
-        tabAnimatedLog(@"TABAnimatedDocumentMethod提醒 - 文件夹存在");
-    }else {
-        BOOL isSuccess = [self createFile:path isDir:YES];
-        if (isSuccess) {
-            tabAnimatedLog(@"TABAnimatedDocumentMethod提醒 - 文件路径为：创建文件夹成功");
-        }else {
-            tabAnimatedLog(@"TABAnimatedDocumentMethod提醒 - 文件路径为：创建文件夹失败");
-        }
-    }
-
-    return filePath;
-}
-
-+ (BOOL)writeFileToTABDocPathByFilePacketName:(NSString *)filePacketName
-                                 documentName:(NSString *)documentName
-                                     fileType:(NSString *)fileType
-                                         data:(NSData *)data {
-    
-    NSString *path = [TABAnimatedDocumentMethod getAndCreateTABDocPathByFilePacketName:filePacketName
-                                                                documentName:documentName
-                                                                    fileType:fileType];
-    
-    if ([TABAnimatedDocumentMethod isExistFile:path isDir:NO]) {
-        [TABAnimatedDocumentMethod deleteFile:path];
-    }
-    
-    return [TABAnimatedDocumentMethod writeFile:path
-                                 data:data];
-}
-
-+ (void)writeFileToTABDocPathByFilePacketName:(NSString *)filePacketName
-                                 documentName:(NSString *)documentName
-                                     fileType:(NSString *)fileType
-                                         data:(NSData *)data
-                                  finishBlock:(WriteBackDocPathBlock)finishBlock {
-    
-    NSString *path = [TABAnimatedDocumentMethod getAndCreateTABDocPathByFilePacketName:filePacketName
-                                                                documentName:documentName
-                                                                    fileType:fileType];
-    
-    if ([TABAnimatedDocumentMethod isExistFile:path isDir:NO]) {
-        [TABAnimatedDocumentMethod deleteFile:path];
-    }
-    
-    if (finishBlock) {
-        return finishBlock(path,
-                           [TABAnimatedDocumentMethod writeFile:path
-                                                 data:data]);
-    }
-}
-
 + (void)writeToFileWithData:(id)data
                    filePath:(NSString *)filePath {
     [NSKeyedArchiver archiveRootObject:data toFile:filePath];
@@ -108,14 +47,12 @@
     NSString *documentPath = [self documentPath];
     NSString *path = [documentPath stringByAppendingPathComponent:filePacketName];
     NSString *filePath = [path stringByAppendingPathComponent:documentName];
-    NSLog(@"TABAnimatedDocumentMethod提醒 - 文件路径为：%@",filePath);
     return filePath;
 }
 
 + (NSString *)getPathByCreateDocumentName:(NSString *)documentName {
     NSString *documentPath = [self documentPath];
     NSString *filePath = [documentPath stringByAppendingPathComponent:documentName];
-    NSLog(@"TABAnimatedDocumentMethod提醒 - 文件路径为：%@",filePath);
     return filePath;
 }
 
@@ -144,41 +81,6 @@
     isDir = [kAnimatedFileManager fileExistsAtPath:path
                                  isDirectory:&isDir];
     return isDir;
-}
-
-+ (BOOL)deleteFile:(NSString *)path {
-    BOOL isDelete = NO;
-    isDelete = [kAnimatedFileManager removeItemAtPath:path
-                                          error:nil];
-    if (isDelete) {
-        NSLog(@"TABAnimated - 文件已删除");
-    }else {
-        NSLog(@"TABAnimated - 文件未删除");
-    }
-    return isDelete;
-}
-
-+ (BOOL)writeFile:(NSString *)path
-             data:(NSData *)data {
-    BOOL isSuccess;
-    isSuccess = [data writeToFile:path atomically:YES];
-    if (isSuccess) {
-        NSLog(@"TABAnimatedDocumentMethod提醒 - 文件写入成功");
-    }else {
-        NSLog(@"TABAnimatedDocumentMethod提醒 - 文件写入失败");
-    }
-    return isSuccess;
-}
-
-+ (BOOL)removeTABPathByFilePacketName:(NSString *)filePacketName {
-    NSString *path = [self getTABPathByFilePacketName:filePacketName];
-    BOOL isSuccess = [kAnimatedFileManager removeItemAtPath:path error:nil];
-    if (isSuccess) {
-        NSLog(@"TABAnimatedDocumentMethod提醒 - 文件夹删除成功");
-    }else {
-        NSLog(@"TABAnimatedDocumentMethod提醒 - 文件夹删除失败");
-    }
-    return isSuccess;
 }
 
 @end

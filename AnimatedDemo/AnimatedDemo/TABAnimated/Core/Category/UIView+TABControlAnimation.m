@@ -15,7 +15,7 @@
 
 #import <objc/runtime.h>
 
-static const NSTimeInterval kDelayReloadDataTime = 40;
+static const NSTimeInterval kDelayReloadDataTime = 0.4;
 
 @implementation UIView (TABControlAnimation)
 
