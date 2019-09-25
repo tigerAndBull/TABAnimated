@@ -59,15 +59,15 @@ TABAnimated是提供给iOS开发者自动生成骨架屏的一种解决方案。
 
 下面通过一个小例子，更深入地了解一下TABAnimated。
 
-### 1. 小明和小张有一个下图这样的视图，需要集成骨架屏
+#### 1. 小明和小张有一个下图这样的视图，需要集成骨架屏
 
 ![需求.png](https://upload-images.jianshu.io/upload_images/5632003-8c707acf0c20dd31.png?imageMogr2/auto-orient/strip%7CimageView2/3/w/300)
 
-### 2. 下面是通过TABAnimated自动化生成的效果
+#### 2. 下面是通过TABAnimated自动化生成的效果
 
 ![自动化生成.png](https://upload-images.jianshu.io/upload_images/5632003-56994d8a518fd304.png?imageMogr2/auto-orient/strip%7CimageView2/3/w/300)
 
-### 3. 小明做这个需求说，这个效果我很满意，那么小明的工作到此就结束了。但是小张说，我感觉长度，高度，虽然和原视图很像，但是作为一种动画效果我不太满意，不够精致。于是，他通过（预处理回调+链式语法），很快地做了如下调整。
+#### 3. 小明做这个需求说，这个效果我很满意，那么小明的工作到此就结束了。但是小张说，我感觉长度，高度，虽然和原视图很像，但是作为一种动画效果我不太满意，不够精致。于是，他通过（预处理回调+链式语法），很快地做了如下调整。
 
 ![调整效果.png](https://upload-images.jianshu.io/upload_images/5632003-9c0838dcec166562.png?imageMogr2/auto-orient/strip%7CimageView2/3/w/300)
 
@@ -139,19 +139,19 @@ _tableView.tabAnimated.adjustBlock = ^(TABComponentManager * _Nonnull manager) {
 };
 ```
 
-### 1. 有的人看到上面，可能一下子就被吓到了，集成需要这么复杂吗？
+#### 1. 有的人看到上面，可能一下子就被吓到了，集成需要这么复杂吗？
 
 答：需不需要异步调整，需要调整到什么程度，与你自身约束、产品需求，都有关系。所以并不能自动生成让任何产品、任何人立即都完全满意的效果。
 你大可放心，推出这个功能反而是协助开发者更快速调整自己想要的结果。**
 
-### 2. `manager.animation(x)`，x是多少？
+#### 2. `manager.animation(x)`，x是多少？
 
 答：在appDelegate设置TABAnimated的`openAnimationTag`属性为YES，框架就会自动为你指示，究竟x是几
 ```
 [TABAnimated sharedAnimated].openAnimationTag = YES;
 ```
 
-### 3. 通过几个示例，具体了解（预处理回调+链式语法）
+#### 3. 通过几个示例，具体了解（预处理回调+链式语法）
 
 - 假如第0个元素的高度和宽度不合适
 ```
