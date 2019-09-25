@@ -146,26 +146,26 @@ _tableView.tabAnimated.adjustBlock = ^(TABComponentManager * _Nonnull manager) {
 
 ### 2. `manager.animation(x)`，x是多少？
 
-答：设置openTag属性为YES，会自动为你指示，究竟x是几，而且仅会在debug模式下出现哦～
+答：在appDelegate设置TABAnimated的`openAnimationTag`属性为YES，框架就会自动为你指示，究竟x是几
+```
+[TABAnimated sharedAnimated].openAnimationTag = YES;
+```
 
 ### 3. 通过几个示例，具体了解（预处理回调+链式语法）
 
-- 假如第0个元素的高度和宽度不合适，那你就可以这样设置
+- 假如第0个元素的高度和宽度不合适
 ```
 manager.animation(0).height(12).width(110);
 ```
-
-- 假如第1个元素需要使用占位图，那你就可以这样设置
+- 假如第1个元素需要使用占位图
 ```
 manager.animation(1).placeholder(@"占位图名称.png");
 ```
-
-- 假如第1，2，3个元素宽度都为50，那你就可以这样设置
+- 假如第1，2，3个元素宽度都为50
 ```
 manager.animations(1,3).width(50);
 ```
-
-- 假如第1，5，7个元素需要下移5px，那你就可以这样设置
+- 假如第1，5，7个元素需要下移5px
 ```
 manager.animationWithIndexs(1,5,7).down(5);
 ```
