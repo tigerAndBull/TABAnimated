@@ -61,15 +61,15 @@ TABAnimated是提供给iOS开发者自动生成骨架屏的一种解决方案。
 
 #### 1. 小明和小张有一个下图这样的视图，需要集成骨架屏
 
-![需求.png](https://upload-images.jianshu.io/upload_images/5632003-8c707acf0c20dd31.png?imageMogr2/auto-orient/strip%7CimageView2/3/w/300)
+![需求.png](https://upload-images.jianshu.io/upload_images/5632003-8bb0895de7690f79.png?imageMogr2/auto-orient/strip%7CimageView2/3/w/300)
 
 #### 2. 下面是通过TABAnimated自动化生成的效果
 
-![自动化生成.png](https://upload-images.jianshu.io/upload_images/5632003-56994d8a518fd304.png?imageMogr2/auto-orient/strip%7CimageView2/3/w/300)
+![自动化生成.png](https://upload-images.jianshu.io/upload_images/5632003-f10c2427f8b149ba.png?imageMogr2/auto-orient/strip%7CimageView2/3/w/300)
 
 #### 3. 小明做这个需求说，这个效果我很满意，那么小明的工作到此就结束了。但是小张说，我感觉长度，高度，虽然和原视图很像，但是作为一种动画效果我不太满意，不够精致。于是，他通过（预处理回调+链式语法），很快地做了如下调整。
 
-![调整效果.png](https://upload-images.jianshu.io/upload_images/5632003-9c0838dcec166562.png?imageMogr2/auto-orient/strip%7CimageView2/3/w/300)
+![调整后效果.png](https://upload-images.jianshu.io/upload_images/5632003-0affe19065135d31.png?imageMogr2/auto-orient/strip%7CimageView2/3/w/300)
 
 当然啦，每个人有不同的审美，每个产品有不同的需求，这些就全交由你来把握啦～
 
