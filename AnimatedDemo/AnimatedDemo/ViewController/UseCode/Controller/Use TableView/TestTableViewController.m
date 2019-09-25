@@ -168,8 +168,8 @@
         // 新回调
         _tableView.tabAnimated.adjustBlock = ^(TABComponentManager * _Nonnull manager) {
             manager.animation(1).down(3).height(12);
-            manager.animation(2).height(12).width(110);
-            manager.animation(3).down(-5).height(12);
+            manager.animation(2).height(12).reducedWidth(90);
+            manager.animation(3).down(-5).height(12).radius(0.).reducedWidth(-20);
         };
         
         // 静态头视图回调使用方法

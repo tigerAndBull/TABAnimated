@@ -362,8 +362,4 @@ typedef NS_ENUM(NSInteger, TABAnimationType) {
  */
 - (void)initWithDropAnimated;
 
-#pragma mark -
-
-//- (void)startCache;
-
 @end

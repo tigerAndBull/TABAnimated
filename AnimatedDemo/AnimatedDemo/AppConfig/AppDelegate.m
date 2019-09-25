@@ -30,7 +30,7 @@
     // 骨架屏core部分不依赖reveal工具
     // reveal工具依赖骨架屏core，实时预览效果，无需编译
     // 请务必放在debug环境下
-    [[TABAnimatedBall shared] install];
+//    [[TABAnimatedBall shared] install];
 #endif
     
     // Init `TABAnimated`, and set the properties you need.
@@ -43,7 +43,7 @@
     [TABAnimated sharedAnimated].openLog = NO;
     // 是否开启动画坐标标记，如果开启，也仅在debug环境下有效。
     // 开启后，会在每一个动画元素上增加一个红色的数字，该数字表示该动画元素所在下标，方便快速定位某个动画元素。
-    [TABAnimated sharedAnimated].openAnimationTag = NO;
+    [TABAnimated sharedAnimated].openAnimationTag = YES;
     
     /*****************************************
      *****************************************
@@ -56,7 +56,7 @@
     // 如果你想在 debug 环境下测试缓存功能，可以手动置为NO，但是预处理回调只生效一次！！！！
     // 如果你始终都不想使用缓存功能，可以手动置为YES
     // 请仔细阅读：https://juejin.im/post/5d86d16ce51d4561fa2ec135
-    [TABAnimated sharedAnimated].closeCache = NO;
+//    [TABAnimated sharedAnimated].closeCache = NO;
     
     MainViewController *vc = [[MainViewController alloc] init];
     vc.title = kText(@"主页面");
