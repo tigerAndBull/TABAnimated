@@ -56,6 +56,7 @@ TABAnimated是提供给iOS开发者自动生成骨架屏的一种解决方案。
 | ![闪光灯改版.gif](https://upload-images.jianshu.io/upload_images/5632003-93ab2cf6950498ab.gif?imageMogr2/auto-orient/strip)| ![分段视图.gif](https://upload-images.jianshu.io/upload_images/5632003-4da2062be691cf0b.gif?imageMogr2/auto-orient/strip) | ![豆瓣.gif](https://upload-images.jianshu.io/upload_images/5632003-3ed9d6cc317891a3.gif?imageMogr2/auto-orient/strip) | 
 
 ## 演示过程
+
 下面通过一个小例子，更深入地了解一下TABAnimated。
 
 ### 1. 小明和小张有一个下图这样的视图，需要集成骨架屏
@@ -77,6 +78,7 @@ TABAnimated是提供给iOS开发者自动生成骨架屏的一种解决方案。
 ### 一、导入到工程中
 
 - 使用 CocoaPods
+
 ```
 pod 'TABAnimated'
 ```
@@ -93,6 +95,7 @@ pod 'TABAnimated'
 [[TABAnimated sharedAnimated] initWithOnlySkeleton];
 [TABAnimated sharedAnimated].openLog = YES;
 ```
+
 **注意：还有其他的动画类型、全局属性，在框架中都有注释。**
 
 ### 三、控制视图初始化
@@ -136,18 +139,16 @@ _tableView.tabAnimated.adjustBlock = ^(TABComponentManager * _Nonnull manager) {
 };
 ```
 
-**1. 有的人看到上面，可能一下子就被吓到了，集成需要这么复杂吗？**
+### 1. 有的人看到上面，可能一下子就被吓到了，集成需要这么复杂吗？
 
 答：需不需要异步调整，需要调整到什么程度，与你自身约束、产品需求，都有关系。所以并不能自动生成让任何产品、任何人立即都完全满意的效果。
 你大可放心，推出这个功能反而是协助开发者更快速调整自己想要的结果。**
 
-**预处理回调+链式语法 简单说明：**
-
-**2. `manager.animation(x)`，x是多少？**
+### 2. `manager.animation(x)`，x是多少？
 
 答：设置openTag属性为YES，会自动为你指示，究竟x是几，而且仅会在debug模式下出现哦～
 
-**3. 通过几个示例，你就能很明白是什么个意思啦**
+### 3. 通过几个示例，具体了解（预处理回调+链式语法）
 
 - 假如第0个元素的高度和宽度不合适，那你就可以这样设置
 ```
@@ -171,7 +172,6 @@ manager.animationWithIndexs(1,5,7).down(5);
 
 ![下标示意图.png](https://upload-images.jianshu.io/upload_images/5632003-2842bd54e80dd9ef.png?imageMogr2/auto-orient/strip%7CimageView2/3/w/300)
 
-
 ## 相关文档
 
 **当然啦，在现实中，我们还有各式各样的视图，TABAnimated经历了很多产品的考验，统统都可以应对。
@@ -184,7 +184,6 @@ manager.animationWithIndexs(1,5,7).down(5);
 - [豆瓣效果使用地址](https://www.jianshu.com/p/1a92158ce83a)
 - [嵌套视图说明地址](https://www.jianshu.com/p/cf8e37195c11)
 - [预览骨架效果工具库，异步调整无需编译即可看到效果](https://juejin.im/post/5d73d3e5e51d453b730b0fb9)
-
 
 ## 最后强调：
 
