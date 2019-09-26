@@ -77,10 +77,16 @@ TABAnimated是提供给iOS开发者自动生成骨架屏的一种解决方案。
 
 ### 一、导入到工程中
 
-- 使用 CocoaPods
+- CocoaPods
 
 ```
 pod 'TABAnimated'
+```
+
+- Carthage
+
+```
+tigerAndBull/TABAnimated
 ```
 
 - 将TABAnimated文件夹拖入工程
