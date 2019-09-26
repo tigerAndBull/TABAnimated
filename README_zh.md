@@ -32,7 +32,7 @@ TABAnimated是提供给iOS开发者自动生成骨架屏的一种解决方案。
 * [效果展示](#效果展示)
 * [演示过程](#演示过程)  
 * [集成步骤](#集成步骤)
-* [相关文档](#相关文档)
+* [问题检索](#问题检索)
 * [最后强调](#最后强调)
 
 ## 集成优势
@@ -172,18 +172,28 @@ manager.animationWithIndexs(1,5,7).down(5);
 
 ![下标示意图.png](https://upload-images.jianshu.io/upload_images/5632003-2842bd54e80dd9ef.png?imageMogr2/auto-orient/strip%7CimageView2/3/w/300)
 
-## 相关文档
+## 问题检索
 
 **当然啦，在现实中，我们还有各式各样的视图，TABAnimated经历了很多产品的考验，统统都可以应对。
 但是光凭上面的知识肯定是不够的，以下是更详细说明文档。**
 
-- [骨架屏缓存策略](https://juejin.im/post/5d86d16ce51d4561fa2ec135)
-- [问答文档和集成注意点](https://www.jianshu.com/p/34417897915a)
-- [历史更新文档](https://www.jianshu.com/p/e3e9ea295e8a)
-- [动画下标解释文档](https://www.jianshu.com/p/8c361ba5aa18)
-- [豆瓣效果使用地址](https://www.jianshu.com/p/1a92158ce83a)
-- [嵌套视图说明地址](https://www.jianshu.com/p/cf8e37195c11)
-- [预览骨架效果工具库，异步调整无需编译即可看到效果](https://juejin.im/post/5d73d3e5e51d453b730b0fb9)
+- 你最好要（必须）阅读的文档：
+
+> + [缓存策略和线程处理](https://github.com/tigerAndBull/TABAnimated/blob/master/Documents/%E7%BC%93%E5%AD%98%E7%AD%96%E7%95%A5%E5%92%8C%E7%BA%BF%E7%A8%8B%E5%A4%84%E7%90%86.md)
+
+- 你最可能用到的文档：
+
+> + [预处理回调动画元素下标问题](https://github.com/tigerAndBull/TABAnimated/blob/master/Documents/%E5%8A%A8%E7%94%BB%E5%85%83%E7%B4%A0%E4%B8%8B%E6%A0%87%E9%97%AE%E9%A2%98.md)
+> + [问题答疑文档](https://github.com/tigerAndBull/TABAnimated/blob/master/Documents/%E9%97%AE%E9%A2%98%E7%AD%94%E7%96%91%E6%96%87%E6%A1%A3.md)
+> + [全局:局部属性、链式语法api](https://github.com/tigerAndBull/TABAnimated/blob/master/Documents/%E5%85%A8%E5%B1%80:%E5%B1%80%E9%83%A8%E5%B1%9E%E6%80%A7%E3%80%81%E9%93%BE%E5%BC%8F%E8%AF%AD%E6%B3%95api.md)
+
+- 你可能用到的辅助工具、技术和其他文档
+
+> + [实时预览工具](https://github.com/tigerAndBull/TABAnimated/blob/master/Documents/%E5%AE%9E%E6%97%B6%E9%A2%84%E8%A7%88%E5%B7%A5%E5%85%B7.md)
+> + [豆瓣动画详解](https://github.com/tigerAndBull/TABAnimated/blob/master/Documents/%E8%B1%86%E7%93%A3%E5%8A%A8%E7%94%BB%E8%AF%A6%E8%A7%A3.md)
+> + [不再hook setDelegate和setDataSource](https://github.com/tigerAndBull/TABAnimated/blob/master/Documents/%E4%B8%8D%E5%86%8Dhook%20setDelegate%E5%92%8CsetDataSource.md)
+
+**如果你仍无法解决问题，可以尽快联系我，我相信TABAnimated是可以解决99%的需求的**
 
 ## 最后强调：
 
