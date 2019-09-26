@@ -86,7 +86,7 @@ pod 'TABAnimated'
 - Carthage
 
 ```
-tigerAndBull/TABAnimated
+github "tigerAndBull/TABAnimated"
 ```
 
 - 将TABAnimated文件夹拖入工程

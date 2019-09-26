@@ -8,11 +8,11 @@
   "tvOS" : [
 
   ],
-  "commitish" : "ec040d6c2bd99d2f7825539b48d8dbda8f9d4fb3",
+  "commitish" : "e12311193b0ae48aceb385025ae7465f2ed26a8b",
   "iOS" : [
     {
       "name" : "TABAnimated",
-      "hash" : "aea16f3a876e86e7d592e7ed9556f602d4b166010043e3a00b7cbbe44ca1d6fb"
+      "hash" : "4067511c9b9faf49cf8362a169b9440764acdbbb73a6dc94068cca625ecb3a0f"
     }
   ]
 }

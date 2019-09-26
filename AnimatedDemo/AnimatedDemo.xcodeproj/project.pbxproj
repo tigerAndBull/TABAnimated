@@ -169,12 +169,11 @@
 		68E51A40233CFAB600C09FCE /* TABAnimated.h in Headers */ = {isa = PBXBuildFile; fileRef = 6827B6632323F87D00E165CF /* TABAnimated.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		68E51A41233CFAED00C09FCE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 683420BC233CC5330056557C /* UIKit.framework */; };
 		68E51A42233CFAF300C09FCE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 683420BE233CC53A0056557C /* Foundation.framework */; };
-		68E51A44233CFAFF00C09FCE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68E51A43233CFAFF00C09FCE /* CoreGraphics.framework */; };
-		68E51A45233CFB4800C09FCE /* TABAnimatedDocumentMethod.h in Headers */ = {isa = PBXBuildFile; fileRef = 68E4B160232D3EBB00084867 /* TABAnimatedDocumentMethod.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		68E51A45233CFB4800C09FCE /* TABAnimatedDocumentMethod.h in Headers */ = {isa = PBXBuildFile; fileRef = 68E4B160232D3EBB00084867 /* TABAnimatedDocumentMethod.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		68E51A46233CFB4800C09FCE /* TABAnimatedDocumentMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = 68E4B15F232D3EBB00084867 /* TABAnimatedDocumentMethod.m */; };
-		68E51A47233CFB4800C09FCE /* TABAnimatedCacheManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 68E4B15C232D3A6900084867 /* TABAnimatedCacheManager.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		68E51A47233CFB4800C09FCE /* TABAnimatedCacheManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 68E4B15C232D3A6900084867 /* TABAnimatedCacheManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		68E51A48233CFB4800C09FCE /* TABAnimatedCacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 68E4B15D232D3A6900084867 /* TABAnimatedCacheManager.m */; };
-		68E51A49233CFB4800C09FCE /* TABAnimatedCacheModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 689F0B592335E8D300F2DC06 /* TABAnimatedCacheModel.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		68E51A49233CFB4800C09FCE /* TABAnimatedCacheModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 689F0B592335E8D300F2DC06 /* TABAnimatedCacheModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		68E51A4A233CFB4800C09FCE /* TABAnimatedCacheModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 689F0B5A2335E8D300F2DC06 /* TABAnimatedCacheModel.m */; };
 		68E51A4B233CFB4800C09FCE /* TABAnimationMethod.h in Headers */ = {isa = PBXBuildFile; fileRef = 6827B64E2323F87D00E165CF /* TABAnimationMethod.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		68E51A4C233CFB4800C09FCE /* TABAnimationMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = 6827B64D2323F87D00E165CF /* TABAnimationMethod.m */; };
@@ -186,13 +185,13 @@
 		68E51A52233CFB4800C09FCE /* NSArray+TABAnimated.m in Sources */ = {isa = PBXBuildFile; fileRef = 6827B6552323F87D00E165CF /* NSArray+TABAnimated.m */; };
 		68E51A53233CFB4800C09FCE /* TABBaseComponent.h in Headers */ = {isa = PBXBuildFile; fileRef = 6827B6562323F87D00E165CF /* TABBaseComponent.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		68E51A54233CFB4800C09FCE /* TABBaseComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 6827B6522323F87D00E165CF /* TABBaseComponent.m */; };
-		68E51A55233CFB4800C09FCE /* TABComponentLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 6827B65A2323F87D00E165CF /* TABComponentLayer.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		68E51A55233CFB4800C09FCE /* TABComponentLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 6827B65A2323F87D00E165CF /* TABComponentLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		68E51A56233CFB4800C09FCE /* TABComponentLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6827B6542323F87D00E165CF /* TABComponentLayer.m */; };
 		68E51A57233CFB4800C09FCE /* TABComponentManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 6827B6512323F87D00E165CF /* TABComponentManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		68E51A58233CFB4800C09FCE /* TABComponentManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6827B6572323F87D00E165CF /* TABComponentManager.m */; };
-		68E51A59233CFB4800C09FCE /* TableDeDaSelfModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 6827B6532323F87D00E165CF /* TableDeDaSelfModel.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		68E51A59233CFB4800C09FCE /* TableDeDaSelfModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 6827B6532323F87D00E165CF /* TableDeDaSelfModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		68E51A5A233CFB4800C09FCE /* TableDeDaSelfModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6827B65B2323F87D00E165CF /* TableDeDaSelfModel.m */; };
-		68E51A5B233CFB4800C09FCE /* TABManagerMethod.h in Headers */ = {isa = PBXBuildFile; fileRef = 6827B6502323F87D00E165CF /* TABManagerMethod.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		68E51A5B233CFB4800C09FCE /* TABManagerMethod.h in Headers */ = {isa = PBXBuildFile; fileRef = 6827B6502323F87D00E165CF /* TABManagerMethod.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		68E51A5C233CFB4800C09FCE /* TABManagerMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = 6827B6582323F87D00E165CF /* TABManagerMethod.m */; };
 		68E51A5D233CFB4800C09FCE /* TABCollectionAnimated.h in Headers */ = {isa = PBXBuildFile; fileRef = 6827B6602323F87D00E165CF /* TABCollectionAnimated.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		68E51A5E233CFB4800C09FCE /* TABCollectionAnimated.m in Sources */ = {isa = PBXBuildFile; fileRef = 6827B65E2323F87D00E165CF /* TABCollectionAnimated.m */; };
@@ -540,7 +539,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				68E51A44233CFAFF00C09FCE /* CoreGraphics.framework in Frameworks */,
 				68E51A42233CFAF300C09FCE /* Foundation.framework in Frameworks */,
 				68E51A41233CFAED00C09FCE /* UIKit.framework in Frameworks */,
 			);
@@ -1410,13 +1408,13 @@
 				68E51A57233CFB4800C09FCE /* TABComponentManager.h in Headers */,
 				68E51A53233CFB4800C09FCE /* TABBaseComponent.h in Headers */,
 				68E51A51233CFB4800C09FCE /* NSArray+TABAnimated.h in Headers */,
-				68E51A4B233CFB4800C09FCE /* TABAnimationMethod.h in Headers */,
 				68E51A45233CFB4800C09FCE /* TABAnimatedDocumentMethod.h in Headers */,
 				68E51A47233CFB4800C09FCE /* TABAnimatedCacheManager.h in Headers */,
 				68E51A49233CFB4800C09FCE /* TABAnimatedCacheModel.h in Headers */,
 				68E51A55233CFB4800C09FCE /* TABComponentLayer.h in Headers */,
 				68E51A5B233CFB4800C09FCE /* TABManagerMethod.h in Headers */,
 				68E51A59233CFB4800C09FCE /* TableDeDaSelfModel.h in Headers */,
+				68E51A4B233CFB4800C09FCE /* TABAnimationMethod.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
