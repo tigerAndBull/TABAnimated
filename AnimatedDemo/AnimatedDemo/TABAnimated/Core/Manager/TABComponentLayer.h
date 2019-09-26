@@ -16,6 +16,7 @@
 //
 
 #import <QuartzCore/QuartzCore.h>
+#import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -107,6 +108,7 @@ typedef NS_ENUM(NSInteger,TABViewLoadAnimationStyle) {
 @property (nonatomic, assign) CGFloat dropAnimationStayTime;
 
 @property (nonatomic, strong) NSValue *resultFrameValue;
+
 @property (nonatomic, copy) NSString *placeholderName;
 
 @end

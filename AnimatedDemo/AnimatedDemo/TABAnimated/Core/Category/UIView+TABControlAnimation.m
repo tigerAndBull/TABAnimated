@@ -479,13 +479,6 @@ static const NSTimeInterval kDelayReloadDataTime = 0.4;
     for (Class class in classArray) {
         
         NSString *classString = NSStringFromClass(class);
-        
-        
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//        // update loadCount
-//            [self tab_addLoadCount:classString];
-//        });
-        
         if ([classString containsString:@"."]) {
             NSRange range = [classString rangeOfString:@"."];
             classString = [classString substringFromIndex:range.location+1];

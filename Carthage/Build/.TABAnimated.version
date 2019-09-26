@@ -1,0 +1,18 @@
+{
+  "Mac" : [
+
+  ],
+  "watchOS" : [
+
+  ],
+  "tvOS" : [
+
+  ],
+  "commitish" : "cd90d151c0ebbb8480ce871afd4efaa03330da4c",
+  "iOS" : [
+    {
+      "name" : "TABAnimated",
+      "hash" : "58064d7301df85917a82af61b2032828e913c2cd01f324021ea40e12441b7934"
+    }
+  ]
+}

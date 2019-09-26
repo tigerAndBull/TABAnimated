@@ -8,6 +8,8 @@
 
 #import "TABComponentLayer.h"
 
+extern const NSInteger TABViewAnimatedErrorCode;
+
 @implementation TABComponentLayer
 
 - (instancetype)init {

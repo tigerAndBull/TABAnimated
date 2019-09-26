@@ -11,6 +11,7 @@
 #import "TABAnimatedCacheModel.h"
 #import "TABComponentManager.h"
 #import "TABAnimatedDocumentMethod.h"
+#import "TABAnimated.h"
 
 NSString * const TABCacheManagerFolderName = @"TABAnimated";
 NSString * const TABCacheManagerCacheModelFolderName = @"CacheModel";
