@@ -139,9 +139,9 @@
     _cellSizeArray = @[[NSValue valueWithCGSize:cellSize]];
 }
 
-- (BOOL)currentSectionIsAnimatingWithSection:(NSInteger)section {
+- (BOOL)currentIndexIsAnimatingWithIndex:(NSInteger)index {
     for (NSNumber *num in self.runAnimationIndexArray) {
-        if ([num integerValue] == section) {
+        if ([num integerValue] == index) {
             return YES;
         }
     }
@@ -467,7 +467,7 @@
         return [self tab_collectionView:collectionView numberOfItemsInSection:section];
     }
     
-    if ([collectionView.tabAnimated currentSectionIsAnimatingWithSection:section]) {
+    if ([collectionView.tabAnimated currentIndexIsAnimatingWithIndex:section]) {
         
         // 开发者指定section
         if (collectionView.tabAnimated.animatedIndexArray.count > 0) {
@@ -514,7 +514,7 @@
             break;
     }
     
-    if ([collectionView.tabAnimated currentSectionIsAnimatingWithSection:index]) {
+    if ([collectionView.tabAnimated currentIndexIsAnimatingWithIndex:index]) {
         
         // 开发者指定section
         if (collectionView.tabAnimated.animatedIndexArray.count > 0) {
@@ -562,7 +562,7 @@
             break;
     }
     
-    if ([collectionView.tabAnimated currentSectionIsAnimatingWithSection:index]) {
+    if ([collectionView.tabAnimated currentIndexIsAnimatingWithIndex:index]) {
         
         // 开发者指定section
         if (collectionView.tabAnimated.animatedIndexArray.count > 0) {
@@ -667,7 +667,7 @@
             break;
     }
     
-    if ([collectionView.tabAnimated currentSectionIsAnimatingWithSection:index]) {
+    if ([collectionView.tabAnimated currentIndexIsAnimatingWithIndex:index]) {
         return;
     }
     [self tab_collectionView:collectionView willDisplayCell:cell forItemAtIndexPath:indexPath];
@@ -687,7 +687,7 @@
             break;
     }
     
-    if ([collectionView.tabAnimated currentSectionIsAnimatingWithSection:index] ||
+    if ([collectionView.tabAnimated currentIndexIsAnimatingWithIndex:index] ||
         collectionView.tabAnimated.state == TABViewAnimationRunning) {
         return;
     }
@@ -700,7 +700,7 @@
                       layout:(UICollectionViewLayout*)collectionViewLayout
 referenceSizeForHeaderInSection:(NSInteger)section {
     
-    if ([collectionView.tabAnimated currentSectionIsAnimatingWithSection:section]) {
+    if ([collectionView.tabAnimated currentIndexIsAnimatingWithIndex:section]) {
         NSInteger index = [collectionView.tabAnimated headerFooterNeedAnimationOnSection:section
                                                                                     kind:UICollectionElementKindSectionHeader];
         if (index != TABViewAnimatedErrorCode) {
@@ -726,7 +726,7 @@ referenceSizeForHeaderInSection:(NSInteger)section {
                       layout:(UICollectionViewLayout*)collectionViewLayout
 referenceSizeForFooterInSection:(NSInteger)section {
     
-    if ([collectionView.tabAnimated currentSectionIsAnimatingWithSection:section]) {
+    if ([collectionView.tabAnimated currentIndexIsAnimatingWithIndex:section]) {
         NSInteger index = [collectionView.tabAnimated headerFooterNeedAnimationOnSection:section
                                                                                     kind:UICollectionElementKindSectionFooter];
         if (index != TABViewAnimatedErrorCode) {
@@ -751,7 +751,7 @@ referenceSizeForFooterInSection:(NSInteger)section {
 - (UICollectionReusableView *)tab_collectionView:(UICollectionView *)collectionView
                viewForSupplementaryElementOfKind:(NSString *)kind
                                      atIndexPath:(NSIndexPath *)indexPath {
-    if ([collectionView.tabAnimated currentSectionIsAnimatingWithSection:indexPath.section]) {
+    if ([collectionView.tabAnimated currentIndexIsAnimatingWithIndex:indexPath.section]) {
         
         NSInteger index = [collectionView.tabAnimated headerFooterNeedAnimationOnSection:indexPath.section
                                                                                     kind:kind];

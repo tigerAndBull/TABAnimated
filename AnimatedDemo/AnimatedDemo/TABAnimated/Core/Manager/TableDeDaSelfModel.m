@@ -18,35 +18,41 @@
     if (tableView.tabAnimated.state == TABViewAnimationStart &&
         tableView.tabAnimated.animatedSectionCount != 0) {
         
+        NSInteger animatedSectionCount = tableView.tabAnimated.animatedSectionCount;
+        
         [tableView.tabAnimated.runAnimationIndexArray removeAllObjects];
-        for (NSInteger i = 0; i < tableView.tabAnimated.animatedSectionCount; i++) {
+        for (NSInteger i = 0; i < animatedSectionCount; i++) {
             [tableView.tabAnimated.runAnimationIndexArray addObject:[NSNumber numberWithInteger:i]];
         }
         
         [tableView.tabAnimated.headerSectionArray removeAllObjects];
         if (tableView.tabAnimated.headerClassArray.count > 0) {
-            for (NSInteger i = 0; i < tableView.tabAnimated.animatedSectionCount; i++) {
+            for (NSInteger i = 0; i < animatedSectionCount; i++) {
                 [tableView.tabAnimated.headerSectionArray addObject:[NSNumber numberWithInteger:i]];
             }
         }
         
         [tableView.tabAnimated.footerSectionArray removeAllObjects];
         if (tableView.tabAnimated.footerClassArray.count > 0) {
-            for (NSInteger i = 0; i < tableView.tabAnimated.animatedSectionCount; i++) {
+            for (NSInteger i = 0; i < animatedSectionCount; i++) {
                 [tableView.tabAnimated.footerSectionArray addObject:[NSNumber numberWithInteger:i]];
             }
         }
-        return tableView.tabAnimated.animatedSectionCount;
+        return animatedSectionCount;
     }
     return [self tab_deda_numberOfSectionsInTableView:tableView];
 }
 
 - (NSInteger)tab_deda_tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
+    if (tableView.tabAnimated.runMode == TABAnimatedRunByRow) {
+        return [self tab_deda_tableView:tableView numberOfRowsInSection:section];
+    }
+    
     // If the animation running, return animatedCount.
     if ([tableView.tabAnimated currentIndexIsAnimatingWithIndex:section]) {
         
-        // 开发者指定section
+        // 开发者指定section/row
         if (tableView.tabAnimated.animatedIndexArray.count > 0) {
             
             // 没有获取到动画时row数量
@@ -85,16 +91,26 @@
 
 - (CGFloat)tab_deda_tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if ([tableView.tabAnimated currentIndexIsAnimatingWithIndex:indexPath.section]) {
-        
-        NSInteger index = indexPath.section;
+    NSInteger index;
+    switch (tableView.tabAnimated.runMode) {
+        case TABAnimatedRunBySection: {
+            index = indexPath.section;
+        }
+            break;
+        case TABAnimatedRunByRow: {
+            index = indexPath.row;
+        }
+            break;
+    }
+    
+    if ([tableView.tabAnimated currentIndexIsAnimatingWithIndex:index]) {
         
         // 开发者指定section
         if (tableView.tabAnimated.animatedIndexArray.count > 0) {
             
             // 匹配当前section
             for (NSNumber *num in tableView.tabAnimated.animatedIndexArray) {
-                if ([num integerValue] == indexPath.section) {
+                if ([num integerValue] == index) {
                     NSInteger currentIndex = [tableView.tabAnimated.animatedIndexArray indexOfObject:num];
                     if (currentIndex > tableView.tabAnimated.cellHeightArray.count - 1) {
                         index = [tableView.tabAnimated.cellHeightArray count] - 1;
@@ -110,7 +126,7 @@
                 }
             }
         }else {
-            if (indexPath.section > (tableView.tabAnimated.cellClassArray.count - 1)) {
+            if (index > (tableView.tabAnimated.cellClassArray.count - 1)) {
                 index = tableView.tabAnimated.cellClassArray.count - 1;
                 tabAnimatedLog(@"TABAnimated提醒 - section的数量和指定分区的数量不一致，超出的section，将使用最后一个分区cell加载");
             }
@@ -123,11 +139,21 @@
 
 - (UITableViewCell *)tab_deda_tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if ([tableView.tabAnimated currentIndexIsAnimatingWithIndex:indexPath.section]) {
+    NSInteger index;
+    switch (tableView.tabAnimated.runMode) {
+        case TABAnimatedRunBySection: {
+            index = indexPath.section;
+        }
+            break;
+        case TABAnimatedRunByRow: {
+            index = indexPath.row;
+        }
+            break;
+    }
+    
+    if ([tableView.tabAnimated currentIndexIsAnimatingWithIndex:index]) {
         
-        NSInteger index = indexPath.section;
-        
-        // 开发者指定section
+        // 开发者指定index
         if (tableView.tabAnimated.animatedIndexArray.count > 0) {
             
             if (tableView.tabAnimated.cellClassArray.count == 0) {
@@ -136,7 +162,7 @@
             
             // 匹配当前section
             for (NSNumber *num in tableView.tabAnimated.animatedIndexArray) {
-                if ([num integerValue] == indexPath.section) {
+                if ([num integerValue] == index) {
                     NSInteger currentIndex = [tableView.tabAnimated.animatedIndexArray indexOfObject:num];
                     if (currentIndex > tableView.tabAnimated.cellClassArray.count - 1) {
                         index = [tableView.tabAnimated.cellClassArray count] - 1;
@@ -151,9 +177,9 @@
                 }
             }
         }else {
-            if (indexPath.section > (tableView.tabAnimated.cellClassArray.count - 1)) {
+            if (index > (tableView.tabAnimated.cellClassArray.count - 1)) {
                 index = tableView.tabAnimated.cellClassArray.count - 1;
-                tabAnimatedLog(@"TABAnimated提醒 - section的数量和指定分区的数量不一致，超出的section，将使用最后一个分区cell加载");
+                tabAnimatedLog(@"TABAnimated - section的数量和指定分区的数量不一致，超出的section，将使用最后一个分区cell加载");
             }
         }
         
@@ -172,16 +198,19 @@
         if (nil == cell.tabComponentManager) {
             
             TABComponentManager *manager = [[TABAnimated sharedAnimated].cacheManager getComponentManagerWithFileName:fileName];
-            
+
             if (manager &&
                 !manager.needChangeRowStatus) {
+                
                 manager.fileName = fileName;
                 manager.isLoad = YES;
                 manager.tabTargetClass = currentClass;
                 manager.currentSection = indexPath.section;
+                cell.tabComponentManager = manager;
+                
                 [manager reAddToView:cell
                            superView:tableView];
-                cell.tabComponentManager = manager;
+                
                 [TABManagerMethod startAnimationToSubViews:cell
                                                   rootView:cell];
                 [TABManagerMethod addExtraAnimationWithSuperView:tableView
@@ -195,18 +224,13 @@
                 cell.tabComponentManager.currentSection = indexPath.section;
                 cell.tabComponentManager.fileName = fileName;
                 cell.tabComponentManager.tabTargetClass = currentClass;
-                
+            
                 __weak typeof(cell) weakCell = cell;
                 dispatch_async(dispatch_get_main_queue(), ^{
                     
                     TABTableAnimated *tabAnimated = (TABTableAnimated *)tableView.tabAnimated;
                     
                     if (weakCell && tabAnimated && weakCell.tabComponentManager) {
-                        if (tabAnimated.oldEstimatedRowHeight > 0.) {
-                            weakCell.tabComponentManager.tabLayer.frame = weakCell.bounds;
-                        }
-                        weakCell.tabComponentManager.tabTargetClass = weakCell.class;
-                        
                         [TABManagerMethod runAnimationWithSuperView:tableView
                                                          targetView:weakCell
                                                              isCell:weakCell
@@ -214,13 +238,22 @@
                     }
                 });
             }
-            
+        
         }else {
             if (cell.tabComponentManager.tabLayer.hidden) {
                 cell.tabComponentManager.tabLayer.hidden = NO;
             }
         }
         cell.tabComponentManager.currentRow = indexPath.row;
+        
+        if (tableView.tabAnimated.oldEstimatedRowHeight > 0) {
+            [TABManagerMethod fullData:cell];
+            __weak typeof(cell) weakCell = cell;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                weakCell.tabComponentManager.tabLayer.frame = weakCell.bounds;
+                [TABManagerMethod resetData:cell];
+            });
+        }
         
         return cell;
     }
@@ -229,14 +262,39 @@
 
 - (void)tab_deda_tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if ([tableView.tabAnimated currentIndexIsAnimatingWithIndex:indexPath.section]) {
+    NSInteger index;
+    switch (tableView.tabAnimated.runMode) {
+        case TABAnimatedRunBySection: {
+            index = indexPath.section;
+        }
+            break;
+        case TABAnimatedRunByRow: {
+            index = indexPath.row;
+        }
+            break;
+    }
+    
+    if ([tableView.tabAnimated currentIndexIsAnimatingWithIndex:index]) {
         return;
     }
     [self tab_deda_tableView:tableView willDisplayCell:cell forRowAtIndexPath:indexPath];
 }
 
 - (void)tab_deda_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if ([tableView.tabAnimated currentIndexIsAnimatingWithIndex:indexPath.section]) {
+    
+    NSInteger index;
+    switch (tableView.tabAnimated.runMode) {
+        case TABAnimatedRunBySection: {
+            index = indexPath.section;
+        }
+            break;
+        case TABAnimatedRunByRow: {
+            index = indexPath.row;
+        }
+            break;
+    }
+    
+    if ([tableView.tabAnimated currentIndexIsAnimatingWithIndex:index]) {
         return;
     }
     [self tab_deda_tableView:tableView didSelectRowAtIndexPath:indexPath];
@@ -315,10 +373,7 @@
                                                              manager:headerFooterView.tabComponentManager];
                 }else {
                     [TABManagerMethod fullData:headerFooterView];
-                    headerFooterView.tabComponentManager =
-                    [TABComponentManager initWithView:headerFooterView
-                                            superView:tableView
-                                          tabAnimated:tableView.tabAnimated];
+                    headerFooterView.tabComponentManager = [TABComponentManager initWithView:headerFooterView superView:tableView tabAnimated:tableView.tabAnimated];
                     headerFooterView.tabComponentManager.currentSection = section;
                     headerFooterView.tabComponentManager.fileName = fileName;
                     
@@ -344,7 +399,15 @@
                 }
             }
             headerFooterView.tabComponentManager.tabTargetClass = class;
-            
+            if (tableView.tabAnimated.oldEstimatedRowHeight > 0) {
+                [TABManagerMethod fullData:headerFooterView];
+                __weak typeof(headerFooterView) weakView = headerFooterView;
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    weakView.tabComponentManager.tabLayer.frame = weakView.bounds;
+                    [TABManagerMethod resetData:weakView];
+                });
+            }
+
             return headerFooterView;
         }
         return [self tab_deda_tableView:tableView viewForHeaderInSection:section];
@@ -382,17 +445,16 @@
                     [manager reAddToView:headerFooterView
                                superView:tableView];
                     headerFooterView.tabComponentManager = manager;
+                    
                     [TABManagerMethod startAnimationToSubViews:headerFooterView
                                                       rootView:headerFooterView];
                     [TABManagerMethod addExtraAnimationWithSuperView:tableView
                                                           targetView:headerFooterView
                                                              manager:headerFooterView.tabComponentManager];
+                    
                 }else {
                     [TABManagerMethod fullData:headerFooterView];
-                    headerFooterView.tabComponentManager =
-                    [TABComponentManager initWithView:headerFooterView
-                                            superView:tableView
-                                          tabAnimated:tableView.tabAnimated];
+                    headerFooterView.tabComponentManager = [TABComponentManager initWithView:headerFooterView superView:tableView tabAnimated:tableView.tabAnimated];
                     headerFooterView.tabComponentManager.currentSection = section;
                     headerFooterView.tabComponentManager.fileName = fileName;
                     
@@ -417,7 +479,17 @@
                     headerFooterView.tabComponentManager.tabLayer.hidden = NO;
                 }
             }
+            
             headerFooterView.tabComponentManager.tabTargetClass = class;
+            
+            if (tableView.tabAnimated.oldEstimatedRowHeight > 0) {
+                [TABManagerMethod fullData:headerFooterView];
+                __weak typeof(headerFooterView) weakView = headerFooterView;
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    weakView.tabComponentManager.tabLayer.frame = weakView.bounds;
+                    [TABManagerMethod resetData:weakView];
+                });
+            }
             
             return headerFooterView;
         }
@@ -425,6 +497,7 @@
     }
     return [self tab_deda_tableView:tableView viewForFooterInSection:section];
 }
+
 
 @end
 
@@ -458,6 +531,10 @@
 }
 
 - (NSInteger)tab_deda_collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    
+    if (collectionView.tabAnimated.runMode == TABAnimatedRunByRow) {
+        return [self tab_deda_collectionView:collectionView numberOfItemsInSection:section];
+    }
     
     if ([collectionView.tabAnimated currentIndexIsAnimatingWithIndex:section]) {
         
@@ -494,16 +571,26 @@
 
 - (CGSize)tab_deda_collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    if ([collectionView.tabAnimated currentIndexIsAnimatingWithIndex:indexPath.section]) {
-        
-        NSInteger index = indexPath.section;
+    NSInteger index;
+    switch (collectionView.tabAnimated.runMode) {
+        case TABAnimatedRunBySection: {
+            index = indexPath.section;
+        }
+            break;
+        case TABAnimatedRunByRow: {
+            index = indexPath.row;
+        }
+            break;
+    }
+    
+    if ([collectionView.tabAnimated currentIndexIsAnimatingWithIndex:index]) {
         
         // 开发者指定section
         if (collectionView.tabAnimated.animatedIndexArray.count > 0) {
             
             // 匹配当前section
             for (NSNumber *num in collectionView.tabAnimated.animatedIndexArray) {
-                if ([num integerValue] == indexPath.section) {
+                if ([num integerValue] == index) {
                     NSInteger currentIndex = [collectionView.tabAnimated.animatedIndexArray indexOfObject:num];
                     if (currentIndex > collectionView.tabAnimated.cellSizeArray.count - 1) {
                         index = [collectionView.tabAnimated.cellSizeArray count] - 1;
@@ -518,7 +605,7 @@
                 }
             }
         }else {
-            if (indexPath.section > (collectionView.tabAnimated.cellSizeArray.count - 1)) {
+            if (index > (collectionView.tabAnimated.cellSizeArray.count - 1)) {
                 index = collectionView.tabAnimated.cellSizeArray.count - 1;
                 tabAnimatedLog(@"TABAnimated提醒 - 获取到的分区的数量和设置的分区数量不一致，超出的分区值部分，将使用最后一个分区cell加载");
             }
@@ -532,16 +619,26 @@
 
 - (UICollectionViewCell *)tab_deda_collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    if ([collectionView.tabAnimated currentIndexIsAnimatingWithIndex:indexPath.section]) {
-        
-        NSInteger index = indexPath.section;
+    NSInteger index;
+    switch (collectionView.tabAnimated.runMode) {
+        case TABAnimatedRunBySection: {
+            index = indexPath.section;
+        }
+            break;
+        case TABAnimatedRunByRow: {
+            index = indexPath.row;
+        }
+            break;
+    }
+    
+    if ([collectionView.tabAnimated currentIndexIsAnimatingWithIndex:index]) {
         
         // 开发者指定section
         if (collectionView.tabAnimated.animatedIndexArray.count > 0) {
             
             // 匹配当前section
             for (NSNumber *num in collectionView.tabAnimated.animatedIndexArray) {
-                if ([num integerValue] == indexPath.section) {
+                if ([num integerValue] == index) {
                     NSInteger currentIndex = [collectionView.tabAnimated.animatedIndexArray indexOfObject:num];
                     if (currentIndex > collectionView.tabAnimated.cellClassArray.count - 1) {
                         index = [collectionView.tabAnimated.cellClassArray count] - 1;
@@ -556,7 +653,7 @@
                 }
             }
         }else {
-            if (indexPath.section > (collectionView.tabAnimated.cellClassArray.count - 1)) {
+            if (index > (collectionView.tabAnimated.cellClassArray.count - 1)) {
                 index = collectionView.tabAnimated.cellClassArray.count - 1;
                 tabAnimatedLog(@"TABAnimated提醒 - 获取到的分区的数量和设置的分区数量不一致，超出的分区值部分，将使用最后一个分区cell加载");
             }
@@ -583,9 +680,9 @@
                 manager.isLoad = YES;
                 manager.tabTargetClass = currentClass;
                 manager.currentSection = indexPath.section;
+                cell.tabComponentManager = manager;
                 [manager reAddToView:cell
                            superView:collectionView];
-                cell.tabComponentManager = manager;
                 [TABManagerMethod startAnimationToSubViews:cell
                                                   rootView:cell];
                 [TABManagerMethod addExtraAnimationWithSuperView:collectionView
@@ -627,14 +724,39 @@
 
 - (void)tab_deda_collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    if ([collectionView.tabAnimated currentIndexIsAnimatingWithIndex:indexPath.section]) {
+    NSInteger index;
+    switch (collectionView.tabAnimated.runMode) {
+        case TABAnimatedRunBySection: {
+            index = indexPath.section;
+        }
+            break;
+        case TABAnimatedRunByRow: {
+            index = indexPath.row;
+        }
+            break;
+    }
+    
+    if ([collectionView.tabAnimated currentIndexIsAnimatingWithIndex:index]) {
         return;
     }
     [self tab_deda_collectionView:collectionView willDisplayCell:cell forItemAtIndexPath:indexPath];
 }
 
 - (void)tab_deda_collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    if ([collectionView.tabAnimated currentIndexIsAnimatingWithIndex:indexPath.section] ||
+    
+    NSInteger index;
+    switch (collectionView.tabAnimated.runMode) {
+        case TABAnimatedRunBySection: {
+            index = indexPath.section;
+        }
+            break;
+        case TABAnimatedRunByRow: {
+            index = indexPath.row;
+        }
+            break;
+    }
+    
+    if ([collectionView.tabAnimated currentIndexIsAnimatingWithIndex:index] ||
         collectionView.tabAnimated.state == TABViewAnimationRunning) {
         return;
     }

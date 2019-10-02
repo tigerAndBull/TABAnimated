@@ -30,7 +30,7 @@
     // 骨架屏core部分不依赖reveal工具
     // reveal工具依赖骨架屏core，实时预览效果，无需编译
     // 请务必放在debug环境下
-//    [[TABAnimatedBall shared] install];
+    [[TABAnimatedBall shared] install];
 #endif
     
     // Init `TABAnimated`, and set the properties you need.
