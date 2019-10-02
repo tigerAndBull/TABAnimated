@@ -16,9 +16,10 @@
 #import "TABBaseComponent.h"
 #import "TABComponentLayer.h"
 #import "TABAnimatedCacheManager.h"
+#import "TABManagerMethod.h"
 
 static const CGFloat kDefaultHeight = 16.f;
-static const CGFloat kTagDefaultFontSize = 12.;
+static const CGFloat kTagDefaultFontSize = 12.f;
 
 static NSString * const kTagDefaultFontName = @"HiraKakuProN-W3";
 
@@ -31,6 +32,9 @@ static NSString * const kTagDefaultFontName = @"HiraKakuProN-W3";
 @property (nonatomic, assign, readwrite) NSInteger dropAnimationCount;
 @property (nonatomic, assign, readwrite) BOOL haveCachedWithDisk;
 
+@property (nonatomic, weak) UIView *superView;
+@property (nonatomic, strong, readwrite, nullable) TABSentryView *sentryView;
+
 @end
 
 @implementation TABComponentManager
@@ -38,27 +42,44 @@ static NSString * const kTagDefaultFontName = @"HiraKakuProN-W3";
 #pragma mark - Init Method
 
 + (instancetype)initWithView:(UIView *)view
+                   superView:(UIView *)superView
                  tabAnimated:(TABViewAnimated *)tabAnimated {
-    TABComponentManager *manager = [self initWithView:view];
+    TABComponentManager *manager = [self initWithView:view
+                                            superView:superView];
     manager.animatedHeight = tabAnimated.animatedHeight;
     manager.animatedCornerRadius = tabAnimated.animatedCornerRadius;
     manager.cancelGlobalCornerRadius = tabAnimated.cancelGlobalCornerRadius;
-    manager.animatedColor = tabAnimated.animatedColor;
-    manager.animatedBackgroundColor = tabAnimated.animatedBackgroundColor;
     
-    [manager setCornerRadiusWithView:view
-                         tabAnimated:tabAnimated];
+    [manager setRadiusAndColorWithView:view
+                             superView:superView
+                           tabAnimated:tabAnimated];
     return manager;
 }
 
-+ (instancetype)initWithView:(UIView *)view {
+
++ (instancetype)initWithView:(UIView *)view
+                   superView:(UIView *)superView {
     TABComponentManager *manager = [[TABComponentManager alloc] init];
+    manager.superView = superView;
     if (view.frame.size.width > 0.) {
-        manager.tabLayer.frame = view.bounds;
+        if (superView && [superView isKindOfClass:[UITableView class]]) {
+            UITableView *tableView = (UITableView *)superView;
+            if (view.frame.size.width != [UIScreen mainScreen].bounds.size.width) {
+                manager.tabLayer.frame = CGRectMake(view.bounds.origin.x, view.bounds.origin.y, [UIScreen mainScreen].bounds.size.width, tableView.rowHeight);
+            }else {
+                manager.tabLayer.frame = view.bounds;
+            }
+        }else {
+            manager.tabLayer.frame = view.bounds;
+        }
     }else {
         manager.tabLayer.frame = CGRectMake(view.bounds.origin.x, view.bounds.origin.y, [UIScreen mainScreen].bounds.size.width, view.bounds.size.height);
     }
     [view.layer addSublayer:manager.tabLayer];
+    
+    // 添加哨兵视图
+    [manager addSentryView:view
+                 superView:superView];
     return manager;
 }
 
@@ -73,13 +94,24 @@ static NSString * const kTagDefaultFontName = @"HiraKakuProN-W3";
         _tabLayer.name = @"TABLayer";
         _tabLayer.position = CGPointMake(0, 0);
         _tabLayer.anchorPoint = CGPointMake(0, 0);
-        _tabLayer.backgroundColor = [self.animatedBackgroundColor CGColor];
         _tabLayer.contentsScale = ([[UIScreen mainScreen] scale] > 3.0) ? [[UIScreen mainScreen] scale]:3.0;
     }
     return self;
 }
 
-- (void)reAddToView:(UIView *)view {
+- (void)dealloc {
+    if (@available(iOS 13.0, *)) {
+        if (_sentryView) {
+            [_sentryView removeFromSuperview];
+        }
+    }
+}
+
+- (void)reAddToView:(UIView *)view
+          superView:(UIView *)superView {
+    
+    self.superView = superView;
+    
     if (view.frame.size.width > 0.) {
         self.tabLayer.frame = view.bounds;
     }else {
@@ -87,8 +119,11 @@ static NSString * const kTagDefaultFontName = @"HiraKakuProN-W3";
     }
     [view.layer addSublayer:self.tabLayer];
     
-    [self setCornerRadiusWithView:view
-                      tabAnimated:view.tabAnimated];
+    [self addSentryView:view
+              superView:superView];
+    [self setRadiusAndColorWithView:view
+                          superView:superView
+                        tabAnimated:superView.tabAnimated];
     [self updateComponentLayersWithArray:self.resultLayerArray];
 }
 
@@ -180,6 +215,19 @@ static NSString * const kTagDefaultFontName = @"HiraKakuProN-W3";
 
 #pragma mark -
 
+- (void)addSentryView:(UIView *)view
+            superView:(UIView *)superView {
+    if (@available(iOS 13.0, *)) {
+        self.sentryView = TABSentryView.new;
+        __weak typeof(self) weakself = self;
+        self.sentryView.traitCollectionDidChangeBack = ^{
+            __strong typeof(weakself) strongSelf = weakself;
+            [strongSelf tab_traitCollectionDidChange:superView];
+        };
+        [view addSubview:self.sentryView];
+    }
+}
+
 - (void)installBaseComponentArray:(NSArray <TABComponentLayer *> *)array {
     self.componentLayerArray = array.mutableCopy;
     [self.baseComponentArray removeAllObjects];
@@ -192,6 +240,7 @@ static NSString * const kTagDefaultFontName = @"HiraKakuProN-W3";
 - (void)updateComponentLayersWithArray:(NSMutableArray <TABComponentLayer *> *)componentLayerArray {
     for (int i = 0; i < componentLayerArray.count; i++) {
         TABComponentLayer *layer = componentLayerArray[i];
+        layer.backgroundColor = self.animatedColor.CGColor;
         
         if (layer.placeholderName && layer.placeholderName.length > 0) {
             layer.contents = (id)[UIImage imageNamed:layer.placeholderName].CGImage;
@@ -235,7 +284,8 @@ static NSString * const kTagDefaultFontName = @"HiraKakuProN-W3";
             continue;
         }
         
-        CGRect rect = [self resetFrame:layer rect:layer.frame];
+        CGRect rect = [self resetFrame:layer
+                                  rect:layer.frame];
         layer.frame = rect;
         
         CGFloat cornerRadius = layer.cornerRadius;
@@ -315,8 +365,123 @@ static NSString * const kTagDefaultFontName = @"HiraKakuProN-W3";
 
 #pragma mark - Private
 
-- (void)setCornerRadiusWithView:(UIView *)view
-                    tabAnimated:(__kindof TABViewAnimated *)tabAnimated {
+- (void)tab_traitCollectionDidChange:(UIView *)superView {
+    
+    if (@available(iOS 13.0, *)) {
+        
+        if (!superView) {
+            return;
+        }
+        
+        self.animatedBackgroundColor = [UIColor colorWithDynamicProvider:^UIColor * _Nonnull(UITraitCollection * _Nonnull traitCollection) {
+            if (traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
+                return superView.tabAnimated.darkAnimatedBackgroundColor;
+            }else {
+                return superView.tabAnimated.animatedBackgroundColor;
+            }
+        }];
+
+        self.animatedColor = [UIColor colorWithDynamicProvider:^UIColor * _Nonnull(UITraitCollection * _Nonnull traitCollection) {
+            if (traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
+                return superView.tabAnimated.darkAnimatedColor;
+            }else {
+                return superView.tabAnimated.animatedColor;
+            }
+        }];
+        
+        for (TABComponentLayer *layer in self.resultLayerArray) {
+            layer.backgroundColor = self.animatedColor.CGColor;
+            if (layer.contents && layer.placeholderName && layer.placeholderName.length > 0) {
+                layer.contents = (id)[UIImage imageNamed:layer.placeholderName].CGImage;
+            }
+        }
+        
+        if ([TABManagerMethod canAddShimmer:superView]) {
+            
+            __block CGFloat brigtness = 0.;
+            UIColor *baseColor = [UIColor colorWithDynamicProvider:^UIColor * _Nonnull(UITraitCollection * _Nonnull traitCollection) {
+                if (traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
+                    brigtness = [TABAnimated sharedAnimated].shimmerBrightnessInDarkMode;
+                    return [TABAnimated sharedAnimated].shimmerBackColorInDarkMode;
+                }else {
+                    brigtness = [TABAnimated sharedAnimated].shimmerBrightness;
+                    return [TABAnimated sharedAnimated].shimmerBackColor;
+                }
+            }];
+            
+            for (TABComponentLayer *layer in self.resultLayerArray) {
+                if (layer.colors && [layer animationForKey:TABAnimatedShimmerAnimation]) {
+                    if (baseColor) {
+                        layer.colors = @[
+                        (id)baseColor.CGColor,
+                        (id)[TABManagerMethod brightenedColor:baseColor
+                                                   brightness:brigtness].CGColor,
+                        (id)baseColor.CGColor
+                        ];
+                    }
+                }
+            }
+        }
+        
+        if ([TABManagerMethod canAddDropAnimation:superView]) {
+            
+            UIColor *deepColor;
+            if (@available(iOS 13.0, *)) {
+                if (superView.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
+                    if (superView.tabAnimated.dropAnimationDeepColorInDarkMode) {
+                        deepColor = superView.tabAnimated.dropAnimationDeepColorInDarkMode;
+                    }else {
+                        deepColor = [TABAnimated sharedAnimated].dropAnimationDeepColorInDarkMode;
+                    }
+                }else {
+                    if (superView.tabAnimated.dropAnimationDeepColor) {
+                        deepColor = superView.tabAnimated.dropAnimationDeepColor;
+                    }else {
+                        deepColor = [TABAnimated sharedAnimated].dropAnimationDeepColor;
+                    }
+                }
+            } else {
+                if (superView.tabAnimated.dropAnimationDeepColor) {
+                    deepColor = superView.tabAnimated.dropAnimationDeepColor;
+                }else {
+                    deepColor = [TABAnimated sharedAnimated].dropAnimationDeepColor;
+                }
+            }
+            
+            for (TABComponentLayer *layer in self.resultLayerArray) {
+                if ([layer animationForKey:TABAnimatedDropAnimation]) {
+                    CAKeyframeAnimation *animation = [layer animationForKey:TABAnimatedDropAnimation].copy;
+                    animation.values = @[
+                                         (id)deepColor.CGColor,
+                                         (id)layer.backgroundColor,
+                                         (id)layer.backgroundColor,
+                                         (id)deepColor.CGColor
+                                         ];
+                    [layer removeAnimationForKey:TABAnimatedDropAnimation];
+                    [layer addAnimation:animation forKey:TABAnimatedDropAnimation];
+                }
+            }
+        }
+    }
+}
+
+- (void)setRadiusAndColorWithView:(UIView *)view
+                        superView:(UIView *)superView
+                      tabAnimated:(__kindof TABViewAnimated *)tabAnimated {
+    
+    if (@available(iOS 13.0, *)) {
+        if (superView.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
+            self.animatedColor = tabAnimated.darkAnimatedColor;
+            self.animatedBackgroundColor = tabAnimated.darkAnimatedBackgroundColor;
+        }else {
+            self.animatedColor = tabAnimated.animatedColor;
+            self.animatedBackgroundColor = tabAnimated.animatedBackgroundColor;
+        }
+    }else {
+        self.animatedColor = tabAnimated.animatedColor;
+        self.animatedBackgroundColor = tabAnimated.animatedBackgroundColor;
+    }
+    
     if (tabAnimated.animatedBackViewCornerRadius > 0) {
         self.tabLayer.cornerRadius = tabAnimated.animatedBackViewCornerRadius;
     }else {
@@ -406,7 +571,13 @@ static NSString * const kTagDefaultFontName = @"HiraKakuProN-W3";
         layer.anchorPoint = CGPointMake(0, 0);
         layer.position = CGPointMake(0, 0);
         layer.frame = rect;
-        layer.backgroundColor = self.animatedColor.CGColor;
+        if (layer.contents) {
+            layer.backgroundColor = UIColor.clearColor.CGColor;
+        }else {
+            if (layer.backgroundColor == nil) {
+                layer.backgroundColor = self.animatedColor.CGColor;
+            }
+        }
         
         if (cornerRadius == 0.) {
             if (self.cancelGlobalCornerRadius) {
@@ -510,7 +681,7 @@ static NSString * const kTagDefaultFontName = @"HiraKakuProN-W3";
     return rect;
 }
 
-#pragma mark - NSCoding / NSCopying / NSSecureCoding
+#pragma mark - NSSecureCoding / NSCopying
 
 + (BOOL)supportsSecureCoding {
     return YES;
@@ -575,7 +746,6 @@ static NSString * const kTagDefaultFontName = @"HiraKakuProN-W3";
         
         self.version = [aDecoder decodeObjectForKey:@"version"];
         self.needChangeRowStatus = [aDecoder decodeBoolForKey:@"needChangeRowStatus"];
-
     }
     return self;
 }
@@ -599,30 +769,10 @@ static NSString * const kTagDefaultFontName = @"HiraKakuProN-W3";
     return _currentRow;
 }
 
-@synthesize animatedColor = _animatedColor;
-- (UIColor *)animatedColor {
-    if (_animatedColor) {
-        return _animatedColor;
-    }
-    return [TABAnimated sharedAnimated].animatedColor;
-}
-
-- (void)setAnimatedColor:(UIColor *)animatedColor {
-    _animatedColor = animatedColor;
-}
-
-@synthesize animatedBackgroundColor = _animatedBackgroundColor;
-- (UIColor *)animatedBackgroundColor {
-    if (_animatedBackgroundColor) {
-        return _animatedBackgroundColor;
-    }
-    return [TABAnimated sharedAnimated].animatedBackgroundColor;
-}
-
 - (void)setAnimatedBackgroundColor:(UIColor *)animatedBackgroundColor {
     _animatedBackgroundColor = animatedBackgroundColor;
-    if (animatedBackgroundColor) {
-        self.tabLayer.backgroundColor = animatedBackgroundColor.CGColor;
+    if (_tabLayer && animatedBackgroundColor) {
+        _tabLayer.backgroundColor = animatedBackgroundColor.CGColor;
     }
 }
 

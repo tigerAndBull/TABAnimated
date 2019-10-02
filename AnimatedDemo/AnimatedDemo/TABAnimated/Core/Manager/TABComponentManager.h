@@ -18,6 +18,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "TABComponentLayer.h"
+#import "TABSentryView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -71,6 +72,8 @@ typedef NSArray <TABBaseComponent *> * _Nullable (^TABBaseComponentArrayWithInde
 
 @property (nonatomic, assign) BOOL cancelGlobalCornerRadius;
 
+@property (nonatomic, strong, readonly, nullable) TABSentryView *sentryView;
+
 /**
  初始动画组
  */
@@ -120,13 +123,18 @@ typedef NSArray <TABBaseComponent *> * _Nullable (^TABBaseComponentArrayWithInde
 @property (nonatomic, assign, readonly) BOOL needUpdate;
 
 + (instancetype)initWithView:(UIView *)view
+                   superView:(UIView *)superView
                  tabAnimated:(TABViewAnimated *)tabAnimated;
 
 - (void)installBaseComponentArray:(NSArray <TABComponentLayer *> *)array;
 
 - (void)updateComponentLayers;
 
-- (void)reAddToView:(UIView *)view;
+- (void)addSentryView:(UIView *)view
+            superView:(UIView *)superView;
+
+- (void)reAddToView:(UIView *)view
+          superView:(UIView *)superView;
 
 @end
 

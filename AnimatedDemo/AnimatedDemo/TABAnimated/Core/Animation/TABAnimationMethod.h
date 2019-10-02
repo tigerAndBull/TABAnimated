@@ -20,8 +20,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- TABAnimated在管理
  这个文件存放的是`热插拔`的动画，集成不需要关心的文件
+ 你也可以使用该文件的方法，为你的工程添加相应的动画
  */
 
 typedef enum : NSUInteger {

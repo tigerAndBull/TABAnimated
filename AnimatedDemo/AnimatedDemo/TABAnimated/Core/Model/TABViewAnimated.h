@@ -18,6 +18,8 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+#import "TABSentryView.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 extern const NSInteger TABViewAnimatedErrorCode;
@@ -48,6 +50,31 @@ typedef NS_ENUM(NSInteger,TABViewSuperAnimationType) {
     TABViewSuperAnimationTypeShimmer,                        // 闪光灯
     TABViewSuperAnimationTypeDrop,                           // 豆瓣下坠动画
 };
+
+/**
+ 表格视图配置
+ */
+typedef enum : NSUInteger {
+    
+    /**
+     以section为单位配置动画 - Section Mode
+     
+     视图结构必须满足以下情况:
+     section和cell样式一一对应
+     */
+    TABAnimatedRunBySection = 0,
+    
+    /**
+    以row为单位配置动画 - Row Mode
+     
+    视图结构必须满足以下情况:
+    1. 视图只有1个section
+    2. 1个section对应多个cell
+    3. row的数量必须要是定值
+     */
+    TABAnimatedRunByRow,
+    
+} TABAnimatedRunMode;
 
 /**
  预处理动画组回调，
@@ -120,14 +147,24 @@ typedef void(^TABAdjustWithClassBlock)(TABComponentManager *manager, Class targe
 @property (nonatomic, copy) NSArray <NSNumber *> *animatedCountArray;
 
 /**
- 决定当前视图动画内容颜色
+ 当前视图动画内容颜色
  */
 @property (nonatomic, strong) UIColor *animatedColor;
 
 /**
- 决定当前视图动画背景颜色
+ 当前视图动画背景颜色
  */
 @property (nonatomic, strong) UIColor *animatedBackgroundColor;
+
+/**
+ 当前视图暗黑模式下动画内容颜色
+ */
+@property (nonatomic, strong) UIColor *darkAnimatedColor;
+
+/**
+ 当前视图暗黑模式下动画背景颜色
+ */
+@property (nonatomic, strong) UIColor *darkAnimatedBackgroundColor;
 
 /**
  如果开启了全局圆角，当该属性设置为YES，则该控制视图下圆角将取消，
@@ -165,8 +202,6 @@ typedef void(^TABAdjustWithClassBlock)(TABComponentManager *manager, Class targe
  */
 @property (nonatomic, assign) BOOL canLoadAgain;
 
-@property (nonatomic, copy) NSString *targetControllerClassName;
-
 #pragma mark - 过滤条件
 
 /**
@@ -192,14 +227,16 @@ typedef void(^TABAdjustWithClassBlock)(TABComponentManager *manager, Class targe
  豆瓣动画变色值
  */
 @property (nonatomic, strong) UIColor *dropAnimationDeepColor;
-
 /**
- 判断指定分区是否在动画中
- 
- @param section section 目标section
- @return return value 是否在动画中
- */
-- (BOOL)currentSectionIsAnimatingWithSection:(NSInteger)section;
+ 暗黑模式下，豆瓣动画变色值
+*/
+@property (nonatomic, strong) UIColor *dropAnimationDeepColorInDarkMode;
+
+#pragma mark - Other
+
+@property (nonatomic, copy) NSString *targetControllerClassName;
+
+- (BOOL)currentIndexIsAnimatingWithIndex:(NSInteger)index;
 
 @end
 

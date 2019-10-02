@@ -19,6 +19,7 @@
 #import <objc/runtime.h>
 
 #define tab_kBackColor tab_kColor(0xEEEEEE)
+#define tab_kDarkBackColor tab_kColor(0x282828)
 #define tab_kShimmerBackColor tab_kColor(0xDFDFDF)
 
 NSString * const TABAnimatedAlphaAnimation = @"TABAlphaAnimation";
@@ -29,6 +30,7 @@ NSString * const TABAnimatedDropAnimation = @"TABDropAnimation";
 @interface TABAnimated()
 
 @property (nonatomic, strong, readwrite) NSMutableArray <TableDeDaSelfModel *> *tableDeDaSelfModelArray;
+@property (nonatomic, strong, readwrite) NSMutableArray <CollectionDeDaSelfModel *> *collectionDeDaSelfModelArray;
 
 @property (nonatomic, strong, readwrite) TABAnimatedCacheManager *cacheManager;
 
@@ -49,17 +51,18 @@ NSString * const TABAnimatedDropAnimation = @"TABDropAnimation";
 
 - (instancetype)init {
     if (self = [super init]) {
+        
         _tableDeDaSelfModelArray = @[].mutableCopy;
+        _collectionDeDaSelfModelArray = @[].mutableCopy;
+        
         _animationType = TABAnimationTypeOnlySkeleton;
         [TABAnimatedDocumentMethod createFile:TABCacheManagerFolderName
                                         isDir:YES];
-        
 #ifdef DEBUG
         _closeCache = YES;
 #endif
         
         _cacheManager = TABAnimatedCacheManager.new;
-        
         __weak typeof(self) weakSelf = self;
         dispatch_async(dispatch_get_main_queue(), ^{
             [weakSelf.cacheManager install];
@@ -71,14 +74,12 @@ NSString * const TABAnimatedDropAnimation = @"TABDropAnimation";
 - (void)initWithOnlySkeleton {
     if (self) {
         _animationType = TABAnimationTypeOnlySkeleton;
-        _animatedColor = tab_kBackColor;
     }
 }
 
 - (void)initWithBinAnimation {
     if (self) {
         _animationType = TABAnimationTypeBinAnimation;
-        _animatedColor = tab_kBackColor;
     }
 }
 
@@ -86,7 +87,6 @@ NSString * const TABAnimatedDropAnimation = @"TABDropAnimation";
     if (self) {
         _animationType = TABAnimationTypeShimmer;
         _animatedDurationShimmer = 1.;
-        _animatedColor = tab_kBackColor;
         _shimmerDirection = TABShimmerDirectionToRight;
         _shimmerBackColor = tab_kShimmerBackColor;
         _shimmerBrightness = 0.92;
@@ -108,7 +108,6 @@ NSString * const TABAnimatedDropAnimation = @"TABDropAnimation";
 - (void)initWithDropAnimated {
     if (self) {
         _animationType = TABAnimationTypeDrop;
-        _animatedColor = tab_kBackColor;
     }
 }
 
@@ -124,6 +123,19 @@ NSString * const TABAnimatedDropAnimation = @"TABDropAnimation";
     TableDeDaSelfModel *newModel = TableDeDaSelfModel.new;
     newModel.targetClassName = className;
     [self.tableDeDaSelfModelArray addObject:newModel];
+    return newModel;
+}
+
+- (CollectionDeDaSelfModel *)getCollectionDeDaModelAboutDeDaSelfWithClassName:(NSString *)className {
+    for (CollectionDeDaSelfModel *model in self.collectionDeDaSelfModelArray) {
+        if ([model.targetClassName isEqualToString:className]) {
+            return model;
+        }
+    }
+    
+    CollectionDeDaSelfModel *newModel = CollectionDeDaSelfModel.new;
+    newModel.targetClassName = className;
+    [self.collectionDeDaSelfModelArray addObject:newModel];
     return newModel;
 }
 
@@ -143,9 +155,34 @@ NSString * const TABAnimatedDropAnimation = @"TABDropAnimation";
     return _animatedHeight;
 }
 
+- (UIColor *)animatedColor {
+    if (_animatedColor) {
+        return _animatedColor;
+    }
+    return tab_kBackColor;
+}
+
+- (UIColor *)darkAnimatedColor {
+    if (_darkAnimatedColor) {
+        return _darkAnimatedColor;
+    }
+    return tab_kDarkBackColor;
+}
+
 - (UIColor *)animatedBackgroundColor {
     if (_animatedBackgroundColor) {
         return _animatedBackgroundColor;
+    }
+    return UIColor.whiteColor;
+}
+
+- (UIColor *)darkAnimatedBackgroundColor {
+    if (_darkAnimatedBackgroundColor) {
+        return _darkAnimatedBackgroundColor;
+    }
+    
+    if (@available(iOS 13.0, *)) {
+        return UIColor.secondarySystemBackgroundColor;
     }
     return UIColor.whiteColor;
 }
@@ -155,6 +192,13 @@ NSString * const TABAnimatedDropAnimation = @"TABDropAnimation";
         return _dropAnimationDeepColor;
     }
     return tab_kColor(0xE1E1E1);
+}
+
+- (UIColor *)dropAnimationDeepColorInDarkMode {
+    if (_dropAnimationDeepColorInDarkMode) {
+        return _dropAnimationDeepColorInDarkMode;
+    }
+    return tab_kColor(0x323232);
 }
 
 - (CGFloat)dropAnimationDuration {
@@ -204,6 +248,20 @@ NSString * const TABAnimatedDropAnimation = @"TABDropAnimation";
         return 0.92;
     }
     return _shimmerBrightness;
+}
+
+- (UIColor *)shimmerBackColorInDarkMode {
+    if (_shimmerBackColorInDarkMode == nil) {
+        return tab_kDarkBackColor;
+    }
+    return _shimmerBackColorInDarkMode;
+}
+
+- (CGFloat)shimmerBrightnessInDarkMode {
+    if (_shimmerBrightnessInDarkMode == 0.) {
+        return 0.5;
+    }
+    return _shimmerBrightnessInDarkMode;
 }
 
 - (CGFloat)animatedDurationShimmer {

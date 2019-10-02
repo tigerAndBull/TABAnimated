@@ -7,6 +7,7 @@
 //
 
 #import "TABViewAnimated.h"
+#import "TABAnimated.h"
 
 const NSInteger TABViewAnimatedErrorCode = -1000;
 
@@ -27,8 +28,36 @@ NSString * const TABViewAnimatedDefaultSuffixString = @"default_resuable_view";
     return self;
 }
 
-- (BOOL)currentSectionIsAnimatingWithSection:(NSInteger)section {
+- (BOOL)currentIndexIsAnimatingWithIndex:(NSInteger)index {
     return YES;
+}
+
+- (UIColor *)animatedColor {
+    if (_animatedColor) {
+        return _animatedColor;
+    }
+    return [TABAnimated sharedAnimated].animatedColor;
+}
+
+- (UIColor *)animatedBackgroundColor {
+    if (_animatedBackgroundColor) {
+        return _animatedBackgroundColor;
+    }
+    return [TABAnimated sharedAnimated].animatedBackgroundColor;
+}
+
+- (UIColor *)darkAnimatedColor {
+    if (_darkAnimatedColor) {
+        return _darkAnimatedColor;
+    }
+    return [TABAnimated sharedAnimated].darkAnimatedColor;
+}
+
+- (UIColor *)darkAnimatedBackgroundColor {
+    if (_darkAnimatedBackgroundColor) {
+        return _darkAnimatedBackgroundColor;
+    }
+    return [TABAnimated sharedAnimated].darkAnimatedBackgroundColor;
 }
 
 @end

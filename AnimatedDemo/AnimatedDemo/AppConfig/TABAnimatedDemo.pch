@@ -10,6 +10,8 @@
 #define TABAnimatedDemo_pch
 
 #import "TABAnimated.h"
+#import "BaseDemoViewController.h"
+#import "UIColor+TABCategory.h"
 #import <TABKit/TABKit.h>
 
 #define kText(x) (NSLocalizedString(x, nil))

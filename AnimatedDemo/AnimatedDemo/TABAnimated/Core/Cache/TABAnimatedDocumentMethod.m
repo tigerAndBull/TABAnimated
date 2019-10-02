@@ -23,11 +23,17 @@
 
 + (void)writeToFileWithData:(id)data
                    filePath:(NSString *)filePath {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
     [NSKeyedArchiver archiveRootObject:data toFile:filePath];
+#pragma clang diagnostic pop
 }
 
 + (id)getCacheData:(NSString *)filePath {
-    return [NSKeyedUnarchiver unarchiveObjectWithFile:filePath];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+return [NSKeyedUnarchiver unarchiveObjectWithFile:filePath];
+#pragma clang diagnostic pop
 }
 
 + (NSArray <NSString *> *)getAllFileNameWithFolderPath:(NSString *)folderPath {

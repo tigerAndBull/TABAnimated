@@ -106,6 +106,8 @@ typedef NS_ENUM(NSInteger,TABViewLoadAnimationStyle) {
  */
 @property (nonatomic, assign) CGFloat dropAnimationStayTime;
 
+@property (nonatomic, strong) UIColor *currentColor;
+
 @property (nonatomic, strong) NSValue *resultFrameValue;
 
 @property (nonatomic, copy) NSString *placeholderName;

@@ -352,12 +352,10 @@ static NSString * const kLongDataString = @"tab_testtesttesttesttesttesttesttest
 
 + (void)runAnimationWithSuperView:(UIView *)superView
                        targetView:(UIView *)targetView
-                          section:(NSInteger)section
                            isCell:(BOOL)isCell
                           manager:(TABComponentManager *)manager {
     
     if (superView.tabAnimated.state == TABViewAnimationStart &&
-        [superView.tabAnimated currentSectionIsAnimatingWithSection:section] &&
         !targetView.tabComponentManager.isLoad) {
         
         NSMutableArray <TABComponentLayer *> *array = @[].mutableCopy;
@@ -423,13 +421,33 @@ static NSString * const kLongDataString = @"tab_testtesttesttesttesttesttesttest
         
         for (NSInteger i = 0; i < manager.resultLayerArray.count; i++) {
             TABComponentLayer *layer = manager.resultLayerArray[i];
-            UIColor *baseColor = [TABAnimated sharedAnimated].shimmerBackColor;
-            CGFloat brigtness = [TABAnimated sharedAnimated].shimmerBrightness;
+            
+            UIColor *baseColor;
+            CGFloat brigtness;
+            
+            if (@available(iOS 13.0, *)) {
+                if (superView.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
+                    baseColor = [TABAnimated sharedAnimated].shimmerBackColorInDarkMode;
+                    brigtness = [TABAnimated sharedAnimated].shimmerBrightnessInDarkMode;
+                }else {
+                    baseColor = [TABAnimated sharedAnimated].shimmerBackColor;
+                    brigtness = [TABAnimated sharedAnimated].shimmerBrightness;
+                }
+            } else {
+                baseColor = [TABAnimated sharedAnimated].shimmerBackColor;
+                brigtness = [TABAnimated sharedAnimated].shimmerBrightness;
+            }
+            
+            if (baseColor == nil) {
+                return;
+            }
+            
             layer.colors = @[
                              (id)baseColor.CGColor,
                              (id)[TABManagerMethod brightenedColor:baseColor brightness:brigtness].CGColor,
                              (id)baseColor.CGColor
                              ];
+            
             [TABAnimationMethod addShimmerAnimationToLayer:layer
                                                   duration:[TABAnimated sharedAnimated].animatedDurationShimmer
                                                        key:TABAnimatedShimmerAnimation
@@ -451,10 +469,32 @@ static NSString * const kLongDataString = @"tab_testtesttesttesttesttesttesttest
         if ([TABManagerMethod canAddDropAnimation:superView]) {
             
             UIColor *deepColor;
-            if (superView.tabAnimated.dropAnimationDeepColor) {
-                deepColor = superView.tabAnimated.dropAnimationDeepColor;
-            }else {
-                deepColor = [TABAnimated sharedAnimated].dropAnimationDeepColor;
+            
+            if (@available(iOS 13.0, *)) {
+                if (superView.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
+                    
+                    if (superView.tabAnimated.dropAnimationDeepColorInDarkMode) {
+                        deepColor = superView.tabAnimated.dropAnimationDeepColorInDarkMode;
+                    }else {
+                        deepColor = [TABAnimated sharedAnimated].dropAnimationDeepColorInDarkMode;
+                    }
+                }else {
+                    if (superView.tabAnimated.dropAnimationDeepColor) {
+                        deepColor = superView.tabAnimated.dropAnimationDeepColor;
+                    }else {
+                        deepColor = [TABAnimated sharedAnimated].dropAnimationDeepColor;
+                    }
+                }
+            } else {
+                if (superView.tabAnimated.dropAnimationDeepColor) {
+                    deepColor = superView.tabAnimated.dropAnimationDeepColor;
+                }else {
+                    deepColor = [TABAnimated sharedAnimated].dropAnimationDeepColor;
+                }
+            }
+            
+            if (deepColor == nil) {
+                return;
             }
             
             CGFloat duration = 0;

@@ -43,7 +43,7 @@
     [TABAnimated sharedAnimated].openLog = NO;
     // 是否开启动画坐标标记，如果开启，也仅在debug环境下有效。
     // 开启后，会在每一个动画元素上增加一个红色的数字，该数字表示该动画元素所在下标，方便快速定位某个动画元素。
-    [TABAnimated sharedAnimated].openAnimationTag = YES;
+//    [TABAnimated sharedAnimated].openAnimationTag = YES;
     
     /*****************************************
      *****************************************

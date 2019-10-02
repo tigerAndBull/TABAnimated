@@ -24,50 +24,26 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface TABTableAnimated : TABViewAnimated
 
+#pragma mark - readwrite
+
 /**
- section == 1时，UITableView的cellHeight
+ 1种cell样式时，UITableView的cellHeight
  */
 @property (nonatomic, assign) CGFloat cellHeight;
 
 /**
- section > 1 时，UITableView的cellHeight集合
+ cell样式  > 1 时，UITableView的cellHeight集合
  */
 @property (nonatomic, strong) NSArray <NSNumber *> *cellHeightArray;
 
 /**
- 指定section加载动画集合
- */
-@property (nonatomic, strong) NSArray <NSNumber *> *animatedSectionArray;
-
-/**
- 当前正在动画中的分区
- */
-@property (nonatomic, strong) NSMutableArray <NSNumber *> *runAnimationSectionArray;
-
-/**
- 头视图动画对象
- */
-@property (nonatomic, weak) TABViewAnimated *tabHeadViewAnimated;
-
-/**
- * 尾视图动画对象
- */
-@property (nonatomic, weak) TABViewAnimated *tabFooterViewAnimated;
-
-/**
- 缓存自适应高度值
- */
-@property (nonatomic, assign) CGFloat oldEstimatedRowHeight;
-
-/**
- 特殊情况下才需要使用，
  仅用于动态section，即section的数量是根据获取到的数据而变化的。
  */
 @property (nonatomic, assign) NSInteger animatedSectionCount;
 
 /**
- 设置单section动画时row数量，默认填充屏幕为准
- **/
+ 设置单个section单个cell样式时动画的数量，默认填充屏幕为准
+ */
 @property (nonatomic, assign) NSInteger animatedCount;
 
 /**
@@ -81,6 +57,42 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL showTableFooterView;
 
 /**
+ 头视图动画对象
+ */
+@property (nonatomic, weak) TABViewAnimated *tabHeadViewAnimated;
+
+/**
+ 尾视图动画对象
+ */
+@property (nonatomic, weak) TABViewAnimated *tabFooterViewAnimated;
+
+#pragma mark - readonly, 不建议重写的属性
+
+/**
+ 你不需要手动赋值，但是你需要知道当前视图的结构，
+ 从而选择初始化方法和启动方法。
+ */
+@property (nonatomic, assign, readonly) TABAnimatedRunMode runMode;
+
+/**
+ 指定cell样式加载动画的集合
+ 集合内为cell样式所在的indexPath
+ */
+@property (nonatomic, strong) NSArray <NSNumber *> *animatedIndexArray;
+
+/**
+ 当前正在动画中的index
+ 如果是section mode，则为section的值
+ 如果是row mode，则为row的值 
+ */
+@property (nonatomic, strong) NSMutableArray <NSNumber *> *runAnimationIndexArray;
+
+/**
+ 缓存自适应高度值
+ */
+@property (nonatomic, assign) CGFloat oldEstimatedRowHeight;
+
+/**
  是否已经交换了delegate的IMP地址
  */
 @property (nonatomic, assign, readonly) BOOL isExhangeDelegateIMP;
@@ -91,8 +103,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign, readonly) BOOL isExhangeDataSourceIMP;
 
 /**
- 存储头视图相关，在完全理解原理的情况下，可以采用直接赋值
- 否则建议使用`addHeaderViewClass:viewHeight:toSection`
+ 存储头视图相关
  */
 @property (nonatomic, strong, readonly) NSMutableArray <Class> *headerClassArray;
 @property (nonatomic, strong, readonly) NSMutableArray <NSNumber *> *headerHeightArray;
@@ -105,10 +116,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly) NSMutableArray <NSNumber *> *footerHeightArray;
 @property (nonatomic, strong, readonly) NSMutableArray <NSNumber *> *footerSectionArray;
 
-#pragma mark -
+#pragma mark - 以下均为以section为单位的初始化方法
 
 /**
- 单section表格组件初始化方式，row值以填充contentSize的数量为标准
+ 单section表格组件初始化方式，row值以填充contentSize的数量为标
  
  @param cellClass cell，以填充contentSize的数量为标准
  @param cellHeight  cell的高度
@@ -118,7 +129,7 @@ NS_ASSUME_NONNULL_BEGIN
                            cellHeight:(CGFloat)cellHeight;
 
 /**
- 单section表格组件初始化方式，row值以填充contentSize的数量为标准
+ 单section表格组件初始化方式，row值以animatedCount为准
  
  @param cellClass 目标cell
  @param animatedCount 动画时row的数量
@@ -129,8 +140,8 @@ NS_ASSUME_NONNULL_BEGIN
                         animatedCount:(NSInteger)animatedCount;
 
 /**
- 如果原UITableView是多个section，但是只想指定一个section启动动画，使用该初始化方法
- 动画数量以填充contentSize的数量为标准
+ 指定某个section，且与row无关，使用该初始化方法
+ 动画数量以填充contentSize的数量为准
  
  @param cellClass 注册的cell类型
  @param cellHeight 动画时cell高度
@@ -156,9 +167,7 @@ NS_ASSUME_NONNULL_BEGIN
                             toSection:(NSInteger)section;
 
 /**
- 多section表格组件初始化方式
- 数组一一对应
- to sections
+ 视图结构要求：section和cell样式一一对应
  
  @param cellClassArray 目标cell数组
  @param animatedCountArray 动画时row的数量集合
@@ -168,9 +177,8 @@ NS_ASSUME_NONNULL_BEGIN
                            cellHeightArray:(NSArray <NSNumber *> *)cellHeightArray
                         animatedCountArray:(NSArray <NSNumber *> *)animatedCountArray;
 
-
 /**
- 这个初始化方式为部分section需要动画提供
+ 视图结构要求：section和cell样式一一对应
  
  上一个初始化方式，section和数组元素顺序对应，所有section都会有动画
  现在可以根据animatedSectionArray指定section，不指定的section没有动画。
@@ -190,15 +198,63 @@ NS_ASSUME_NONNULL_BEGIN
                         animatedCountArray:(NSArray <NSNumber *> *)animatedCountArray
                       animatedSectionArray:(NSArray <NSNumber *> *)animatedSectionArray;
 
+#pragma mark - 以下均为以row为单位的初始化方法
+
 /**
- 自适应高度，单section使用
+ 视图结构要求：1个section对应多个cell，且只有1个section
+ 
+ 指定某个row配置动画
+ animatedCount只能为1，无法设置animatedCount，只能为1
+ 
+ @param cellClass 注册的cell类型
+ @param cellHeight 动画时cell高度
+ @param row 被指定的row
+ @return object
+ */
++ (instancetype)animatedInRowModeWithCellClass:(Class)cellClass
+                                    cellHeight:(CGFloat)cellHeight
+                                         toRow:(NSInteger)row;
+
+/**
+ 视图结构要求：1个section对应多个cell，且只有1个section
+ 
+ 该section中所有row均会配置动画
+ animatedCount只能为1，无法设置animatedCount，只能为1
+ 
+ @param cellClassArray 目标cell数组
+ @param cellHeightArray 目标cell对应高度
+ @return object
+ */
++ (instancetype)animatedInRowModeWithCellClassArray:(NSArray <Class> *)cellClassArray
+                                    cellHeightArray:(NSArray <NSNumber *> *)cellHeightArray;
+
+/**
+ 视图结构要求：1个section对应多个cell，且只有1个section
+ 
+ 指定row集合，不指定的row会执行你的代理方法。
+ 
+ @param cellClassArray 目标cell数组
+ @param cellHeightArray 目标cell对应高度
+ @param rowArray rowArray
+ @return object
+ */
++ (instancetype)animatedInRowModeWithCellClassArray:(NSArray <Class> *)cellClassArray
+                                    cellHeightArray:(NSArray <NSNumber *> *)cellHeightArray
+                                           rowArray:(NSArray <NSNumber *> *)rowArray;
+
+#pragma mark - 自适应高度的初始化方法
+
+/**
+ 满足以下两个条件使用该初始化方法：
+ 1. 自适应高度
+ 2. section数量为1，且只有一种cell
  
  @param cellClass 目标cell
  @return object
  */
 + (instancetype)animatedWithCellClass:(Class)cellClass;
 
-#pragma mark -
+#pragma mark - 添加 header / footer
 
 /**
  添加区头动画，指定section
@@ -258,9 +314,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark -
 
-@interface EstimatedTableViewDelegate : NSObject<UITableViewDelegate>
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
+@interface EstimatedTableViewDelegate : NSObject
 
 @end
 

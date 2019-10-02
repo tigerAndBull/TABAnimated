@@ -21,6 +21,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIView (TABControlAnimation)
 
+#pragma mark - General
+
 /**
  开启动画, 建议使用下面的方法
 
@@ -50,6 +52,18 @@ NS_ASSUME_NONNULL_BEGIN
                              completion:(void (^)(void))completion;
 
 /**
+ 结束动画, 默认不加入任何动画效果
+ */
+- (void)tab_endAnimation;
+
+/**
+ 结束动画, 加入淡入淡出效果
+ */
+- (void)tab_endAnimationEaseOut;
+
+#pragma mark - Section Mode
+
+/**
  启动动画并指定section
  
  @param section UITableView或者UICollectionView的section
@@ -77,21 +91,24 @@ NS_ASSUME_NONNULL_BEGIN
                            completion:(void (^)(void))completion;
 
 /**
- 结束动画, 默认不加入任何动画效果
- */
-- (void)tab_endAnimation;
-
-/**
- 结束动画, 加入淡入淡出效果
- */
-- (void)tab_endAnimationEaseOut;
-
-/**
  指定分区结束动画，当表格的所有分区都不存在动画，会自动置为结束动画的状态
  
  @param section 指定section
  */
 - (void)tab_endAnimationWithSection:(NSInteger)section;
+
+#pragma mark - Row Mode
+
+- (void)tab_startAnimationWithRow:(NSInteger)row;
+
+- (void)tab_startAnimationWithRow:(NSInteger)row
+                       completion:(void (^)(void))completion;
+
+- (void)tab_startAnimationWithRow:(NSInteger)row
+                        delayTime:(CGFloat)delayTime
+                       completion:(void (^)(void))completion;
+
+- (void)tab_endAnimationWithRow:(NSInteger)row;
 
 @end
 

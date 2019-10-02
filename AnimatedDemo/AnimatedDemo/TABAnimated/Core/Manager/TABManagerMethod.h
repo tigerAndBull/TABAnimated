@@ -113,9 +113,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)runAnimationWithSuperView:(UIView *)superView
                        targetView:(UIView *)targetView
-                         section:(NSInteger)section
                            isCell:(BOOL)isCell
                           manager:(TABComponentManager *)manager;
+
++ (UIColor *)brightenedColor:(UIColor *)color
+                  brightness:(CGFloat)brightness;
 
 @end
 

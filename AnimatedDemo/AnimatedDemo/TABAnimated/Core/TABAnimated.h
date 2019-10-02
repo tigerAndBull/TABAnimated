@@ -45,7 +45,7 @@ extern NSString * const TABAnimatedLocationAnimation;  /// the key of flex anima
 extern NSString * const TABAnimatedShimmerAnimation;  ///the key of shimmer animation
 extern NSString * const TABAnimatedDropAnimation;   /// the key of drop animation
 
-@class TableDeDaSelfModel, TABAnimatedCacheManager;
+@class TableDeDaSelfModel, CollectionDeDaSelfModel, TABAnimatedCacheManager;
 
 /**
  Gobal animation type,
@@ -225,7 +225,19 @@ typedef NS_ENUM(NSInteger, TABAnimationType) {
  */
 @property (nonatomic, assign) BOOL closeCache;
 
-#pragma mark - Flex Aniamtion
+#pragma mark - Dark Mode
+
+/**
+ 暗黑模式下，动画背景色
+ */
+@property (nonatomic, strong) UIColor *darkAnimatedBackgroundColor;
+
+/**
+ 暗黑模式下，动画内容的颜色
+ */
+@property (nonatomic, strong) UIColor *darkAnimatedColor;
+
+#pragma mark - Flex Animation
 
 /**
  Flex animation back and forth duration
@@ -289,6 +301,9 @@ typedef NS_ENUM(NSInteger, TABAnimationType) {
  */
 @property (nonatomic, assign) CGFloat shimmerBrightness;
 
+@property (nonatomic, strong) UIColor *shimmerBackColorInDarkMode;
+@property (nonatomic, assign) CGFloat shimmerBrightnessInDarkMode;
+
 #pragma mark - Douban animation
 
 /**
@@ -306,11 +321,15 @@ typedef NS_ENUM(NSInteger, TABAnimationType) {
  */
 @property (nonatomic, strong) UIColor *dropAnimationDeepColor;
 
+@property (nonatomic, strong) UIColor *dropAnimationDeepColorInDarkMode;
+
 #pragma mark - `self.delegate = self`
 
 @property (nonatomic, strong, readonly) NSMutableArray <TableDeDaSelfModel *> *tableDeDaSelfModelArray;
+@property (nonatomic, strong, readonly) NSMutableArray <CollectionDeDaSelfModel *> *collectionDeDaSelfModelArray;
 
 - (TableDeDaSelfModel *)getTableDeDaModelAboutDeDaSelfWithClassName:(NSString *)className;
+- (CollectionDeDaSelfModel *)getCollectionDeDaModelAboutDeDaSelfWithClassName:(NSString *)className;
 
 #pragma mark - Init Method
 

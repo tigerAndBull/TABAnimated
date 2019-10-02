@@ -11,6 +11,7 @@
 #import "TABManagerMethod.h"
 #import "TABAnimated.h"
 #import "TABAnimatedCacheManager.h"
+#import "TableDeDaSelfModel.h"
 
 #import "objc/runtime.h"
 
@@ -23,6 +24,8 @@
 @property (nonatomic, strong, readwrite) NSMutableArray <Class> *footerClassArray;
 @property (nonatomic, strong, readwrite) NSMutableArray <NSValue *> *footerSizeArray;
 @property (nonatomic, strong, readwrite) NSMutableArray <NSNumber *> *footerSectionArray;
+
+@property (nonatomic, assign, readwrite) TABAnimatedRunMode runMode;
 
 @end
 
@@ -50,7 +53,7 @@
                             toSection:(NSInteger)section {
     TABCollectionAnimated *obj = [self animatedWithCellClass:cellClass cellSize:cellSize];
     obj.animatedCountArray = @[@(ceilf([UIScreen mainScreen].bounds.size.height/cellSize.height*1.0))];
-    obj.animatedSectionArray = @[@(section)];
+    obj.animatedIndexArray = @[@(section)];
     return obj;
 }
 
@@ -60,7 +63,7 @@
                             toSection:(NSInteger)section {
     TABCollectionAnimated *obj = [self animatedWithCellClass:cellClass cellSize:cellSize];
     obj.animatedCountArray = @[@(animatedCount)];
-    obj.animatedSectionArray = @[@(section)];
+    obj.animatedIndexArray = @[@(section)];
     return obj;
 }
 
@@ -81,13 +84,42 @@
     TABCollectionAnimated *obj = [self animatedWithCellClassArray:cellClassArray
                                                     cellSizeArray:cellSizeArray
                                                animatedCountArray:animatedCountArray];
-    obj.animatedSectionArray = animatedSectionArray;
+    obj.animatedIndexArray = animatedSectionArray;
+    return obj;
+}
+
+#pragma mark -
+
++ (instancetype)animatedInRowModeWithCellClassArray:(NSArray <Class> *)cellClassArray
+                                      cellSizeArray:(NSArray <NSValue *> *)cellSizeArray {
+    TABCollectionAnimated *obj = [[TABCollectionAnimated alloc] init];
+    obj.cellSizeArray = cellSizeArray;
+    obj.cellClassArray = cellClassArray;
+    obj.runMode = TABAnimatedRunByRow;
+    return obj;
+}
+
++ (instancetype)animatedInRowModeWithCellClassArray:(NSArray <Class> *)cellClassArray
+                                      cellSizeArray:(NSArray <NSValue *> *)cellSizeArray
+                                           rowArray:(NSArray <NSNumber *> *)rowArray {
+    TABCollectionAnimated *obj = [TABCollectionAnimated animatedInRowModeWithCellClassArray:cellSizeArray cellSizeArray:cellSizeArray];
+    obj.animatedIndexArray = rowArray;
+    return obj;
+}
+
++ (instancetype)animatedInRowModeWithCellClass:(Class)cellClass
+                                      cellSize:(CGSize)cellSize
+                                         toRow:(NSInteger)row {
+    TABCollectionAnimated *obj = [self animatedWithCellClass:cellClass cellSize:cellSize];
+    obj.runMode = TABAnimatedRunByRow;
+    obj.animatedCountArray = @[@(1)];
+    obj.animatedIndexArray = @[@(row)];
     return obj;
 }
 
 - (instancetype)init {
     if (self = [super init]) {
-        _runAnimationSectionArray = @[].mutableCopy;
+        _runAnimationIndexArray = @[].mutableCopy;
         _animatedSectionCount = 0;
         _animatedCount = 1;
         
@@ -108,7 +140,7 @@
 }
 
 - (BOOL)currentSectionIsAnimatingWithSection:(NSInteger)section {
-    for (NSNumber *num in self.runAnimationSectionArray) {
+    for (NSNumber *num in self.runAnimationIndexArray) {
         if ([num integerValue] == section) {
             return YES;
         }
@@ -182,18 +214,21 @@
     id <UICollectionViewDelegate> delegate = target.delegate;
     
     if (!_isExhangeDelegateIMP) {
-        SEL oldHeightSel = @selector(collectionView:layout:sizeForItemAtIndexPath:);
-        SEL newHeightSel = @selector(tab_collectionView:layout:sizeForItemAtIndexPath:);
-        [self exchangeDelegateOldSel:oldHeightSel withNewSel:newHeightSel withDelegate:delegate];
-        
-        SEL oldDisplaySel = @selector(collectionView:willDisplayCell:forItemAtIndexPath:);
-        SEL newDisplaySel = @selector(tab_collectionView:willDisplayCell:forItemAtIndexPath:);
-        [self exchangeDelegateOldSel:oldDisplaySel withNewSel:newDisplaySel withDelegate:delegate];
-        
-        SEL oldClickSel = @selector(collectionView:didSelectItemAtIndexPath:);
-        SEL newClickSel = @selector(tab_collectionView:didSelectItemAtIndexPath:);
-        [self exchangeDelegateOldSel:oldClickSel withNewSel:newClickSel withDelegate:delegate];
         _isExhangeDelegateIMP = YES;
+        
+        if ([target isEqual:delegate]) {
+            CollectionDeDaSelfModel *model = [[TABAnimated sharedAnimated] getCollectionDeDaModelAboutDeDaSelfWithClassName:NSStringFromClass(delegate.class)];
+            if (!model.isExhangeDelegate) {
+                [self exchangeDelegateMethods:delegate
+                                       target:target
+                                        model:model];
+                model.isExhangeDelegate = YES;
+            }
+        }else {
+            [self exchangeDelegateMethods:delegate
+                                   target:target
+                                    model:nil];
+        }
     }
 }
 
@@ -202,34 +237,163 @@
     id <UICollectionViewDataSource> dataSource = target.dataSource;
     
     if (!_isExhangeDataSourceIMP) {
-        SEL oldSectionsSel = @selector(numberOfSectionsInCollectionView:);
-        SEL newSectionsSel = @selector(tab_numberOfSectionsInCollectionView:);
-        [self exchangeDelegateOldSel:oldSectionsSel withNewSel:newSectionsSel withDelegate:dataSource];
-        
-        SEL oldItemsSel = @selector(collectionView:numberOfItemsInSection:);
-        SEL newItemsSel = @selector(tab_collectionView:numberOfItemsInSection:);
-        [self exchangeDelegateOldSel:oldItemsSel withNewSel:newItemsSel withDelegate:dataSource];
-        
-        SEL oldCellSel = @selector(collectionView:cellForItemAtIndexPath:);
-        SEL newCellSel = @selector(tab_collectionView:cellForItemAtIndexPath:);
-        [self exchangeDelegateOldSel:oldCellSel withNewSel:newCellSel withDelegate:dataSource];
-        
-        SEL oldReuseableCellSel = @selector(collectionView:viewForSupplementaryElementOfKind:atIndexPath:);
-        SEL newReuseableCellSel = @selector(tab_collectionView:viewForSupplementaryElementOfKind:atIndexPath:);
-        [self exchangeDelegateOldSel:oldReuseableCellSel withNewSel:newReuseableCellSel withDelegate:dataSource];
-        
-        SEL oldHeaderCellSel = @selector(collectionView:layout:referenceSizeForHeaderInSection:);
-        SEL newHeaderCellSel = @selector(tab_collectionView:layout:referenceSizeForHeaderInSection:);
-        [self exchangeDelegateOldSel:oldHeaderCellSel withNewSel:newHeaderCellSel withDelegate:dataSource];
-        
-        SEL oldFooterCellSel = @selector(collectionView:layout:referenceSizeForFooterInSection:);
-        SEL newFooterCellSel = @selector(tab_collectionView:layout:referenceSizeForFooterInSection:);
-        [self exchangeDelegateOldSel:oldFooterCellSel withNewSel:newFooterCellSel withDelegate:dataSource];
         _isExhangeDataSourceIMP = YES;
+        if ([target isEqual:dataSource]) {
+            CollectionDeDaSelfModel *model = [[TABAnimated sharedAnimated] getCollectionDeDaModelAboutDeDaSelfWithClassName:NSStringFromClass(dataSource.class)];
+            if (!model.isExhangeDataSource) {
+                [self exchangeDataSourceMethods:dataSource
+                                         target:target
+                                          model:model];
+                model.isExhangeDataSource = YES;
+            }
+        }else {
+            [self exchangeDataSourceMethods:dataSource
+                                     target:target
+                                      model:nil];
+        }
     }
 }
 
 #pragma mark - Private Methods
+
+- (void)exchangeDelegateMethods:(id<UICollectionViewDelegate>)delegate
+                         target:(id)target
+                          model:(CollectionDeDaSelfModel *)model {
+        
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+    
+    SEL oldHeightSel = @selector(collectionView:layout:sizeForItemAtIndexPath:);
+    SEL newHeightSel;
+    if (model) {
+        newHeightSel = @selector(tab_deda_collectionView:layout:sizeForItemAtIndexPath:);
+    }else {
+        newHeightSel = @selector(tab_collectionView:layout:sizeForItemAtIndexPath:);
+    }
+    [self exchangeDelegateOldSel:oldHeightSel
+                      withNewSel:newHeightSel
+                      withTarget:target
+                    withDelegate:delegate
+                           model:model];
+    
+    SEL oldDisplaySel = @selector(collectionView:willDisplayCell:forItemAtIndexPath:);
+    SEL newDisplaySel;
+    if (model) {
+        newDisplaySel = @selector(tab_deda_collectionView:willDisplayCell:forItemAtIndexPath:);
+    }else {
+        newDisplaySel = @selector(tab_collectionView:willDisplayCell:forItemAtIndexPath:);
+    }
+    [self exchangeDelegateOldSel:oldDisplaySel
+                      withNewSel:newDisplaySel
+                      withTarget:target
+                    withDelegate:delegate
+                           model:model];
+    
+    SEL oldClickSel = @selector(collectionView:didSelectItemAtIndexPath:);
+    SEL newClickSel;
+    if (model) {
+        newClickSel = @selector(tab_deda_collectionView:didSelectItemAtIndexPath:);
+    }else {
+        newClickSel = @selector(tab_collectionView:didSelectItemAtIndexPath:);
+    }
+    [self exchangeDelegateOldSel:oldClickSel
+                      withNewSel:newClickSel
+                      withTarget:target
+                    withDelegate:delegate
+                           model:model];
+    
+#pragma clang diagnostic pop
+    
+}
+
+- (void)exchangeDataSourceMethods:(id<UICollectionViewDataSource>)dataSource
+                           target:(id)target
+                            model:(CollectionDeDaSelfModel *)model {
+    
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+    
+    SEL oldSectionsSel = @selector(numberOfSectionsInCollectionView:);
+    SEL newSectionsSel;
+    if (model) {
+        newSectionsSel = @selector(tab_deda_numberOfSectionsInCollectionView:);
+    }else {
+        newSectionsSel = @selector(tab_numberOfSectionsInCollectionView:);
+    }
+    [self exchangeDelegateOldSel:oldSectionsSel
+                      withNewSel:newSectionsSel
+                      withTarget:target
+                    withDelegate:dataSource
+                           model:model];
+    
+    SEL oldItemsSel = @selector(collectionView:numberOfItemsInSection:);
+    SEL newItemsSel;
+    if (model) {
+        newItemsSel = @selector(tab_deda_collectionView:numberOfItemsInSection:);
+    }else {
+        newItemsSel = @selector(tab_collectionView:numberOfItemsInSection:);
+    }
+    [self exchangeDelegateOldSel:oldItemsSel
+                      withNewSel:newItemsSel
+                      withTarget:target
+                    withDelegate:dataSource
+                           model:model];
+    
+    SEL oldCellSel = @selector(collectionView:cellForItemAtIndexPath:);
+    SEL newCellSel;
+    if (model) {
+        newCellSel = @selector(tab_deda_collectionView:cellForItemAtIndexPath:);
+    }else {
+        newCellSel = @selector(tab_collectionView:cellForItemAtIndexPath:);
+    }
+    [self exchangeDelegateOldSel:oldCellSel
+                      withNewSel:newCellSel
+                      withTarget:target
+                    withDelegate:dataSource
+                           model:model];
+    
+    SEL oldReuseableCellSel = @selector(collectionView:viewForSupplementaryElementOfKind:atIndexPath:);
+    SEL newReuseableCellSel;
+    if (model) {
+        newReuseableCellSel = @selector(tab_deda_collectionView:viewForSupplementaryElementOfKind:atIndexPath:);
+    }else {
+        newReuseableCellSel = @selector(tab_collectionView:viewForSupplementaryElementOfKind:atIndexPath:);
+    }
+    [self exchangeDelegateOldSel:oldReuseableCellSel
+                      withNewSel:newReuseableCellSel
+                      withTarget:target
+                    withDelegate:dataSource
+                           model:model];
+    
+    SEL oldHeaderCellSel = @selector(collectionView:layout:referenceSizeForHeaderInSection:);
+    SEL newHeaderCellSel;
+    if (model) {
+        newHeaderCellSel = @selector(tab_deda_collectionView:layout:referenceSizeForHeaderInSection:);
+    }else {
+        newHeaderCellSel = @selector(tab_collectionView:layout:referenceSizeForHeaderInSection:);
+    }
+    [self exchangeDelegateOldSel:oldHeaderCellSel
+                      withNewSel:newHeaderCellSel
+                      withTarget:target
+                    withDelegate:dataSource
+                           model:model];
+    
+    SEL oldFooterCellSel = @selector(collectionView:layout:referenceSizeForFooterInSection:);
+    SEL newFooterCellSel;
+    if (model) {
+        newFooterCellSel = @selector(tab_deda_collectionView:layout:referenceSizeForFooterInSection:);
+    }else {
+        newFooterCellSel = @selector(tab_collectionView:layout:referenceSizeForFooterInSection:);
+    }
+    [self exchangeDelegateOldSel:oldFooterCellSel
+                      withNewSel:newFooterCellSel
+                      withTarget:target
+                    withDelegate:dataSource
+                           model:model];
+    
+#pragma clang diagnostic pop
+    
+}
 
 /**
  exchange method
@@ -240,25 +404,31 @@
  */
 - (void)exchangeDelegateOldSel:(SEL)oldSelector
                     withNewSel:(SEL)newSelector
-                  withDelegate:(id)delegate {
+                    withTarget:(id)target
+                  withDelegate:(id)delegate
+                         model:(CollectionDeDaSelfModel *)model {
     
     if (![delegate respondsToSelector:oldSelector]) {
         return;
     }
     
-    Method oldMethod = class_getInstanceMethod([delegate class], oldSelector);
-    Method newMethod = class_getInstanceMethod([self class], newSelector);
-    
-    if ([self isKindOfClass:[delegate class]]) {
-        tabAnimatedLog(@"注意：你采用了`self.delegate = self`,将delegate方法封装在了子类。那么，delegate方法的IMP地址为类对象所有，所以由该类创建的UITableView的代理方法的IMP地址始终唯一，本库不支持这种做法。");
+    Class targetClass;
+    if (model) {
+        targetClass = [model class];
     }else {
-        
-        // 代理对象添加newMethod，指向oldImp
-        BOOL isVictory = class_addMethod([delegate class], newSelector, class_getMethodImplementation([delegate class], oldSelector), method_getTypeEncoding(oldMethod));
-        if (isVictory) {
-            // 添加成功后，将oldMethod指向当前类的新的
-            class_replaceMethod([delegate class], oldSelector, class_getMethodImplementation([self class], newSelector), method_getTypeEncoding(newMethod));
-        }
+        targetClass = [self class];
+    }
+    
+    Method newMethod = class_getInstanceMethod(targetClass, newSelector);
+    if (newMethod == nil) {
+        return;
+    }
+    
+    Method oldMethod = class_getInstanceMethod([delegate class], oldSelector);
+    
+    BOOL isVictory = class_addMethod([delegate class], newSelector, class_getMethodImplementation([delegate class], oldSelector), method_getTypeEncoding(oldMethod));
+    if (isVictory) {
+        class_replaceMethod([delegate class], oldSelector, class_getMethodImplementation(targetClass, newSelector), method_getTypeEncoding(newMethod));
     }
 }
 
@@ -268,9 +438,9 @@
     if (collectionView.tabAnimated.state == TABViewAnimationStart &&
         collectionView.tabAnimated.animatedSectionCount != 0) {
         
-        [collectionView.tabAnimated.runAnimationSectionArray removeAllObjects];
+        [collectionView.tabAnimated.runAnimationIndexArray removeAllObjects];
         for (NSInteger i = 0; i < collectionView.tabAnimated.animatedSectionCount; i++) {
-            [collectionView.tabAnimated.runAnimationSectionArray addObject:[NSNumber numberWithInteger:i]];
+            [collectionView.tabAnimated.runAnimationIndexArray addObject:[NSNumber numberWithInteger:i]];
         }
         
         [collectionView.tabAnimated.headerSectionArray removeAllObjects];
@@ -293,15 +463,19 @@
 
 - (NSInteger)tab_collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     
+    if (collectionView.tabAnimated.runMode == TABAnimatedRunByRow) {
+        return [self tab_collectionView:collectionView numberOfItemsInSection:section];
+    }
+    
     if ([collectionView.tabAnimated currentSectionIsAnimatingWithSection:section]) {
         
         // 开发者指定section
-        if (collectionView.tabAnimated.animatedSectionArray.count > 0) {
+        if (collectionView.tabAnimated.animatedIndexArray.count > 0) {
             
             // 匹配当前section
-            for (NSNumber *num in collectionView.tabAnimated.animatedSectionArray) {
+            for (NSNumber *num in collectionView.tabAnimated.animatedIndexArray) {
                 if ([num integerValue] == section) {
-                    NSInteger index = [collectionView.tabAnimated.animatedSectionArray indexOfObject:num];
+                    NSInteger index = [collectionView.tabAnimated.animatedIndexArray indexOfObject:num];
                     if (index > collectionView.tabAnimated.animatedCountArray.count - 1) {
                         return [[collectionView.tabAnimated.animatedCountArray lastObject] integerValue];
                     }else {
@@ -309,7 +483,7 @@
                     }
                 }
                 
-                if ([num isEqual:[collectionView.tabAnimated.animatedSectionArray lastObject]]) {
+                if ([num isEqual:[collectionView.tabAnimated.animatedIndexArray lastObject]]) {
                     return [self tab_collectionView:collectionView numberOfItemsInSection:section];
                 }
             }
@@ -328,17 +502,27 @@
 
 - (CGSize)tab_collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    if ([collectionView.tabAnimated currentSectionIsAnimatingWithSection:indexPath.section]) {
-        
-        NSInteger index = indexPath.section;
+    NSInteger index;
+    switch (collectionView.tabAnimated.runMode) {
+        case TABAnimatedRunBySection: {
+            index = indexPath.section;
+        }
+            break;
+        case TABAnimatedRunByRow: {
+            index = indexPath.row;
+        }
+            break;
+    }
+    
+    if ([collectionView.tabAnimated currentSectionIsAnimatingWithSection:index]) {
         
         // 开发者指定section
-        if (collectionView.tabAnimated.animatedSectionArray.count > 0) {
+        if (collectionView.tabAnimated.animatedIndexArray.count > 0) {
             
             // 匹配当前section
-            for (NSNumber *num in collectionView.tabAnimated.animatedSectionArray) {
-                if ([num integerValue] == indexPath.section) {
-                    NSInteger currentIndex = [collectionView.tabAnimated.animatedSectionArray indexOfObject:num];
+            for (NSNumber *num in collectionView.tabAnimated.animatedIndexArray) {
+                if ([num integerValue] == index) {
+                    NSInteger currentIndex = [collectionView.tabAnimated.animatedIndexArray indexOfObject:num];
                     if (currentIndex > collectionView.tabAnimated.cellSizeArray.count - 1) {
                         index = [collectionView.tabAnimated.cellSizeArray count] - 1;
                     }else {
@@ -347,12 +531,12 @@
                     break;
                 }
                 
-                if ([num isEqual:[collectionView.tabAnimated.animatedSectionArray lastObject]]) {
+                if ([num isEqual:[collectionView.tabAnimated.animatedIndexArray lastObject]]) {
                     return [self tab_collectionView:collectionView layout:collectionViewLayout sizeForItemAtIndexPath:indexPath];
                 }
             }
         }else {
-            if (indexPath.section > (collectionView.tabAnimated.cellSizeArray.count - 1)) {
+            if (index > (collectionView.tabAnimated.cellSizeArray.count - 1)) {
                 index = collectionView.tabAnimated.cellSizeArray.count - 1;
                 tabAnimatedLog(@"TABAnimated提醒 - 获取到的分区的数量和设置的分区数量不一致，超出的分区值部分，将使用最后一个分区cell加载");
             }
@@ -366,17 +550,27 @@
 
 - (UICollectionViewCell *)tab_collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    if ([collectionView.tabAnimated currentSectionIsAnimatingWithSection:indexPath.section]) {
-        
-        NSInteger index = indexPath.section;
+    NSInteger index;
+    switch (collectionView.tabAnimated.runMode) {
+        case TABAnimatedRunBySection: {
+            index = indexPath.section;
+        }
+            break;
+        case TABAnimatedRunByRow: {
+            index = indexPath.row;
+        }
+            break;
+    }
+    
+    if ([collectionView.tabAnimated currentSectionIsAnimatingWithSection:index]) {
         
         // 开发者指定section
-        if (collectionView.tabAnimated.animatedSectionArray.count > 0) {
+        if (collectionView.tabAnimated.animatedIndexArray.count > 0) {
             
             // 匹配当前section
-            for (NSNumber *num in collectionView.tabAnimated.animatedSectionArray) {
-                if ([num integerValue] == indexPath.section) {
-                    NSInteger currentIndex = [collectionView.tabAnimated.animatedSectionArray indexOfObject:num];
+            for (NSNumber *num in collectionView.tabAnimated.animatedIndexArray) {
+                if ([num integerValue] == index) {
+                    NSInteger currentIndex = [collectionView.tabAnimated.animatedIndexArray indexOfObject:num];
                     if (currentIndex > collectionView.tabAnimated.cellClassArray.count - 1) {
                         index = [collectionView.tabAnimated.cellClassArray count] - 1;
                     }else {
@@ -385,12 +579,12 @@
                     break;
                 }
                 
-                if ([num isEqual:[collectionView.tabAnimated.animatedSectionArray lastObject]]) {
+                if ([num isEqual:[collectionView.tabAnimated.animatedIndexArray lastObject]]) {
                     return [self tab_collectionView:collectionView cellForItemAtIndexPath:indexPath];
                 }
             }
         }else {
-            if (indexPath.section > (collectionView.tabAnimated.cellClassArray.count - 1)) {
+            if (index > (collectionView.tabAnimated.cellClassArray.count - 1)) {
                 index = collectionView.tabAnimated.cellClassArray.count - 1;
                 tabAnimatedLog(@"TABAnimated提醒 - 获取到的分区的数量和设置的分区数量不一致，超出的分区值部分，将使用最后一个分区cell加载");
             }
@@ -417,8 +611,9 @@
                 manager.isLoad = YES;
                 manager.tabTargetClass = currentClass;
                 manager.currentSection = indexPath.section;
-                [manager reAddToView:cell];
                 cell.tabComponentManager = manager;
+                [manager reAddToView:cell
+                           superView:collectionView];
                 [TABManagerMethod startAnimationToSubViews:cell
                                                   rootView:cell];
                 [TABManagerMethod addExtraAnimationWithSuperView:collectionView
@@ -427,8 +622,9 @@
 
             }else {
                 [TABManagerMethod fullData:cell];
-                cell.tabComponentManager = [TABComponentManager initWithView:cell
-                                                                 tabAnimated:collectionView.tabAnimated];
+                cell.tabComponentManager =
+                [TABComponentManager initWithView:cell
+                                        superView:collectionView  tabAnimated:collectionView.tabAnimated];
                 cell.tabComponentManager.currentSection = indexPath.section;
                 cell.tabComponentManager.fileName = fileName;
                 
@@ -439,7 +635,6 @@
                         // 加载动画
                         [TABManagerMethod runAnimationWithSuperView:collectionView
                                                          targetView:weakCell
-                                                            section:indexPath.section
                                                              isCell:weakCell
                                                             manager:weakCell.tabComponentManager];
                     }
@@ -460,14 +655,39 @@
 
 - (void)tab_collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    if ([collectionView.tabAnimated currentSectionIsAnimatingWithSection:indexPath.section]) {
+    NSInteger index;
+    switch (collectionView.tabAnimated.runMode) {
+        case TABAnimatedRunBySection: {
+            index = indexPath.section;
+        }
+            break;
+        case TABAnimatedRunByRow: {
+            index = indexPath.row;
+        }
+            break;
+    }
+    
+    if ([collectionView.tabAnimated currentSectionIsAnimatingWithSection:index]) {
         return;
     }
     [self tab_collectionView:collectionView willDisplayCell:cell forItemAtIndexPath:indexPath];
 }
 
 - (void)tab_collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    if ([collectionView.tabAnimated currentSectionIsAnimatingWithSection:indexPath.section] ||
+    
+    NSInteger index;
+    switch (collectionView.tabAnimated.runMode) {
+        case TABAnimatedRunBySection: {
+            index = indexPath.section;
+        }
+            break;
+        case TABAnimatedRunByRow: {
+            index = indexPath.row;
+        }
+            break;
+    }
+    
+    if ([collectionView.tabAnimated currentSectionIsAnimatingWithSection:index] ||
         collectionView.tabAnimated.state == TABViewAnimationRunning) {
         return;
     }
@@ -600,7 +820,8 @@ referenceSizeForFooterInSection:(NSInteger)section {
                 manager.isLoad = YES;
                 manager.tabTargetClass = resuableClass;
                 manager.currentSection = indexPath.section;
-                [manager reAddToView:reusableView];
+                [manager reAddToView:reusableView
+                           superView:collectionView];
                 reusableView.tabComponentManager = manager;
                 [TABManagerMethod startAnimationToSubViews:reusableView
                                                   rootView:reusableView];
@@ -609,7 +830,10 @@ referenceSizeForFooterInSection:(NSInteger)section {
                                                          manager:reusableView.tabComponentManager];
             }else {
                 [TABManagerMethod fullData:reusableView];
-                reusableView.tabComponentManager = [TABComponentManager initWithView:reusableView tabAnimated:collectionView.tabAnimated];
+                reusableView.tabComponentManager =
+                [TABComponentManager initWithView:reusableView
+                                        superView:collectionView
+                                      tabAnimated:collectionView.tabAnimated];
                 reusableView.tabComponentManager.currentSection = indexPath.section;
                 reusableView.tabComponentManager.tabTargetClass = resuableClass;
                 reusableView.tabComponentManager.fileName = fileName;
@@ -625,7 +849,6 @@ referenceSizeForFooterInSection:(NSInteger)section {
                         
                         [TABManagerMethod runAnimationWithSuperView:collectionView
                                                          targetView:weakView
-                                                            section:indexPath.section
                                                              isCell:YES
                                                             manager:weakView.tabComponentManager];
                     }
