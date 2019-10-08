@@ -196,7 +196,9 @@ UICollectionViewDataSource
                                        animatedWithCellClassArray:classArray
                                        cellSizeArray:sizeArray
                                        animatedCountArray:@[@(1),@(3)]];
-        
+        if (@available(iOS 13.0, *)) {
+            _collectionView.tabAnimated.darkAnimatedBackgroundColor = UIColor.systemBackgroundColor;
+        }
         _collectionView.tabAnimated.adjustWithClassBlock = ^(TABComponentManager * _Nonnull manager, Class  _Nonnull __unsafe_unretained targetClass) {
             if (targetClass == LawyerCollectionViewCell.class) {
                 manager.animation(1).height(12).down(-2).reducedWidth(-90);

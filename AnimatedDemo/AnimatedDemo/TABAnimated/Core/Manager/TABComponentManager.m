@@ -221,12 +221,12 @@ static NSString * const kTagDefaultFontName = @"HiraKakuProN-W3";
             superView:(UIView *)superView {
     if (@available(iOS 13.0, *)) {
         self.sentryView = TABSentryView.new;
-        __weak typeof(self) weakself = self;
-        __weak typeof(superView) weakSuperSelf = superView;
+        __weak typeof(self) weakSelf = self;
+        __weak typeof(superView) weakSuperView = superView;
         self.sentryView.traitCollectionDidChangeBack = ^{
-            __strong typeof(weakself) strongSelf = weakself;
-            __strong typeof(weakSuperSelf) strongSuperSelf = weakSuperSelf;
-            [strongSelf tab_traitCollectionDidChange:strongSuperSelf];
+            __strong typeof(weakSelf) strongSelf = weakSelf;
+            __strong typeof(weakSuperView) strongSuperView = weakSuperView;
+            [strongSelf tab_traitCollectionDidChange:strongSuperView];
         };
         [view addSubview:self.sentryView];
     }

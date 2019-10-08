@@ -29,18 +29,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-//    if (@available(iOS 13.0, *)) {
-//        self.view.backgroundColor = [UIColor colorWithDynamicProvider:^UIColor * _Nonnull(UITraitCollection * _Nonnull traitCollection) {
-//            if (traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
-//                return UIColor.systemBackgroundColor;
-//            }else {
-//                return UIColor.whiteColor;
-//            }
-//        }];
-//    } else {
-//        self.view.backgroundColor = UIColor.whiteColor;
-//    }
-    
     [self initData];
     [self initUI];
     
@@ -120,9 +108,11 @@
         _collectionView.tabAnimated.superAnimationType = TABViewSuperAnimationTypeDrop;
         _collectionView.tabAnimated.animatedColor = kColor(0xF3F3F3FF);
         _collectionView.tabAnimated.dropAnimationDeepColor = kColor(0xE6E6E6FF);
+        _collectionView.tabAnimated.animatedBackgroundColor = UIColor.whiteColor;
         
         if (@available(iOS 13.0, *)) {
             _collectionView.backgroundColor = [UIColor tab_getColorWithLightColor:kColor(0xEDEDEDFF) darkColor:UIColor.systemBackgroundColor];
+            _collectionView.tabAnimated.darkAnimatedBackgroundColor = UIColor.secondarySystemBackgroundColor;
         } else {
             _collectionView.backgroundColor = kColor(0xEDEDEDFF);
         }
