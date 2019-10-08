@@ -36,10 +36,6 @@
     }];
 }
 
-- (void)dealloc {
-    NSLog(@"==========  dealloc  ==========");
-}
-
 #pragma mark - Target Methods
 
 /**

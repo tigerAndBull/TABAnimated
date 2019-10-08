@@ -29,11 +29,23 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+//    if (@available(iOS 13.0, *)) {
+//        self.view.backgroundColor = [UIColor colorWithDynamicProvider:^UIColor * _Nonnull(UITraitCollection * _Nonnull traitCollection) {
+//            if (traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
+//                return UIColor.systemBackgroundColor;
+//            }else {
+//                return UIColor.whiteColor;
+//            }
+//        }];
+//    } else {
+//        self.view.backgroundColor = UIColor.whiteColor;
+//    }
+    
     [self initData];
     [self initUI];
     
     // 假设3秒后，获取到数据
-    [self performSelector:@selector(afterGetData) withObject:nil afterDelay:50.];
+    [self performSelector:@selector(afterGetData) withObject:nil afterDelay:5.];
 }
 
 - (void)dealloc {
@@ -46,7 +58,6 @@
  获取到数据后
  */
 - (void)afterGetData {
-    
     // 模拟数据
     for (int i = 0; i < 5; i ++) {
         [dataArray addObject:[NSObject new]];

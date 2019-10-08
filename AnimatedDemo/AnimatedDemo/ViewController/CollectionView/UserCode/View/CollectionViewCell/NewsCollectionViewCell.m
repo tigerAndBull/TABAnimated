@@ -34,7 +34,7 @@
 
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
-        
+
         [self.contentView addSubview:self.headImg];
         [self.contentView addSubview:self.firstLab];
         [self.contentView addSubview:self.secondLab];

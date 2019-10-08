@@ -36,10 +36,6 @@
     [self performSelector:@selector(afterGetData) withObject:nil afterDelay:3.0];
 }
 
-- (void)dealloc {
-    NSLog(@"==========  dealloc  ==========");
-}
-
 - (void)afterGetData {
     [self.mainView tab_endAnimation];
     

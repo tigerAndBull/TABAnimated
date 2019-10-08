@@ -77,9 +77,11 @@ static NSString * const kTagDefaultFontName = @"HiraKakuProN-W3";
     }
     [view.layer addSublayer:manager.tabLayer];
     
-    // 添加哨兵视图
-    [manager addSentryView:view
-                 superView:superView];
+    if (view && superView) {
+        // 添加哨兵视图
+        [manager addSentryView:view
+                     superView:superView];
+    }
     return manager;
 }
 
@@ -220,9 +222,11 @@ static NSString * const kTagDefaultFontName = @"HiraKakuProN-W3";
     if (@available(iOS 13.0, *)) {
         self.sentryView = TABSentryView.new;
         __weak typeof(self) weakself = self;
+        __weak typeof(superView) weakSuperSelf = superView;
         self.sentryView.traitCollectionDidChangeBack = ^{
             __strong typeof(weakself) strongSelf = weakself;
-            [strongSelf tab_traitCollectionDidChange:superView];
+            __strong typeof(weakSuperSelf) strongSuperSelf = weakSuperSelf;
+            [strongSelf tab_traitCollectionDidChange:strongSuperSelf];
         };
         [view addSubview:self.sentryView];
     }
