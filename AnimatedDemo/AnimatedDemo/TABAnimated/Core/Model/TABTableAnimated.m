@@ -720,7 +720,7 @@
             __weak typeof(cell) weakCell = cell;
             dispatch_async(dispatch_get_main_queue(), ^{
                 weakCell.tabComponentManager.tabLayer.frame = weakCell.bounds;
-                [TABManagerMethod resetData:cell];
+                [TABManagerMethod resetData:weakCell];
             });
         }
         

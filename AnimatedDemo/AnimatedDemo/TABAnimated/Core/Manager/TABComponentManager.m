@@ -221,6 +221,7 @@ static NSString * const kTagDefaultFontName = @"HiraKakuProN-W3";
             superView:(UIView *)superView {
     if (@available(iOS 13.0, *)) {
         self.sentryView = TABSentryView.new;
+        // avoid retain cycle
         __weak typeof(self) weakSelf = self;
         __weak typeof(superView) weakSuperView = superView;
         self.sentryView.traitCollectionDidChangeBack = ^{
@@ -377,19 +378,23 @@ static NSString * const kTagDefaultFontName = @"HiraKakuProN-W3";
             return;
         }
         
+        // avoid retain cycle
+        __weak typeof(superView) weakSuperView = superView;
         self.animatedBackgroundColor = [UIColor colorWithDynamicProvider:^UIColor * _Nonnull(UITraitCollection * _Nonnull traitCollection) {
+            __strong typeof(weakSuperView) strongSuperView = weakSuperView;
             if (traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
-                return superView.tabAnimated.darkAnimatedBackgroundColor;
+                return strongSuperView.tabAnimated.darkAnimatedBackgroundColor;
             }else {
-                return superView.tabAnimated.animatedBackgroundColor;
+                return strongSuperView.tabAnimated.animatedBackgroundColor;
             }
         }];
 
         self.animatedColor = [UIColor colorWithDynamicProvider:^UIColor * _Nonnull(UITraitCollection * _Nonnull traitCollection) {
+            __strong typeof(weakSuperView) strongSuperView = weakSuperView;
             if (traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
-                return superView.tabAnimated.darkAnimatedColor;
+                return strongSuperView.tabAnimated.darkAnimatedColor;
             }else {
-                return superView.tabAnimated.animatedColor;
+                return strongSuperView.tabAnimated.animatedColor;
             }
         }];
         
