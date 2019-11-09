@@ -352,6 +352,12 @@ static const NSTimeInterval kDelayReloadDataTime = 0.4;
                 targetView = self;
             }
             
+<<<<<<< HEAD
+=======
+//            self.tabAnimated.oldEnable = self.userInteractionEnabled;
+//            self.userInteractionEnabled = NO;
+            
+>>>>>>> 1cbc446... fix: cancel enable
             [TABManagerMethod fullData:self];
             [self setNeedsLayout];
             self.tabComponentManager = [TABComponentManager initWithView:self
@@ -421,6 +427,12 @@ static const NSTimeInterval kDelayReloadDataTime = 0.4;
             [(UICollectionView *)self reloadData];
             
         }else {
+<<<<<<< HEAD
+=======
+            
+//            self.userInteractionEnabled = self.tabAnimated.oldEnable;
+            
+>>>>>>> 1cbc446... fix: cancel enable
             [TABManagerMethod resetData:self];
             [TABManagerMethod removeMask:self];
             [TABManagerMethod endAnimationToSubViews:self];
