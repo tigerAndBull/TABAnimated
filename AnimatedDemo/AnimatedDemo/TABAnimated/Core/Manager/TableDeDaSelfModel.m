@@ -228,7 +228,7 @@
                     if (weakCell && tabAnimated && weakCell.tabComponentManager) {
                         [TABManagerMethod runAnimationWithSuperView:tableView
                                                          targetView:weakCell
-                                                             isCell:weakCell
+                                                             isCell:YES
                                                             manager:weakCell.tabComponentManager];
                     }
                 });
@@ -697,7 +697,7 @@
                         // 加载动画
                         [TABManagerMethod runAnimationWithSuperView:collectionView
                                                          targetView:weakCell
-                                                             isCell:weakCell
+                                                             isCell:YES
                                                             manager:weakCell.tabComponentManager];
                     }
                 });

@@ -659,7 +659,7 @@
                         // 加载动画
                         [TABManagerMethod runAnimationWithSuperView:collectionView
                                                          targetView:weakCell
-                                                             isCell:weakCell
+                                                             isCell:YES
                                                             manager:weakCell.tabComponentManager];
                     }
                 });
