@@ -202,11 +202,8 @@ typedef void(^TABAdjustWithClassBlock)(TABComponentManager *manager, Class targe
  */
 @property (nonatomic, assign) BOOL canLoadAgain;
 
-<<<<<<< HEAD
-=======
 //@property (nonatomic, assign) BOOL oldEnable;
 
->>>>>>> 1cbc446... fix: cancel enable
 #pragma mark - 过滤条件
 
 /**
