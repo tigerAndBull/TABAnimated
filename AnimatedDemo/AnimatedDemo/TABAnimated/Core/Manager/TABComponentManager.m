@@ -703,7 +703,6 @@ static NSString * const kTagDefaultFontName = @"HiraKakuProN-W3";
         [manager.resultLayerArray addObject:layer.copy];
     }
     
-//    manager.tabLayer = self.tabLayer.copy;
     manager.animatedColor = self.animatedColor;
     manager.animatedBackgroundColor = self.animatedBackgroundColor;
     manager.animatedHeight = self.animatedHeight;
@@ -719,7 +718,6 @@ static NSString * const kTagDefaultFontName = @"HiraKakuProN-W3";
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [aCoder encodeObject:_fileName forKey:@"fileName"];
-//    [aCoder encodeObject:_tabLayer forKey:@"tabLayer"];
     [aCoder encodeObject:_resultLayerArray forKey:@"resultLayerArray"];
     
     [aCoder encodeObject:_animatedColor forKey:@"animatedColor"];
@@ -738,14 +736,13 @@ static NSString * const kTagDefaultFontName = @"HiraKakuProN-W3";
 - (id)initWithCoder:(NSCoder *)aDecoder {
     if (self = [super init]) {
         self.fileName = [aDecoder decodeObjectForKey:@"fileName"];
-//        self.tabLayer = [aDecoder decodeObjectForKey:@"tabLayer"];
         self.resultLayerArray = [aDecoder decodeObjectForKey:@"resultLayerArray"];
         
         self.animatedColor = [aDecoder decodeObjectForKey:@"animatedColor"];
         self.animatedBackgroundColor = [aDecoder decodeObjectForKey:@"animatedBackgroundColor"];
         self.animatedHeight = [aDecoder decodeFloatForKey:@"animatedHeight"];
         self.animatedCornerRadius = [aDecoder decodeFloatForKey:@"animatedCornerRadius"];
-        self.cancelGlobalCornerRadius = [aDecoder decodeObjectForKey:@"cancelGlobalCornerRadius"];
+        self.cancelGlobalCornerRadius = [aDecoder decodeBoolForKey:@"cancelGlobalCornerRadius"];
         
         self.dropAnimationCount = [aDecoder decodeIntegerForKey:@"dropAnimationCount"];
         self.entireIndexArray = [aDecoder decodeObjectForKey:@"entireIndexArray"];
