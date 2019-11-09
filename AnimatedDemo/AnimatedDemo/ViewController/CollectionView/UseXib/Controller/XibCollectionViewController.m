@@ -10,8 +10,6 @@
 
 #import "XibCollectionViewCell.h"
 
-#import "MJRefresh.h"
-
 @interface XibCollectionViewController ()<UICollectionViewDelegate,UICollectionViewDataSource>
 
 @property (nonatomic,strong) UICollectionView *collectionView;
@@ -41,7 +39,6 @@
         [self.dataArray addObject:NSObject.new];
     }
     
-    [self.collectionView.mj_header endRefreshing];
     // 停止动画,并刷新数据
     [self.collectionView tab_endAnimation];
 }
@@ -85,15 +82,6 @@
         [TABCollectionAnimated animatedWithCellClass:[XibCollectionViewCell class]
                                             cellSize:CGSizeMake(kScreenWidth, 148)];
         _collectionView.tabAnimated.canLoadAgain = YES;
-        _collectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-            [self.collectionView tab_startAnimationWithDelayTime:5. completion:^{
-                // 请求数据
-                // ...
-                // 获得数据
-                // ...
-                [self afterGetData];
-            }];
-        }];
     }
     return _collectionView;
 }

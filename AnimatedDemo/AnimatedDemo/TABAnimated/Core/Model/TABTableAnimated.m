@@ -153,9 +153,22 @@
 - (void)addHeaderViewClass:(__nonnull Class)headerViewClass
                 viewHeight:(CGFloat)viewHeight
                  toSection:(NSInteger)section {
-    [_headerClassArray addObject:headerViewClass];
-    [_headerHeightArray addObject:@(viewHeight)];
-    [_headerSectionArray addObject:@(section)];
+    BOOL isAdd = false;
+    for (int i = 0; i < _headerSectionArray.count; i++) {
+        NSInteger oldSection = [_headerSectionArray[i] integerValue];
+        if (oldSection == section) {
+            isAdd = YES;
+            [_headerClassArray replaceObjectAtIndex:i withObject:headerViewClass];
+            [_headerHeightArray replaceObjectAtIndex:i withObject:@(viewHeight)];
+            [_headerSectionArray replaceObjectAtIndex:i withObject:@(section)];
+        }
+    }
+    
+    if (!isAdd) {
+        [_headerClassArray addObject:headerViewClass];
+        [_headerHeightArray addObject:@(viewHeight)];
+        [_headerSectionArray addObject:@(section)];
+    }
 }
 
 - (void)addHeaderViewClass:(__nonnull Class)headerViewClass
@@ -167,9 +180,22 @@
 - (void)addFooterViewClass:(__nonnull Class)footerViewClass
                 viewHeight:(CGFloat)viewHeight
                  toSection:(NSInteger)section {
-    [_footerClassArray addObject:footerViewClass];
-    [_footerHeightArray addObject:@(viewHeight)];
-    [_footerSectionArray addObject:@(section)];
+    BOOL isAdd = false;
+    for (int i = 0; i < _footerSectionArray.count; i++) {
+        NSInteger oldSection = [_footerSectionArray[i] integerValue];
+        if (oldSection == section) {
+            isAdd = YES;
+            [_footerClassArray replaceObjectAtIndex:i withObject:footerViewClass];
+            [_footerHeightArray replaceObjectAtIndex:i withObject:@(viewHeight)];
+            [_footerSectionArray replaceObjectAtIndex:i withObject:@(section)];
+        }
+    }
+    
+    if (!isAdd) {
+        [_footerClassArray addObject:footerViewClass];
+        [_footerHeightArray addObject:@(viewHeight)];
+        [_footerSectionArray addObject:@(section)];
+    }
 }
 
 - (void)addFooterViewClass:(__nonnull Class)footerViewClass
@@ -484,38 +510,34 @@
 #pragma mark - TABTableViewDataSource / Delegate
 
 - (NSInteger)tab_numberOfSectionsInTableView:(UITableView *)tableView {
-    if (tableView.tabAnimated.state == TABViewAnimationStart &&
-        tableView.tabAnimated.animatedSectionCount != 0) {
+    
+    if (tableView.tabAnimated.state == TABViewAnimationStart) {
         
-        NSInteger animatedSectionCount = tableView.tabAnimated.animatedSectionCount;
-        
-        [tableView.tabAnimated.runAnimationIndexArray removeAllObjects];
-        for (NSInteger i = 0; i < animatedSectionCount; i++) {
-            [tableView.tabAnimated.runAnimationIndexArray addObject:[NSNumber numberWithInteger:i]];
+        if (tableView.tabAnimated.animatedSectionCount != 0) {
+            return tableView.tabAnimated.animatedSectionCount;
         }
-        
-        [tableView.tabAnimated.headerSectionArray removeAllObjects];
-        if (tableView.tabAnimated.headerClassArray.count > 0) {
-            for (NSInteger i = 0; i < animatedSectionCount; i++) {
-                [tableView.tabAnimated.headerSectionArray addObject:[NSNumber numberWithInteger:i]];
-            }
+
+        NSInteger count = [self tab_numberOfSectionsInTableView:tableView];
+        if (count == 0) {
+            count = tableView.tabAnimated.cellClassArray.count;
         }
+
+        if (count == 0) return 1;
         
-        [tableView.tabAnimated.footerSectionArray removeAllObjects];
-        if (tableView.tabAnimated.footerClassArray.count > 0) {
-            for (NSInteger i = 0; i < animatedSectionCount; i++) {
-                [tableView.tabAnimated.footerSectionArray addObject:[NSNumber numberWithInteger:i]];
-            }
-        }
-        return animatedSectionCount;
+        return count;
     }
+    
     return [self tab_numberOfSectionsInTableView:tableView];
 }
 
 - (NSInteger)tab_tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
     if (tableView.tabAnimated.runMode == TABAnimatedRunByRow) {
-        return [self tab_tableView:tableView numberOfRowsInSection:section];
+        NSInteger count = [self tab_tableView:tableView numberOfRowsInSection:section];
+        if (count == 0) {
+            return tableView.tabAnimated.cellClassArray.count;
+        }
+        return count;
     }
     
     // If the animation running, return animatedCount.
@@ -668,8 +690,7 @@
             
             TABComponentManager *manager = [[TABAnimated sharedAnimated].cacheManager getComponentManagerWithFileName:fileName];
 
-            if (manager &&
-                !manager.needChangeRowStatus) {
+            if (manager && !manager.needChangeRowStatus) {
                 
                 manager.fileName = fileName;
                 manager.isLoad = YES;
@@ -680,6 +701,7 @@
                 [manager reAddToView:cell
                            superView:tableView];
                 
+                [TABManagerMethod hiddenAllView:cell];
                 [TABManagerMethod startAnimationToSubViews:cell
                                                   rootView:cell];
                 [TABManagerMethod addExtraAnimationWithSuperView:tableView
@@ -688,6 +710,7 @@
             }else {
                 
                 [TABManagerMethod fullData:cell];
+                
                 cell.tabComponentManager = [TABComponentManager initWithView:cell
                                                                    superView:tableView tabAnimated:tableView.tabAnimated];
                 cell.tabComponentManager.currentSection = indexPath.section;
@@ -696,13 +719,11 @@
             
                 __weak typeof(cell) weakCell = cell;
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    
                     TABTableAnimated *tabAnimated = (TABTableAnimated *)tableView.tabAnimated;
-                    
                     if (weakCell && tabAnimated && weakCell.tabComponentManager) {
                         [TABManagerMethod runAnimationWithSuperView:tableView
                                                          targetView:weakCell
-                                                             isCell:weakCell
+                                                             isCell:YES
                                                             manager:weakCell.tabComponentManager];
                     }
                 });
@@ -842,9 +863,13 @@
                                                              manager:headerFooterView.tabComponentManager];
                 }else {
                     [TABManagerMethod fullData:headerFooterView];
-                    headerFooterView.tabComponentManager = [TABComponentManager initWithView:headerFooterView superView:tableView tabAnimated:tableView.tabAnimated];
+                    headerFooterView.tabComponentManager =
+                    [TABComponentManager initWithView:headerFooterView
+                                            superView:tableView
+                                          tabAnimated:tableView.tabAnimated];
                     headerFooterView.tabComponentManager.currentSection = section;
                     headerFooterView.tabComponentManager.fileName = fileName;
+                    headerFooterView.tabComponentManager.tabTargetClass = class;
                     
                     __weak typeof(headerFooterView) weakView = headerFooterView;
                     dispatch_async(dispatch_get_main_queue(), ^{
@@ -867,7 +892,7 @@
                     headerFooterView.tabComponentManager.tabLayer.hidden = NO;
                 }
             }
-            headerFooterView.tabComponentManager.tabTargetClass = class;
+            
             if (tableView.tabAnimated.oldEstimatedRowHeight > 0) {
                 [TABManagerMethod fullData:headerFooterView];
                 __weak typeof(headerFooterView) weakView = headerFooterView;

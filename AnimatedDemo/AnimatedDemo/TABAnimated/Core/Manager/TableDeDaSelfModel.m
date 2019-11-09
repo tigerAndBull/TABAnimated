@@ -15,38 +15,33 @@
 @implementation TableDeDaSelfModel
 
 - (NSInteger)tab_deda_numberOfSectionsInTableView:(UITableView *)tableView {
-    if (tableView.tabAnimated.state == TABViewAnimationStart &&
-        tableView.tabAnimated.animatedSectionCount != 0) {
+    if (tableView.tabAnimated.state == TABViewAnimationStart) {
         
-        NSInteger animatedSectionCount = tableView.tabAnimated.animatedSectionCount;
-        
-        [tableView.tabAnimated.runAnimationIndexArray removeAllObjects];
-        for (NSInteger i = 0; i < animatedSectionCount; i++) {
-            [tableView.tabAnimated.runAnimationIndexArray addObject:[NSNumber numberWithInteger:i]];
+        if (tableView.tabAnimated.animatedSectionCount != 0) {
+            return tableView.tabAnimated.animatedSectionCount;
         }
-        
-        [tableView.tabAnimated.headerSectionArray removeAllObjects];
-        if (tableView.tabAnimated.headerClassArray.count > 0) {
-            for (NSInteger i = 0; i < animatedSectionCount; i++) {
-                [tableView.tabAnimated.headerSectionArray addObject:[NSNumber numberWithInteger:i]];
-            }
+
+        NSInteger count = [self tab_deda_numberOfSectionsInTableView:tableView];
+        if (count == 0) {
+            count = tableView.tabAnimated.cellClassArray.count;
         }
+
+        if (count == 0) return 1;
         
-        [tableView.tabAnimated.footerSectionArray removeAllObjects];
-        if (tableView.tabAnimated.footerClassArray.count > 0) {
-            for (NSInteger i = 0; i < animatedSectionCount; i++) {
-                [tableView.tabAnimated.footerSectionArray addObject:[NSNumber numberWithInteger:i]];
-            }
-        }
-        return animatedSectionCount;
+        return count;
     }
+    
     return [self tab_deda_numberOfSectionsInTableView:tableView];
 }
 
 - (NSInteger)tab_deda_tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
     if (tableView.tabAnimated.runMode == TABAnimatedRunByRow) {
-        return [self tab_deda_tableView:tableView numberOfRowsInSection:section];
+        NSInteger count = [self tab_deda_tableView:tableView numberOfRowsInSection:section];
+        if (count == 0) {
+            return tableView.tabAnimated.cellClassArray.count;
+        }
+        return count;
     }
     
     // If the animation running, return animatedCount.
@@ -504,36 +499,34 @@
 @implementation CollectionDeDaSelfModel
 
 - (NSInteger)tab_deda_numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    if (collectionView.tabAnimated.state == TABViewAnimationStart &&
-        collectionView.tabAnimated.animatedSectionCount != 0) {
+    
+    if (collectionView.tabAnimated.state == TABViewAnimationStart) {
         
-        [collectionView.tabAnimated.runAnimationIndexArray removeAllObjects];
-        for (NSInteger i = 0; i < collectionView.tabAnimated.animatedSectionCount; i++) {
-            [collectionView.tabAnimated.runAnimationIndexArray addObject:[NSNumber numberWithInteger:i]];
+        if (collectionView.tabAnimated.animatedSectionCount != 0) {
+            return collectionView.tabAnimated.animatedSectionCount;
         }
+
+        NSInteger count = [self tab_deda_numberOfSectionsInCollectionView:collectionView];
+        if (count == 0) {
+            count = collectionView.tabAnimated.cellClassArray.count;
+        }
+
+        if (count == 0) return 1;
         
-        [collectionView.tabAnimated.headerSectionArray removeAllObjects];
-        if (collectionView.tabAnimated.headerClassArray.count > 0) {
-            for (NSInteger i = 0; i < collectionView.tabAnimated.animatedSectionCount; i++) {
-                [collectionView.tabAnimated.headerSectionArray addObject:[NSNumber numberWithInteger:i]];
-            }
-        }
-        
-        [collectionView.tabAnimated.footerSectionArray removeAllObjects];
-        if (collectionView.tabAnimated.footerClassArray.count > 0) {
-            for (NSInteger i = 0; i < collectionView.tabAnimated.animatedSectionCount; i++) {
-                [collectionView.tabAnimated.footerSectionArray addObject:[NSNumber numberWithInteger:i]];
-            }
-        }
-        return collectionView.tabAnimated.animatedSectionCount;
+        return count;
     }
+    
     return [self tab_deda_numberOfSectionsInCollectionView:collectionView];
 }
 
 - (NSInteger)tab_deda_collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     
     if (collectionView.tabAnimated.runMode == TABAnimatedRunByRow) {
-        return [self tab_deda_collectionView:collectionView numberOfItemsInSection:section];
+        NSInteger count = [self tab_deda_collectionView:collectionView numberOfItemsInSection:section];
+        if (count == 0) {
+            return collectionView.tabAnimated.cellClassArray.count;
+        }
+        return count;
     }
     
     if ([collectionView.tabAnimated currentIndexIsAnimatingWithIndex:section]) {

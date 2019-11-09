@@ -58,68 +58,116 @@ typedef NSArray <TABBaseComponent *> * _Nullable (^TABBaseComponentArrayWithInde
 
 #pragma mark - 相关属性
 
+/**
+ * 绑定的cell的class，用于在预处理回调中区分class
+ */
 @property (nonatomic) Class tabTargetClass;
 
+/**
+ * cell中覆盖在最底层的layer
+ */
 @property (nonatomic, strong) TABComponentLayer *tabLayer;
 
+/**
+ * 设置该属性后，统一设置该cell内所有动画元素的内容颜色
+ * 优先级高于全局的内容颜色，低于动画元素自定义的内容颜色
+ */
 @property (nonatomic, strong) UIColor *animatedColor;
 
+/**
+ * 设置该属性后，统一设置该cell的背景颜色
+ */
 @property (nonatomic, strong) UIColor *animatedBackgroundColor;
 
+/**
+ * 设置该属性后，统一设置该cell内所有动画元素的高度
+ * 优先级高于全局的高度，低于动画元素自定义的高度
+ */
 @property (nonatomic, assign) CGFloat animatedHeight;
 
+/**
+ * 设置该属性后，统一设置该cell内所有动画元素的圆角
+ * 优先级高于全局的圆角，低于动画元素自定义的圆角
+ */
 @property (nonatomic, assign) CGFloat animatedCornerRadius;
 
+/**
+ * 设置该属性后，统一设置取消cell内所有动画元素的圆角
+ * 优先级高于全局的取消圆角属性，低于动画元素自定义的取消圆角属性
+ */
 @property (nonatomic, assign) BOOL cancelGlobalCornerRadius;
 
-@property (nonatomic, strong, readonly, nullable) TABSentryView *sentryView;
+/**
+ * 哨兵视图，用于监听暗黑模式
+ */
+@property (nonatomic, weak, readonly, nullable) TABSentryView *sentryView;
 
 /**
- 初始动画组
+ * 最初始动画组
  */
 @property (nonatomic, strong, readonly) NSMutableArray <TABComponentLayer *> *componentLayerArray;
 
 /**
- 最终显示在屏幕上的动画组
+ * 最初的动画组包装类
  */
-@property (nonatomic, strong, readonly) NSMutableArray <TABComponentLayer *> *resultLayerArray;
-
 @property (nonatomic, strong, readonly) NSMutableArray <TABBaseComponent *> *baseComponentArray;
 
 /**
- 暂存被嵌套的表格视图
+ * 最终显示在屏幕上的动画组
+ */
+@property (nonatomic, strong, readonly) NSMutableArray <TABComponentLayer *> *resultLayerArray;
+
+/**
+ * 暂存被嵌套的表格视图
  */
 @property (nonatomic, weak) UIView *nestView;
 
 /**
- 是否已经装载并加载过动画
+ * 是否已经装载并加载过动画
  */
 @property (nonatomic, assign) BOOL isLoad;
 
 /**
- 对于表格视图的cell和头尾视图，当前所处section
+ * 对于表格视图的cell和头尾视图，当前所处section
  */
 @property (nonatomic, assign) NSInteger currentSection;
 
 /**
- 对于表格视图的cell和头尾视图，当前所处row
+ * 对于表格视图的cell和头尾视图，当前所处row
+ * 用于对于某一个cell的特殊处理
  */
 @property (nonatomic, assign) NSInteger currentRow;
 
 /**
- 豆瓣动画组动画元素的数量
+ * 豆瓣动画组动画元素的数量
  */
 @property (nonatomic, assign, readonly) NSInteger dropAnimationCount;
 
 /**
- 豆瓣动画
+ * 豆瓣动画
  */
 @property (nonatomic, strong) NSMutableArray <NSArray *> *entireIndexArray;
 
+/**
+ * 该cell类型存储到本地的文件名
+ */
 @property (nonatomic, copy) NSString *fileName;
+
+/**
+ * 该cell类型映射到本地文件的最后一次版本号
+ */
 @property (nonatomic, copy) NSString *version;
+
+/**
+ * 框架会自动为该属性赋值
+ * 不要手动改变它的值
+ */
 @property (nonatomic, assign) BOOL needChangeRowStatus;
 
+/**
+ * 框架会自动为该属性赋值
+ * 不要手动改变它的值
+ */
 @property (nonatomic, assign, readonly) BOOL needUpdate;
 
 + (instancetype)initWithView:(UIView *)view

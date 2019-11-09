@@ -187,9 +187,10 @@ UIAlertViewDelegate
     }
 }
 
-- (void)selectAction {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
+
+- (void)selectAction {
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"选择类型"
                                                         message:@""
                                                        delegate:self
@@ -200,8 +201,9 @@ UIAlertViewDelegate
                               @"animationsWithIndexs(i1, i2, i3)", nil];
     alertView.tag = 1001;
     [alertView show];
-#pragma clang diagnostic pop
 }
+
+#pragma clang diagnostic pop
 
 - (void)doneAction {
     

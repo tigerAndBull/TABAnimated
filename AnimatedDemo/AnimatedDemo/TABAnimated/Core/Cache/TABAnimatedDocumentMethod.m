@@ -1,6 +1,5 @@
 //
 //  TABAnimatedDocumentMethod.m
-//  TABKit
 //
 //  Created by tigerAndBull on 2019/2/15.
 //  Copyright © 2019 tigerAndBull. All rights reserved.
@@ -23,17 +22,25 @@
 
 + (void)writeToFileWithData:(id)data
                    filePath:(NSString *)filePath {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-    [NSKeyedArchiver archiveRootObject:data toFile:filePath];
-#pragma clang diagnostic pop
+    if (@available(iOS 11.0, *)) {
+        NSData *newData = [NSKeyedArchiver archivedDataWithRootObject:data requiringSecureCoding:YES error:NULL];
+        if (newData) {
+            [newData writeToFile:filePath atomically:YES];
+        }
+    }else {
+        [NSKeyedArchiver archiveRootObject:data toFile:filePath];
+    }
 }
 
-+ (id)getCacheData:(NSString *)filePath {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-return [NSKeyedUnarchiver unarchiveObjectWithFile:filePath];
-#pragma clang diagnostic pop
++ (id)getCacheData:(NSString *)filePath
+       targetClass:(nonnull Class)targetClass {
+    if (@available(iOS 11.0, *)) {
+        NSData *data = [NSData dataWithContentsOfFile:filePath];
+        return [NSKeyedUnarchiver unarchivedObjectOfClass:targetClass
+                                                 fromData:data
+                                                    error:NULL];
+    }
+    return [NSKeyedUnarchiver unarchiveObjectWithFile:filePath];
 }
 
 + (NSArray <NSString *> *)getAllFileNameWithFolderPath:(NSString *)folderPath {

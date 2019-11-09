@@ -27,24 +27,11 @@ typedef NSArray <TABBaseComponent *> * _Nullable (^TABSearchLayerArrayBlock)(NSI
 // 控制视图持有
 @property (nonatomic, strong) TABViewAnimated * _Nullable tabAnimated;
 
-// 控制视图下的管理单元持有
+// 骨架屏管理单元持有
 @property (nonatomic, strong) TABComponentManager * _Nullable tabComponentManager;
 
-/**
- 获取指定下标的动画元素
-
- @return 目标动画元素
- */
-- (TABSearchLayerBlock _Nullable)animation;
-
-/**
- 获取多个动画元素，需要传递2个参数
- 第一个参数为起始下标
- 第二个参数长度
-
- @return 目标动画元素数组
- */
-- (TABSearchLayerArrayBlock _Nullable)animations;
+- (TABSearchLayerBlock _Nullable)animation DEPRECATED_MSG_ATTRIBUTE("已废弃的使用逻辑，请使用TABComponentManager中的`animation:`");
+- (TABSearchLayerArrayBlock _Nullable)animations DEPRECATED_MSG_ATTRIBUTE("已废弃的使用逻辑，请使用TABComponentManager中的`animations:`");
 
 @end
 
@@ -52,7 +39,7 @@ typedef NSArray <TABBaseComponent *> * _Nullable (^TABSearchLayerArrayBlock)(NSI
 
 @interface UITableView (TABAnimated)
 
-// 控制视图持有
+// 控制视图持有的配置管理对象
 @property (nonatomic, strong) TABTableAnimated * _Nullable tabAnimated;
 
 @end
@@ -61,7 +48,7 @@ typedef NSArray <TABBaseComponent *> * _Nullable (^TABSearchLayerArrayBlock)(NSI
 
 @interface UICollectionView (TABAnimated)
 
-// 控制视图持有
+// 控制视图持有的配置管理对象
 @property (nonatomic, strong) TABCollectionAnimated * _Nullable tabAnimated;
 
 @end

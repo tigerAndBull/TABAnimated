@@ -5,12 +5,6 @@
 //  github: https://github.com/tigerAndBull/TABAnimated
 //  jianshu: https://www.jianshu.com/p/6a0ca4995dff
 //
-//  集成问答文档：https://www.jianshu.com/p/34417897915a
-//  历史更新文档：https://www.jianshu.com/p/e3e9ea295e8a
-//  动画下标说明：https://www.jianshu.com/p/8c361ba5aa18
-//  豆瓣效果说明：https://www.jianshu.com/p/1a92158ce83a
-//  嵌套视图说明：https://www.jianshu.com/p/cf8e37195c11
-//
 //  Created by tigerAndBull on 2019/4/27.
 //  Copyright © 2019 tigerAndBull. All rights reserved.
 //
@@ -34,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  cell样式  > 1 时，UITableView的cellHeight集合
  */
-@property (nonatomic, strong) NSArray <NSNumber *> *cellHeightArray;
+@property (nonatomic, copy) NSArray <NSNumber *> *cellHeightArray;
 
 /**
  仅用于动态section，即section的数量是根据获取到的数据而变化的。
@@ -78,7 +72,7 @@ NS_ASSUME_NONNULL_BEGIN
  指定cell样式加载动画的集合
  集合内为cell样式所在的indexPath
  */
-@property (nonatomic, strong) NSArray <NSNumber *> *animatedIndexArray;
+@property (nonatomic, copy) NSArray <NSNumber *> *animatedIndexArray;
 
 /**
  当前正在动画中的index

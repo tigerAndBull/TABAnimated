@@ -101,6 +101,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)startAnimationToSubViews:(UIView *)view
                         rootView:(UIView *)rootView;
 
++ (void)hiddenAllView:(UIView *)view;
+
 + (void)removeAllTABLayersFromView:(UIView *)view;
 
 + (void)removeMask:(UIView *)view;

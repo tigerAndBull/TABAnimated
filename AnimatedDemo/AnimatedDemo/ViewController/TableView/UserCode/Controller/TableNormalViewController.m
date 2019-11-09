@@ -48,11 +48,11 @@
     // 启动动画
     // 这里使用了自定义延迟时间的启动函数，设置3秒是为了演示效果。
     // 非特殊场景情况下，建议使用`tab_startAnimationWithCompletion`。
-    [self.tableView tab_startAnimationWithDelayTime:5. completion:^{
-        // 请求数据
-        // ...
-        // 获得数据
-        // ...
+    [self.tableView tab_startAnimationWithDelayTime:3. completion:^{
+//         请求数据
+//         ...
+//         获得数据
+//         ...
         [self afterGetData];
     }];
 }
@@ -79,16 +79,24 @@
 
 #pragma mark - UITableViewDelegate & Datasource
 
+//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+//     return 1;
+//}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return dataArray.count;
 }
 
+//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+//    return UIView.new;
+//}
+//
+//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+//    return .1;
+//}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 100;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return .1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -100,6 +108,10 @@
     }
     [cell initWithData:dataArray[indexPath.row]];
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 #pragma mark - Initize Methods
@@ -124,7 +136,7 @@
 
 - (UITableView *)tableView {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:UITableViewStyleGrouped];
         _tableView.dataSource = self;
         _tableView.delegate = self;
         _tableView.estimatedRowHeight = 0;
@@ -133,6 +145,7 @@
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.backgroundColor = [UIColor tab_normalDynamicBackgroundColor];
         
+        // 为了演示效果
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 120)];
         UIImageView *imageV = [[UIImageView alloc] initWithFrame:CGRectMake((kScreenWidth - 80)/2.0, 20, 80, 80)];
         imageV.image = [UIImage imageNamed:@"comic.jpg"];
@@ -143,8 +156,7 @@
         
         // 设置tabAnimated相关属性
         // 可以不进行手动初始化，将使用默认属性
-        _tableView.tabAnimated = [TABTableAnimated animatedWithCellClass:[TestTableViewCell class]
-        cellHeight:90];
+        _tableView.tabAnimated = [TABTableAnimated animatedWithCellClass:[TestTableViewCell class] cellHeight:100];
         _tableView.tabAnimated.showTableHeaderView = YES;
         _tableView.tabAnimated.superAnimationType = TABViewSuperAnimationTypeShimmer;
         _tableView.tabAnimated.canLoadAgain = YES;
@@ -152,19 +164,14 @@
         // 区头动画, 建立在实现区头代理方法的前提下
         // 同时支持UIView和UITableViewHeaderFooterView类型
         // 非动态分区，必须指定section
-//        [_tableView.tabAnimated addHeaderViewClass:[TestHeadView class] viewHeight:100 toSection:0];
+//        [_tableView.tabAnimated addHeaderViewClass:[TestHeadView class] viewHeight:100];
 //        [_tableView.tabAnimated addHeaderViewClass:[TestTableHeaderFooterView class] viewHeight:100 toSection:0];
         
         // 新回调
         _tableView.tabAnimated.adjustBlock = ^(TABComponentManager * _Nonnull manager) {
             manager.animation(1).down(3).height(12);
-            manager.animation(2).height(12).reducedWidth(90);
+            manager.animation(2).height(12).reducedWidth(70);
             manager.animation(3).down(-5).height(12).radius(0.).reducedWidth(-20);
-        };
-        
-        // 静态头视图回调使用方法
-        _tableView.tableHeaderView.tabAnimated.adjustBlock = ^(TABComponentManager * _Nonnull manager) {
-            
         };
     }
     return _tableView;

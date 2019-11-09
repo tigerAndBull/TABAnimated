@@ -190,9 +190,22 @@
 - (void)addHeaderViewClass:(_Nonnull Class)headerViewClass
                   viewSize:(CGSize)viewSize
                  toSection:(NSInteger)section {
-    [_headerClassArray addObject:headerViewClass];
-    [_headerSizeArray addObject:@(viewSize)];
-    [_headerSectionArray addObject:@(section)];
+    BOOL isAdd = false;
+    for (int i = 0; i < _headerSectionArray.count; i++) {
+        NSInteger oldSection = [_headerSectionArray[i] integerValue];
+        if (oldSection == section) {
+            isAdd = YES;
+            [_headerClassArray replaceObjectAtIndex:i withObject:headerViewClass];
+            [_headerSizeArray replaceObjectAtIndex:i withObject:@(viewSize)];
+            [_headerSectionArray replaceObjectAtIndex:i withObject:@(section)];
+        }
+    }
+    
+    if (!isAdd) {
+        [_headerClassArray addObject:headerViewClass];
+        [_headerSizeArray addObject:@(viewSize)];
+        [_headerSectionArray addObject:@(section)];
+    }
 }
 
 - (void)addFooterViewClass:(_Nonnull Class)footerViewClass
@@ -204,9 +217,22 @@
 - (void)addFooterViewClass:(_Nonnull Class)footerViewClass
                   viewSize:(CGSize)viewSize
                  toSection:(NSInteger)section {
-    [_footerClassArray addObject:footerViewClass];
-    [_footerSizeArray addObject:@(viewSize)];
-    [_footerSectionArray addObject:@(section)];
+    BOOL isAdd = false;
+    for (int i = 0; i < _footerSectionArray.count; i++) {
+        NSInteger oldSection = [_footerSectionArray[i] integerValue];
+        if (oldSection == section) {
+            isAdd = YES;
+            [_footerClassArray replaceObjectAtIndex:i withObject:footerViewClass];
+            [_footerSizeArray replaceObjectAtIndex:i withObject:@(viewSize)];
+            [_footerSectionArray replaceObjectAtIndex:i withObject:@(section)];
+        }
+    }
+    
+    if (!isAdd) {
+        [_footerClassArray addObject:footerViewClass];
+        [_footerSizeArray addObject:@(viewSize)];
+        [_footerSectionArray addObject:@(section)];
+    }
 }
 
 - (void)exchangeCollectionViewDelegate:(UICollectionView *)target {
@@ -435,36 +461,33 @@
 #pragma mark - TABCollectionViewDelegate
 
 - (NSInteger)tab_numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    if (collectionView.tabAnimated.state == TABViewAnimationStart &&
-        collectionView.tabAnimated.animatedSectionCount != 0) {
+    if (collectionView.tabAnimated.state == TABViewAnimationStart) {
         
-        [collectionView.tabAnimated.runAnimationIndexArray removeAllObjects];
-        for (NSInteger i = 0; i < collectionView.tabAnimated.animatedSectionCount; i++) {
-            [collectionView.tabAnimated.runAnimationIndexArray addObject:[NSNumber numberWithInteger:i]];
+        if (collectionView.tabAnimated.animatedSectionCount != 0) {
+            return collectionView.tabAnimated.animatedSectionCount;
         }
+
+        NSInteger count = [self tab_numberOfSectionsInCollectionView:collectionView];
+        if (count == 0) {
+            count = collectionView.tabAnimated.cellClassArray.count;
+        }
+
+        if (count == 0) return 1;
         
-        [collectionView.tabAnimated.headerSectionArray removeAllObjects];
-        if (collectionView.tabAnimated.headerClassArray.count > 0) {
-            for (NSInteger i = 0; i < collectionView.tabAnimated.animatedSectionCount; i++) {
-                [collectionView.tabAnimated.headerSectionArray addObject:[NSNumber numberWithInteger:i]];
-            }
-        }
-        
-        [collectionView.tabAnimated.footerSectionArray removeAllObjects];
-        if (collectionView.tabAnimated.footerClassArray.count > 0) {
-            for (NSInteger i = 0; i < collectionView.tabAnimated.animatedSectionCount; i++) {
-                [collectionView.tabAnimated.footerSectionArray addObject:[NSNumber numberWithInteger:i]];
-            }
-        }
-        return collectionView.tabAnimated.animatedSectionCount;
+        return count;
     }
+    
     return [self tab_numberOfSectionsInCollectionView:collectionView];
 }
 
 - (NSInteger)tab_collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     
     if (collectionView.tabAnimated.runMode == TABAnimatedRunByRow) {
-        return [self tab_collectionView:collectionView numberOfItemsInSection:section];
+        NSInteger count = [self tab_collectionView:collectionView numberOfItemsInSection:section];
+        if (count == 0) {
+            return collectionView.tabAnimated.cellClassArray.count;
+        }
+        return count;
     }
     
     if ([collectionView.tabAnimated currentIndexIsAnimatingWithIndex:section]) {

@@ -10,19 +10,18 @@
 
 @implementation TABRevealKeepDataUtil
 
-+ (void)writeDataToFile:(id)data {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
+
++ (void)writeDataToFile:(id)data {
     [NSKeyedArchiver archiveRootObject:data toFile:[self getFilePath]];
-#pragma clang diagnostic pop
 }
 
 + (id)getCacheData {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
     return [NSKeyedUnarchiver unarchiveObjectWithFile:[self getFilePath]];
-#pragma clang diagnostic pop
 }
+
+#pragma clang diagnostic pop
 
 + (NSString *)getFilePath {
     NSString *docPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
