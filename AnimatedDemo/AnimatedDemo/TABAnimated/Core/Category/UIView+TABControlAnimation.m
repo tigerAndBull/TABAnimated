@@ -350,8 +350,8 @@ static const NSTimeInterval kDelayReloadDataTime = .4;
                 targetView = self;
             }
             
-            self.tabAnimated.oldEnable = self.userInteractionEnabled;
-            self.userInteractionEnabled = NO;
+//            self.tabAnimated.oldEnable = self.userInteractionEnabled;
+//            self.userInteractionEnabled = NO;
             
             [TABManagerMethod fullData:self];
             [self setNeedsLayout];
@@ -425,7 +425,7 @@ static const NSTimeInterval kDelayReloadDataTime = .4;
             
         }else {
             
-            self.userInteractionEnabled = self.tabAnimated.oldEnable;
+//            self.userInteractionEnabled = self.tabAnimated.oldEnable;
             
             [TABManagerMethod resetData:self];
             [TABManagerMethod removeMask:self];
