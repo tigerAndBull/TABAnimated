@@ -33,7 +33,7 @@ static NSString * const kTagDefaultFontName = @"HiraKakuProN-W3";
 @property (nonatomic, assign, readwrite) BOOL haveCachedWithDisk;
 
 @property (nonatomic, weak) UIView *superView;
-@property (nonatomic, strong, readwrite, nullable) TABSentryView *sentryView;
+@property (nonatomic, weak, readwrite, nullable) TABSentryView *sentryView;
 
 @end
 
@@ -49,13 +49,11 @@ static NSString * const kTagDefaultFontName = @"HiraKakuProN-W3";
     manager.animatedHeight = tabAnimated.animatedHeight;
     manager.animatedCornerRadius = tabAnimated.animatedCornerRadius;
     manager.cancelGlobalCornerRadius = tabAnimated.cancelGlobalCornerRadius;
-    
     [manager setRadiusAndColorWithView:view
                              superView:superView
                            tabAnimated:tabAnimated];
     return manager;
 }
-
 
 + (instancetype)initWithView:(UIView *)view
                    superView:(UIView *)superView {
@@ -101,14 +99,6 @@ static NSString * const kTagDefaultFontName = @"HiraKakuProN-W3";
     return self;
 }
 
-- (void)dealloc {
-    if (@available(iOS 13.0, *)) {
-        if (_sentryView) {
-            [_sentryView removeFromSuperview];
-        }
-    }
-}
-
 - (void)reAddToView:(UIView *)view
           superView:(UIView *)superView {
     
@@ -123,6 +113,7 @@ static NSString * const kTagDefaultFontName = @"HiraKakuProN-W3";
     
     [self addSentryView:view
               superView:superView];
+    
     [self setRadiusAndColorWithView:view
                           superView:superView
                         tabAnimated:superView.tabAnimated];
@@ -181,7 +172,7 @@ static NSString * const kTagDefaultFontName = @"HiraKakuProN-W3";
             }
         }
         
-        // 定义一个指向个数可变的参数列表指针；
+        // 定义一个指向个数可变的参数列表指针
         va_list args;
         // 用于存放取出的参数
         NSInteger arg;
@@ -220,7 +211,8 @@ static NSString * const kTagDefaultFontName = @"HiraKakuProN-W3";
 - (void)addSentryView:(UIView *)view
             superView:(UIView *)superView {
     if (@available(iOS 13.0, *)) {
-        self.sentryView = TABSentryView.new;
+        TABSentryView *sentryView = TABSentryView.new;
+        _sentryView = sentryView;
         // avoid retain cycle
         __weak typeof(self) weakSelf = self;
         __weak typeof(superView) weakSuperView = superView;
@@ -229,7 +221,7 @@ static NSString * const kTagDefaultFontName = @"HiraKakuProN-W3";
             __strong typeof(weakSuperView) strongSuperView = weakSuperView;
             [strongSelf tab_traitCollectionDidChange:strongSuperView];
         };
-        [view addSubview:self.sentryView];
+        [view addSubview:sentryView];
     }
 }
 
@@ -580,6 +572,7 @@ static NSString * const kTagDefaultFontName = @"HiraKakuProN-W3";
         layer.anchorPoint = CGPointMake(0, 0);
         layer.position = CGPointMake(0, 0);
         layer.frame = rect;
+        
         if (layer.contents) {
             layer.backgroundColor = UIColor.clearColor.CGColor;
         }else {
@@ -611,8 +604,9 @@ static NSString * const kTagDefaultFontName = @"HiraKakuProN-W3";
             if (loadStyle != TABViewLoadAnimationWithOnlySkeleton) {
                 [layer addAnimation:[self getAnimationWithLoadStyle:loadStyle] forKey:TABAnimatedLocationAnimation];
             }
-            // 添加红色标记
+            
 #ifdef DEBUG
+            // 添加红色标记
             if ([TABAnimated sharedAnimated].openAnimationTag) {
                 [self addAnimatedTagWithComponentLayer:layer
                                                  index:index
@@ -656,17 +650,13 @@ static NSString * const kTagDefaultFontName = @"HiraKakuProN-W3";
 - (CGRect)resetFrame:(TABComponentLayer *)layer
                 rect:(CGRect)rect {
     
-    rect = CGRectMake(rect.origin.x, rect.origin.y, rect.size.width, rect.size.height);
-    
     BOOL isImageView = layer.fromImageView;
     
     CGFloat height = 0.;
     // 修改拿掉 isImageView 限制 开放 tabViewHeight  需要可以修改 imageView的高度 xiaoxin
     if (layer.tabViewHeight > 0.) {
-        
         height = layer.tabViewHeight;
         rect = CGRectMake(rect.origin.x, rect.origin.y, rect.size.width, height);
-        
     }else if (!isImageView) {
         if (self.animatedHeight > 0.) {
             height = self.animatedHeight;
@@ -676,6 +666,13 @@ static NSString * const kTagDefaultFontName = @"HiraKakuProN-W3";
             }else {
                 if (!isImageView) {
                     height = rect.size.height*[TABAnimated sharedAnimated].animatedHeightCoefficient;
+                    if (layer.cornerRadius > 0) {
+                        CGFloat originScale = layer.cornerRadius/rect.size.height;
+                        if (originScale == .5 && rect.size.width == rect.size.height) {
+                            rect = CGRectMake(rect.origin.x, rect.origin.y, height, height);
+                        }
+                        layer.cornerRadius = height*originScale;
+                    }
                 }
             }
         }
@@ -697,6 +694,7 @@ static NSString * const kTagDefaultFontName = @"HiraKakuProN-W3";
 }
 
 - (id)copyWithZone:(NSZone *)zone {
+    
     TABComponentManager *manager = [[[self class] allocWithZone:zone] init];
     manager.fileName = self.fileName;
     
@@ -705,7 +703,7 @@ static NSString * const kTagDefaultFontName = @"HiraKakuProN-W3";
         [manager.resultLayerArray addObject:layer.copy];
     }
     
-    manager.tabLayer = self.tabLayer.copy;
+//    manager.tabLayer = self.tabLayer.copy;
     manager.animatedColor = self.animatedColor;
     manager.animatedBackgroundColor = self.animatedBackgroundColor;
     manager.animatedHeight = self.animatedHeight;
@@ -713,7 +711,6 @@ static NSString * const kTagDefaultFontName = @"HiraKakuProN-W3";
     manager.cancelGlobalCornerRadius = self.cancelGlobalCornerRadius;
     manager.dropAnimationCount = self.dropAnimationCount;
     manager.entireIndexArray = self.entireIndexArray.mutableCopy;
-    
     manager.version = self.version;
     manager.needChangeRowStatus = self.needChangeRowStatus;
 
@@ -722,7 +719,7 @@ static NSString * const kTagDefaultFontName = @"HiraKakuProN-W3";
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [aCoder encodeObject:_fileName forKey:@"fileName"];
-    [aCoder encodeObject:_tabLayer forKey:@"tabLayer"];
+//    [aCoder encodeObject:_tabLayer forKey:@"tabLayer"];
     [aCoder encodeObject:_resultLayerArray forKey:@"resultLayerArray"];
     
     [aCoder encodeObject:_animatedColor forKey:@"animatedColor"];
@@ -741,7 +738,7 @@ static NSString * const kTagDefaultFontName = @"HiraKakuProN-W3";
 - (id)initWithCoder:(NSCoder *)aDecoder {
     if (self = [super init]) {
         self.fileName = [aDecoder decodeObjectForKey:@"fileName"];
-        self.tabLayer = [aDecoder decodeObjectForKey:@"tabLayer"];
+//        self.tabLayer = [aDecoder decodeObjectForKey:@"tabLayer"];
         self.resultLayerArray = [aDecoder decodeObjectForKey:@"resultLayerArray"];
         
         self.animatedColor = [aDecoder decodeObjectForKey:@"animatedColor"];

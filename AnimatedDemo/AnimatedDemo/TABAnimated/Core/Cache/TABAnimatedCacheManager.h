@@ -10,23 +10,48 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class TABComponentManager;
+@class TABComponentManager, TABTableAnimated, TABCollectionAnimated;
 
 extern NSString * const TABCacheManagerFolderName;
 
 @interface TABAnimatedCacheManager : NSObject
 
-@property (nonatomic, copy) NSString *currentSystemVersion;
-@property (nonatomic, strong) NSMutableArray *cacheModelArray;
-@property (nonatomic, strong) NSMutableDictionary *cacheManagerDict;
+// 当前App版本
+@property (nonatomic, copy, readonly) NSString *currentSystemVersion;
+// 本地的缓存
+@property (nonatomic, strong, readonly) NSMutableArray *cacheModelArray;
+// 内存中的骨架屏管理单元
+@property (nonatomic, strong, readonly) NSMutableDictionary *cacheManagerDict;
 
+/**
+ * 加载该用户常点击的骨架屏plist文件到内存
+ * 按`loadCount`降序排列
+ */
 - (void)install;
 
+/**
+ * 存储骨架屏管理单元到指定沙盒目录
+ * @param manager 骨架屏管理单元
+ */
 - (void)cacheComponentManager:(TABComponentManager *)manager;
 
+/**
+ * 获取指定骨架屏管理单元
+ * @param fileName 文件名
+ */
 - (nullable TABComponentManager *)getComponentManagerWithFileName:(NSString *)fileName;
 
-- (void)updateCacheModelLoadCountWithTargetFileName:(NSString *)targetFileName;
+/**
+ * 更新该viewAnimated下所有骨架屏管理单元的loadCount
+ * @param viewAnimated 骨架屏配置对象
+ */
+- (void)updateCacheModelLoadCountWithTableAnimated:(TABTableAnimated *)viewAnimated;
+
+/**
+ * 更新该viewAnimated下所有骨架屏管理单元的loadCount
+ * @param viewAnimated 骨架屏配置对象
+ */
+- (void)updateCacheModelLoadCountWithCollectionAnimated:(TABCollectionAnimated *)viewAnimated;
 
 @end
 

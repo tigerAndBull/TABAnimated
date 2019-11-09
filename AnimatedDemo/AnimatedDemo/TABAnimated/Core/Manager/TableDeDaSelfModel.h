@@ -14,9 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface TableDeDaSelfModel : NSObject
 
 @property (nonatomic, copy) NSString *targetClassName;
-
 @property (nonatomic, assign) BOOL isExhangeDelegate;
-
 @property (nonatomic, assign) BOOL isExhangeDataSource;
 
 @end
@@ -24,9 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface CollectionDeDaSelfModel : NSObject
 
 @property (nonatomic, copy) NSString *targetClassName;
-
 @property (nonatomic, assign) BOOL isExhangeDelegate;
-
 @property (nonatomic, assign) BOOL isExhangeDataSource;
 
 @end

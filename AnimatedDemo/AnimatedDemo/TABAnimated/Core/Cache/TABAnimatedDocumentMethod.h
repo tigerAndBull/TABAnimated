@@ -1,6 +1,5 @@
 //
 //  TABAnimatedDocumentMethod.h
-//  TABKit
 //
 //  Created by tigerAndBull on 2019/2/15.
 //  Copyright © 2019 tigerAndBull. All rights reserved.
@@ -15,7 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)writeToFileWithData:(id)data
                    filePath:(NSString *)filePath;
 
-+ (id)getCacheData:(NSString *)filePath;
++ (id)getCacheData:(NSString *)filePath
+       targetClass:(Class)targetClass;
 
 + (NSArray <NSString *> *)getAllFileNameWithFolderPath:(NSString *)folderPath;
 

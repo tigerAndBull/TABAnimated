@@ -17,8 +17,6 @@
 #import "TABAnimated.h"
 #import <TABKit/TABKit.h>
 
-#import "MJRefresh.h"
-
 #define categoryCount (self.categoryTitleArray.count)
 
 @interface SegmentCollectionViewController ()<JXCategoryViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource>

@@ -30,7 +30,7 @@
     // 骨架屏core部分不依赖reveal工具
     // reveal工具依赖骨架屏core，实时预览效果，无需编译
     // 请务必放在debug环境下
-    [[TABAnimatedBall shared] install];
+//    [[TABAnimatedBall shared] install];
 #endif
     
     // Init `TABAnimated`, and set the properties you need.
@@ -51,21 +51,25 @@
      *****************************************
      *****************************************
      */
-    // debug 环境下，默认关闭缓存功能（为了方便调试预处理回调)
+    // debug 环境下，默认关闭缓存功能（为了方便调试预处理回调)q
     // release 环境下，默认开启缓存功能
     // 如果你想在 debug 环境下测试缓存功能，可以手动置为NO，但是预处理回调只生效一次！！！！
     // 如果你始终都不想使用缓存功能，可以手动置为YES
     // 请仔细阅读：https://juejin.im/post/5d86d16ce51d4561fa2ec135
 //    [TABAnimated sharedAnimated].closeCache = NO;
-    
+
     MainViewController *vc = [[MainViewController alloc] init];
     vc.title = kText(@"主页面");
     _nav = [[UINavigationController alloc]initWithRootViewController:vc];
     
     [self.window setRootViewController:_nav];
     [self.window makeKeyAndVisible];
-    
+
     return YES;
+}
+
+- (void)timerAction {
+    NSLog(@"Runloop - 屏幕刷新");
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

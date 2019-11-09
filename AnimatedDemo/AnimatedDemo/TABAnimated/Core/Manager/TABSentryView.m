@@ -13,7 +13,7 @@
 
 - (instancetype)init {
     if (self = [super init]) {
-        self.frame = CGRectMake(0, 0, 0.1, 0.1);
+        self.frame = CGRectMake(0, 0, .1, .1);
         self.backgroundColor = UIColor.clearColor;
     }
     return self;

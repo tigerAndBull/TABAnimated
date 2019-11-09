@@ -12,7 +12,6 @@ extern const NSInteger TABViewAnimatedErrorCode;
 
 @implementation TABComponentLayer
 
-
 - (instancetype)init {
     if (self = [super init]) {
         self.name = @"TABLayer";

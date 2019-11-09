@@ -23,7 +23,6 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  链式语法相关的文件
  */
-
 @class TABBaseComponent;
 
 @interface NSArray (TABAnimated)

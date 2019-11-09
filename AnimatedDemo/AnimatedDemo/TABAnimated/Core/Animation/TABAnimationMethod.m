@@ -61,7 +61,6 @@
     animGroup.removedOnCompletion = NO;
     
     [layer addAnimation:animGroup forKey:key];
-
 }
 
 + (void)addDropAnimation:(CALayer *)layer

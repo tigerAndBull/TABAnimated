@@ -15,7 +15,7 @@
 
 #import <objc/runtime.h>
 
-static const NSTimeInterval kDelayReloadDataTime = 0.4;
+static const NSTimeInterval kDelayReloadDataTime = .4;
 
 @implementation UIView (TABControlAnimation)
 
@@ -23,14 +23,8 @@ static const NSTimeInterval kDelayReloadDataTime = 0.4;
 
 - (void)tab_startAnimation {
     
-    if (!self.tabAnimated.canLoadAgain &&
-        self.tabAnimated.state == TABViewAnimationEnd) {
+    if (self.tabAnimated.state == TABViewAnimationEnd && !self.tabAnimated.canLoadAgain) {
         return;
-    }
-    
-    UIViewController *controller = [self tab_viewController];
-    if (controller) {
-        self.tabAnimated.targetControllerClassName = NSStringFromClass(controller.class);
     }
     
     self.tabAnimated.isAnimating = YES;
@@ -169,7 +163,17 @@ static const NSTimeInterval kDelayReloadDataTime = 0.4;
 - (void)startAnimationIsAll:(BOOL)isAll
                       index:(NSInteger)index {
     
+    if (self.tabAnimated.targetControllerClassName == nil ||
+        self.tabAnimated.targetControllerClassName.length == 0) {
+        UIViewController *controller = [self tab_viewController];
+        if (controller) {
+            self.tabAnimated.targetControllerClassName = NSStringFromClass(controller.class);
+        }
+    }
+    
     if ([self isKindOfClass:[UICollectionView class]]) {
+        
+        UICollectionView *collectionView = (UICollectionView *)self;
         
         for (Class class in self.tabAnimated.cellClassArray) {
             
@@ -181,17 +185,17 @@ static const NSTimeInterval kDelayReloadDataTime = 0.4;
             
             NSString *nibPath = [[NSBundle mainBundle] pathForResource:classString ofType:@"nib"];
             if (nil != nibPath && nibPath.length > 0) {
-                [(UICollectionView *)self registerNib:[UINib nibWithNibName:classString bundle:[NSBundle mainBundle]] forCellWithReuseIdentifier:[NSString stringWithFormat:@"tab_%@",classString]];
-                [(UICollectionView *)self registerNib:[UINib nibWithNibName:classString bundle:[NSBundle mainBundle]] forCellWithReuseIdentifier:classString];
+                [collectionView registerNib:[UINib nibWithNibName:classString bundle:[NSBundle mainBundle]] forCellWithReuseIdentifier:[NSString stringWithFormat:@"tab_%@",classString]];
+                [collectionView registerNib:[UINib nibWithNibName:classString bundle:[NSBundle mainBundle]] forCellWithReuseIdentifier:classString];
             }else {
-                [(UICollectionView *)self registerClass:class forCellWithReuseIdentifier:[NSString stringWithFormat:@"tab_%@",classString]];
-                [(UICollectionView *)self registerClass:class forCellWithReuseIdentifier:classString];
+                [collectionView registerClass:class forCellWithReuseIdentifier:[NSString stringWithFormat:@"tab_%@",classString]];
+                [collectionView registerClass:class forCellWithReuseIdentifier:classString];
             }
         }
         
-        TABCollectionAnimated *tabAnimated = (TABCollectionAnimated *)((UICollectionView *)self.tabAnimated);
-        [tabAnimated exchangeCollectionViewDelegate:(UICollectionView *)self];
-        [tabAnimated exchangeCollectionViewDataSource:(UICollectionView *)self];
+        TABCollectionAnimated *tabAnimated = (TABCollectionAnimated *)(collectionView.tabAnimated);
+        [tabAnimated exchangeCollectionViewDelegate:collectionView];
+        [tabAnimated exchangeCollectionViewDataSource:collectionView];
         
         if (tabAnimated.headerClassArray.count > 0) {
             [self registerHeaderOrFooter:YES tabAnimated:tabAnimated];
@@ -204,48 +208,46 @@ static const NSTimeInterval kDelayReloadDataTime = 0.4;
         [tabAnimated.runAnimationIndexArray removeAllObjects];
         
         if (isAll) {
+            
             if (tabAnimated.animatedIndexArray.count > 0) {
                 for (NSNumber *num in tabAnimated.animatedIndexArray) {
                     [tabAnimated.runAnimationIndexArray addObject:num];
                 }
             }else {
-                for (NSInteger i = 0; i < [(UICollectionView *)self numberOfSections]; i++) {
+                NSInteger sectionCount = [collectionView numberOfSections];
+                for (NSInteger i = 0; i < sectionCount; i++) {
                     [tabAnimated.runAnimationIndexArray addObject:[NSNumber numberWithInteger:i]];
                 }
             }
+            
+            if (tabAnimated.headerClassArray.count > 0 && tabAnimated.headerSectionArray.count == 0) {
+                for (int i = 0; i < tabAnimated.runAnimationIndexArray.count; i++) {
+                    [tabAnimated.headerSectionArray addObject:tabAnimated.runAnimationIndexArray[i]];
+                }
+            }
+
+            if (tabAnimated.footerClassArray.count > 0 && tabAnimated.footerSectionArray.count == 0) {
+                for (int i = 0; i < tabAnimated.runAnimationIndexArray.count; i++) {
+                    [tabAnimated.footerSectionArray addObject:tabAnimated.runAnimationIndexArray[i]];
+                }
+            }
+            
+            [collectionView reloadData];
+            
         }else {
             [tabAnimated.runAnimationIndexArray addObject:@(index)];
+            [collectionView reloadSections:[NSIndexSet indexSetWithIndex:index]];
         }
         
-        self.tabAnimated = tabAnimated;
-        
-        if (isAll) {
-            [(UICollectionView *)self reloadData];
-        }else {
-            [(UICollectionView *)self reloadSections:[NSIndexSet indexSetWithIndex:index]];
-        }
-        
+        // 更新loadCount
         dispatch_async(dispatch_get_main_queue(), ^{
-            for (Class class in self.tabAnimated.cellClassArray) {
-                NSString *classString = NSStringFromClass(class);
-                [self tab_addLoadCount:classString];
-            }
-            
-            for (Class class in tabAnimated.headerClassArray) {
-                NSString *classString = NSStringFromClass(class);
-                [self tab_addLoadCount:classString];
-            }
-            
-            for (Class class in tabAnimated.footerClassArray) {
-                NSString *classString = NSStringFromClass(class);
-                [self tab_addLoadCount:classString];
-            }
+            [[TABAnimated sharedAnimated].cacheManager updateCacheModelLoadCountWithCollectionAnimated:collectionView.tabAnimated];
         });
         
     }else if ([self isKindOfClass:[UITableView class]]) {
         
         UITableView *tableView = (UITableView *)self;
-        TABTableAnimated *tabAnimated = (TABTableAnimated *)((UITableView *)self.tabAnimated);
+        TABTableAnimated *tabAnimated = (TABTableAnimated *)(tableView.tabAnimated);
         [tabAnimated exchangeTableViewDelegate:tableView];
         [tabAnimated exchangeTableViewDataSource:tableView];
         
@@ -259,11 +261,11 @@ static const NSTimeInterval kDelayReloadDataTime = 0.4;
             
             NSString *nibPath = [[NSBundle mainBundle] pathForResource:classString ofType:@"nib"];
             if (nil != nibPath && nibPath.length > 0) {
-                [(UITableView *)self registerNib:[UINib nibWithNibName:classString bundle:[NSBundle mainBundle]] forCellReuseIdentifier:[NSString stringWithFormat:@"tab_%@",classString]];
-                [(UITableView *)self registerNib:[UINib nibWithNibName:classString bundle:[NSBundle mainBundle]] forCellReuseIdentifier:classString];
+                [tableView registerNib:[UINib nibWithNibName:classString bundle:[NSBundle mainBundle]] forCellReuseIdentifier:[NSString stringWithFormat:@"tab_%@",classString]];
+                [tableView registerNib:[UINib nibWithNibName:classString bundle:[NSBundle mainBundle]] forCellReuseIdentifier:classString];
             }else {
-                [(UITableView *)self registerClass:class forCellReuseIdentifier:[NSString stringWithFormat:@"tab_%@",classString]];
-                [(UITableView *)self registerClass:class forCellReuseIdentifier:classString];
+                [tableView registerClass:class forCellReuseIdentifier:[NSString stringWithFormat:@"tab_%@",classString]];
+                [tableView registerClass:class forCellReuseIdentifier:classString];
             }
         }
         
@@ -276,22 +278,17 @@ static const NSTimeInterval kDelayReloadDataTime = 0.4;
             }
         }
         
-        if (tabAnimated.showTableHeaderView) {
-            if (tableView.tableHeaderView.tabAnimated != nil) {
-                tableView.tableHeaderView.tabAnimated.superAnimationType = tableView.tabAnimated.superAnimationType;
-                [tableView.tableHeaderView tab_startAnimation];
-            }
+        if (tabAnimated.showTableHeaderView && tableView.tableHeaderView.tabAnimated) {
+            tableView.tableHeaderView.tabAnimated.superAnimationType = tableView.tabAnimated.superAnimationType;
+            [tableView.tableHeaderView tab_startAnimation];
         }
         
-        if (tabAnimated.showTableFooterView) {
-            if (tableView.tableFooterView.tabAnimated != nil) {
-                tableView.tableFooterView.tabAnimated.superAnimationType = tableView.tabAnimated.superAnimationType;
-                [tableView.tableFooterView tab_startAnimation];
-            }
+        if (tabAnimated.showTableFooterView && tableView.tableFooterView.tabAnimated) {
+            tableView.tableFooterView.tabAnimated.superAnimationType = tableView.tabAnimated.superAnimationType;
+            [tableView.tableFooterView tab_startAnimation];
         }
         
         [tabAnimated.runAnimationIndexArray removeAllObjects];
-        
         if (isAll) {
             if (tabAnimated.animatedIndexArray.count > 0) {
                 for (NSNumber *num in tabAnimated.animatedIndexArray) {
@@ -299,52 +296,53 @@ static const NSTimeInterval kDelayReloadDataTime = 0.4;
                 }
             }else {
                 if (tabAnimated.runMode == TABAnimatedRunBySection) {
-                    for (NSInteger i = 0; i < [(UITableView *)self numberOfSections]; i++) {
+                    for (NSInteger i = 0; i < [tableView numberOfSections]; i++) {
                         [tabAnimated.runAnimationIndexArray addObject:[NSNumber numberWithInteger:i]];
                     }
                 }else {
                     if (tabAnimated.runMode == TABAnimatedRunByRow) {
-                        for (NSInteger i = 0; i < [(UITableView *)self numberOfRowsInSection:0]; i++) {
+                        for (NSInteger i = 0; i < [tableView numberOfRowsInSection:0]; i++) {
                             [tabAnimated.runAnimationIndexArray addObject:[NSNumber numberWithInteger:i]];
                         }
                     }
                 }
             }
-        }else {
-            [tabAnimated.runAnimationIndexArray addObject:@(index)];
-        }
-        
-        self.tabAnimated = tabAnimated;
-        if (isAll) {
+            
+            if (tabAnimated.headerClassArray.count > 0 && tabAnimated.headerSectionArray.count == 0) {
+                for (int i = 0; i < tabAnimated.runAnimationIndexArray.count; i++) {
+                    [tabAnimated.headerSectionArray addObject:tabAnimated.runAnimationIndexArray[i]];
+                }
+            }
+
+            if (tabAnimated.footerClassArray.count > 0 && tabAnimated.footerSectionArray.count == 0) {
+                for (int i = 0; i < tabAnimated.runAnimationIndexArray.count; i++) {
+                    [tabAnimated.footerSectionArray addObject:tabAnimated.runAnimationIndexArray[i]];
+                }
+            }
+            
             [tableView reloadData];
+            
         }else {
+            
+            [tabAnimated.runAnimationIndexArray addObject:@(index)];
+            
             if (tabAnimated.runMode == TABAnimatedRunBySection) {
-                [(UITableView *)self reloadSections:[NSIndexSet indexSetWithIndex:index] withRowAnimation:UITableViewRowAnimationNone];
+                [tableView reloadSections:[NSIndexSet indexSetWithIndex:index] withRowAnimation:UITableViewRowAnimationNone];
             }else {
                 if (tabAnimated.runMode == TABAnimatedRunByRow) {
-                    [(UITableView *)self reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+                    [tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
                 }
             }
         }
         
+        // 更新loadCount
         dispatch_async(dispatch_get_main_queue(), ^{
-            for (Class class in self.tabAnimated.cellClassArray) {
-                NSString *classString = NSStringFromClass(class);
-                [self tab_addLoadCount:classString];
-            }
-            for (Class class in tabAnimated.headerClassArray) {
-                NSString *classString = NSStringFromClass(class);
-                [self tab_addLoadCount:classString];
-            }
-            for (Class class in tabAnimated.footerClassArray) {
-                NSString *classString = NSStringFromClass(class);
-                [self tab_addLoadCount:classString];
-            }
+            [[TABAnimated sharedAnimated].cacheManager updateCacheModelLoadCountWithTableAnimated:tableView.tabAnimated];
         });
         
     }else {
         if (nil == self.tabComponentManager) {
-
+            
             UIView *targetView;
             if (self.superview && self.superview.tabAnimated) {
                 targetView = self.superview;
@@ -360,7 +358,6 @@ static const NSTimeInterval kDelayReloadDataTime = 0.4;
             self.tabComponentManager = [TABComponentManager initWithView:self
                                                                superView:targetView
                                                              tabAnimated:self.tabAnimated];
-            
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (nil != self.tabAnimated) {
                     [TABManagerMethod runAnimationWithSuperView:self
@@ -369,6 +366,9 @@ static const NSTimeInterval kDelayReloadDataTime = 0.4;
                                                         manager:self.tabComponentManager];
                 }
             });
+        }else {
+            if (self.tabComponentManager.tabLayer.hidden)
+                self.tabComponentManager.tabLayer.hidden = NO;
         }
     }
 }
@@ -392,7 +392,7 @@ static const NSTimeInterval kDelayReloadDataTime = 0.4;
     if ([self isKindOfClass:[UITableView class]]) {
         
         UITableView *tableView = (UITableView *)self;
-        TABTableAnimated *tabAnimated = (TABTableAnimated *)((UITableView *)self.tabAnimated);
+        TABTableAnimated *tabAnimated = (TABTableAnimated *)(tableView.tabAnimated);
         
         if (tabAnimated.oldEstimatedRowHeight > 0) {
             tableView.estimatedRowHeight = tabAnimated.oldEstimatedRowHeight;
@@ -445,7 +445,6 @@ static const NSTimeInterval kDelayReloadDataTime = 0.4;
 - (void)tab_endAnimationEaseOut {
     [self tab_endAnimationIsEaseOut:YES];
 }
-
 
 - (void)tab_endAnimationWithRow:(NSInteger)row {
     [self tab_endAnimationWithSection:row];
@@ -525,18 +524,10 @@ static const NSTimeInterval kDelayReloadDataTime = 0.4;
 
 #pragma mark - Private Method
 
-- (void)tab_addLoadCount:(NSString *)className {
-    NSString *fileName = [className stringByAppendingString:[NSString stringWithFormat:@"_%@",self.tabAnimated.targetControllerClassName]];
-    if (fileName) {
-        [[TABAnimated sharedAnimated].cacheManager updateCacheModelLoadCountWithTargetFileName:fileName];
-    }
-}
-
 - (UIViewController*)tab_viewController {
     for (UIView *next = [self superview]; next; next = next.superview) {
         UIResponder *nextResponder = [next nextResponder];
-        if ([nextResponder isKindOfClass:[UIViewController
-                                          class]]) {
+        if ([nextResponder isKindOfClass:[UIViewController class]]) {
             return (UIViewController*)nextResponder;
         }
     }

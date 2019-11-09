@@ -10,7 +10,6 @@
 
 #import <TABKit/TABKit.h>
 #import "TABAnimated.h"
-#import "MJRefresh.h"
 #import "Game.h"
 
 #import "CardCollectionViewCell.h"

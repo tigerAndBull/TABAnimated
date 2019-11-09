@@ -10,7 +10,6 @@
 
 #import <TABKit/TABKit.h>
 #import "TABAnimated.h"
-#import "MJRefresh.h"
 #import "Game.h"
 
 #import "CardCollectionViewCell.h"
@@ -102,7 +101,6 @@
         _collectionView.bounces = YES;
         _collectionView.backgroundColor = [UIColor tab_normalDynamicBackgroundColor];
         _collectionView.contentInset = UIEdgeInsetsMake(0, 0, kSafeAreaHeight+10, 0);
-        _collectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadData)];
         
         if (@available(iOS 11.0, *)) {
             _collectionView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;

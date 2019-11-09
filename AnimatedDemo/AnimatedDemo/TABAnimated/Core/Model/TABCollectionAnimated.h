@@ -5,12 +5,6 @@
 //  github: https://github.com/tigerAndBull/TABAnimated
 //  jianshu: https://www.jianshu.com/p/6a0ca4995dff
 //
-//  集成问答文档：https://www.jianshu.com/p/34417897915a
-//  历史更新文档：https://www.jianshu.com/p/e3e9ea295e8a
-//  动画下标说明：https://www.jianshu.com/p/8c361ba5aa18
-//  豆瓣效果说明：https://www.jianshu.com/p/1a92158ce83a
-//  嵌套视图说明：https://www.jianshu.com/p/cf8e37195c11
-//
 //  Created by tigerAndBull on 2019/4/27.
 //  Copyright © 2019 tigerAndBull. All rights reserved.
 //
@@ -31,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  cell样式 > 1时，UICollectionView的cellSize集合。
  */
-@property (nonatomic, strong) NSArray <NSValue *> *cellSizeArray;
+@property (nonatomic, copy) NSArray <NSValue *> *cellSizeArray;
 
 /**
  特殊情况下才需要使用，
@@ -56,7 +50,7 @@ NS_ASSUME_NONNULL_BEGIN
  指定某些section / row加载动画集合
  不设置默认为工程中所有的section。
  */
-@property (nonatomic, strong) NSArray <NSNumber *> *animatedIndexArray;
+@property (nonatomic, copy) NSArray <NSNumber *> *animatedIndexArray;
 
 /**
  当前正在动画中的分区

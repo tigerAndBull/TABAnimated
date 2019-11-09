@@ -150,6 +150,11 @@ static NSString * const kLongDataString = @"tab_testtesttesttesttesttesttesttest
         
         if (subV.tabAnimated.isNest &&
             ![subV isEqual:rootSuperView]) {
+            
+            if (rootSuperView.tabAnimated.targetControllerClassName) {
+                subV.tabAnimated.targetControllerClassName = rootSuperView.tabAnimated.targetControllerClassName;
+            }
+            
             rootView.tabComponentManager.nestView = subV;
             
             CGRect cutRect = [rootView convertRect:subV.frame
@@ -291,6 +296,8 @@ static NSString * const kLongDataString = @"tab_testtesttesttesttesttesttesttest
         
         if (subV.tabAnimated) {
             
+            subV.tabAnimated.targetControllerClassName = rootView.tabAnimated.targetControllerClassName;
+            
             dispatch_after(DISPATCH_TIME_NOW, dispatch_get_main_queue(), ^{
                 CGRect cutRect = [rootView convertRect:subV.frame
                                               fromView:subV.superview];
@@ -403,6 +410,7 @@ static NSString * const kLongDataString = @"tab_testtesttesttesttesttesttesttest
         if (targetView.tabComponentManager.nestView) {
             [targetView.tabComponentManager.nestView tab_startAnimation];
         }
+        
         [[TABAnimated sharedAnimated].cacheManager cacheComponentManager:targetView.tabComponentManager];
     }
 

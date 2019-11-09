@@ -393,6 +393,7 @@
     self.layer.backgroundColor = color.CGColor;
 }
 
+#pragma mark - 豆瓣动画
 #pragma mark - dropIndex
 
 - (TABBaseComponentIntegerBlock)dropIndex {

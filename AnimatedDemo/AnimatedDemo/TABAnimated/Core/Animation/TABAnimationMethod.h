@@ -101,6 +101,7 @@ typedef struct {
  */
 + (void)addEaseOutAnimation:(UIView *)view;
 
+
 @end
 
 NS_ASSUME_NONNULL_END
