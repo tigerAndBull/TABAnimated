@@ -77,9 +77,11 @@ static NSString * const kTagDefaultFontName = @"HiraKakuProN-W3";
     }
     [view.layer addSublayer:manager.tabLayer];
     
-    // 添加哨兵视图
-    [manager addSentryView:view
-                 superView:superView];
+    if (view && superView) {
+        // 添加哨兵视图
+        [manager addSentryView:view
+                     superView:superView];
+    }
     return manager;
 }
 

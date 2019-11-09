@@ -38,10 +38,6 @@ UITableViewDataSource
     [self performSelector:@selector(afterGetData) withObject:nil afterDelay:3.0];
 }
 
-- (void)dealloc {
-    NSLog(@"==========  dealloc  ==========");
-}
-
 #pragma mark - Target Methods
 
 /**

@@ -38,13 +38,10 @@ return [NSKeyedUnarchiver unarchiveObjectWithFile:filePath];
 
 + (NSArray <NSString *> *)getAllFileNameWithFolderPath:(NSString *)folderPath {
     NSError *error = nil;
-    NSArray *fileList = [[NSArray alloc] init];
-    fileList = [kAnimatedFileManager contentsOfDirectoryAtPath:folderPath error:&error];
-    
+    NSArray *fileList = [kAnimatedFileManager contentsOfDirectoryAtPath:folderPath error:&error];
     if (error) {
         return nil;
     }
-    
     return fileList;
 }
 

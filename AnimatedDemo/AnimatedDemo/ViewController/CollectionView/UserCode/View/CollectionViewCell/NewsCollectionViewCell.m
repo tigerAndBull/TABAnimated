@@ -34,6 +34,12 @@
 
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
+
+        if (@available(iOS 13.0, *)) {
+            self.contentView.backgroundColor = [UIColor tab_getColorWithLightColor:UIColor.whiteColor darkColor:UIColor.secondarySystemBackgroundColor];
+        } else {
+            self.contentView.backgroundColor = UIColor.whiteColor;
+        }
         
         [self.contentView addSubview:self.headImg];
         [self.contentView addSubview:self.firstLab];

@@ -33,7 +33,7 @@
     [self initUI];
     
     // 假设3秒后，获取到数据
-    [self performSelector:@selector(afterGetData) withObject:nil afterDelay:50.];
+    [self performSelector:@selector(afterGetData) withObject:nil afterDelay:5.];
 }
 
 - (void)dealloc {
@@ -46,7 +46,6 @@
  获取到数据后
  */
 - (void)afterGetData {
-    
     // 模拟数据
     for (int i = 0; i < 5; i ++) {
         [dataArray addObject:[NSObject new]];
@@ -109,9 +108,11 @@
         _collectionView.tabAnimated.superAnimationType = TABViewSuperAnimationTypeDrop;
         _collectionView.tabAnimated.animatedColor = kColor(0xF3F3F3FF);
         _collectionView.tabAnimated.dropAnimationDeepColor = kColor(0xE6E6E6FF);
+        _collectionView.tabAnimated.animatedBackgroundColor = UIColor.whiteColor;
         
         if (@available(iOS 13.0, *)) {
             _collectionView.backgroundColor = [UIColor tab_getColorWithLightColor:kColor(0xEDEDEDFF) darkColor:UIColor.systemBackgroundColor];
+            _collectionView.tabAnimated.darkAnimatedBackgroundColor = UIColor.secondarySystemBackgroundColor;
         } else {
             _collectionView.backgroundColor = kColor(0xEDEDEDFF);
         }

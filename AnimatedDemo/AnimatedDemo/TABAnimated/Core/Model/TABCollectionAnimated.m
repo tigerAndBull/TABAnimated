@@ -624,7 +624,8 @@
                 [TABManagerMethod fullData:cell];
                 cell.tabComponentManager =
                 [TABComponentManager initWithView:cell
-                                        superView:collectionView  tabAnimated:collectionView.tabAnimated];
+                                        superView:collectionView
+                                      tabAnimated:collectionView.tabAnimated];
                 cell.tabComponentManager.currentSection = indexPath.section;
                 cell.tabComponentManager.fileName = fileName;
                 
@@ -849,7 +850,7 @@ referenceSizeForFooterInSection:(NSInteger)section {
                         
                         [TABManagerMethod runAnimationWithSuperView:collectionView
                                                          targetView:weakView
-                                                             isCell:YES
+                                                             isCell:isCell
                                                             manager:weakView.tabComponentManager];
                     }
                 });

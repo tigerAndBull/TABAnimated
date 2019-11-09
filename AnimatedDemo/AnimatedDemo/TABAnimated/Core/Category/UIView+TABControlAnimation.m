@@ -345,7 +345,7 @@ static const NSTimeInterval kDelayReloadDataTime = 0.4;
     }else {
         if (nil == self.tabComponentManager) {
 
-            UIView *targetView = self.superview;
+            UIView *targetView;
             if (self.superview && self.superview.tabAnimated) {
                 targetView = self.superview;
             }else {
@@ -551,7 +551,7 @@ static const NSTimeInterval kDelayReloadDataTime = 0.4;
     
     UICollectionView *collectionView = (UICollectionView *)self;
     NSString *defaultPrefix = nil;
-    NSMutableArray *classArray = @[].mutableCopy;
+    NSMutableArray *classArray;
     NSString *kind = nil;
     
     if (isHeader) {

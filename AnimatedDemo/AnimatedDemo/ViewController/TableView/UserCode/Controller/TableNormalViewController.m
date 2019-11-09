@@ -48,17 +48,13 @@
     // 启动动画
     // 这里使用了自定义延迟时间的启动函数，设置3秒是为了演示效果。
     // 非特殊场景情况下，建议使用`tab_startAnimationWithCompletion`。
-    [self.tableView tab_startAnimationWithDelayTime:50. completion:^{
+    [self.tableView tab_startAnimationWithDelayTime:5. completion:^{
         // 请求数据
         // ...
         // 获得数据
         // ...
         [self afterGetData];
     }];
-}
-
-- (void)dealloc {
-    NSLog(@"==========  dealloc  ==========");
 }
 
 #pragma mark - Target Methods

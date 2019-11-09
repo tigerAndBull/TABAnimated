@@ -20,6 +20,10 @@
     [self setupUI];
 }
 
+- (void)dealloc {
+    NSLog(@"==========  dealloc  ==========");
+}
+
 - (void)setupUI {
     if (@available(iOS 13.0, *)) {
         self.view.backgroundColor = [UIColor colorWithDynamicProvider:^UIColor * _Nonnull(UITraitCollection * _Nonnull traitCollection) {

@@ -49,10 +49,6 @@
     }];
 }
 
-- (void)dealloc {
-    NSLog(@"==========  dealloc  ==========");
-}
-
 - (void)afterGetData {
     [self.view tab_endAnimationEaseOut];
     

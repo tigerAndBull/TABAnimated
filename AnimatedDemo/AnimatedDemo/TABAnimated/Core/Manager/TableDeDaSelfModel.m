@@ -918,7 +918,7 @@ referenceSizeForFooterInSection:(NSInteger)section {
                         
                         [TABManagerMethod runAnimationWithSuperView:collectionView
                                                          targetView:weakView
-                                                             isCell:YES
+                                                             isCell:isCell
                                                             manager:weakView.tabComponentManager];
                     }
                 });
