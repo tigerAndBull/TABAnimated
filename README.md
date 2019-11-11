@@ -227,33 +227,13 @@ manager.animationWithIndexs(1,5,7).down(5);
 
 **如果你仍无法解决问题，可以尽快联系我，我相信TABAnimated是可以解决99%的需求的**
 
-## 最后强调：
+## 最后强调
 
-- 有问题要先看[demo](https://github.com/tigerAndBull/LoadAnimatedDemo-ios)和文档哈，基本都有～
+- 有问题一定要先看`demo`和文档哈，demo的示例分散在`UITableView`和`UICollectionView`两种类型视图上
 - demo也只是引导的作用，你可以自己设置出更精美的效果
-- 如有使用问题，优化建议等，可以直接提issue，可以加交流群反馈: 304543771
+- 如有使用问题、优化建议、好的想法等，可以直接提issue，也可以加交流群即时反馈: 304543771
 
 ## License
 
-MIT License
-
-Copyright (c) 2018 tigerAndBull
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+All source code is licensed under the [License](https://github.com/tigerAndBull/TABAnimated/blob/master/LICENSE)
 
