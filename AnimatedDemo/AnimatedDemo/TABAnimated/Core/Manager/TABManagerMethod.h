@@ -103,11 +103,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)hiddenAllView:(UIView *)view;
 
-+ (void)removeAllTABLayersFromView:(UIView *)view;
-
 + (void)removeMask:(UIView *)view;
-
-+ (void)removeSubLayers:(NSArray *)subLayers;
 
 + (void)addExtraAnimationWithSuperView:(UIView *)superView
                             targetView:(UIView *)targetView

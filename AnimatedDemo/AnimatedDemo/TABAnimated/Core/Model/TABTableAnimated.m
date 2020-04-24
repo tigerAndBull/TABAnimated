@@ -128,6 +128,7 @@
 + (instancetype)animatedWithCellClass:(Class)cellClass {
     TABTableAnimated *obj = [[TABTableAnimated alloc] init];
     obj.cellClassArray = @[cellClass];
+    obj.cellHeight = 44.;
     return obj;
 }
 

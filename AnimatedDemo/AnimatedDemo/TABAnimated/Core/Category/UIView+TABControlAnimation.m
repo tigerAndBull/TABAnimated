@@ -269,12 +269,12 @@ static const NSTimeInterval kDelayReloadDataTime = .4;
             }
         }
         
-        if (tableView.estimatedRowHeight != UITableViewAutomaticDimension ||
-            tableView.estimatedRowHeight != 0) {
+        if (tableView.estimatedRowHeight != 0) {
             tabAnimated.oldEstimatedRowHeight = tableView.estimatedRowHeight;
             tableView.estimatedRowHeight = UITableViewAutomaticDimension;
             if ([tableView numberOfSections] == 1) {
-                tabAnimated.animatedHeight = ceilf([UIScreen mainScreen].bounds.size.height/tableView.estimatedRowHeight*1.0);
+                tabAnimated.animatedCount = ceilf([UIScreen mainScreen].bounds.size.height/tabAnimated.cellHeight*1.0);
+                tableView.rowHeight = tabAnimated.cellHeight;
             }
         }
         
@@ -398,6 +398,7 @@ static const NSTimeInterval kDelayReloadDataTime = .4;
             tableView.estimatedRowHeight = tabAnimated.oldEstimatedRowHeight;
             tableView.rowHeight = UITableViewAutomaticDimension;
         }
+        
         [tabAnimated.runAnimationIndexArray removeAllObjects];
         
         self.tabAnimated = tabAnimated;
@@ -414,23 +415,18 @@ static const NSTimeInterval kDelayReloadDataTime = .4;
         
         [tableView reloadData];
         
+    }else if ([self isKindOfClass:[UICollectionView class]]) {
+        
+        TABCollectionAnimated *tabAnimated = (TABCollectionAnimated *)((UICollectionView *)self.tabAnimated);
+        [tabAnimated.runAnimationIndexArray removeAllObjects];
+        self.tabAnimated = tabAnimated;
+        
+        [(UICollectionView *)self reloadData];
+        
     }else {
-        if ([self isKindOfClass:[UICollectionView class]]) {
-            
-            TABCollectionAnimated *tabAnimated = (TABCollectionAnimated *)((UICollectionView *)self.tabAnimated);
-            [tabAnimated.runAnimationIndexArray removeAllObjects];
-            self.tabAnimated = tabAnimated;
-            
-            [(UICollectionView *)self reloadData];
-            
-        }else {
-            
-//            self.userInteractionEnabled = self.tabAnimated.oldEnable;
-            
-            [TABManagerMethod resetData:self];
-            [TABManagerMethod removeMask:self];
-            [TABManagerMethod endAnimationToSubViews:self];
-        }
+        [TABManagerMethod resetData:self];
+        [TABManagerMethod removeMask:self];
+        [TABManagerMethod endAnimationToSubViews:self];
     }
     
     if (isEaseOut) {

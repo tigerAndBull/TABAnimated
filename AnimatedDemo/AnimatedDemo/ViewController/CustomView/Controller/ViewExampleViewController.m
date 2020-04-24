@@ -31,6 +31,7 @@
     [self initUI];
     
     TABViewAnimated *viewAnimated = TABViewAnimated.new;
+    viewAnimated.superAnimationType = TABViewSuperAnimationTypeBinAnimation;
     viewAnimated.adjustBlock = ^(TABComponentManager * _Nonnull manager) {
         manager.animation(1).width(200);
         manager.animation(2).width(220);

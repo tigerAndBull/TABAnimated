@@ -65,13 +65,13 @@ typedef struct {
                          direction:(TABShimmerDirection)direction;
 
 /**
- UIView加入呼吸灯动画
+ CALayer加入呼吸灯动画
 
- @param view 目标view
+ @param layer 目标layer
  @param duration 单次呼吸时长
  @param key 指定key
  */
-+ (void)addAlphaAnimation:(UIView *)view
++ (void)addAlphaAnimation:(CALayer *)layer
                  duration:(CGFloat)duration
                       key:(NSString *)key;
 
@@ -100,7 +100,6 @@ typedef struct {
  @param view 目标view
  */
 + (void)addEaseOutAnimation:(UIView *)view;
-
 
 @end
 

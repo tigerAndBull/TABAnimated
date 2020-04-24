@@ -468,7 +468,7 @@ static NSString * const kLongDataString = @"tab_testtesttesttesttesttesttesttest
         
         // add bin animation
         if ([TABManagerMethod canAddBinAnimation:superView]) {
-            [TABAnimationMethod addAlphaAnimation:targetView
+            [TABAnimationMethod addAlphaAnimation:targetView.tabComponentManager.tabLayer
                                          duration:[TABAnimated sharedAnimated].animatedDurationBin
                                               key:TABAnimatedAlphaAnimation];
         }
@@ -575,42 +575,10 @@ static NSString * const kLongDataString = @"tab_testtesttesttesttesttesttesttest
     return NO;
 }
 
-+ (void)removeAllTABLayersFromView:(UIView *)view {
-    
-    NSArray *subViews = [view subviews];
-    if ([subViews count] == 0) {
-        return;
-    }
-    
-    for (int i = 0; i < subViews.count; i++) {
-        
-        UIView *v = subViews[i];
-        [self removeAllTABLayersFromView:v];
-        
-        if (v.layer.sublayers.count > 0) {
-            NSArray<CALayer *> *subLayers = v.layer.sublayers;
-            [self removeSubLayers:subLayers];
-        }
-    }
-    
-    [self removeMask:view];
-}
-
 + (void)removeMask:(UIView *)view {
     if (view.tabComponentManager.tabLayer) {
         view.tabComponentManager.tabLayer.hidden = YES;
     }
-}
-
-+ (void)removeSubLayers:(NSArray *)subLayers {
-    
-    NSArray <CALayer *> *removedLayers = [subLayers filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id  _Nullable evaluatedObject, NSDictionary<NSString *,id> * _Nullable bindings) {
-        return YES;
-    }]];
-    
-    [removedLayers enumerateObjectsUsingBlock:^(CALayer * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        [obj removeFromSuperlayer];
-    }];
 }
 
 #pragma mark - Private Method

@@ -123,10 +123,9 @@
         // 设置tabAnimated相关属性
         // 可以不进行手动初始化，将使用默认属性
         // 自适应高度需要在cell中用假数据撑开，不能保证撑开的完全没有问题，而且高度不能调整，目前没有确定最终的适配方案
-        _tableView.tabAnimated = [TABTableAnimated animatedWithCellClass:[TestLayoutCell class]];
-        _tableView.tabAnimated.animatedCount = 20;
+        _tableView.tabAnimated = [TABTableAnimated animatedWithCellClass:[TestLayoutCell class] cellHeight:100];
         _tableView.tabAnimated.adjustBlock = ^(TABComponentManager * _Nonnull manager) {
-            manager.animation(0).line(1);
+            manager.animation(0).line(3);
         };
     }
     return _tableView;

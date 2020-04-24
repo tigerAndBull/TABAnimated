@@ -22,7 +22,7 @@
     return animation;
 }
 
-+ (void)addAlphaAnimation:(UIView *)view
++ (void)addAlphaAnimation:(CALayer *)layer
                  duration:(CGFloat)duration
                       key:(NSString *)key {
     CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"opacity"];
@@ -34,7 +34,7 @@
     animation.removedOnCompletion = NO;
     animation.fillMode = kCAFillModeForwards;
     animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
-    [view.layer addAnimation:animation forKey:key];
+    [layer addAnimation:animation forKey:key];
 }
 
 + (void)addShimmerAnimationToLayer:(CALayer *)layer

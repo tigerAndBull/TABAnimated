@@ -236,18 +236,6 @@ NS_ASSUME_NONNULL_BEGIN
                                     cellHeightArray:(NSArray <NSNumber *> *)cellHeightArray
                                            rowArray:(NSArray <NSNumber *> *)rowArray;
 
-#pragma mark - 自适应高度的初始化方法
-
-/**
- 满足以下两个条件使用该初始化方法：
- 1. 自适应高度
- 2. section数量为1，且只有一种cell
- 
- @param cellClass 目标cell
- @return object
- */
-+ (instancetype)animatedWithCellClass:(Class)cellClass;
-
 #pragma mark - 添加 header / footer
 
 /**
@@ -303,6 +291,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)exchangeTableViewDelegate:(UITableView *)target;
 
 - (void)exchangeTableViewDataSource:(UITableView *)target;
+
++ (instancetype)animatedWithCellClass:(Class)cellClass DEPRECATED_MSG_ATTRIBUTE("该回调在v2.3.0被弃用，请使用`animatedWithCellClass:cellHeight:`取代");
 
 @end
 

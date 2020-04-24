@@ -60,7 +60,7 @@ static NSString * const kTagDefaultFontName = @"HiraKakuProN-W3";
     TABComponentManager *manager = [[TABComponentManager alloc] init];
     manager.superView = superView;
     if (view.frame.size.width > 0.) {
-        if (superView && [superView isKindOfClass:[UITableView class]]) {
+        if ([superView isKindOfClass:[UITableView class]]) {
             UITableView *tableView = (UITableView *)superView;
             if (view.frame.size.width != [UIScreen mainScreen].bounds.size.width) {
                 manager.tabLayer.frame = CGRectMake(view.bounds.origin.x, view.bounds.origin.y, [UIScreen mainScreen].bounds.size.width, tableView.rowHeight);
@@ -73,6 +73,7 @@ static NSString * const kTagDefaultFontName = @"HiraKakuProN-W3";
     }else {
         manager.tabLayer.frame = CGRectMake(view.bounds.origin.x, view.bounds.origin.y, [UIScreen mainScreen].bounds.size.width, view.bounds.size.height);
     }
+    
     [view.layer addSublayer:manager.tabLayer];
     
     if (view && superView) {
