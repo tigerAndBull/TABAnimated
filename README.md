@@ -17,373 +17,223 @@
     </a>
 </p>
 
-###### the lastest version is v2.0.5[release]  [中文文档](https://www.jianshu.com/p/6a0ca4995dff)
+> + [English Documents](https://github.com/tigerAndBull/TABAnimated/blob/master/README_EN.md)
 
-## Catalog
+## 骨架屏是什么？
 
-* [About TABAnimated](#About-TABAnimated)
-* [Implementation Principle](#Implementation-Principle)
-* [Benefits](#Benefits)
-* [Evolution Process](#Evolution-Process)
-* [Effects](#Effects)
-* [Installation](#Installation)  
-  * [Cocoapods](#Using-CocoaPods)
-  * [Manually](#Manual-Import)
-* [Usage](#Usage)
-* [Extension Callback](#Extension-Callback)
-* [Tips](#Tips)
-* [Attribute Related](#Attribute-Related)
-* [Author](#Author)
-* [Lastly](#Lastly)
-* [License](#License)
+找到这里的同志，或多或少都对骨架屏有所了解，请容许我先啰嗦一句。骨架屏(Skeleton Screen)是一种优化用户弱网体验的方案，可以有效缓解用户等待的焦躁情绪。
 
-## About TABAnimated
+## TABAnimated是什么？
 
-The origin version of `TABAnimated` is the dynamic effect of the skeleton screen of the [jianshu](https://www.jianshu.com/) web page.
-I have explored the template mode in v1.9, but the repetitive workload is not conducive to rapid construction.
-Moreover, the existence of the two modes is unreasonable, so this setting is deleted in v2.1, but the appearance of the template mode to delete is not unproductive, but instead brings a more reasonable implementation scheme and a more convenient construction method.
+TABAnimated是提供给iOS开发者自动生成骨架屏的一种解决方案。开发者可以将已经开发好的视图，通过TABAnimated配置一些全局/局部的参数，自动生成与其长相一致的骨架屏。
+当然，TABAnimated会协助你管理骨架屏的生命周期。
 
-## Implementation Principle
+## 目录
 
-`TABAnimated` requires a control view to make the switch animation. All subViews under this control view will be added to the animation queue.
+* [集成优势](#集成优势)
+* [效果展示](#效果展示)
+* [演示过程](#演示过程)  
+* [集成步骤](#集成步骤)
+* [问题检索](#问题检索)
+* [最后强调](#最后强调)
 
-`TABAnimated` creates `TABCompentLayer` by controlling the position of the subViews of the view and related information.
-Normal control view with a `TABLayer`
-Table view, each cell has a `TABLayer`
-`TABLayer` is responsible for managing and displaying all `TABCompentLayer`.
+## 集成优势
 
-When using constraints for layout, if the constraints are insufficient and there is no data, the location information of subViews will not be reflected, and TABAnimated will pre-populate the data.
+通过TABAnimated集成的骨架屏有什么优势？
 
-## Benefits
+-  是一种自动化方案，集成速度很快
+-  零耦合，易于将其动画逻辑封装到基础库，且移除方便
+-  配有缓存功能，压测切换控制器不卡顿
+-  适用场景广，可以适用开发中99%的视图
+-  自由度非常高，可以完全地自定制
+-  自动切换暗黑模式骨架屏
 
-- Rapid integration
-- Zero coupling, easy to wrap its animation logic into the base library
-- High performance with minimal memory loss
-- Chained syntax, fast and easy to read
-- Fully customizable to fit 99.99% view
+## 效果展示
 
-## Evolution Process
+| 动态效果 | 卡片投影 | 呼吸灯  | 
+| ------ | ------ | ------ | 
+| ![动态动画.gif](https://upload-images.jianshu.io/upload_images/5632003-56c9726a027ca5e2.gif?imageMogr2/auto-orient/strip) | ![卡片投影.gif](https://upload-images.jianshu.io/upload_images/5632003-fd01c795bb3f9e1a.gif?imageMogr2/auto-orient/strip) | ![呼吸灯.gif](https://upload-images.jianshu.io/upload_images/5632003-683062be0a23d5b8.gif?imageMogr2/auto-orient/strip) | 
 
-Can't see clearly, you can zoom in
+| 闪光灯 | 分段视图 | 豆瓣效果 |
+| ------ | ------ | ------ | 
+| ![闪光灯改版.gif](https://upload-images.jianshu.io/upload_images/5632003-93ab2cf6950498ab.gif?imageMogr2/auto-orient/strip)| ![分段视图.gif](https://upload-images.jianshu.io/upload_images/5632003-4da2062be691cf0b.gif?imageMogr2/auto-orient/strip) | ![豆瓣.gif](https://upload-images.jianshu.io/upload_images/5632003-3ed9d6cc317891a3.gif?imageMogr2/auto-orient/strip) | 
 
-![origin.png](https://upload-images.jianshu.io/upload_images/5632003-8a373e3d07820664.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+**暗黑模式：**
 
-**Briefly explain**:
+| 工具箱切换 | setting页面切换 |
+| ------ | ------ | 
+| ![工具箱切换.gif](https://upload-images.jianshu.io/upload_images/5632003-cf5c4f50eac6fe6c.gif?imageMogr2/auto-orient/strip) | ![setting设置切换.gif](https://upload-images.jianshu.io/upload_images/5632003-2d1fb96ec07d6bca.gif?imageMogr2/auto-orient/strip) | 
 
-The first picture: the original table component, the display situation when there is data
+## 演示过程
 
-The second picture: is the animation group mapped after the table component starts the animation. I believe you can see that the effect is not very beautiful.
+下面通过一个小例子，更深入地了解一下TABAnimated。
 
-The third picture: for this unsightly animation group, through the callback, pre-processing, the following description
+#### 1. 小明和小张有一个下图这样的视图，需要集成骨架屏
 
-## Effects
+![需求.png](https://upload-images.jianshu.io/upload_images/5632003-8bb0895de7690f79.png?imageMogr2/auto-orient/strip%7CimageView2/3/w/300)
 
-| Dynamic | Card View | Bin Animation |
-| ------ | ------ | ------ |
-| ![dynmic.gif](https://upload-images.jianshu.io/upload_images/5632003-56c9726a027ca5e2.gif?imageMogr2/auto-orient/strip) | ![card.gif](https://upload-images.jianshu.io/upload_images/5632003-fd01c795bb3f9e1a.gif?imageMogr2/auto-orient/strip) | ![bin.gif](https://upload-images.jianshu.io/upload_images/5632003-683062be0a23d5b8.gif?imageMogr2/auto-orient/strip) |
+#### 2. 下面是通过TABAnimated自动化生成的效果
 
-| Shimmer Animation | Segment View | Nested Tables |
-| ------ | ------ | ------ |
-| ![shimmer.gif](https://upload-images.jianshu.io/upload_images/5632003-6096ab323f4ae075.gif?imageMogr2/auto-orient/strip) | ![segment.gif](https://upload-images.jianshu.io/upload_images/5632003-4da2062be691cf0b.gif?imageMogr2/auto-orient/strip) | ![nest.gif](https://upload-images.jianshu.io/upload_images/5632003-43d1b30bbc3c5654.gif?imageMogr2/auto-orient/strip) |
+![自动化生成.png](https://upload-images.jianshu.io/upload_images/5632003-f10c2427f8b149ba.png?imageMogr2/auto-orient/strip%7CimageView2/3/w/300)
 
-## Installation
+#### 3. 小明做这个需求说，这个效果我很满意，那么小明的工作到此就结束了。但是小张说，我感觉长度，高度，虽然和原视图很像，但是作为一种动画效果我不太满意，不够精致。于是，他通过（预处理回调+链式语法），很快地做了如下调整。
 
-#### Using CocoaPods
+![调整后效果.png](https://upload-images.jianshu.io/upload_images/5632003-0affe19065135d31.png?imageMogr2/auto-orient/strip%7CimageView2/3/w/300)
+
+当然啦，每个人有不同的审美，每个产品有不同的需求，这些就全交由你来把握啦～
+
+## 集成步骤
+
+### 一、导入到工程中
+
+- CocoaPods
 
 ```
-Pod 'TABAnimated'
+pod 'TABAnimated'
 ```
 
-#### Manual Import
-
-Drag the TABAnimated folder into the project.
-
-## Usage
-
-You only need four steps
-
-1. Initialize `TABAimated` in `didFinishLaunchingWithOptions`
-
-There are other global properties, which are presented below in a table.
+- Carthage
 
 ```
-// init `TABAnimated`, and set the properties you need.
+github "tigerAndBull/TABAnimated"
+```
+
+- 将TABAnimated文件夹拖入工程
+
+**注意: 在github上下载的演示demo，为了很好的模拟真实的应用场景，使用了一些大家都熟悉的第三方，但是TABAnimated自身并不依赖他们。**
+
+### 二、全局参数初始化
+
+在 `didFinishLaunchingWithOptions` 中初始化 `TABAimated`
+
+```
 [[TABAnimated sharedAnimated] initWithOnlySkeleton];
-// open log
 [TABAnimated sharedAnimated].openLog = YES;
 ```
 
-2. Control view initialization tabAnimated
+**注意：还有其他的动画类型、全局属性，在框架中都有注释。**
 
-Ordinary view:
+### 三、控制视图初始化
 
-```
-self.mainView.tabAnimated = TABViewAnimated.new;
-self.mainView.tabAnimated.categoryBlock = ^(UIView * _Nonnull view) {
-        View.animation(1).width(200);
-        View.animation(2).width(220);
-        View.animation(3).width(180);
- };
-```
+**控制视图：如果是列表视图，那么就是UITableView/UICollectionView，有文档具体讲解。**
 
-Table component:
+`NewsCollectionViewCell`就是你列表中用到的cell，当然你要绑定其他cell，也是完全可以的！
 
 ```
-_collectionView.tabAnimated =
-[TABCollectionAnimated animatedWithCellClass:[NewsCollectionViewCell class]
-                                    cellSize:[NewsCollectionViewCell cellSize]];
-_collectionView.tabAnimated.categoryBlock = ^(UIView * _Nonnull view) {
-        View.animation(1).reducedWidth(20).down(2);
-        View.animation(2).reducedWidth(-10).up(1);
-        View.animation(3).down(5).line(4);
-        View.animations(4,3).radius(3).down(5);
-};
+_collectionView.tabAnimated = 
+[TABCollectionAnimated animatedWithCellClass:[NewsCollectionViewCell class] 
+cellSize:[NewsCollectionViewCell cellSize]];
 ```
 
-3. Turn on the animation
+**注意：**
+
+- **有其他初始化方法，比如常见的多种cell，在框架中都有注释**
+- **有针对这个控制视图的局部属性，在框架中都有注释**
+
+### 四、控制骨架屏开关
+
+1. 开启动画
 
 ```
-[self.collectionView tab_startAnimation];
+[self.collectionView tab_startAnimation];  
 ```
 
-4. Turn off the animation
+2. 关闭动画
 
 ```
 [self.collectionView tab_endAnimation];
 ```
 
-UIView corresponds to `TABViewAnimated`
-
-UITableView corresponds to `TABTableAnimated`
-
-UICollectionView corresponds to `TABCollectionAnimated`
-
-There are also other initialization methods that support multiple sections.
-
-In general, the registered cell can be mapped with the original cell.
-
-**Special application scenarios**:
-
-For example, there are many types of Sina Weibo post pages.
-Such a complicated page, rising to the animation level is definitely to design a unified animation.
-At this time, you can rewrite a cell, then register to the form, and map out the visual effects you want through this framework. This is also the evolution of the template function.
-
-For additional details, continue to add additional documentation or view it on the github demo.
-
-## Extended Callback
-
-The extension callback gives the animation group to the developer, which the developer can adjust.
-Because it is an adjustment, the chain syntax is added to allow developers to adjust quickly and easily.
+### 五、刚刚说到的，预处理回调+链式语法怎么用？
 
 ```
-_collectionView.tabAnimated.categoryBlock = ^(UIView * _Nonnull view) {
-        View.animation(1).reducedWidth(20).down(2);
-        View.animation(2).reducedWidth(-10).up(1);
-        View.animation(3).down(5).line(4);
-        View.animations(4,3).radius(3).down(5);
+_tableView.tabAnimated.adjustBlock = ^(TABComponentManager * _Nonnull manager) {
+    manager.animation(1).down(3).radius(12);
+    manager.animation(2).height(12).width(110);
+    manager.animation(3).down(-5).height(12);
 };
 ```
 
-**Parameter description** (also detailed in the framework)
+#### 1. 有的人看到上面，可能一下子就被吓到了，集成需要这么复杂吗？
 
-view.animation(x): The animation of the specified subscript of the view `TABCompentLayer`
+答：需不需要异步调整，需要调整到什么程度，与你自身约束、产品需求，都有关系。所以并不能自动生成让任何产品、任何人立即都完全满意的效果。
+你大可放心，推出这个功能反而是协助开发者更快速调整自己想要的结果。**
 
-view.animations(x,x): An array of animated individuals of the specified range of the view for uniform adjustment
+#### 2. `manager.animation(x)`，x是多少？
 
-up(x): How much to move up
-
-down(x): How much to move down
-
-left(x): How many moves to the left
-
-right(x): How many moves to the right
-
-height(x): modify height
-
-Width(x): modify the width
-
-reducedWidth(x): How much is the width compared to before
-
-reducedHeight(x): How much is the height compared to before
-
-radius(x): rounded corners
-
-line(x): number of lines
-
-space(x): spacing
-
-These two parameters, if it is multi-line text, take effect by default according to the number of `numberOfLines`
-Ordinary animated individuals can also set these two properties to achieve the same effect.
-
-remove(): Move out the animation group
-
-toLongAnimation(): Give the individual a dynamic variable length animation
-
-toShortAnimation(): Give the individual a dynamic shortening animation
-
-special reminder:
-
-> + In the `TABAnimated.h` file, there are global animation parameters
-> + In `TABViewAnimated.h`, there are parameters for all animations in the control view
-> + The above chained grammar, modified by specific animated individuals
-
-priority:
-
-Animated Individual Parameter Configuration > Control View Animation Parameter Configuration > Global Animation Parameter Configuration
-
-## Tips
-
-1. Q: Which animation component corresponds to which component?
-
-answer:
-
-If you build with pure code, then you add the subscripts of the animation array corresponding to the component order,
-For example, if the first one is added to the cell, then its corresponding animation component is: view.animation(0)
-And so on, just open your cell file and look at the hierarchy to make adjustments.
-
-However, if you create with xib, it's a pity to tell you that the order is the order in which the xib files are associated.
-The xib in the demo did a wrong demonstration, and there was a pit of caution.
-There are no other good ways to find it, and I hope to collect your suggestions.
-
-2. `UILabel` with Multi-line
-
-![line.png](https://upload-images.jianshu.io/upload_images/5632003-866d8adb77e4310c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-
-As mentioned above, here again,
-You can use .line(x) to set the number of lines. space(x) to set the spacing.
-Each animation component can set these two properties to achieve the same effect.
-
-3. Specify the initialization method of section loading animation
-
-For example, animatedSectionArray = @[@(3), @(4)];
-
-This means the first element in the cellHeightArray, animatedCountArray, cellClassArray, is the animation data when section == 3.
-
+答：在appDelegate设置TABAnimated的`openAnimationTag`属性为YES，框架就会自动为你指示，究竟x是几
 ```
-// Some sections have animations
-
-_tableView.tabAnimated =
-[TABTableAnimated animated WithCellClassArray:@[[TestTableViewCell class]]
-                              cellHeightArray:@[@(100)]
-                           animatedCountArray:@[@(1)]
-                         animatedSectionArray:@[@(1)];
-
-_tableView.tabAnimated.categoryBlock = ^(UIView * _Nonnull view){
-    view.animation(1).down(3).height (12).toShortAnimation();
-    view.animation(2).height(12).width(110).toLongAnimation();
-    view.animation(3).down(-5).height(12);
-}
+[TABAnimated sharedAnimated].openAnimationTag = YES;
 ```
 
-4. Expand the callback when using multiple sections
+#### 3. 通过几个示例，具体了解（预处理回调+链式语法）
 
+- 假如第0个元素的高度和宽度不合适
 ```
-_collectionView.tabAnimated.categoryBlock = ^(UIView * _Nonnull view) {
-            
-      If ([view isKindOfClass:[CourseCollectionViewCell class]]) {
-
-      }
-            
-      If ([view isKindOfClass:[DailyCollectionViewCell class]]) {
-            View.animations(1,3).height(14);
-            View.animation(2).down(6);
-            View.animation(1).up(1);
-            View.animation(3).up(6);
-      }
-  };
+manager.animation(0).height(12).width(110);
 ```
-
-5. For nested table components, the `isNest` attribute of the table component to be nested needs to be set to `YES`. See demo for details.
-
+- 假如第1个元素需要使用占位图
 ```
-_collectionView.tabAnimated = [[TABAnimatedObject alloc] init];
-_collectionView.tabAnimated.isNest = YES;
-_collectionView.tabAnimated.animatedCount = 3;
+manager.animation(1).placeholder(@"占位图名称.png");
+```
+- 假如第1，2，3个元素宽度都为50
+```
+manager.animations(1,3).width(50);
+```
+- 假如第1，5，7个元素需要下移5px
+```
+manager.animationWithIndexs(1,5,7).down(5);
 ```
 
-## Attribute Related
+![下标示意图.png](https://upload-images.jianshu.io/upload_images/5632003-2842bd54e80dd9ef.png?imageMogr2/auto-orient/strip%7CimageView2/3/w/300)
 
-| Initialization Method | Name |
-| ------ | ------ |
-| initWithOnlySkeleton | Skeleton Screen |
-| initWithBinAnimation | Breathing Light Animation |
-| initWithShimmerAnimated | Flash Animation |
+#### 表格集成必看
 
-If the control view's `superAnimationType` is set, it will be loaded with the animation type declared by `superAnimationType`
+(1) 在你集成表格视图之前，一定要理清你自己的视图结构：
 
-**Global animation properties: **
+分为以下三种
 
-Instructions
++ 以section为单元，section和cell样式一一对应
++ 视图只有1个section, 但是对应多个cell
++ 动态section：你的section数量是网络获取的
 
-```
-[TABAnimated shareAnimated].xxx = xxx;
-```
+(2) 明白你自己的需求：
 
-| Property Name | Applicable Animation | Meaning | Default |
-| ------ | ------ | ------ | ------ |
-| animatedColor| General | Animated Color | 0xEEEEEE |
-| animatedBackgroundColor| General | Animated Background Color | UIColor.white |
-| animatedDuration | Dynamic Animation | Move back and forth | 1.0 |
-| longToValue | Dynamic Animation | Scale | 1.9 |
-| shortToValue | Dynamic Animation | Scale | 0.6 |
-| animatedDurationShimmer | Flash | Movement Duration | 1.5 |
-|animatedHeightCoefficient| General | Height Coefficient |0.75|
-|useGlobalCornerRadius| General | Open Global Fillet | NO|
-|animatedCornerRadius| General | Global Fillet |0.|
-|openLog| Universal|Open Log|NO|
-|useGlobalAnimatedHeight| without UIImageView|use Global Animated Height|NO|
-|animatedHeight| without UIImageView|Global Animated Height|12.|
++ 设置多个section/row，一起开启动画
++ 设置多个section/row，部分开启动画
 
-**All animation property configurations under control view:**
+(3) 最后到框架内找到对应的初始化方法、启动动画方法即可！
 
-Instructions
+## 问题检索
 
-```
-_tableView.tabAnimated.xxx = xxx;
-```
+**当然啦，在实际应用中，我们还有各式各样的视图，TABAnimated经历了很多产品的考验，统统都可以应对。
+但是光凭上面的知识肯定是不够的，以下是更详细说明文档。**
 
-| Property Name | Scope | Meaning | Default |
-| ------ | ------ | ------ | ------ |
-|superAnimationType| General | This control view animation type | Default global properties |
-| animatedCount| Table Components | Number of Animations | Filling the Table Visible Area |
-| animatedColor| General | Animated Content Color | UIColor.white |
-| animatedBackgroundColor | General | Animated Background Color | 0xEEEEEE |
-| cancelGlobalCornerRadius | General | Unused Global Fillet | NO |
-| animatedCornerRadius | General | Animated fillets in this control view | 0. |
-| animatedHeight | General | Animation height under this control view | 0. |
-|isAnimating| General | Is it in animation |\|
-|isNest| General | Is it a nested table|NO|
-|canLoadAgain| General|Is it can load again|NO|
+- 你最好要（必须）阅读的文档：
 
-## Author
+> + [缓存策略和线程处理](https://github.com/tigerAndBull/TABAnimated/blob/master/Documents/%E7%BC%93%E5%AD%98%E7%AD%96%E7%95%A5%E5%92%8C%E7%BA%BF%E7%A8%8B%E5%A4%84%E7%90%86.md)
 
-email: 1429299849@qq.com
+- 你最可能用到的文档：
 
-## Lastly
+> + [预处理回调动画元素下标问题](https://github.com/tigerAndBull/TABAnimated/blob/master/Documents/%E5%8A%A8%E7%94%BB%E5%85%83%E7%B4%A0%E4%B8%8B%E6%A0%87%E9%97%AE%E9%A2%98.md)
+> + [问题答疑文档](https://github.com/tigerAndBull/TABAnimated/blob/master/Documents/%E9%97%AE%E9%A2%98%E7%AD%94%E7%96%91%E6%96%87%E6%A1%A3.md)
+> + [全局:局部属性、链式语法api](https://github.com/tigerAndBull/TABAnimated/blob/master/Documents/%E5%85%A8%E5%B1%80:%E5%B1%80%E9%83%A8%E5%B1%9E%E6%80%A7%E3%80%81%E9%93%BE%E5%BC%8F%E8%AF%AD%E6%B3%95api.md)
 
-> + Thanks for meeting, thanks for using, if you feel good, you can order a star
-> + If there are usage problems, optimization suggestions, etc., you can email me.
+- 你可能用到的辅助工具、技术和其他文档
+
+> + [实时预览工具](https://github.com/tigerAndBull/TABAnimated/blob/master/Documents/%E5%AE%9E%E6%97%B6%E9%A2%84%E8%A7%88%E5%B7%A5%E5%85%B7.md)
+> + [豆瓣动画详解](https://github.com/tigerAndBull/TABAnimated/blob/master/Documents/%E8%B1%86%E7%93%A3%E5%8A%A8%E7%94%BB%E8%AF%A6%E8%A7%A3.md)
+> + [不再hook setDelegate和setDataSource](https://github.com/tigerAndBull/TABAnimated/blob/master/Documents/%E4%B8%8D%E5%86%8Dhook%20setDelegate%E5%92%8CsetDataSource.md)
+
+**如果你仍无法解决问题，可以尽快联系我，我相信TABAnimated是可以解决99%的需求的**
+
+## 最后强调
+
+- 有问题一定要先看`demo`和文档哈，demo的示例分散在`UITableView`和`UICollectionView`两种类型视图上
+- demo也只是引导的作用，你可以自己设置出更精美的效果
+- 如有使用问题、优化建议、好的想法等，可以直接提issue，也可以加交流群即时反馈: 304543771
 
 ## License
 
-MIT License
+All source code is licensed under the [License](https://github.com/tigerAndBull/TABAnimated/blob/master/LICENSE)
 
-Copyright (c) 2018 tigerAndBull
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.

@@ -8,25 +8,95 @@
 
 #import "TABAnimated.h"
 
-#import "TABAnimationMethod.h"
-#import "TABManagerMethod.h"
-
-#import "UIView+TABAnimated.h"
-#import "UITableView+TABAnimated.h"
-#import "UICollectionView+TABAnimated.h"
+#import "TABAnimatedDocumentMethod.h"
+#import "TABAnimatedConfig.h"
 
 #import <objc/runtime.h>
+#import "TABAnimatedCacheManager.h"
+
+NSString * const TABAnimatedLocationAnimation = @"TABLocationAnimation";
 
 @implementation TABAnimated
 
-#pragma mark - Getter
+#pragma mark - Initize Method
 
-- (CGFloat)animatedHeightCoefficient {
-    if (_animatedHeightCoefficient == 0.) {
-        return 0.75f;
-    }
-    return _animatedHeightCoefficient;
++ (TABAnimated *)sharedAnimated {
+    static dispatch_once_t token;
+    static TABAnimated *tabAnimated;
+    dispatch_once(&token, ^{
+        tabAnimated = [[TABAnimated alloc] init];
+    });
+    return tabAnimated;
 }
+
+- (instancetype)initWithAnimatonType:(TABAnimationType)animationType {
+    if (self = [super init]) {
+        _animationType = animationType;
+    }
+    return self;
+}
+
+- (instancetype)init {
+    if (self = [super init]) {
+        _animationType = TABAnimationTypeOnlySkeleton;
+        _animatedHeightCoefficient = 0.75;
+        _animatedColor = tab_kBackColor;
+        _darkAnimatedColor = tab_kDarkBackColor;
+        _animatedBackgroundColor = UIColor.whiteColor;
+        if (@available(iOS 13.0, *)) {
+            _darkAnimatedBackgroundColor =  UIColor.secondarySystemBackgroundColor;
+        }else {
+            _darkAnimatedBackgroundColor = UIColor.whiteColor;
+        }
+        
+        _animatedDuration = 0.7;
+        _longToValue = 1.9;
+        _shortToValue = 0.6;
+        
+        [TABAnimatedDocumentMethod createFile:TABCacheManagerFolderName isDir:YES];
+#ifdef DEBUG
+        _closeCache = YES;
+#endif
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[TABAnimatedCacheManager shareManager] install];
+        });
+    }
+    return self;
+}
+
+- (void)initWithOnlySkeleton {
+    if (self) {
+        _animationType = TABAnimationTypeOnlySkeleton;
+    }
+}
+
+- (void)initWithBinAnimation {
+    if (self) {
+        _animationType = TABAnimationTypeBinAnimation;
+    }
+}
+
+- (void)initWithShimmerAnimated {
+    if (self) {
+        _animationType = TABAnimationTypeShimmer;
+    }
+}
+
+- (void)initWithShimmerAnimatedDuration:(CGFloat)duration
+                              withColor:(UIColor *)color {
+    if (self) {
+        _animatedColor = color;
+        _animationType = TABAnimationTypeShimmer;
+    }
+}
+
+- (void)initWithDropAnimated {
+    if (self) {
+        _animationType = TABAnimationTypeDrop;
+    }
+}
+
+#pragma mark - Getter / Setter
 
 - (CGFloat)animatedHeight {
     if (_animatedHeight == 0.) {
@@ -35,89 +105,25 @@
     return _animatedHeight;
 }
 
-- (UIColor *)animatedBackgroundColor {
-    if (_animatedBackgroundColor) {
-        return _animatedBackgroundColor;
+- (TABShimmerAnimation *)shimmerAnimation {
+    if (!_shimmerAnimation) {
+        _shimmerAnimation = TABShimmerAnimation.new;
     }
-    return UIColor.whiteColor;
+    return _shimmerAnimation;
 }
 
-- (CGFloat)animatedDuration {
-    if (_animatedDuration == 0) {
-        return 0.7;
+- (TABDropAnimation *)dropAnimation {
+    if (!_dropAnimation) {
+        _dropAnimation = TABDropAnimation.new;
     }
-    return _animatedDuration;
+    return _dropAnimation;
 }
 
-- (CGFloat)animatedDurationBin {
-    if (_animatedDurationBin == 0.) {
-        return 1.0;
+- (TABBinAnimation *)binAnimation {
+    if (!_binAnimation) {
+        _binAnimation = TABBinAnimation.new;
     }
-    return _animatedDurationBin;
-}
-
-- (CGFloat)longToValue {
-    if (_longToValue == 0) {
-        return 1.9;
-    }
-    return _longToValue;
-}
-
-- (CGFloat)shortToValue {
-    if (_shortToValue == 0) {
-        return 0.6;
-    }
-    return _shortToValue;
-}
-
-#pragma mark - Initize Method
-
-+ (TABAnimated *)sharedAnimated {
-    
-    static TABAnimated *tabAnimated;
-    
-    if (nil == tabAnimated) {
-        tabAnimated = [[TABAnimated alloc] init];
-    }
-    return tabAnimated;
-}
-
-- (instancetype)init {
-    if (self = [super init]) {
-        _animationType = TABAnimationTypeOnlySkeleton;
-    }
-    return self;
-}
-
-- (void)initWithOnlySkeleton {
-    if (self) {
-        _animationType = TABAnimationTypeOnlySkeleton;
-        _animatedColor = tab_kBackColor;
-    }
-}
-
-- (void)initWithBinAnimation {
-    if (self) {
-        _animationType = TABAnimationTypeBinAnimation;
-        _animatedColor = tab_kBackColor;
-    }
-}
-
-- (void)initWithShimmerAnimated {
-    if (self) {
-        _animationType = TABAnimationTypeShimmer;
-        _animatedDurationShimmer = 1.5f;
-        _animatedColor = tab_kBackColor;
-    }
-}
-
-- (void)initWithShimmerAnimatedDuration:(CGFloat)duration
-                              withColor:(UIColor *)color {
-    if (self) {
-        _animatedDurationShimmer = duration;
-        _animatedColor = color;
-        _animationType = TABAnimationTypeShimmer;
-    }
+    return _binAnimation;
 }
 
 @end

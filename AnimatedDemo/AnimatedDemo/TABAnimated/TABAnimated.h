@@ -1,6 +1,9 @@
 //
 //  TABViewAnimated.h
-//  lifeAndSport
+//  AnimatedDemo
+//
+//  github: https://github.com/tigerAndBull/TABAnimated
+//  jianshu: https://www.jianshu.com/p/6a0ca4995dff
 //
 //  Created by tigerAndBull on 2018/9/14.
 //  Copyright © 2018年 tigerAndBull. All rights reserved.
@@ -10,153 +13,216 @@
 #define TABAnimated_h
 
 #import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
-
-#import "UIView+TABAnimated.h"
-#import "UITableView+TABAnimated.h"
-#import "UICollectionView+TABAnimated.h"
-
-#import "UIView+TABLayoutSubviews.h"
-#import "UITableViewCell+TABLayoutSubviews.h"
-#import "UICollectionViewCell+TABLayoutSubviews.h"
 
 #import "UIView+TABControlAnimation.h"
+#import "UIView+TABControlModel.h"
 
-#import "TABViewAnimated.h"
-#import "TABAnimationMethod.h"
-#import "TABManagerMethod.h"
-
-/*
- v2.0.0
- */
-#import "TABLayer.h"
-
-/*
- v2.1.0
- */
-#import "TABComponentLayer.h"
 #import "TABViewAnimated.h"
 #import "TABTableAnimated.h"
 #import "TABCollectionAnimated.h"
-#import "NSArray+TABAnimated.h"
 
-#define tab_suppressPerformSelectorLeakWarning(Stuff) \
-do { \
-_Pragma("clang diagnostic push") \
-_Pragma("clang diagnostic ignored \"-Warc-performSelector-leaks\"") \
-Stuff; \
-_Pragma("clang diagnostic pop") \
-} while (0)
+#import "TABAnimationMethod.h"
+#import "TABComponentManager.h"
 
-#define tabAnimatedLog(x) {if([TABAnimated sharedAnimated].openLog) NSLog(x);}
+#import "NSArray+TABAnimatedChain.h"
 
-#define tab_kColor(c) [UIColor colorWithRed:((c>>24)&0xFF)/255.0 green:((c>>16)&0xFF)/255.0 blue:((c>>8)&0xFF)/255.0 alpha:((c)&0xFF)/255.0]
-#define tab_kBackColor tab_kColor(0xEEEEEEFF)
+#import "TABDropAnimation.h"
+#import "TABBinAnimation.h"
+#import "TABShimmerAnimation.h"
 
-#define kTABAlphaAnimation @"TABAlphaAnimation"
-#define kTABLocationAnimation @"TABLocationAnimation"
-#define kTABShimmerAnimation @"TABShimmerAnimation"
+#endif
 
-#endif /* TABAnimated_h */
-
-typedef NS_ENUM(NSInteger,TABAnimationType) {
-    TABAnimationTypeOnlySkeleton = 0,    // onlySkeleton for all views in your project.
-    TABAnimationTypeBinAnimation,        // default animation for all registered views in your project.
-    TABAnimationTypeShimmer              // shimmer animation for all views in your project.
-};
-
-@interface TABAnimated : NSObject
-
-@property (nonatomic,assign) TABAnimationType animationType;
+extern NSString * const TABAnimatedLocationAnimation;
 
 /**
- 
- The height of animations compare to origin views' height, the property acts on all subViews except `UIImageView`.
- In practice, we find that for `UILabel`,`UIButton` and other views, when the height of the animation is
- consistent with the origin view, the effect is not beautiful.
- About 0.75, the animation effect is more beautiful, you need to try and adjust it slightly.
- You can alse reset it.
- 
- 属性含义：动画高度与视图原有高度比例系数，该属性将对所有subViews生效，除了`UIImageView`
- 在实践中发现，对于UILabel,UIButton等视图，当动画的高度与原视图的高度一致时，效果并美观，
- 大概保持在0.75的比例，动画效果比较美观，具体还需要您自己尝试，稍作调整.
- 你也可以改变这个值
- **/
-@property (nonatomic,assign) CGFloat animatedHeightCoefficient;
+ * 全局动画类型，它决定了你是否需要在骨架层的基础之上，增加额外的动画。
+ *
+ * 除了`TABAnimationTypeOnlySkeleton`以外的值，都会添加额外的一种动画。
+ *
+ * 当你有一个指定的view不需要已经设置好的全局的动画类型时，
+ * 你可以使用`TABViewSuperAnimationType`这个局部属性覆盖`TABAnimationType`的值。
+ */
+typedef NS_ENUM(NSInteger, TABAnimationType) {
+    
+    // 骨架层
+    TABAnimationTypeOnlySkeleton = 0,
+    
+    // 骨架层 + 呼吸灯动画
+    TABAnimationTypeBinAnimation,
+    
+    // 骨架层 + 闪光灯
+    TABAnimationTypeShimmer,
+    
+    // 骨架层 + 豆瓣下坠动画
+    TABAnimationTypeDrop,
+    
+    // 骨架层 + 自定义动画
+    TABAnimationTypeCustom
+};
 
-@property (nonatomic,assign) CGFloat animatedDuration;
-@property (nonatomic,assign) CGFloat longToValue;
-@property (nonatomic,assign) CGFloat shortToValue;
+/**
+ * 控制一些全局的属性，包含了呼吸灯动画、闪光灯动画、豆瓣下坠动画的全局参数设置。
+ * 同时还有辅助开发、调试的参数设置。
+ *
+ * init类型的方法，必须要在`didFinishLaunchingWithOptions`首先使用
+ */
+@interface TABAnimated : NSObject
 
-// the duration of shimmer animation back and forth, default is 1.5 seconds.
-// 闪光灯动画来回的时长，默认是1.5秒
-@property (nonatomic,assign) CGFloat animatedDurationShimmer;
+/**
+ * 全局动画类型
+ *
+ * 默认是只有骨架层，后三者是在骨架层的基础之上，还会默认加上额外的动画。
+ * 优先级：全局动画类型 < 控制视图声明的动画类型
+ */
+@property (nonatomic, assign) TABAnimationType animationType;
 
-@property (nonatomic,assign) CGFloat animatedDurationBin;
+/**
+ * 动画高度与视图原有高度的比例系数，
+ * 该属性对除了`UIImageView`类型的所有子视图生效。
+ *
+ * 在实践中发现，对于UILabel, UIButton等视图，当动画的高度与原视图的高度一致时，效果并不美观（太粗）。
+ * 大概保持在原高度的0.75的比例，动画效果会看起来比较美观，具体系数可以根据你自己的审美进行修改。
+ */
+@property (nonatomic, assign) CGFloat animatedHeightCoefficient;
 
-// The color of animations' content in your project, default is 0xEEEEEE.
-// 全局动画内容颜色
-@property (nonatomic,strong) UIColor *animatedColor;
+/**
+ * 全局动画内容颜色，默认值为0xEEEEEE
+ */
+@property (nonatomic, strong) UIColor *animatedColor;
 
-// The backgroundcolor of animations in your project, default is UIColor.white.
-// 全局动画背景颜色
-@property (nonatomic,strong) UIColor *animatedBackgroundColor;
+/**
+ * 全局动画背景颜色，默认值为UIColor.whiteColor
+ */
+@property (nonatomic, strong) UIColor *animatedBackgroundColor;
 
-// The cornerRadius of animations in your project.
-// the value of cornerRadius is the animation's height / 2.0
-// 开启全局圆角
-// 全局圆角默认值为: 动画高度/2.0
+/**
+ * 是否开启全局圆角
+ * 开启后，全局圆角默认值为: 动画高度/2.0
+ */
+@property (nonatomic, assign) BOOL useGlobalCornerRadius;
 
-@property (nonatomic,assign) BOOL useGlobalCornerRadius;
+/**
+ * 全局圆角的值
+ *
+ * 优先级：此属性 < view自身的圆角
+ *
+ * 当需要个性化设置圆角的时候，你可以通过链式语法`.radius(x)`覆盖此属性的值。
+ */
+@property (nonatomic, assign) CGFloat animatedCornerRadius;
 
-// The cornerRadius of animations in your project.
-// If the view's layer had been setted `cornerRadius`, view's' animation
-// 全局圆角
-// 优先级：view设置的圆角 > animatedCornerRadius
-@property (nonatomic,assign) CGFloat animatedCornerRadius;
+/**
+ * 是否需要全局动画高度，
+ * 使用后，所有除了基于`UIImageView`类型映射的动画元素，高度都会设置为`animatedHeight`的高度。
+ *
+ * 当开发者设置了`TABViewAnimated`中的`animatedHeight`时，将会覆盖改值，
+ * 当开发者使用链式语法`.height(x)`设置高度时，则具有最高优先级
+ *
+ * 优先级：全局高度animatedHeight < TABViewAnimated中animatedHeight < 单个设置动画元素的高度
+ */
+@property (nonatomic, assign) BOOL useGlobalAnimatedHeight;
 
-// 针对UILabel / UIButton
-// 是否需要全局动画高度，拥有最高优先级
-@property (nonatomic,assign) BOOL useGlobalAnimatedHeight;
+/**
+ * 全局动画高度
+ * 设置后生效，且不包含`UIImageView`类型映射出的动画元素。
+ */
+@property (nonatomic, assign) CGFloat animatedHeight;
 
-// 针对UILabel / UIButton
-// 设置全局动画高度，默认12，拥有最高优先级
-@property (nonatomic,assign) CGFloat animatedHeight;
+@property (nonatomic, assign) BOOL canScroll;
 
 #pragma mark - Other
 
-// Is opening log or not, default is NO.
-// 是否开启控制台Log提醒
-@property (nonatomic,assign) BOOL openLog;
+/**
+ * 是否开启控制台Log提醒，默认不开启
+ */
+@property (nonatomic, assign) BOOL openLog;
 
 /**
- SingleTon
+ * 是否开启动画下标标记，默认不开启
+ * 这个属性即使是`YES`，也仅会在debug环境下生效。
+ *
+ * 开启后，会在每一个动画元素上增加一个红色的数字，该数字表示该动画元素所在的下标，方便快速定位某个动画元素。
+ */
+@property (nonatomic, assign) BOOL openAnimationTag;
 
- @return return object
+/**
+ * 关闭缓存功能
+ * DEBUG环境下，默认关闭缓存功能（为了方便调试预处理回调），即为YES
+ * RELEASE环境下，默认开启缓存功能，即为NO
+ *
+ * 如果你想在DEBUG环境下测试缓存功能，可以手动置为YES
+ * 如果你始终都不想使用缓存功能，可以手动置为NO
+ */
+@property (nonatomic, assign) BOOL closeCache;
+
+#pragma mark - Dark Mode
+
+/**
+ * 暗黑模式下，动画背景色
+ */
+@property (nonatomic, strong) UIColor *darkAnimatedBackgroundColor;
+
+/**
+ * 暗黑模式下，动画内容的颜色
+ */
+@property (nonatomic, strong) UIColor *darkAnimatedColor;
+
+#pragma mark - Flex Animation
+
+/**
+ * 伸缩动画来回时长
+ */
+@property (nonatomic, assign) CGFloat animatedDuration;
+
+/**
+ * 变长伸缩比例
+ */
+@property (nonatomic, assign) CGFloat longToValue;
+
+/**
+ * 变短伸缩比例
+ */
+@property (nonatomic, assign) CGFloat shortToValue;
+
+@property (nonatomic, strong) TABDropAnimation *dropAnimation;
+@property (nonatomic, strong) TABBinAnimation *binAnimation;
+@property (nonatomic, strong) TABShimmerAnimation *shimmerAnimation;
+
+#pragma mark - Init Method
+
+/**
+ * 单例模式
+ *
+ * @return return object
  */
 + (TABAnimated *)sharedAnimated;
 
-#pragma mark - OnlySkeleton
-
-- (void)initWithOnlySkeleton;
-
-#pragma mark - Bin Animation
-
-- (void)initWithBinAnimation;
-
-#pragma mark - Shimmer Animation
+- (instancetype)initWithAnimatonType:(TABAnimationType)animationType;
 
 /**
- shimmer Animation
+ * 骨架层
+ */
+- (void)initWithOnlySkeleton;
 
+/**
+ * 全局呼吸灯动画
+ */
+- (void)initWithBinAnimation;
+
+/**
+ * 全局闪光灯动画
  */
 - (void)initWithShimmerAnimated;
 
 /**
- shimmer Animation
- 
- @param duration back and forth
- @param color backgroundcolor
+ * 全局豆瓣动画
+ */
+- (void)initWithDropAnimated;
+
+/**
+ * 全局闪光灯动画
+ *
+ * @param duration 时长 (duration of one trip)
+ * @param color 动画内容颜色 (animation content color)
  */
 - (void)initWithShimmerAnimatedDuration:(CGFloat)duration
                               withColor:(UIColor *)color;
