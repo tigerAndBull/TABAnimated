@@ -59,7 +59,7 @@ static NSString * const kShimmerAnimationKey = @"kShimmerAnimationKey";
 - (void)traitCollectionDidChange:(UITraitCollection *)traitCollection
                      tabAnimated:(TABViewAnimated *)tabAnimated
                  backgroundLayer:(TABComponentLayer *)backgroundLayer
-                   contentLayers:(NSArray <TABComponentLayer *> *)contentLayers {
+                          layers:(NSArray <TABComponentLayer *> *)layers {
     
     if (@available(iOS 13.0, *)) {
         
@@ -76,7 +76,7 @@ static NSString * const kShimmerAnimationKey = @"kShimmerAnimationKey";
        
         if (baseColor == nil) return;
         
-       for (TABComponentLayer *layer in contentLayers) {
+       for (TABComponentLayer *layer in layers) {
            if (layer.colors && [layer animationForKey:kShimmerAnimationKey]) {
                layer.colors = @[(id)baseColor.CGColor, (id)[self _brightenedColor:baseColor brightness:brigtness].CGColor, (id)baseColor.CGColor];
            }

@@ -18,15 +18,6 @@
     
 }
 
-#pragma mark - TABAnimatedDarkModeInterface
-    
-- (void)traitCollectionDidChange:(UITraitCollection *)traitCollection
-                     tabAnimated:(TABViewAnimated *)tabAnimated
-                 backgroundLayer:(TABComponentLayer *)backgroundLayer
-                          layers:(NSArray <TABComponentLayer *> *)layers {
-    
-}
-
 - (CABasicAnimation *)_scaleXAnimationDuration:(CGFloat)duration toValue:(CGFloat)toValue {
     CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"transform.scale.x"];
     animation.removedOnCompletion = NO;

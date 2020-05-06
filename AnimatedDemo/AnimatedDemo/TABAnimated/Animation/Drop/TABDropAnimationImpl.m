@@ -107,12 +107,7 @@ static NSString * const kAnimatedDropAnimation = @"kAnimatedDropAnimation";
 
 #pragma mark - Private
 
-- (void)_addDropAnimation:(CALayer *)layer
-                    index:(NSInteger)index
-                 duration:(CGFloat)duration
-                    count:(NSInteger)count
-                 stayTime:(CGFloat)stayTime
-                deepColor:(UIColor *)deepColor {
+- (void)_addDropAnimation:(CALayer *)layer index:(NSInteger)index duration:(CGFloat)duration count:(NSInteger)count stayTime:(CGFloat)stayTime deepColor:(UIColor *)deepColor {
     
     CAKeyframeAnimation *animation = [CAKeyframeAnimation animationWithKeyPath:@"backgroundColor"];
     animation.values = @[

@@ -1,11 +1,11 @@
 
 #import "TABWeakDelegateManager.h"
 
-@interface TABWeakDelegateManager()
-{
+@interface TABWeakDelegateManager() {
     NSPointerArray * _delegates;
     NSHashTable * _delegatesMap;
 }
+
 @end
 
 @implementation TABWeakDelegateManager
@@ -66,7 +66,7 @@
 #pragma mark - private
 
 - (void)delegatesCompact {
-    [_delegates addPointer:NULL]; //触发compact
+    [_delegates addPointer:NULL]; // 触发compact
     [_delegates compact];
 }
 

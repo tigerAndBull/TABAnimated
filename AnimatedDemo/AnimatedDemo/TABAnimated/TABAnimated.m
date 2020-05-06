@@ -49,10 +49,6 @@ NSString * const TABAnimatedLocationAnimation = @"TABLocationAnimation";
             _darkAnimatedBackgroundColor = UIColor.whiteColor;
         }
         
-        _animatedDuration = 0.7;
-        _longToValue = 1.9;
-        _shortToValue = 0.6;
-        
         [TABAnimatedDocumentMethod createFile:TABCacheManagerFolderName isDir:YES];
 #ifdef DEBUG
         _closeCache = YES;

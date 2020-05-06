@@ -26,6 +26,7 @@
 
 #import "NSArray+TABAnimatedChain.h"
 
+#import "TABClassicAnimation.h"
 #import "TABDropAnimation.h"
 #import "TABBinAnimation.h"
 #import "TABShimmerAnimation.h"
@@ -166,23 +167,9 @@ typedef NS_ENUM(NSInteger, TABAnimationType) {
  */
 @property (nonatomic, strong) UIColor *darkAnimatedColor;
 
-#pragma mark - Flex Animation
+#pragma mark - Animation
 
-/**
- * 伸缩动画来回时长
- */
-@property (nonatomic, assign) CGFloat animatedDuration;
-
-/**
- * 变长伸缩比例
- */
-@property (nonatomic, assign) CGFloat longToValue;
-
-/**
- * 变短伸缩比例
- */
-@property (nonatomic, assign) CGFloat shortToValue;
-
+@property (nonatomic, strong) TABClassicAnimation *classicAnimation;
 @property (nonatomic, strong) TABDropAnimation *dropAnimation;
 @property (nonatomic, strong) TABBinAnimation *binAnimation;
 @property (nonatomic, strong) TABShimmerAnimation *shimmerAnimation;
@@ -224,7 +211,6 @@ typedef NS_ENUM(NSInteger, TABAnimationType) {
  * @param duration 时长 (duration of one trip)
  * @param color 动画内容颜色 (animation content color)
  */
-- (void)initWithShimmerAnimatedDuration:(CGFloat)duration
-                              withColor:(UIColor *)color;
+- (void)initWithShimmerAnimatedDuration:(CGFloat)duration withColor:(UIColor *)color;
 
 @end
