@@ -7,12 +7,23 @@
 //
 
 #import "BaseDemoViewController.h"
+#import "TABAnimatedControllerUIInterface.h"
+#import "TABAnimatedControllerUIImpl.h"
 
 @interface BaseDemoViewController ()
+
+@property (nonatomic, strong) id <TABAnimatedControllerUIInterface> rightButtonImpl;
 
 @end
 
 @implementation BaseDemoViewController
+
+- (instancetype)init {
+    if (self = [super init]) {
+        _rightButtonImpl = TABAnimatedControllerUIImpl.new;
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -36,6 +47,15 @@
     } else {
         self.view.backgroundColor = UIColor.whiteColor;
     }
+    
+    __weak typeof(self) weakSelf = self;
+    [_rightButtonImpl addReloadButtonWithController:self clickButtonBlock:^(UIButton *btn) {
+        [weakSelf reloadViewAnimated];
+    }];
+}
+
+- (void)reloadViewAnimated {
+    
 }
 
 @end

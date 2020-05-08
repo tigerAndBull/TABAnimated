@@ -92,11 +92,11 @@ typedef void(^TABFormSyncCompletion)();
 
 - (void)startAnimationWithIndex:(NSInteger)index isFirstLoad:(BOOL)isFirstLoad controlView:(UIView *)controlView;
 
-- (void)startAnimation;
-- (void)startAnimationWithIndex:(NSInteger)index;
+- (void)reloadAnimation;
+- (BOOL)reloadAnimationWithIndex:(NSInteger)index;
 
 - (void)endAnimation;
-- (void)endAnimationWithIndex:(NSInteger)index;
+- (BOOL)endAnimationWithIndex:(NSInteger)index;
 
 @end
 

@@ -10,7 +10,7 @@
 
 #import "TestTableViewCell.h"
 #import "LabWithLinesViewCell.h"
-#import "TestTableHeaderFooterView.h"
+#import "LineTableViewHeaderFooterView.h"
 
 #import "Game.h"
 #import <TABKit/TABKit.h>
@@ -33,7 +33,14 @@
     [self initUI];
     
     // 假设3秒后，获取到数据了，代码具体位置看你项目了。
-    [self performSelector:@selector(afterGetData) withObject:nil afterDelay:30.0];
+    [self performSelector:@selector(afterGetData) withObject:nil afterDelay:3.0];
+}
+
+- (void)reloadViewAnimated {
+    _tableView.tabAnimated.canLoadAgain = YES;
+    [_tableView tab_startAnimationWithCompletion:^{
+        [self afterGetData];
+    }];
 }
 
 #pragma mark - Target Methods
@@ -43,6 +50,7 @@
  */
 - (void)afterGetData {
     
+    [dataArray removeAllObjects];
     // 模拟数据
     for (int i = 0; i < 10; i ++) {
         Game *game = [[Game alloc]init];
@@ -77,17 +85,17 @@
     if (section == 0) {
         return 5.;
     }
-    return 100;
+    return 60;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     if (section == 0) {
         return UIView.new;
     }
-    static NSString *str = @"TestTableHeaderFooterView";
-    TestTableHeaderFooterView *headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:str];
+    static NSString *str = @"LineTableViewHeaderFooterView";
+    LineTableViewHeaderFooterView *headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:str];
     if (!headerView) {
-        headerView = [[TestTableHeaderFooterView alloc] initWithReuseIdentifier:str];
+        headerView = [[LineTableViewHeaderFooterView alloc] initWithReuseIdentifier:str];
     }
     return headerView;
 }
@@ -159,12 +167,14 @@
                                      cellHeight:100
                                   animatedCount:1
                                       toSection:1];
-        [_tableView.tabAnimated addHeaderViewClass:[TestTableHeaderFooterView class] viewHeight:100 toSection:1];
+        [_tableView.tabAnimated addHeaderViewClass:[LineTableViewHeaderFooterView class] viewHeight:60 toSection:1];
         _tableView.tabAnimated.adjustWithClassBlock = ^(TABComponentManager *manager, __unsafe_unretained Class targetClass) {
             if (targetClass == TestTableViewCell.class) {
                 manager.animation(1).down(3).height(12);
                 manager.animation(2).height(12).width(110);
                 manager.animation(3).down(-5).height(12);
+            }else if (targetClass == LineTableViewHeaderFooterView.class) {
+                manager.animation(2).right(3).height(14).down(16).reducedWidth(30).radius(2);
             }
         };
     }

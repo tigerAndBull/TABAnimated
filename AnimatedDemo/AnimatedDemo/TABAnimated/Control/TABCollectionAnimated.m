@@ -149,23 +149,19 @@
     UICollectionView *collectionView = (UICollectionView *)controlView;
     
     if (isFirstLoad) {
-        if (self.runIndexDict.count == 0) {
-            return;
-        }
+        if (self.runIndexDict.count == 0) return;
         [self exchangeDelegate:collectionView];
         [self exchangeDataSource:collectionView];
         [self registerViewToReuse:collectionView];
     }else {
         if (index == TABAnimatedIndexTag) {
-            [self startAnimation];
+            [self reloadAnimation];
         }else {
-            [self startAnimationWithIndex:index];
+            [self reloadAnimationWithIndex:index];
         }
     }
     
-    if (self.runIndexDict.count == 0) {
-        return;
-    }
+    if (self.runIndexDict.count == 0) return;
     
     if (self.animatedSectionCount > 0 && self.runIndexDict.count == 1) {
         for (NSInteger i = 1; i < self.animatedSectionCount; i++) {
@@ -439,7 +435,7 @@
     }
     
     TABCollectionAnimated *tabAnimated = collectionView.tabAnimated;
-    NSInteger index = [tabAnimated getIndexWithIndexPath:indexPath];
+    NSInteger index = [tabAnimated getHeaderIndexWithIndex:indexPath.section];
     if (index < 0) {
         return [self tab_collectionView:collectionView layout:collectionViewLayout sizeForItemAtIndexPath:indexPath];
     }
@@ -452,7 +448,7 @@
     }
     
     TABCollectionAnimated *tabAnimated = collectionView.tabAnimated;
-    NSInteger index = [tabAnimated getIndexWithIndexPath:indexPath];
+    NSInteger index = [tabAnimated getFooterIndexWithIndex:indexPath.section];
     if (index < 0) {
         return [self tab_collectionView:collectionView cellForItemAtIndexPath:indexPath];
     }

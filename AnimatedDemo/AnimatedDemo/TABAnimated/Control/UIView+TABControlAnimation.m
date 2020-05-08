@@ -12,8 +12,8 @@
 #import "TABAnimatedCacheManager.h"
 #import "TABComponentLayer.h"
 
-static const NSTimeInterval kDelayReloadDataTime = 40;
-const int TABAnimatedIndexTag = -1000;
+static const NSTimeInterval kDelayReloadDataTime = .4;
+const int TABAnimatedIndexTag = -100000;
 
 @implementation UIView (TABControlAnimation)
 
@@ -145,7 +145,9 @@ const int TABAnimatedIndexTag = -1000;
                 [tableView.tableFooterView tab_endAnimation];
             }
         }else {
-            [tabAnimated endAnimationWithIndex:index];
+            if (![tabAnimated endAnimationWithIndex:index]) {
+                return;
+            }
             if (tabAnimated.runMode == TABAnimatedRunBySection) {
                 [(UITableView *)self reloadSections:[NSIndexSet indexSetWithIndex:index] withRowAnimation:UITableViewRowAnimationNone];
             }else {

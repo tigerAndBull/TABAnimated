@@ -129,7 +129,7 @@
     obj.cellHeightArray = @[@(cellHeight)];
     obj.cellCountArray = @[@(animatedCount)];
     obj.cellIndexArray = @[@(0)];
-    [obj.runIndexDict setValue:@(1) forKey:[NSString stringWithFormat:@"%ld",toIndex]];
+    [obj.runIndexDict setValue:@(0) forKey:[NSString stringWithFormat:@"%ld",toIndex]];
     return obj;
 }
 
@@ -147,7 +147,7 @@
         NSMutableArray *newIndexArray = @[].mutableCopy;
         for (NSInteger i = 0; i < cellClassArray.count; i++) {
             NSInteger index = i;
-            NSInteger value = i+1;
+            NSInteger value = i;
             [obj.runIndexDict setValue:@(value) forKey:[NSString stringWithFormat:@"%ld",index]];
             [newIndexArray addObject:@(index)];
         }
@@ -156,7 +156,7 @@
         obj.cellIndexArray = indexArray;
         for (NSInteger i = 0; i < indexArray.count; i++) {
             NSInteger index = [indexArray[i] integerValue];
-            NSInteger value = i+1;
+            NSInteger value = i;
             [obj.runIndexDict setValue:@(value) forKey:[NSString stringWithFormat:@"%ld",index]];
         }
     }
@@ -200,7 +200,7 @@
                  toSection:(NSInteger)section {
     [self.headerClassArray addObject:headerViewClass];
     [self.headerHeightArray addObject:@(viewHeight)];
-    [self.runHeaderIndexDict setValue:@(self.headerClassArray.count) forKey:[self getStringWIthIndex:section]];
+    [self.runHeaderIndexDict setValue:@(self.headerClassArray.count-1) forKey:[self getStringWIthIndex:section]];
 }
 
 - (void)addFooterViewClass:(__nonnull Class)footerViewClass
@@ -217,7 +217,7 @@
                  toSection:(NSInteger)section {
     [self.footerClassArray addObject:footerViewClass];
     [self.footerHeightArray addObject:@(viewHeight)];
-    [self.runFooterIndexDict setValue:@(self.footerClassArray.count) forKey:[self getStringWIthIndex:section]];
+    [self.runFooterIndexDict setValue:@(self.footerClassArray.count-1) forKey:[self getStringWIthIndex:section]];
 }
 
 #pragma mark -
@@ -227,27 +227,29 @@
     UITableView *tableView = (UITableView *)controlView;
     
     if (isFirstLoad) {
-        if (self.runIndexDict.count == 0) {
-            return;
-        }
+        if (self.runIndexDict.count == 0) return;
         [self registerViewToReuse:tableView];
         [self exchangeDelegate:tableView];
         [self exchangeDataSource:tableView];
     }else {
         if (index == TABAnimatedIndexTag) {
-            [self startAnimation];
+            if (self.runningCount > 0) {
+                self.state = TABViewAnimationRunning;
+                return;
+            }
+            [self reloadAnimation];
         }else {
-            [self startAnimationWithIndex:index];
+            if (![self reloadAnimationWithIndex:index]) {
+                return;
+            }
         }
     }
     
-    if (self.runIndexDict.count == 0) {
-        return;
-    }
+    if (self.runIndexDict.count == 0) return;
     
     if (self.animatedSectionCount > 0 && self.runIndexDict.count == 1) {
         for (NSInteger i = 1; i < self.animatedSectionCount; i++) {
-            [self.runIndexDict setValue:@(1) forKey:[self getStringWIthIndex:i]];
+            [self.runIndexDict setValue:@(0) forKey:[self getStringWIthIndex:i]];
         }
     }
     
@@ -262,11 +264,13 @@
     
     if (self.showTableHeaderView && tableView.tableHeaderView.tabAnimated) {
         tableView.tableHeaderView.tabAnimated.superAnimationType = tableView.tabAnimated.superAnimationType;
+        tableView.tableHeaderView.tabAnimated.canLoadAgain = tableView.tabAnimated.canLoadAgain;
         [tableView.tableHeaderView tab_startAnimation];
     }
     
     if (self.showTableFooterView && tableView.tableFooterView.tabAnimated) {
         tableView.tableFooterView.tabAnimated.superAnimationType = tableView.tabAnimated.superAnimationType;
+        tableView.tableFooterView.tabAnimated.canLoadAgain = tableView.tabAnimated.canLoadAgain;
         [tableView.tableFooterView tab_startAnimation];
     }
 

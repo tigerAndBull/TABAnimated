@@ -40,6 +40,15 @@
     }];
 }
 
+- (void)reloadViewAnimated {
+    _tableView.tabAnimated.canLoadAgain = YES;
+    [_tableView tab_startAnimationWithCompletion:^{
+        [self afterGetData];
+    }];
+}
+
+#pragma mark -
+
 - (void)afterGetData {
     [self.tableView tab_endAnimationEaseOut];
 }

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseDemoViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

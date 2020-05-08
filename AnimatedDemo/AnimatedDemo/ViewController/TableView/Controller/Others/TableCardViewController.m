@@ -52,6 +52,13 @@
     }];
 }
 
+- (void)reloadViewAnimated {
+    _tableView.tabAnimated.canLoadAgain = YES;
+    [_tableView tab_startAnimationWithCompletion:^{
+        [self afterGetData];
+    }];
+}
+
 #pragma mark - Target Methods
 
 /**
@@ -59,6 +66,7 @@
  */
 - (void)afterGetData {
     
+    [dataArray removeAllObjects];
     // 模拟数据
     for (int i = 0; i < 10; i ++) {
         Game *game = [[Game alloc]init];

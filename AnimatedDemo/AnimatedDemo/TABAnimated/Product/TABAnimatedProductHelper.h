@@ -41,9 +41,12 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)bindView:(UIView *)view production:(TABAnimatedProduction *)production;
 
 + (void)addTagWithComponentLayer:(TABComponentLayer *)layer isLines:(BOOL)isLines;
-+ (NSString *)getKeyWithControllerName:(NSString *)controllerName targetClass:(Class)targetClass;
 
 + (TABComponentLayer *)getShadowLayer:(UIView *)view;
+
+
++ (NSString *)getClassNameWithTargetClass:(Class)targetClass;
++ (NSString *)getKeyWithControllerName:(NSString *)controllerName targetClass:(Class)targetClass;
     
 @end
 

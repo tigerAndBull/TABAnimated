@@ -21,10 +21,23 @@
               clickButtonBlock:(RightButtonClickBlock)clickButtonBlock {
     self.clickButtonBlock = clickButtonBlock;
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:text style:UIBarButtonItemStylePlain target:self action:@selector(didClickRightButton:)];
-    controller.navigationController.navigationItem.rightBarButtonItem = item;
+    controller.navigationItem.rightBarButtonItem = item;
+}
+
+- (void)addReloadButtonWithController:(UIViewController *)controller clickButtonBlock:(RightButtonClickBlock)clickButtonBlock {
+    self.clickButtonBlock = clickButtonBlock;
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"重新加载" style:UIBarButtonItemStylePlain target:self action:@selector(didClickReloadButton:)];
+    item.tintColor = UIColor.blackColor;
+    controller.navigationItem.rightBarButtonItem = item;
 }
 
 - (void)didClickRightButton:(UIButton *)button {
+    if (self.clickButtonBlock) {
+        self.clickButtonBlock(button);
+    }
+}
+
+- (void)didClickReloadButton:(UIButton *)button {
     if (self.clickButtonBlock) {
         self.clickButtonBlock(button);
     }

@@ -296,4 +296,13 @@ static const CGFloat kTagLabelHeight = 20.f;
     return [NSString stringWithFormat:@"%@_%@",controllerName, classString];
 }
 
++ (NSString *)getClassNameWithTargetClass:(Class)targetClass {
+    NSString *className = NSStringFromClass(targetClass.class);
+    if ([className containsString:@"."]) {
+        NSRange range = [className rangeOfString:@"."];
+        className = [className substringFromIndex:range.location+1];
+    }
+    return className;
+}
+
 @end

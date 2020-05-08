@@ -38,12 +38,22 @@
     [self performSelector:@selector(afterGetData) withObject:nil afterDelay:3.0];
 }
 
+- (void)reloadViewAnimated {
+    _tableView.tabAnimated.canLoadAgain = YES;
+    [_tableView tab_startAnimationWithCompletion:^{
+        [self afterGetData];
+    }];
+}
+
 #pragma mark - Target Methods
 
 /**
  获取到数据后
  */
 - (void)afterGetData {
+    
+    [dataArray removeAllObjects];
+    [dataTwoArray removeAllObjects];
     
     // 模拟数据
     for (int i = 0; i < 3; i ++) {

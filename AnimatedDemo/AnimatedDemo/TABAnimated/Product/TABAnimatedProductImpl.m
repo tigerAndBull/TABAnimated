@@ -70,13 +70,9 @@ static const char *kProductionQueue = "com.tigerAndBull.productionQueue";
         [self setControlView:controlView];
     }
     
+    NSString *className = [TABAnimatedProductHelper getClassNameWithTargetClass:currentClass];
     UIView *view;
-    NSString *className = NSStringFromClass(currentClass);
-    if ([className containsString:@"."]) {
-        NSRange range = [className rangeOfString:@"."];
-        className = [className substringFromIndex:range.location+1];
-    }
-
+    
     // 执行缓存工作流
     NSString *key = [TABAnimatedProductHelper getKeyWithControllerName:controlView.tabAnimated.targetControllerClassName targetClass:currentClass];
     TABAnimatedProduction *production = [[TABAnimatedCacheManager shareManager] getProductionWithKey:key];
@@ -157,11 +153,7 @@ static const char *kProductionQueue = "com.tigerAndBull.productionQueue";
     TABAnimatedProduction *production = view.tabAnimatedProduction;
     if (production == nil) {
         production = [TABAnimatedProduction productWithState:TABAnimatedProductionCreate];
-        NSString *className = NSStringFromClass(view.class);
-        if ([className containsString:@"."]) {
-            NSRange range = [className rangeOfString:@"."];
-            className = [className substringFromIndex:range.location+1];
-        }
+        NSString *className = [TABAnimatedProductHelper getClassNameWithTargetClass:view.class];
         [self->_productionPool setObject:production forKey:className];
         view.tabAnimatedProduction = production;
     }

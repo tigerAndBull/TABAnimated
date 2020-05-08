@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseDemoViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MutiSectionsMutiCellWithHeaderViewController : UIViewController
+@interface MutiSectionsMutiCellWithHeaderViewController : BaseDemoViewController
 
 @end
 

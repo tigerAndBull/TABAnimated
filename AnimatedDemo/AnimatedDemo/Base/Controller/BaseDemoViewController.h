@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface BaseDemoViewController : UIViewController
 
+- (void)reloadViewAnimated;
+
 @end
 
 NS_ASSUME_NONNULL_END

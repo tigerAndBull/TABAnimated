@@ -38,6 +38,13 @@ UITableViewDataSource
     [self performSelector:@selector(afterGetData) withObject:nil afterDelay:3.0];
 }
 
+- (void)reloadViewAnimated {
+    _tableView.tabAnimated.canLoadAgain = YES;
+    [_tableView tab_startAnimationWithCompletion:^{
+        [self afterGetData];
+    }];
+}
+
 #pragma mark - Target Methods
 
 /**
@@ -45,6 +52,7 @@ UITableViewDataSource
  */
 - (void)afterGetData {
     
+    [dataArray removeAllObjects];
     // 模拟数据
     for (int i = 0; i < 10; i ++) {
         NSInteger times = arc4random()%3;

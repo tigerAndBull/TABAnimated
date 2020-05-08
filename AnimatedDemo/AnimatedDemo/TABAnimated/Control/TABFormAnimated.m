@@ -76,51 +76,71 @@
     return [self getIndexWithIndex:currentIndex];
 }
 
+#pragma mark -
+
 - (NSInteger)getIndexWithIndex:(NSInteger)index {
-    return [[self.runIndexDict objectForKey:[self _getStringWIthIndex:index]] integerValue]-1;
+    return [self getIndexWithIndex:index dict:self.runIndexDict];
 }
 
 - (NSInteger)getHeaderIndexWithIndex:(NSInteger)index {
-    return [[self.runHeaderIndexDict objectForKey:[self _getStringWIthIndex:index]] integerValue]-1;
+    return [self getIndexWithIndex:index dict:self.runHeaderIndexDict];
 }
 
 - (NSInteger)getFooterIndexWithIndex:(NSInteger)index {
-    return [[self.runFooterIndexDict objectForKey:[self _getStringWIthIndex:index]] integerValue]-1;
+    return [self getIndexWithIndex:index dict:self.runFooterIndexDict];
 }
 
-- (void)startAnimation {
-    NSInteger count = self.cellIndexArray.count;
-    for (NSInteger i = 0; i < count; i++) {
-        NSInteger index = [self.cellIndexArray[i] integerValue];
-        NSInteger value = i+1;
-        [self.runIndexDict setValue:@(value) forKey:[self _getStringWIthIndex:index]];
-    }
-    _runningCount = count;
+- (NSInteger)getIndexWithIndex:(NSInteger)index dict:(NSMutableDictionary *)dict {
+    NSString *key = [self _getStringWIthIndex:index];
+    if (![[dict allKeys] containsObject:key]) return -1;
+    return [[dict objectForKey:key] integerValue];
 }
 
-- (void)startAnimationWithIndex:(NSInteger)index {
-    NSInteger value = [self getIndexWithIndex:index];
-    if (value < -1) {
-        _runningCount ++;
-        value -= TABAnimatedIndexTag;
-        [self.runIndexDict setValue:@(value) forKey:[self _getStringWIthIndex:index]];
+#pragma mark -
+
+- (void)reloadAnimation {
+    for (NSString *key in self.runIndexDict.allKeys) {
+        [self reloadAnimationWithKey:key];
     }
 }
+
+- (BOOL)reloadAnimationWithIndex:(NSInteger)index {
+    return [self reloadAnimationWithKey:[self _getStringWIthIndex:index]];
+}
+
+- (BOOL)reloadAnimationWithKey:(NSString *)key {
+    if ([self _reloadWithKey:key resultDict:self.runIndexDict]) {
+        [self _reloadWithKey:key resultDict:self.runHeaderIndexDict];
+        [self _reloadWithKey:key resultDict:self.runFooterIndexDict];
+        self.runningCount++;
+        return YES;
+    }
+    return NO;
+}
+
+#pragma mark -
 
 - (void)endAnimation {
-    self.runningCount = 0;
-    [self.runIndexDict removeAllObjects];
-    [self.runHeaderIndexDict removeAllObjects];
-    [self.runFooterIndexDict removeAllObjects];
-}
-
-- (void)endAnimationWithIndex:(NSInteger)index {
-    if ([self _endWithIndex:index]) {
-        self.runningCount--;
-        [self _endHeaderWithIndex:index];
-        [self _endFooterWithIndex:index];
+    for (NSString *key in self.runIndexDict.allKeys) {
+        [self endAnimationWithKey:key];
     }
 }
+
+- (BOOL)endAnimationWithIndex:(NSInteger)index {
+    return [self endAnimationWithKey:[self _getStringWIthIndex:index]];
+}
+
+- (BOOL)endAnimationWithKey:(NSString *)key {
+    if ([self _endWithKey:key resultDict:self.runIndexDict]) {
+        [self _endWithKey:key resultDict:self.runHeaderIndexDict];
+        [self _endWithKey:key resultDict:self.runFooterIndexDict];
+        self.runningCount--;
+        return YES;
+    }
+    return NO;
+}
+
+#pragma mark -
 
 - (NSString *)getStringWIthIndex:(NSInteger)index {
     return [self _getStringWIthIndex:index];
@@ -130,32 +150,36 @@
     return [NSString stringWithFormat:@"%ld",index];
 }
 
-- (BOOL)_endWithIndex:(NSInteger)index {
-    NSInteger value = [self getIndexWithIndex:index];
-    if (value < -1) {
-        return NO;
+#pragma mark -
+
+- (BOOL)_reloadWithIndex:(NSInteger)index resultDict:(NSMutableDictionary *)resultDict {
+    return [self _reloadWithKey:[self _getStringWIthIndex:index] resultDict:resultDict];
+}
+
+- (BOOL)_reloadWithKey:(NSString *)key resultDict:(NSMutableDictionary *)resultDict {
+    if (![[resultDict allKeys] containsObject:key]) return NO;
+    NSInteger value = [[resultDict objectForKey:key] integerValue];
+    if (value >= 0) {
+        return YES;
     }
-    value += TABAnimatedIndexTag;
-    [self.runIndexDict setValue:@(value) forKey:[self _getStringWIthIndex:index]];
+    value -= TABAnimatedIndexTag;
+    [resultDict setValue:@(value) forKey:key];
     return YES;
 }
 
-- (void)_endHeaderWithIndex:(NSInteger)index {
-    NSInteger value = [self getHeaderIndexWithIndex:index];
-    if (value < -1) {
-        return;
-    }
-    value += TABAnimatedIndexTag;
-    [self.runHeaderIndexDict setValue:@(value) forKey:[self _getStringWIthIndex:index]];
+- (BOOL)_endWithIndex:(NSInteger)index resultDict:(NSMutableDictionary *)resultDict {
+    return [self _endWithKey:[self getStringWIthIndex:index] resultDict:resultDict];
 }
 
-- (void)_endFooterWithIndex:(NSInteger)index {
-    NSInteger value = [self getFooterIndexWithIndex:index];
-    if (value < -1) {
-        return;
+- (BOOL)_endWithKey:(NSString *)key resultDict:(NSMutableDictionary *)resultDict {
+    if (![[resultDict allKeys] containsObject:key]) return NO;
+    NSInteger value = [[resultDict objectForKey:key] integerValue];
+    if (value < 0) {
+        return YES;
     }
     value += TABAnimatedIndexTag;
-    [self.runFooterIndexDict setValue:@(value) forKey:[self _getStringWIthIndex:index]];
+    [resultDict setValue:@(value) forKey:key];
+    return YES;
 }
 
 #pragma mark -

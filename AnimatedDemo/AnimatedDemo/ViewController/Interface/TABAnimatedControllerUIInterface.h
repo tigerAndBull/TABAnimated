@@ -15,7 +15,10 @@ typedef void(^RightButtonClickBlock)(UIButton *btn);
 
 @protocol TABAnimatedControllerUIInterface <NSObject>
 
+@optional
+
 - (void)addRightButtonWithText:(NSString *)text controller:(UIViewController *)controller clickButtonBlock:(RightButtonClickBlock)clickButtonBlock;
+- (void)addReloadButtonWithController:(UIViewController *)controller clickButtonBlock:(RightButtonClickBlock)clickButtonBlock;
 
 @end
 
