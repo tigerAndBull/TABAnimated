@@ -223,35 +223,9 @@
 #pragma mark -
 
 - (void)startAnimationWithIndex:(NSInteger)index isFirstLoad:(BOOL)isFirstLoad controlView:(UIView *)controlView {
-
+    [super startAnimationWithIndex:index isFirstLoad:isFirstLoad controlView:controlView];
+    
     UITableView *tableView = (UITableView *)controlView;
-    
-    if (isFirstLoad) {
-        if (self.runIndexDict.count == 0) return;
-        [self registerViewToReuse:tableView];
-        [self exchangeDelegate:tableView];
-        [self exchangeDataSource:tableView];
-    }else {
-        if (index == TABAnimatedIndexTag) {
-            if (self.runningCount > 0) {
-                self.state = TABViewAnimationRunning;
-                return;
-            }
-            [self reloadAnimation];
-        }else {
-            if (![self reloadAnimationWithIndex:index]) {
-                return;
-            }
-        }
-    }
-    
-    if (self.runIndexDict.count == 0) return;
-    
-    if (self.animatedSectionCount > 0 && self.runIndexDict.count == 1) {
-        for (NSInteger i = 1; i < self.animatedSectionCount; i++) {
-            [self.runIndexDict setValue:@(0) forKey:[self getStringWIthIndex:i]];
-        }
-    }
     
     if (tableView.estimatedRowHeight != 0) {
         self.oldEstimatedRowHeight = tableView.estimatedRowHeight;

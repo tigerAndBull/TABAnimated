@@ -36,7 +36,32 @@
 - (void)exchangeDelegate:(UIView *)target {}
 - (void)exchangeDataSource:(UIView *)target {}
 - (void)registerViewToReuse:(UIView *)view {}
-- (void)startAnimationWithIndex:(NSInteger)index isFirstLoad:(BOOL)isFirstLoad controlView:(UIView *)controlView {}
+
+- (void)startAnimationWithIndex:(NSInteger)index isFirstLoad:(BOOL)isFirstLoad controlView:(UIView *)controlView {
+    
+    if (isFirstLoad) {
+        if (self.runIndexDict.count == 0) return;
+        [self registerViewToReuse:controlView];
+        [self exchangeDelegate:controlView];
+        [self exchangeDataSource:controlView];
+    }else {
+        if (index == TABAnimatedIndexTag) {
+            [self reloadAnimation];
+        }else {
+            if (![self reloadAnimationWithIndex:index]) {
+                return;
+            }
+        }
+    }
+    
+    if (self.runIndexDict.count == 0) return;
+    
+    if (self.animatedSectionCount > 0 && self.runIndexDict.count == 1) {
+        for (NSInteger i = 1; i < self.animatedSectionCount; i++) {
+            [self.runIndexDict setValue:@(0) forKey:[self getStringWIthIndex:i]];
+        }
+    }
+}
 
 - (void)exchangeDelegateOldSel:(SEL)oldSel newSel:(SEL)newSel target:(id)target delegate:(id)delegate {
     

@@ -102,7 +102,7 @@
     obj.cellSizeArray = @[@(cellSize)];
     obj.cellCountArray = @[@(animatedCount)];
     obj.cellIndexArray = @[@(0)];
-    [obj.runIndexDict setValue:@(1) forKey:[NSString stringWithFormat:@"%ld",toIndex]];
+    [obj.runIndexDict setValue:@(0) forKey:[NSString stringWithFormat:@"%ld",toIndex]];
     return obj;
 }
 
@@ -120,7 +120,7 @@
         NSMutableArray *newIndexArray = @[].mutableCopy;
         for (NSInteger i = 0; i < cellClassArray.count; i++) {
             NSInteger index = i;
-            NSInteger value = i+1;
+            NSInteger value = i;
             [obj.runIndexDict setValue:@(value) forKey:[NSString stringWithFormat:@"%ld",index]];
             [newIndexArray addObject:@(index)];
         }
@@ -129,7 +129,7 @@
         obj.cellIndexArray = indexArray;
         for (NSInteger i = 0; i < indexArray.count; i++) {
             NSInteger index = [indexArray[i] integerValue];
-            NSInteger value = i+1;
+            NSInteger value = i;
             [obj.runIndexDict setValue:@(value) forKey:[NSString stringWithFormat:@"%ld",index]];
         }
     }
@@ -145,34 +145,16 @@
 }
 
 - (void)startAnimationWithIndex:(NSInteger)index isFirstLoad:(BOOL)isFirstLoad controlView:(UIView *)controlView {
+    [super startAnimationWithIndex:index isFirstLoad:isFirstLoad controlView:controlView];
     
     UICollectionView *collectionView = (UICollectionView *)controlView;
     
-    if (isFirstLoad) {
-        if (self.runIndexDict.count == 0) return;
-        [self exchangeDelegate:collectionView];
-        [self exchangeDataSource:collectionView];
-        [self registerViewToReuse:collectionView];
-    }else {
-        if (index == TABAnimatedIndexTag) {
-            [self reloadAnimation];
-        }else {
-            [self reloadAnimationWithIndex:index];
-        }
-    }
-    
-    if (self.runIndexDict.count == 0) return;
-    
-    if (self.animatedSectionCount > 0 && self.runIndexDict.count == 1) {
-        for (NSInteger i = 1; i < self.animatedSectionCount; i++) {
-            [self.runIndexDict setValue:@(1) forKey:[self getStringWIthIndex:i]];
-        }
-    }
-    
     if (index == TABAnimatedIndexTag) {
         [collectionView reloadData];
-    }else {
+    }else if (self.runMode == TABAnimatedRunBySection) {
         [collectionView reloadSections:[NSIndexSet indexSetWithIndex:index]];
+    }else if (self.runMode == TABAnimatedRunByRow) {
+        [collectionView reloadItemsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]]];
     }
     
     // 更新loadCount
@@ -200,7 +182,7 @@
                  toSection:(NSInteger)section {
     [self.headerClassArray addObject:headerViewClass];
     [self.headerSizeArray addObject:@(viewSize)];
-    [self.runHeaderIndexDict setValue:@(self.headerClassArray.count) forKey:[self getStringWIthIndex:section]];
+    [self.runHeaderIndexDict setValue:@(self.headerClassArray.count-1) forKey:[self getStringWIthIndex:section]];
 }
 
 - (void)addFooterViewClass:(_Nonnull Class)footerViewClass
@@ -218,7 +200,7 @@
                  toSection:(NSInteger)section {
     [self.footerClassArray addObject:footerViewClass];
     [self.footerSizeArray addObject:@(viewSize)];
-    [self.runFooterIndexDict setValue:@(self.headerClassArray.count) forKey:[self getStringWIthIndex:section]];
+    [self.runFooterIndexDict setValue:@(self.headerClassArray.count-1) forKey:[self getStringWIthIndex:section]];
 }
 
 - (void)exchangeDelegate:(UIView *)target {

@@ -103,7 +103,6 @@
         cell = [[LabWithLinesViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:str];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-    
     [cell initWithData:dataArray[indexPath.row]];
     return cell;
 }
