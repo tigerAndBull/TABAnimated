@@ -21,7 +21,6 @@ static const CGFloat kDefaultHeight = 16.f;
     if (self = [super init]) {
         self.name = TABComponentLayerName;
         self.anchorPoint = CGPointMake(0, 0);
-        self.position = CGPointMake(0, 0);
         self.opaque = YES;
         self.contentsGravity = kCAGravityResizeAspect;
         _tagIndex = TABViewAnimatedErrorCode;

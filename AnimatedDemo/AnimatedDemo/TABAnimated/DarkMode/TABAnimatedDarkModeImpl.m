@@ -35,6 +35,7 @@
                 return tabAnimated.animatedColor;
             }
         }];
+
         
         for (TABComponentLayer *layer in layers) {
             layer.backgroundColor = animatedColor.CGColor;
