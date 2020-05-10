@@ -228,15 +228,22 @@ static const CGFloat kDefaultHeight = 16.f;
     layer.position = self.position;
     layer.opaque = self.opaque;
     layer.contentsScale = self.contentsScale;
-    
-    for (TABComponentLayer *sub in self.sublayers) {
-        if ([sub isKindOfClass:CATextLayer.class]) {
-            continue;
-        }
-        TABComponentLayer *newL = sub.copy;
-        newL.opacity = 1.;
-        [layer addSublayer:newL];
-    }
+
+//    for (CALayer *sub in self.sublayers) {
+//        if ([sub isKindOfClass:[TABComponentLayer class]]) {
+//            TABComponentLayer *newL = ((TABComponentLayer *)sub).copy;
+//            newL.opacity = 1.;
+//            [layer addSublayer:newL];
+//        }
+//    }
+//    for (TABComponentLayer *sub in self.sublayers) {
+//        if ([sub isKindOfClass:CATextLayer.class]) {
+//            continue;
+//        }
+//        TABComponentLayer *newL = sub.copy;
+//        newL.opacity = 1.;
+//        [layer addSublayer:newL];
+//    }
     
     return layer;
 }

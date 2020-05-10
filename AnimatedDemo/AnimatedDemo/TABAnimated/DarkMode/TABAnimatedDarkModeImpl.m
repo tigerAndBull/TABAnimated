@@ -35,16 +35,15 @@
                 return tabAnimated.animatedColor;
             }
         }];
-
         
+        
+        backgroundLayer.backgroundColor = animatedBackgroundColor.CGColor;
         for (TABComponentLayer *layer in layers) {
             layer.backgroundColor = animatedColor.CGColor;
             if (layer.contents && layer.placeholderName && layer.placeholderName.length > 0) {
                 layer.contents = (id)[UIImage imageNamed:layer.placeholderName].CGImage;
             }
         }
-        
-        backgroundLayer.backgroundColor = animatedBackgroundColor.CGColor;
     }
 }
 

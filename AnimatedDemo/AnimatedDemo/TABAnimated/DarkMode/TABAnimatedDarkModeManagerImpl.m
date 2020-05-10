@@ -58,6 +58,10 @@
 
 #pragma mark -
 
+- (void)_traitCollectionDidChangeWithView:(UIView *)view {
+    [self _traitCollectionDidChangeWithTargetView:view];
+}
+
 - (void)_traitCollectionDidChange {
     NSArray <UIView *> *targetViewArray = [self.weakDelegateManager getDelegates];
     for (UIView *view in targetViewArray) {
@@ -71,7 +75,7 @@
         return;
     }
     
-    if (_tabAnimated.switcher ) {
+    if (_tabAnimated.switcher) {
         if (_tabAnimated.switcher  && [_tabAnimated.switcher  respondsToSelector:@selector(traitCollectionDidChange:tabAnimated:backgroundLayer:layers:)]) {
             TABAnimatedProduction *production = targetView.tabAnimatedProduction;
             [_tabAnimated.switcher  traitCollectionDidChange:_controlView.traitCollection
@@ -98,7 +102,7 @@
         _tabAnimated.switcher  = (id <TABAnimatedDarkModeInterface>)_tabAnimated.decorator;
     }
     
-    if (_tabAnimated.switcher ) {
+    if (_tabAnimated.switcher) {
         if (_tabAnimated.switcher  && [_tabAnimated.switcher  respondsToSelector:@selector(traitCollectionDidChange:tabAnimated:backgroundLayer:layers:)]) {
             TABAnimatedProduction *production = targetView.tabAnimatedProduction;
             [_tabAnimated.switcher  traitCollectionDidChange:_controlView.traitCollection
