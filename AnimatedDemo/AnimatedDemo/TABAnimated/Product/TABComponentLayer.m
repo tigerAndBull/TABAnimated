@@ -170,7 +170,13 @@ static const CGFloat kDefaultHeight = 16.f;
     [aCoder encodeBool:_withoutAnimation forKey:@"withoutAnimation"];
     [aCoder encodeObject:_placeholderName forKey:@"placeholderName"];
     
-    [aCoder encodeObject:self.sublayers forKey:@"sublayers"];
+    NSMutableArray *subLayers = @[].mutableCopy;
+    for (CALayer *sub in self.sublayers) {
+        if ([sub.name isEqualToString:TABAnimatedProductHelperShadowLayerName]) {
+            [subLayers addObject:sub];
+        }
+    }
+    [aCoder encodeObject:subLayers forKey:@"sublayers"];
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
@@ -229,21 +235,13 @@ static const CGFloat kDefaultHeight = 16.f;
     layer.opaque = self.opaque;
     layer.contentsScale = self.contentsScale;
 
-//    for (CALayer *sub in self.sublayers) {
-//        if ([sub isKindOfClass:[TABComponentLayer class]]) {
-//            TABComponentLayer *newL = ((TABComponentLayer *)sub).copy;
-//            newL.opacity = 1.;
-//            [layer addSublayer:newL];
-//        }
-//    }
-//    for (TABComponentLayer *sub in self.sublayers) {
-//        if ([sub isKindOfClass:CATextLayer.class]) {
-//            continue;
-//        }
-//        TABComponentLayer *newL = sub.copy;
-//        newL.opacity = 1.;
-//        [layer addSublayer:newL];
-//    }
+    for (CALayer *sub in self.sublayers) {
+        if ([sub.name isEqualToString:TABAnimatedProductHelperShadowLayerName]) {
+            TABComponentLayer *newL = ((TABComponentLayer *)sub).copy;
+            newL.opacity = 1.;
+            [layer addSublayer:newL];
+        }
+    }
     
     return layer;
 }

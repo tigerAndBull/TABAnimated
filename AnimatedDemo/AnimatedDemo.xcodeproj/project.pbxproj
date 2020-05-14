@@ -140,7 +140,6 @@
 		68C17170245DD230004FD76F /* TABAnimatedControllerUIImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C1716F245DD230004FD76F /* TABAnimatedControllerUIImpl.m */; };
 		68C17176245DD563004FD76F /* TABPopBgView.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C17173245DD563004FD76F /* TABPopBgView.m */; };
 		68C17177245DD563004FD76F /* TABPopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C17174245DD563004FD76F /* TABPopViewController.m */; };
-		68C1717A245F2568004FD76F /* TABConfigLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C17179245F2568004FD76F /* TABConfigLayer.m */; };
 		68C1717D24600242004FD76F /* TABClassicAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C1717C24600242004FD76F /* TABClassicAnimation.m */; };
 		68C171802460028B004FD76F /* TABClassicAnimationImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C1717F2460028B004FD76F /* TABClassicAnimationImpl.m */; };
 		68C1718624603C9D004FD76F /* MutiSectionMutiCellTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C1718524603C9D004FD76F /* MutiSectionMutiCellTableViewController.m */; };
@@ -472,8 +471,6 @@
 		68C17173245DD563004FD76F /* TABPopBgView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TABPopBgView.m; sourceTree = "<group>"; };
 		68C17174245DD563004FD76F /* TABPopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TABPopViewController.m; sourceTree = "<group>"; };
 		68C17175245DD563004FD76F /* TABPopBgView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TABPopBgView.h; sourceTree = "<group>"; };
-		68C17178245F2568004FD76F /* TABConfigLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TABConfigLayer.h; sourceTree = "<group>"; };
-		68C17179245F2568004FD76F /* TABConfigLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TABConfigLayer.m; sourceTree = "<group>"; };
 		68C1717B24600242004FD76F /* TABClassicAnimation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TABClassicAnimation.h; sourceTree = "<group>"; };
 		68C1717C24600242004FD76F /* TABClassicAnimation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TABClassicAnimation.m; sourceTree = "<group>"; };
 		68C1717E2460028B004FD76F /* TABClassicAnimationImpl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TABClassicAnimationImpl.h; sourceTree = "<group>"; };
@@ -882,8 +879,6 @@
 			isa = PBXGroup;
 			children = (
 				687763D8243438900004BA62 /* Interface */,
-				68C17178245F2568004FD76F /* TABConfigLayer.h */,
-				68C17179245F2568004FD76F /* TABConfigLayer.m */,
 				6827B65A2323F87D00E165CF /* TABComponentLayer.h */,
 				6827B6542323F87D00E165CF /* TABComponentLayer.m */,
 				687763DB243457A60004BA62 /* TABAnimatedProduction.h */,
@@ -1682,7 +1677,6 @@
 				68B7A93E2344A6CD0099EC81 /* CardTableViewCell.m in Sources */,
 				20A01597216A51FC0082425D /* XibTestViewController.m in Sources */,
 				68589C2E23431F6500E8E630 /* TestBaseModel.m in Sources */,
-				68C1717A245F2568004FD76F /* TABConfigLayer.m in Sources */,
 				6863DB6A244C2F2000FC26AE /* NSArray+TABAnimatedChain.m in Sources */,
 				681567202264214F00293AB4 /* JXCategoryDotCellModel.m in Sources */,
 				68A652F9235F732100D12ADC /* NSArray+MASAdditions.m in Sources */,

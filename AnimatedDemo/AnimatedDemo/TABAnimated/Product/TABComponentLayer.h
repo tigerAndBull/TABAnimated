@@ -19,6 +19,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+extern NSString * const TABAnimatedProductHelperShadowLayerName;
+
 @interface TABComponentLayer : CAGradientLayer <NSCopying, NSSecureCoding>
 
 typedef NS_ENUM(NSInteger, TABViewLoadAnimationStyle) {

@@ -12,7 +12,7 @@
 #import "TABAnimatedCacheManager.h"
 #import "TABComponentLayer.h"
 
-static const NSTimeInterval kDelayReloadDataTime = .4;
+static const NSTimeInterval kDelayReloadDataTime = 40;
 const int TABAnimatedIndexTag = -100000;
 
 @implementation UIView (TABControlAnimation)

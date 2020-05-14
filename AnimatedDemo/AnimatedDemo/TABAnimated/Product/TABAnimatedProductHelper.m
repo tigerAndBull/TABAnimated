@@ -15,6 +15,8 @@ static NSString * const kShortDataString = @"tab_testtesttest";
 static NSString * const kLongDataString = @"tab_testtesttesttesttesttesttesttesttesttesttest";
 static NSString * const kTagDefaultFontName = @"HiraKakuProN-W3";
 
+NSString * const TABAnimatedProductHelperShadowLayerName = @"TABShadowLayer";
+
 static const CGFloat kTagDefaultFontSize = 12.f;
 static const CGFloat kTagLabelHeight = 20.f;
 
@@ -255,6 +257,7 @@ static const CGFloat kTagLabelHeight = 20.f;
 + (TABComponentLayer *)getShadowLayer:(UIView *)view {
     if (view.layer.shadowOpacity != 0.) {
         TABComponentLayer *layer = TABComponentLayer.new;
+        layer.name = TABAnimatedProductHelperShadowLayerName;
         layer.frame = view.layer.frame;
         layer.cornerRadius = view.layer.cornerRadius;
         layer.backgroundColor = view.layer.backgroundColor;
