@@ -33,8 +33,6 @@
 
 #endif
 
-extern NSString * const TABAnimatedLocationAnimation;
-
 /**
  * 全局动画类型，它决定了你是否需要在骨架层的基础之上，增加额外的动画。
  *

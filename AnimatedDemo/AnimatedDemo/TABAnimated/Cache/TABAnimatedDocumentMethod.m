@@ -16,7 +16,7 @@
     return [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
 }
 
-+ (NSString *)getTABPathByFilePacketName:(NSString *)filePacketName {
++ (NSString *)getPathByFilePacketName:(NSString *)filePacketName {
     return [[self documentPath] stringByAppendingPathComponent:filePacketName];
 }
 

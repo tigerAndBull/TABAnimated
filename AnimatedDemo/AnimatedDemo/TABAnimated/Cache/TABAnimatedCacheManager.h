@@ -18,8 +18,10 @@ extern NSString * const TABCacheManagerFolderName;
 
 // 当前App版本
 @property (nonatomic, copy, readonly) NSString *currentSystemVersion;
+
 // 本地的缓存
 @property (nonatomic, strong, readonly) NSMutableArray *cacheModelArray;
+
 // 内存中的骨架屏
 @property (nonatomic, strong, readonly) NSMutableDictionary *cacheManagerDict;
 

@@ -36,7 +36,6 @@
         manager.animation(2).width(220);
         manager.animation(3).width(180);
     };
-    
     self.view.tabAnimated = viewAnimated;
     
     // 启动动画
@@ -51,7 +50,7 @@
 }
 
 - (void)afterGetData {
-    [self.view tab_endAnimationEaseOut];
+    [self.view tab_endAnimation];
     
     _topImg.image = [UIImage imageNamed:@"test.jpg"];
     _titleLab.text = @"您不会没有骨架过渡吧？";
@@ -60,6 +59,13 @@
     [_commitBtn setTitle:@"立即使用" forState:UIControlStateNormal];
     _commitBtn.layer.borderColor = UIColor.redColor.CGColor;
     _commitBtn.layer.borderWidth = 1.0;
+}
+
+- (void)reloadViewAnimated {
+    self.view.tabAnimated.canLoadAgain = YES;
+    [self.view tab_startAnimationWithCompletion:^{
+        [self afterGetData];
+    }];
 }
 
 #pragma mark - Init Method

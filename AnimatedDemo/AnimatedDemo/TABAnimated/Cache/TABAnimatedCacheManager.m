@@ -98,7 +98,7 @@ static const NSInteger kMemeoryModelMaxCount = 20;
     _currentSystemVersion = currentVersion;
     
 
-    NSString *documentDir = [TABAnimatedDocumentMethod getTABPathByFilePacketName:TABCacheManagerFolderName];
+    NSString *documentDir = [TABAnimatedDocumentMethod getPathByFilePacketName:TABCacheManagerFolderName];
     if (![TABAnimatedDocumentMethod isExistFile:documentDir
                                           isDir:YES]) {
         [TABAnimatedDocumentMethod createFile:documentDir
@@ -220,7 +220,7 @@ static const NSInteger kMemeoryModelMaxCount = 20;
         
         NSMutableArray *cacheModelArray = @[].mutableCopy;
         for (NSString *filePath in fileArray) {
-            NSString *resultFilePath = [[TABAnimatedDocumentMethod getTABPathByFilePacketName:TABCacheManagerFolderName] stringByAppendingString:[NSString stringWithFormat:@"/%@/%@",TABCacheManagerCacheModelFolderName,filePath]];
+            NSString *resultFilePath = [[TABAnimatedDocumentMethod getPathByFilePacketName:TABCacheManagerFolderName] stringByAppendingString:[NSString stringWithFormat:@"/%@/%@",TABCacheManagerCacheModelFolderName,filePath]];
             TABAnimatedCacheModel *model =
             (TABAnimatedCacheModel *)[TABAnimatedDocumentMethod
                                            getCacheData:resultFilePath
@@ -328,11 +328,11 @@ static const NSInteger kMemeoryModelMaxCount = 20;
 }
 
 - (NSString *)_getCacheManagerFilePathWithFileName:(NSString *)fileName {
-    return [TABAnimatedDocumentMethod getTABPathByFilePacketName:[NSString stringWithFormat:@"/%@/%@/%@.plist",TABCacheManagerFolderName,TABCacheManagerCacheManagerFolderName,fileName]];
+    return [TABAnimatedDocumentMethod getPathByFilePacketName:[NSString stringWithFormat:@"/%@/%@/%@.plist",TABCacheManagerFolderName,TABCacheManagerCacheManagerFolderName,fileName]];
 }
 
 - (NSString *)_getCacheModelFilePathWithFileName:(NSString *)fileName {
-    return [TABAnimatedDocumentMethod getTABPathByFilePacketName:[NSString stringWithFormat:@"/%@/%@/%@.plist",TABCacheManagerFolderName,TABCacheManagerCacheModelFolderName,fileName]];
+    return [TABAnimatedDocumentMethod getPathByFilePacketName:[NSString stringWithFormat:@"/%@/%@/%@.plist",TABCacheManagerFolderName,TABCacheManagerCacheModelFolderName,fileName]];
 }
 
 @end

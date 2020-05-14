@@ -13,8 +13,6 @@
 
 #import "TABAnimatedProductHelper.h"
 
-static const char *kProductionQueue = "com.tigerAndBull.productionQueue";
-
 @implementation TABAnimatedProduction
 
 + (instancetype)productWithState:(TABAnimatedProductionState)state {

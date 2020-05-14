@@ -30,7 +30,6 @@
 		20BFBFFA2170D912001887A9 /* TestCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 20BFBFF92170D912001887A9 /* TestCollectionViewCell.m */; };
 		20E72D7A2226E2D200E781C9 /* DailyCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 20E72D782226E2D200E781C9 /* DailyCollectionViewCell.m */; };
 		20E72D7D2226EEBB00E781C9 /* ViewExampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20E72D7C2226EEBB00E781C9 /* ViewExampleViewController.m */; };
-		23C22E0B245918BA006A27DA /* NSMutableArray+TABAnimatedProduction.m in Sources */ = {isa = PBXBuildFile; fileRef = 23C22E0A245918BA006A27DA /* NSMutableArray+TABAnimatedProduction.m */; };
 		23D56C602452C79000A340C1 /* TABComponentLayer+TABClassicAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D56C5F2452C79000A340C1 /* TABComponentLayer+TABClassicAnimation.m */; };
 		6806411522796E2C00D79040 /* NewsCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6806411422796E2C00D79040 /* NewsCollectionViewCell.m */; };
 		680641182279712200D79040 /* News.m in Sources */ = {isa = PBXBuildFile; fileRef = 680641172279712200D79040 /* News.m */; };
@@ -241,8 +240,6 @@
 		20E72D7B2226EEBA00E781C9 /* ViewExampleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewExampleViewController.h; sourceTree = "<group>"; };
 		20E72D7C2226EEBB00E781C9 /* ViewExampleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewExampleViewController.m; sourceTree = "<group>"; };
 		23AC5035244550A40056F901 /* TABAnimatedProductDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TABAnimatedProductDefines.h; sourceTree = "<group>"; };
-		23C22E09245918BA006A27DA /* NSMutableArray+TABAnimatedProduction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+TABAnimatedProduction.h"; sourceTree = "<group>"; };
-		23C22E0A245918BA006A27DA /* NSMutableArray+TABAnimatedProduction.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+TABAnimatedProduction.m"; sourceTree = "<group>"; };
 		23D56C5E2452C79000A340C1 /* TABComponentLayer+TABClassicAnimation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TABComponentLayer+TABClassicAnimation.h"; sourceTree = "<group>"; };
 		23D56C5F2452C79000A340C1 /* TABComponentLayer+TABClassicAnimation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "TABComponentLayer+TABClassicAnimation.m"; sourceTree = "<group>"; };
 		23DA56BF244F1AD70019321E /* TABViewAnimatedDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TABViewAnimatedDefines.h; sourceTree = "<group>"; };
@@ -897,8 +894,6 @@
 				68E37B53243911EF0060A5D8 /* TABAnimatedProductHelper.m */,
 				6863DB6D244C315200FC26AE /* UIView+TABAnimatedProduction.h */,
 				6863DB6C244C315200FC26AE /* UIView+TABAnimatedProduction.m */,
-				23C22E09245918BA006A27DA /* NSMutableArray+TABAnimatedProduction.h */,
-				23C22E0A245918BA006A27DA /* NSMutableArray+TABAnimatedProduction.m */,
 			);
 			path = Product;
 			sourceTree = "<group>";
@@ -1473,11 +1468,11 @@
 		68E37B64243B1B7D0060A5D8 /* include */ = {
 			isa = PBXGroup;
 			children = (
+				23DA56BF244F1AD70019321E /* TABViewAnimatedDefines.h */,
 				6827B6462323F87C00E165CF /* UIView+TABControlAnimation.h */,
 				6827B6612323F87D00E165CF /* TABViewAnimated.h */,
 				6827B6622323F87D00E165CF /* TABTableAnimated.h */,
 				6827B6602323F87D00E165CF /* TABCollectionAnimated.h */,
-				23DA56BF244F1AD70019321E /* TABViewAnimatedDefines.h */,
 				68DF27F8242DE79400532E02 /* UIView+TABControlModel.h */,
 			);
 			path = include;
@@ -1650,7 +1645,6 @@
 				6815671F2264214F00293AB4 /* JXCategoryDotView.m in Sources */,
 				20A85C3E215224B10005AD62 /* TestTableViewCell.m in Sources */,
 				681567132264214F00293AB4 /* JXCategoryIndicatorLineView.m in Sources */,
-				23C22E0B245918BA006A27DA /* NSMutableArray+TABAnimatedProduction.m in Sources */,
 				6815671A2264214F00293AB4 /* JXCategoryIndicatorBackgroundView.m in Sources */,
 				68C171802460028B004FD76F /* TABClassicAnimationImpl.m in Sources */,
 				6810D0C92340FB1C009026FC /* TABSentryView.m in Sources */,
@@ -1944,7 +1938,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2.2.5;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = JGZKPAYJ7R;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

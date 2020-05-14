@@ -7,6 +7,7 @@
 //
 
 #import "TABFormAnimated.h"
+#import "TABAnimatedCacheManager.h"
 #import <objc/runtime.h>
 
 @interface TABFormAnimated()
@@ -36,31 +37,50 @@
 - (void)exchangeDelegate:(UIView *)target {}
 - (void)exchangeDataSource:(UIView *)target {}
 - (void)registerViewToReuse:(UIView *)view {}
+- (void)refreshWithIndex:(NSInteger)index controlView:(UIView *)controlView {}
 
-- (void)startAnimationWithIndex:(NSInteger)index isFirstLoad:(BOOL)isFirstLoad controlView:(UIView *)controlView {
+- (BOOL)prepareDataWithIndex:(NSInteger)index isFirstLoad:(BOOL)isFirstLoad controlView:(UIView *)controlView {
+    
+    if (!isFirstLoad && index == TABAnimatedIndexTag && self.runningCount > 0) {
+        return NO;
+    }
     
     if (isFirstLoad) {
-        if (self.runIndexDict.count == 0) return;
+        if (self.runIndexDict.count == 0) return NO;
         [self registerViewToReuse:controlView];
         [self exchangeDelegate:controlView];
         [self exchangeDataSource:controlView];
-    }else {
-        if (index == TABAnimatedIndexTag) {
-            [self reloadAnimation];
-        }else {
-            if (![self reloadAnimationWithIndex:index]) {
-                return;
-            }
-        }
+    }else if (index == TABAnimatedIndexTag) {
+        [self reloadAnimation];
+    }else if (![self reloadAnimationWithIndex:index]) {
+        return NO;
     }
     
-    if (self.runIndexDict.count == 0) return;
+    if (self.runIndexDict.count == 0) return NO;
     
     if (self.animatedSectionCount > 0 && self.runIndexDict.count == 1) {
         for (NSInteger i = 1; i < self.animatedSectionCount; i++) {
             [self.runIndexDict setValue:@(0) forKey:[self getStringWIthIndex:i]];
         }
     }
+    
+    self.isAnimating = YES;
+    self.state = TABViewAnimationStart;
+    
+    return YES;
+}
+
+- (void)startAnimationWithIndex:(NSInteger)index isFirstLoad:(BOOL)isFirstLoad controlView:(UIView *)controlView {
+    if ([self prepareDataWithIndex:index isFirstLoad:isFirstLoad controlView:controlView]) {
+        [self refreshWithIndex:index controlView:controlView];
+        [self updateLoadCount];
+    }
+}
+
+- (void)updateLoadCount {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[TABAnimatedCacheManager shareManager] updateCacheModelLoadCountWithFormAnimated:self];
+    });
 }
 
 - (void)exchangeDelegateOldSel:(SEL)oldSel newSel:(SEL)newSel target:(id)target delegate:(id)delegate {
@@ -185,7 +205,7 @@
     if (![[resultDict allKeys] containsObject:key]) return NO;
     NSInteger value = [[resultDict objectForKey:key] integerValue];
     if (value >= 0) {
-        return YES;
+        return NO;
     }
     value -= TABAnimatedIndexTag;
     [resultDict setValue:@(value) forKey:key];
@@ -200,7 +220,7 @@
     if (![[resultDict allKeys] containsObject:key]) return NO;
     NSInteger value = [[resultDict objectForKey:key] integerValue];
     if (value < 0) {
-        return YES;
+        return NO;
     }
     value += TABAnimatedIndexTag;
     [resultDict setValue:@(value) forKey:key];

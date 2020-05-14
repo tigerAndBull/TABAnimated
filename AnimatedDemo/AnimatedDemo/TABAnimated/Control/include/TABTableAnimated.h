@@ -43,16 +43,6 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, assign) BOOL showTableFooterView;
 
-/**
- 头视图动画对象
- */
-@property (nonatomic, weak) TABViewAnimated *tabHeadViewAnimated;
-
-/**
- 尾视图动画对象
- */
-@property (nonatomic, weak) TABViewAnimated *tabFooterViewAnimated;
-
 #pragma mark - readonly, 不建议重写的属性
 
 /**
@@ -222,7 +212,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)addFooterViewClass:(__nonnull Class)footerViewClass viewHeight:(CGFloat)viewHeight;
 
 #pragma mark - DEPRECATED
+
+@property (nonatomic, weak) TABViewAnimated *tabHeadViewAnimated DEPRECATED_MSG_ATTRIBUTE("直接使用tableView.tableHeaderView.tabAnimated获取");
+@property (nonatomic, weak) TABViewAnimated *tabFooterViewAnimated DEPRECATED_MSG_ATTRIBUTE("直接使用tableView.tableFooterView.tabAnimated获取");
 + (instancetype)animatedWithCellClass:(Class)cellClass DEPRECATED_MSG_ATTRIBUTE("该回调在v2.3.0被弃用，请使用`animatedWithCellClass:cellHeight:`取代");
+
 @end
 
 #pragma mark -

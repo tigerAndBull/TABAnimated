@@ -26,6 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param view 上层view
  */
 + (void)resetData:(UIView *)view;
+
 + (void)hiddenSubViews:(UIView *)view;
 
 /**
@@ -35,7 +36,6 @@ NS_ASSUME_NONNULL_BEGIN
 */
 + (BOOL)canProduct:(UIView *)view;
 
-+ (void)addBackgroundLayerWithView:(UIView *)view controlView:(UIView *)controlView;
 + (TABComponentLayer *)getBackgroundLayerWithView:(UIView *)view controlView:(UIView *)controlView;
 
 + (void)bindView:(UIView *)view production:(TABAnimatedProduction *)production;
@@ -43,7 +43,6 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)addTagWithComponentLayer:(TABComponentLayer *)layer isLines:(BOOL)isLines;
 
 + (TABComponentLayer *)getShadowLayer:(UIView *)view;
-
 
 + (NSString *)getClassNameWithTargetClass:(Class)targetClass;
 + (NSString *)getKeyWithControllerName:(NSString *)controllerName targetClass:(Class)targetClass;

@@ -25,7 +25,7 @@
               indexPath:(nullable NSIndexPath *)indexPath
                  origin:(TABAnimatedProductOrigin)origin;
 
-- (void)needSyncProductions;
+- (void)syncProductions;
 
 - (void)destory;
 

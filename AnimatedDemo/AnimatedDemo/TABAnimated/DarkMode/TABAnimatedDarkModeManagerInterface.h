@@ -9,8 +9,6 @@
 #ifndef TABAnimatedDarkModeManagerInterface_h
 #define TABAnimatedDarkModeManagerInterface_h
 
-@class TABComponentLayer, TABViewAnimated;
-
 @protocol TABAnimatedDarkModeManagerInterface <NSObject>
 
 - (void)setControlView:(UIView *)controlView;

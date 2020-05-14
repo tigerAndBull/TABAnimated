@@ -14,8 +14,6 @@
 #import <objc/runtime.h>
 #import "TABAnimatedCacheManager.h"
 
-NSString * const TABAnimatedLocationAnimation = @"TABLocationAnimation";
-
 @implementation TABAnimated
 
 #pragma mark - Initize Method

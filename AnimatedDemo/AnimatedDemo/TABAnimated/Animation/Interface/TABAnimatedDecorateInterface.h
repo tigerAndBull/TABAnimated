@@ -19,6 +19,7 @@
 
 // layer生产期
 - (void)propertyBindingWithBackgroundLayer:(TABComponentLayer *)backgroundLayer;
+
 - (void)propertyBindingWithLayer:(TABComponentLayer *)layer index:(NSInteger)index;
 
 // layer装饰期

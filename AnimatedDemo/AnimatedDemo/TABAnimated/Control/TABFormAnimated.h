@@ -10,47 +10,40 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef enum : NSUInteger {
-    TABFormAnimatedAreaCell,
-    TABFormAnimatedAreaHeader,
-    TABViewAnimationFooter,
-} TABFormAnimatedAreaType;
-
-typedef void(^TABFormSyncCompletion)();
-
 @interface TABFormAnimated : TABViewAnimated
 
+/**
+当前正在动画中的index
+如果是section mode，则为section的值
+如果是row mode，则为row的值
+*/
 @property (nonatomic, strong) NSMutableDictionary *runIndexDict;
 @property (nonatomic, strong) NSMutableDictionary *runHeaderIndexDict;
 @property (nonatomic, strong) NSMutableDictionary *runFooterIndexDict;
 
 /**
- 当前正在动画中的index
- 如果是section mode，则为section的值
- 如果是row mode，则为row的值
+ 存储可执行动画的section/row
  */
 @property (nonatomic, strong) NSArray <NSNumber *> *cellIndexArray;
 
 /**
- 一个section对应一种cell
+ 存储样式，与cellIndexArray一一对应关系
  */
 @property (nonatomic, copy) NSArray <Class> *cellClassArray;
 
 /**
- 多个section使用该属性，设置动画时row数量
- 当数组数量大于section数量，多余数据将舍弃
- 当数组数量小于seciton数量，剩余部分动画时row的数量为默认值
+ 存储数量，与cellIndexArray一一对应关系
  */
 @property (nonatomic, copy) NSArray <NSNumber *> *cellCountArray;
 
 /**
- 存储头视图相关
+ 存储头视图数据
  */
 @property (nonatomic, strong) NSMutableArray <Class> *headerClassArray;
 @property (nonatomic, strong) NSMutableArray <NSNumber *> *headerSectionArray;
 
 /**
- 存储尾视图相关
+ 存储尾视图数据
  */
 @property (nonatomic, strong) NSMutableArray <Class> *footerClassArray;
 @property (nonatomic, strong) NSMutableArray <NSNumber *> *footerSectionArray;
@@ -65,7 +58,6 @@ typedef void(^TABFormSyncCompletion)();
  */
 @property (nonatomic, assign) BOOL isExhangeDataSourceIMP;
 
-@property (nonatomic, assign) NSInteger maxDataCount;
 @property (nonatomic, assign, readonly) NSInteger runningCount;
 
 /**
@@ -74,12 +66,9 @@ typedef void(^TABFormSyncCompletion)();
  */
 @property (nonatomic, assign) NSInteger animatedSectionCount;
 
-@property (nonatomic, copy) TABFormSyncCompletion syncCompletion;
-
 - (NSInteger)getIndexWithIndex:(NSInteger)index;
 - (NSInteger)getIndexWithIndexPath:(NSIndexPath *)indexPath;
 - (NSString *)getStringWIthIndex:(NSInteger)index;
-- (NSInteger)currentIndexIsAnimatingWithIndex:(NSInteger)index type:(TABFormAnimatedAreaType)type;
 
 - (NSInteger)getHeaderIndexWithIndex:(NSInteger)index;
 - (NSInteger)getFooterIndexWithIndex:(NSInteger)index;
@@ -91,6 +80,7 @@ typedef void(^TABFormSyncCompletion)();
 - (void)exchangeDelegateOldSel:(SEL)oldSelector newSel:(SEL)newSelector target:(id)target delegate:(id)delegate;
 
 - (void)startAnimationWithIndex:(NSInteger)index isFirstLoad:(BOOL)isFirstLoad controlView:(UIView *)controlView;
+- (void)refreshWithIndex:(NSInteger)index controlView:(UIView *)controlView;
 
 - (void)reloadAnimation;
 - (BOOL)reloadAnimationWithIndex:(NSInteger)index;

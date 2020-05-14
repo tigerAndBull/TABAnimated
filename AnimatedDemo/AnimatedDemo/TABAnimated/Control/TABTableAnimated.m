@@ -172,11 +172,6 @@
     return self;
 }
 
-- (void)setCellClassArray:(NSArray <Class> *)cellClassArray {
-    [super setCellClassArray:cellClassArray];
-    self.maxDataCount = cellClassArray.count;
-}
-
 - (CGFloat)cellHeight {
     if (self.cellHeightArray.count == 1) {
         return [self.cellHeightArray[0] floatValue];
@@ -222,8 +217,7 @@
 
 #pragma mark -
 
-- (void)startAnimationWithIndex:(NSInteger)index isFirstLoad:(BOOL)isFirstLoad controlView:(UIView *)controlView {
-    [super startAnimationWithIndex:index isFirstLoad:isFirstLoad controlView:controlView];
+- (void)refreshWithIndex:(NSInteger)index controlView:(UIView *)controlView {
     
     UITableView *tableView = (UITableView *)controlView;
     
@@ -236,13 +230,19 @@
         }
     }
     
-    if (self.showTableHeaderView && tableView.tableHeaderView.tabAnimated) {
+    if (self.showTableHeaderView) {
+        if (tableView.tableHeaderView.tabAnimated == nil) {
+            tableView.tableHeaderView.tabAnimated = TABViewAnimated.new;
+        }
         tableView.tableHeaderView.tabAnimated.superAnimationType = tableView.tabAnimated.superAnimationType;
         tableView.tableHeaderView.tabAnimated.canLoadAgain = tableView.tabAnimated.canLoadAgain;
         [tableView.tableHeaderView tab_startAnimation];
     }
     
-    if (self.showTableFooterView && tableView.tableFooterView.tabAnimated) {
+    if (self.showTableFooterView) {
+        if (tableView.tableFooterView.tabAnimated == nil) {
+            tableView.tableFooterView.tabAnimated = TABViewAnimated.new;
+        }
         tableView.tableFooterView.tabAnimated.superAnimationType = tableView.tabAnimated.superAnimationType;
         tableView.tableFooterView.tabAnimated.canLoadAgain = tableView.tabAnimated.canLoadAgain;
         [tableView.tableFooterView tab_startAnimation];
@@ -251,17 +251,10 @@
     if (index == TABAnimatedIndexTag) {
         [tableView reloadData];
     }else if (self.runMode == TABAnimatedRunBySection) {
-        [tableView reloadSections:[NSIndexSet indexSetWithIndex:index]
-                 withRowAnimation:UITableViewRowAnimationNone];
+        [tableView reloadSections:[NSIndexSet indexSetWithIndex:index] withRowAnimation:UITableViewRowAnimationNone];
     }else if (self.runMode == TABAnimatedRunByRow) {
-        [tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]]
-                         withRowAnimation:UITableViewRowAnimationNone];
+        [tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
     }
-        
-    // 更新loadCount
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [[TABAnimatedCacheManager shareManager] updateCacheModelLoadCountWithFormAnimated:self];
-    });
 }
 
 - (void)exchangeDelegate:(UIView *)target {
@@ -281,26 +274,15 @@
 }
 
 - (void)registerViewToReuse:(UIView *)view {
-    
     UITableView *tableView = (UITableView *)view;
-    for (Class class in self.cellClassArray) {
-       if (class == [NSNull class]) continue;
-       NSString *classString = NSStringFromClass(class);
-       if ([classString containsString:@"."]) {
-           NSRange range = [classString rangeOfString:@"."];
-           classString = [classString substringFromIndex:range.location+1];
-       }
-       
-       NSString *nibPath = [[NSBundle mainBundle] pathForResource:classString ofType:@"nib"];
-       if (nil != nibPath && nibPath.length > 0) {
-           [tableView registerNib:[UINib nibWithNibName:classString bundle:[NSBundle mainBundle]] forCellReuseIdentifier:[NSString stringWithFormat:@"tab_%@",classString]];
-       }else {
-           [tableView registerClass:class forCellReuseIdentifier:[NSString stringWithFormat:@"tab_%@",classString]];
-       }
-        [tableView registerClass:UITableViewCell.class forCellReuseIdentifier:[NSString stringWithFormat:@"tab_contain_%@",classString]];
-    }
-    
-    for (Class class in self.headerClassArray) {
+    [self _registerViewToReuse:tableView classArray:tableView.tabAnimated.cellClassArray containClass:UITableViewCell.class isHeaderFooter:NO];
+    [self _registerViewToReuse:tableView classArray:tableView.tabAnimated.headerClassArray containClass:UITableViewHeaderFooterView.class isHeaderFooter:YES];
+    [self _registerViewToReuse:tableView classArray:tableView.tabAnimated.footerClassArray containClass:UITableViewHeaderFooterView.class isHeaderFooter:YES];
+}
+
+
+- (void)_registerViewToReuse:(UITableView *)tableView classArray:(NSArray *)classArray containClass:(Class)containClass isHeaderFooter:(BOOL)isHeaderFooter {
+    for (Class class in classArray) {
         if (class == [NSNull class]) continue;
         NSString *classString = NSStringFromClass(class);
         if ([classString containsString:@"."]) {
@@ -309,29 +291,23 @@
         }
         
         NSString *nibPath = [[NSBundle mainBundle] pathForResource:classString ofType:@"nib"];
-        if (nil != nibPath && nibPath.length > 0) {
-            [tableView registerNib:[UINib nibWithNibName:classString bundle:[NSBundle mainBundle]] forHeaderFooterViewReuseIdentifier:[NSString stringWithFormat:@"tab_%@",classString]];
-        }else {
-            [tableView registerClass:class forHeaderFooterViewReuseIdentifier:[NSString stringWithFormat:@"tab_%@",classString]];
-        }
-         [tableView registerClass:UITableViewHeaderFooterView.class forHeaderFooterViewReuseIdentifier:[NSString stringWithFormat:@"tab_contain_%@",classString]];
-    }
-    
-    for (Class class in self.footerClassArray) {
-        if (class == [NSNull class]) continue;
-        NSString *classString = NSStringFromClass(class);
-        if ([classString containsString:@"."]) {
-            NSRange range = [classString rangeOfString:@"."];
-            classString = [classString substringFromIndex:range.location+1];
-        }
         
-        NSString *nibPath = [[NSBundle mainBundle] pathForResource:classString ofType:@"nib"];
-        if (nil != nibPath && nibPath.length > 0) {
-            [tableView registerNib:[UINib nibWithNibName:classString bundle:[NSBundle mainBundle]] forHeaderFooterViewReuseIdentifier:[NSString stringWithFormat:@"tab_%@",classString]];
+        if (isHeaderFooter) {
+            if (nil != nibPath && nibPath.length > 0) {
+                [tableView registerNib:[UINib nibWithNibName:classString bundle:[NSBundle mainBundle]] forHeaderFooterViewReuseIdentifier:[NSString stringWithFormat:@"tab_%@",classString]];
+            }else {
+                [tableView registerClass:class forHeaderFooterViewReuseIdentifier:[NSString stringWithFormat:@"tab_%@",classString]];
+            }
+            [tableView registerClass:containClass forHeaderFooterViewReuseIdentifier:[NSString stringWithFormat:@"tab_contain_%@",classString]];
         }else {
-            [tableView registerClass:class forHeaderFooterViewReuseIdentifier:[NSString stringWithFormat:@"tab_%@",classString]];
+            NSString *nibPath = [[NSBundle mainBundle] pathForResource:classString ofType:@"nib"];
+            if (nil != nibPath && nibPath.length > 0) {
+                [tableView registerNib:[UINib nibWithNibName:classString bundle:[NSBundle mainBundle]] forCellReuseIdentifier:[NSString stringWithFormat:@"tab_%@",classString]];
+            }else {
+                [tableView registerClass:class forCellReuseIdentifier:[NSString stringWithFormat:@"tab_%@",classString]];
+            }
+             [tableView registerClass:containClass forCellReuseIdentifier:[NSString stringWithFormat:@"tab_contain_%@",classString]];
         }
-         [tableView registerClass:UITableViewHeaderFooterView.class forHeaderFooterViewReuseIdentifier:[NSString stringWithFormat:@"tab_contain_%@",classString]];
     }
 }
 
@@ -444,15 +420,19 @@
 #pragma mark - TABTableViewDataSource / Delegate
 
 - (NSInteger)tab_numberOfSectionsInTableView:(UITableView *)tableView {
-    if (tableView.tabAnimated.state != TABViewAnimationStart) {
+    
+    TABTableAnimated *tabAnimated = tableView.tabAnimated;
+    if (tabAnimated.state != TABViewAnimationStart) {
         return [self tab_numberOfSectionsInTableView:tableView];
     }
-    if (tableView.tabAnimated.animatedSectionCount > 0) {
-        return tableView.tabAnimated.animatedSectionCount;
+    
+    if (tabAnimated.animatedSectionCount > 0) {
+        return tabAnimated.animatedSectionCount;
     }
+    
     NSInteger count = [self tab_numberOfSectionsInTableView:tableView];
     if (count == 0) {
-        count = tableView.tabAnimated.cellClassArray.count;
+        count = tabAnimated.cellClassArray.count;
     }
     if (count == 0) return 1;
     return count;
@@ -515,7 +495,7 @@
 }
 
 - (void)tab_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (tableView.tabAnimated.state != TABViewAnimationStart && tableView.tabAnimated.state != TABViewAnimationRunning) {
+    if (tableView.tabAnimated.state != TABViewAnimationStart) {
         [self tab_tableView:tableView didSelectRowAtIndexPath:indexPath];
     }
 }

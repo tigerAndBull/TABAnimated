@@ -15,20 +15,16 @@
 
 // 闪光灯方向
 typedef NS_ENUM(NSUInteger, TABShimmerDirection) {
-    
     // 从左往右
     TABShimmerDirectionToRight = 0,
-
     // 从右往左
     TABShimmerDirectionToLeft,
 };
 
 // 闪光灯起始位置
 typedef NS_ENUM(NSUInteger, TABShimmerProperty) {
-    
     // 起
     TABShimmerPropertyStartPoint = 0,
-    
     // 始
     TABShimmerPropertyEndPoint,
 };

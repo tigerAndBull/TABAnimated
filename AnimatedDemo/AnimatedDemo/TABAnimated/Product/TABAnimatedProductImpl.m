@@ -20,7 +20,6 @@
 #import "TABAnimatedCacheManager.h"
 
 #import "UIView+TABAnimatedProduction.h"
-#import "NSMutableArray+TABAnimatedProduction.h"
 
 #import "TABAnimatedDarkModeManagerInterface.h"
 #import "TABAnimatedDarkModeManagerImpl.h"
@@ -127,7 +126,7 @@ static const char *kProductionQueue = "com.tigerAndBull.productionQueue";
 }
 
 // 同步
-- (void)needSyncProductions {
+- (void)syncProductions {
     for (NSInteger i = 0; i < self.targetViewArray.count; i++) {
         UIView *view = self.targetViewArray[i];
         view.hidden = NO;
@@ -218,7 +217,7 @@ static const char *kProductionQueue = "com.tigerAndBull.productionQueue";
 - (void)setProductFinished:(BOOL)productFinished {
     _productFinished = productFinished;
     if (productFinished) {
-        [self needSyncProductions];
+        [self syncProductions];
     }
 }
 

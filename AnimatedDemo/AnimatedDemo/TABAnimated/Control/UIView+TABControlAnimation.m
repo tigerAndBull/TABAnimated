@@ -12,7 +12,7 @@
 #import "TABAnimatedCacheManager.h"
 #import "TABComponentLayer.h"
 
-static const NSTimeInterval kDelayReloadDataTime = 40;
+static const NSTimeInterval kDelayReloadDataTime = .4;
 const int TABAnimatedIndexTag = -100000;
 
 @implementation UIView (TABControlAnimation)
@@ -64,21 +64,16 @@ const int TABAnimatedIndexTag = -100000;
         isFirstLoad = NO;
     }
     
-    tabAnimated.isAnimating = YES;
-    tabAnimated.state = TABViewAnimationStart;
-    
     if (tabAnimated.targetControllerClassName == nil || tabAnimated.targetControllerClassName.length == 0) {
         UIViewController *controller = [self _viewController];
-        if (controller) {
-            tabAnimated.targetControllerClassName = NSStringFromClass(controller.class);
-        }
+        if (controller) tabAnimated.targetControllerClassName = NSStringFromClass(controller.class);
     }
     
-    if ([self isKindOfClass:[UITableView class]]) {
-        [((TABTableAnimated *)tabAnimated) startAnimationWithIndex:index isFirstLoad:isFirstLoad controlView:self];
-    }else if([self isKindOfClass:[UICollectionView class]]) {
-        [((TABCollectionAnimated *)tabAnimated) startAnimationWithIndex:index isFirstLoad:isFirstLoad controlView:self];
+    if ([tabAnimated isKindOfClass:[TABFormAnimated class]]) {
+        [((TABFormAnimated *)tabAnimated) startAnimationWithIndex:index isFirstLoad:isFirstLoad controlView:self];
     }else {
+        tabAnimated.isAnimating = YES;
+        tabAnimated.state = TABViewAnimationStart;
         [self _startViewAnimationWithIsFirstLoad:isFirstLoad];
     }
     
@@ -116,9 +111,11 @@ const int TABAnimatedIndexTag = -100000;
     
     if (self.tabAnimated.state == TABViewAnimationEnd) return;
     
-    if (index == TABAnimatedIndexTag &&
-        (![self isKindOfClass:[UITableView class]] && ![self isKindOfClass:[UICollectionView class]])) {
+    if (index == TABAnimatedIndexTag && ![self.tabAnimated isKindOfClass:[TABFormAnimated class]]) {
         [self _endViewAnimation];
+        if (isEaseOut) {
+            [TABAnimationMethod addEaseOutAnimation:self];
+        }
         return;
     }
     
@@ -180,7 +177,7 @@ const int TABAnimatedIndexTag = -100000;
     self.tabAnimatedProduction.backgroundLayer.hidden = YES;
 }
 
-#pragma mark - Private Method
+#pragma mark - Private
 
 - (UIViewController*)_viewController {
     for (UIView *next = [self superview]; next; next = next.superview) {

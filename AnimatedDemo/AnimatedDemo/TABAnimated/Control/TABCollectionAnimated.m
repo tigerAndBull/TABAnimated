@@ -144,11 +144,8 @@
     return self;
 }
 
-- (void)startAnimationWithIndex:(NSInteger)index isFirstLoad:(BOOL)isFirstLoad controlView:(UIView *)controlView {
-    [super startAnimationWithIndex:index isFirstLoad:isFirstLoad controlView:controlView];
-    
+- (void)refreshWithIndex:(NSInteger)index controlView:(UIView *)controlView {
     UICollectionView *collectionView = (UICollectionView *)controlView;
-    
     if (index == TABAnimatedIndexTag) {
         [collectionView reloadData];
     }else if (self.runMode == TABAnimatedRunBySection) {
@@ -156,11 +153,6 @@
     }else if (self.runMode == TABAnimatedRunByRow) {
         [collectionView reloadItemsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]]];
     }
-    
-    // 更新loadCount
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [[TABAnimatedCacheManager shareManager] updateCacheModelLoadCountWithFormAnimated:self];
-    });
 }
 
 - (void)setCellSize:(CGSize)cellSize {
@@ -200,7 +192,7 @@
                  toSection:(NSInteger)section {
     [self.footerClassArray addObject:footerViewClass];
     [self.footerSizeArray addObject:@(viewSize)];
-    [self.runFooterIndexDict setValue:@(self.headerClassArray.count-1) forKey:[self getStringWIthIndex:section]];
+    [self.runFooterIndexDict setValue:@(self.footerClassArray.count-1) forKey:[self getStringWIthIndex:section]];
 }
 
 - (void)exchangeDelegate:(UIView *)target {
@@ -378,9 +370,11 @@
 #pragma mark - TABCollectionViewDelegate
 
 - (NSInteger)tab_numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    
     if (collectionView.tabAnimated.state != TABViewAnimationStart) {
         return [self tab_numberOfSectionsInCollectionView:collectionView];
     }
+    
     NSInteger count;
     if (collectionView.tabAnimated.animatedSectionCount > 0) {
         return collectionView.tabAnimated.animatedSectionCount;
@@ -417,7 +411,7 @@
     }
     
     TABCollectionAnimated *tabAnimated = collectionView.tabAnimated;
-    NSInteger index = [tabAnimated getHeaderIndexWithIndex:indexPath.section];
+    NSInteger index = [tabAnimated getIndexWithIndex:indexPath.section];
     if (index < 0) {
         return [self tab_collectionView:collectionView layout:collectionViewLayout sizeForItemAtIndexPath:indexPath];
     }
@@ -430,7 +424,7 @@
     }
     
     TABCollectionAnimated *tabAnimated = collectionView.tabAnimated;
-    NSInteger index = [tabAnimated getFooterIndexWithIndex:indexPath.section];
+    NSInteger index = [tabAnimated getIndexWithIndex:indexPath.section];
     if (index < 0) {
         return [self tab_collectionView:collectionView cellForItemAtIndexPath:indexPath];
     }
@@ -502,7 +496,6 @@
     }
     
     UICollectionReusableView *view = [collectionView.tabAnimated.producter productWithControlView:collectionView currentClass:currentClass indexPath:indexPath origin:origin];
-    
     return view;
 }
 

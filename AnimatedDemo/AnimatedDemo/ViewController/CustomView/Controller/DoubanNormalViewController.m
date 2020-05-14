@@ -49,6 +49,13 @@
     _commitBtn.layer.borderWidth = 1.0;
 }
 
+- (void)reloadViewAnimated {
+    self.mainView.tabAnimated.canLoadAgain = YES;
+    [self.mainView tab_startAnimationWithCompletion:^{
+        [self afterGetData];
+    }];
+}
+
 #pragma mark - Init Method
 
 - (void)initUI {
