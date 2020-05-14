@@ -160,6 +160,7 @@
 		68C171BD2461A0AF004FD76F /* NestTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C171BC2461A0AF004FD76F /* NestTableViewCell.m */; };
 		68C171CD2461BC9E004FD76F /* TABAnimatedDarkModeImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C171CC2461BC9E004FD76F /* TABAnimatedDarkModeImpl.m */; };
 		68C21D9A22F34548003C2936 /* TestCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C21D9922F34548003C2936 /* TestCollectionReusableView.m */; };
+		68C9DD80246DA364008533C8 /* TABBackgroundLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C9DD7F246DA364008533C8 /* TABBackgroundLayer.m */; };
 		68CFCF0F2294DCBC007D167F /* XibCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 68CFCF0D2294DCBC007D167F /* XibCollectionViewCell.m */; };
 		68CFCF102294DCBC007D167F /* XibCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68CFCF0E2294DCBC007D167F /* XibCollectionViewCell.xib */; };
 		68CFCF162294DFA0007D167F /* XibCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68CFCF152294DFA0007D167F /* XibCollectionViewController.m */; };
@@ -511,6 +512,8 @@
 		68C171CC2461BC9E004FD76F /* TABAnimatedDarkModeImpl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TABAnimatedDarkModeImpl.m; sourceTree = "<group>"; };
 		68C21D9822F34548003C2936 /* TestCollectionReusableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestCollectionReusableView.h; sourceTree = "<group>"; };
 		68C21D9922F34548003C2936 /* TestCollectionReusableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestCollectionReusableView.m; sourceTree = "<group>"; };
+		68C9DD7E246DA364008533C8 /* TABBackgroundLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TABBackgroundLayer.h; sourceTree = "<group>"; };
+		68C9DD7F246DA364008533C8 /* TABBackgroundLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TABBackgroundLayer.m; sourceTree = "<group>"; };
 		68CFCF0C2294DCBC007D167F /* XibCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XibCollectionViewCell.h; sourceTree = "<group>"; };
 		68CFCF0D2294DCBC007D167F /* XibCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XibCollectionViewCell.m; sourceTree = "<group>"; };
 		68CFCF0E2294DCBC007D167F /* XibCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = XibCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -879,6 +882,8 @@
 			isa = PBXGroup;
 			children = (
 				687763D8243438900004BA62 /* Interface */,
+				68C9DD7E246DA364008533C8 /* TABBackgroundLayer.h */,
+				68C9DD7F246DA364008533C8 /* TABBackgroundLayer.m */,
 				6827B65A2323F87D00E165CF /* TABComponentLayer.h */,
 				6827B6542323F87D00E165CF /* TABComponentLayer.m */,
 				687763DB243457A60004BA62 /* TABAnimatedProduction.h */,
@@ -1718,6 +1723,7 @@
 				6827B6892323F87D00E165CF /* UIView+TABControlAnimation.m in Sources */,
 				68B0457A22BB9B98006FED14 /* TestLayoutDelegateTableViewController.m in Sources */,
 				681567172264214F00293AB4 /* JXCategoryIndicatorBallView.m in Sources */,
+				68C9DD80246DA364008533C8 /* TABBackgroundLayer.m in Sources */,
 				202D40BE22297D92005CF7E3 /* CourseCollectionViewCell.m in Sources */,
 				68C1718624603C9D004FD76F /* MutiSectionMutiCellTableViewController.m in Sources */,
 				68958D572274AA7B002C4295 /* CardCollectionViewCell.m in Sources */,

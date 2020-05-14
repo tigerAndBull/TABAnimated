@@ -2,15 +2,17 @@
 //  TABBackgroundLayer.h
 //  AnimatedDemo
 //
-//  Created by wenhuan on 2020/5/14.
+//  Created by tigerAndBull on 2020/5/15.
 //  Copyright © 2020 tigerAndBull. All rights reserved.
 //
 
-#import <TABAnimated/TABAnimated.h>
+#import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface TABBackgroundLayer : TABComponentLayer
+@interface TABBackgroundLayer : CAGradientLayer <NSCopying, NSSecureCoding>
+
+@property (nonatomic, strong) CALayer *shadowLayer;
 
 @end
 

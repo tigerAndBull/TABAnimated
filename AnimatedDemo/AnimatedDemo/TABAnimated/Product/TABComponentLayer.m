@@ -28,6 +28,13 @@ static const CGFloat kDefaultHeight = 16.f;
     return self;
 }
 
+- (void)setBackgroundColor:(CGColorRef)backgroundColor {
+    [super setBackgroundColor:backgroundColor];
+    for (TABComponentLayer *layer in _lineLayers) {
+        layer.backgroundColor = backgroundColor;
+    }
+}
+
 - (CGRect)resetFrameWithRect:(CGRect)rect animatedHeight:(CGFloat)animatedHeight {
     
     CGFloat width = rect.size.width;
@@ -109,26 +116,27 @@ static const CGFloat kDefaultHeight = 16.f;
             rect = CGRectMake(frame.origin.x, frame.origin.y+i*(textHeight+space), frame.size.width*lastScale, textHeight);
         }
         
-        TABComponentLayer *layer = [[TABComponentLayer alloc]init];
-        layer.frame = rect;
-        layer.backgroundColor = colorRef;
-        layer.cornerRadius = cornerRadius;
-        layer.loadStyle = loadStyle;
-        layer.withoutAnimation = withoutAnimation;
-        layer.origin = origin;
+        TABComponentLayer *sub = [[TABComponentLayer alloc]init];
+        sub.frame = rect;
+        sub.backgroundColor = colorRef;
+        sub.cornerRadius = cornerRadius;
+        sub.loadStyle = loadStyle;
+        sub.withoutAnimation = withoutAnimation;
+        sub.origin = origin;
         
         if (i == lines - 1) {
-            layer.tagIndex = tagIndex;
+            sub.tagIndex = tagIndex;
 #ifdef DEBUG
             // 添加红色标记
             if ([TABAnimated sharedAnimated].openAnimationTag)
-                [TABAnimatedProductHelper addTagWithComponentLayer:layer isLines:YES];
+                [TABAnimatedProductHelper addTagWithComponentLayer:sub isLines:YES];
 #endif
         }else {
-            layer.tagIndex = TABViewAnimatedErrorCode;
+            sub.tagIndex = TABViewAnimatedErrorCode;
         }
         
-        [self addSublayer:layer];
+        [self addSublayer:sub];
+        [layer.lineLayers addObject:sub];
     }
 }
 
@@ -169,14 +177,10 @@ static const CGFloat kDefaultHeight = 16.f;
     
     [aCoder encodeBool:_withoutAnimation forKey:@"withoutAnimation"];
     [aCoder encodeObject:_placeholderName forKey:@"placeholderName"];
-    
-    NSMutableArray *subLayers = @[].mutableCopy;
-    for (CALayer *sub in self.sublayers) {
-        if ([sub.name isEqualToString:TABAnimatedProductHelperShadowLayerName]) {
-            [subLayers addObject:sub];
-        }
-    }
-    [aCoder encodeObject:subLayers forKey:@"sublayers"];
+//
+//    if (_lineLayers.count > 0) {
+//        [aCoder encodeObject:_lineLayers forKey:@"lineLayers"];
+//    }
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
@@ -196,10 +200,11 @@ static const CGFloat kDefaultHeight = 16.f;
         self.placeholderName = [aDecoder decodeObjectForKey:@"placeholderName"];
         self.withoutAnimation = [aDecoder decodeBoolForKey:@"withoutAnimation"];
         
-        NSArray <TABComponentLayer *> *layerArray = [aDecoder decodeObjectForKey:@"sublayers"];
-        for (TABComponentLayer *layer in layerArray) {
-            [self addSublayer:layer];
-        }
+//        NSArray <TABComponentLayer *> *layerArray = [aDecoder decodeObjectForKey:@"lineLayers"];
+//        _lineLayers = layerArray.mutableCopy;
+//        for (TABComponentLayer *layer in layerArray) {
+//            [self addSublayer:layer];
+//        }
     }
     return self;
 }
@@ -234,16 +239,15 @@ static const CGFloat kDefaultHeight = 16.f;
     layer.position = self.position;
     layer.opaque = self.opaque;
     layer.contentsScale = self.contentsScale;
-
-    for (CALayer *sub in self.sublayers) {
-        if ([sub.name isEqualToString:TABAnimatedProductHelperShadowLayerName]) {
-            TABComponentLayer *newL = ((TABComponentLayer *)sub).copy;
-            newL.opacity = 1.;
-            [layer addSublayer:newL];
-        }
-    }
     
     return layer;
+}
+
+- (NSMutableArray *)lineLayers {
+    if (!_lineLayers) {
+        _lineLayers = @[].mutableCopy;
+    }
+    return _lineLayers;
 }
 
 @end

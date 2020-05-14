@@ -216,17 +216,19 @@ static const CGFloat kTagLabelHeight = 20.f;
         UITableViewCell *cell = (UITableViewCell *)view;
         TABComponentLayer *layer;
         if ((layer = [TABAnimatedProductHelper getShadowLayer:cell]) != nil) {
-            [backgroundLayer addSublayer:layer];
+//            [backgroundLayer addSublayer:layer];
+            backgroundLayer = layer;
         }else if ((layer = [TABAnimatedProductHelper getShadowLayer:cell.contentView]) != nil) {
-            [backgroundLayer addSublayer:layer];
+//            [backgroundLayer addSublayer:layer];
+            backgroundLayer = layer;
         }
         
-        UITableView *tableView = (UITableView *)controlView;
-        if (view.frame.size.width != [UIScreen mainScreen].bounds.size.width) {
-            backgroundLayer.frame = CGRectMake(view.bounds.origin.x, view.bounds.origin.y, [UIScreen mainScreen].bounds.size.width, tableView.rowHeight);
-        }else {
-            backgroundLayer.frame = view.bounds;
-        }
+//        UITableView *tableView = (UITableView *)controlView;
+//        if (view.frame.size.width != [UIScreen mainScreen].bounds.size.width) {
+//            backgroundLayer.frame = CGRectMake(view.bounds.origin.x, view.bounds.origin.y, [UIScreen mainScreen].bounds.size.width, tableView.rowHeight);
+//        }else {
+//            backgroundLayer.frame = view.bounds;
+//        }
         
     }else if ([view isKindOfClass:[UICollectionViewCell class]]) {
         UICollectionViewCell *cell = (UICollectionViewCell *)view;
@@ -246,11 +248,11 @@ static const CGFloat kTagLabelHeight = 20.f;
         backgroundLayer.frame = view.bounds;
     }
     
-    if (view.frame.size.width == 0.) {
-        backgroundLayer.frame = CGRectMake(view.bounds.origin.x, view.bounds.origin.y, [UIScreen mainScreen].bounds.size.width, view.bounds.size.height);
-    }
+//    if (view.frame.size.width == 0.) {
+//        backgroundLayer.frame = CGRectMake(view.bounds.origin.x, view.bounds.origin.y, [UIScreen mainScreen].bounds.size.width, view.bounds.size.height);
+//    }
     
-    backgroundLayer.backgroundColor = animatedBackgroundColor.CGColor;
+//    backgroundLayer.backgroundColor = UIColor.clearColor.CGColor;
     return backgroundLayer;
 }
 
@@ -266,7 +268,8 @@ static const CGFloat kTagLabelHeight = 20.f;
         layer.shadowRadius = view.layer.shadowRadius;
         layer.shadowPath = view.layer.shadowPath;
         layer.shadowOpacity = view.layer.shadowOpacity;
-        layer.opacity = 0.;
+        layer.opacity = 1.;
+        layer.backgroundColor = UIColor.redColor.CGColor;
         return layer;
     }
     return nil;
