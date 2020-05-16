@@ -9,10 +9,9 @@
 #ifndef TABViewAnimatedDefines_h
 #define TABViewAnimatedDefines_h
 
-@class TABComponentManager;
+#import "TABAnimatedChainDefines.h"
 
-typedef void(^TABAdjustBlock)(TABComponentManager *manager);
-typedef void(^TABAdjustWithClassBlock)(TABComponentManager *manager, Class targetClass);
+@class TABComponentManager;
 
 /**
  * 动画状态枚举

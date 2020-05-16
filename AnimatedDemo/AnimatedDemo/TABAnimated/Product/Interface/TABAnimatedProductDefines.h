@@ -41,9 +41,6 @@ typedef NS_ENUM(NSInteger, TABAnimatedProductionState) {
     // Production需要加工
     TABAnimatedProductionProcess,
     
-    
-    TABAnimatedProductionWaitBinding,
-    
     // Production已绑定view
     TABAnimatedProductionBind,
 };

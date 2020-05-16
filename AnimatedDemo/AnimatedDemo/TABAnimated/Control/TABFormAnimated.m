@@ -123,6 +123,13 @@
 
 #pragma mark -
 
+- (BOOL)getIndexIsRuning:(NSInteger)index {
+    if ([self getIndexWithIndex:index dict:self.runIndexDict] >= 0) {
+        return YES;
+    }
+    return NO;
+}
+
 - (NSInteger)getIndexWithIndex:(NSInteger)index {
     return [self getIndexWithIndex:index dict:self.runIndexDict];
 }

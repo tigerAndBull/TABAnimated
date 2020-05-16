@@ -7,11 +7,9 @@
 //
 
 #import "TABAnimatedProduction.h"
-#import "TABAnimated.h"
-#import "TABAnimatedCacheManager.h"
-#import "TABComponentLayer.h"
 
-#import "TABAnimatedProductHelper.h"
+#import "TABComponentLayer.h"
+#import "TABWeakDelegateManager.h"
 
 @implementation TABAnimatedProduction
 
@@ -74,18 +72,6 @@
 }
 
 #pragma mark - Getter / Setter
-
-- (BOOL)needUpdate {
-    if (_version && _version.length > 0 &&
-        [TABAnimatedCacheManager shareManager].currentSystemVersion &&
-        [TABAnimatedCacheManager shareManager].currentSystemVersion.length > 0) {
-        if ([_version isEqualToString:[TABAnimatedCacheManager shareManager].currentSystemVersion]) {
-            return NO;
-        }
-        return YES;
-    }
-    return YES;
-}
 
 - (TABWeakDelegateManager *)syncDelegateManager {
     if (!_syncDelegateManager) {

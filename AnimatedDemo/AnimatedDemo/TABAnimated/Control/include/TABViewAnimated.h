@@ -34,7 +34,7 @@ extern NSString * const TABViewAnimatedFooterPrefixString;
 @property (nonatomic, strong) id <TABAnimatedProductInterface> producter;
 // 装饰者，用于制作自定义动画, 关联layers
 @property (nonatomic, strong) id <TABAnimatedDecorateInterface> decorator;
-// 模式内容切换协议
+// 暗黑模式骨架内容切换协议
 @property (nonatomic, strong) id <TABAnimatedDarkModeInterface> switcher;
 
 /**
@@ -43,10 +43,10 @@ extern NSString * const TABViewAnimatedFooterPrefixString;
  */
 @property (nonatomic, assign) TABAnimatedRunMode runMode;
 
-/// 动画状态，可重置
+// 动画状态，可重置
 @property (nonatomic) TABViewAnimationStyle state;
 
-/// 使用该属性时，全局动画类型失效，目标视图将更改为当前属性指定的动画类型。
+// 使用该属性时，全局动画类型失效，目标视图将更改为当前属性指定的动画类型。
 @property (nonatomic, assign) TABViewSuperAnimationType superAnimationType;
 
 /**

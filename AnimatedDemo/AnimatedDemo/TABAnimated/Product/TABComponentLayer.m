@@ -177,15 +177,11 @@ static const CGFloat kDefaultHeight = 16.f;
     
     [aCoder encodeBool:_withoutAnimation forKey:@"withoutAnimation"];
     [aCoder encodeObject:_placeholderName forKey:@"placeholderName"];
-//
-//    if (_lineLayers.count > 0) {
-//        [aCoder encodeObject:_lineLayers forKey:@"lineLayers"];
-//    }
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
     if (self = [super init]) {
-
+        
         self.resultFrameValue = [aDecoder decodeObjectForKey:@"resultFrameValue"];
         self.frame = [self.resultFrameValue CGRectValue];
         self.backgroundColor = [(UIColor *)[aDecoder decodeObjectForKey:@"backgroundColor"] CGColor];
@@ -199,12 +195,6 @@ static const CGFloat kDefaultHeight = 16.f;
         self.lastScale = [aDecoder decodeFloatForKey:@"lastScale"];
         self.placeholderName = [aDecoder decodeObjectForKey:@"placeholderName"];
         self.withoutAnimation = [aDecoder decodeBoolForKey:@"withoutAnimation"];
-        
-//        NSArray <TABComponentLayer *> *layerArray = [aDecoder decodeObjectForKey:@"lineLayers"];
-//        _lineLayers = layerArray.mutableCopy;
-//        for (TABComponentLayer *layer in layerArray) {
-//            [self addSublayer:layer];
-//        }
     }
     return self;
 }

@@ -7,10 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "TABAnimatedDarkModeManagerInterface.h"
 
 NS_ASSUME_NONNULL_BEGIN
-
-@protocol TABAnimatedDarkModeManagerInterface;
 
 @interface TABAnimatedDarkModeManagerImpl : NSObject <TABAnimatedDarkModeManagerInterface>
 

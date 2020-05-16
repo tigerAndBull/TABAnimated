@@ -8,12 +8,6 @@
 
 #import "TABAnimatedCacheModel.h"
 
-@interface TABAnimatedCacheModel()
-
-@property (nonatomic, assign, readwrite) BOOL needUpdate;
-
-@end
-
 @implementation TABAnimatedCacheModel
 
 - (instancetype)init {

@@ -15,14 +15,12 @@ static NSString * const kShortDataString = @"tab_testtesttest";
 static NSString * const kLongDataString = @"tab_testtesttesttesttesttesttesttesttesttesttest";
 static NSString * const kTagDefaultFontName = @"HiraKakuProN-W3";
 
-NSString * const TABAnimatedProductHelperShadowLayerName = @"TABShadowLayer";
-
 static const CGFloat kTagDefaultFontSize = 12.f;
 static const CGFloat kTagLabelHeight = 20.f;
 
 @implementation TABAnimatedProductHelper
 
-+ (void)fullData:(UIView *)view {
++ (void)fullDataAndStartNestAnimation:(UIView *)view isHidden:(BOOL)isHidden {
     
     if ([view isKindOfClass:[UITableView class]] ||
         [view isKindOfClass:[UICollectionView class]]) {
@@ -37,11 +35,18 @@ static const CGFloat kTagLabelHeight = 20.f;
     for (int i = 0; i < subViews.count;i++) {
         
         UIView *subV = subViews[i];
-        [self fullData:subV];
+        [self fullDataAndStartNestAnimation:subV isHidden:isHidden];
         
         if ([subV isKindOfClass:[UITableView class]] ||
             [subV isKindOfClass:[UICollectionView class]]) {
+            if (subV.tabAnimated) {
+                [subV tab_startAnimation];
+            }
             continue;
+        }
+        
+        if (isHidden) {
+            subV.hidden = YES;
         }
         
         if ([subV isKindOfClass:[UILabel class]]) {
@@ -131,19 +136,6 @@ static const CGFloat kTagLabelHeight = 20.f;
     }
 }
 
-+ (void)hiddenSubViews:(UIView *)view {
-    if ([view isKindOfClass:[UITableView class]] ||
-        [view isKindOfClass:[UICollectionView class]]) {
-        return;
-    }
-    NSArray *subViews = [view subviews];
-    for (int i = 0; i < subViews.count;i++) {
-        UIView *subV = subViews[i];
-        [self resetData:subV];
-        subV.hidden = YES;
-    }
-}
-
 + (BOOL)canProduct:(UIView *)view {
     
     if ([view isKindOfClass:[UICollectionView class]] || [view isKindOfClass:[UITableView class]]) {
@@ -192,9 +184,11 @@ static const CGFloat kTagLabelHeight = 20.f;
 + (TABComponentLayer *)getBackgroundLayerWithView:(UIView *)view
                                       controlView:(UIView *)controlView {
     TABViewAnimated *tabAnimated = controlView.tabAnimated;
+    
     UIColor *animatedBackgroundColor = [tabAnimated getCurrentAnimatedBackgroundColorWithCollection:controlView.traitCollection];
 
     TABComponentLayer *backgroundLayer = TABComponentLayer.new;
+    
     if (tabAnimated.animatedBackViewCornerRadius > 0) {
         backgroundLayer.cornerRadius = tabAnimated.animatedBackViewCornerRadius;
     }else if (view.layer.cornerRadius > 0.) {
@@ -211,68 +205,21 @@ static const CGFloat kTagLabelHeight = 20.f;
         }
     }
     
-    if ([view isKindOfClass:[UITableViewCell class]]) {
-        
-        UITableViewCell *cell = (UITableViewCell *)view;
-        TABComponentLayer *layer;
-        if ((layer = [TABAnimatedProductHelper getShadowLayer:cell]) != nil) {
-//            [backgroundLayer addSublayer:layer];
-            backgroundLayer = layer;
-        }else if ((layer = [TABAnimatedProductHelper getShadowLayer:cell.contentView]) != nil) {
-//            [backgroundLayer addSublayer:layer];
-            backgroundLayer = layer;
-        }
-        
-//        UITableView *tableView = (UITableView *)controlView;
-//        if (view.frame.size.width != [UIScreen mainScreen].bounds.size.width) {
-//            backgroundLayer.frame = CGRectMake(view.bounds.origin.x, view.bounds.origin.y, [UIScreen mainScreen].bounds.size.width, tableView.rowHeight);
-//        }else {
-//            backgroundLayer.frame = view.bounds;
-//        }
-        
-    }else if ([view isKindOfClass:[UICollectionViewCell class]]) {
-        UICollectionViewCell *cell = (UICollectionViewCell *)view;
-        TABComponentLayer *layer;
-        if ((layer = [TABAnimatedProductHelper getShadowLayer:cell]) != nil) {
-            [backgroundLayer addSublayer:layer];
-        }else if ((layer = [TABAnimatedProductHelper getShadowLayer:cell.contentView]) != nil) {
-            [backgroundLayer addSublayer:layer];
-        }
-        backgroundLayer.frame = view.bounds;
+    if (view.layer.shadowOpacity > 0.) {
+        backgroundLayer.shadowColor = view.layer.shadowColor;
+        backgroundLayer.shadowOffset = view.layer.shadowOffset;
+        backgroundLayer.shadowRadius = view.layer.shadowRadius;
+        backgroundLayer.shadowPath = view.layer.shadowPath;
+        backgroundLayer.shadowOpacity = view.layer.shadowOpacity;
+        backgroundLayer.frame = view.frame;
+    }else if (view.frame.size.width == 0.) {
+        backgroundLayer.frame = CGRectMake(view.frame.origin.x, view.frame.origin.y, [UIScreen mainScreen].bounds.size.width, view.frame.size.height);
     }else {
-        TABComponentLayer *layer;
-        if ((layer = [TABAnimatedProductHelper getShadowLayer:view]) != nil) {
-            layer.opacity = 1.;
-            [backgroundLayer addSublayer:layer];
-        }
         backgroundLayer.frame = view.bounds;
     }
     
-//    if (view.frame.size.width == 0.) {
-//        backgroundLayer.frame = CGRectMake(view.bounds.origin.x, view.bounds.origin.y, [UIScreen mainScreen].bounds.size.width, view.bounds.size.height);
-//    }
-    
-//    backgroundLayer.backgroundColor = UIColor.clearColor.CGColor;
+    backgroundLayer.backgroundColor = animatedBackgroundColor.CGColor;
     return backgroundLayer;
-}
-
-+ (TABComponentLayer *)getShadowLayer:(UIView *)view {
-    if (view.layer.shadowOpacity != 0.) {
-        TABComponentLayer *layer = TABComponentLayer.new;
-        layer.name = TABAnimatedProductHelperShadowLayerName;
-        layer.frame = view.layer.frame;
-        layer.cornerRadius = view.layer.cornerRadius;
-        layer.backgroundColor = view.layer.backgroundColor;
-        layer.shadowColor = view.layer.shadowColor;
-        layer.shadowOffset = view.layer.shadowOffset;
-        layer.shadowRadius = view.layer.shadowRadius;
-        layer.shadowPath = view.layer.shadowPath;
-        layer.shadowOpacity = view.layer.shadowOpacity;
-        layer.opacity = 1.;
-        layer.backgroundColor = UIColor.redColor.CGColor;
-        return layer;
-    }
-    return nil;
 }
 
 + (void)addTagWithComponentLayer:(TABComponentLayer *)layer isLines:(BOOL)isLines {

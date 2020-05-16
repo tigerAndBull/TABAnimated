@@ -60,8 +60,15 @@ const int TABAnimatedIndexTag = -100000;
     }
     
     BOOL isFirstLoad = YES;
-    if (tabAnimated.canLoadAgain && tabAnimated.state == TABViewAnimationEnd) {
-        isFirstLoad = NO;
+    if (tabAnimated.canLoadAgain) {
+        if (tabAnimated.state == TABViewAnimationEnd) {
+            isFirstLoad = NO;
+        }else if (index != TABAnimatedIndexTag && [tabAnimated isKindOfClass:[TABFormAnimated class]]) {
+            TABFormAnimated *formAnimated = (TABFormAnimated *)tabAnimated;
+            if (![formAnimated getIndexIsRuning:index]) {
+                isFirstLoad = NO;
+            }
+        }
     }
     
     if (tabAnimated.targetControllerClassName == nil || tabAnimated.targetControllerClassName.length == 0) {
@@ -187,6 +194,40 @@ const int TABAnimatedIndexTag = -100000;
         }
     }
     return nil;
+}
+
+#pragma mark -
+
+- (void)tab_startAnimationWithSection:(NSInteger)section {
+    [self tab_startAnimationWithIndex:section];
+}
+
+- (void)tab_startAnimationWithSection:(NSInteger)section completion:(void (^)(void))completion {
+    [self tab_startAnimationWithIndex:section completion:completion];
+}
+
+- (void)tab_startAnimationWithSection:(NSInteger)section delayTime:(CGFloat)delayTime completion:(void (^)(void))completion {
+    [self tab_startAnimationWithIndex:section delayTime:delayTime completion:completion];
+}
+
+- (void)tab_endAnimationWithSection:(NSInteger)section {
+    [self tab_endAnimationWithIndex:section];
+}
+
+- (void)tab_startAnimationWithRow:(NSInteger)row {
+    [self tab_startAnimationWithIndex:row];
+}
+
+- (void)tab_startAnimationWithRow:(NSInteger)row completion:(void (^)(void))completion {
+    [self tab_startAnimationWithIndex:row completion:completion];
+}
+
+- (void)tab_startAnimationWithRow:(NSInteger)row delayTime:(CGFloat)delayTime completion:(void (^)(void))completion {
+    [self tab_startAnimationWithIndex:row delayTime:delayTime completion:completion];
+}
+
+- (void)tab_endAnimationWithRow:(NSInteger)row {
+    [self tab_endAnimationWithIndex:row];
 }
 
 @end

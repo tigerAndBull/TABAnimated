@@ -8,18 +8,15 @@
 
 #import <Foundation/Foundation.h>
 #import "TABAnimatedProductDefines.h"
-#import "TABWeakDelegateManager.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class TABConfigLayer;
+@class TABWeakDelegateManager;
 
 @interface TABAnimatedProduction : NSObject <NSCopying, NSSecureCoding>
 
 // 产品当前所处状态
 @property (nonatomic, assign) TABAnimatedProductionState state;
-
-@property (nonatomic, strong) TABConfigLayer *configLayer;
 
 // 背景layer
 @property (nonatomic, strong) TABComponentLayer *backgroundLayer;
@@ -50,8 +47,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype)new UNAVAILABLE_ATTRIBUTE;
 - (instancetype)init UNAVAILABLE_ATTRIBUTE;
-
-- (BOOL)needUpdate;
 
 @end
 

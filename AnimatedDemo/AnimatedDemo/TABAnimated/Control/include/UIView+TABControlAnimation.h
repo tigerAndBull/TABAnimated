@@ -99,6 +99,18 @@ extern int const TABAnimatedIndexTag;
  */
 - (void)tab_endAnimationWithIndex:(NSInteger)index;
 
+#pragma mark -
+
+- (void)tab_startAnimationWithSection:(NSInteger)section;
+- (void)tab_startAnimationWithSection:(NSInteger)section completion:(void (^)(void))completion;
+- (void)tab_startAnimationWithSection:(NSInteger)section delayTime:(CGFloat)delayTime completion:(void (^)(void))completion;
+- (void)tab_endAnimationWithSection:(NSInteger)section;
+
+- (void)tab_startAnimationWithRow:(NSInteger)row;
+- (void)tab_startAnimationWithRow:(NSInteger)row completion:(void (^)(void))completion;
+- (void)tab_startAnimationWithRow:(NSInteger)row delayTime:(CGFloat)delayTime completion:(void (^)(void))completion;
+- (void)tab_endAnimationWithRow:(NSInteger)row;
+
 @end
 
 NS_ASSUME_NONNULL_END

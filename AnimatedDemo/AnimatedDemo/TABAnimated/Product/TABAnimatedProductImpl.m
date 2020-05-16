@@ -9,7 +9,6 @@
 #import "TABAnimatedProductImpl.h"
 #import "TABAnimatedProductHelper.h"
 #import "TABAnimatedProduction.h"
-#import "TABComponentManager.h"
 
 #import "TABViewAnimated.h"
 #import "UIView+TABControlModel.h"
@@ -21,10 +20,9 @@
 
 #import "UIView+TABAnimatedProduction.h"
 
-#import "TABAnimatedDarkModeManagerInterface.h"
 #import "TABAnimatedDarkModeManagerImpl.h"
 
-static const char *kProductionQueue = "com.tigerAndBull.productionQueue";
+#import "TABAnimatedChainManagerImpl.h"
 
 @interface TABAnimatedProductImpl() {
     // self存在即存在
@@ -33,14 +31,22 @@ static const char *kProductionQueue = "com.tigerAndBull.productionQueue";
     __unsafe_unretained UIView *_targetView;
 }
 
+// 加工等待队列
 @property (nonatomic, strong) NSMutableArray <UIView *> *targetViewArray;
-@property (nonatomic, strong) NSMutableDictionary <NSString *, TABAnimatedProduction *> *productionPool;
-
-@property (nonatomic, assign) BOOL productFinished;
+// 正在生产的index，配合targetViewArray实现加工等待队列
 @property (nonatomic, assign) NSInteger productIndex;
 
-// 模式切换管理者
+// 产品复用池
+@property (nonatomic, strong) NSMutableDictionary <NSString *, TABAnimatedProduction *> *productionPool;
+
+// 生产结束，将产品同步给等待中的view
+@property (nonatomic, assign) BOOL productFinished;
+
+// 模式切换协议
 @property (nonatomic, strong) id <TABAnimatedDarkModeManagerInterface> darkModeManager;
+
+// 链式调整协议
+@property (nonatomic, strong) id <TABAnimatedChainManagerInterface> chainManager;
 
 @end
 
@@ -89,7 +95,7 @@ static const char *kProductionQueue = "com.tigerAndBull.productionQueue";
     production = [self.productionPool objectForKey:className];
     if (production == nil || _controlView.tabAnimated.isNest) {
         view = [self _createViewWithOrigin:origin controlView:controlView indexPath:indexPath className:className currentClass:currentClass isNeedProduct:YES];
-        [self _productWithView:view currentClass:currentClass indexPath:indexPath origin:origin needSync:YES needReset:NO];
+        [self _prepareProductWithView:view currentClass:currentClass indexPath:indexPath origin:origin needSync:YES needReset:NO];
     }else {
         view = [self _createViewWithOrigin:origin controlView:controlView indexPath:indexPath className:className currentClass:currentClass isNeedProduct:NO];
         if (view.tabAnimatedProduction) return view;
@@ -115,14 +121,7 @@ static const char *kProductionQueue = "com.tigerAndBull.productionQueue";
     if (_controlView == nil) {
         [self setControlView:controlView];
     }
-    [self productWithView:view currentClass:currentClass indexPath:indexPath origin:origin];
-}
-
-- (void)productWithView:(UIView *)view
-           currentClass:(Class)currentClass
-              indexPath:(nullable NSIndexPath *)indexPath
-                 origin:(TABAnimatedProductOrigin)origin {
-    [self _productWithView:view currentClass:currentClass indexPath:indexPath origin:origin needSync:NO needReset:YES];
+    [self _prepareProductWithView:view currentClass:currentClass indexPath:indexPath origin:origin needSync:NO needReset:YES];
 }
 
 // 同步
@@ -142,86 +141,6 @@ static const char *kProductionQueue = "com.tigerAndBull.productionQueue";
 }
 
 #pragma mark - Private
-
-- (void)_productWithView:(UIView *)view
-            currentClass:(Class)currentClass
-               indexPath:(nullable NSIndexPath *)indexPath
-                  origin:(TABAnimatedProductOrigin)origin
-                needSync:(BOOL)needSync
-               needReset:(BOOL)needReset {
-    TABAnimatedProduction *production = view.tabAnimatedProduction;
-    if (production == nil) {
-        production = [TABAnimatedProduction productWithState:TABAnimatedProductionCreate];
-        NSString *className = [TABAnimatedProductHelper getClassNameWithTargetClass:view.class];
-        [self->_productionPool setObject:production forKey:className];
-        view.tabAnimatedProduction = production;
-    }
-    production.targetClass = currentClass;
-    production.currentSection = indexPath.section;
-    production.currentRow = indexPath.row;
-    production.backgroundLayer = [TABAnimatedProductHelper getBackgroundLayerWithView:view controlView:self->_controlView];
-    [self _productWithView:view needSync:needSync needReset:needReset];
-}
-
-- (void)_productWithView:(UIView *)view needSync:(BOOL)needSync needReset:(BOOL)needReset {
-
-    [self.targetViewArray addObject:view];
-    [TABAnimatedProductHelper fullData:view];
-    [self _startSearchNestView:view rootView:view];
-    view.hidden = YES;
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if (self.targetViewArray.count == 0) return;
-        if (self.productIndex > self.targetViewArray.count-1) return;
-        // 从等待队列中取出需要加工的view
-        self->_targetView = self.targetViewArray[self.productIndex];
-        // 生产流水
-        [self _productWithTargetView:self->_targetView];
-        self.productIndex++;
-        
-        if (needReset) {
-            [TABAnimatedProductHelper resetData:self->_targetView];
-        }else {
-            [TABAnimatedProductHelper hiddenSubViews:self->_targetView];
-        }
-    });
-}
-
-- (void)_productWithTargetView:(UIView *)targetView {
-    @autoreleasepool {
-        TABAnimatedProduction *production = targetView.tabAnimatedProduction;
-        production.fileName = [TABAnimatedProductHelper getKeyWithControllerName:_controlView.tabAnimated.targetControllerClassName targetClass:production.targetClass];
-        
-        NSMutableArray <TABComponentLayer *> *layerArray = @[].mutableCopy;
-        // 生产
-        [self _recurseProductLayerWithView:targetView array:layerArray production:production tagIndex:0];
-        // 加工
-        [self _processWithArray:layerArray tabAnimated:_controlView.tabAnimated targetClass:production.targetClass];
-        // 绑定
-        production.state = TABAnimatedProductionBind;
-        production.layers = layerArray;
-        targetView.tabAnimatedProduction = production;
-
-        // 缓存
-        [[TABAnimatedCacheManager shareManager] cacheProduction:production];
-    }
-}
-
-- (void)setProductIndex:(NSInteger)productIndex {
-    _productIndex = productIndex;
-    if (productIndex >= self.targetViewArray.count) {
-        self.productFinished = YES;
-    }
-}
-
-- (void)setProductFinished:(BOOL)productFinished {
-    _productFinished = productFinished;
-    if (productFinished) {
-        [self syncProductions];
-    }
-}
-
-#pragma mark -
 
 - (__kindof UIView *)_createViewWithOrigin:(TABAnimatedProductOrigin)origin
                                controlView:(UIView *)controlView
@@ -283,39 +202,105 @@ static const char *kProductionQueue = "com.tigerAndBull.productionQueue";
     return view;
 }
 
-- (void)_recurseProductLayerWithView:(UIView *)view
-                               array:(NSMutableArray <TABComponentLayer *> *)array
-                          production:(TABAnimatedProduction *)production
-                            tagIndex:(NSInteger)tagIndex {
+- (void)_prepareProductWithView:(UIView *)view currentClass:(Class)currentClass indexPath:(nullable NSIndexPath *)indexPath origin:(TABAnimatedProductOrigin)origin needSync:(BOOL)needSync needReset:(BOOL)needReset {
+    TABAnimatedProduction *production = view.tabAnimatedProduction;
+    if (production == nil) {
+        production = [TABAnimatedProduction productWithState:TABAnimatedProductionCreate];
+        NSString *className = [TABAnimatedProductHelper getClassNameWithTargetClass:view.class];
+        [self->_productionPool setObject:production forKey:className];
+        view.tabAnimatedProduction = production;
+    }
+    production.targetClass = currentClass;
+    production.currentSection = indexPath.section;
+    production.currentRow = indexPath.row;
+    
+    [self _productBackgroundLayerWithView:view needSync:needSync needReset:needReset];
+}
+
+- (void)_productBackgroundLayerWithView:(UIView *)view needSync:(BOOL)needSync needReset:(BOOL)needReset {
     
     UIView *flagView;
+    BOOL isCard = NO;
     
-    if ([view isKindOfClass:[UITableViewCell class]] ||
-        [view isKindOfClass:[UICollectionViewCell class]]) {
-        if (view.subviews.count >= 2 && view.subviews[1].layer.shadowOpacity > 0.) {
+    if ([view isKindOfClass:[UITableViewCell class]] || [view isKindOfClass:[UICollectionViewCell class]]) {
+        if (view.subviews.count >= 1 && view.subviews[0].layer.shadowOpacity > 0.) {
+            flagView = view.subviews[0];
+            isCard = YES;
+        }else if (view.subviews.count >= 2 && view.subviews[1].layer.shadowOpacity > 0.) {
             flagView = view.subviews[1];
-        }else if (view.subviews[0].subviews.count != 0 &&
-                  view.subviews[0].subviews[0].layer.shadowOpacity > 0.) {
-            flagView = view.subviews[0].subviews[0];
+            isCard = YES;
         }
     }else if (view.subviews[0].layer.shadowOpacity > 0.) {
         flagView = view.subviews[0];
+        isCard = YES;
     }
     
     if (flagView) {
         flagView.hidden = YES;
-        production.backgroundLayer = [TABAnimatedProductHelper getBackgroundLayerWithView:flagView controlView:self->_controlView];
     }else {
         flagView = view;
     }
     
-    [self _recurseProductLayerWithView:view flagView:view array:array tagIndex:tagIndex];
+    view.tabAnimatedProduction.backgroundLayer = [TABAnimatedProductHelper getBackgroundLayerWithView:flagView controlView:self->_controlView];
+    
+    [self _productWithView:view needSync:needSync needReset:needReset isCard:isCard];
+}
+
+- (void)_productWithView:(UIView *)view needSync:(BOOL)needSync needReset:(BOOL)needReset isCard:(BOOL)isCard {
+
+    [self.targetViewArray addObject:view];
+    [TABAnimatedProductHelper fullDataAndStartNestAnimation:view isHidden:!needReset];
+    view.hidden = YES;
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (self.targetViewArray.count == 0) return;
+        if (self.productIndex > self.targetViewArray.count-1) return;
+        // 从等待队列中取出需要加工的view
+        self->_targetView = self.targetViewArray[self.productIndex];
+        // 生产流水
+        [self _productWithTargetView:self->_targetView isCard:isCard];
+        self.productIndex++;
+        
+        if (needReset) {
+            [TABAnimatedProductHelper resetData:self->_targetView];
+        }
+    });
+}
+
+- (void)_productWithTargetView:(UIView *)targetView isCard:(BOOL)isCard {
+    @autoreleasepool {
+        TABAnimatedProduction *production = targetView.tabAnimatedProduction;
+        production.fileName = [TABAnimatedProductHelper getKeyWithControllerName:_controlView.tabAnimated.targetControllerClassName targetClass:production.targetClass];
+        
+        NSMutableArray <TABComponentLayer *> *layerArray = @[].mutableCopy;
+        // 生产
+        [self _recurseProductLayerWithView:targetView array:layerArray production:production tagIndex:0 isCard:isCard];
+        // 加工
+        [self _chainAdjustWithArray:layerArray tabAnimated:_controlView.tabAnimated targetClass:production.targetClass];
+        // 绑定
+        production.state = TABAnimatedProductionBind;
+        production.layers = layerArray;
+        targetView.tabAnimatedProduction = production;
+
+        // 缓存
+        [[TABAnimatedCacheManager shareManager] cacheProduction:production];
+    }
+}
+
+#pragma mark -
+
+- (void)_recurseProductLayerWithView:(UIView *)view
+                               array:(NSMutableArray <TABComponentLayer *> *)array
+                          production:(TABAnimatedProduction *)production
+                            tagIndex:(NSInteger)tagIndex
+                              isCard:(BOOL)isCard {
+    [self _recurseProductLayerWithView:view array:array tagIndex:tagIndex isCard:isCard];
 }
 
 - (void)_recurseProductLayerWithView:(UIView *)view
-                            flagView:(UIView *)flagView
                                array:(NSMutableArray <TABComponentLayer *> *)array
-                            tagIndex:(NSInteger)tagIndex {
+                            tagIndex:(NSInteger)tagIndex
+                              isCard:(BOOL)isCard {
     
     NSArray *subViews;
     subViews = [view subviews];
@@ -325,7 +310,7 @@ static const char *kProductionQueue = "com.tigerAndBull.productionQueue";
         
         UIView *subV = subViews[i];
         
-        [self _recurseProductLayerWithView:subV flagView:flagView array:array tagIndex:0];
+        [self _recurseProductLayerWithView:subV array:array tagIndex:0 isCard:isCard];
         
         if ([subV.superview isKindOfClass:[UITableViewCell class]] ||
             [subV.superview isKindOfClass:[UICollectionViewCell class]] ||
@@ -351,7 +336,7 @@ static const char *kProductionQueue = "com.tigerAndBull.productionQueue";
         if ([TABAnimatedProductHelper canProduct:subV]) {
 
             UIColor *animatedColor = [_controlView.tabAnimated getCurrentAnimatedColorWithCollection:_controlView.traitCollection];
-            layer = [self _createLayerWithView:subV flagView:flagView needRemove:needRemove color:animatedColor];
+            layer = [self _createLayerWithView:subV needRemove:needRemove color:animatedColor isCard:isCard];
             layer.tagIndex = tagIndex;
             [array addObject:layer];
             
@@ -360,40 +345,7 @@ static const char *kProductionQueue = "com.tigerAndBull.productionQueue";
     }
 }
 
-- (void)_processWithArray:(NSMutableArray <TABComponentLayer *> *)array
-              tabAnimated:(TABViewAnimated *)tabAnimated
-              targetClass:(Class)targetClass {
-    TABComponentManager *manager = [TABComponentManager managerWithLayers:array];
-    if (tabAnimated.adjustBlock) {
-        tabAnimated.adjustBlock(manager);
-    }
-    if (targetClass && tabAnimated.adjustWithClassBlock) {
-        tabAnimated.adjustWithClassBlock(manager, targetClass);
-    }
-}
-
-- (void)_syncProduction:(TABAnimatedProduction *)production {
-    @autoreleasepool {
-        NSArray <UIView *> *array = [production.syncDelegateManager getDelegates];
-        dispatch_queue_t queue = dispatch_queue_create(kProductionQueue, DISPATCH_QUEUE_CONCURRENT);
-        for (UIView *view in array) {
-            dispatch_async(queue, ^{
-                TABAnimatedProduction *newProduction = view.tabAnimatedProduction;
-                newProduction.backgroundLayer = production.backgroundLayer.copy;
-                for (TABComponentLayer *layer in production.layers) {
-                    [newProduction.layers addObject:layer.copy];
-                }
-                // 绑定
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [TABAnimatedProductHelper bindView:view production:newProduction];
-                    [self.darkModeManager addNeedChangeView:view];
-                });
-            });
-        }
-    }
-}
-
-- (TABComponentLayer *)_createLayerWithView:(UIView *)view flagView:(UIView *)flagView needRemove:(BOOL)needRemove color:(UIColor *)color {
+- (TABComponentLayer *)_createLayerWithView:(UIView *)view needRemove:(BOOL)needRemove color:(UIColor *)color isCard:(BOOL)isCard {
     
     TABComponentLayer *layer = TABComponentLayer.new;
     if (needRemove) {
@@ -401,7 +353,6 @@ static const char *kProductionQueue = "com.tigerAndBull.productionQueue";
         return layer;
     }
     
-    // 类型
     if ([view isKindOfClass:[UILabel class]]) {
         UILabel *lab = (UILabel *)view;
         layer.numberOflines = lab.numberOfLines;
@@ -419,7 +370,12 @@ static const char *kProductionQueue = "com.tigerAndBull.productionQueue";
     }
     
     // 坐标转换
-    CGRect rect = [flagView convertRect:view.frame fromView:view.superview];
+    CGRect rect;
+    if (isCard) {
+        rect = view.frame;
+    }else {
+        rect = [_targetView convertRect:view.frame fromView:view.superview];
+    }
     rect = [layer resetFrameWithRect:rect animatedHeight:_controlView.tabAnimated.animatedHeight];
     layer.frame = rect;
     
@@ -445,6 +401,8 @@ static const char *kProductionQueue = "com.tigerAndBull.productionQueue";
     }
     return layer;
 }
+
+#pragma mark -
 
 - (BOOL)_isNeedRemove:(UIView *)view {
     
@@ -472,28 +430,48 @@ static const char *kProductionQueue = "com.tigerAndBull.productionQueue";
     return needRemove;
 }
 
-- (void)_startSearchNestView:(UIView *)view rootView:(UIView *)rootView {
-    
-    NSArray *subViews = [view subviews];
-    if ([subViews count] == 0) return;
-    
-    for (int i = 0; i < subViews.count;i++) {
-        
-        UIView *subV = subViews[i];
-        [self _startSearchNestView:subV rootView:rootView];
-        
-        if (subV.tabAnimated && ![subV isEqual:_controlView]) {
-            // 嵌套处理，先保留
-            // 获取index，存储下来
-            if (_controlView.tabAnimated.targetControllerClassName) {
-                subV.tabAnimated.targetControllerClassName = _controlView.tabAnimated.targetControllerClassName;
+- (void)_chainAdjustWithArray:(NSMutableArray <TABComponentLayer *> *)array
+                  tabAnimated:(TABViewAnimated *)tabAnimated
+                  targetClass:(Class)targetClass {
+    if (tabAnimated.adjustBlock) {
+        [self.chainManager chainAdjustWithArray:array adjustBlock:tabAnimated.adjustBlock];
+    }
+    if (tabAnimated.adjustWithClassBlock) {
+        [self.chainManager chainAdjustWithArray:array adjustBlock:tabAnimated.adjustBlock];
+    }
+}
+
+- (void)_syncProduction:(TABAnimatedProduction *)production {
+    @autoreleasepool {
+        NSArray <UIView *> *array = [production.syncDelegateManager getDelegates];
+        for (UIView *view in array) {
+            TABAnimatedProduction *newProduction = view.tabAnimatedProduction;
+            newProduction.backgroundLayer = production.backgroundLayer.copy;
+            for (TABComponentLayer *layer in production.layers) {
+                [newProduction.layers addObject:layer.copy];
             }
-            [subV tab_startAnimation];
+            // 绑定
+            [TABAnimatedProductHelper bindView:view production:newProduction];
+            [self.darkModeManager addNeedChangeView:view];
         }
     }
 }
 
 #pragma mark - Getter / Setter
+
+- (void)setProductIndex:(NSInteger)productIndex {
+    _productIndex = productIndex;
+    if (productIndex >= self.targetViewArray.count) {
+        self.productFinished = YES;
+    }
+}
+
+- (void)setProductFinished:(BOOL)productFinished {
+    _productFinished = productFinished;
+    if (productFinished) {
+        [self syncProductions];
+    }
+}
 
 - (void)setControlView:(UIView *)controlView {
     _controlView = controlView;
@@ -513,6 +491,13 @@ static const char *kProductionQueue = "com.tigerAndBull.productionQueue";
         _productionPool = @{}.mutableCopy;
     }
     return _productionPool;
+}
+
+- (id <TABAnimatedChainManagerInterface>)chainManager {
+    if (!_chainManager) {
+        _chainManager = TABAnimatedChainManagerImpl.new;
+    }
+    return _chainManager;
 }
 
 @end

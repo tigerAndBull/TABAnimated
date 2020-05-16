@@ -12,7 +12,10 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-@class TABBaseComponent;
+@class TABBaseComponent, TABComponentManager;
+
+typedef void(^TABAdjustBlock)(TABComponentManager * _Nonnull manager);
+typedef void(^TABAdjustWithClassBlock)(TABComponentManager * _Nonnull manager, Class _Nullable targetClass);
 
 typedef NSArray <TABBaseComponent *> * _Nullable (^TABAnimatedArrayFloatBlock)(CGFloat);
 typedef NSArray <TABBaseComponent *> * _Nullable (^TABAnimatedArrayIntBlock)(NSInteger);

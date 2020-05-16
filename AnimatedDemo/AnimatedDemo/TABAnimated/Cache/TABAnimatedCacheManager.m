@@ -160,7 +160,7 @@ static const NSInteger kMemeoryModelMaxCount = 20;
     TABAnimatedProduction *production;
     production = [self.cacheManagerDict objectForKey:key];
     if (production) {
-        if (!production.needUpdate) {
+        if (![self _judgeIsNeedUpdateWithProduction:production]) {
             return production.copy;
         }
         return nil;
@@ -171,7 +171,7 @@ static const NSInteger kMemeoryModelMaxCount = 20;
     if (filePath != nil && filePath.length > 0) {
         TABAnimatedProduction *production = (TABAnimatedProduction *)[TABAnimatedDocumentMethod getCacheData:filePath targetClass:[TABAnimatedProduction class]];
         if (production) {
-            if (!production.needUpdate) {
+            if (![self _judgeIsNeedUpdateWithProduction:production]) {
                 [self.cacheManagerDict setObject:production.copy forKey:production.fileName];
                 return production.copy;
             }else {
@@ -333,6 +333,18 @@ static const NSInteger kMemeoryModelMaxCount = 20;
 
 - (NSString *)_getCacheModelFilePathWithFileName:(NSString *)fileName {
     return [TABAnimatedDocumentMethod getPathByFilePacketName:[NSString stringWithFormat:@"/%@/%@/%@.plist",TABCacheManagerFolderName,TABCacheManagerCacheModelFolderName,fileName]];
+}
+
+- (BOOL)_judgeIsNeedUpdateWithProduction:(TABAnimatedProduction *)production {
+    if (production.version && production.version.length > 0 &&
+        [TABAnimatedCacheManager shareManager].currentSystemVersion &&
+        [TABAnimatedCacheManager shareManager].currentSystemVersion.length > 0) {
+        if ([production.version isEqualToString:[TABAnimatedCacheManager shareManager].currentSystemVersion]) {
+            return NO;
+        }
+        return YES;
+    }
+    return YES;
 }
 
 @end

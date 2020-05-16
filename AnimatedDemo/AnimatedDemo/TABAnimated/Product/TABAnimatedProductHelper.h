@@ -11,16 +11,14 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-extern NSString * const TABAnimatedProductHelperShadowLayerName;
-
 @interface TABAnimatedProductHelper : NSObject
 
 /**
- 填充数据
+ 填充数据, 并启动嵌套的view
  
  @param view 上层view
  */
-+ (void)fullData:(UIView *)view;
+ + (void)fullDataAndStartNestAnimation:(UIView *)view isHidden:(BOOL)isHidden;
 
 /**
  恢复数据
@@ -28,8 +26,6 @@ extern NSString * const TABAnimatedProductHelperShadowLayerName;
  @param view 上层view
  */
 + (void)resetData:(UIView *)view;
-
-+ (void)hiddenSubViews:(UIView *)view;
 
 /**
 是否可用于生产骨架
@@ -40,13 +36,34 @@ extern NSString * const TABAnimatedProductHelperShadowLayerName;
 
 + (TABComponentLayer *)getBackgroundLayerWithView:(UIView *)view controlView:(UIView *)controlView;
 
+/**
+将产品绑定到view上
+
+@param view 目标view
+@param production 目标production
+*/
 + (void)bindView:(UIView *)view production:(TABAnimatedProduction *)production;
 
+/**
+为Layer添加红色tag角标
+
+@param layer 目标layer
+@param isLines 是否为多行layer
+*/
 + (void)addTagWithComponentLayer:(TABComponentLayer *)layer isLines:(BOOL)isLines;
 
-+ (TABComponentLayer *)getShadowLayer:(UIView *)view;
+/**
+获取去除后缀的类名
 
+@param targetClass 目标class
+*/
 + (NSString *)getClassNameWithTargetClass:(Class)targetClass;
+
+/**
+获取指定情景下production的key
+
+@param targetClass 目标class
+*/
 + (NSString *)getKeyWithControllerName:(NSString *)controllerName targetClass:(Class)targetClass;
     
 @end

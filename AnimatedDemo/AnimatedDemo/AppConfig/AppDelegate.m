@@ -33,7 +33,7 @@
     // 初始化TABAnimated，并设置TABAnimated相关属性
     // 初始化方法仅仅设置的是全局的动画效果
     // 你可以设置`TABViewAnimated`中局部动画属性`superAnimationType`覆盖全局属性，在工程中兼容多种动画
-    [[TABAnimated sharedAnimated] initWithOnlySkeleton];
+    [[TABAnimated sharedAnimated] initWithShimmerAnimated];
     // open log
     // 开启日志
     [TABAnimated sharedAnimated].openLog = NO;

@@ -42,6 +42,11 @@ UICollectionViewDataSource
     NSLog(@"========= delloc =========");
 }
 
+- (void)reloadViewAnimated {
+    self.collectionView.tabAnimated.canLoadAgain = YES;
+    [self.collectionView tab_startAnimationWithIndex:0];
+}
+
 #pragma mark - Target Methods
 
 /**
@@ -56,7 +61,7 @@ UICollectionViewDataSource
     
     // 停止动画,并刷新数据
     [self.collectionView tab_endAnimationWithIndex:0];
-    [self performSelector:@selector(afterGetDataSecond) withObject:nil afterDelay:3.];
+    [self performSelector:@selector(afterGetDataSecond) withObject:nil afterDelay:5.];
 }
 
 - (void)afterGetDataSecond {

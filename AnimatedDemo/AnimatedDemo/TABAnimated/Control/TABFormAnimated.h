@@ -73,6 +73,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSInteger)getHeaderIndexWithIndex:(NSInteger)index;
 - (NSInteger)getFooterIndexWithIndex:(NSInteger)index;
 
+- (BOOL)getIndexIsRuning:(NSInteger)index;
+
 - (void)exchangeDelegate:(UIView *)target;
 - (void)exchangeDataSource:(UIView *)target;
 - (void)registerViewToReuse:(UIView *)view;

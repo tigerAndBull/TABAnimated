@@ -11,12 +11,16 @@
 
 @protocol TABAnimatedDarkModeManagerInterface <NSObject>
 
+// 绑定controlView
 - (void)setControlView:(UIView *)controlView;
 
+// 添加哨兵视图
 - (void)addDarkModelSentryView;
 
+/// 添加需要实时改变的view
 - (void)addNeedChangeView:(UIView *)view;
 
+// 释放
 - (void)destroy;
 
 @end
