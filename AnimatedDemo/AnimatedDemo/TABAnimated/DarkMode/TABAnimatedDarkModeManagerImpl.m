@@ -19,7 +19,6 @@
 
 @interface TABAnimatedDarkModeManagerImpl()
 
-@property (nonatomic, strong) TABViewAnimated *tabAnimated;
 @property (nonatomic, weak) UIView *controlView;
 @property (nonatomic, assign) BOOL isAddSentryView;
 @property (nonatomic, strong) TABSentryView *sentryView;
@@ -32,7 +31,6 @@
 
 - (void)setControlView:(UIView *)controlView {
     _controlView = controlView;
-    _tabAnimated = controlView.tabAnimated;
 }
 
 - (void)addDarkModelSentryView {
@@ -70,6 +68,8 @@
 }
 
 - (void)_traitCollectionDidChangeWithTargetView:(UIView *)targetView {
+    
+    TABViewAnimated *_tabAnimated = _controlView.tabAnimated;
     
     if (!_controlView || !_tabAnimated) {
         return;

@@ -66,6 +66,12 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, assign) NSInteger animatedSectionCount;
 
+/**
+是否可以在滚动，默认无法滚动
+注：带有动画的骨架屏，会被强制无法滚动
+*/
+@property (nonatomic, assign) BOOL canScroll;
+
 - (NSInteger)getIndexWithIndex:(NSInteger)index;
 - (NSInteger)getIndexWithIndexPath:(NSIndexPath *)indexPath;
 - (NSString *)getStringWIthIndex:(NSInteger)index;

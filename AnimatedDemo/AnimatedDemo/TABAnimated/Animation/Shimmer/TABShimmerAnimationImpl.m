@@ -47,12 +47,10 @@ static NSString * const kShimmerAnimationKey = @"kShimmerAnimationKey";
                        ];
     
     for (TABComponentLayer *layer in layers) {
-        if(layer.withoutAnimation) continue;
-        layer.colors = colors;
-        [layer removeAnimationForKey:kShimmerAnimationKey];
-        [self _addShimmerAnimationToLayer:layer
-                                 duration:[TABAnimated sharedAnimated].shimmerAnimation.shimmerDuration
-                                direction:[TABAnimated sharedAnimated].shimmerAnimation.shimmerDirection];
+        [self _addShimmerAnimationWithLayer:layer colors:colors];
+        for (TABComponentLayer *sub in layer.lineLayers) {
+            [self _addShimmerAnimationWithLayer:sub colors:colors];
+        }
     }
 }
 
@@ -85,6 +83,15 @@ static NSString * const kShimmerAnimationKey = @"kShimmerAnimationKey";
 }
 
 #pragma mark - Private
+
+- (void)_addShimmerAnimationWithLayer:(TABComponentLayer *)layer colors:(NSArray *)colors {
+    if(layer.withoutAnimation) return;
+    layer.colors = colors;
+    [layer removeAnimationForKey:kShimmerAnimationKey];
+    [self _addShimmerAnimationToLayer:layer
+                             duration:[TABAnimated sharedAnimated].shimmerAnimation.shimmerDuration
+                            direction:[TABAnimated sharedAnimated].shimmerAnimation.shimmerDirection];
+}
 
 - (UIColor *)_brightenedColor:(UIColor *)color brightness:(CGFloat)brightness {
     CGFloat h,s,b,a;

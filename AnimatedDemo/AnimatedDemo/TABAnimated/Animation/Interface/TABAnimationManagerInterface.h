@@ -11,8 +11,10 @@
 
 @protocol TABAnimationManagerInterface <NSObject>
 
+// 绑定控制视图
 - (void)setControlView:(UIView *)controlView;
-- (void)addAnimation;
+// 为目标view添加动画
+- (void)addAnimationWithTargetView:(UIView *)targetView;
 
 @end
 

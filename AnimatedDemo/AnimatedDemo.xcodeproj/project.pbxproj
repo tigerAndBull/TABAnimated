@@ -161,6 +161,7 @@
 		68C171CD2461BC9E004FD76F /* TABAnimatedDarkModeImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C171CC2461BC9E004FD76F /* TABAnimatedDarkModeImpl.m */; };
 		68C21D9A22F34548003C2936 /* TestCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C21D9922F34548003C2936 /* TestCollectionReusableView.m */; };
 		68C9DD8524706353008533C8 /* TABAnimatedChainManagerImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C9DD8424706353008533C8 /* TABAnimatedChainManagerImpl.m */; };
+		68C9DD882470E5F3008533C8 /* TABAnimationManagerImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C9DD872470E5F3008533C8 /* TABAnimationManagerImpl.m */; };
 		68CFCF0F2294DCBC007D167F /* XibCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 68CFCF0D2294DCBC007D167F /* XibCollectionViewCell.m */; };
 		68CFCF102294DCBC007D167F /* XibCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68CFCF0E2294DCBC007D167F /* XibCollectionViewCell.xib */; };
 		68CFCF162294DFA0007D167F /* XibCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68CFCF152294DFA0007D167F /* XibCollectionViewController.m */; };
@@ -516,6 +517,8 @@
 		68C9DD8224706279008533C8 /* TABAnimatedChainManagerInterface.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TABAnimatedChainManagerInterface.h; sourceTree = "<group>"; };
 		68C9DD8324706353008533C8 /* TABAnimatedChainManagerImpl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TABAnimatedChainManagerImpl.h; sourceTree = "<group>"; };
 		68C9DD8424706353008533C8 /* TABAnimatedChainManagerImpl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TABAnimatedChainManagerImpl.m; sourceTree = "<group>"; };
+		68C9DD862470E5F3008533C8 /* TABAnimationManagerImpl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TABAnimationManagerImpl.h; sourceTree = "<group>"; };
+		68C9DD872470E5F3008533C8 /* TABAnimationManagerImpl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TABAnimationManagerImpl.m; sourceTree = "<group>"; };
 		68CFCF0C2294DCBC007D167F /* XibCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XibCollectionViewCell.h; sourceTree = "<group>"; };
 		68CFCF0D2294DCBC007D167F /* XibCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XibCollectionViewCell.m; sourceTree = "<group>"; };
 		68CFCF0E2294DCBC007D167F /* XibCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = XibCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -876,6 +879,8 @@
 				68522BD2241CC1190054D82A /* Shimmer */,
 				68522BD3241CC1190054D82A /* Drop */,
 				68522BD4241CC11A0054D82A /* Bin */,
+				68C9DD862470E5F3008533C8 /* TABAnimationManagerImpl.h */,
+				68C9DD872470E5F3008533C8 /* TABAnimationManagerImpl.m */,
 			);
 			path = Animation;
 			sourceTree = "<group>";
@@ -1698,6 +1703,7 @@
 				68589C362343630F00E8E630 /* TestCollectionView.m in Sources */,
 				6827B6972323F87D00E165CF /* TABCollectionAnimated.m in Sources */,
 				68C171BD2461A0AF004FD76F /* NestTableViewCell.m in Sources */,
+				68C9DD882470E5F3008533C8 /* TABAnimationManagerImpl.m in Sources */,
 				688D6813244DF67700DEC2E1 /* TABShimmerAnimationImpl.m in Sources */,
 				68A652FD235F732100D12ADC /* MASViewAttribute.m in Sources */,
 				68C171B0246059F1004FD76F /* LawyerTableViewCell.m in Sources */,

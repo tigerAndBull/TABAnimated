@@ -109,6 +109,8 @@ static NSString * const kAnimatedDropAnimation = @"kAnimatedDropAnimation";
 
 - (void)_addDropAnimation:(CALayer *)layer index:(NSInteger)index duration:(CGFloat)duration count:(NSInteger)count stayTime:(CGFloat)stayTime deepColor:(UIColor *)deepColor {
     
+    if (deepColor == nil || layer.backgroundColor == nil) return;
+    
     CAKeyframeAnimation *animation = [CAKeyframeAnimation animationWithKeyPath:@"backgroundColor"];
     animation.values = @[
                          (id)deepColor.CGColor,
