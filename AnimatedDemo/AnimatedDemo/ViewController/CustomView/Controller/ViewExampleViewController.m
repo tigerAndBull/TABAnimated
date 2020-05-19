@@ -50,7 +50,7 @@
 }
 
 - (void)afterGetData {
-    [self.view tab_endAnimation];
+    [self.view tab_endAnimationEaseOut];
     
     _topImg.image = [UIImage imageNamed:@"test.jpg"];
     _titleLab.text = @"您不会没有骨架过渡吧？";

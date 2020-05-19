@@ -56,6 +56,13 @@ NSString * const TABViewAnimatedDefaultSuffixString = @"default_resuable_view";
     }
 }
 
+- (CGFloat)animatedHeight {
+    if (_animatedHeight > 0.) {
+        return _animatedHeight;
+    }
+    return [TABAnimated sharedAnimated].animatedHeight;
+}
+
 - (UIColor *)animatedColor {
     if (_animatedColor) {
         return _animatedColor;

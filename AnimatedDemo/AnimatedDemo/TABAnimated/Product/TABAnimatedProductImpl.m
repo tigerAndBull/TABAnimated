@@ -38,7 +38,6 @@
 
 // 产品复用池
 @property (nonatomic, strong) NSMutableDictionary <NSString *, TABAnimatedProduction *> *productionPool;
-@property (nonatomic, strong) NSMutableDictionary <NSString *, NSIndexPath *> *productionIndexDict;
 
 // 生产结束，将产品同步给等待中的view
 @property (nonatomic, assign) BOOL productFinished;
@@ -70,7 +69,8 @@
 // 取完cell后
 // 1. 池子没有production 取母cell production 生成、加工、装饰 需要实时同步
 // 2. 池子有production 创建完状态，取子cell 需要等待同步 cell没有production，刚创建状态 取子cell，等待同步 绑定
-// 3. 池子有production 加工完状态\绑定完状态， 取子cell，copy一份，绑定
+// 3. 池子有production 加工完状态\绑定完状态， 取子cell，copy一份
+// 4. 启动同步流程
 - (__kindof UIView *)productWithControlView:(UIView *)controlView
                                currentClass:(Class)currentClass
                                   indexPath:(nullable NSIndexPath *)indexPath
@@ -83,46 +83,24 @@
     NSString *className = [TABAnimatedProductHelper getClassNameWithTargetClass:currentClass];
     UIView *view;
     
-    if ([[self.productionIndexDict objectForKey:className] isEqual:indexPath]) {
-        return [self _createViewWithOrigin:origin controlView:controlView indexPath:indexPath className:className currentClass:currentClass isNeedProduct:YES];
-    }
-    
-    // 执行缓存工作流
+    // 缓存
     NSString *key = [TABAnimatedProductHelper getKeyWithControllerName:controlView.tabAnimated.targetControllerClassName targetClass:currentClass];
     TABAnimatedProduction *production = [[TABAnimatedCacheManager shareManager] getProductionWithKey:key];
     if (production) {
-        view = [self _createViewWithOrigin:origin controlView:controlView indexPath:indexPath className:className currentClass:currentClass isNeedProduct:NO];
-        if (view.tabAnimatedProduction) return view;
-        [TABAnimatedProductHelper bindView:view production:production];
-        [self.darkModeManager addNeedChangeView:view];
-        [_animationManager addAnimationWithTargetView:view];
+        view = [self _reuseWithCurrentClass:currentClass indexPath:indexPath origin:origin className:className production:production];
         return view;
     }
 
-    // 执行加工流
-    // 同步数据到池子里
-    // 给需要同步的cell同步数据
+    // 加工
     production = [self.productionPool objectForKey:className];
     if (production == nil || _controlView.tabAnimated.isNest) {
         view = [self _createViewWithOrigin:origin controlView:controlView indexPath:indexPath className:className currentClass:currentClass isNeedProduct:YES];
         [self _prepareProductWithView:view currentClass:currentClass indexPath:indexPath origin:origin needSync:YES needReset:NO];
-        [self.productionIndexDict setValue:indexPath forKey:className];
-    }else {
-        view = [self _createViewWithOrigin:origin controlView:controlView indexPath:indexPath className:className currentClass:currentClass isNeedProduct:NO];
-        NSLog(@"%@",NSStringFromClass(view.class));
-        if (view.tabAnimatedProduction) return view;
-        if (production.state == TABAnimatedProductionCreate) {
-            TABAnimatedProduction *newProduction = production.copy;
-            view.tabAnimatedProduction = newProduction;
-            // 等待同步
-            [production.syncDelegateManager addDelegate:view];
-        }else {
-            TABAnimatedProduction *newProduction = production.copy;
-            [TABAnimatedProductHelper bindView:view production:newProduction];
-            [self.darkModeManager addNeedChangeView:view];
-            [_animationManager addAnimationWithTargetView:view];
-        }
+        return view;
     }
+    
+    // 复用
+    view = [self _reuseWithCurrentClass:currentClass indexPath:indexPath origin:origin className:className production:production];
     return view;
 }
 
@@ -131,9 +109,19 @@
            currentClass:(nonnull Class)currentClass
               indexPath:(nullable NSIndexPath *)indexPath
                  origin:(TABAnimatedProductOrigin)origin {
+    
     if (_controlView == nil) {
         [self setControlView:controlView];
     }
+    
+    NSString *key = [TABAnimatedProductHelper getKeyWithControllerName:controlView.tabAnimated.targetControllerClassName targetClass:currentClass];
+    TABAnimatedProduction *production = [[TABAnimatedCacheManager shareManager] getProductionWithKey:key];
+    if (production) {
+        TABAnimatedProduction *newProduction = production.copy;
+        [self _bindWithProduction:newProduction targetView:view];
+        return;
+    }
+    
     [self _prepareProductWithView:view currentClass:currentClass indexPath:indexPath origin:origin needSync:NO needReset:YES];
 }
 
@@ -142,9 +130,7 @@
     for (NSInteger i = 0; i < self.targetViewArray.count; i++) {
         UIView *view = self.targetViewArray[i];
         view.hidden = NO;
-        [TABAnimatedProductHelper bindView:view production:view.tabAnimatedProduction];
-        [self.darkModeManager addNeedChangeView:view];
-        [_animationManager addAnimationWithTargetView:view];
+        [self _bindWithProduction:view.tabAnimatedProduction targetView:view];
         [self _syncProduction:view.tabAnimatedProduction];
     }
 }
@@ -156,6 +142,34 @@
 
 #pragma mark - Private
 
+- (void)_prepareProductWithView:(UIView *)view currentClass:(Class)currentClass indexPath:(nullable NSIndexPath *)indexPath origin:(TABAnimatedProductOrigin)origin needSync:(BOOL)needSync needReset:(BOOL)needReset {
+    TABAnimatedProduction *production = view.tabAnimatedProduction;
+    if (production == nil) {
+        production = [TABAnimatedProduction productWithState:TABAnimatedProductionCreate];
+        NSString *className = [TABAnimatedProductHelper getClassNameWithTargetClass:view.class];
+        view.tabAnimatedProduction = production;
+        if (needSync) {
+            [self.productionPool setObject:production forKey:className];
+        }
+    }
+    production.targetClass = currentClass;
+    production.currentSection = indexPath.section;
+    production.currentRow = indexPath.row;
+    
+    [self _productBackgroundLayerWithView:view needReset:needReset];
+}
+
+- (__kindof UIView *)_reuseWithCurrentClass:(Class)currentClass
+                                  indexPath:(nullable NSIndexPath *)indexPath
+                                     origin:(TABAnimatedProductOrigin)origin
+                                  className:(NSString *)className
+                                 production:(TABAnimatedProduction *)production {
+    UIView *view = [self _createViewWithOrigin:origin controlView:_controlView indexPath:indexPath className:className currentClass:currentClass isNeedProduct:NO];
+    if (view.tabAnimatedProduction) return view;
+    [self _reuseProduction:production targetView:view];
+    return view;
+}
+
 - (__kindof UIView *)_createViewWithOrigin:(TABAnimatedProductOrigin)origin
                                controlView:(UIView *)controlView
                                  indexPath:(nullable NSIndexPath *)indexPath
@@ -163,13 +177,7 @@
                               currentClass:(Class)currentClass
                              isNeedProduct:(BOOL)isNeedProduct {
     
-    NSString *prefixString;
-    if (isNeedProduct) {
-        prefixString = @"tab_";
-    }else {
-        prefixString = @"tab_contain_";
-    }
-    
+    NSString *prefixString = isNeedProduct ? @"tab_" : @"tab_contain_";
     NSString *identifier = [NSString stringWithFormat:@"%@%@", prefixString, className];
     UIView *view;
     
@@ -216,22 +224,17 @@
     return view;
 }
 
-- (void)_prepareProductWithView:(UIView *)view currentClass:(Class)currentClass indexPath:(nullable NSIndexPath *)indexPath origin:(TABAnimatedProductOrigin)origin needSync:(BOOL)needSync needReset:(BOOL)needReset {
-    TABAnimatedProduction *production = view.tabAnimatedProduction;
-    if (production == nil) {
-        production = [TABAnimatedProduction productWithState:TABAnimatedProductionCreate];
-        NSString *className = [TABAnimatedProductHelper getClassNameWithTargetClass:view.class];
-        [self->_productionPool setObject:production forKey:className];
-        view.tabAnimatedProduction = production;
+- (void)_reuseProduction:(TABAnimatedProduction *)production targetView:(UIView *)targetView {
+    TABAnimatedProduction *newProduction = production.copy;
+    if (production.state != TABAnimatedProductionCreate) {
+        [self _bindWithProduction:newProduction targetView:targetView];
+    }else {
+        targetView.tabAnimatedProduction = newProduction;
+        [production.syncDelegateManager addDelegate:targetView];
     }
-    production.targetClass = currentClass;
-    production.currentSection = indexPath.section;
-    production.currentRow = indexPath.row;
-    
-    [self _productBackgroundLayerWithView:view needSync:needSync needReset:needReset];
 }
 
-- (void)_productBackgroundLayerWithView:(UIView *)view needSync:(BOOL)needSync needReset:(BOOL)needReset {
+- (void)_productBackgroundLayerWithView:(UIView *)view needReset:(BOOL)needReset {
     
     UIView *flagView;
     BOOL isCard = NO;
@@ -257,10 +260,10 @@
     
     view.tabAnimatedProduction.backgroundLayer = [TABAnimatedProductHelper getBackgroundLayerWithView:flagView controlView:self->_controlView];
     
-    [self _productWithView:view needSync:needSync needReset:needReset isCard:isCard];
+    [self _productWithView:view needReset:needReset isCard:isCard];
 }
 
-- (void)_productWithView:(UIView *)view needSync:(BOOL)needSync needReset:(BOOL)needReset isCard:(BOOL)isCard {
+- (void)_productWithView:(UIView *)view needReset:(BOOL)needReset isCard:(BOOL)isCard {
 
     [self.targetViewArray addObject:view];
     [TABAnimatedProductHelper fullDataAndStartNestAnimation:view isHidden:!needReset];
@@ -467,12 +470,15 @@
             for (TABComponentLayer *layer in production.layers) {
                 [newProduction.layers addObject:layer.copy];
             }
-            // 绑定
-            [TABAnimatedProductHelper bindView:view production:newProduction];
-            [self.darkModeManager addNeedChangeView:view];
-            [_animationManager addAnimationWithTargetView:view];
+            [self _bindWithProduction:newProduction targetView:view];
         }
     }
+}
+
+- (void)_bindWithProduction:(TABAnimatedProduction *)production targetView:(UIView *)targetView {
+    [TABAnimatedProductHelper bindView:targetView production:production animatedHeight:_controlView.tabAnimated.animatedHeight];
+    [self.darkModeManager addNeedChangeView:targetView];
+    [_animationManager addAnimationWithTargetView:targetView];
 }
 
 #pragma mark - Getter / Setter
@@ -510,13 +516,6 @@
         _productionPool = @{}.mutableCopy;
     }
     return _productionPool;
-}
-
-- (NSMutableDictionary *)productionIndexDict {
-    if (!_productionIndexDict) {
-        _productionIndexDict = @{}.mutableCopy;
-    }
-    return _productionIndexDict;
 }
 
 - (id <TABAnimatedChainManagerInterface>)chainManager {

@@ -93,9 +93,15 @@
 #pragma mark - Getter / Setter
 
 - (CGFloat)animatedHeight {
+    
+    if (!_useGlobalAnimatedHeight) {
+        return 0.;
+    }
+    
     if (_animatedHeight == 0.) {
         return 12.f;
     }
+    
     return _animatedHeight;
 }
 

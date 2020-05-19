@@ -41,8 +41,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @param view 目标view
 @param production 目标production
+@param animatedHeight 上层设置的高度
 */
-+ (void)bindView:(UIView *)view production:(TABAnimatedProduction *)production;
++ (void)bindView:(UIView *)view production:(TABAnimatedProduction *)production animatedHeight:(CGFloat)animatedHeight;
 
 /**
 为Layer添加红色tag角标

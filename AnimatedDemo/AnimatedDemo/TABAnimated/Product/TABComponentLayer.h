@@ -105,7 +105,7 @@ typedef NS_ENUM(NSInteger, TABComponentLayerOrigin) {
 @property (nonatomic, strong) NSMutableArray <TABComponentLayer *> *lineLayers;
 
 - (CGRect)resetFrameWithRect:(CGRect)rect animatedHeight:(CGFloat)animatedHeight;
-- (void)addLayer:(TABComponentLayer *)layer viewWidth:(CGFloat)viewWidth;
+- (void)addLayer:(TABComponentLayer *)layer viewWidth:(CGFloat)viewWidth animatedHeight:(CGFloat)animatedHeight;
 
 @end
 

@@ -19,6 +19,10 @@ static NSString * const kAnimatedBinAnimation = @"kAnimatedBinAnimation";
     [self _addBinAnimationWithLayer:backgroundLayer duration:[TABAnimated sharedAnimated].binAnimation.animatedDurationBin key:kAnimatedBinAnimation];
 }
 
+- (void)destory {
+    
+}
+
 - (void)_addBinAnimationWithLayer:(CALayer *)layer
                          duration:(CGFloat)duration
                               key:(NSString *)key {

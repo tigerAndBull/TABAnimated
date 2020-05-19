@@ -167,7 +167,7 @@ static const CGFloat kTagLabelHeight = 20.f;
     return NO;
 }
 
-+ (void)bindView:(UIView *)view production:(TABAnimatedProduction *)production {
++ (void)bindView:(UIView *)view production:(TABAnimatedProduction *)production animatedHeight:(CGFloat)animatedHeight {
     if (production.backgroundLayer.frame.size.height == 0. &&
         view.layer.bounds.size.height > 0.) {
         production.backgroundLayer.frame = view.layer.bounds;
@@ -175,7 +175,7 @@ static const CGFloat kTagLabelHeight = 20.f;
     [view.layer addSublayer:production.backgroundLayer];
     for (NSInteger i = 0; i < production.layers.count; i++) {
         TABComponentLayer *layer = production.layers[i];
-        [production.backgroundLayer addLayer:layer viewWidth:view.frame.size.width];
+        [production.backgroundLayer addLayer:layer viewWidth:view.frame.size.width animatedHeight:animatedHeight];
     }
     production.state = TABAnimatedProductionBind;
     view.tabAnimatedProduction = production;

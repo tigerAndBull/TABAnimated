@@ -57,7 +57,7 @@ static const CGFloat kDefaultHeight = 16.f;
     return rect;
 }
 
-- (void)addLayer:(TABComponentLayer *)layer viewWidth:(CGFloat)viewWidth {
+- (void)addLayer:(TABComponentLayer *)layer viewWidth:(CGFloat)viewWidth animatedHeight:(CGFloat)animatedHeight {
     
     if (!CGRectEqualToRect(layer.adjustingFrame, CGRectZero)) {
         if (layer.origin != TABComponentLayerOriginCenterLabel) {
@@ -78,11 +78,11 @@ static const CGFloat kDefaultHeight = 16.f;
            }
     #endif
     }else {
-        [self _addLinesLayer:layer];
+        [self _addLinesLayer:layer animatedHeight:animatedHeight];
     }
 }
 
-- (void)_addLinesLayer:(TABComponentLayer *)layer {
+- (void)_addLinesLayer:(TABComponentLayer *)layer animatedHeight:(CGFloat)animatedHeight {
     
     CGRect frame = layer.frame;
     NSInteger lines = layer.numberOflines;
@@ -95,9 +95,13 @@ static const CGFloat kDefaultHeight = 16.f;
     NSInteger tagIndex = layer.tagIndex;
     TABComponentLayerOrigin origin = layer.origin;
     
-    CGFloat textHeight = kDefaultHeight*[TABAnimated sharedAnimated].animatedHeightCoefficient;
-    if (layer.isChangedHeight) {
+    CGFloat textHeight;
+    if (animatedHeight > 0.) {
+        textHeight = animatedHeight;
+    }else if (layer.isChangedHeight) {
         textHeight = frame.size.height;
+    }else {
+        textHeight = kDefaultHeight*[TABAnimated sharedAnimated].animatedHeightCoefficient;
     }
     
     if (lines == 0) {

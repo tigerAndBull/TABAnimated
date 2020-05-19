@@ -636,10 +636,10 @@
 			children = (
 				23D56C5E2452C79000A340C1 /* TABComponentLayer+TABClassicAnimation.h */,
 				23D56C5F2452C79000A340C1 /* TABComponentLayer+TABClassicAnimation.m */,
-				68C1717B24600242004FD76F /* TABClassicAnimation.h */,
-				68C1717C24600242004FD76F /* TABClassicAnimation.m */,
 				68C1717E2460028B004FD76F /* TABClassicAnimationImpl.h */,
 				68C1717F2460028B004FD76F /* TABClassicAnimationImpl.m */,
+				68C1717B24600242004FD76F /* TABClassicAnimation.h */,
+				68C1717C24600242004FD76F /* TABClassicAnimation.m */,
 			);
 			path = Classic;
 			sourceTree = "<group>";
