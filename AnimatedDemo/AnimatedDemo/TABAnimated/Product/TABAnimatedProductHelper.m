@@ -175,6 +175,7 @@ static const CGFloat kTagLabelHeight = 20.f;
     [view.layer addSublayer:production.backgroundLayer];
     for (NSInteger i = 0; i < production.layers.count; i++) {
         TABComponentLayer *layer = production.layers[i];
+        if (layer.loadStyle == TABViewLoadAnimationRemove) continue;
         [production.backgroundLayer addLayer:layer viewWidth:view.frame.size.width animatedHeight:animatedHeight];
     }
     production.state = TABAnimatedProductionBind;

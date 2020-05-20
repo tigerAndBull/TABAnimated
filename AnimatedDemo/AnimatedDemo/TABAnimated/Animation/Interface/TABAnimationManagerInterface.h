@@ -13,6 +13,7 @@
 
 // 绑定控制视图
 - (void)setControlView:(UIView *)controlView;
+
 // 为目标view添加动画
 - (void)addAnimationWithTargetView:(UIView *)targetView;
 

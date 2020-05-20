@@ -66,8 +66,11 @@
     }
 }
 
-- (void)dealloc {
-    NSLog(@"========== delloc =========");
+- (void)reloadViewAnimated {
+    self.currentCollectionView.tabAnimated.canLoadAgain = YES;
+    [self.currentCollectionView tab_startAnimationWithCompletion:^{
+        [self afterGetData:self.currentIndex];
+    }];
 }
 
 #pragma mark - JXCategoryViewDelegate

@@ -9,8 +9,23 @@
 #import "SencondaryOptionViewController.h"
 #import <TABKit/TABKit.h>
 #import "AppDelegate.h"
+#import "TABAnimatedControllerUIImpl.h"
+
+@interface SencondaryOptionViewController()
+
+@property (nonatomic, strong) id <TABAnimatedControllerUIInterface> rightButtonInterface;
+
+@end
 
 @implementation SencondaryOptionViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    _rightButtonInterface = TABAnimatedControllerUIImpl.new;
+    [_rightButtonInterface addRightButtonWithText:@"" controller:self clickButtonBlock:^(UIButton *btn) {
+        
+    }];
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *className = self.controllerClassArray[indexPath.row];

@@ -31,6 +31,8 @@
 #import "TABBinAnimation.h"
 #import "TABShimmerAnimation.h"
 
+#import "TABDropAnimationDefines.h"
+
 #endif
 
 /**

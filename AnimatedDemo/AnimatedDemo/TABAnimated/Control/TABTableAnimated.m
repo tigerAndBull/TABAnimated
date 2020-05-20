@@ -224,10 +224,10 @@
     if (tableView.estimatedRowHeight != 0) {
         self.oldEstimatedRowHeight = tableView.estimatedRowHeight;
         tableView.estimatedRowHeight = UITableViewAutomaticDimension;
-        if ([tableView numberOfSections] == 1) {
+        if (self.animatedCount == 0) {
             self.animatedCount = ceilf([UIScreen mainScreen].bounds.size.height/self.cellHeight*1.0);
-            tableView.rowHeight = self.cellHeight;
         }
+        tableView.rowHeight = self.cellHeight;
     }
     
     if (self.showTableHeaderView) {

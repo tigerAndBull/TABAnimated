@@ -358,6 +358,9 @@
             UIColor *animatedColor = [_controlView.tabAnimated getCurrentAnimatedColorWithCollection:_controlView.traitCollection];
             layer = [self _createLayerWithView:subV needRemove:needRemove color:animatedColor isCard:isCard];
             layer.tagIndex = tagIndex;
+            if (_controlView.tabAnimated.decorator && [_controlView.tabAnimated.decorator respondsToSelector:@selector(propertyBindingWithLayer:index:)]) {
+                [_controlView.tabAnimated.decorator propertyBindingWithLayer:layer index:tagIndex];
+            }
             [array addObject:layer];
             
             tagIndex++;

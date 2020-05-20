@@ -15,11 +15,7 @@
 
 @optional
 
-- (id <TABAnimatedDecorateInterface>)getDecorator;
-
-// layer生产期
-- (void)propertyBindingWithBackgroundLayer:(TABComponentLayer *)backgroundLayer;
-
+// 属性绑定期
 - (void)propertyBindingWithLayer:(TABComponentLayer *)layer index:(NSInteger)index;
 
 // layer装饰期
@@ -27,7 +23,6 @@
                         backgroundLayer:(TABComponentLayer *)backgroundLayer
                                  layers:(NSArray <TABComponentLayer *> *)layers;
 
-- (void)whenScrolling;
 // 骨架结束，释放
 - (void)destory;
 

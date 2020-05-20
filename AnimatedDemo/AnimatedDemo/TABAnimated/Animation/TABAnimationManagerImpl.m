@@ -23,27 +23,12 @@
 
 - (void)setControlView:(UIView *)controlView {
     _controlView = controlView;
+    [self _bindDecorater];
 }
 
-- (void)addAnimationWithTargetView:(UIView *)targetView {
-    
+- (void)_bindDecorater {
     TABViewAnimated *_tabAnimated = _controlView.tabAnimated;
-    
-    if (!_controlView || !_tabAnimated) {
-        return;
-    }
-    
-    UITraitCollection *traitCollection = _controlView.traitCollection;
-    
-    if (_tabAnimated.decorator) {
-        if (_tabAnimated.decorator  && [_tabAnimated.decorator  respondsToSelector:@selector(addAnimationWithTraitCollection:backgroundLayer:layers:)]) {
-            TABAnimatedProduction *production = targetView.tabAnimatedProduction;
-            [_tabAnimated.decorator addAnimationWithTraitCollection:traitCollection
-                                                    backgroundLayer:production.backgroundLayer
-                                                             layers:production.layers];
-        }
-        return;
-    }
+    if (_tabAnimated.decorator) return;
     
     if (_tabAnimated.superAnimationType == TABViewSuperAnimationTypeDefault) {
         if ([TABAnimated sharedAnimated].animationType == TABAnimationTypeShimmer) {
@@ -60,6 +45,15 @@
     }else if (_tabAnimated.superAnimationType == TABViewSuperAnimationTypeBinAnimation) {
         _tabAnimated.decorator = TABBinAnimationImpl.new;
     }
+}
+
+- (void)addAnimationWithTargetView:(UIView *)targetView {
+    
+    TABViewAnimated *_tabAnimated = _controlView.tabAnimated;
+    
+    if (!_controlView || !_tabAnimated) return;
+    
+    UITraitCollection *traitCollection = _controlView.traitCollection;
     
     if (_tabAnimated.decorator) {
         if (_tabAnimated.decorator  && [_tabAnimated.decorator  respondsToSelector:@selector(addAnimationWithTraitCollection:backgroundLayer:layers:)]) {

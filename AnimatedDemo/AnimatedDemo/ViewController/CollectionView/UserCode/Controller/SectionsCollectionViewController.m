@@ -38,10 +38,6 @@ UICollectionViewDataSource
     [self performSelector:@selector(afterGetData) withObject:nil afterDelay:1.];
 }
 
-- (void)dealloc {
-    NSLog(@"========= delloc =========");
-}
-
 - (void)reloadViewAnimated {
     self.collectionView.tabAnimated.canLoadAgain = YES;
     [self.collectionView tab_startAnimationWithIndex:0];

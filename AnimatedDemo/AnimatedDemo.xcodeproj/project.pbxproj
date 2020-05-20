@@ -141,7 +141,6 @@
 		68C17176245DD563004FD76F /* TABPopBgView.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C17173245DD563004FD76F /* TABPopBgView.m */; };
 		68C17177245DD563004FD76F /* TABPopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C17174245DD563004FD76F /* TABPopViewController.m */; };
 		68C1717D24600242004FD76F /* TABClassicAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C1717C24600242004FD76F /* TABClassicAnimation.m */; };
-		68C171802460028B004FD76F /* TABClassicAnimationImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C1717F2460028B004FD76F /* TABClassicAnimationImpl.m */; };
 		68C1718624603C9D004FD76F /* MutiSectionMutiCellTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C1718524603C9D004FD76F /* MutiSectionMutiCellTableViewController.m */; };
 		68C1718A24604058004FD76F /* OneSectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C1718924604058004FD76F /* OneSectionViewController.m */; };
 		68C1718D2460406C004FD76F /* OneSectionWithTableHeaderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C1718C2460406C004FD76F /* OneSectionWithTableHeaderViewController.m */; };
@@ -245,7 +244,6 @@
 		23D56C5F2452C79000A340C1 /* TABComponentLayer+TABClassicAnimation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "TABComponentLayer+TABClassicAnimation.m"; sourceTree = "<group>"; };
 		23DA56BF244F1AD70019321E /* TABViewAnimatedDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TABViewAnimatedDefines.h; sourceTree = "<group>"; };
 		23DA56C0244F1EE10019321E /* TABShimmerAnimationDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TABShimmerAnimationDefines.h; sourceTree = "<group>"; };
-		23DF2A812451A94200F5C9F9 /* TABDropInterface.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TABDropInterface.h; sourceTree = "<group>"; };
 		6806411322796E2C00D79040 /* NewsCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsCollectionViewCell.h; sourceTree = "<group>"; };
 		6806411422796E2C00D79040 /* NewsCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsCollectionViewCell.m; sourceTree = "<group>"; };
 		680641162279712200D79040 /* News.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = News.h; sourceTree = "<group>"; };
@@ -361,6 +359,7 @@
 		683420BC233CC5330056557C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		683420BE233CC53A0056557C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		683420C0233CC5440056557C /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		6834CF1524753866007F8459 /* TABDropAnimationDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TABDropAnimationDefines.h; sourceTree = "<group>"; };
 		6843006D235F775700CD19CE /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		68522BC5241A663D0054D82A /* TABShimmerAnimation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TABShimmerAnimation.h; sourceTree = "<group>"; };
 		68522BC6241A663D0054D82A /* TABShimmerAnimation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TABShimmerAnimation.m; sourceTree = "<group>"; };
@@ -475,8 +474,6 @@
 		68C17175245DD563004FD76F /* TABPopBgView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TABPopBgView.h; sourceTree = "<group>"; };
 		68C1717B24600242004FD76F /* TABClassicAnimation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TABClassicAnimation.h; sourceTree = "<group>"; };
 		68C1717C24600242004FD76F /* TABClassicAnimation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TABClassicAnimation.m; sourceTree = "<group>"; };
-		68C1717E2460028B004FD76F /* TABClassicAnimationImpl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TABClassicAnimationImpl.h; sourceTree = "<group>"; };
-		68C1717F2460028B004FD76F /* TABClassicAnimationImpl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TABClassicAnimationImpl.m; sourceTree = "<group>"; };
 		68C1718424603C9D004FD76F /* MutiSectionMutiCellTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MutiSectionMutiCellTableViewController.h; sourceTree = "<group>"; };
 		68C1718524603C9D004FD76F /* MutiSectionMutiCellTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MutiSectionMutiCellTableViewController.m; sourceTree = "<group>"; };
 		68C1718824604058004FD76F /* OneSectionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OneSectionViewController.h; sourceTree = "<group>"; };
@@ -636,8 +633,6 @@
 			children = (
 				23D56C5E2452C79000A340C1 /* TABComponentLayer+TABClassicAnimation.h */,
 				23D56C5F2452C79000A340C1 /* TABComponentLayer+TABClassicAnimation.m */,
-				68C1717E2460028B004FD76F /* TABClassicAnimationImpl.h */,
-				68C1717F2460028B004FD76F /* TABClassicAnimationImpl.m */,
 				68C1717B24600242004FD76F /* TABClassicAnimation.h */,
 				68C1717C24600242004FD76F /* TABClassicAnimation.m */,
 			);
@@ -944,6 +939,7 @@
 		68522BD3241CC1190054D82A /* Drop */ = {
 			isa = PBXGroup;
 			children = (
+				6834CF1524753866007F8459 /* TABDropAnimationDefines.h */,
 				688D6817244DF8DC00DEC2E1 /* TABDropAnimationImpl.h */,
 				688D6818244DF8DC00DEC2E1 /* TABDropAnimationImpl.m */,
 				68522BC8241A664D0054D82A /* TABDropAnimation.h */,
@@ -954,7 +950,6 @@
 				68522BD6241CC1900054D82A /* NSArray+TABDropAnimation.m */,
 				688D680E244C73C800DEC2E1 /* TABBaseComponent+TABDropAnimation.h */,
 				688D680F244C73C800DEC2E1 /* TABBaseComponent+TABDropAnimation.m */,
-				23DF2A812451A94200F5C9F9 /* TABDropInterface.h */,
 			);
 			path = Drop;
 			sourceTree = "<group>";
@@ -1655,7 +1650,6 @@
 				20A85C3E215224B10005AD62 /* TestTableViewCell.m in Sources */,
 				681567132264214F00293AB4 /* JXCategoryIndicatorLineView.m in Sources */,
 				6815671A2264214F00293AB4 /* JXCategoryIndicatorBackgroundView.m in Sources */,
-				68C171802460028B004FD76F /* TABClassicAnimationImpl.m in Sources */,
 				6810D0C92340FB1C009026FC /* TABSentryView.m in Sources */,
 				20A0159A216A538F0082425D /* MainViewController.m in Sources */,
 				681567232264214F00293AB4 /* JXCategoryTitleImageCellModel.m in Sources */,

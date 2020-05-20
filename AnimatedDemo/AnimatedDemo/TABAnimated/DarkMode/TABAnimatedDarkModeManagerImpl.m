@@ -96,9 +96,9 @@
         }
     }else if(_tabAnimated.superAnimationType == TABViewSuperAnimationTypeOnlySkeleton) {
         _tabAnimated.switcher  = TABAnimatedDarkModeImpl.new;
-    }else if (_tabAnimated.superAnimationType == TABAnimationTypeShimmer) {
+    }else if (_tabAnimated.superAnimationType == TABViewSuperAnimationTypeShimmer) {
         _tabAnimated.switcher  = (id <TABAnimatedDarkModeInterface>)_tabAnimated.decorator;
-    }else if (_tabAnimated.superAnimationType == TABAnimationTypeDrop) {
+    }else if (_tabAnimated.superAnimationType == TABViewSuperAnimationTypeDrop) {
         _tabAnimated.switcher  = (id <TABAnimatedDarkModeInterface>)_tabAnimated.decorator;
     }
     

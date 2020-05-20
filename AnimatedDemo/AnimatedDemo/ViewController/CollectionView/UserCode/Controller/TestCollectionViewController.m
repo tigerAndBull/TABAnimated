@@ -43,8 +43,11 @@
     }];
 }
 
-- (void)dealloc {
-    NSLog(@"========= delloc =========");
+- (void)reloadViewAnimated {
+    _collectionView.tabAnimated.canLoadAgain = YES;
+    [_collectionView tab_startAnimationWithCompletion:^{
+        [self afterGetData];
+    }];
 }
 
 #pragma mark - Target Methods

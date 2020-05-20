@@ -30,14 +30,17 @@ static NSString * const kAnimatedDropAnimation = @"kAnimatedDropAnimation";
     return self;
 }
 
-#pragma mark - TABAnimatedDecorateInterface
-
-- (void)propertyBindingWithBackgroundLayer:(TABComponentLayer *)backgroundLayer {
-    
+- (instancetype)init {
+    if (self = [super init]) {
+        _dropAnimation = [TABAnimated sharedAnimated].dropAnimation;
+    }
+    return self;
 }
 
+#pragma mark - TABAnimatedDecorateInterface
+
 - (void)propertyBindingWithLayer:(TABComponentLayer *)layer index:(NSInteger)index {
-    
+    layer.dropAnimationIndex = index;
 }
 
 - (void)addAnimationWithTraitCollection:(UITraitCollection *)traitCollection
@@ -57,19 +60,51 @@ static NSString * const kAnimatedDropAnimation = @"kAnimatedDropAnimation";
     
     if (deepColor == nil) return;
     
-    CGFloat duration = duration = self.dropAnimation.dropAnimationDuration;
+    CGFloat duration = self.dropAnimation.dropAnimationDuration;
     CGFloat cutTime = 0.02;
-    CGFloat allCutTime = cutTime*(layers.count-1)*(layers.count)/2.0;
-    NSInteger dropAnimationCount = layers.count;
+    NSInteger dropAnimationCount = 0;
+    
+    for (TABComponentLayer *layer in layers) {
+        if (layer.loadStyle == TABViewLoadAnimationRemove || layer.removeOnDropAnimation || layer.withoutAnimation) {
+            continue;
+        }
+        if (layer.lineLayers.count > 0) {
+            dropAnimationCount += layer.lineLayers.count;
+            continue;
+        }
+        dropAnimationCount++;
+    }
+    dropAnimationCount++;
+    
+    CGFloat allCutTime = cutTime*(dropAnimationCount-1)*(dropAnimationCount)/2.0;
+    CGFloat resultDuration = duration*(dropAnimationCount+1)-allCutTime;
     
     for (NSInteger i = 0; i < layers.count; i++) {
         TABComponentLayer *layer = layers[i];
-        if (layer.removeOnDropAnimation || layer.withoutAnimation) continue;
+        if (layer.loadStyle == TABViewLoadAnimationRemove || layer.removeOnDropAnimation || layer.withoutAnimation) continue;
+        if (layer.origin == TABComponentLayerOriginImageView) {
+            if (layer.removeOnDropAnimation) {
+                
+            }
+        }
+        if (layer.lineLayers.count > 0) {
+            for (NSInteger i = 0; i < layer.lineLayers.count; i++) {
+                TABComponentLayer *sub = layer.lineLayers[i];
+                sub.dropAnimationIndex = layer.dropAnimationFromIndex+i;
+                [self _addDropAnimation:sub
+                                  index:sub.dropAnimationIndex
+                               duration:resultDuration
+                                  count:dropAnimationCount
+                               stayTime:(layer.dropAnimationStayTime == 0.) ? 0.2 : layer.dropAnimationStayTime  -i*cutTime
+                              deepColor:deepColor];
+            }
+            continue;
+        }
         [self _addDropAnimation:layer
                           index:layer.dropAnimationIndex
-                       duration:duration*(dropAnimationCount+1)-allCutTime
-                          count:dropAnimationCount+1
-                       stayTime:layer.dropAnimationStayTime-i*cutTime
+                       duration:resultDuration
+                          count:dropAnimationCount
+                       stayTime:(layer.dropAnimationStayTime == 0.) ? 0.2 : layer.dropAnimationStayTime  -i*cutTime
                       deepColor:deepColor];
     }
 }
@@ -78,6 +113,39 @@ static NSString * const kAnimatedDropAnimation = @"kAnimatedDropAnimation";
                      tabAnimated:(TABViewAnimated *)tabAnimated
                  backgroundLayer:(TABComponentLayer *)backgroundLayer
                           layers:(NSArray <TABComponentLayer *> *)layers {
+    
+    if (@available(iOS 13.0, *)) {
+        
+        UIColor *animatedBackgroundColor = [UIColor colorWithDynamicProvider:^UIColor * _Nonnull(UITraitCollection * _Nonnull traitCollection) {
+            if (traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
+                return tabAnimated.darkAnimatedBackgroundColor;
+            }else {
+                return tabAnimated.animatedBackgroundColor;
+            }
+        }];
+
+        UIColor *animatedColor = [UIColor colorWithDynamicProvider:^UIColor * _Nonnull(UITraitCollection * _Nonnull traitCollection) {
+            if (traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
+                return tabAnimated.darkAnimatedColor;
+            }else {
+                return tabAnimated.animatedColor;
+            }
+        }];
+        
+        backgroundLayer.backgroundColor = animatedBackgroundColor.CGColor;
+        for (TABComponentLayer *layer in layers) {
+            if (layer.lineLayers.count > 0) {
+                for (TABComponentLayer *sub in layer.lineLayers) {
+                    sub.backgroundColor = animatedColor.CGColor;
+                }
+            }else {
+                layer.backgroundColor = animatedColor.CGColor;
+                if (layer.contents && layer.placeholderName && layer.placeholderName.length > 0) {
+                    layer.contents = (id)[UIImage imageNamed:layer.placeholderName].CGImage;
+                }
+            }
+        }
+    }
     
     UIColor *deepColor;
     if (@available(iOS 12.0, *)) {
@@ -91,16 +159,32 @@ static NSString * const kAnimatedDropAnimation = @"kAnimatedDropAnimation";
     }
     
     for (TABComponentLayer *layer in layers) {
-        if ([layer animationForKey:kAnimatedDropAnimation]) {
-            CAKeyframeAnimation *animation = [layer animationForKey:kAnimatedDropAnimation].copy;
-            animation.values = @[
-                                 (id)deepColor.CGColor,
-                                 (id)layer.backgroundColor,
-                                 (id)layer.backgroundColor,
-                                 (id)deepColor.CGColor
-                                 ];
-            [layer removeAnimationForKey:kAnimatedDropAnimation];
-            [layer addAnimation:animation forKey:kAnimatedDropAnimation];
+        if (layer.lineLayers.count > 0) {
+            for (TABComponentLayer *sub in layer.lineLayers) {
+                if ([sub animationForKey:kAnimatedDropAnimation]) {
+                    CAKeyframeAnimation *animation = [sub animationForKey:kAnimatedDropAnimation].copy;
+                    animation.values = @[
+                                         (id)deepColor.CGColor,
+                                         (id)sub.backgroundColor,
+                                         (id)sub.backgroundColor,
+                                         (id)deepColor.CGColor
+                                         ];
+                    [sub removeAnimationForKey:kAnimatedDropAnimation];
+                    [sub addAnimation:animation forKey:kAnimatedDropAnimation];
+                }
+            }
+        }else {
+            if ([layer animationForKey:kAnimatedDropAnimation]) {
+                CAKeyframeAnimation *animation = [layer animationForKey:kAnimatedDropAnimation].copy;
+                animation.values = @[
+                                     (id)deepColor.CGColor,
+                                     (id)layer.backgroundColor,
+                                     (id)layer.backgroundColor,
+                                     (id)deepColor.CGColor
+                                     ];
+                [layer removeAnimationForKey:kAnimatedDropAnimation];
+                [layer addAnimation:animation forKey:kAnimatedDropAnimation];
+            }
         }
     }
 }
@@ -109,7 +193,9 @@ static NSString * const kAnimatedDropAnimation = @"kAnimatedDropAnimation";
 
 - (void)_addDropAnimation:(CALayer *)layer index:(NSInteger)index duration:(CGFloat)duration count:(NSInteger)count stayTime:(CGFloat)stayTime deepColor:(UIColor *)deepColor {
     
-    if (deepColor == nil || layer.backgroundColor == nil) return;
+    if (deepColor == nil || layer.backgroundColor == nil) {
+        return;
+    }
     
     CAKeyframeAnimation *animation = [CAKeyframeAnimation animationWithKeyPath:@"backgroundColor"];
     animation.values = @[

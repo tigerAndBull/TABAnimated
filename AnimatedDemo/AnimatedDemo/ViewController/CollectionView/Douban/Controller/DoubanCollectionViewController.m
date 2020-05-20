@@ -36,8 +36,11 @@
     [self performSelector:@selector(afterGetData) withObject:nil afterDelay:5.];
 }
 
-- (void)dealloc {
-    NSLog(@"========= delloc =========");
+- (void)reloadViewAnimated {
+    _collectionView.tabAnimated.canLoadAgain = YES;
+    [_collectionView tab_startAnimationWithCompletion:^{
+        [self afterGetData];
+    }];
 }
 
 #pragma mark - Target Methods
@@ -107,7 +110,6 @@
         _collectionView.tabAnimated.animatedHeight = 6.0;
         _collectionView.tabAnimated.superAnimationType = TABViewSuperAnimationTypeDrop;
         _collectionView.tabAnimated.animatedColor = kColor(0xF3F3F3FF);
-        _collectionView.tabAnimated.dropAnimationDeepColor = kColor(0xE6E6E6FF);
         _collectionView.tabAnimated.animatedBackgroundColor = UIColor.whiteColor;
         
         if (@available(iOS 13.0, *)) {
@@ -119,13 +121,13 @@
         _collectionView.tabAnimated.adjustBlock = ^(TABComponentManager * _Nonnull manager) {
             // 一旦动画队列中 其中一个元素的dropIndex被修改了，那么其他元素大概率需要重新设置
             // 设置0,1,2三个动画元素 第一个变色
-//            manager.animations(0,3).dropIndex(0);
-//            manager.animation(1).down(5).reducedWidth(20);
-//            manager.animation(2).reducedWidth(30);
-//
-//          // 设置多行文本类型的动画组，变色下标从1开始
-//            manager.animation(3).line(3).height(6.0).down(12).space(12).dropFromIndex(1);
-//            manager.animations(4,3).remove();
+            manager.animations(0,3).dropIndex(0);
+            manager.animation(1).down(5).reducedWidth(20);
+            manager.animation(2).reducedWidth(30);
+            
+            // 设置多行文本类型的动画组，变色下标从1开始
+            manager.animation(3).line(3).height(6.0).down(12).space(12).dropFromIndex(1);
+            manager.animations(4,3).remove();
         };
     }
     return _collectionView;

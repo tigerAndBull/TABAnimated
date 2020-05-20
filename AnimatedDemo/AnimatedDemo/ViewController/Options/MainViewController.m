@@ -25,7 +25,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _rightButtonInterface = TABAnimatedControllerUIImpl.new;
-    [_rightButtonInterface addRightButtonWithText:@"全局配置" controller:self clickButtonBlock:^(UIButton *btn) {
+    [_rightButtonInterface addRightButtonWithText:@"" controller:self clickButtonBlock:^(UIButton *btn) {
         
     }];
 }
