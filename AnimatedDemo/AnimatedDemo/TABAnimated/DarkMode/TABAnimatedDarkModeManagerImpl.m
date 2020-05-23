@@ -12,6 +12,10 @@
 #import "TABComponentLayer.h"
 #import "TABViewAnimated.h"
 #import "TABSentryView.h"
+#import "UIView+TABControlModel.h"
+#import "UIView+TABAnimatedProduction.h"
+
+#import "TABAnimated.h"
 
 #import "TABAnimatedDarkModeInterface.h"
 #import "TABWeakDelegateManager.h"

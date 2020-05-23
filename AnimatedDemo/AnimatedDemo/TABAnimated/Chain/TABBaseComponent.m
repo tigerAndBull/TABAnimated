@@ -332,40 +332,6 @@
     _layer.contents = (id)[UIImage imageNamed:value].CGImage;
 }
 
-#pragma mark - toLongAnimation
-
-- (TABBaseComponentVoidBlock)toLongAnimation {
-    return ^TABBaseComponent *(void) {
-        [self result_toLongAnimation];
-        return self;
-    };
-}
-
-- (void)preview_toLongAnimation {
-    [self result_toLongAnimation];
-}
-
-- (void)result_toLongAnimation {
-//    [_layer setBaseAnimationType:TABComponentLayerBaseAnimationToLong];
-}
-
-#pragma mark - toShortAnimation
-
-- (TABBaseComponentVoidBlock)toShortAnimation {
-    return ^TABBaseComponent *(void) {
-        [self result_toShortAnimation];
-        return self;
-    };
-}
-
-- (void)preview_toShortAnimation {
-    [self result_toShortAnimation];
-}
-
-- (void)result_toShortAnimation {
-//    [_layer setBaseAnimationType:TABComponentLayerBaseAnimationToShort];
-}
-
 #pragma mark - cancelAlignCenter
 
 - (TABBaseComponentVoidBlock)cancelAlignCenter {

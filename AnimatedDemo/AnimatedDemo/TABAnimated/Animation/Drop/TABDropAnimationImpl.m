@@ -13,6 +13,7 @@
 
 #import "TABDropAnimation.h"
 #import "TABAnimatedDarkModeInterface.h"
+#import "TABAnimated.h"
 
 static NSString * const kAnimatedDropAnimation = @"kAnimatedDropAnimation";
 
@@ -81,11 +82,8 @@ static NSString * const kAnimatedDropAnimation = @"kAnimatedDropAnimation";
     
     for (NSInteger i = 0; i < layers.count; i++) {
         TABComponentLayer *layer = layers[i];
-        if (layer.loadStyle == TABViewLoadAnimationRemove || layer.removeOnDropAnimation || layer.withoutAnimation) continue;
-        if (layer.origin == TABComponentLayerOriginImageView) {
-            if (layer.removeOnDropAnimation) {
-                
-            }
+        if (layer.loadStyle == TABViewLoadAnimationRemove || layer.removeOnDropAnimation || layer.withoutAnimation) {
+            continue;
         }
         if (layer.lineLayers.count > 0) {
             for (NSInteger i = 0; i < layer.lineLayers.count; i++) {
@@ -159,6 +157,11 @@ static NSString * const kAnimatedDropAnimation = @"kAnimatedDropAnimation";
     }
     
     for (TABComponentLayer *layer in layers) {
+        
+        if (layer.loadStyle == TABViewLoadAnimationRemove || layer.removeOnDropAnimation || layer.withoutAnimation) {
+            continue;
+        }
+        
         if (layer.lineLayers.count > 0) {
             for (TABComponentLayer *sub in layer.lineLayers) {
                 if ([sub animationForKey:kAnimatedDropAnimation]) {

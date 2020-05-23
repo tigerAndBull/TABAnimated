@@ -11,7 +11,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class TABWeakDelegateManager;
+@class TABWeakDelegateManager, TABComponentLayer;
 
 @interface TABAnimatedProduction : NSObject <NSCopying, NSSecureCoding>
 
@@ -47,6 +47,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype)new UNAVAILABLE_ATTRIBUTE;
 - (instancetype)init UNAVAILABLE_ATTRIBUTE;
+
+- (id)copyWithBinder:(id <TABComponentLayerBindInterface>)binder;
 
 @end
 

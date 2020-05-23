@@ -9,7 +9,11 @@
 #import "TABAnimatedProductHelper.h"
 #import "TABComponentLayer.h"
 #import "TABAnimatedProduction.h"
+#import "TABViewAnimated.h"
+
 #import "UIView+TABAnimatedProduction.h"
+#import "UIView+TABControlModel.h"
+#import "UIView+TABControlAnimation.h"
 
 static NSString * const kShortDataString = @"tab_testtesttest";
 static NSString * const kLongDataString = @"tab_testtesttesttesttesttesttesttesttesttesttest";

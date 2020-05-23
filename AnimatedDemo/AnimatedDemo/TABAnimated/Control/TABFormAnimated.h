@@ -6,7 +6,7 @@
 //  Copyright © 2020 tigerAndBull. All rights reserved.
 //
 
-#import <TABAnimated/TABAnimated.h>
+#import "TABViewAnimated.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -67,10 +67,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSInteger animatedSectionCount;
 
 /**
-是否可以在滚动，默认无法滚动
-注：带有动画的骨架屏，会被强制无法滚动
-*/
-@property (nonatomic, assign) BOOL canScroll;
+ 是否可以在滚动，默认无法滚动
+ */
+@property (nonatomic, assign) BOOL scrollEnabled;
+@property (nonatomic, assign) BOOL oldScrollEnabled;
 
 - (NSInteger)getIndexWithIndex:(NSInteger)index;
 - (NSInteger)getIndexWithIndexPath:(NSIndexPath *)indexPath;

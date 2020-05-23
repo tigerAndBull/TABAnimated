@@ -14,6 +14,7 @@
 
 #import "TABAnimatedProduction.h"
 #import "TABAnimatedProductHelper.h"
+#import "TABFormAnimated.h"
 
 NSString * const TABCacheManagerFolderName = @"TABAnimated";
 NSString * const TABCacheManagerCacheModelFolderName = @"CacheModel";
@@ -89,6 +90,8 @@ static const NSInteger kMemeoryModelMaxCount = 20;
 #pragma mark - Public Methods
 
 - (void)install {
+    
+    [TABAnimatedDocumentMethod createFile:TABCacheManagerFolderName isDir:YES];
     
     // 获取App版本
     NSString *currentVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];

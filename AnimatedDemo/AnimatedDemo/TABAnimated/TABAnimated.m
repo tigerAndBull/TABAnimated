@@ -8,10 +8,7 @@
 
 #import "TABAnimated.h"
 
-#import "TABAnimatedDocumentMethod.h"
 #import "TABAnimatedConfig.h"
-
-#import <objc/runtime.h>
 #import "TABAnimatedCacheManager.h"
 
 @implementation TABAnimated
@@ -41,13 +38,14 @@
         _animatedColor = tab_kBackColor;
         _darkAnimatedColor = tab_kDarkBackColor;
         _animatedBackgroundColor = UIColor.whiteColor;
+        _scrollEnabled = YES;
+        
         if (@available(iOS 13.0, *)) {
             _darkAnimatedBackgroundColor =  UIColor.secondarySystemBackgroundColor;
         }else {
             _darkAnimatedBackgroundColor = UIColor.whiteColor;
         }
         
-        [TABAnimatedDocumentMethod createFile:TABCacheManagerFolderName isDir:YES];
 #ifdef DEBUG
         _closeCache = YES;
 #endif
@@ -124,6 +122,69 @@
         _binAnimation = TABBinAnimation.new;
     }
     return _binAnimation;
+}
+
+#pragma mark -
+
+- (CGFloat)animatedDuration {
+    return self.classicAnimation.duration;
+}
+- (void)setAnimatedDuration:(CGFloat)animatedDuration {
+    self.classicAnimation.duration = animatedDuration;
+}
+- (CGFloat)longToValue {
+    return self.classicAnimation.longToValue;
+}
+- (void)setLongToValue:(CGFloat)longToValue {
+    self.classicAnimation.longToValue = longToValue;
+}
+- (CGFloat)shortToValue {
+    return self.classicAnimation.shortToValue;
+}
+- (void)setShortToValue:(CGFloat)shortToValue {
+    self.classicAnimation.shortToValue = shortToValue;
+}
+- (CGFloat)animatedDurationBin {
+    return self.binAnimation.animatedDurationBin;
+}
+- (void)setAnimatedDurationBin:(CGFloat)animatedDurationBin {
+    self.binAnimation.animatedDurationBin = animatedDurationBin;
+}
+- (CGFloat)animatedDurationShimmer {
+    return self.shimmerAnimation.shimmerDuration;
+}
+- (void)setAnimatedDurationShimmer:(CGFloat)animatedDurationShimmer {
+    self.shimmerAnimation.shimmerDuration = animatedDurationShimmer;
+}
+- (TABShimmerDirection)shimmerDirection {
+    return self.shimmerAnimation.shimmerDirection;
+}
+- (void)setShimmerDirection:(TABShimmerDirection)shimmerDirection {
+    self.shimmerAnimation.shimmerDirection = shimmerDirection;
+}
+- (UIColor *)shimmerBackColor {
+    return self.shimmerAnimation.shimmerBackColor;
+}
+- (void)setShimmerBackColor:(UIColor *)shimmerBackColor {
+    self.shimmerAnimation.shimmerBackColor = shimmerBackColor;
+}
+- (CGFloat)shimmerBrightness {
+    return self.shimmerAnimation.shimmerBrightness;
+}
+- (void)setShimmerBrightness:(CGFloat)shimmerBrightness {
+    self.shimmerAnimation.shimmerBrightness = shimmerBrightness;
+}
+- (UIColor *)shimmerBackColorInDarkMode {
+    return self.shimmerAnimation.shimmerBackColorInDarkMode;
+}
+- (void)setShimmerBackColorInDarkMode:(UIColor *)shimmerBackColorInDarkMode {
+    self.shimmerAnimation.shimmerBackColorInDarkMode = shimmerBackColorInDarkMode;
+}
+- (CGFloat)shimmerBrightnessInDarkMode {
+    return self.shimmerAnimation.shimmerBrightnessInDarkMode;
+}
+- (void)setShimmerBrightnessInDarkMode:(CGFloat)shimmerBrightnessInDarkMode {
+    self.shimmerAnimation.shimmerBrightnessInDarkMode = shimmerBrightnessInDarkMode;
 }
 
 @end

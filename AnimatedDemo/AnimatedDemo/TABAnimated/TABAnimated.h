@@ -12,26 +12,19 @@
 #ifndef TABAnimated_h
 #define TABAnimated_h
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 #import "UIView+TABControlAnimation.h"
 #import "UIView+TABControlModel.h"
 
-#import "TABViewAnimated.h"
-#import "TABTableAnimated.h"
-#import "TABCollectionAnimated.h"
-
-#import "TABAnimationMethod.h"
 #import "TABComponentManager.h"
-
 #import "NSArray+TABAnimatedChain.h"
 
-#import "TABClassicAnimation.h"
-#import "TABDropAnimation.h"
 #import "TABBinAnimation.h"
 #import "TABShimmerAnimation.h"
-
 #import "TABDropAnimationDefines.h"
+#import "TABClassicAnimation.h"
+#import "TABBaseComponent+TABClassicAnimation.h"
 
 #endif
 
@@ -130,9 +123,8 @@ typedef NS_ENUM(NSInteger, TABAnimationType) {
 
 /**
  是否可以在滚动，默认无法滚动
- 注：带有动画的骨架屏，会被强制无法滚动
  */
-@property (nonatomic, assign) BOOL canScroll;
+@property (nonatomic, assign) BOOL scrollEnabled;
 
 #pragma mark - Other
 
@@ -187,6 +179,10 @@ typedef NS_ENUM(NSInteger, TABAnimationType) {
  */
 + (TABAnimated *)sharedAnimated;
 
+/**
+ * 初始化
+ * @param TABAnimationType 全局动画类型
+ */
 - (instancetype)initWithAnimatonType:(TABAnimationType)animationType;
 
 /**
@@ -216,5 +212,18 @@ typedef NS_ENUM(NSInteger, TABAnimationType) {
  * @param color 动画内容颜色 (animation content color)
  */
 - (void)initWithShimmerAnimatedDuration:(CGFloat)duration withColor:(UIColor *)color;
+
+#pragma mark -
+
+@property (nonatomic, assign) CGFloat animatedDuration;
+@property (nonatomic, assign) CGFloat longToValue;
+@property (nonatomic, assign) CGFloat shortToValue;
+@property (nonatomic, assign) CGFloat animatedDurationBin;
+@property (nonatomic, assign) CGFloat animatedDurationShimmer;
+@property (nonatomic, assign) TABShimmerDirection shimmerDirection;
+@property (nonatomic, strong) UIColor *shimmerBackColor;
+@property (nonatomic, assign) CGFloat shimmerBrightness;
+@property (nonatomic, strong) UIColor *shimmerBackColorInDarkMode;
+@property (nonatomic, assign) CGFloat shimmerBrightnessInDarkMode;
 
 @end

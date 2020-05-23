@@ -147,7 +147,7 @@
         _tableView.tabAnimated.adjustBlock = ^(TABComponentManager * _Nonnull manager) {
             manager.animation(1).down(3).height(12);
             manager.animation(2).height(12).reducedWidth(70);
-            manager.animation(3).down(-5).height(12).radius(0.).reducedWidth(-20).toLongAnimation();
+            manager.animation(3).down(-5).height(12).radius(0.).reducedWidth(-20);
         };
     }
     return _tableView;

@@ -9,6 +9,7 @@
 #import "TABShimmerAnimationImpl.h"
 #import "TABShimmerAnimation.h"
 #import "TABAnimatedDarkModeInterface.h"
+#import "TABAnimated.h"
 
 static NSString * const kShimmerAnimationKey = @"kShimmerAnimationKey";
 

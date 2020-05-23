@@ -10,12 +10,8 @@
 #import "TABAnimated.h"
 
 #import "TABAnimatedProductImpl.h"
-
-const NSInteger TABViewAnimatedErrorCode = -1000;
-
-NSString * const TABViewAnimatedHeaderPrefixString = @"tab_header_";
-NSString * const TABViewAnimatedFooterPrefixString = @"tab_footer_";
-NSString * const TABViewAnimatedDefaultSuffixString = @"default_resuable_view";
+#import "TABComponentLayerBindClassicImpl.h"
+#import "TABComponentLayerBindDropImpl.h"
 
 @implementation TABViewAnimated
 
@@ -24,6 +20,8 @@ NSString * const TABViewAnimatedDefaultSuffixString = @"default_resuable_view";
         _superAnimationType = TABViewSuperAnimationTypeDefault;
         _filterSubViewSize = CGSizeZero;
         _producter = TABAnimatedProductImpl.new;
+        
+        [self _initBinder];
     }
     return self;
 }
@@ -54,6 +52,32 @@ NSString * const TABViewAnimatedDefaultSuffixString = @"default_resuable_view";
     }else {
         return self.animatedBackgroundColor;
     }
+}
+
+- (void)_initBinder {
+    if (self.superAnimationType == TABViewSuperAnimationTypeDefault) {
+        switch ([TABAnimated sharedAnimated].animationType) {
+            case TABAnimationTypeDrop: {
+                _binder = TABComponentLayerBindDropImpl.new;
+            }
+                break;
+            default: {
+                _binder = TABComponentLayerBindClassicImpl.new;
+            }
+                break;
+        }
+    }else if(self.superAnimationType == TABViewSuperAnimationTypeDrop) {
+        _binder = TABComponentLayerBindDropImpl.new;
+    }else {
+        _binder = TABComponentLayerBindClassicImpl.new;
+    }
+}
+
+#pragma mark -
+
+- (void)setSuperAnimationType:(TABViewSuperAnimationType)superAnimationType {
+    _superAnimationType = superAnimationType;
+    [self _initBinder];
 }
 
 - (CGFloat)animatedHeight {

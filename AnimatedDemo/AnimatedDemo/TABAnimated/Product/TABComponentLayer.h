@@ -19,6 +19,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol TABComponentLayerBindInterface;
+
 @interface TABComponentLayer : CAGradientLayer <NSCopying, NSSecureCoding>
 
 typedef NS_ENUM(NSInteger, TABViewLoadAnimationStyle) {
@@ -106,6 +108,8 @@ typedef NS_ENUM(NSInteger, TABComponentLayerOrigin) {
 
 - (CGRect)resetFrameWithRect:(CGRect)rect animatedHeight:(CGFloat)animatedHeight;
 - (void)addLayer:(TABComponentLayer *)layer viewWidth:(CGFloat)viewWidth animatedHeight:(CGFloat)animatedHeight;
+
+- (TABComponentLayer *)copyWithBinder:(id <TABComponentLayerBindInterface>)binder;
 
 @end
 

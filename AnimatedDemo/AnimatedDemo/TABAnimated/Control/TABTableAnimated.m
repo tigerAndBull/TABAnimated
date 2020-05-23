@@ -8,10 +8,9 @@
 
 #import "TABTableAnimated.h"
 
-#import "TABAnimatedConfig.h"
-#import "TABAnimatedCacheManager.h"
-#import "TABAnimatedDocumentMethod.h"
-
+#import "TABViewAnimated.h"
+#import "UIView+TABControlModel.h"
+#import "UIView+TABControlAnimation.h"
 #import <objc/runtime.h>
 
 @interface TABTableAnimated()

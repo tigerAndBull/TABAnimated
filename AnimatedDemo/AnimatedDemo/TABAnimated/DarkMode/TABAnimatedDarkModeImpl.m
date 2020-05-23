@@ -7,8 +7,11 @@
 //
 
 #import "TABAnimatedDarkModeImpl.h"
+
 #import "TABAnimatedProduction.h"
 #import "TABComponentLayer.h"
+#import "TABViewAnimated.h"
+
 #import "TABAnimatedDarkModeInterface.h"
 
 @implementation TABAnimatedDarkModeImpl

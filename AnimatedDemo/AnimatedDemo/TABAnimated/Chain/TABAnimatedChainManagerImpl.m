@@ -8,6 +8,7 @@
 
 #import "TABAnimatedChainManagerImpl.h"
 #import "TABComponentLayer.h"
+#import "TABComponentManager.h"
 
 @implementation TABAnimatedChainManagerImpl
 

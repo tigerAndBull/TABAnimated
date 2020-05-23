@@ -8,9 +8,16 @@
 
 #import "UIView+TABControlAnimation.h"
 
-#import "TABAnimatedConfig.h"
-#import "TABAnimatedCacheManager.h"
+#import "UIView+TABControlModel.h"
+#import "UIView+TABAnimatedProduction.h"
+
 #import "TABComponentLayer.h"
+#import "TABAnimationMethod.h"
+
+#import "TABFormAnimated.h"
+#import "TABTableAnimated.h"
+
+#import "TABAnimatedProduction.h"
 
 static const NSTimeInterval kDelayReloadDataTime = .4;
 const int TABAnimatedIndexTag = -100000;
@@ -77,7 +84,11 @@ const int TABAnimatedIndexTag = -100000;
     }
     
     if ([tabAnimated isKindOfClass:[TABFormAnimated class]]) {
-        [((TABFormAnimated *)tabAnimated) startAnimationWithIndex:index isFirstLoad:isFirstLoad controlView:self];
+        TABFormAnimated *tabAnimated = (TABFormAnimated *)self.tabAnimated;
+        UIScrollView *scrollView = (UIScrollView *)self;
+        tabAnimated.oldScrollEnabled = scrollView.scrollEnabled;
+        scrollView.scrollEnabled = tabAnimated.scrollEnabled;
+        [tabAnimated startAnimationWithIndex:index isFirstLoad:isFirstLoad controlView:self];
     }else {
         tabAnimated.isAnimating = YES;
         tabAnimated.state = TABViewAnimationStart;
@@ -131,43 +142,49 @@ const int TABAnimatedIndexTag = -100000;
         isNeedReset = YES;
     }
     
-    TABFormAnimated *tabAnimated = (TABFormAnimated *)self.tabAnimated;
-    
-    if ([self isKindOfClass:[UITableView class]]) {
-        if (isNeedReset) {
-            [tabAnimated endAnimation];
-            UITableView *tableView = (UITableView *)self;
-            if (((TABTableAnimated *)tabAnimated).oldEstimatedRowHeight > 0) {
-                tableView.estimatedRowHeight = ((TABTableAnimated *)tabAnimated).oldEstimatedRowHeight;
-                tableView.rowHeight = UITableViewAutomaticDimension;
-            }
-            [tableView reloadData];
-            if (tableView.tableHeaderView != nil && tableView.tableHeaderView.tabAnimated != nil) {
-                [tableView.tableHeaderView tab_endAnimation];
-            }
-            if (tableView.tableFooterView != nil && tableView.tableFooterView.tabAnimated != nil) {
-                [tableView.tableFooterView tab_endAnimation];
-            }
-        }else {
-            if (![tabAnimated endAnimationWithIndex:index]) {
-                return;
-            }
-            if (tabAnimated.runMode == TABAnimatedRunBySection) {
-                [(UITableView *)self reloadSections:[NSIndexSet indexSetWithIndex:index] withRowAnimation:UITableViewRowAnimationNone];
+    if ([self.tabAnimated isKindOfClass:[TABFormAnimated class]]) {
+        
+        TABFormAnimated *tabAnimated = (TABFormAnimated *)self.tabAnimated;
+        
+        UIScrollView *scrollView = (UIScrollView *)self;
+        scrollView.scrollEnabled = tabAnimated.oldScrollEnabled;
+        
+        if ([self isKindOfClass:[UITableView class]]) {
+            if (isNeedReset) {
+                [tabAnimated endAnimation];
+                UITableView *tableView = (UITableView *)self;
+                if (((TABTableAnimated *)tabAnimated).oldEstimatedRowHeight > 0) {
+                    tableView.estimatedRowHeight = ((TABTableAnimated *)tabAnimated).oldEstimatedRowHeight;
+                    tableView.rowHeight = UITableViewAutomaticDimension;
+                }
+                [tableView reloadData];
+                if (tableView.tableHeaderView != nil && tableView.tableHeaderView.tabAnimated != nil) {
+                    [tableView.tableHeaderView tab_endAnimation];
+                }
+                if (tableView.tableFooterView != nil && tableView.tableFooterView.tabAnimated != nil) {
+                    [tableView.tableFooterView tab_endAnimation];
+                }
             }else {
-                [(UITableView *)self reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+                if (![tabAnimated endAnimationWithIndex:index]) {
+                    return;
+                }
+                if (tabAnimated.runMode == TABAnimatedRunBySection) {
+                    [(UITableView *)self reloadSections:[NSIndexSet indexSetWithIndex:index] withRowAnimation:UITableViewRowAnimationNone];
+                }else {
+                    [(UITableView *)self reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+                }
             }
-        }
-    }else if ([self isKindOfClass:[UICollectionView class]]) {
-        if (isNeedReset) {
-            [tabAnimated endAnimation];
-            [(UICollectionView *)self reloadData];
-        }else {
-            [tabAnimated endAnimationWithIndex:index];
-            if (tabAnimated.runMode == TABAnimatedRunBySection) {
-                [(UICollectionView *)self reloadSections:[NSIndexSet indexSetWithIndex:index]];
+        }else if ([self isKindOfClass:[UICollectionView class]]) {
+            if (isNeedReset) {
+                [tabAnimated endAnimation];
+                [(UICollectionView *)self reloadData];
             }else {
-                [(UICollectionView *)self reloadItemsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]]];
+                [tabAnimated endAnimationWithIndex:index];
+                if (tabAnimated.runMode == TABAnimatedRunBySection) {
+                    [(UICollectionView *)self reloadSections:[NSIndexSet indexSetWithIndex:index]];
+                }else {
+                    [(UICollectionView *)self reloadItemsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]]];
+                }
             }
         }
     }else {
@@ -182,18 +199,6 @@ const int TABAnimatedIndexTag = -100000;
 - (void)_endViewAnimation {
     self.tabAnimated.state = TABViewAnimationEnd;
     self.tabAnimatedProduction.backgroundLayer.hidden = YES;
-}
-
-#pragma mark - Private
-
-- (UIViewController*)_viewController {
-    for (UIView *next = [self superview]; next; next = next.superview) {
-        UIResponder *nextResponder = [next nextResponder];
-        if ([nextResponder isKindOfClass:[UIViewController class]]) {
-            return (UIViewController*)nextResponder;
-        }
-    }
-    return nil;
 }
 
 #pragma mark -
@@ -228,6 +233,18 @@ const int TABAnimatedIndexTag = -100000;
 
 - (void)tab_endAnimationWithRow:(NSInteger)row {
     [self tab_endAnimationWithIndex:row];
+}
+
+#pragma mark - Private
+
+- (UIViewController*)_viewController {
+    for (UIView *next = [self superview]; next; next = next.superview) {
+        UIResponder *nextResponder = [next nextResponder];
+        if ([nextResponder isKindOfClass:[UIViewController class]]) {
+            return (UIViewController*)nextResponder;
+        }
+    }
+    return nil;
 }
 
 @end

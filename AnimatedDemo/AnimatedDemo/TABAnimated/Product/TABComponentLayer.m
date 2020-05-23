@@ -9,10 +9,9 @@
 #import "TABComponentLayer.h"
 #import "TABAnimatedProductHelper.h"
 #import "TABAnimated.h"
+#import "TABComponentLayerBindInterface.h"
 
-extern const NSInteger TABViewAnimatedErrorCode;
 static NSString * const TABComponentLayerName = @"TABLayer";
-
 static const CGFloat kDefaultHeight = 16.f;
 
 @implementation TABComponentLayer
@@ -23,7 +22,7 @@ static const CGFloat kDefaultHeight = 16.f;
         self.anchorPoint = CGPointMake(0, 0);
         self.opaque = YES;
         self.contentsGravity = kCAGravityResizeAspect;
-        _tagIndex = TABViewAnimatedErrorCode;
+        _tagIndex = TABAnimatedIndexTag;
     }
     return self;
 }
@@ -136,7 +135,7 @@ static const CGFloat kDefaultHeight = 16.f;
                 [TABAnimatedProductHelper addTagWithComponentLayer:sub isLines:YES];
 #endif
         }else {
-            sub.tagIndex = TABViewAnimatedErrorCode;
+            sub.tagIndex = TABAnimatedIndexTag;
         }
         
         [self addSublayer:sub];
@@ -204,6 +203,12 @@ static const CGFloat kDefaultHeight = 16.f;
 }
 
 #pragma mark - NSCopying
+
+- (TABComponentLayer *)copyWithBinder:(id <TABComponentLayerBindInterface>)binder {
+    TABComponentLayer *layer = self.copy;
+    [binder propertyBindWithNewLayer:layer oldLayer:self];
+    return layer;
+}
 
 - (id)copyWithZone:(NSZone *)zone {
     

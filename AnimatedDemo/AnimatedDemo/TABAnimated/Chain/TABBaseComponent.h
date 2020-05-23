@@ -148,20 +148,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (TABBaseComponentStringBlock)placeholder;
 
 /**
- 赋予动画元素画由长到短的动画
- 
- @return 目标动画元素
- */
-- (TABBaseComponentVoidBlock)toLongAnimation;
-
-/**
- 赋予动画元素画由短到长的动画
- 
- @return 目标动画元素
- */
-- (TABBaseComponentVoidBlock)toShortAnimation;
-
-/**
  如果动画元素来自居中文本，设置后取消居中显示，
  
  @return 目标动画元素

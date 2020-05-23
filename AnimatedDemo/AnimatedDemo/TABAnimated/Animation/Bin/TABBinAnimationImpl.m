@@ -8,6 +8,8 @@
 
 #import "TABBinAnimationImpl.h"
 #import "TABBinAnimation.h"
+#import "TABComponentLayer.h"
+#import "TABAnimated.h"
 
 static NSString * const kAnimatedBinAnimation = @"kAnimatedBinAnimation";
 

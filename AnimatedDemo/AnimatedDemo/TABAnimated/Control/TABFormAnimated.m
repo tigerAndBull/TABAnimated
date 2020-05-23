@@ -30,6 +30,8 @@
         _footerSectionArray = @[].mutableCopy;
         
         _runIndexDict = @{}.mutableCopy;
+        
+        _scrollEnabled = YES;
     }
     return self;
 }
@@ -248,6 +250,16 @@
         _runFooterIndexDict = @{}.mutableCopy;
     }
     return _runFooterIndexDict;
+}
+
+- (BOOL)scrollEnabled {
+    if (!_scrollEnabled) {
+        return NO;
+    }
+    if (_scrollEnabled && ![TABAnimated sharedAnimated].scrollEnabled) {
+        return NO;
+    }
+    return YES;
 }
 
 @end

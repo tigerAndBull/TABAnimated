@@ -53,7 +53,7 @@
     // 如果你始终都不想使用缓存功能，可以手动置为YES
     // 请仔细阅读：https://juejin.im/post/5d86d16ce51d4561fa2ec135
 //    [TABAnimated sharedAnimated].closeCache = NO;
-
+    
     MainViewController *vc = [[MainViewController alloc] init];
     vc.title = kText(@"主页面");
     _nav = [[UINavigationController alloc]initWithRootViewController:vc];

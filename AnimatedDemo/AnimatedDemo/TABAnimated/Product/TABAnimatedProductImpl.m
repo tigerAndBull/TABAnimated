@@ -24,6 +24,8 @@
 #import "TABAnimatedChainManagerImpl.h"
 #import "TABAnimationManagerImpl.h"
 
+#import "TABAnimated.h"
+
 @interface TABAnimatedProductImpl() {
     // self存在即存在
     __unsafe_unretained UIView *_controlView;
@@ -91,7 +93,7 @@
         return view;
     }
 
-    // 加工
+    // 生产
     production = [self.productionPool objectForKey:className];
     if (production == nil || _controlView.tabAnimated.isNest) {
         view = [self _createViewWithOrigin:origin controlView:controlView indexPath:indexPath className:className currentClass:currentClass isNeedProduct:YES];
@@ -117,7 +119,7 @@
     NSString *key = [TABAnimatedProductHelper getKeyWithControllerName:controlView.tabAnimated.targetControllerClassName targetClass:currentClass];
     TABAnimatedProduction *production = [[TABAnimatedCacheManager shareManager] getProductionWithKey:key];
     if (production) {
-        TABAnimatedProduction *newProduction = production.copy;
+        TABAnimatedProduction *newProduction = [production copyWithBinder:_controlView.tabAnimated.binder];
         [self _bindWithProduction:newProduction targetView:view];
         return;
     }
@@ -225,7 +227,7 @@
 }
 
 - (void)_reuseProduction:(TABAnimatedProduction *)production targetView:(UIView *)targetView {
-    TABAnimatedProduction *newProduction = production.copy;
+    TABAnimatedProduction *newProduction = [production copyWithBinder:_controlView.tabAnimated.binder];
     if (production.state != TABAnimatedProductionCreate) {
         [self _bindWithProduction:newProduction targetView:targetView];
     }else {
@@ -471,7 +473,7 @@
             TABAnimatedProduction *newProduction = view.tabAnimatedProduction;
             newProduction.backgroundLayer = production.backgroundLayer.copy;
             for (TABComponentLayer *layer in production.layers) {
-                [newProduction.layers addObject:layer.copy];
+                [newProduction.layers addObject:[layer copyWithBinder:_controlView.tabAnimated.binder]];
             }
             [self _bindWithProduction:newProduction targetView:view];
         }

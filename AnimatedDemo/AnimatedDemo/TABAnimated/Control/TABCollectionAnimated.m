@@ -8,10 +8,13 @@
 
 #import "TABCollectionAnimated.h"
 
-#import "TABAnimatedConfig.h"
-#import "TABAnimatedCacheManager.h"
+#import "TABViewAnimated.h"
+#import "UIView+TABControlModel.h"
+#import "UIView+TABControlAnimation.h"
+#import <objc/runtime.h>
 
-#import "objc/runtime.h"
+NSString * const TABViewAnimatedHeaderPrefixString = @"tab_header_";
+NSString * const TABViewAnimatedFooterPrefixString = @"tab_footer_";
 
 @interface TABCollectionAnimated()
 

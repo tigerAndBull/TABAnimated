@@ -11,7 +11,6 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @class TABDropAnimation;
-
 @protocol TABAnimatedDecorateInterface, TABAnimatedDarkModeInterface;
 
 @interface TABDropAnimationImpl : NSObject <TABAnimatedDecorateInterface, TABAnimatedDarkModeInterface>

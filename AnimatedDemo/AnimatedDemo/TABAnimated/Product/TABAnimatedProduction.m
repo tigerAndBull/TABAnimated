@@ -7,7 +7,6 @@
 //
 
 #import "TABAnimatedProduction.h"
-
 #import "TABComponentLayer.h"
 #import "TABWeakDelegateManager.h"
 
@@ -58,13 +57,18 @@
 
 #pragma mark - NSCopying
 
+- (id)copyWithBinder:(id <TABComponentLayerBindInterface>)binder {
+    TABAnimatedProduction *newProduction = self.copy;
+    for (TABComponentLayer *layer in self.layers) {
+        [newProduction.layers addObject:[layer copyWithBinder:binder]];
+    }
+    return newProduction;
+}
+
 - (id)copyWithZone:(NSZone *)zone {
     TABAnimatedProduction *production = [[[self class] allocWithZone:zone] init];
     production.backgroundLayer = self.backgroundLayer.copy;
     production.layers = @[].mutableCopy;
-    for (TABComponentLayer *layer in self.layers) {
-        [production.layers addObject:layer.copy];
-    }
     production.fileName = self.fileName;
     production.version = self.version;
     production.state = TABAnimatedProductionProcess;

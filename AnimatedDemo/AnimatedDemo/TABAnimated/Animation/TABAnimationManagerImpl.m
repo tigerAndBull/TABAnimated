@@ -7,8 +7,12 @@
 //
 
 #import "TABAnimationManagerImpl.h"
-#import "TABViewAnimated.h"
 
+#import "TABViewAnimated.h"
+#import "UIView+TABControlModel.h"
+#import "TABAnimated.h"
+
+#import "TABClassicAnimationImpl.h"
 #import "TABShimmerAnimationImpl.h"
 #import "TABDropAnimationImpl.h"
 #import "TABBinAnimationImpl.h"
@@ -31,13 +35,17 @@
     if (_tabAnimated.decorator) return;
     
     if (_tabAnimated.superAnimationType == TABViewSuperAnimationTypeDefault) {
-        if ([TABAnimated sharedAnimated].animationType == TABAnimationTypeShimmer) {
+        if(_tabAnimated.superAnimationType == TABAnimationTypeOnlySkeleton) {
+            _tabAnimated.decorator = TABClassicAnimationImpl.new;
+        }else if ([TABAnimated sharedAnimated].animationType == TABAnimationTypeShimmer) {
             _tabAnimated.decorator = TABShimmerAnimationImpl.new;
         }else if ([TABAnimated sharedAnimated].animationType == TABAnimationTypeDrop) {
             _tabAnimated.decorator = TABDropAnimationImpl.new;
         }else if ([TABAnimated sharedAnimated].animationType == TABAnimationTypeBinAnimation) {
             _tabAnimated.decorator = TABBinAnimationImpl.new;
         }
+    }else if(_tabAnimated.superAnimationType == TABViewSuperAnimationTypeOnlySkeleton) {
+        _tabAnimated.decorator = TABClassicAnimationImpl.new;
     }else if(_tabAnimated.superAnimationType == TABViewSuperAnimationTypeShimmer) {
         _tabAnimated.decorator = TABShimmerAnimationImpl.new;
     }else if (_tabAnimated.superAnimationType == TABViewSuperAnimationTypeDrop) {
