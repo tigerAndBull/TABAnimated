@@ -15,9 +15,6 @@
 
 @optional
 
-// 属性绑定期
-- (void)propertyBindingWithLayer:(TABComponentLayer *)layer index:(NSInteger)index;
-
 // layer装饰期
 - (void)addAnimationWithTraitCollection:(UITraitCollection *)traitCollection
                         backgroundLayer:(TABComponentLayer *)backgroundLayer

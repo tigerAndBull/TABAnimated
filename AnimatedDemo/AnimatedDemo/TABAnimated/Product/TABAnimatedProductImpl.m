@@ -361,11 +361,7 @@
             layer = [self _createLayerWithView:subV needRemove:needRemove color:animatedColor isCard:isCard];
             layer.serializationImpl = _controlView.tabAnimated.serializationImpl;
             layer.tagIndex = tagIndex;
-            if (_controlView.tabAnimated.decorator && [_controlView.tabAnimated.decorator respondsToSelector:@selector(propertyBindingWithLayer:index:)]) {
-                [_controlView.tabAnimated.decorator propertyBindingWithLayer:layer index:tagIndex];
-            }
             [array addObject:layer];
-            
             tagIndex++;
         }
     }

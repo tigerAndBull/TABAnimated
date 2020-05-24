@@ -40,10 +40,6 @@ static NSString * const kAnimatedDropAnimation = @"kAnimatedDropAnimation";
 
 #pragma mark - TABAnimatedDecorateInterface
 
-- (void)propertyBindingWithLayer:(TABComponentLayer *)layer index:(NSInteger)index {
-    layer.dropAnimationIndex = index;
-}
-
 - (void)addAnimationWithTraitCollection:(UITraitCollection *)traitCollection
                         backgroundLayer:(TABComponentLayer *)backgroundLayer
                                  layers:(NSArray <TABComponentLayer *> *)layers {
