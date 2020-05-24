@@ -11,7 +11,24 @@
 #import "AppDelegate.h"
 #import "SencondaryOptionViewController.h"
 
+#import "TABAnimatedControllerUIInterface.h"
+#import "TABAnimatedControllerUIImpl.h"
+
+@interface MainViewController()
+
+@property (nonatomic, strong) id <TABAnimatedControllerUIInterface> rightButtonInterface;
+
+@end
+
 @implementation MainViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    _rightButtonInterface = TABAnimatedControllerUIImpl.new;
+    [_rightButtonInterface addRightButtonWithText:@"" controller:self clickButtonBlock:^(UIButton *btn) {
+        
+    }];
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     SencondaryOptionViewController *vc = SencondaryOptionViewController.new;

@@ -30,7 +30,6 @@
         self.contentView.backgroundColor = [UIColor tab_cardDynamicBackgroundColor];
         // 给bgView边框设置阴影
         self.contentView.layer.shadowOpacity = 0.1;
-        self.contentView.layer.shadowColor = UIColor.blackColor.CGColor;
         self.contentView.layer.shadowRadius = 5;
         self.contentView.layer.shadowOffset = CGSizeMake(1,1);
         

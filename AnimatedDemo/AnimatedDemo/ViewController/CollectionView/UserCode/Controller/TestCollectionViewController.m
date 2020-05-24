@@ -43,8 +43,11 @@
     }];
 }
 
-- (void)dealloc {
-    NSLog(@"========= delloc =========");
+- (void)reloadViewAnimated {
+    _collectionView.tabAnimated.canLoadAgain = YES;
+    [_collectionView tab_startAnimationWithCompletion:^{
+        [self afterGetData];
+    }];
 }
 
 #pragma mark - Target Methods
@@ -113,13 +116,14 @@
         TABCollectionAnimated *tabAnimated =
         [TABCollectionAnimated animatedWithCellClass:[NewsCollectionViewCell class]
                                             cellSize:[NewsCollectionViewCell cellSize]
-                                       animatedCount:10];
+                                       animatedCount:10];        
         tabAnimated.adjustBlock = ^(TABComponentManager * _Nonnull manager) {
             manager.animation(1).reducedWidth(20).down(2);
             manager.animation(2).reducedWidth(-10).up(1);
             manager.animation(3).down(5).line(4);
             manager.animations(4,3).radius(3).down(5).placeholder(@"placeholder.png");
         };
+        
         _collectionView.tabAnimated = tabAnimated;
     }
     return _collectionView;

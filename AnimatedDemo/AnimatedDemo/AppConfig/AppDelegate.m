@@ -11,10 +11,6 @@
 #import "MainViewController.h"
 #import "TABAnimated.h"
 
-#ifdef DEBUG
-#import "TABAnimatedBall.h"
-#endif
-
 @interface AppDelegate ()
 
 @end
@@ -25,13 +21,6 @@
     // Override point for customization after application launch.
     
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    
-#ifdef DEBUG
-    // 骨架屏core部分不依赖reveal工具
-    // reveal工具依赖骨架屏core，实时预览效果，无需编译
-    // 请务必放在debug环境下
-//    [[TABAnimatedBall shared] install];
-#endif
     
     // Init `TABAnimated`, and set the properties you need.
     // 初始化TABAnimated，并设置TABAnimated相关属性
@@ -51,7 +40,7 @@
      *****************************************
      *****************************************
      */
-    // debug 环境下，默认关闭缓存功能（为了方便调试预处理回调)q
+    // debug 环境下，默认关闭缓存功能（为了方便调试预处理回调)
     // release 环境下，默认开启缓存功能
     // 如果你想在 debug 环境下测试缓存功能，可以手动置为NO，但是预处理回调只生效一次！！！！
     // 如果你始终都不想使用缓存功能，可以手动置为YES

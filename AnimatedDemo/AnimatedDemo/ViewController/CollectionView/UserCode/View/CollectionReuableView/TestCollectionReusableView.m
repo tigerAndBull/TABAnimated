@@ -7,7 +7,6 @@
 //
 
 #import "TestCollectionReusableView.h"
-#import "Masonry.h"
 
 @implementation TestCollectionReusableView
 
@@ -18,6 +17,7 @@
         lab.frame = CGRectMake(kWidth(15)+3+4, 10, 100, 50);
         lab.font = kBlodFont(18);
         lab.textColor = [UIColor blackColor];
+        lab.text = @"嵌套嵌套";
         self.titleLab = lab;
         [self addSubview:lab];
         

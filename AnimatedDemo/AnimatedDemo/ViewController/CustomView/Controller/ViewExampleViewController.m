@@ -31,7 +31,6 @@
     [self initUI];
     
     TABViewAnimated *viewAnimated = TABViewAnimated.new;
-    viewAnimated.superAnimationType = TABViewSuperAnimationTypeBinAnimation;
     viewAnimated.adjustBlock = ^(TABComponentManager * _Nonnull manager) {
         manager.animation(1).width(200);
         manager.animation(2).width(220);
@@ -60,6 +59,13 @@
     [_commitBtn setTitle:@"立即使用" forState:UIControlStateNormal];
     _commitBtn.layer.borderColor = UIColor.redColor.CGColor;
     _commitBtn.layer.borderWidth = 1.0;
+}
+
+- (void)reloadViewAnimated {
+    self.view.tabAnimated.canLoadAgain = YES;
+    [self.view tab_startAnimationWithCompletion:^{
+        [self afterGetData];
+    }];
 }
 
 #pragma mark - Init Method

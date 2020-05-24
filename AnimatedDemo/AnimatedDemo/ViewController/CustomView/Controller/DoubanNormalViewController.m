@@ -49,6 +49,13 @@
     _commitBtn.layer.borderWidth = 1.0;
 }
 
+- (void)reloadViewAnimated {
+    self.mainView.tabAnimated.canLoadAgain = YES;
+    [self.mainView tab_startAnimationWithCompletion:^{
+        [self afterGetData];
+    }];
+}
+
 #pragma mark - Init Method
 
 - (void)initUI {
@@ -63,9 +70,7 @@
     
     self.mainView.tabAnimated = TABViewAnimated.new;
     self.mainView.tabAnimated.superAnimationType = TABViewSuperAnimationTypeDrop;
-    
     self.mainView.tabAnimated.adjustBlock = ^(TABComponentManager * _Nonnull manager) {
-        manager.animation(0).dropStayTime(0.6);
         manager.animation(1).width(200);
         manager.animation(2).width(220);
         manager.animation(3).width(180);

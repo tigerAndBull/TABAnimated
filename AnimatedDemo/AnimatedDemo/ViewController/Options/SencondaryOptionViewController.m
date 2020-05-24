@@ -9,8 +9,23 @@
 #import "SencondaryOptionViewController.h"
 #import <TABKit/TABKit.h>
 #import "AppDelegate.h"
+#import "TABAnimatedControllerUIImpl.h"
+
+@interface SencondaryOptionViewController()
+
+@property (nonatomic, strong) id <TABAnimatedControllerUIInterface> rightButtonInterface;
+
+@end
 
 @implementation SencondaryOptionViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    _rightButtonInterface = TABAnimatedControllerUIImpl.new;
+    [_rightButtonInterface addRightButtonWithText:@"" controller:self clickButtonBlock:^(UIButton *btn) {
+        
+    }];
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *className = self.controllerClassArray[indexPath.row];
@@ -27,12 +42,24 @@
     switch (self.index) {
         case 0:
             return @[
-                kText(@"简单场景"),
-                kText(@"指定section开启动画"),
-                kText(@"动态section配置"),
-                kText(@"以row为单位配置"),
+                kText(@"单section单cell 不带tableHeaderView"),
+                kText(@"单section单cell 带tableHeaderView"),
+                kText(@"单section单cell 带headerForSection"),
+                
+                kText(@"多section多cell 不带headerForSection"),
+                kText(@"多section多cell 带headerForSection"),
+                
+                kText(@"指定section配置动画 不带headerForSection"),
+                kText(@"指定section配置动画 带headerForSection"),
+                
+                kText(@"动态section配置 不带headerForSection"),
+                kText(@"动态section配置 带headerForSection"),
+                
+                kText(@"单section多cell 指定row配置动画"),
+                
                 kText(@"Xib"),
-                kText(@"`self.delegate = self`"),
+                kText(@"嵌套视图"),
+                kText(@"卡片视图"),
                 kText(@"自适应高度 属性"),
                 kText(@"自适应高度 代理"),
             ];
@@ -40,7 +67,7 @@
         
         case 1:
             return @[
-                kText(@"简单场景"),
+                kText(@"单section单cell"),
                 kText(@"卡片视图"),
                 kText(@"分段视图"),
                 kText(@"嵌套视图"),
@@ -48,13 +75,12 @@
                 kText(@"Xib"),
                 kText(@"豆瓣动画"),
                 kText(@"豆瓣动画 卡片式"),
-                kText(@"`self.delegate = self`"),
             ];
             break;
         
         case 2:
             return @[
-                kText(@"简单场景"),
+                kText(@"普通view"),
                 kText(@"豆瓣动画"),
             ];
             break;
@@ -68,12 +94,24 @@
     switch (self.index) {
         case 0:
             return @[
-                @"TableNormalViewController",
-                @"TableSectionsViewController",
+                @"OneSectionViewController",
+                @"OneSectionWithTableHeaderViewController",
+                @"OneSectionWithHeaderSectionViewController",
+                
+                @"MutiSectionMutiCellTableViewController",
+                @"MutiSectionsMutiCellWithHeaderViewController",
+                
+                @"PartialSectionViewController",
+                @"PartialSectionWithHeaderViewController",
+                
                 @"TableDynamicSectionViewController",
+                @"TableDynamicWithHeaderViewController",
+                
                 @"TableRowModeViewController",
+                
                 @"XibTestViewController",
-                @"DeleagteSelfTableViewController",
+                @"NestTableViewController",
+                @"TableCardViewController",
                 @"TestLayoutTableViewController",
                 @"TestLayoutDelegateTableViewController",
             ];
@@ -89,7 +127,6 @@
                 @"XibCollectionViewController",
                 @"DoubanCollectionViewController",
                 @"DoubanCardViewController",
-                @"DelegateSelfCollectionViewController",
             ];
             break;
         

@@ -38,8 +38,9 @@ UICollectionViewDataSource
     [self performSelector:@selector(afterGetData) withObject:nil afterDelay:1.];
 }
 
-- (void)dealloc {
-    NSLog(@"========= delloc =========");
+- (void)reloadViewAnimated {
+    self.collectionView.tabAnimated.canLoadAgain = YES;
+    [self.collectionView tab_startAnimationWithIndex:0];
 }
 
 #pragma mark - Target Methods
@@ -48,7 +49,6 @@ UICollectionViewDataSource
  获取到数据后
  */
 - (void)afterGetData {
-    
     // 模拟数据
     Game *game = [[Game alloc]init];
     game.title = [NSString stringWithFormat:@"进击的巨人part2"];
@@ -56,12 +56,12 @@ UICollectionViewDataSource
     [dataArray addObject:game];
     
     // 停止动画,并刷新数据
-    [self.collectionView tab_endAnimationWithSection:0];
-    [self performSelector:@selector(afterGetDataSecond) withObject:nil afterDelay:0.5];
+    [self.collectionView tab_endAnimationWithIndex:0];
+    [self performSelector:@selector(afterGetDataSecond) withObject:nil afterDelay:5.];
 }
 
 - (void)afterGetDataSecond {
-    [self.collectionView tab_endAnimationWithSection:1];
+    [self.collectionView tab_endAnimationWithIndex:1];
 }
 
 #pragma mark - UICollectionViewDelegate & UICollectionViewDataSource
@@ -78,7 +78,6 @@ UICollectionViewDataSource
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    
     if (indexPath.section == 0) {
         return [LawyerCollectionViewCell cellSize];
     }
@@ -90,7 +89,7 @@ UICollectionViewDataSource
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    
+
     if (indexPath.section == 0) {
         LawyerCollectionViewCell *cell = [LawyerCollectionViewCell cellWithIndexPath:indexPath atCollectionView:collectionView];
         [cell updateWithModel:[NSNull null]];
@@ -182,6 +181,8 @@ UICollectionViewDataSource
         _collectionView.backgroundColor = [UIColor tab_normalDynamicBackgroundColor];
         
         [_collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header"];
+        [LawyerCollectionViewCell registerCellInCollectionView:_collectionView];
+        [NestCollectionViewCell registerCellInCollectionView:_collectionView];
         
         NSArray *classArray = @[
                                 [LawyerCollectionViewCell class],

@@ -3,7 +3,6 @@
 #import "AppDelegate.h"
 #import "TABAnimated.h"
 #import "Masonry.h"
-#import "UIView+TABAnimated.h"
 #import <TABKit/TABKit.h>
 
 @interface NestCollectionViewCell()<UICollectionViewDelegate,UICollectionViewDataSource>{
