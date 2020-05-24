@@ -2020,6 +2020,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MARKETING_VERSION = 2.3.0;
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tigerAndBull.TABAnimated;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
@@ -2049,6 +2050,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MARKETING_VERSION = 2.3.0;
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tigerAndBull.TABAnimated;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
