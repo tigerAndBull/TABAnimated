@@ -131,26 +131,6 @@
 		685A2ACF247A685C00D9DB7C /* LawyerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 685A2ABE247A685C00D9DB7C /* LawyerTableViewCell.m */; };
 		685A2AD0247A685C00D9DB7C /* NewsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 685A2ABF247A685C00D9DB7C /* NewsTableViewCell.m */; };
 		685A2AD1247A685C00D9DB7C /* PackageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 685A2AC0247A685C00D9DB7C /* PackageTableViewCell.m */; };
-		685A2B69247A6DC000D9DB7C /* UIView+TABControlModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 6834CFFF247918C8007F8459 /* UIView+TABControlModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		685A2B6A247A6DC000D9DB7C /* UIView+TABControlAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = 6834D000247918C8007F8459 /* UIView+TABControlAnimation.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		685A2B6B247A6DC000D9DB7C /* TABViewAnimatedDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 6834D001247918C8007F8459 /* TABViewAnimatedDefines.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		685A2B6C247A6DC000D9DB7C /* TABCollectionAnimated.h in Headers */ = {isa = PBXBuildFile; fileRef = 6834D002247918C8007F8459 /* TABCollectionAnimated.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		685A2B6D247A6DC000D9DB7C /* TABViewAnimated.h in Headers */ = {isa = PBXBuildFile; fileRef = 6834D003247918C8007F8459 /* TABViewAnimated.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		685A2B6E247A6DC000D9DB7C /* TABFormAnimated.h in Headers */ = {isa = PBXBuildFile; fileRef = 6834CFFA247918C8007F8459 /* TABFormAnimated.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		685A2B6F247A6DC000D9DB7C /* TABTableAnimated.h in Headers */ = {isa = PBXBuildFile; fileRef = 6834D004247918C8007F8459 /* TABTableAnimated.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		685A2B70247A6DCC00D9DB7C /* TABAnimatedDarkModeInterface.h in Headers */ = {isa = PBXBuildFile; fileRef = 6834CFB6247918C8007F8459 /* TABAnimatedDarkModeInterface.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		685A2B71247A6DE600D9DB7C /* TABAnimatedDecorateInterface.h in Headers */ = {isa = PBXBuildFile; fileRef = 6834CFC8247918C8007F8459 /* TABAnimatedDecorateInterface.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		685A2B72247A6DF800D9DB7C /* TABClassicAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = 6834CFC5247918C8007F8459 /* TABClassicAnimation.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		685A2B73247A6DFB00D9DB7C /* TABComponentLayer+TABClassicAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = 6834CFC3247918C8007F8459 /* TABComponentLayer+TABClassicAnimation.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		685A2B74247A6DFE00D9DB7C /* TABBaseComponent+TABClassicAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = 6834D03324799D03007F8459 /* TABBaseComponent+TABClassicAnimation.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		685A2B75247A6E0700D9DB7C /* TABShimmerAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = 6834CFDC247918C8007F8459 /* TABShimmerAnimation.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		685A2B76247A6E0A00D9DB7C /* TABShimmerAnimationDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 6834CFDB247918C8007F8459 /* TABShimmerAnimationDefines.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		685A2B77247A6E1000D9DB7C /* TABBinAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = 6834CFC1247918C8007F8459 /* TABBinAnimation.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		685A2B78247A6E1800D9DB7C /* TABComponentLayer+TABDropAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = 6834D03D247A3704007F8459 /* TABComponentLayer+TABDropAnimation.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		685A2B79247A6E2500D9DB7C /* NSArray+TABDropAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = 6834CFD2247918C8007F8459 /* NSArray+TABDropAnimation.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		685A2B7A247A6E2800D9DB7C /* TABBaseComponent+TABDropAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = 6834CFD6247918C8007F8459 /* TABBaseComponent+TABDropAnimation.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		685A2B7B247A6E2B00D9DB7C /* TABDropAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = 6834CFD0247918C8007F8459 /* TABDropAnimation.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		685A2B7C247A6E2E00D9DB7C /* TABDropAnimationDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 6834CFD3247918C8007F8459 /* TABDropAnimationDefines.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		68958D542274AA40002C4295 /* CardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68958D522274AA3F002C4295 /* CardViewController.m */; };
 		68958D572274AA7B002C4295 /* CardCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 68958D562274AA7A002C4295 /* CardCollectionViewCell.m */; };
 		68958D5A22753D00002C4295 /* SegmentCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68958D5922753D00002C4295 /* SegmentCollectionViewController.m */; };
@@ -197,8 +177,6 @@
 		68D20752228BE55400B32CD1 /* DoubanCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68D20751228BE55400B32CD1 /* DoubanCollectionViewController.m */; };
 		68D20755228BE5C900B32CD1 /* DoubanCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68D20754228BE5C900B32CD1 /* DoubanCardViewController.m */; };
 		68D20758228BE7A400B32CD1 /* DoubanNormalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68D20757228BE7A400B32CD1 /* DoubanNormalViewController.m */; };
-		68E51A41233CFAED00C09FCE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 683420BC233CC5330056557C /* UIKit.framework */; };
-		68E51A42233CFAF300C09FCE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 683420BE233CC53A0056557C /* Foundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -556,8 +534,6 @@
 		68D20754228BE5C900B32CD1 /* DoubanCardViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DoubanCardViewController.m; sourceTree = "<group>"; };
 		68D20756228BE7A400B32CD1 /* DoubanNormalViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DoubanNormalViewController.h; sourceTree = "<group>"; };
 		68D20757228BE7A400B32CD1 /* DoubanNormalViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DoubanNormalViewController.m; sourceTree = "<group>"; };
-		68E51A38233CFA9B00C09FCE /* TABAnimated.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TABAnimated.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		68E51A3B233CFA9B00C09FCE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		68E51A43233CFAFF00C09FCE /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -567,15 +543,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				2013CA9E222B0C0C00E928E1 /* TABKit.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		68E51A35233CFA9B00C09FCE /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				68E51A42233CFAF300C09FCE /* Foundation.framework in Frameworks */,
-				68E51A41233CFAED00C09FCE /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -603,7 +570,6 @@
 			isa = PBXGroup;
 			children = (
 				20A85BF22152248D0005AD62 /* AnimatedDemo */,
-				68E51A39233CFA9B00C09FCE /* TABAnimated */,
 				20A85BF12152248D0005AD62 /* Products */,
 				683420BB233CC5330056557C /* Frameworks */,
 			);
@@ -613,7 +579,6 @@
 			isa = PBXGroup;
 			children = (
 				20A85BF02152248D0005AD62 /* TABAnimated.app */,
-				68E51A38233CFA9B00C09FCE /* TABAnimated.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1535,45 +1500,7 @@
 			path = Others;
 			sourceTree = "<group>";
 		};
-		68E51A39233CFA9B00C09FCE /* TABAnimated */ = {
-			isa = PBXGroup;
-			children = (
-				68E51A3B233CFA9B00C09FCE /* Info.plist */,
-			);
-			path = TABAnimated;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
-
-/* Begin PBXHeadersBuildPhase section */
-		68E51A33233CFA9B00C09FCE /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				685A2B69247A6DC000D9DB7C /* UIView+TABControlModel.h in Headers */,
-				685A2B6A247A6DC000D9DB7C /* UIView+TABControlAnimation.h in Headers */,
-				685A2B6B247A6DC000D9DB7C /* TABViewAnimatedDefines.h in Headers */,
-				685A2B6C247A6DC000D9DB7C /* TABCollectionAnimated.h in Headers */,
-				685A2B6D247A6DC000D9DB7C /* TABViewAnimated.h in Headers */,
-				685A2B6E247A6DC000D9DB7C /* TABFormAnimated.h in Headers */,
-				685A2B6F247A6DC000D9DB7C /* TABTableAnimated.h in Headers */,
-				685A2B70247A6DCC00D9DB7C /* TABAnimatedDarkModeInterface.h in Headers */,
-				685A2B71247A6DE600D9DB7C /* TABAnimatedDecorateInterface.h in Headers */,
-				685A2B72247A6DF800D9DB7C /* TABClassicAnimation.h in Headers */,
-				685A2B73247A6DFB00D9DB7C /* TABComponentLayer+TABClassicAnimation.h in Headers */,
-				685A2B74247A6DFE00D9DB7C /* TABBaseComponent+TABClassicAnimation.h in Headers */,
-				685A2B75247A6E0700D9DB7C /* TABShimmerAnimation.h in Headers */,
-				685A2B76247A6E0A00D9DB7C /* TABShimmerAnimationDefines.h in Headers */,
-				685A2B77247A6E1000D9DB7C /* TABBinAnimation.h in Headers */,
-				685A2B78247A6E1800D9DB7C /* TABComponentLayer+TABDropAnimation.h in Headers */,
-				685A2B79247A6E2500D9DB7C /* NSArray+TABDropAnimation.h in Headers */,
-				685A2B7A247A6E2800D9DB7C /* TABBaseComponent+TABDropAnimation.h in Headers */,
-				685A2B7B247A6E2B00D9DB7C /* TABDropAnimation.h in Headers */,
-				685A2B7C247A6E2E00D9DB7C /* TABDropAnimationDefines.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
 		20A85BEF2152248D0005AD62 /* AnimatedDemo */ = {
@@ -1593,24 +1520,6 @@
 			productReference = 20A85BF02152248D0005AD62 /* TABAnimated.app */;
 			productType = "com.apple.product-type.application";
 		};
-		68E51A37233CFA9B00C09FCE /* TABAnimated */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 68E51A3F233CFA9B00C09FCE /* Build configuration list for PBXNativeTarget "TABAnimated" */;
-			buildPhases = (
-				68E51A33233CFA9B00C09FCE /* Headers */,
-				68E51A34233CFA9B00C09FCE /* Sources */,
-				68E51A35233CFA9B00C09FCE /* Frameworks */,
-				68E51A36233CFA9B00C09FCE /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = TABAnimated;
-			productName = TABAnimated;
-			productReference = 68E51A38233CFA9B00C09FCE /* TABAnimated.framework */;
-			productType = "com.apple.product-type.framework";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1622,9 +1531,6 @@
 				TargetAttributes = {
 					20A85BEF2152248D0005AD62 = {
 						CreatedOnToolsVersion = 10.0;
-					};
-					68E51A37233CFA9B00C09FCE = {
-						CreatedOnToolsVersion = 10.2;
 					};
 				};
 			};
@@ -1644,7 +1550,6 @@
 			projectRoot = "";
 			targets = (
 				20A85BEF2152248D0005AD62 /* AnimatedDemo */,
-				68E51A37233CFA9B00C09FCE /* TABAnimated */,
 			);
 		};
 /* End PBXProject section */
@@ -1668,13 +1573,6 @@
 				68B214C92292BA1B007E05A7 /* test1.jpg in Resources */,
 				68B214CA2292BA1B007E05A7 /* test2.jpg in Resources */,
 				68C171B624617AA5004FD76F /* test3.jpg in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		68E51A36233CFA9B00C09FCE /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1840,13 +1738,6 @@
 				68C1718A24604058004FD76F /* OneSectionViewController.m in Sources */,
 				20A85C38215224B10005AD62 /* Game.m in Sources */,
 				681567112264214F00293AB4 /* JXCategoryTitleVerticalZoomCell.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		68E51A34233CFA9B00C09FCE /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2041,66 +1932,6 @@
 			};
 			name = Release;
 		};
-		68E51A3D233CFA9B00C09FCE /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = JGZKPAYJ7R;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = TABAnimated/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MARKETING_VERSION = 2.3.0;
-				OTHER_LDFLAGS = "-all_load";
-				PRODUCT_BUNDLE_IDENTIFIER = com.tigerAndBull.TABAnimated;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		68E51A3E233CFA9B00C09FCE /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = JGZKPAYJ7R;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = TABAnimated/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MARKETING_VERSION = 2.3.0;
-				OTHER_LDFLAGS = "-all_load";
-				PRODUCT_BUNDLE_IDENTIFIER = com.tigerAndBull.TABAnimated;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -2118,15 +1949,6 @@
 			buildConfigurations = (
 				20A85C1D2152248E0005AD62 /* Debug */,
 				20A85C1E2152248E0005AD62 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		68E51A3F233CFA9B00C09FCE /* Build configuration list for PBXNativeTarget "TABAnimated" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				68E51A3D233CFA9B00C09FCE /* Debug */,
-				68E51A3E233CFA9B00C09FCE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
