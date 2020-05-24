@@ -180,8 +180,8 @@ typedef NS_ENUM(NSInteger, TABAnimationType) {
 + (TABAnimated *)sharedAnimated;
 
 /**
- * 初始化
- * @param TABAnimationType 全局动画类型
+ * 初始化并选择动画类型
+ * @param animationType 全局动画类型
  */
 - (instancetype)initWithAnimatonType:(TABAnimationType)animationType;
 

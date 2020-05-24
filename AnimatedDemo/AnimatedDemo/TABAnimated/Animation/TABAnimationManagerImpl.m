@@ -35,7 +35,7 @@
     if (_tabAnimated.decorator) return;
     
     if (_tabAnimated.superAnimationType == TABViewSuperAnimationTypeDefault) {
-        if(_tabAnimated.superAnimationType == TABAnimationTypeOnlySkeleton) {
+        if([TABAnimated sharedAnimated].animationType == TABAnimationTypeOnlySkeleton) {
             _tabAnimated.decorator = TABClassicAnimationImpl.new;
         }else if ([TABAnimated sharedAnimated].animationType == TABAnimationTypeShimmer) {
             _tabAnimated.decorator = TABShimmerAnimationImpl.new;

@@ -8,6 +8,7 @@
 
 #import "TABFormAnimated.h"
 #import "TABAnimatedCacheManager.h"
+#import "TABAnimated.h"
 #import <objc/runtime.h>
 
 @interface TABFormAnimated()

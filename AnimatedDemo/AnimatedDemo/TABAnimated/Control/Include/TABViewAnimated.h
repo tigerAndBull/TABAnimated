@@ -19,7 +19,7 @@
 #import "TABAnimatedDarkModeManagerInterface.h"
 #import "TABAnimatedDarkModeInterface.h"
 
-#import "TABComponentLayerBindInterface.h"
+#import "TABComponentLayerSerializationInterface.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -33,8 +33,8 @@ extern int const TABAnimatedIndexTag;
 @property (nonatomic, strong) id <TABAnimatedDecorateInterface> decorator;
 // 暗黑模式骨架内容切换协议
 @property (nonatomic, strong) id <TABAnimatedDarkModeInterface> switcher;
-// TABComponetLayer属性绑定协议
-@property (nonatomic, strong) id <TABComponentLayerBindInterface> binder;
+// TABComponetLayer序列化协议
+@property (nonatomic, strong) id <TABComponentLayerSerializationInterface> serializationImpl;
 
 /**
  不需要手动赋值，但是你需要知道当前视图的结构，

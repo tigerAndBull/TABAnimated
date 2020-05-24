@@ -1,5 +1,5 @@
 //
-//  TABComponentLayerBindClassicImpl.h
+//  TABComponentLayerClassicSerializationImpl.h
 //  AnimatedDemo
 //
 //  Created by tigerAndBull on 2020/5/24.
@@ -10,9 +10,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@protocol TABComponentLayerBindInterface;
+@protocol TABComponentLayerSerializationInterface;
 
-@interface TABComponentLayerBindClassicImpl : NSObject<TABComponentLayerBindInterface>
+@interface TABComponentLayerClassicSerializationImpl : NSObject<TABComponentLayerSerializationInterface>
 
 @end
 

@@ -11,7 +11,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface TABComponentLayer (TABDropAnimation)<NSCopying>
+@interface TABComponentLayer (TABDropAnimation)
 
 /**
  * 该动画元素在豆瓣动画队列中的下标

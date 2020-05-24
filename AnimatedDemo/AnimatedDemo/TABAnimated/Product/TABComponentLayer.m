@@ -9,7 +9,7 @@
 #import "TABComponentLayer.h"
 #import "TABAnimatedProductHelper.h"
 #import "TABAnimated.h"
-#import "TABComponentLayerBindInterface.h"
+#import "TABComponentLayerSerializationInterface.h"
 
 static NSString * const TABComponentLayerName = @"TABLayer";
 static const CGFloat kDefaultHeight = 16.f;
@@ -180,6 +180,11 @@ static const CGFloat kDefaultHeight = 16.f;
     
     [aCoder encodeBool:_withoutAnimation forKey:@"withoutAnimation"];
     [aCoder encodeObject:_placeholderName forKey:@"placeholderName"];
+    [aCoder encodeObject:NSStringFromClass(self.serializationImpl.class) forKey:@"serializationImpl"];
+    
+    if (self.serializationImpl) {
+        [self.serializationImpl tab_encodeWithCoder:aCoder layer:self];
+    }
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
@@ -198,17 +203,19 @@ static const CGFloat kDefaultHeight = 16.f;
         self.lastScale = [aDecoder decodeFloatForKey:@"lastScale"];
         self.placeholderName = [aDecoder decodeObjectForKey:@"placeholderName"];
         self.withoutAnimation = [aDecoder decodeBoolForKey:@"withoutAnimation"];
+        Class serializationImplClass = [aDecoder decodeObjectForKey:@"serializationImpl"];
+        self.serializationImpl = serializationImplClass.new;
+        
     }
+    
+    if (self.serializationImpl) {
+        self = [self.serializationImpl tab_initWithCoder:aDecoder layer:self];
+    }
+    
     return self;
 }
 
 #pragma mark - NSCopying
-
-- (TABComponentLayer *)copyWithBinder:(id <TABComponentLayerBindInterface>)binder {
-    TABComponentLayer *layer = self.copy;
-    [binder propertyBindWithNewLayer:layer oldLayer:self];
-    return layer;
-}
 
 - (id)copyWithZone:(NSZone *)zone {
     
@@ -238,6 +245,11 @@ static const CGFloat kDefaultHeight = 16.f;
     layer.position = self.position;
     layer.opaque = self.opaque;
     layer.contentsScale = self.contentsScale;
+    layer.serializationImpl = self.serializationImpl;
+    
+    if (self.serializationImpl) {
+        [self.serializationImpl propertyBindWithNewLayer:layer oldLayer:self];
+    }
     
     return layer;
 }

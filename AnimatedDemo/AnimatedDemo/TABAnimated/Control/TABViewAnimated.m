@@ -10,8 +10,9 @@
 #import "TABAnimated.h"
 
 #import "TABAnimatedProductImpl.h"
-#import "TABComponentLayerBindClassicImpl.h"
-#import "TABComponentLayerBindDropImpl.h"
+
+#import "TABComponentLayerDropSerializationImpl.h"
+#import "TABComponentLayerClassicSerializationImpl.h"
 
 @implementation TABViewAnimated
 
@@ -21,7 +22,7 @@
         _filterSubViewSize = CGSizeZero;
         _producter = TABAnimatedProductImpl.new;
         
-        [self _initBinder];
+        [self _initSeriaSlizationImpl];
     }
     return self;
 }
@@ -54,22 +55,22 @@
     }
 }
 
-- (void)_initBinder {
+- (void)_initSeriaSlizationImpl {
     if (self.superAnimationType == TABViewSuperAnimationTypeDefault) {
         switch ([TABAnimated sharedAnimated].animationType) {
             case TABAnimationTypeDrop: {
-                _binder = TABComponentLayerBindDropImpl.new;
+                _serializationImpl = TABComponentLayerDropSerializationImpl.new;
             }
                 break;
             default: {
-                _binder = TABComponentLayerBindClassicImpl.new;
+                _serializationImpl = TABComponentLayerClassicSerializationImpl.new;
             }
                 break;
         }
     }else if(self.superAnimationType == TABViewSuperAnimationTypeDrop) {
-        _binder = TABComponentLayerBindDropImpl.new;
+        _serializationImpl = TABComponentLayerDropSerializationImpl.new;
     }else {
-        _binder = TABComponentLayerBindClassicImpl.new;
+        _serializationImpl = TABComponentLayerClassicSerializationImpl.new;
     }
 }
 
@@ -77,7 +78,7 @@
 
 - (void)setSuperAnimationType:(TABViewSuperAnimationType)superAnimationType {
     _superAnimationType = superAnimationType;
-    [self _initBinder];
+    [self _initSeriaSlizationImpl];
 }
 
 - (CGFloat)animatedHeight {

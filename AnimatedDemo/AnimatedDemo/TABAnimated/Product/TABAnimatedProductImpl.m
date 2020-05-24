@@ -119,7 +119,7 @@
     NSString *key = [TABAnimatedProductHelper getKeyWithControllerName:controlView.tabAnimated.targetControllerClassName targetClass:currentClass];
     TABAnimatedProduction *production = [[TABAnimatedCacheManager shareManager] getProductionWithKey:key];
     if (production) {
-        TABAnimatedProduction *newProduction = [production copyWithBinder:_controlView.tabAnimated.binder];
+        TABAnimatedProduction *newProduction = production.copy;
         [self _bindWithProduction:newProduction targetView:view];
         return;
     }
@@ -227,7 +227,7 @@
 }
 
 - (void)_reuseProduction:(TABAnimatedProduction *)production targetView:(UIView *)targetView {
-    TABAnimatedProduction *newProduction = [production copyWithBinder:_controlView.tabAnimated.binder];
+    TABAnimatedProduction *newProduction = production.copy;
     if (production.state != TABAnimatedProductionCreate) {
         [self _bindWithProduction:newProduction targetView:targetView];
     }else {
@@ -359,6 +359,7 @@
 
             UIColor *animatedColor = [_controlView.tabAnimated getCurrentAnimatedColorWithCollection:_controlView.traitCollection];
             layer = [self _createLayerWithView:subV needRemove:needRemove color:animatedColor isCard:isCard];
+            layer.serializationImpl = _controlView.tabAnimated.serializationImpl;
             layer.tagIndex = tagIndex;
             if (_controlView.tabAnimated.decorator && [_controlView.tabAnimated.decorator respondsToSelector:@selector(propertyBindingWithLayer:index:)]) {
                 [_controlView.tabAnimated.decorator propertyBindingWithLayer:layer index:tagIndex];
@@ -473,7 +474,7 @@
             TABAnimatedProduction *newProduction = view.tabAnimatedProduction;
             newProduction.backgroundLayer = production.backgroundLayer.copy;
             for (TABComponentLayer *layer in production.layers) {
-                [newProduction.layers addObject:[layer copyWithBinder:_controlView.tabAnimated.binder]];
+                [newProduction.layers addObject:layer.copy];
             }
             [self _bindWithProduction:newProduction targetView:view];
         }
