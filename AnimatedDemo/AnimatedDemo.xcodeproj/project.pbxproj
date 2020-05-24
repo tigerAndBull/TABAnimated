@@ -131,6 +131,26 @@
 		685A2ACF247A685C00D9DB7C /* LawyerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 685A2ABE247A685C00D9DB7C /* LawyerTableViewCell.m */; };
 		685A2AD0247A685C00D9DB7C /* NewsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 685A2ABF247A685C00D9DB7C /* NewsTableViewCell.m */; };
 		685A2AD1247A685C00D9DB7C /* PackageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 685A2AC0247A685C00D9DB7C /* PackageTableViewCell.m */; };
+		685A2B69247A6DC000D9DB7C /* UIView+TABControlModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 6834CFFF247918C8007F8459 /* UIView+TABControlModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		685A2B6A247A6DC000D9DB7C /* UIView+TABControlAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = 6834D000247918C8007F8459 /* UIView+TABControlAnimation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		685A2B6B247A6DC000D9DB7C /* TABViewAnimatedDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 6834D001247918C8007F8459 /* TABViewAnimatedDefines.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		685A2B6C247A6DC000D9DB7C /* TABCollectionAnimated.h in Headers */ = {isa = PBXBuildFile; fileRef = 6834D002247918C8007F8459 /* TABCollectionAnimated.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		685A2B6D247A6DC000D9DB7C /* TABViewAnimated.h in Headers */ = {isa = PBXBuildFile; fileRef = 6834D003247918C8007F8459 /* TABViewAnimated.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		685A2B6E247A6DC000D9DB7C /* TABFormAnimated.h in Headers */ = {isa = PBXBuildFile; fileRef = 6834CFFA247918C8007F8459 /* TABFormAnimated.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		685A2B6F247A6DC000D9DB7C /* TABTableAnimated.h in Headers */ = {isa = PBXBuildFile; fileRef = 6834D004247918C8007F8459 /* TABTableAnimated.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		685A2B70247A6DCC00D9DB7C /* TABAnimatedDarkModeInterface.h in Headers */ = {isa = PBXBuildFile; fileRef = 6834CFB6247918C8007F8459 /* TABAnimatedDarkModeInterface.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		685A2B71247A6DE600D9DB7C /* TABAnimatedDecorateInterface.h in Headers */ = {isa = PBXBuildFile; fileRef = 6834CFC8247918C8007F8459 /* TABAnimatedDecorateInterface.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		685A2B72247A6DF800D9DB7C /* TABClassicAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = 6834CFC5247918C8007F8459 /* TABClassicAnimation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		685A2B73247A6DFB00D9DB7C /* TABComponentLayer+TABClassicAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = 6834CFC3247918C8007F8459 /* TABComponentLayer+TABClassicAnimation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		685A2B74247A6DFE00D9DB7C /* TABBaseComponent+TABClassicAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = 6834D03324799D03007F8459 /* TABBaseComponent+TABClassicAnimation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		685A2B75247A6E0700D9DB7C /* TABShimmerAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = 6834CFDC247918C8007F8459 /* TABShimmerAnimation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		685A2B76247A6E0A00D9DB7C /* TABShimmerAnimationDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 6834CFDB247918C8007F8459 /* TABShimmerAnimationDefines.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		685A2B77247A6E1000D9DB7C /* TABBinAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = 6834CFC1247918C8007F8459 /* TABBinAnimation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		685A2B78247A6E1800D9DB7C /* TABComponentLayer+TABDropAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = 6834D03D247A3704007F8459 /* TABComponentLayer+TABDropAnimation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		685A2B79247A6E2500D9DB7C /* NSArray+TABDropAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = 6834CFD2247918C8007F8459 /* NSArray+TABDropAnimation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		685A2B7A247A6E2800D9DB7C /* TABBaseComponent+TABDropAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = 6834CFD6247918C8007F8459 /* TABBaseComponent+TABDropAnimation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		685A2B7B247A6E2B00D9DB7C /* TABDropAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = 6834CFD0247918C8007F8459 /* TABDropAnimation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		685A2B7C247A6E2E00D9DB7C /* TABDropAnimationDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 6834CFD3247918C8007F8459 /* TABDropAnimationDefines.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		68958D542274AA40002C4295 /* CardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68958D522274AA3F002C4295 /* CardViewController.m */; };
 		68958D572274AA7B002C4295 /* CardCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 68958D562274AA7A002C4295 /* CardCollectionViewCell.m */; };
 		68958D5A22753D00002C4295 /* SegmentCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68958D5922753D00002C4295 /* SegmentCollectionViewController.m */; };
@@ -1530,6 +1550,26 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				685A2B69247A6DC000D9DB7C /* UIView+TABControlModel.h in Headers */,
+				685A2B6A247A6DC000D9DB7C /* UIView+TABControlAnimation.h in Headers */,
+				685A2B6B247A6DC000D9DB7C /* TABViewAnimatedDefines.h in Headers */,
+				685A2B6C247A6DC000D9DB7C /* TABCollectionAnimated.h in Headers */,
+				685A2B6D247A6DC000D9DB7C /* TABViewAnimated.h in Headers */,
+				685A2B6E247A6DC000D9DB7C /* TABFormAnimated.h in Headers */,
+				685A2B6F247A6DC000D9DB7C /* TABTableAnimated.h in Headers */,
+				685A2B70247A6DCC00D9DB7C /* TABAnimatedDarkModeInterface.h in Headers */,
+				685A2B71247A6DE600D9DB7C /* TABAnimatedDecorateInterface.h in Headers */,
+				685A2B72247A6DF800D9DB7C /* TABClassicAnimation.h in Headers */,
+				685A2B73247A6DFB00D9DB7C /* TABComponentLayer+TABClassicAnimation.h in Headers */,
+				685A2B74247A6DFE00D9DB7C /* TABBaseComponent+TABClassicAnimation.h in Headers */,
+				685A2B75247A6E0700D9DB7C /* TABShimmerAnimation.h in Headers */,
+				685A2B76247A6E0A00D9DB7C /* TABShimmerAnimationDefines.h in Headers */,
+				685A2B77247A6E1000D9DB7C /* TABBinAnimation.h in Headers */,
+				685A2B78247A6E1800D9DB7C /* TABComponentLayer+TABDropAnimation.h in Headers */,
+				685A2B79247A6E2500D9DB7C /* NSArray+TABDropAnimation.h in Headers */,
+				685A2B7A247A6E2800D9DB7C /* TABBaseComponent+TABDropAnimation.h in Headers */,
+				685A2B7B247A6E2B00D9DB7C /* TABDropAnimation.h in Headers */,
+				685A2B7C247A6E2E00D9DB7C /* TABDropAnimationDefines.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
