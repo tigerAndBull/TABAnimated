@@ -55,6 +55,7 @@
     _isAddSentryView = NO;
     [_weakDelegateManager removeAllDelegates];
     _weakDelegateManager = nil;
+    [_sentryView removeFromSuperview];
     _sentryView = nil;
 }
 
