@@ -100,12 +100,24 @@ typedef NS_ENUM(NSInteger, TABComponentLayerOrigin) {
  */
 @property (nonatomic, assign) BOOL withoutAnimation;
 
+/**
+ * 调整后需要同步的frame
+ */
 @property (nonatomic, assign) CGRect adjustingFrame;
 
+/**
+ * 是否调整过高度
+ */
 @property (nonatomic, assign) BOOL isChangedHeight;
 
+/**
+ * 多行layers
+ */
 @property (nonatomic, strong) NSMutableArray <TABComponentLayer *> *lineLayers;
 
+/**
+ * 序列化协议
+ */
 @property (nonatomic, strong) id <TABComponentLayerSerializationInterface> serializationImpl;
 
 - (CGRect)resetFrameWithRect:(CGRect)rect animatedHeight:(CGFloat)animatedHeight;

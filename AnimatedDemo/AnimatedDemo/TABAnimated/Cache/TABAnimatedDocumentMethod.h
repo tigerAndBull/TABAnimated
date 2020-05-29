@@ -17,10 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSString *)getPathByFilePacketName:(NSString *)filePacketName;
 
-// 创建文件/文件夹
 + (BOOL)createFile:(NSString *)file isDir:(BOOL)isdir;
 
-// 判断文件/文件夹是否存在
 + (BOOL)isExistFile:(NSString *)path isDir:(BOOL)isDir;
 
 @end

@@ -35,6 +35,7 @@
 
 // 加工等待队列
 @property (nonatomic, strong) NSMutableArray <UIView *> *targetViewArray;
+
 // 正在生产的index，配合targetViewArray实现加工等待队列
 @property (nonatomic, assign) NSInteger productIndex;
 

@@ -186,8 +186,7 @@ static const CGFloat kTagLabelHeight = 20.f;
     view.tabAnimatedProduction = production;
 }
 
-+ (TABComponentLayer *)getBackgroundLayerWithView:(UIView *)view
-                                      controlView:(UIView *)controlView {
++ (TABComponentLayer *)getBackgroundLayerWithView:(UIView *)view controlView:(UIView *)controlView {
     TABViewAnimated *tabAnimated = controlView.tabAnimated;
     
     UIColor *animatedBackgroundColor = [tabAnimated getCurrentAnimatedBackgroundColorWithCollection:controlView.traitCollection];

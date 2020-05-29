@@ -1,0 +1,150 @@
+## TABAnimated 2.3.0
+
+TABAnimated对2.2.6版本进行了重构,   
+本篇文章将对TABAnimated 2.3.0的结构做一个简单说明。  
+
+
+## TABAnimated 2.3.0带来了什么？
+
+**映射机制**的数据提升：
+
+1. CPU占用率降低35%  
+2. 内存占用降低30%  
+3. GPU降低30%
+4. CPU耗时操作大大减少
+
+框架结构方面：  
+
+1. 基于面向协议，模块重组、分层建设
+2. 高度的动画自定制  
+
+### 性能数据对比
+
+测试机型：iPhone X   
+测试环境：单线程  
+测试工具：Intruments  
+测试类型：UITableView 单section  
+测试方式：高频压测
+
+|    | CPU  | GPU  | 内存占用 |
+| :----:| :----: |:----:|:----:|
+| 旧版本  | 14% - 18%|31% - 35%|31.5M|
+| 新版本  | 9% - 15% |16% - 17%|21.5M|
+| 缓存    | 8% - 13% |14% - 17%|21.5M|
+
+
+测试机型：iPhone 6s  
+测试环境：单线程  
+测试工具：Intruments  
+测试类型：UITableView 单section  
+测试方式：高频压测
+
+|    | CPU  | GPU | 内存占用 |
+|  :----:  | :----: |:----: |:----: |
+| 旧版本  | 15% - 19%|32% - 45%|28.3M|
+| 新版本  | 9% - 15% |30% - 38%|18.5M|
+| 缓存   | 8% - 13% |30% - 38%|18.5M|
+
+**PS：缓存的数据适用于新旧版本，也就是说本次数据的提升主要针对于映射机制。**
+
+## 新版本是否会影响老用户？
+
+所有Api都是兼容的，但是希望开发者使用新的Api替代。 
+
+### 注意点
+
+- **增加了一个值得关注的属性`scrollEnable`，默认值为YES。  
+意为在骨架屏期间，是否可以滚动，老版本都是可以滚动的，默认值与老版本一致。**
+- **基于协议将动画与生产层完全剥离的同时，不再支持多种动画融合的使用方式，在异步调整模块，chain链条可以获取四种动画的Api，但是只有当前动画类型的api会生效**
+
+## TABAnimated层级关系
+
+TABAnimated 2.3.0 基于面向协议进行了分层处理。  
+层与层之间通过协议通信，且不必关心对方的实现。
+
+### **主要分为三层：控制层、生产层和加工层**
+
+**控制层**：由控制模型绑定参数、把握时机，向生产层输送生产任务  
+**生产层**：生产层拿到生产任务，使用内置缓存机制、复用池、生产流水线进行生产，这一层也是此次优化的重点   
+**加工层**：将已经生产好的产品进行加工。主要通过动画协议、暗黑模式协议、调整协议，而协议的控制权交由控制层。所以即便是加工层的任务，开发者也只需要聚焦于控制层开放的api。
+
+![image.png](https://upload-images.jianshu.io/upload_images/5632003-078402807f9578dc?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+控制层、生产层通信协议：TABAnimatedProductInterface  
+生产层、加工层通信协议：TABAnimationManagerInterface、TABAnimatedChainManagerInterface、TABAnimatedDarkModeManagerInterface
+
+生产层对外协议：TABComponentLayerSerializationInterface  
+用途：开发者在自定制动画时，如果需要为骨架单元增加属性，可在此实现序列化
+
+加工层对外协议：TABAnimatedDecorateInterface、TABAnimatedDarkModeInterface
+
+**PS：对外协议可重写，在控制层重新赋值**
+
+### 控制层 
+
+控制层主要类及其职责：
+
+|  类名  | 用途  |
+|  :----: | :----: |
+| TABViewAnimated  | 用于UIView  |
+| TABTableAnimated  | 用于UITableView  |
+| TABCollectionAnimated  | 用于UICollectionView  |
+| TABFormAnimated  | TABTableAnimated和TABCollectionAnimated的公共基类   |
+|UIView+TABControlAnimation| 骨架动画最上层的启动、结束接口|
+
+**控制层通过生产协议`TABAnimatedProductInterface`与生产层通信，**  
+**控制层在需要的时机选择不同的生产方法，生产骨架屏。**
+
+### 生产层
+
+生产层主要类及其职责：
+
+|  类名  | 用途  |
+|  :----: | :----: |
+| TABAnimatedProductInterface  | 生产协议  |
+| TABAnimatedProductImpl  | 生产协议的实现类 |
+| TABAnimatedProduction  | 产品，也是缓存的对象，是骨架的主体  |
+| TABComponentLayer  | 骨架元素单元   |
+| TABAnimatedProductHelper  | 生产流水的辅助类，主要用来分担TABAnimatedProductImpl的任务   |
+|TABComponentLayerSerializationInterface|骨架屏序列化协议，供自定制动画使用|
+
+#### 下面是生产流水线
+
+![image.png](https://upload-images.jianshu.io/upload_images/5632003-639455a9b1ce2da2?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+
+### 加工层  
+
+生产完成后，根据开发者的配置，还需要对骨架元素进行加工：
+  
+- 异步调整管理协议     `TABAnimatedChainManagerInterface`：选择并执行异步调整回调，负责进一步调整骨架元素   
+- 动画管理协议`TABAnimationManagerInterface`：对骨架元素进行动画周期的管理  
+- 暗黑模式管理协议`TABAnimatedDarkModeManagerInterface`：对目标视图进行暗黑模式状态的管理  
+
+加工层对外可定制协议：
+
+- 异步调整回调 `TABAdjustBlock`：异步调整骨架元素属性的主体
+- 暗黑模式转换协议`TABAnimatedDarkModeInterface`：暗黑模式转换的主体
+- 动画协议`TABAnimatedDecorateInterface`：动画添加的主体
+
+
+## 何为自定制
+
+**控制视图：** 如果你的UITableView需要骨架元素，那么UITableView就是控制视图，绑定TABTableAnimated  
+在TABTableAnimated中自行实现对外协议，达到自定制效果
+
+```
+// 生产者
+@property (nonatomic, strong) id <TABAnimatedProductInterface> producter;
+
+// 装饰者，用于制作自定义动画, 关联layers
+@property (nonatomic, strong) id <TABAnimatedDecorateInterface> decorator;
+
+// 暗黑模式骨架内容切换协议
+@property (nonatomic, strong) id <TABAnimatedDarkModeInterface> switcher;
+
+// TABComponetLayer序列化协议
+@property (nonatomic, strong) id <TABComponentLayerSerializationInterface> serializationImpl;
+```
+
+#### **如此一来，开发者无需关心生产层和加工层的实现，只需要关心控制层的对外接口。**
