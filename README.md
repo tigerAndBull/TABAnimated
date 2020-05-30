@@ -231,7 +231,7 @@ manager.animationWithIndexs(1,5,7).down(5);
 
 - 有问题一定要先看`demo`和文档哈，demo的示例分散在`UITableView`和`UICollectionView`两种类型视图上
 - demo也只是引导的作用，你可以自己设置出更精美的效果
-- 如有使用问题、优化建议、好的想法等，可以直接提issue，也可以加交流群即时反馈: 304543771
+- 如有使用问题、优化建议、好的想法等，可以关注公众号：tigerAndBull技术分享，扫码加群快速解决
 
 ## License
 
