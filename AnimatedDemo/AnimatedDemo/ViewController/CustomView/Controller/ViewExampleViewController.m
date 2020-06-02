@@ -54,8 +54,8 @@
     
     _topImg.image = [UIImage imageNamed:@"test.jpg"];
     _titleLab.text = @"您不会没有骨架过渡吧？";
-    _firstInfoLab.text = @"快用TABAnimated，为您解决烦恼";
-    _secondInfoLab.text = @"加群更好解决问题：304543771";
+    _firstInfoLab.text = @"使用用TABAnimated 问题交流";
+    _secondInfoLab.text = @"关注 tigerAndBull技术分享 公众号 进微信群";
     [_commitBtn setTitle:@"立即使用" forState:UIControlStateNormal];
     _commitBtn.layer.borderColor = UIColor.redColor.CGColor;
     _commitBtn.layer.borderWidth = 1.0;

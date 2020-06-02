@@ -15,7 +15,7 @@ TABAnimated对2.2.6版本进行了重构,
 
 框架结构方面：  
 
-1. 基于面向协议，模块重组、分层建设
+1. 采用自顶向下的分析方法，基于面向协议，模块重组、分层建设
 2. 高度的动画自定制  
 
 ### 性能数据对比
@@ -62,11 +62,16 @@ TABAnimated对2.2.6版本进行了重构,
 TABAnimated 2.3.0 基于面向协议进行了分层处理。  
 层与层之间通过协议通信，且不必关心对方的实现。
 
+![image.png](https://upload-images.jianshu.io/upload_images/5632003-3c763be236bd46b6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 ### **主要分为三层：控制层、生产层和加工层**
 
 **控制层**：由控制模型绑定参数、把握时机，向生产层输送生产任务  
 **生产层**：生产层拿到生产任务，使用内置缓存机制、复用池、生产流水线进行生产，这一层也是此次优化的重点   
-**加工层**：将已经生产好的产品进行加工。主要通过动画协议、暗黑模式协议、调整协议，而协议的控制权交由控制层。所以即便是加工层的任务，开发者也只需要聚焦于控制层开放的api。
+**加工层**：加工层将已经生产好的产品进行加工。主要通过动画协议、暗黑模式协议、调整协议，而协议的控制权交由控制层。所以即便是加工层的任务，开发者也只需要聚焦于控制层开放的api。
+
+#### 如此以来，开发者只需要关心控制层的接口。  
+
 
 ![image.png](https://upload-images.jianshu.io/upload_images/5632003-078402807f9578dc?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
@@ -146,5 +151,3 @@ TABAnimated 2.3.0 基于面向协议进行了分层处理。
 // TABComponetLayer序列化协议
 @property (nonatomic, strong) id <TABComponentLayerSerializationInterface> serializationImpl;
 ```
-
-#### **如此一来，开发者无需关心生产层和加工层的实现，只需要关心控制层的对外接口。**
