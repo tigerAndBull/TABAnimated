@@ -20,12 +20,22 @@
                                        currentClass:(nonnull Class)currentClass
                                           indexPath:(nullable NSIndexPath *)indexPath
                                              origin:(TABAnimatedProductOrigin)origin;
+
 // 生产骨架元素
 - (void)productWithView:(nonnull UIView *)view
             controlView:(nonnull UIView *)controlView
            currentClass:(nonnull Class)currentClass
               indexPath:(nullable NSIndexPath *)indexPath
                  origin:(TABAnimatedProductOrigin)origin;
+
+- (void)productWithView:(nonnull UIView *)view
+            controlView:(nonnull UIView *)controlView
+           currentClass:(nonnull Class)currentClass
+              indexPath:(nullable NSIndexPath *)indexPath
+                 origin:(TABAnimatedProductOrigin)origin
+         productByClass:(BOOL)productByClass;
+
+- (nullable TABAnimatedProduction *)productWithControlView:(nonnull UIView *)controlView currentClass:(nonnull Class)currentClass;
 
 - (void)destory;
 

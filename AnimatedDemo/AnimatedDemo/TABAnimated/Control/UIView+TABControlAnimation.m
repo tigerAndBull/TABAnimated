@@ -19,6 +19,8 @@
 
 #import "TABAnimatedProduction.h"
 
+#import "TABAnimatedFooterComponent.h"
+
 static const NSTimeInterval kDelayReloadDataTime = .4;
 const int TABAnimatedIndexTag = -100000;
 
@@ -76,6 +78,16 @@ const int TABAnimatedIndexTag = -100000;
                 isFirstLoad = NO;
             }
         }
+    }
+    
+
+    if ([self isKindOfClass:[UITableView class]]) {
+        UITableView *tableView = (UITableView *)self;
+        TABTableAnimated *tabAniamted = tableView.tabAnimated;
+        tabAniamted.footerComponent = TABAnimatedFooterComponent.new;
+        tabAniamted.footerComponent.scrollView = tableView;
+        tabAniamted.footerComponent.state = TABAnimatedFooterRefreshStateNormal;
+        [tableView insertSubview:tabAniamted.footerComponent atIndex:0];
     }
     
     if (tabAnimated.targetControllerClassName == nil || tabAnimated.targetControllerClassName.length == 0) {
@@ -199,6 +211,22 @@ const int TABAnimatedIndexTag = -100000;
 - (void)_endViewAnimation {
     self.tabAnimated.state = TABViewAnimationEnd;
     self.tabAnimatedProduction.backgroundLayer.hidden = YES;
+}
+
+#pragma mark -
+
+- (void)tab_startMoreAnimation {
+}
+
+- (void)tab_endMoreAnimation {
+    if (![self isKindOfClass:UIScrollView.class]) return;
+    if ([self isKindOfClass:[UITableView class]]) {
+        UITableView *tableView = (UITableView *)self;
+        TABTableAnimated *tabAnimated = tableView.tabAnimated;
+        tabAnimated.footerComponent.state = TABAnimatedFooterRefreshStateNormal;
+        [tabAnimated.footerComponent removeObservers];
+        tabAnimated.footerComponent.hidden = YES;
+    }
 }
 
 #pragma mark -

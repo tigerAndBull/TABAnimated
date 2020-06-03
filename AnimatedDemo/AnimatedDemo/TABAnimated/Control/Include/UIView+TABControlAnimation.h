@@ -101,6 +101,11 @@ extern int const TABAnimatedIndexTag;
 
 #pragma mark -
 
+- (void)tab_startMoreAnimation;
+- (void)tab_endMoreAnimation;
+
+#pragma mark -
+
 - (void)tab_startAnimationWithSection:(NSInteger)section;
 - (void)tab_startAnimationWithSection:(NSInteger)section completion:(void (^)(void))completion;
 - (void)tab_startAnimationWithSection:(NSInteger)section delayTime:(CGFloat)delayTime completion:(void (^)(void))completion;

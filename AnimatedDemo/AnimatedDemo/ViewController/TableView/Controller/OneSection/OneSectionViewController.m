@@ -82,6 +82,19 @@
     
     // 停止动画,并刷新数据
     [self.tableView tab_endAnimationEaseOut];
+    [self performSelector:@selector(loadMoreData) withObject:nil afterDelay:5];
+}
+
+- (void)loadMoreData {
+    [self.tableView tab_endMoreAnimation];
+    for (int i = 10; i < 20; i ++) {
+        Game *game = [[Game alloc]init];
+        game.gameId = [NSString stringWithFormat:@"%d",i];
+        game.title = [NSString stringWithFormat:@"这里是测试数据%d",i+1];
+        game.cover = @"test.jpg";
+        [dataArray addObject:game];
+    }
+    [self.tableView reloadData];
 }
 
 #pragma mark - UITableViewDelegate & Datasource

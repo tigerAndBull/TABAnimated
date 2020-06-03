@@ -7,6 +7,7 @@
 //
 
 #import "TABViewAnimated.h"
+#import "TABAnimatedFooterComponent.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -71,6 +72,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, assign) BOOL scrollEnabled;
 @property (nonatomic, assign) BOOL oldScrollEnabled;
+
+@property (nonatomic, strong) TABAnimatedFooterComponent *footerComponent;
 
 - (NSInteger)getIndexWithIndex:(NSInteger)index;
 - (NSInteger)getIndexWithIndexPath:(NSIndexPath *)indexPath;
