@@ -211,16 +211,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)addHeaderViewClass:(nonnull Class)headerViewClass viewHeight:(CGFloat)viewHeight;
 - (void)addFooterViewClass:(nonnull Class)footerViewClass viewHeight:(CGFloat)viewHeight;
 
-#pragma mark -
-
-- (void)addMoreAnimationClass:(nonnull Class)moreAnimationClass;
-- (void)addMoreAnimationClass:(nonnull Class)moreAnimationClass completion:(void (^)(void))completion;
-- (void)addMoreAnimationClass:(nonnull Class)moreAnimationClass target:(id)target selector:(SEL)selector;
-
-- (void)addMoreAnimationClass:(nonnull Class)moreAnimationClass viewHeight:(CGFloat)viewHeight;
-- (void)addMoreAnimationClass:(nonnull Class)moreAnimationClass viewHeight:(CGFloat)viewHeight completion:(void (^)(void))completion;
-- (void)addMoreAnimationClass:(nonnull Class)moreAnimationClass viewHeight:(CGFloat)viewHeight target:(id)target selector:(SEL)selector;
-
 #pragma mark - DEPRECATED
 
 @property (nonatomic, weak) TABViewAnimated *tabHeadViewAnimated DEPRECATED_MSG_ATTRIBUTE("直接使用tableView.tableHeaderView.tabAnimated获取");

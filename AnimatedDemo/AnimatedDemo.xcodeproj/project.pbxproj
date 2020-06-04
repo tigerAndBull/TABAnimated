@@ -13,9 +13,10 @@
 		2039EF7521DA07F200AE09FC /* NestCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2039EF7421DA07F200AE09FC /* NestCollectionViewCell.m */; };
 		2039EF7821DA135900AE09FC /* BaseCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2039EF7621DA135900AE09FC /* BaseCollectionCell.m */; };
 		2039EF7B21DA15C100AE09FC /* ImageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2039EF7A21DA15C100AE09FC /* ImageCollectionViewCell.m */; };
-		205664C224874DA100AC16D9 /* UIScrollView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 205664C024874DA100AC16D9 /* UIScrollView+MJExtension.m */; };
-		205664C5248752D600AC16D9 /* TABAnimatedFooterComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 205664C4248752D600AC16D9 /* TABAnimatedFooterComponent.m */; };
-		205664C9248756E900AC16D9 /* UIView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 205664C8248756E900AC16D9 /* UIView+MJExtension.m */; };
+		205664C224874DA100AC16D9 /* UIScrollView+TABExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 205664C024874DA100AC16D9 /* UIScrollView+TABExtension.m */; };
+		205664C5248752D600AC16D9 /* TABAnimatedPullLoadingComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 205664C4248752D600AC16D9 /* TABAnimatedPullLoadingComponent.m */; };
+		205664C9248756E900AC16D9 /* UIView+TABExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 205664C8248756E900AC16D9 /* UIView+TABExtension.m */; };
+		205664D02488F0DE00AC16D9 /* UIScrollView+TABAnimated.m in Sources */ = {isa = PBXBuildFile; fileRef = 205664CF2488F0DE00AC16D9 /* UIScrollView+TABAnimated.m */; };
 		2083176521A0451A000A0D95 /* TableRowModeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2083176421A0451A000A0D95 /* TableRowModeViewController.m */; };
 		20A01597216A51FC0082425D /* XibTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A01596216A51FC0082425D /* XibTestViewController.m */; };
 		20A0159A216A538F0082425D /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A01599216A538F0082425D /* MainViewController.m */; };
@@ -207,12 +208,14 @@
 		2039EF7721DA135900AE09FC /* BaseCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseCollectionCell.h; sourceTree = "<group>"; };
 		2039EF7921DA15C100AE09FC /* ImageCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageCollectionViewCell.h; sourceTree = "<group>"; };
 		2039EF7A21DA15C100AE09FC /* ImageCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageCollectionViewCell.m; sourceTree = "<group>"; };
-		205664C024874DA100AC16D9 /* UIScrollView+MJExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+MJExtension.m"; sourceTree = "<group>"; };
-		205664C124874DA100AC16D9 /* UIScrollView+MJExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+MJExtension.h"; sourceTree = "<group>"; };
-		205664C3248752D600AC16D9 /* TABAnimatedFooterComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TABAnimatedFooterComponent.h; sourceTree = "<group>"; };
-		205664C4248752D600AC16D9 /* TABAnimatedFooterComponent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TABAnimatedFooterComponent.m; sourceTree = "<group>"; };
-		205664C7248756E900AC16D9 /* UIView+MJExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+MJExtension.h"; sourceTree = "<group>"; };
-		205664C8248756E900AC16D9 /* UIView+MJExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MJExtension.m"; sourceTree = "<group>"; };
+		205664C024874DA100AC16D9 /* UIScrollView+TABExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+TABExtension.m"; sourceTree = "<group>"; };
+		205664C124874DA100AC16D9 /* UIScrollView+TABExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+TABExtension.h"; sourceTree = "<group>"; };
+		205664C3248752D600AC16D9 /* TABAnimatedPullLoadingComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TABAnimatedPullLoadingComponent.h; sourceTree = "<group>"; };
+		205664C4248752D600AC16D9 /* TABAnimatedPullLoadingComponent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TABAnimatedPullLoadingComponent.m; sourceTree = "<group>"; };
+		205664C7248756E900AC16D9 /* UIView+TABExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+TABExtension.h"; sourceTree = "<group>"; };
+		205664C8248756E900AC16D9 /* UIView+TABExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+TABExtension.m"; sourceTree = "<group>"; };
+		205664CE2488F0DE00AC16D9 /* UIScrollView+TABAnimated.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+TABAnimated.h"; sourceTree = "<group>"; };
+		205664CF2488F0DE00AC16D9 /* UIScrollView+TABAnimated.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+TABAnimated.m"; sourceTree = "<group>"; };
 		2083176321A0451A000A0D95 /* TableRowModeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TableRowModeViewController.h; sourceTree = "<group>"; };
 		2083176421A0451A000A0D95 /* TableRowModeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TableRowModeViewController.m; sourceTree = "<group>"; };
 		20A01595216A51FC0082425D /* XibTestViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XibTestViewController.h; sourceTree = "<group>"; };
@@ -571,17 +574,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		205664C6248756CE00AC16D9 /* Footer */ = {
+		205664C6248756CE00AC16D9 /* PullLoading */ = {
 			isa = PBXGroup;
 			children = (
-				205664C3248752D600AC16D9 /* TABAnimatedFooterComponent.h */,
-				205664C4248752D600AC16D9 /* TABAnimatedFooterComponent.m */,
-				205664C124874DA100AC16D9 /* UIScrollView+MJExtension.h */,
-				205664C024874DA100AC16D9 /* UIScrollView+MJExtension.m */,
-				205664C7248756E900AC16D9 /* UIView+MJExtension.h */,
-				205664C8248756E900AC16D9 /* UIView+MJExtension.m */,
+				205664D12488F6A000AC16D9 /* Include */,
+				205664C4248752D600AC16D9 /* TABAnimatedPullLoadingComponent.m */,
+				205664C024874DA100AC16D9 /* UIScrollView+TABExtension.m */,
+				205664C8248756E900AC16D9 /* UIView+TABExtension.m */,
+				205664CF2488F0DE00AC16D9 /* UIScrollView+TABAnimated.m */,
 			);
-			path = Footer;
+			path = PullLoading;
+			sourceTree = "<group>";
+		};
+		205664D12488F6A000AC16D9 /* Include */ = {
+			isa = PBXGroup;
+			children = (
+				205664CE2488F0DE00AC16D9 /* UIScrollView+TABAnimated.h */,
+				205664C3248752D600AC16D9 /* TABAnimatedPullLoadingComponent.h */,
+				205664C124874DA100AC16D9 /* UIScrollView+TABExtension.h */,
+				205664C7248756E900AC16D9 /* UIView+TABExtension.h */,
+			);
+			path = Include;
 			sourceTree = "<group>";
 		};
 		20A01594216A51A80082425D /* Sources */ = {
@@ -646,7 +659,6 @@
 		20EE915124860A150095A68A /* TABAnimated */ = {
 			isa = PBXGroup;
 			children = (
-				205664C6248756CE00AC16D9 /* Footer */,
 				6834CFF9247918C8007F8459 /* Control */,
 				6834CFEA247918C8007F8459 /* Product */,
 				6834CFBC247918C8007F8459 /* Animation */,
@@ -655,6 +667,7 @@
 				6834CFDE247918C8007F8459 /* Chain */,
 				6834CFAF247918C8007F8459 /* Config */,
 				6834CFB1247918C8007F8459 /* DarkMode */,
+				205664C6248756CE00AC16D9 /* PullLoading */,
 				6834CFF8247918C8007F8459 /* TABAnimated.h */,
 				6834CFBB247918C8007F8459 /* TABAnimated.m */,
 			);
@@ -1629,7 +1642,7 @@
 				680641182279712200D79040 /* News.m in Sources */,
 				2039EF7221DA077200AE09FC /* NestCollectionViewController.m in Sources */,
 				681567342264214F00293AB4 /* JXCategoryBaseView.m in Sources */,
-				205664C9248756E900AC16D9 /* UIView+MJExtension.m in Sources */,
+				205664C9248756E900AC16D9 /* UIView+TABExtension.m in Sources */,
 				6834D01A247918C8007F8459 /* TABAnimationManagerImpl.m in Sources */,
 				6834D010247918C8007F8459 /* TABAnimated.m in Sources */,
 				685A2ACF247A685C00D9DB7C /* LawyerTableViewCell.m in Sources */,
@@ -1686,6 +1699,7 @@
 				68D20758228BE7A400B32CD1 /* DoubanNormalViewController.m in Sources */,
 				68A652FB235F732100D12ADC /* MASConstraint.m in Sources */,
 				6834D045247A3B36007F8459 /* TABComponentLayerClassicSerializationImpl.m in Sources */,
+				205664D02488F0DE00AC16D9 /* UIScrollView+TABAnimated.m in Sources */,
 				68A652F8235F732100D12ADC /* MASLayoutConstraint.m in Sources */,
 				68589C362343630F00E8E630 /* TestCollectionView.m in Sources */,
 				6834D00B247918C8007F8459 /* TABAnimationMethod.m in Sources */,
@@ -1755,7 +1769,7 @@
 				681567262264214F00293AB4 /* JXCategoryTitleView.m in Sources */,
 				6815671B2264214F00293AB4 /* JXCategoryIndicatorCellModel.m in Sources */,
 				681567282264214F00293AB4 /* JXCategoryImageCell.m in Sources */,
-				205664C5248752D600AC16D9 /* TABAnimatedFooterComponent.m in Sources */,
+				205664C5248752D600AC16D9 /* TABAnimatedPullLoadingComponent.m in Sources */,
 				681567332264214F00293AB4 /* UIColor+JXAdd.m in Sources */,
 				68D20752228BE55400B32CD1 /* DoubanCollectionViewController.m in Sources */,
 				6834D02A247918C8007F8459 /* TABFormAnimated.m in Sources */,
@@ -1766,7 +1780,7 @@
 				68C1719E246043B3004FD76F /* PartialSectionWithHeaderViewController.m in Sources */,
 				6806411E2279A5CB00D79040 /* SectionsCollectionViewController.m in Sources */,
 				6815672A2264214F00293AB4 /* JXCategoryNumberView.m in Sources */,
-				205664C224874DA100AC16D9 /* UIScrollView+MJExtension.m in Sources */,
+				205664C224874DA100AC16D9 /* UIScrollView+TABExtension.m in Sources */,
 				685A2ACB247A685C00D9DB7C /* CardTableViewCell.m in Sources */,
 				20E72D7D2226EEBB00E781C9 /* ViewExampleViewController.m in Sources */,
 				68A652FA235F732100D12ADC /* View+MASAdditions.m in Sources */,

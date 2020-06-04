@@ -19,7 +19,7 @@
 
 #import "TABAnimatedProduction.h"
 
-#import "TABAnimatedFooterComponent.h"
+#import "TABAnimatedPullLoadingComponent.h"
 
 static const NSTimeInterval kDelayReloadDataTime = .4;
 const int TABAnimatedIndexTag = -100000;
@@ -201,28 +201,6 @@ const int TABAnimatedIndexTag = -100000;
 - (void)_endViewAnimation {
     self.tabAnimated.state = TABViewAnimationEnd;
     self.tabAnimatedProduction.backgroundLayer.hidden = YES;
-}
-
-#pragma mark -
-
-- (void)tab_addPullLoadingActionHandler:(void (^)(void))actionHandler {
-    if (![self isKindOfClass:UIScrollView.class]) return;
-    TABFormAnimated *tabAnimated = (TABFormAnimated *)self.tabAnimated;
-    if (tabAnimated.footerComponent == nil) {
-        tabAnimated.footerComponent = TABAnimatedFooterComponent.new;
-        tabAnimated.footerComponent.scrollView = (UIScrollView *)self;
-        tabAnimated.footerComponent.state = TABAnimatedFooterRefreshStateNormal;
-        tabAnimated.footerComponent.actionHandler = actionHandler;
-        [self insertSubview:tabAnimated.footerComponent atIndex:0];
-    }
-}
-
-- (void)tab_stopPullLoading {
-    if (![self isKindOfClass:UIScrollView.class]) return;
-    TABFormAnimated *tabAnimated = (TABFormAnimated *)self.tabAnimated;
-    tabAnimated.footerComponent.state = TABAnimatedFooterRefreshStateNormal;
-    [tabAnimated.footerComponent removeObservers];
-    tabAnimated.footerComponent.hidden = YES;
 }
 
 #pragma mark -

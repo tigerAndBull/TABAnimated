@@ -26,6 +26,8 @@
 #import "TABClassicAnimation.h"
 #import "TABBaseComponent+TABClassicAnimation.h"
 
+#import "UIScrollView+TABAnimated.h"
+
 #endif
 
 /**

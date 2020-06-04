@@ -35,15 +35,6 @@
     [self initData];
     [self initUI];
     
-    /*
-        说明：
-        在使用原有的启动动画方法`tab_startAnimation`发现一个问题，
-        网络非常好的情况下，动画基本没机会展示出来，甚至会有一闪而过的效果。
-        如果该方法配合MJRefresh，则会减缓这样的问题，原因是MJRefresh本身有一个延迟效果（为了说明，这么称呼的），大概是0.4秒。
-        所以，增加了一个带有延迟时间的启动函数，
-        这样的话，在网络卡的情况下，0.4秒并不会造成太大的影响，在网络不卡的情况下，可以有一个短暂的视觉效果。
-     */
-    
     // 启动动画
     // 这里使用了自定义延迟时间的启动函数，设置3秒是为了演示效果。
     // 非特殊场景情况下，建议使用`tab_startAnimationWithCompletion`。
@@ -161,9 +152,9 @@
             manager.animation(2).height(12).reducedWidth(70);
             manager.animation(3).down(-5).height(12).radius(0.).reducedWidth(-20).toLongAnimation();
         };
-//        [_tableView tab_addPullLoadingActionHandler:^{
-//            [self performSelector:@selector(loadMoreData) withObject:nil afterDelay:0.5];
-//        }];
+        [_tableView tab_addPullLoadingActionHandler:^{
+            [self performSelector:@selector(loadMoreData) withObject:nil afterDelay:0.5];
+        }];
     }
     return _tableView;
 }

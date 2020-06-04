@@ -237,6 +237,28 @@
     return YES;
 }
 
+#pragma mark - Pull loading
+
+- (void)addPullLoadingActionHandler:(void (^)(void))actionHandler {
+
+}
+
+- (void)addPullLoadinTarget:(id)target selector:(SEL)selector {
+    
+}
+
+- (void)addPullLoadingClass:(nonnull Class)pullLoadingClass viewHeight:(CGFloat)viewHeight {
+    
+}
+
+- (void)addPullLoadingClass:(nonnull Class)pullLoadingClass viewHeight:(CGFloat)viewHeight actionHandler:(void (^)(void))actionHandler {
+    
+}
+
+- (void)addPullLoadingClass:(nonnull Class)pullLoadingClass viewHeight:(CGFloat)viewHeight target:(id)target selector:(SEL)selector {
+    
+}
+
 #pragma mark -
 
 - (NSMutableDictionary *)runHeaderIndexDict {
