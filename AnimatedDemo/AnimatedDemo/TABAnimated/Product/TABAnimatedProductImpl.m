@@ -128,12 +128,11 @@
     [self _prepareProductWithView:view currentClass:currentClass indexPath:indexPath origin:origin needSync:NO needReset:YES];
 }
 
-- (void)productWithView:(nonnull UIView *)view
-            controlView:(nonnull UIView *)controlView
-           currentClass:(nonnull Class)currentClass
-              indexPath:(nullable NSIndexPath *)indexPath
-                 origin:(TABAnimatedProductOrigin)origin
-         productByClass:(BOOL)productByClass {
+- (void)pullLoadingProductWithView:(nonnull UIView *)view
+                       controlView:(nonnull UIView *)controlView
+                      currentClass:(nonnull Class)currentClass
+                         indexPath:(nullable NSIndexPath *)indexPath
+                            origin:(TABAnimatedProductOrigin)origin {
     
     if (_controlView == nil) {
         [self setControlView:controlView];
@@ -150,7 +149,9 @@
     NSString *className = [TABAnimatedProductHelper getClassNameWithTargetClass:currentClass];
     production = [self.productionPool objectForKey:className];
     if (production == nil || _controlView.tabAnimated.isNest) {
-        [self _prepareProductWithView:view currentClass:currentClass indexPath:indexPath origin:origin needSync:YES needReset:NO];
+        UIView *newView = currentClass.new;
+        [view addSubview:newView];
+        [self _prepareProductWithView:newView currentClass:currentClass indexPath:indexPath origin:origin needSync:YES needReset:NO];
         return;
     }
     
@@ -173,30 +174,6 @@
 }
 
 #pragma mark - Private
-
-- (void)_prepareProductWithView:(UIView *)view currentClass:(Class)currentClass indexPath:(nullable NSIndexPath *)indexPath origin:(TABAnimatedProductOrigin)origin needSync:(BOOL)needSync needReset:(BOOL)needReset productByClass:(BOOL)productByClass {
-    
-    TABAnimatedProduction *production = view.tabAnimatedProduction;
-    if (production == nil) {
-        production = [TABAnimatedProduction productWithState:TABAnimatedProductionCreate];
-        NSString *className = [TABAnimatedProductHelper getClassNameWithTargetClass:view.class];
-        view.tabAnimatedProduction = production;
-        if (needSync) {
-            [self.productionPool setObject:production forKey:className];
-        }
-    }
-    production.targetClass = currentClass;
-    production.currentSection = indexPath.section;
-    production.currentRow = indexPath.row;
-    
-    if (productByClass) {
-        UIView *newView = currentClass.new;
-        newView.frame = view.frame;
-        [self _productBackgroundLayerWithView:newView needReset:needReset];
-    }else {
-        [self _productBackgroundLayerWithView:view needReset:needReset];
-    }
-}
 
 - (void)_prepareProductWithView:(UIView *)view currentClass:(Class)currentClass indexPath:(nullable NSIndexPath *)indexPath origin:(TABAnimatedProductOrigin)origin needSync:(BOOL)needSync needReset:(BOOL)needReset {
     TABAnimatedProduction *production = view.tabAnimatedProduction;
@@ -303,7 +280,7 @@
             flagView = view.subviews[1];
             isCard = YES;
         }
-    }else if (view.subviews[0].layer.shadowOpacity > 0.) {
+    }else if (view.subviews.count >= 1 && view.subviews[0].layer.shadowOpacity > 0.) {
         flagView = view.subviews[0];
         isCard = YES;
     }

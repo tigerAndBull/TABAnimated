@@ -17,6 +17,7 @@
 		205664C5248752D600AC16D9 /* TABAnimatedPullLoadingComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 205664C4248752D600AC16D9 /* TABAnimatedPullLoadingComponent.m */; };
 		205664C9248756E900AC16D9 /* UIView+TABExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 205664C8248756E900AC16D9 /* UIView+TABExtension.m */; };
 		205664D02488F0DE00AC16D9 /* UIScrollView+TABAnimated.m in Sources */ = {isa = PBXBuildFile; fileRef = 205664CF2488F0DE00AC16D9 /* UIScrollView+TABAnimated.m */; };
+		205664D42489038700AC16D9 /* PullLoadingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 205664D32489038700AC16D9 /* PullLoadingTableViewController.m */; };
 		2083176521A0451A000A0D95 /* TableRowModeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2083176421A0451A000A0D95 /* TableRowModeViewController.m */; };
 		20A01597216A51FC0082425D /* XibTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A01596216A51FC0082425D /* XibTestViewController.m */; };
 		20A0159A216A538F0082425D /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A01599216A538F0082425D /* MainViewController.m */; };
@@ -216,6 +217,8 @@
 		205664C8248756E900AC16D9 /* UIView+TABExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+TABExtension.m"; sourceTree = "<group>"; };
 		205664CE2488F0DE00AC16D9 /* UIScrollView+TABAnimated.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+TABAnimated.h"; sourceTree = "<group>"; };
 		205664CF2488F0DE00AC16D9 /* UIScrollView+TABAnimated.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+TABAnimated.m"; sourceTree = "<group>"; };
+		205664D22489038700AC16D9 /* PullLoadingTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PullLoadingTableViewController.h; sourceTree = "<group>"; };
+		205664D32489038700AC16D9 /* PullLoadingTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PullLoadingTableViewController.m; sourceTree = "<group>"; };
 		2083176321A0451A000A0D95 /* TableRowModeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TableRowModeViewController.h; sourceTree = "<group>"; };
 		2083176421A0451A000A0D95 /* TableRowModeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TableRowModeViewController.m; sourceTree = "<group>"; };
 		20A01595216A51FC0082425D /* XibTestViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XibTestViewController.h; sourceTree = "<group>"; };
@@ -1177,26 +1180,26 @@
 		685A2AAF247A685C00D9DB7C /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				685A2AB0247A685C00D9DB7C /* DailyTableViewCell.h */,
+				685A2ABA247A685C00D9DB7C /* BaseTableViewCell.h */,
 				685A2AB1247A685C00D9DB7C /* BaseTableViewCell.m */,
-				685A2AB2247A685C00D9DB7C /* LawyerTableViewCell.h */,
+				685A2AC3247A685C00D9DB7C /* CardTableViewCell.h */,
+				685A2AB8247A685C00D9DB7C /* CardTableViewCell.m */,
+				685A2AB0247A685C00D9DB7C /* DailyTableViewCell.h */,
+				685A2ABB247A685C00D9DB7C /* DailyTableViewCell.m */,
+				685A2ABD247A685C00D9DB7C /* DelegateSelfTableViewCell.h */,
 				685A2AB3247A685C00D9DB7C /* DelegateSelfTableViewCell.m */,
 				685A2AB4247A685C00D9DB7C /* LabWithLinesViewCell.h */,
-				685A2AB5247A685C00D9DB7C /* NestTableViewCell.m */,
-				685A2AB6247A685C00D9DB7C /* PackageTableViewCell.h */,
-				685A2AB7247A685C00D9DB7C /* NewsTableViewCell.h */,
-				685A2AB8247A685C00D9DB7C /* CardTableViewCell.m */,
-				685A2AB9247A685C00D9DB7C /* TestTableViewCell.m */,
-				685A2ABA247A685C00D9DB7C /* BaseTableViewCell.h */,
-				685A2ABB247A685C00D9DB7C /* DailyTableViewCell.m */,
 				685A2ABC247A685C00D9DB7C /* LabWithLinesViewCell.m */,
-				685A2ABD247A685C00D9DB7C /* DelegateSelfTableViewCell.h */,
+				685A2AB2247A685C00D9DB7C /* LawyerTableViewCell.h */,
 				685A2ABE247A685C00D9DB7C /* LawyerTableViewCell.m */,
-				685A2ABF247A685C00D9DB7C /* NewsTableViewCell.m */,
-				685A2AC0247A685C00D9DB7C /* PackageTableViewCell.m */,
 				685A2AC1247A685C00D9DB7C /* NestTableViewCell.h */,
+				685A2AB5247A685C00D9DB7C /* NestTableViewCell.m */,
+				685A2AB7247A685C00D9DB7C /* NewsTableViewCell.h */,
+				685A2ABF247A685C00D9DB7C /* NewsTableViewCell.m */,
+				685A2AB6247A685C00D9DB7C /* PackageTableViewCell.h */,
+				685A2AC0247A685C00D9DB7C /* PackageTableViewCell.m */,
 				685A2AC2247A685C00D9DB7C /* TestTableViewCell.h */,
-				685A2AC3247A685C00D9DB7C /* CardTableViewCell.h */,
+				685A2AB9247A685C00D9DB7C /* TestTableViewCell.m */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -1545,6 +1548,8 @@
 				68B0457922BB9B98006FED14 /* TestLayoutDelegateTableViewController.m */,
 				68C171B82461A095004FD76F /* NestTableViewController.h */,
 				68C171B92461A095004FD76F /* NestTableViewController.m */,
+				205664D22489038700AC16D9 /* PullLoadingTableViewController.h */,
+				205664D32489038700AC16D9 /* PullLoadingTableViewController.m */,
 			);
 			path = Others;
 			sourceTree = "<group>";
@@ -1691,6 +1696,7 @@
 				681567202264214F00293AB4 /* JXCategoryDotCellModel.m in Sources */,
 				68A652F9235F732100D12ADC /* NSArray+MASAdditions.m in Sources */,
 				681567192264214F00293AB4 /* JXCategoryIndicatorDotLineView.m in Sources */,
+				205664D42489038700AC16D9 /* PullLoadingTableViewController.m in Sources */,
 				685A2AD1247A685C00D9DB7C /* PackageTableViewCell.m in Sources */,
 				68C21D9A22F34548003C2936 /* TestCollectionReusableView.m in Sources */,
 				68C1718D2460406C004FD76F /* OneSectionWithTableHeaderViewController.m in Sources */,

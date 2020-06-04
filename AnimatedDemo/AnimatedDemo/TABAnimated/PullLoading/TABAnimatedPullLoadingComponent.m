@@ -10,11 +10,16 @@
 #import "UIScrollView+TABExtension.h"
 #import "UIView+TABExtension.h"
 #import "TABAnimationMethod.h"
+#import <objc/message.h>
 
 NSString *const TABAnimatedPullLoadingKeyPathContentOffset = @"contentOffset";
 NSString *const TABAnimatedPullLoadingKeyPathContentInset = @"contentInset";
 NSString *const TABAnimatedPullLoadingKeyPathContentSize = @"contentSize";
 NSString *const TABAnimatedPullLoadingKeyPathPanState = @"state";
+
+// 运行时objc_msgSend
+#define TABPullLoadingMsgSend(...) ((void (*)(void *, SEL, UIView *))objc_msgSend)(__VA_ARGS__)
+#define TABPullLoadingMsgTarget(target) (__bridge void *)(target)
 
 @interface TABAnimatedPullLoadingComponent()
 
@@ -190,16 +195,19 @@ NSString *const TABAnimatedPullLoadingKeyPathPanState = @"state";
             if (self.hidden) {
                 self.hidden = NO;
             }else {
-                [self.scrollView.tabAnimated.producter productWithView:self
-                                                           controlView:self.scrollView
-                                                          currentClass:self.targetClass
-                                                             indexPath:nil
-                                                                origin:TABAnimatedProductOriginView
-                                                        productByClass:YES];
+                [self.scrollView.tabAnimated.producter pullLoadingProductWithView:self
+                                                                      controlView:self.scrollView
+                                                                     currentClass:self.targetClass
+                                                                        indexPath:nil
+                                                                           origin:TABAnimatedProductOriginView];
             }
             // 执行回调
             if (self.actionHandler) {
                 self.actionHandler();
+            }
+            
+            if ([self.target respondsToSelector:self.action]) {
+                TABPullLoadingMsgSend(TABPullLoadingMsgTarget(self.target), self.action, self);
             }
         }
             break;
