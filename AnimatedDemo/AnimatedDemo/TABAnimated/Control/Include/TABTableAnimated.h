@@ -190,7 +190,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param viewHeight 区头高度
  @param section 指定的section
  */
-- (void)addHeaderViewClass:(__nonnull Class)headerViewClass
+- (void)addHeaderViewClass:(nonnull Class)headerViewClass
                 viewHeight:(CGFloat)viewHeight
                  toSection:(NSInteger)section;
 
@@ -202,14 +202,14 @@ NS_ASSUME_NONNULL_BEGIN
  @param viewHeight 区尾高度
  @param section 指定的section
  */
-- (void)addFooterViewClass:(__nonnull Class)footerViewClass
+- (void)addFooterViewClass:(nonnull Class)footerViewClass
                 viewHeight:(CGFloat)viewHeight
                  toSection:(NSInteger)section;
 
 #pragma mark - 用于动态section 配合animatedSectionCount使用
 
-- (void)addHeaderViewClass:(__nonnull Class)headerViewClass viewHeight:(CGFloat)viewHeight;
-- (void)addFooterViewClass:(__nonnull Class)footerViewClass viewHeight:(CGFloat)viewHeight;
+- (void)addHeaderViewClass:(nonnull Class)headerViewClass viewHeight:(CGFloat)viewHeight;
+- (void)addFooterViewClass:(nonnull Class)footerViewClass viewHeight:(CGFloat)viewHeight;
 
 #pragma mark - DEPRECATED
 

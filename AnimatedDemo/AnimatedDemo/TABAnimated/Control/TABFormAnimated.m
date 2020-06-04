@@ -202,7 +202,7 @@
 }
 
 - (NSString *)_getStringWIthIndex:(NSInteger)index {
-    return [NSString stringWithFormat:@"%ld",index];
+    return [NSString stringWithFormat:@"%ld",(long)index];
 }
 
 #pragma mark -

@@ -19,6 +19,8 @@
 
 #import "TABAnimatedProduction.h"
 
+#import "TABAnimatedPullLoadingComponent.h"
+
 static const NSTimeInterval kDelayReloadDataTime = .4;
 const int TABAnimatedIndexTag = -100000;
 

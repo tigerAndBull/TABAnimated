@@ -62,6 +62,8 @@
                 kText(@"卡片视图"),
                 kText(@"自适应高度 属性"),
                 kText(@"自适应高度 代理"),
+                
+                kText(@"上拉加载更多"),
             ];
             break;
         
@@ -114,6 +116,8 @@
                 @"TableCardViewController",
                 @"TestLayoutTableViewController",
                 @"TestLayoutDelegateTableViewController",
+                
+                @"PullLoadingTableViewController"
             ];
             break;
         

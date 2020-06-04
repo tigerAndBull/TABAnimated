@@ -128,6 +128,36 @@
     [self _prepareProductWithView:view currentClass:currentClass indexPath:indexPath origin:origin needSync:NO needReset:YES];
 }
 
+- (void)pullLoadingProductWithView:(nonnull UIView *)view
+                       controlView:(nonnull UIView *)controlView
+                      currentClass:(nonnull Class)currentClass
+                         indexPath:(nullable NSIndexPath *)indexPath
+                            origin:(TABAnimatedProductOrigin)origin {
+    
+    if (_controlView == nil) {
+        [self setControlView:controlView];
+    }
+    
+    NSString *key = [TABAnimatedProductHelper getKeyWithControllerName:controlView.tabAnimated.targetControllerClassName targetClass:currentClass];
+    TABAnimatedProduction *production = [[TABAnimatedCacheManager shareManager] getProductionWithKey:key];
+    if (production) {
+        TABAnimatedProduction *newProduction = production.copy;
+        [self _bindWithProduction:newProduction targetView:view];
+        return;
+    }
+    
+    NSString *className = [TABAnimatedProductHelper getClassNameWithTargetClass:currentClass];
+    production = [self.productionPool objectForKey:className];
+    if (production == nil || _controlView.tabAnimated.isNest) {
+        UIView *newView = currentClass.new;
+        [view addSubview:newView];
+        [self _prepareProductWithView:newView currentClass:currentClass indexPath:indexPath origin:origin needSync:YES needReset:NO];
+        return;
+    }
+    
+    [self _reuseProduction:production targetView:view];
+}
+
 // 同步
 - (void)syncProductions {
     for (NSInteger i = 0; i < self.targetViewArray.count; i++) {
@@ -250,7 +280,7 @@
             flagView = view.subviews[1];
             isCard = YES;
         }
-    }else if (view.subviews[0].layer.shadowOpacity > 0.) {
+    }else if (view.subviews.count >= 1 && view.subviews[0].layer.shadowOpacity > 0.) {
         flagView = view.subviews[0];
         isCard = YES;
     }

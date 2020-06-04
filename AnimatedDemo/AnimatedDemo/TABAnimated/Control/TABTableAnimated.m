@@ -128,7 +128,7 @@
     obj.cellHeightArray = @[@(cellHeight)];
     obj.cellCountArray = @[@(animatedCount)];
     obj.cellIndexArray = @[@(0)];
-    [obj.runIndexDict setValue:@(0) forKey:[NSString stringWithFormat:@"%ld",toIndex]];
+    [obj.runIndexDict setValue:@(0) forKey:[NSString stringWithFormat:@"%ld",(long)toIndex]];
     return obj;
 }
 
@@ -147,7 +147,7 @@
         for (NSInteger i = 0; i < cellClassArray.count; i++) {
             NSInteger index = i;
             NSInteger value = i;
-            [obj.runIndexDict setValue:@(value) forKey:[NSString stringWithFormat:@"%ld",index]];
+            [obj.runIndexDict setValue:@(value) forKey:[NSString stringWithFormat:@"%ld",(long)index]];
             [newIndexArray addObject:@(index)];
         }
         obj.cellIndexArray = newIndexArray.copy;
@@ -156,7 +156,7 @@
         for (NSInteger i = 0; i < indexArray.count; i++) {
             NSInteger index = [indexArray[i] integerValue];
             NSInteger value = i;
-            [obj.runIndexDict setValue:@(value) forKey:[NSString stringWithFormat:@"%ld",index]];
+            [obj.runIndexDict setValue:@(value) forKey:[NSString stringWithFormat:@"%ld",(long)index]];
         }
     }
     
@@ -421,10 +421,10 @@
 - (NSInteger)tab_numberOfSectionsInTableView:(UITableView *)tableView {
     
     TABTableAnimated *tabAnimated = tableView.tabAnimated;
-    if (tabAnimated.state != TABViewAnimationStart) {
+    if (tableView.tabAnimated.state != TABViewAnimationStart) {
         return [self tab_numberOfSectionsInTableView:tableView];
     }
-    
+
     if (tabAnimated.animatedSectionCount > 0) {
         return tabAnimated.animatedSectionCount;
     }
@@ -440,7 +440,7 @@
 - (NSInteger)tab_tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
     TABTableAnimated *tabAnimated = tableView.tabAnimated;
-    if (tabAnimated.state != TABViewAnimationStart || tabAnimated.runMode == TABAnimatedRunByRow) {
+    if (tableView.tabAnimated.state != TABViewAnimationStart || tabAnimated.runMode == TABAnimatedRunByRow) {
         return [self tab_tableView:tableView numberOfRowsInSection:section];
     }
     
