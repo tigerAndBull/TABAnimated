@@ -15,15 +15,21 @@ typedef NS_ENUM(NSInteger, TABAnimatedFooterRefreshState) {
     TABAnimatedFooterRefreshStateNormal = 0,
     // 正在刷新中
     TABAnimatedFooterRefreshStateRefreshing,
+    
+    TABAnimatedFooterRefreshStateStopped,
+    
     // 没有更多的数据了
     TABAnimatedFooterRefreshStateNoMoreData
 };
+
+typedef void(^TABAnimatedFooterActionHandler)(void);
 
 @interface TABAnimatedFooterComponent : UIView
 
 @property (nonatomic, assign) TABAnimatedFooterRefreshState state;
 @property (nonatomic, assign, readonly) UIEdgeInsets scrollViewOriginalInset;
 @property (nonatomic, weak) UIScrollView *scrollView;
+@property (nonatomic, copy) TABAnimatedFooterActionHandler actionHandler;
 
 - (void)addObservers;
 - (void)removeObservers;

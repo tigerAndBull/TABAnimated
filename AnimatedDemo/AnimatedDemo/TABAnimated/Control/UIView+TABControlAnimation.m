@@ -80,16 +80,6 @@ const int TABAnimatedIndexTag = -100000;
         }
     }
     
-
-    if ([self isKindOfClass:[UITableView class]]) {
-        UITableView *tableView = (UITableView *)self;
-        TABTableAnimated *tabAniamted = tableView.tabAnimated;
-        tabAniamted.footerComponent = TABAnimatedFooterComponent.new;
-        tabAniamted.footerComponent.scrollView = tableView;
-        tabAniamted.footerComponent.state = TABAnimatedFooterRefreshStateNormal;
-        [tableView insertSubview:tabAniamted.footerComponent atIndex:0];
-    }
-    
     if (tabAnimated.targetControllerClassName == nil || tabAnimated.targetControllerClassName.length == 0) {
         UIViewController *controller = [self _viewController];
         if (controller) tabAnimated.targetControllerClassName = NSStringFromClass(controller.class);
@@ -215,18 +205,24 @@ const int TABAnimatedIndexTag = -100000;
 
 #pragma mark -
 
-- (void)tab_startMoreAnimation {
+- (void)tab_addPullLoadingActionHandler:(void (^)(void))actionHandler {
+    if (![self isKindOfClass:UIScrollView.class]) return;
+    TABFormAnimated *tabAnimated = (TABFormAnimated *)self.tabAnimated;
+    if (tabAnimated.footerComponent == nil) {
+        tabAnimated.footerComponent = TABAnimatedFooterComponent.new;
+        tabAnimated.footerComponent.scrollView = (UIScrollView *)self;
+        tabAnimated.footerComponent.state = TABAnimatedFooterRefreshStateNormal;
+        tabAnimated.footerComponent.actionHandler = actionHandler;
+        [self insertSubview:tabAnimated.footerComponent atIndex:0];
+    }
 }
 
-- (void)tab_endMoreAnimation {
+- (void)tab_stopPullLoading {
     if (![self isKindOfClass:UIScrollView.class]) return;
-    if ([self isKindOfClass:[UITableView class]]) {
-        UITableView *tableView = (UITableView *)self;
-        TABTableAnimated *tabAnimated = tableView.tabAnimated;
-        tabAnimated.footerComponent.state = TABAnimatedFooterRefreshStateNormal;
-        [tabAnimated.footerComponent removeObservers];
-        tabAnimated.footerComponent.hidden = YES;
-    }
+    TABFormAnimated *tabAnimated = (TABFormAnimated *)self.tabAnimated;
+    tabAnimated.footerComponent.state = TABAnimatedFooterRefreshStateNormal;
+    [tabAnimated.footerComponent removeObservers];
+    tabAnimated.footerComponent.hidden = YES;
 }
 
 #pragma mark -

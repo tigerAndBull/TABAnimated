@@ -82,11 +82,10 @@
     
     // 停止动画,并刷新数据
     [self.tableView tab_endAnimationEaseOut];
-    [self performSelector:@selector(loadMoreData) withObject:nil afterDelay:5];
 }
 
 - (void)loadMoreData {
-    [self.tableView tab_endMoreAnimation];
+    [self.tableView tab_stopPullLoading];
     for (int i = 10; i < 20; i ++) {
         Game *game = [[Game alloc]init];
         game.gameId = [NSString stringWithFormat:@"%d",i];
@@ -160,8 +159,11 @@
         _tableView.tabAnimated.adjustBlock = ^(TABComponentManager * _Nonnull manager) {
             manager.animation(1).down(3).height(12);
             manager.animation(2).height(12).reducedWidth(70);
-            manager.animation(3).down(-5).height(12).radius(0.).reducedWidth(-20);
+            manager.animation(3).down(-5).height(12).radius(0.).reducedWidth(-20).toLongAnimation();
         };
+//        [_tableView tab_addPullLoadingActionHandler:^{
+//            [self performSelector:@selector(loadMoreData) withObject:nil afterDelay:0.5];
+//        }];
     }
     return _tableView;
 }

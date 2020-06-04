@@ -101,8 +101,8 @@ extern int const TABAnimatedIndexTag;
 
 #pragma mark -
 
-- (void)tab_startMoreAnimation;
-- (void)tab_endMoreAnimation;
+- (void)tab_addPullLoadingActionHandler:(void (^)(void))actionHandler;
+- (void)tab_stopPullLoading;
 
 #pragma mark -
 

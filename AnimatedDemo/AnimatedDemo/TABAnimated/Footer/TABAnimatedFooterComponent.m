@@ -19,6 +19,7 @@ NSString *const MJRefreshKeyPathPanState = @"state";
 @interface TABAnimatedFooterComponent()
 
 @property (assign, nonatomic) NSInteger lastRefreshCount;
+@property (assign, nonatomic) CGFloat lastBottomDelta;
 
 @end
 
@@ -159,25 +160,37 @@ NSString *const MJRefreshKeyPathPanState = @"state";
     if (state == oldState) return;
     _state = state;
 
-    if (state == TABAnimatedFooterRefreshStateNoMoreData || state == TABAnimatedFooterRefreshStateNormal) {
-        if (oldState == TABAnimatedFooterRefreshStateRefreshing) {
-            // 从刷新完变回重置状态
-//            self.scrollView.mj_insetB -= self.mj_h;
-//
-//            CGFloat deltaH = [self heightForContentBreakView];
-//            // 刚刷新完毕
-//            if (deltaH > 0 && self.scrollView.mj_totalDataCount != self.lastRefreshCount) {
-//                self.scrollView.mj_offsetY = self.scrollView.mj_offsetY;
-//            }
+    switch (state) {
+        case TABAnimatedFooterRefreshStateNormal: {
+            
+        }
+            break;
+            
+        case TABAnimatedFooterRefreshStateRefreshing: {
+            if (self.hidden) {
+                self.hidden = NO;
+            }else {
+                [self.scrollView.tabAnimated.producter productWithView:self controlView:self.scrollView currentClass:((TABFormAnimated *)(self.scrollView.tabAnimated)).cellClassArray[0] indexPath:nil origin:TABAnimatedProductOriginView productByClass:YES];
+            }
+            // 执行回调
+            if (self.actionHandler) {
+                self.actionHandler();
+            }
+        }
+            break;
+        
+        case TABAnimatedFooterRefreshStateStopped: {
             self.hidden = YES;
         }
-    }else {
-        if (self.tabAnimatedProduction.backgroundLayer.hidden) {
-            self.tabAnimatedProduction.backgroundLayer.hidden = NO;
-        }else {
-            [self.scrollView.tabAnimated.producter productWithView:self controlView:self.scrollView currentClass:((TABFormAnimated *)(self.scrollView.tabAnimated)).cellClassArray[0] indexPath:nil origin:TABAnimatedProductOriginView productByClass:YES];
+            break;
+        
+        case TABAnimatedFooterRefreshStateNoMoreData: {
+            
         }
-        // 执行回调
+            break;
+            
+        default:
+            break;
     }
 }
 
