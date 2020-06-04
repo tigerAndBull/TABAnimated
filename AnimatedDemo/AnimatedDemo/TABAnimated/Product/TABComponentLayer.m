@@ -203,9 +203,13 @@ static const CGFloat kDefaultHeight = 16.f;
         self.lastScale = [aDecoder decodeFloatForKey:@"lastScale"];
         self.placeholderName = [aDecoder decodeObjectForKey:@"placeholderName"];
         self.withoutAnimation = [aDecoder decodeBoolForKey:@"withoutAnimation"];
-        Class serializationImplClass = [aDecoder decodeObjectForKey:@"serializationImpl"];
-        self.serializationImpl = serializationImplClass.new;
-        
+        NSString *serializationImplClassString = [aDecoder decodeObjectForKey:@"serializationImpl"];
+        if (serializationImplClassString && serializationImplClassString.length > 0) {
+            Class serializationImplClass = NSClassFromString(serializationImplClassString);
+            if (serializationImplClass) {
+                self.serializationImpl = serializationImplClass.new;
+            }
+        }
     }
     
     if (self.serializationImpl) {
