@@ -184,6 +184,7 @@ static const NSInteger kMemeoryModelMaxCount = 20;
 }
 
 - (void)updateCacheModelLoadCountWithFormAnimated:(TABFormAnimated *)viewAnimated {
+    if ([TABAnimated sharedAnimated].closeCache) return;
     if (viewAnimated == nil) return;
     dispatch_async(dispatch_get_main_queue(), ^{
         NSString *controllerName = viewAnimated.targetControllerClassName;
