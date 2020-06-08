@@ -57,7 +57,7 @@ UICollectionViewDataSource
     
     // 停止动画,并刷新数据
     [self.collectionView tab_endAnimationWithIndex:0];
-    [self performSelector:@selector(afterGetDataSecond) withObject:nil afterDelay:5.];
+    [self performSelector:@selector(afterGetDataSecond) withObject:nil afterDelay:1.];
 }
 
 - (void)afterGetDataSecond {

@@ -149,15 +149,15 @@
         // 可以不进行手动初始化，将使用默认属性
         _tableView.tabAnimated = [TABTableAnimated animatedWithCellClass:[TestTableViewCell class] cellHeight:100];
         _tableView.tabAnimated.canLoadAgain = YES;
-        _tableView.tabAnimated.superAnimationType = TABViewSuperAnimationTypeShimmer;
+//        _tableView.tabAnimated.superAnimationType = TABViewSuperAnimationTypeShimmer;
         _tableView.tabAnimated.adjustBlock = ^(TABComponentManager * _Nonnull manager) {
             manager.animation(1).down(3).height(12);
-            manager.animation(2).height(12).reducedWidth(70);
-            manager.animation(3).down(-5).height(12).radius(0.).reducedWidth(-20);
+            manager.animation(2).height(12).reducedWidth(40).toShortAnimation();
+            manager.animation(3).down(-5).height(12).radius(0.).reducedWidth(-20).toLongAnimation();
         };
         [_tableView tab_addPullLoadingActionHandler:^{
             // 模拟数据请求
-            [self performSelector:@selector(loadMoreData) withObject:nil afterDelay:0.5];
+            [self performSelector:@selector(loadMoreData) withObject:nil afterDelay:1.2];
         }];
     }
     return _tableView;

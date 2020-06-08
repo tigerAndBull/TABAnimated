@@ -180,9 +180,9 @@ static const CGFloat kDefaultHeight = 16.f;
     
     [aCoder encodeBool:_withoutAnimation forKey:@"withoutAnimation"];
     [aCoder encodeObject:_placeholderName forKey:@"placeholderName"];
-    [aCoder encodeObject:NSStringFromClass(self.serializationImpl.class) forKey:@"serializationImpl"];
     
     if (self.serializationImpl) {
+        [aCoder encodeObject:NSStringFromClass(self.serializationImpl.class) forKey:@"serializationImpl"];
         [self.serializationImpl tab_encodeWithCoder:aCoder layer:self];
     }
 }
@@ -203,6 +203,7 @@ static const CGFloat kDefaultHeight = 16.f;
         self.lastScale = [aDecoder decodeFloatForKey:@"lastScale"];
         self.placeholderName = [aDecoder decodeObjectForKey:@"placeholderName"];
         self.withoutAnimation = [aDecoder decodeBoolForKey:@"withoutAnimation"];
+        
         NSString *serializationImplClassString = [aDecoder decodeObjectForKey:@"serializationImpl"];
         if (serializationImplClassString && serializationImplClassString.length > 0) {
             Class serializationImplClass = NSClassFromString(serializationImplClassString);
@@ -249,9 +250,9 @@ static const CGFloat kDefaultHeight = 16.f;
     layer.position = self.position;
     layer.opaque = self.opaque;
     layer.contentsScale = self.contentsScale;
-    layer.serializationImpl = self.serializationImpl;
     
     if (self.serializationImpl) {
+        layer.serializationImpl = self.serializationImpl;
         [self.serializationImpl propertyBindWithNewLayer:layer oldLayer:self];
     }
     

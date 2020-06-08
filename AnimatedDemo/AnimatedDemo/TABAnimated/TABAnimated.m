@@ -103,6 +103,13 @@
     return _animatedHeight;
 }
 
+- (TABClassicAnimation *)classicAnimation {
+    if (!_classicAnimation) {
+        _classicAnimation = TABClassicAnimation.new;
+    }
+    return _classicAnimation;
+}
+
 - (TABShimmerAnimation *)shimmerAnimation {
     if (!_shimmerAnimation) {
         _shimmerAnimation = TABShimmerAnimation.new;

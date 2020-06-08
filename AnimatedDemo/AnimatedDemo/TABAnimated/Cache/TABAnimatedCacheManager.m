@@ -91,6 +91,7 @@ static const NSInteger kMemeoryModelMaxCount = 20;
 
 - (void)install {
     
+    if ([TABAnimated sharedAnimated].closeCache) return;
     [TABAnimatedDocumentMethod createFile:TABCacheManagerFolderName isDir:YES];
     
     // 获取App版本
@@ -102,23 +103,17 @@ static const NSInteger kMemeoryModelMaxCount = 20;
     
 
     NSString *documentDir = [TABAnimatedDocumentMethod getPathByFilePacketName:TABCacheManagerFolderName];
-    if (![TABAnimatedDocumentMethod isExistFile:documentDir
-                                          isDir:YES]) {
-        [TABAnimatedDocumentMethod createFile:documentDir
-                                        isDir:YES];
+    if (![TABAnimatedDocumentMethod isExistFile:documentDir isDir:YES]) {
+        [TABAnimatedDocumentMethod createFile:documentDir isDir:YES];
     }
 
     NSString *modelDirPath = [documentDir stringByAppendingPathComponent:TABCacheManagerCacheModelFolderName];
     NSString *managerDirPath = [documentDir stringByAppendingPathComponent:TABCacheManagerCacheManagerFolderName];
     
-    if (![TABAnimatedDocumentMethod isExistFile:modelDirPath
-                                          isDir:YES] ||
-        ![TABAnimatedDocumentMethod isExistFile:managerDirPath
-                                          isDir:YES]) {
-        [TABAnimatedDocumentMethod createFile:modelDirPath
-                                        isDir:YES];
-        [TABAnimatedDocumentMethod createFile:managerDirPath
-                                        isDir:YES];
+    if (![TABAnimatedDocumentMethod isExistFile:modelDirPath isDir:YES] ||
+        ![TABAnimatedDocumentMethod isExistFile:managerDirPath isDir:YES]) {
+        [TABAnimatedDocumentMethod createFile:modelDirPath isDir:YES];
+        [TABAnimatedDocumentMethod createFile:managerDirPath isDir:YES];
     }else {
         dispatch_async([self.class updateQueue], ^{
             [self performSelector:@selector(_loadDataToMemory:)
@@ -130,6 +125,7 @@ static const NSInteger kMemeoryModelMaxCount = 20;
 }
 
 - (void)cacheProduction:(TABAnimatedProduction *)production {
+    if ([TABAnimated sharedAnimated].closeCache) return;
     if (production == nil || production.fileName == nil || production.fileName.length == 0) return;
     if (_currentSystemVersion == nil || _currentSystemVersion.length == 0) return;
     
@@ -207,8 +203,7 @@ static const NSInteger kMemeoryModelMaxCount = 20;
 
 - (void)_loadDataToMemory:(NSString *)modelDirPath {
 
-    if (modelDirPath == nil ||
-        modelDirPath.length == 0) return;
+    if (modelDirPath == nil || modelDirPath.length == 0) return;
     
     NSError *error;
     NSArray <NSString *> *fileArray =
