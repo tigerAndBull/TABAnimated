@@ -11,6 +11,8 @@
 #import "UIView+TABExtension.h"
 #import "TABAnimationMethod.h"
 #import <objc/message.h>
+#import "UIView+TABControlModel.h"
+#import "TABViewAnimated.h"
 
 NSString *const TABAnimatedPullLoadingKeyPathContentOffset = @"contentOffset";
 NSString *const TABAnimatedPullLoadingKeyPathContentInset = @"contentInset";

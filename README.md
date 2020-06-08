@@ -41,22 +41,23 @@ TABAnimated是提供给iOS开发者自动生成骨架屏的一种解决方案。
 
 通过TABAnimated集成的骨架屏有什么优势？
 
--  是一种自动化方案，集成速度很快
+-  是一种自动化方案，集成速度非常快
 -  零耦合，易于将其动画逻辑封装到基础库，且移除方便
 -  配有缓存功能，压测切换控制器不卡顿
--  适用场景广，可以适用开发中99%的视图
--  自由度非常高，可以完全地自定制
+-  适用场景广，可以适用开发中99.99%的视图
+-  自由度非常高，可以完全地自定制，包括动画及其序列化
 -  自动切换暗黑模式骨架屏
+-  支持上拉加载更多
 
 ## 效果展示
 
-| 动态效果 | 卡片投影 | 呼吸灯  | 
+| 闪光动画 | 经典动画 | 下坠动画 | 
 | ------ | ------ | ------ | 
-| ![动态动画.gif](https://upload-images.jianshu.io/upload_images/5632003-56c9726a027ca5e2.gif?imageMogr2/auto-orient/strip) | ![卡片投影.gif](https://upload-images.jianshu.io/upload_images/5632003-fd01c795bb3f9e1a.gif?imageMogr2/auto-orient/strip) | ![呼吸灯.gif](https://upload-images.jianshu.io/upload_images/5632003-683062be0a23d5b8.gif?imageMogr2/auto-orient/strip) | 
+| ![闪光动画.gif](https://upload-images.jianshu.io/upload_images/5632003-8ebdc1e964fcfbb5.gif?imageMogr2/auto-orient/strip) | ![经典动画.gif](https://upload-images.jianshu.io/upload_images/5632003-8025a04102572ed4.gif?imageMogr2/auto-orient/strip) | ![下坠动画.gif](https://upload-images.jianshu.io/upload_images/5632003-5277740f43880cde.gif?imageMogr2/auto-orient/strip) | 
 
-| 闪光灯 | 分段视图 | 豆瓣效果 |
+| 呼吸动画 | 上拉加载 | 复杂场景 |
 | ------ | ------ | ------ | 
-| ![闪光灯改版.gif](https://upload-images.jianshu.io/upload_images/5632003-93ab2cf6950498ab.gif?imageMogr2/auto-orient/strip)| ![分段视图.gif](https://upload-images.jianshu.io/upload_images/5632003-4da2062be691cf0b.gif?imageMogr2/auto-orient/strip) | ![豆瓣.gif](https://upload-images.jianshu.io/upload_images/5632003-3ed9d6cc317891a3.gif?imageMogr2/auto-orient/strip) | 
+| ![呼吸动画.gif](https://upload-images.jianshu.io/upload_images/5632003-8edf170c90e18b4b.gif?imageMogr2/auto-orient/strip)| ![上拉加载.gif](https://upload-images.jianshu.io/upload_images/5632003-72265e19c84fe415.gif?imageMogr2/auto-orient/strip) | ![复杂场景.gif](https://upload-images.jianshu.io/upload_images/5632003-e5500766b4f66f14.gif?imageMogr2/auto-orient/strip) | 
 
 **暗黑模式：**
 
@@ -89,7 +90,7 @@ TABAnimated是提供给iOS开发者自动生成骨架屏的一种解决方案。
 - CocoaPods
 
 ```
-pod 'TABAnimated'
+pod 'TABAnimated', '2.4.0'
 ```
 
 - Carthage

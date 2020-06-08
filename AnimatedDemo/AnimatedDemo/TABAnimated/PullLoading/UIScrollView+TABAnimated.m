@@ -8,6 +8,10 @@
 
 #import "UIScrollView+TABAnimated.h"
 #import "TABAnimatedPullLoadingComponent.h"
+#import "TABFormAnimated.h"
+#import "UIView+TABControlModel.h"
+#import "TABTableAnimated.h"
+#import "TABCollectionAnimated.h"
 
 @implementation UIScrollView (TABAnimated)
 
