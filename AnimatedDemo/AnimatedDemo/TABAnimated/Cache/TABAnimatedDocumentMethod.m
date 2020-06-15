@@ -92,4 +92,11 @@
     return isDir;
 }
 
++ (BOOL)deleteFile:(NSString *)file {
+    if ([kAnimatedFileManager removeItemAtPath:file error:NULL]) {
+        return YES;
+    }
+    return NO;
+}
+
 @end

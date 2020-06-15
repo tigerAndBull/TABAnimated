@@ -21,6 +21,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (BOOL)isExistFile:(NSString *)path isDir:(BOOL)isDir;
 
++ (BOOL)deleteFile:(NSString *)file;
+
 @end
 
 NS_ASSUME_NONNULL_END
