@@ -189,6 +189,10 @@ NSString *const TABAnimatedPullLoadingKeyPathPanState = @"state";
         case TABAnimatedPullLoadingStateNormal: {
             if (oldState == TABAnimatedPullLoadingStateStopped) {
                 self.hidden = NO;
+            }else if (oldState == TABAnimatedPullLoadingStateNoMoreData) {
+                self.hidden = NO;
+                [self addObservers];
+                self.scrollView.tab_insetB += self.tab_h;
             }
         }
             break;

@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)tab_stopPullLoading;
 // 永远停止刷新
 - (void)tab_stopPullLoadingNoMoreData;
+// 重置下拉刷新状态
+- (void)tab_resetPullLoadingState;
 
 // 添加刷新的回调
 - (void)tab_addPullLoadingActionHandler:(void (^)(void))actionHandler;

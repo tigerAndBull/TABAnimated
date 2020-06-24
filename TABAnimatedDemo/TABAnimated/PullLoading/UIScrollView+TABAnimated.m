@@ -63,6 +63,11 @@
     tabAnimated.fullLoadingComponent.state = TABAnimatedPullLoadingStateNoMoreData;
 }
 
+- (void)tab_resetPullLoadingState {
+    TABFormAnimated *tabAnimated = (TABFormAnimated *)self.tabAnimated;
+    tabAnimated.fullLoadingComponent.state = TABAnimatedPullLoadingStateNormal;
+}
+
 #pragma mark - Private
 
 - (Class)tab_getClass {
