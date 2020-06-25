@@ -67,35 +67,26 @@
 
 - (TABBaseComponentArrayWithIndexsBlock)animationsWithIndexs {
 
-    return ^NSArray <TABBaseComponent *> *(NSInteger index,...) {
+    return ^NSArray <TABBaseComponent *> * (NSInteger index, ...) {
         
         NSMutableArray <TABBaseComponent *> *resultArray = @[].mutableCopy;
-        if (index >= self.components.count) {
-            NSAssert(NO, @"Array bound, please check it carefully.");
-        }else if(index < 0) {
-            NSAssert(NO, @"Input data contains a number < 0, please check it carefully.");
-        }else {
-            [resultArray addObject:self.components[index]];
-        }
         
+        NSInteger arg = index;
+        NSInteger temp = -1;
         va_list args;
-        NSInteger arg;
         va_start(args, index);
 
-        while ((arg = va_arg(args, NSInteger))) {
-            if(arg >= 0) {
-                if (arg > 1000) break;
-                if (arg >= self.components.count) {
-                    NSAssert(NO, @"Array bound, please check it carefully.");
-                }else if(arg < 0) {
-                    NSAssert(NO, @"Input data contains a number < 0, please check it carefully.");
-                }else {
-                    [resultArray addObject:self.components[arg]];
-                }
-            }
-        }
+        do {
+            if (temp == arg) continue;
+            if(arg < 0) continue;
+            if (arg > 1000) break;
+            NSAssert(arg < self.components.count, @"Array bound, please check it carefully.");
+            [resultArray addObject:self.components[arg]];
+            temp = arg;
+        }while ((arg = va_arg(args, NSInteger)));
         
         va_end(args);
+        
         return resultArray.copy;
     };
 }

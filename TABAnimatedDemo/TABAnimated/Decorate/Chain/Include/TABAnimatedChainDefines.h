@@ -31,6 +31,6 @@ typedef TABBaseComponent * _Nullable (^TABBaseComponentColorBlock)(UIColor * _No
 
 typedef TABBaseComponent * _Nullable (^TABBaseComponentBlock)(NSInteger);
 typedef NSArray <TABBaseComponent *> * _Nullable (^TABBaseComponentArrayBlock)(NSInteger location, NSInteger length);
-typedef NSArray <TABBaseComponent *> * _Nullable (^TABBaseComponentArrayWithIndexsBlock)(NSInteger index,...);
+typedef NSArray <TABBaseComponent *> * _Nullable (^TABBaseComponentArrayWithIndexsBlock)(NSInteger index, ...);
 
 #endif /* TABAnimatedChainDefines_h */
