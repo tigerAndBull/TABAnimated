@@ -213,7 +213,7 @@ manager.animationWithIndexs(1,5,7).down(5);
 - 最好要阅读的文档：
 
 > + [缓存策略和线程处理](https://github.com/tigerAndBull/TABAnimated/blob/master/Documents/%E7%BC%93%E5%AD%98%E7%AD%96%E7%95%A5%E5%92%8C%E7%BA%BF%E7%A8%8B%E5%A4%84%E7%90%86.md)
-> + [架构设计和性能测试](https://github.com/tigerAndBull/TABAnimated/blob/master/Documents/TABAnimated%202.3.0.md)
+> + [架构设计和性能测试](https://github.com/tigerAndBull/TABAnimated/blob/master/Documents/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E5%92%8C%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95.md)
 
 - 集成最可能用到的文档：
 
@@ -225,6 +225,7 @@ manager.animationWithIndexs(1,5,7).down(5);
 
 > + [豆瓣动画详解](https://github.com/tigerAndBull/TABAnimated/blob/master/Documents/%E8%B1%86%E7%93%A3%E5%8A%A8%E7%94%BB%E8%AF%A6%E8%A7%A3.md)
 > + [不再hook setDelegate和setDataSource](https://github.com/tigerAndBull/TABAnimated/blob/master/Documents/%E4%B8%8D%E5%86%8Dhook%20setDelegate%E5%92%8CsetDataSource.md)
+> + [上拉加载更多](https://github.com/tigerAndBull/TABAnimated/blob/master/Documents/%E4%B8%8A%E6%8B%89%E5%8A%A0%E8%BD%BD%E5%8A%9F%E8%83%BD.md)
 
 **如果你仍无法解决问题，可以尽快联系我，我相信TABAnimated是可以解决99%的需求的**
 
