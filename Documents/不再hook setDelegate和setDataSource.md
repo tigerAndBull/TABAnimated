@@ -1,4 +1,4 @@
-## 前言
+## 不再hook setDelegate和setDataSource
 
 TABAnimated从起初的版本开始，为了对`UITableView `和`UICollectionView `进行弱管理，采取了hook的方式，其中包含UITableView和UICollectionView的`setDelegate`和`setDataSource`方法。
 
