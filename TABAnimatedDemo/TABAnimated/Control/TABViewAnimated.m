@@ -32,6 +32,11 @@
 }
 
 - (nonnull UIColor *)getCurrentAnimatedColorWithCollection:(UITraitCollection *)collection {
+    if ([TABAnimated sharedAnimated].darkModeType == TABAnimatedDarkModeForceDark) {
+        return self.darkAnimatedColor;
+    }else if ([TABAnimated sharedAnimated].darkModeType == TABAnimatedDarkModeForceNormal) {
+        return self.animatedColor;
+    }
     if (@available(iOS 13.0, *)) {
         if (collection.userInterfaceStyle == UIUserInterfaceStyleDark) {
             return self.darkAnimatedColor;
@@ -44,6 +49,11 @@
 }
 
 - (nonnull UIColor *)getCurrentAnimatedBackgroundColorWithCollection:(UITraitCollection *)collection {
+    if ([TABAnimated sharedAnimated].darkModeType == TABAnimatedDarkModeForceDark) {
+        return self.darkAnimatedBackgroundColor;
+    }else if ([TABAnimated sharedAnimated].darkModeType == TABAnimatedDarkModeForceNormal) {
+        return self.animatedBackgroundColor;
+    }
     if (@available(iOS 13.0, *)) {
         if (collection.userInterfaceStyle == UIUserInterfaceStyleDark) {
             return self.darkAnimatedBackgroundColor;

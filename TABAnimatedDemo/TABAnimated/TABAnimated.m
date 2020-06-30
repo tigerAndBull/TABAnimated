@@ -41,7 +41,7 @@
         _scrollEnabled = YES;
         
         if (@available(iOS 13.0, *)) {
-            _darkAnimatedBackgroundColor =  UIColor.secondarySystemBackgroundColor;
+            _darkAnimatedBackgroundColor = UIColor.secondarySystemBackgroundColor;
         }else {
             _darkAnimatedBackgroundColor = UIColor.whiteColor;
         }

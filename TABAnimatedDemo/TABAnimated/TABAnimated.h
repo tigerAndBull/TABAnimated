@@ -28,6 +28,8 @@
 
 #import "UIScrollView+TABAnimated.h"
 
+#import "TABAnimatedDarkModeDefines.h"
+
 #endif
 
 /**
@@ -165,11 +167,21 @@ typedef NS_ENUM(NSInteger, TABAnimationType) {
  */
 @property (nonatomic, strong) UIColor *darkAnimatedColor;
 
+// 暗黑模式选择，跟随系统、强制普通模式、强制暗黑模式
+@property (nonatomic, assign) TABAnimatedDarkModeType darkModeType;
+
 #pragma mark - Animation
 
+// 经典动画全局配置
 @property (nonatomic, strong) TABClassicAnimation *classicAnimation;
+
+// 下坠动画全局配置
 @property (nonatomic, strong) TABDropAnimation *dropAnimation;
+
+// 呼吸灯动画全局配置
 @property (nonatomic, strong) TABBinAnimation *binAnimation;
+
+// 闪光灯动画全局配置
 @property (nonatomic, strong) TABShimmerAnimation *shimmerAnimation;
 
 #pragma mark - Init Method

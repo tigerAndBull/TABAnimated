@@ -182,7 +182,6 @@ NSString * const TABViewAnimatedFooterPrefixString = @"tab_footer_";
 
 - (void)addFooterViewClass:(_Nonnull Class)footerViewClass
                   viewSize:(CGSize)viewSize {
-    [self addFooterViewClass:footerViewClass viewSize:viewSize toSection:0];
     if (self.animatedSectionCount > 0) {
         for (NSInteger i = 0; i < self.animatedSectionCount; i++) {
             [self addFooterViewClass:footerViewClass viewSize:viewSize toSection:i];
@@ -359,9 +358,15 @@ NSString * const TABViewAnimatedFooterPrefixString = @"tab_footer_";
              forSupplementaryViewOfKind:kind
                     withReuseIdentifier:[NSString stringWithFormat:@"%@%@",defaultPrefix,classString]];
         }else {
-            [collectionView registerClass:class
-               forSupplementaryViewOfKind:UICollectionElementKindSectionHeader
-                      withReuseIdentifier:[NSString stringWithFormat:@"%@%@",defaultPrefix,classString]];
+            if (isHeader) {
+                [collectionView registerClass:class
+                forSupplementaryViewOfKind:UICollectionElementKindSectionHeader
+                       withReuseIdentifier:[NSString stringWithFormat:@"%@%@",defaultPrefix,classString]];
+            }else {
+                [collectionView registerClass:class
+                forSupplementaryViewOfKind:UICollectionElementKindSectionFooter
+                       withReuseIdentifier:[NSString stringWithFormat:@"%@%@",defaultPrefix,classString]];
+            }
         }
         
         [collectionView registerClass:class

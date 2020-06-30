@@ -60,7 +60,9 @@
 
 - (instancetype)init {
     if (self = [super init]) {
-        _darkModeManager = TABAnimatedDarkModeManagerImpl.new;
+        if ([TABAnimated sharedAnimated].darkModeType == TABAnimatedDarkModeBySystem) {
+            _darkModeManager = TABAnimatedDarkModeManagerImpl.new;
+        }
         _animationManager = TABAnimationManagerImpl.new;
     }
     return self;
@@ -532,9 +534,11 @@
 
 - (void)setControlView:(UIView *)controlView {
     _controlView = controlView;
-    [_darkModeManager setControlView:controlView];
-    [_darkModeManager addDarkModelSentryView];
     [_animationManager setControlView:controlView];
+    if (_darkModeManager) {
+        [_darkModeManager setControlView:controlView];
+        [_darkModeManager addDarkModelSentryView];
+    }
 }
 
 - (NSMutableArray *)targetViewArray {
