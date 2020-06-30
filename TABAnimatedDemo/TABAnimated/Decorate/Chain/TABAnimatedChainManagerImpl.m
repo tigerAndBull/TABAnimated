@@ -29,4 +29,7 @@
     }
 }
 
+- (void)destory {
+}
+
 @end

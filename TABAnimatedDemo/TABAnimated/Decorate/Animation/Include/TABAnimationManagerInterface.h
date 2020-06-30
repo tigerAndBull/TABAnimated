@@ -19,6 +19,8 @@
 // 为目标view添加动画
 - (void)addAnimationWithTargetView:(UIView *)targetView;
 
+- (void)destory;
+
 @end
 
 #endif /* TABAnimationManagerInterface_h */

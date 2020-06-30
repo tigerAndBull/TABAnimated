@@ -22,6 +22,8 @@
         adjustWithClassBlock:(TABAdjustWithClassBlock)adjustWithClassBlock
                  targetClass:(Class)targetClass;
 
+- (void)destory;
+
 @end
 
 #endif /* TABAnimatedChainManagerInterface_h */

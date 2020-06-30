@@ -58,7 +58,6 @@
 - (void)addAnimationWithTargetView:(UIView *)targetView {
     
     TABViewAnimated *_tabAnimated = _controlView.tabAnimated;
-    
     if (!_controlView || !_tabAnimated) return;
     
     UITraitCollection *traitCollection = _controlView.traitCollection;
@@ -71,6 +70,9 @@
                                                              layers:production.layers];
         }
     }
+}
+
+- (void)destory {
 }
 
 @end
