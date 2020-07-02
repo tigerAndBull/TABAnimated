@@ -172,8 +172,7 @@ static const CGFloat kTagLabelHeight = 20.f;
 }
 
 + (void)bindView:(UIView *)view production:(TABAnimatedProduction *)production animatedHeight:(CGFloat)animatedHeight {
-    if (production.backgroundLayer.frame.size.height == 0. &&
-        view.layer.bounds.size.height > 0.) {
+    if (production.backgroundLayer.frame.size.height == 0. && view.layer.bounds.size.height > 0.) {
         production.backgroundLayer.frame = view.layer.bounds;
     }
     [view.layer addSublayer:production.backgroundLayer];

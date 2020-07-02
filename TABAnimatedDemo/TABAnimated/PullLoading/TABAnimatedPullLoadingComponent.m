@@ -114,10 +114,6 @@ NSString *const TABAnimatedPullLoadingKeyPathPanState = @"state";
     [self.scrollView removeObserver:self forKeyPath:TABAnimatedPullLoadingKeyPathContentSize];
 }
 
-- (CGFloat)componentHeight {
-    return self.tab_h;
-}
-
 #pragma mark -
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
