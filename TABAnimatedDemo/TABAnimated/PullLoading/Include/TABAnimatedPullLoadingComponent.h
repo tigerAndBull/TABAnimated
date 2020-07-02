@@ -37,6 +37,7 @@ typedef void(^TABAnimatedFooterActionHandler)(void);
 @property (nonatomic, assign) Class targetClass;
 @property (nonatomic, assign) CGFloat viewHeight;
 
+- (CGFloat)componentHeight;
 - (void)addObservers;
 - (void)removeObservers;
 

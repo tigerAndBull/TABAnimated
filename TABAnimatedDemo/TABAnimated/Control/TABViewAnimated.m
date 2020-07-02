@@ -16,6 +16,15 @@
 
 @implementation TABViewAnimated
 
+NSString *tab_NSStringFromClass(Class aClass) {
+    NSString *classString = NSStringFromClass(aClass);
+    if ([classString containsString:@"."]) {
+        NSRange range = [classString rangeOfString:@"."];
+        classString = [classString substringFromIndex:range.location+1];
+    }
+    return classString;
+}
+
 - (instancetype)init {
     if (self = [super init]) {
         _superAnimationType = TABViewSuperAnimationTypeDefault;

@@ -81,15 +81,14 @@
                                   indexPath:(nullable NSIndexPath *)indexPath
                                      origin:(TABAnimatedProductOrigin)origin {
     
-    if (_controlView == nil) {
-        [self setControlView:controlView];
-    }
+    if (_controlView == nil) [self setControlView:controlView];
     
-    NSString *className = [TABAnimatedProductHelper getClassNameWithTargetClass:currentClass];
+    NSString *className = tab_NSStringFromClass(currentClass);
+    NSString *controlerClassName = controlView.tabAnimated.targetControllerClassName;
     UIView *view;
     
     // 缓存
-    NSString *key = [TABAnimatedProductHelper getKeyWithControllerName:controlView.tabAnimated.targetControllerClassName targetClass:currentClass];
+    NSString *key = [TABAnimatedProductHelper getKeyWithControllerName:controlerClassName targetClass:currentClass];
     TABAnimatedProduction *production = [[TABAnimatedCacheManager shareManager] getProductionWithKey:key];
     if (production) {
         view = [self _reuseWithCurrentClass:currentClass indexPath:indexPath origin:origin className:className production:production];
@@ -119,7 +118,8 @@
         [self setControlView:controlView];
     }
     
-    NSString *key = [TABAnimatedProductHelper getKeyWithControllerName:controlView.tabAnimated.targetControllerClassName targetClass:currentClass];
+    NSString *controlerClassName = controlView.tabAnimated.targetControllerClassName;
+    NSString *key = [TABAnimatedProductHelper getKeyWithControllerName:controlerClassName targetClass:currentClass];
     TABAnimatedProduction *production = [[TABAnimatedCacheManager shareManager] getProductionWithKey:key];
     if (production) {
         TABAnimatedProduction *newProduction = production.copy;
@@ -136,11 +136,10 @@
                          indexPath:(nullable NSIndexPath *)indexPath
                             origin:(TABAnimatedProductOrigin)origin {
     
-    if (_controlView == nil) {
-        [self setControlView:controlView];
-    }
+    if (_controlView == nil) [self setControlView:controlView];
     
-    NSString *key = [TABAnimatedProductHelper getKeyWithControllerName:controlView.tabAnimated.targetControllerClassName targetClass:currentClass];
+    NSString *controlerClassName = controlView.tabAnimated.targetControllerClassName;
+    NSString *key = [TABAnimatedProductHelper getKeyWithControllerName:controlerClassName targetClass:currentClass];
     TABAnimatedProduction *production = [[TABAnimatedCacheManager shareManager] getProductionWithKey:key];
     if (production) {
         TABAnimatedProduction *newProduction = production.copy;
@@ -148,7 +147,7 @@
         return;
     }
     
-    NSString *className = [TABAnimatedProductHelper getClassNameWithTargetClass:currentClass];
+    NSString *className = tab_NSStringFromClass(currentClass);
     production = [self.productionPool objectForKey:className];
     if (production == nil || _controlView.tabAnimated.isNest) {
         UIView *newView = currentClass.new;
@@ -181,7 +180,7 @@
     TABAnimatedProduction *production = view.tabAnimatedProduction;
     if (production == nil) {
         production = [TABAnimatedProduction productWithState:TABAnimatedProductionCreate];
-        NSString *className = [TABAnimatedProductHelper getClassNameWithTargetClass:view.class];
+        NSString *className = tab_NSStringFromClass(view.class);
         view.tabAnimatedProduction = production;
         if (needSync) {
             [self.productionPool setObject:production forKey:className];
@@ -325,7 +324,8 @@
 - (void)_productWithTargetView:(UIView *)targetView isCard:(BOOL)isCard {
     @autoreleasepool {
         TABAnimatedProduction *production = targetView.tabAnimatedProduction;
-        production.fileName = [TABAnimatedProductHelper getKeyWithControllerName:_controlView.tabAnimated.targetControllerClassName targetClass:production.targetClass];
+        NSString *controlerClassName = _controlView.tabAnimated.targetControllerClassName;
+        production.fileName = [TABAnimatedProductHelper getKeyWithControllerName:controlerClassName targetClass:production.targetClass];
         
         NSMutableArray <TABComponentLayer *> *layerArray = @[].mutableCopy;
         // 生产
@@ -336,7 +336,6 @@
         production.state = TABAnimatedProductionBind;
         production.layers = layerArray;
         targetView.tabAnimatedProduction = production;
-
         // 缓存
         [[TABAnimatedCacheManager shareManager] cacheProduction:production];
     }

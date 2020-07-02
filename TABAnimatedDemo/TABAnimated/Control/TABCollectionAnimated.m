@@ -220,13 +220,9 @@ NSString * const TABViewAnimatedFooterPrefixString = @"tab_footer_";
         
         if (class == [NSNull class]) continue;
         
-        NSString *classString = NSStringFromClass(class);
-        if ([classString containsString:@"."]) {
-            NSRange range = [classString rangeOfString:@"."];
-            classString = [classString substringFromIndex:range.location+1];
-        }
-        
+        NSString *classString = tab_NSStringFromClass(class);
         NSString *nibPath = [[NSBundle mainBundle] pathForResource:classString ofType:@"nib"];
+        
         if (nil != nibPath && nibPath.length > 0) {
             [collectionView registerNib:[UINib nibWithNibName:classString bundle:[NSBundle mainBundle]] forCellWithReuseIdentifier:[NSString stringWithFormat:@"tab_%@",classString]];
             [collectionView registerNib:[UINib nibWithNibName:classString bundle:[NSBundle mainBundle]] forCellWithReuseIdentifier:classString];
@@ -344,12 +340,7 @@ NSString * const TABViewAnimatedFooterPrefixString = @"tab_footer_";
     
     for (Class class in classArray) {
         
-        NSString *classString = NSStringFromClass(class);
-        if ([classString containsString:@"."]) {
-            NSRange range = [classString rangeOfString:@"."];
-            classString = [classString substringFromIndex:range.location+1];
-        }
-        
+        NSString *classString = tab_NSStringFromClass(class);
         NSString *nibPath = [[NSBundle mainBundle] pathForResource:classString ofType:@"nib"];
         
         if (nil != nibPath && nibPath.length > 0) {

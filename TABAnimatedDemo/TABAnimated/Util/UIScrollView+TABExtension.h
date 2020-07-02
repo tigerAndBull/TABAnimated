@@ -19,6 +19,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (assign, nonatomic) CGFloat tab_contentW;
 @property (assign, nonatomic) CGFloat tab_contentH;
 
+
+- (void)tab_scrollToTop;
+- (void)tab_scrollToTopAnimated:(BOOL)animated;
+
 @end
 
 NS_ASSUME_NONNULL_END

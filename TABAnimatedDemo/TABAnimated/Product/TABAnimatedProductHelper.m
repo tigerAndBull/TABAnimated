@@ -15,8 +15,8 @@
 #import "UIView+TABControlModel.h"
 #import "UIView+TABControlAnimation.h"
 
-static NSString * const kShortDataString = @"tab_testtesttest";
-static NSString * const kLongDataString = @"tab_testtesttesttesttesttesttesttesttesttesttest";
+static NSString * const kShortDataString = @"                ";
+static NSString * const kLongDataString = @"                                                ";
 static NSString * const kTagDefaultFontName = @"HiraKakuProN-W3";
 
 static const CGFloat kTagDefaultFontSize = 12.f;
@@ -245,21 +245,8 @@ static const CGFloat kTagLabelHeight = 20.f;
 }
 
 + (NSString *)getKeyWithControllerName:(NSString *)controllerName targetClass:(Class)targetClass {
-    NSString *classString = NSStringFromClass(targetClass);
-    if ([classString containsString:@"."]) {
-        NSRange range = [classString rangeOfString:@"."];
-        classString = [classString substringFromIndex:range.location+1];
-    }
+    NSString *classString = tab_NSStringFromClass(targetClass);
     return [NSString stringWithFormat:@"%@_%@",controllerName, classString];
-}
-
-+ (NSString *)getClassNameWithTargetClass:(Class)targetClass {
-    NSString *className = NSStringFromClass(targetClass.class);
-    if ([className containsString:@"."]) {
-        NSRange range = [className rangeOfString:@"."];
-        className = [className substringFromIndex:range.location+1];
-    }
-    return className;
 }
 
 @end

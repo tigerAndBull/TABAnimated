@@ -25,12 +25,12 @@
 
 - (void)tab_addPullLoadingClass:(nonnull Class)pullLoadingClass viewHeight:(CGFloat)viewHeight actionHandler:(void (^)(void))actionHandler {
     TABFormAnimated *tabAnimated = (TABFormAnimated *)self.tabAnimated;
-    if (tabAnimated.fullLoadingComponent == nil) {
-        tabAnimated.fullLoadingComponent = [[TABAnimatedPullLoadingComponent alloc] initWithScrollView:self
+    if (tabAnimated.pullLoadingComponent == nil) {
+        tabAnimated.pullLoadingComponent = [[TABAnimatedPullLoadingComponent alloc] initWithScrollView:self
                                                                                            targetClass:pullLoadingClass
                                                                                             viewHeight:viewHeight
                                                                                          actionHandler:actionHandler];
-        [self insertSubview:tabAnimated.fullLoadingComponent atIndex:0];
+        [self insertSubview:tabAnimated.pullLoadingComponent atIndex:0];
     }
 }
 
@@ -42,30 +42,30 @@
 
 - (void)tab_addPullLoadingClass:(nonnull Class)pullLoadingClass viewHeight:(CGFloat)viewHeight target:(id)target selector:(SEL)selector {
     TABFormAnimated *tabAnimated = (TABFormAnimated *)self.tabAnimated;
-    if (tabAnimated.fullLoadingComponent == nil) {
-        tabAnimated.fullLoadingComponent = [[TABAnimatedPullLoadingComponent alloc] initWithScrollView:self
+    if (tabAnimated.pullLoadingComponent == nil) {
+        tabAnimated.pullLoadingComponent = [[TABAnimatedPullLoadingComponent alloc] initWithScrollView:self
                                                                                            targetClass:pullLoadingClass
                                                                                             viewHeight:viewHeight
                                                                                                 target:target
                                                                                                 action:selector];
         
-        [self insertSubview:tabAnimated.fullLoadingComponent atIndex:0];
+        [self insertSubview:tabAnimated.pullLoadingComponent atIndex:0];
     }
 }
 
 - (void)tab_stopPullLoading {
     TABFormAnimated *tabAnimated = (TABFormAnimated *)self.tabAnimated;
-    tabAnimated.fullLoadingComponent.state = TABAnimatedPullLoadingStateStopped;
+    tabAnimated.pullLoadingComponent.state = TABAnimatedPullLoadingStateStopped;
 }
 
 - (void)tab_stopPullLoadingNoMoreData {
     TABFormAnimated *tabAnimated = (TABFormAnimated *)self.tabAnimated;
-    tabAnimated.fullLoadingComponent.state = TABAnimatedPullLoadingStateNoMoreData;
+    tabAnimated.pullLoadingComponent.state = TABAnimatedPullLoadingStateNoMoreData;
 }
 
 - (void)tab_resetPullLoadingState {
     TABFormAnimated *tabAnimated = (TABFormAnimated *)self.tabAnimated;
-    tabAnimated.fullLoadingComponent.state = TABAnimatedPullLoadingStateNormal;
+    tabAnimated.pullLoadingComponent.state = TABAnimatedPullLoadingStateNormal;
 }
 
 #pragma mark - Private

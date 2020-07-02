@@ -279,16 +279,12 @@
     [self _registerViewToReuse:tableView classArray:tableView.tabAnimated.footerClassArray containClass:UITableViewHeaderFooterView.class isHeaderFooter:YES];
 }
 
-
 - (void)_registerViewToReuse:(UITableView *)tableView classArray:(NSArray *)classArray containClass:(Class)containClass isHeaderFooter:(BOOL)isHeaderFooter {
     for (Class class in classArray) {
-        if (class == [NSNull class]) continue;
-        NSString *classString = NSStringFromClass(class);
-        if ([classString containsString:@"."]) {
-            NSRange range = [classString rangeOfString:@"."];
-            classString = [classString substringFromIndex:range.location+1];
-        }
         
+        if (class == [NSNull class]) continue;
+        
+        NSString *classString = tab_NSStringFromClass(class);
         NSString *nibPath = [[NSBundle mainBundle] pathForResource:classString ofType:@"nib"];
         
         if (isHeaderFooter) {
@@ -576,10 +572,6 @@
 @end
 
 @implementation EstimatedTableViewDelegate
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
-}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return UITableViewAutomaticDimension;

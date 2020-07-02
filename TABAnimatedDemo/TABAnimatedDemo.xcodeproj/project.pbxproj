@@ -983,6 +983,8 @@
 				688A377124893B3D00A76894 /* TABAnimationMethod.m */,
 				688A377224893B3D00A76894 /* TABWeakDelegateManager.h */,
 				688A377424893B3D00A76894 /* TABWeakDelegateManager.m */,
+				688A37CD24893B3D00A76894 /* UIScrollView+TABExtension.h */,
+				688A37CE24893B3D00A76894 /* UIScrollView+TABExtension.m */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -1054,7 +1056,6 @@
 				688A37C924893B3D00A76894 /* Include */,
 				688A37CF24893B3D00A76894 /* TABAnimatedPullLoadingComponent.m */,
 				688A37C824893B3D00A76894 /* UIScrollView+TABAnimated.m */,
-				688A37CE24893B3D00A76894 /* UIScrollView+TABExtension.m */,
 				688A37D024893B3D00A76894 /* UIView+TABExtension.m */,
 			);
 			path = PullLoading;
@@ -1065,7 +1066,6 @@
 			children = (
 				688A37CA24893B3D00A76894 /* TABAnimatedPullLoadingComponent.h */,
 				688A37CC24893B3D00A76894 /* UIScrollView+TABAnimated.h */,
-				688A37CD24893B3D00A76894 /* UIScrollView+TABExtension.h */,
 				688A37CB24893B3D00A76894 /* UIView+TABExtension.h */,
 			);
 			path = Include;

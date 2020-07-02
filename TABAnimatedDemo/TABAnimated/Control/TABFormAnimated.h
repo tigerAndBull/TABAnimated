@@ -76,7 +76,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  上拉加载更多组件
  */
-@property (nonatomic, strong) TABAnimatedPullLoadingComponent *fullLoadingComponent;
+@property (nonatomic, strong) TABAnimatedPullLoadingComponent *pullLoadingComponent;
 
 #pragma mark -
 

@@ -35,20 +35,20 @@
 /**
  * 全局动画类型，它决定了你是否需要在骨架层的基础之上，增加额外的动画。
  *
- * 除了`TABAnimationTypeOnlySkeleton`以外的值，都会添加额外的一种动画。
+ * 每一种类型都会添加额外的一种动画，`TABAnimationTypeOnlySkeleton` 包含了经典的伸缩动画
  *
- * 当你有一个指定的view不需要已经设置好的全局的动画类型时，
- * 你可以使用`TABViewSuperAnimationType`这个局部属性覆盖`TABAnimationType`的值。
+ * 当你有一个特定的view不需要此处全局的动画时，
+ * 你可以使用`TABViewSuperAnimationType`这个局部属性去覆盖`TABAnimationType`的值。
  */
 typedef NS_ENUM(NSInteger, TABAnimationType) {
     
-    // 骨架层
+    // 骨架层 + 经典伸缩动画
     TABAnimationTypeOnlySkeleton = 0,
     
     // 骨架层 + 呼吸灯动画
     TABAnimationTypeBinAnimation,
     
-    // 骨架层 + 闪光灯
+    // 骨架层 + 闪光灯动画
     TABAnimationTypeShimmer,
     
     // 骨架层 + 豆瓣下坠动画

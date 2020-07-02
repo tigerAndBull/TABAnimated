@@ -11,8 +11,6 @@
 
 #import <UIKit/UIKit.h>
 
-#import "TABSentryView.h"
-
 #import "TABViewAnimatedDefines.h"
 #import "TABAnimatedProductInterface.h"
 #import "TABAnimatedDecorateInterface.h"
@@ -24,6 +22,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 extern int const TABAnimatedIndexTag;
+FOUNDATION_EXPORT NSString *tab_NSStringFromClass(Class aClass);
 
 @interface TABViewAnimated : NSObject
 
@@ -36,10 +35,7 @@ extern int const TABAnimatedIndexTag;
 // TABComponetLayer序列化协议
 @property (nonatomic, strong) id <TABComponentLayerSerializationInterface> serializationImpl;
 
-/**
- 不需要手动赋值，但是你需要知道当前视图的结构，
- 从而选择初始化方法和启动方法。
- */
+// 不需要手动赋值，但是你需要知道当前视图的结构，从而选择初始化方法和启动方法。
 @property (nonatomic, assign) TABAnimatedRunMode runMode;
 
 // 动画状态，可重置
@@ -48,33 +44,22 @@ extern int const TABAnimatedIndexTag;
 // 使用该属性时，全局动画类型失效，目标视图将更改为当前属性指定的动画类型。
 @property (nonatomic, assign) TABViewSuperAnimationType superAnimationType;
 
-/**
- * 可以在其中使用链式语法便捷调整每一个动画元素
- */
+// 可以在其中使用链式语法便捷调整每一个动画元素
 @property (nonatomic, copy) TABAdjustBlock adjustBlock;
-/**
- * 可以在其中使用链式语法便捷调整每一个动画元素, 使用class区分不同cell
- */
+
+// 可以在其中使用链式语法便捷调整每一个动画元素, 使用class区分不同cell
 @property (nonatomic, copy) TABAdjustWithClassBlock adjustWithClassBlock;
 
-/**
- * 当前视图动画内容颜色
- */
+// 当前视图动画内容颜色
 @property (nonatomic, strong) UIColor *animatedColor;
 
-/**
- * 当前视图动画背景颜色
- */
+// 当前视图动画背景颜色
 @property (nonatomic, strong) UIColor *animatedBackgroundColor;
 
-/**
- * 当前视图暗黑模式下动画内容颜色
- */
+// 当前视图暗黑模式下动画内容颜色
 @property (nonatomic, strong) UIColor *darkAnimatedColor;
 
-/**
- * 当前视图暗黑模式下动画背景颜色
- */
+// 当前视图暗黑模式下动画背景颜色
 @property (nonatomic, strong) UIColor *darkAnimatedBackgroundColor;
 
 /**
@@ -133,11 +118,6 @@ extern int const TABAnimatedIndexTag;
  * 控制视图所处的控制器类型
  */
 @property (nonatomic, copy) NSString *targetControllerClassName;
-
-/**
- * 哨兵视图，用于监听暗黑模式
- */
-@property (nonatomic, weak, readonly, nullable) TABSentryView *sentryView;
 
 - (nonnull UIColor *)getCurrentAnimatedColorWithCollection:(UITraitCollection *)collection;
 - (nonnull UIColor *)getCurrentAnimatedBackgroundColorWithCollection:(UITraitCollection *)collection;

@@ -55,13 +55,6 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)addTagWithComponentLayer:(TABComponentLayer *)layer isLines:(BOOL)isLines;
 
 /**
-获取去除后缀的类名
-
-@param targetClass 目标class
-*/
-+ (NSString *)getClassNameWithTargetClass:(Class)targetClass;
-
-/**
 获取指定情景下production的key
 
 @param targetClass 目标class

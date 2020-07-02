@@ -1,6 +1,6 @@
 //
 //  UIView+TABControllerAnimation.m
-//  AnimatedDemo
+//  TABAnimatedDemo
 //
 //  Created by tigerAndBull on 2019/1/17.
 //  Copyright © 2019年 tigerAndBull. All rights reserved.
@@ -62,9 +62,7 @@ const int TABAnimatedIndexTag = -100000;
     
     TABViewAnimated *tabAnimated = self.tabAnimated;
     if (tabAnimated == nil || (tabAnimated.state == TABViewAnimationEnd && !tabAnimated.canLoadAgain)) {
-        if (completion) {
-            completion();
-        }
+        if (completion) completion();
         return;
     }
     
@@ -74,9 +72,7 @@ const int TABAnimatedIndexTag = -100000;
             isFirstLoad = NO;
         }else if (index != TABAnimatedIndexTag && [tabAnimated isKindOfClass:[TABFormAnimated class]]) {
             TABFormAnimated *formAnimated = (TABFormAnimated *)tabAnimated;
-            if (![formAnimated getIndexIsRuning:index]) {
-                isFirstLoad = NO;
-            }
+            if (![formAnimated getIndexIsRuning:index]) isFirstLoad = NO;
         }
     }
     
@@ -98,9 +94,7 @@ const int TABAnimatedIndexTag = -100000;
     }
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, NSEC_PER_SEC*delayTime), dispatch_get_main_queue(), ^{
-        if (completion) {
-            completion();
-        }
+        if (completion) completion();
     });
 }
 
@@ -126,23 +120,18 @@ const int TABAnimatedIndexTag = -100000;
     [self tab_endAnimationWithIndex:index isEaseOut:YES];
 }
 
-- (void)tab_endAnimationWithIndex:(NSInteger)index
-                        isEaseOut:(BOOL)isEaseOut {
+- (void)tab_endAnimationWithIndex:(NSInteger)index isEaseOut:(BOOL)isEaseOut {
     
     if (self.tabAnimated.state == TABViewAnimationEnd) return;
     
     if (index == TABAnimatedIndexTag && ![self.tabAnimated isKindOfClass:[TABFormAnimated class]]) {
         [self _endViewAnimation];
-        if (isEaseOut) {
-            [TABAnimationMethod addEaseOutAnimation:self];
-        }
+        if (isEaseOut) [TABAnimationMethod addEaseOutAnimation:self];
         return;
     }
     
     BOOL isNeedReset = NO;
-    if (index == TABAnimatedIndexTag) {
-        isNeedReset = YES;
-    }
+    if (index == TABAnimatedIndexTag) isNeedReset = YES;
     
     if ([self.tabAnimated isKindOfClass:[TABFormAnimated class]]) {
         
@@ -167,9 +156,7 @@ const int TABAnimatedIndexTag = -100000;
                     [tableView.tableFooterView tab_endAnimation];
                 }
             }else {
-                if (![tabAnimated endAnimationWithIndex:index]) {
-                    return;
-                }
+                if (![tabAnimated endAnimationWithIndex:index]) return;
                 if (tabAnimated.runMode == TABAnimatedRunBySection) {
                     [(UITableView *)self reloadSections:[NSIndexSet indexSetWithIndex:index] withRowAnimation:UITableViewRowAnimationNone];
                 }else {
@@ -193,9 +180,7 @@ const int TABAnimatedIndexTag = -100000;
         [self _endViewAnimation];
     }
     
-    if (isEaseOut) {
-        [TABAnimationMethod addEaseOutAnimation:self];
-    }
+    if (isEaseOut) [TABAnimationMethod addEaseOutAnimation:self];
 }
 
 - (void)_endViewAnimation {

@@ -126,5 +126,18 @@ static BOOL respondsToAdjustedContentInset_;
     return self.contentSize.height;
 }
 
+#pragma mark -
+
+- (void)tab_scrollToTop {
+    [self tab_scrollToTopAnimated:NO];
+}
+
+- (void)tab_scrollToTopAnimated:(BOOL)animated {
+    CGPoint off = self.contentOffset;
+    UIEdgeInsets contentInset = self.tab_inset;
+    off.y = 0 - contentInset.top;
+    [self setContentOffset:off animated:animated];
+}
+
 @end
 #pragma clang diagnostic pop

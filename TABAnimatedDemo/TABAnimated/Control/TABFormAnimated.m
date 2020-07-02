@@ -10,6 +10,7 @@
 #import "TABAnimatedCacheManager.h"
 #import "TABAnimated.h"
 #import <objc/runtime.h>
+#import "UIScrollView+TABExtension.h"
 
 @interface TABFormAnimated()
 
@@ -53,10 +54,16 @@
         [self registerViewToReuse:controlView];
         [self exchangeDelegate:controlView];
         [self exchangeDataSource:controlView];
-    }else if (index == TABAnimatedIndexTag) {
-        [self reloadAnimation];
-    }else if (![self reloadAnimationWithIndex:index]) {
-        return NO;
+    }else {
+        
+        UIScrollView *scrollView = (UIScrollView *)controlView;
+        [scrollView tab_scrollToTop];
+        
+        if (index == TABAnimatedIndexTag) {
+            [self reloadAnimation];
+        }else if (![self reloadAnimationWithIndex:index]) {
+            return NO;
+        }
     }
     
     if (self.runIndexDict.count == 0) return NO;
