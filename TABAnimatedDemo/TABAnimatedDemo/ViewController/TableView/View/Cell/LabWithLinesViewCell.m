@@ -44,13 +44,14 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     
+    CGFloat gameImageWidth = (self.frame.size.height-20)*1.5;
+    CGFloat titleLabelWidth = kScreenWidth-gameImageWidth-15-15-10;
     // 获取对应组件文本大小
-    CGSize titleSize = [titleLab getTextSize:CGSizeMake(kScreenWidth-(self.frame.size.height-20)*1.5-15-15-10, MAXFLOAT)];
+    CGSize titleSize = [titleLab getTextSize:CGSizeMake(titleLabelWidth, MAXFLOAT)];
     // 布局
-    gameImg.frame = CGRectMake(15, 10, (self.frame.size.height-20)*1.5, (self.frame.size.height-20));
+    gameImg.frame = CGRectMake(15, 10, gameImageWidth, (self.frame.size.height-20));
     gameImg.layer.cornerRadius = 5;
-    
-    titleLab.frame = CGRectMake(CGRectGetMaxX(gameImg.frame)+15, 10, titleSize.width, titleSize.height);
+    titleLab.frame = CGRectMake(CGRectGetMaxX(gameImg.frame)+15, 10, titleLabelWidth, titleSize.height);
 }
 
 #pragma mark - Public Methods

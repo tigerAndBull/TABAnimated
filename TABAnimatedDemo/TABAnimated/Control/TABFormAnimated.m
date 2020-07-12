@@ -134,9 +134,7 @@
 #pragma mark -
 
 - (BOOL)getIndexIsRuning:(NSInteger)index {
-    if ([self getIndexWithIndex:index dict:self.runIndexDict] >= 0) {
-        return YES;
-    }
+    if ([self getIndexWithIndex:index dict:self.runIndexDict] >= 0) return YES;
     return NO;
 }
 
@@ -221,9 +219,7 @@
 - (BOOL)_reloadWithKey:(NSString *)key resultDict:(NSMutableDictionary *)resultDict {
     if (![[resultDict allKeys] containsObject:key]) return NO;
     NSInteger value = [[resultDict objectForKey:key] integerValue];
-    if (value >= 0) {
-        return NO;
-    }
+    if (value >= 0) return NO;
     value -= TABAnimatedIndexTag;
     [resultDict setValue:@(value) forKey:key];
     return YES;
@@ -236,9 +232,7 @@
 - (BOOL)_endWithKey:(NSString *)key resultDict:(NSMutableDictionary *)resultDict {
     if (![[resultDict allKeys] containsObject:key]) return NO;
     NSInteger value = [[resultDict objectForKey:key] integerValue];
-    if (value < 0) {
-        return NO;
-    }
+    if (value < 0) return NO;
     value += TABAnimatedIndexTag;
     [resultDict setValue:@(value) forKey:key];
     return YES;
@@ -261,12 +255,8 @@
 }
 
 - (BOOL)scrollEnabled {
-    if (!_scrollEnabled) {
-        return NO;
-    }
-    if (_scrollEnabled && ![TABAnimated sharedAnimated].scrollEnabled) {
-        return NO;
-    }
+    if (!_scrollEnabled) return NO;
+    if (_scrollEnabled && ![TABAnimated sharedAnimated].scrollEnabled) return NO;
     return YES;
 }
 

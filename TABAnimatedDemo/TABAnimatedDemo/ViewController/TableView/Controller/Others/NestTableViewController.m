@@ -148,6 +148,7 @@
         // 设置tabAnimated相关属性
         // 可以不进行手动初始化，将使用默认属性
         _tableView.tabAnimated = [TABTableAnimated animatedWithCellClass:[NestTableViewCell class] cellHeight:NestTableViewCell.cellHeight];
+        _tableView.tabAnimated.containNestAnimation = YES;
     }
     return _tableView;
 }

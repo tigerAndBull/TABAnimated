@@ -39,8 +39,8 @@ UICollectionViewDataSource
 }
 
 - (void)reloadViewAnimated {
-    self.collectionView.tabAnimated.canLoadAgain = YES;
-    [self.collectionView tab_startAnimationWithIndex:0];
+    [self.collectionView tab_startAnimation];
+    [self performSelector:@selector(afterGetData) withObject:nil afterDelay:1.];
 }
 
 #pragma mark - Target Methods
@@ -49,6 +49,7 @@ UICollectionViewDataSource
  获取到数据后
  */
 - (void)afterGetData {
+    [dataArray removeAllObjects];
     // 模拟数据
     Game *game = [[Game alloc]init];
     game.title = [NSString stringWithFormat:@"进击的巨人part2"];
@@ -197,6 +198,8 @@ UICollectionViewDataSource
                                        animatedWithCellClassArray:classArray
                                        cellSizeArray:sizeArray
                                        animatedCountArray:@[@(1),@(3)]];
+        _collectionView.tabAnimated.containNestAnimation = YES;
+        _collectionView.tabAnimated.canLoadAgain = YES;
         if (@available(iOS 13.0, *)) {
             _collectionView.tabAnimated.darkAnimatedBackgroundColor = UIColor.systemBackgroundColor;
         }

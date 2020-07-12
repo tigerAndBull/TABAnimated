@@ -161,7 +161,7 @@ referenceSizeForHeaderInSection:(NSInteger)section {
         }
         _collectionView.tabAnimated.animatedCount = 1;
         _collectionView.tabAnimated.animatedSectionCount = 3;
-        _collectionView.tabAnimated.superAnimationType = TABViewSuperAnimationTypeShimmer;
+        _collectionView.tabAnimated.containNestAnimation = YES;
         // 添加区头动画，UICollectionReusableView类型, 同时支持普通的UIView
         [_collectionView.tabAnimated addHeaderViewClass:[TestCollectionReusableView class] viewSize:CGSizeMake(kScreenWidth, 60)];
         _collectionView.tabAnimated.adjustWithClassBlock = ^(TABComponentManager * _Nonnull manager, Class  _Nonnull __unsafe_unretained targetClass) {

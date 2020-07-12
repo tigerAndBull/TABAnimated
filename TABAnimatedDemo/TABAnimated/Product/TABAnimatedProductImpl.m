@@ -38,6 +38,8 @@
 
 // 正在生产的index，配合targetViewArray实现加工等待队列
 @property (nonatomic, assign) NSInteger productIndex;
+// 正在生成的子view的tagIndex
+@property (nonatomic, assign) NSInteger targetTagIndex;
 
 // 产品复用池
 @property (nonatomic, strong) NSMutableDictionary <NSString *, TABAnimatedProduction *> *productionPool;
@@ -81,25 +83,31 @@
                                   indexPath:(nullable NSIndexPath *)indexPath
                                      origin:(TABAnimatedProductOrigin)origin {
     
-    if (_controlView == nil) [self setControlView:controlView];
+    if (_controlView == nil) {
+        [self setControlView:controlView];
+    }
     
     NSString *className = tab_NSStringFromClass(currentClass);
     NSString *controlerClassName = controlView.tabAnimated.targetControllerClassName;
     UIView *view;
     
-    // 缓存
     NSString *key = [TABAnimatedProductHelper getKeyWithControllerName:controlerClassName targetClass:currentClass];
-    TABAnimatedProduction *production = [[TABAnimatedCacheManager shareManager] getProductionWithKey:key];
-    if (production) {
-        view = [self _reuseWithCurrentClass:currentClass indexPath:indexPath origin:origin className:className production:production];
-        return view;
+    TABAnimatedProduction *production;
+    
+    if (!_controlView.tabAnimated.containNestAnimation) {
+        // 缓存
+        production = [[TABAnimatedCacheManager shareManager] getProductionWithKey:key];
+        if (production) {
+            view = [self _reuseWithCurrentClass:currentClass indexPath:indexPath origin:origin className:className production:production];
+            return view;
+        }
     }
 
     // 生产
     production = [self.productionPool objectForKey:className];
-    if (production == nil || _controlView.tabAnimated.isNest) {
+    if (production == nil || _controlView.tabAnimated.containNestAnimation) {
         view = [self _createViewWithOrigin:origin controlView:controlView indexPath:indexPath className:className currentClass:currentClass isNeedProduct:YES];
-        [self _prepareProductWithView:view currentClass:currentClass indexPath:indexPath origin:origin needSync:YES needReset:NO];
+        [self _prepareProductWithView:view currentClass:currentClass indexPath:indexPath origin:origin needSync:YES needReset:_controlView.tabAnimated.containNestAnimation];
         return view;
     }
     
@@ -149,7 +157,7 @@
     
     NSString *className = tab_NSStringFromClass(currentClass);
     production = [self.productionPool objectForKey:className];
-    if (production == nil || _controlView.tabAnimated.isNest) {
+    if (production == nil || _controlView.tabAnimated.containNestAnimation) {
         UIView *newView = currentClass.new;
         [view addSubview:newView];
         [self _prepareProductWithView:newView currentClass:currentClass indexPath:indexPath origin:origin needSync:YES needReset:NO];
@@ -300,7 +308,7 @@
 - (void)_productWithView:(UIView *)view needReset:(BOOL)needReset isCard:(BOOL)isCard {
 
     [self.targetViewArray addObject:view];
-    [TABAnimatedProductHelper fullDataAndStartNestAnimation:view isHidden:!needReset];
+    [TABAnimatedProductHelper fullDataAndStartNestAnimation:view isHidden:!needReset rootView:view];
     view.hidden = YES;
     
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -310,6 +318,7 @@
         
         // 从等待队列中取出需要加工的view
         self->_targetView = self.targetViewArray[self.productIndex];
+        self->_targetTagIndex = 0;
         // 生产流水
         [self _productWithTargetView:self->_targetView isCard:isCard];
         
@@ -329,7 +338,7 @@
         
         NSMutableArray <TABComponentLayer *> *layerArray = @[].mutableCopy;
         // 生产
-        [self _recurseProductLayerWithView:targetView array:layerArray production:production tagIndex:0 isCard:isCard];
+        [self _recurseProductLayerWithView:targetView array:layerArray production:production isCard:isCard];
         // 加工
         [self _chainAdjustWithArray:layerArray tabAnimated:_controlView.tabAnimated targetClass:production.targetClass];
         // 绑定
@@ -346,14 +355,12 @@
 - (void)_recurseProductLayerWithView:(UIView *)view
                                array:(NSMutableArray <TABComponentLayer *> *)array
                           production:(TABAnimatedProduction *)production
-                            tagIndex:(NSInteger)tagIndex
                               isCard:(BOOL)isCard {
-    [self _recurseProductLayerWithView:view array:array tagIndex:tagIndex isCard:isCard];
+    [self _recurseProductLayerWithView:view array:array isCard:isCard];
 }
 
 - (void)_recurseProductLayerWithView:(UIView *)view
                                array:(NSMutableArray <TABComponentLayer *> *)array
-                            tagIndex:(NSInteger)tagIndex
                               isCard:(BOOL)isCard {
     
     NSArray *subViews;
@@ -363,8 +370,9 @@
     for (int i = 0; i < subViews.count;i++) {
         
         UIView *subV = subViews[i];
+        if (subV.tabAnimated) continue;
         
-        [self _recurseProductLayerWithView:subV array:array tagIndex:0 isCard:isCard];
+        [self _recurseProductLayerWithView:subV array:array isCard:isCard];
         
         if ([subV.superview isKindOfClass:[UITableViewCell class]] ||
             [subV.superview isKindOfClass:[UICollectionViewCell class]] ||
@@ -388,13 +396,12 @@
         // 生产
         TABComponentLayer *layer;
         if ([TABAnimatedProductHelper canProduct:subV]) {
-
             UIColor *animatedColor = [_controlView.tabAnimated getCurrentAnimatedColorWithCollection:_controlView.traitCollection];
             layer = [self _createLayerWithView:subV needRemove:needRemove color:animatedColor isCard:isCard];
             layer.serializationImpl = _controlView.tabAnimated.serializationImpl;
-            layer.tagIndex = tagIndex;
+            layer.tagIndex = self->_targetTagIndex;
             [array addObject:layer];
-            tagIndex++;
+            _targetTagIndex++;
         }
     }
 }
@@ -453,6 +460,7 @@
     }else {
         layer.cornerRadius = cornerRadius;
     }
+    
     return layer;
 }
 

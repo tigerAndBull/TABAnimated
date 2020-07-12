@@ -89,9 +89,9 @@ FOUNDATION_EXPORT NSString *tab_NSStringFromClass(Class aClass);
 @property (nonatomic, assign) BOOL isAnimating;
 
 /**
- * 是否是嵌套在内部的表格视图
+ * 是否有嵌套在内部的表格视图
  */
-@property (nonatomic, assign) BOOL isNest;
+@property (nonatomic, assign) BOOL containNestAnimation;
 
 /**
  * 是否可以重复开启动画，默认开启只生效一次。
@@ -125,6 +125,8 @@ FOUNDATION_EXPORT NSString *tab_NSStringFromClass(Class aClass);
 #pragma mark - DEPRECATED
 
 typedef void(^TABAnimatedCategoryBlock)(UIView *view);
+
+@property (nonatomic, assign) BOOL isNest DEPRECATED_MSG_ATTRIBUTE("该属性在v2.4.4被弃用，请使用`containNestAnimation`取代");
 
 @property (nonatomic, assign) CGFloat dropAnimationDuration DEPRECATED_MSG_ATTRIBUTE("该属性在v2.2.5被弃用，请使用`TABDropAnimation`取代");
 @property (nonatomic, strong) UIColor *dropAnimationDeepColor DEPRECATED_MSG_ATTRIBUTE("该属性在v2.2.5被弃用，请使用`TABDropAnimation`取代");

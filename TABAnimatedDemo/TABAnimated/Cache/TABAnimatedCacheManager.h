@@ -51,6 +51,10 @@ extern NSString * const TABCacheManagerFolderName;
  */
 - (void)updateCacheModelLoadCountWithFormAnimated:(TABFormAnimated *)viewAnimated;
 
+/// 设置最大缓存在内存中的model数量
+/// @param maxMemoryCount 最大数量
+- (void)setMaxMemoryCount:(NSInteger)maxMemoryCount;
+
 @end
 
 NS_ASSUME_NONNULL_END

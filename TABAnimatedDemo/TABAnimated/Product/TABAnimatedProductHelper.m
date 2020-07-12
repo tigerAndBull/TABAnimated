@@ -21,10 +21,11 @@ static NSString * const kTagDefaultFontName = @"HiraKakuProN-W3";
 
 static const CGFloat kTagDefaultFontSize = 12.f;
 static const CGFloat kTagLabelHeight = 20.f;
+static const CGFloat kTagLabelMinWidth = 15.f;
 
 @implementation TABAnimatedProductHelper
 
-+ (void)fullDataAndStartNestAnimation:(UIView *)view isHidden:(BOOL)isHidden {
++ (void)fullDataAndStartNestAnimation:(UIView *)view isHidden:(BOOL)isHidden rootView:(UIView *)rootView {
     
     if ([view isKindOfClass:[UITableView class]] ||
         [view isKindOfClass:[UICollectionView class]]) {
@@ -39,11 +40,11 @@ static const CGFloat kTagLabelHeight = 20.f;
     for (int i = 0; i < subViews.count;i++) {
         
         UIView *subV = subViews[i];
-        [self fullDataAndStartNestAnimation:subV isHidden:isHidden];
+        [self fullDataAndStartNestAnimation:subV isHidden:isHidden rootView:rootView];
         
-        if ([subV isKindOfClass:[UITableView class]] ||
-            [subV isKindOfClass:[UICollectionView class]]) {
+        if ([subV isKindOfClass:[UITableView class]] || [subV isKindOfClass:[UICollectionView class]]) {
             if (subV.tabAnimated) {
+                [self cutView:subV rootView:rootView];
                 [subV tab_startAnimation];
             }
             continue;
@@ -51,46 +52,6 @@ static const CGFloat kTagLabelHeight = 20.f;
         
         if (isHidden) {
             subV.hidden = YES;
-        }
-        
-        if ([subV isKindOfClass:[UILabel class]]) {
-            UILabel *lab = (UILabel *)subV;
-            if (lab.text == nil || [lab.text isEqualToString:@""]) {
-                if (lab.numberOfLines == 1) {
-                    lab.text = kShortDataString;
-                }else {
-                    lab.text = kLongDataString;
-                }
-            }
-        }else if ([subV isKindOfClass:[UIButton class]]) {
-            UIButton *btn = (UIButton *)subV;
-            if (btn.titleLabel.text == nil && btn.imageView.image == nil) {
-                [btn setTitle:kShortDataString forState:UIControlStateNormal];
-            }
-        }
-    }
-}
-
-+ (void)fullDataAndStartNestAnimation:(UIView *)view {
-    
-    if ([view isKindOfClass:[UITableView class]] ||
-        [view isKindOfClass:[UICollectionView class]]) {
-        return;
-    }
-    
-    NSArray *subViews = [view subviews];
-    if ([subViews count] == 0) {
-        return;
-    }
-    
-    for (int i = 0; i < subViews.count;i++) {
-        
-        UIView *subV = subViews[i];
-        [self fullDataAndStartNestAnimation:subV];
-        
-        if ([subV isKindOfClass:[UITableView class]] ||
-            [subV isKindOfClass:[UICollectionView class]]) {
-            continue;
         }
         
         if ([subV isKindOfClass:[UILabel class]]) {
@@ -227,25 +188,37 @@ static const CGFloat kTagLabelHeight = 20.f;
 
 + (void)addTagWithComponentLayer:(TABComponentLayer *)layer isLines:(BOOL)isLines {
     CATextLayer *textLayer = [CATextLayer layer];
+    CGFloat width = layer.frame.size.width > kTagLabelMinWidth ? layer.frame.size.width : kTagLabelMinWidth;
     textLayer.string = [NSString stringWithFormat:@"%ld",(long)layer.tagIndex];
     if (isLines) {
-        textLayer.frame = CGRectMake(0, 0, layer.frame.size.width, kTagLabelHeight);
+        textLayer.frame = CGRectMake(0, 0, width, kTagLabelHeight);
     }else if (layer.origin != TABComponentLayerOriginImageView) {
-        textLayer.bounds = CGRectMake(layer.bounds.origin.x, layer.bounds.origin.y, layer.bounds.size.width, kTagLabelHeight);
+        textLayer.frame = CGRectMake(layer.bounds.origin.x, layer.bounds.origin.y, width, kTagLabelHeight);
     }else {
-        textLayer.frame = CGRectMake(0, layer.frame.size.height/2.0, layer.frame.size.width, kTagLabelHeight);
+        textLayer.frame = CGRectMake(0, layer.frame.size.height/2.0, width, kTagLabelHeight);
     }
     textLayer.contentsScale = ([[UIScreen mainScreen] scale] > 3.0) ? [[UIScreen mainScreen] scale]:3.0;
     textLayer.font = (__bridge CFTypeRef)(kTagDefaultFontName);
     textLayer.fontSize = kTagDefaultFontSize;
     textLayer.alignmentMode = kCAAlignmentRight;
-    textLayer.foregroundColor = [UIColor redColor].CGColor;
+    textLayer.foregroundColor = UIColor.redColor.CGColor;
     [layer addSublayer:textLayer];
 }
 
 + (NSString *)getKeyWithControllerName:(NSString *)controllerName targetClass:(Class)targetClass {
     NSString *classString = tab_NSStringFromClass(targetClass);
     return [NSString stringWithFormat:@"%@_%@",controllerName, classString];
+}
+
++ (void)cutView:(UIView *)view rootView:(UIView *)rootView {
+    dispatch_after(DISPATCH_TIME_NOW, dispatch_get_main_queue(), ^{
+        CGRect cutRect = [rootView convertRect:view.frame fromView:view.superview];
+        UIBezierPath *path = [UIBezierPath bezierPathWithRect:rootView.bounds];
+        [path appendPath:[[UIBezierPath bezierPathWithRoundedRect:cutRect cornerRadius:0.] bezierPathByReversingPath]];
+        CAShapeLayer *shapeLayer = [CAShapeLayer layer];
+        shapeLayer.path = path.CGPath;
+        [rootView.tabAnimatedProduction.backgroundLayer setMask:shapeLayer];
+    });
 }
 
 @end

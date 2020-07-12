@@ -102,7 +102,6 @@
         if (@available(iOS 13.0, *)) {
             _collectionView.tabAnimated.darkAnimatedBackgroundColor = UIColor.systemBackgroundColor;
         }
-        _collectionView.tabAnimated.isNest = YES;
         _collectionView.tabAnimated.animatedCount = 3;
     }
     return _collectionView;

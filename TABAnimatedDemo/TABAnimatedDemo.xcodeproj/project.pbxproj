@@ -902,10 +902,10 @@
 		685A2AA6247A685B00D9DB7C /* Header */ = {
 			isa = PBXGroup;
 			children = (
-				685A2AA7247A685B00D9DB7C /* TestTableHeaderFooterView.m */,
+				685A2AAA247A685B00D9DB7C /* LineTableViewHeaderFooterView.h */,
 				685A2AA8247A685B00D9DB7C /* LineTableViewHeaderFooterView.m */,
 				685A2AA9247A685B00D9DB7C /* TestTableHeaderFooterView.h */,
-				685A2AAA247A685B00D9DB7C /* LineTableViewHeaderFooterView.h */,
+				685A2AA7247A685B00D9DB7C /* TestTableHeaderFooterView.m */,
 			);
 			path = Header;
 			sourceTree = "<group>";
@@ -913,9 +913,9 @@
 		685A2AAB247A685C00D9DB7C /* Xib */ = {
 			isa = PBXGroup;
 			children = (
+				685A2AAE247A685C00D9DB7C /* XIBTableViewCell.h */,
 				685A2AAC247A685C00D9DB7C /* XIBTableViewCell.m */,
 				685A2AAD247A685C00D9DB7C /* XIBTableViewCell.xib */,
-				685A2AAE247A685C00D9DB7C /* XIBTableViewCell.h */,
 			);
 			path = Xib;
 			sourceTree = "<group>";

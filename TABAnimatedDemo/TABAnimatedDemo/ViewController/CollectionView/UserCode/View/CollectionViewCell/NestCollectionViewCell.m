@@ -62,7 +62,9 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     ImageCollectionViewCell *cell = [ImageCollectionViewCell cellWithIndexPath:indexPath atCollectionView:collectionView];
-    [cell.imgV setImage:[UIImage imageNamed:dataArray[indexPath.row]]];
+    if (!cell.imgV.image) {
+        [cell.imgV setImage:[UIImage imageNamed:dataArray[indexPath.row]]];
+    }
     return cell;
 }
 
@@ -90,15 +92,12 @@
         _collectionView.tabAnimated =
         [TABCollectionAnimated animatedWithCellClass:[ImageCollectionViewCell class]
                                             cellSize:[ImageCollectionViewCell cellSize]];
+        _collectionView.tabAnimated.canLoadAgain = YES;
         // 如果不希望灰色背景，可以设置黑色（和背景相同的颜色，别设置透明色）
         if (@available(iOS 13.0, *)) {
             _collectionView.tabAnimated.darkAnimatedBackgroundColor = UIColor.systemBackgroundColor;
         }
-        _collectionView.tabAnimated.isNest = YES;
         _collectionView.tabAnimated.animatedCount = 3;
-        _collectionView.tabAnimated.adjustBlock = ^(TABComponentManager * _Nonnull manager) {
-
-        };
     }
     return _collectionView;
 }
