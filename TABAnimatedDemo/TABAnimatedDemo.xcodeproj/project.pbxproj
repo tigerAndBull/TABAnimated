@@ -13,6 +13,7 @@
 		2039EF7821DA135900AE09FC /* BaseCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2039EF7621DA135900AE09FC /* BaseCollectionCell.m */; };
 		2039EF7B21DA15C100AE09FC /* ImageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2039EF7A21DA15C100AE09FC /* ImageCollectionViewCell.m */; };
 		205664D42489038700AC16D9 /* PullLoadingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 205664D32489038700AC16D9 /* PullLoadingTableViewController.m */; };
+		2063FD1E24C4883E00517F3E /* TABAnimatedInjectionIIIHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 2063FD1C24C4883D00517F3E /* TABAnimatedInjectionIIIHelper.m */; };
 		2083176521A0451A000A0D95 /* TableRowModeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2083176421A0451A000A0D95 /* TableRowModeViewController.m */; };
 		20A01597216A51FC0082425D /* XibTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A01596216A51FC0082425D /* XibTestViewController.m */; };
 		20A0159A216A538F0082425D /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A01599216A538F0082425D /* MainViewController.m */; };
@@ -213,6 +214,8 @@
 		2039EF7A21DA15C100AE09FC /* ImageCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageCollectionViewCell.m; sourceTree = "<group>"; };
 		205664D22489038700AC16D9 /* PullLoadingTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PullLoadingTableViewController.h; sourceTree = "<group>"; };
 		205664D32489038700AC16D9 /* PullLoadingTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PullLoadingTableViewController.m; sourceTree = "<group>"; };
+		2063FD1C24C4883D00517F3E /* TABAnimatedInjectionIIIHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TABAnimatedInjectionIIIHelper.m; sourceTree = "<group>"; };
+		2063FD1D24C4883E00517F3E /* TABAnimatedInjectionIIIHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TABAnimatedInjectionIIIHelper.h; sourceTree = "<group>"; };
 		2083176321A0451A000A0D95 /* TableRowModeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TableRowModeViewController.h; sourceTree = "<group>"; };
 		2083176421A0451A000A0D95 /* TableRowModeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TableRowModeViewController.m; sourceTree = "<group>"; };
 		20A01595216A51FC0082425D /* XibTestViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XibTestViewController.h; sourceTree = "<group>"; };
@@ -979,6 +982,8 @@
 		688A377024893B3D00A76894 /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				2063FD1D24C4883E00517F3E /* TABAnimatedInjectionIIIHelper.h */,
+				2063FD1C24C4883D00517F3E /* TABAnimatedInjectionIIIHelper.m */,
 				688A377324893B3D00A76894 /* TABAnimationMethod.h */,
 				688A377124893B3D00A76894 /* TABAnimationMethod.m */,
 				688A377224893B3D00A76894 /* TABWeakDelegateManager.h */,
@@ -1775,6 +1780,7 @@
 				685A2AD0247A685C00D9DB7C /* NewsTableViewCell.m in Sources */,
 				681567312264214F00293AB4 /* JXCategoryViewAnimator.m in Sources */,
 				68C35F55249E6D8F00A34D22 /* TABDropAnimation.m in Sources */,
+				2063FD1E24C4883E00517F3E /* TABAnimatedInjectionIIIHelper.m in Sources */,
 				68589C1E23431CC800E8E630 /* BaseDemoViewController.m in Sources */,
 				688A380624893B3E00A76894 /* UIView+TABExtension.m in Sources */,
 				685A2ACC247A685C00D9DB7C /* TestTableViewCell.m in Sources */,
@@ -1950,7 +1956,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2.4.4;
+				CURRENT_PROJECT_VERSION = 2.4.5;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = JGZKPAYJ7R;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1966,7 +1972,11 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.4.4;
+				MARKETING_VERSION = 2.4.5;
+				OTHER_LDFLAGS = (
+					"-Xlinker",
+					"-interposable",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tigerAndBull.TABAnimated;
 				PRODUCT_NAME = TABAnimated;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1981,7 +1991,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2.4.4;
+				CURRENT_PROJECT_VERSION = 2.4.5;
 				DEVELOPMENT_TEAM = JGZKPAYJ7R;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1996,7 +2006,11 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.4.4;
+				MARKETING_VERSION = 2.4.5;
+				OTHER_LDFLAGS = (
+					"-Xlinker",
+					"-interposable",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tigerAndBull.TABAnimated;
 				PRODUCT_NAME = TABAnimated;
 				PROVISIONING_PROFILE_SPECIFIER = "";

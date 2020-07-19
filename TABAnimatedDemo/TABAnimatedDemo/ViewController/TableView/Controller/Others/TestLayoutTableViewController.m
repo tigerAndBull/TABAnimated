@@ -40,6 +40,13 @@
     [self performSelector:@selector(afterGetData) withObject:nil afterDelay:3.0];
 }
 
+- (void)injected {
+    [_tableView removeFromSuperview];
+    _tableView = nil;
+    [self viewDidLoad];
+}
+
+
 - (void)reloadViewAnimated {
     _tableView.tabAnimated.canLoadAgain = YES;
     [_tableView tab_startAnimationWithCompletion:^{

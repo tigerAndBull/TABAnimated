@@ -48,6 +48,7 @@ TABAnimated是提供给iOS开发者自动生成骨架屏的一种解决方案。
 -  自由度非常高，可以完全地自定制，包括动画及其序列化
 -  自动切换暗黑模式骨架屏
 -  支持上拉加载更多
+-   配合InjectionIII支持实时预览
 
 ## 效果展示
 
@@ -64,6 +65,10 @@ TABAnimated是提供给iOS开发者自动生成骨架屏的一种解决方案。
 | 工具箱切换 | setting页面切换 |
 | ------ | ------ | 
 | ![工具箱切换.gif](https://upload-images.jianshu.io/upload_images/5632003-cf5c4f50eac6fe6c.gif?imageMogr2/auto-orient/strip) | ![setting设置切换.gif](https://upload-images.jianshu.io/upload_images/5632003-2d1fb96ec07d6bca.gif?imageMogr2/auto-orient/strip) | 
+
+**实时预览：**
+
+![实时预览.gif](https://upload-images.jianshu.io/upload_images/5632003-4161e026819b7739.gif?imageMogr2/auto-orient/strip)
 
 ## 演示过程
 

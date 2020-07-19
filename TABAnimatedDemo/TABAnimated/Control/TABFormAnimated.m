@@ -103,10 +103,15 @@
     
     Method oldMethod = class_getInstanceMethod([delegate class], oldSel);
     
-    BOOL isVictory = class_addMethod([delegate class], newSel, class_getMethodImplementation([delegate class], oldSel), method_getTypeEncoding(oldMethod));
-    if (isVictory) {
+    #ifdef DEBUG
+        class_addMethod([delegate class], newSel, class_getMethodImplementation([delegate class], oldSel), method_getTypeEncoding(oldMethod));
         class_replaceMethod([delegate class], oldSel, class_getMethodImplementation(targetClass, newSel), method_getTypeEncoding(newMethod));
-    }
+    #else
+        BOOL isVictory = class_addMethod([delegate class], newSel, class_getMethodImplementation([delegate class], oldSel), method_getTypeEncoding(oldMethod));
+        if (isVictory) {
+            class_replaceMethod([delegate class], oldSel, class_getMethodImplementation(targetClass, newSel), method_getTypeEncoding(newMethod));
+        }
+    #endif
 }
 
 - (void)setRunningCount:(NSInteger)runningCount {

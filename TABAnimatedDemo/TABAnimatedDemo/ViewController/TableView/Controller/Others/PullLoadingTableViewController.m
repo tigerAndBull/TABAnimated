@@ -52,6 +52,12 @@
     }];
 }
 
+- (void)injected {
+    [_tableView removeFromSuperview];
+    _tableView = nil;
+    [self viewDidLoad];
+}
+
 - (void)reloadViewAnimated {
     pageIndex = 0;
     _tableView.tabAnimated.canLoadAgain = YES;

@@ -80,7 +80,7 @@
             if (temp == arg) continue;
             if(arg < 0) continue;
             if (arg > 1000) break;
-            NSAssert(arg < self.components.count, @"Array bound, please check it carefully.");
+            NSAssert(arg < self.components.count, @"如果运行此断言，请取消使用该方法，请使用单个获取的方式");
             [resultArray addObject:self.components[arg]];
             temp = arg;
         }while ((arg = va_arg(args, NSInteger)));
