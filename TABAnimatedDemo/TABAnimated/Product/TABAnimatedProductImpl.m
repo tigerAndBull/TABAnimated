@@ -372,14 +372,36 @@
         UIView *subV = subViews[i];
         if (subV.tabAnimated) continue;
         
+        // iOS 14 上的 TableViewCell subviews [_UISystemBackgroundView, X, ... , UITableViewCellContentView]
+        // 排除 iOS 14 上的 _UISystemBackgroundView
+        // !!!: 此处不确定上架 App Store 是否会受影响
+        if (@available(iOS 14, *)) {
+            NSLog(@"%@", NSStringFromClass(subV.class));
+            if (([subV.superview isKindOfClass:[UITableViewCell class]] ||
+                 [subV.superview isKindOfClass:[UICollectionViewCell class]] ||
+                 [subV.superview isKindOfClass:[UITableViewHeaderFooterView class]]) &&
+                 [NSStringFromClass(subV.class) isEqualToString:@"_UISystemBackgroundView"]) {
+                // 此处排除cell中的_UISystemBackgroundView, _UISystemBackgroundView 的 subviews 不为空
+                if (i == 0) {
+                    continue;
+                }
+            }
+        }
+
         [self _recurseProductLayerWithView:subV array:array isCard:isCard];
-        
+
         if ([subV.superview isKindOfClass:[UITableViewCell class]] ||
             [subV.superview isKindOfClass:[UICollectionViewCell class]] ||
             [subV.superview isKindOfClass:[UITableViewHeaderFooterView class]]) {
             // 此处排除cell中的contentView，不生成动画对象
-            if (i == 0) {
-                continue;
+            if (@available(iOS 14, *)) {
+                if (i == (subViews.count - 1)) {
+                    continue;
+                }
+            } else {
+                if (i == 0) {
+                    continue;
+                }
             }
         }
         
