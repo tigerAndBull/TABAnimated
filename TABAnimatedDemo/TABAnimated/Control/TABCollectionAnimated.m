@@ -431,6 +431,7 @@ NSString * const TABViewAnimatedFooterPrefixString = @"tab_footer_";
     Class currentClass = tabAnimated.cellClassArray[index];
     // 启动加工层
     UICollectionViewCell *cell = [tabAnimated.producter productWithControlView:collectionView currentClass:currentClass indexPath:indexPath origin:TABAnimatedProductOriginCollectionViewCell];
+    cell.backgroundColor = collectionView.tabAnimated.animatedBackgroundColor;
     return cell;
 }
 

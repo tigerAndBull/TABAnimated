@@ -480,6 +480,7 @@
     Class currentClass = tabAnimated.cellClassArray[index];
     // 启动加工层
     UITableViewCell *cell = [tabAnimated.producter productWithControlView:tableView currentClass:currentClass indexPath:indexPath origin:TABAnimatedProductOriginTableViewCell];
+    cell.backgroundColor = tableView.tabAnimated.animatedBackgroundColor;
     return cell;
 }
 
