@@ -175,14 +175,23 @@
         [self _bindWithProduction:view.tabAnimatedProduction targetView:view];
         [self _syncProduction:view.tabAnimatedProduction];
     }
+    [self _recoveryProductStatus];
 }
 
 - (void)destory {
+    [self _recoveryProductStatus];
     [self.darkModeManager destroy];
-    [self.targetViewArray removeAllObjects];
 }
 
 #pragma mark - Private
+
+- (void)_recoveryProductStatus {
+    [_targetViewArray removeAllObjects];
+    [_productionPool removeAllObjects];
+    _productIndex = 0;
+    _targetTagIndex = 0;
+    _productFinished = NO;
+}
 
 - (void)_prepareProductWithView:(UIView *)view currentClass:(Class)currentClass indexPath:(nullable NSIndexPath *)indexPath origin:(TABAnimatedProductOrigin)origin needSync:(BOOL)needSync needReset:(BOOL)needReset {
     TABAnimatedProduction *production = view.tabAnimatedProduction;
@@ -228,11 +237,13 @@
         case TABAnimatedProductOriginTableViewCell: {
             view = [(UITableView *)controlView dequeueReusableCellWithIdentifier:identifier forIndexPath:indexPath];
             ((UITableViewCell *)view).selectionStyle = UITableViewCellSelectionStyleNone;
+            view.backgroundColor = controlView.tabAnimated.animatedBackgroundColor;
         }
             break;
             
         case TABAnimatedProductOriginCollectionViewCell: {
             view = [(UICollectionView *)controlView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
+            view.backgroundColor = controlView.tabAnimated.animatedBackgroundColor;
         }
             break;
             
@@ -240,6 +251,7 @@
             view = [(UICollectionView *)controlView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader
                                                                        withReuseIdentifier:identifier
                                                                               forIndexPath:indexPath];
+            view.backgroundColor = controlView.tabAnimated.animatedBackgroundColor;
         }
             break;
             
@@ -247,6 +259,7 @@
             view = [(UICollectionView *)controlView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter
                                                                        withReuseIdentifier:identifier
                                                                               forIndexPath:indexPath];
+            view.backgroundColor = controlView.tabAnimated.animatedBackgroundColor;
         }
             break;
             
@@ -255,6 +268,7 @@
             if (view == nil) {
                 view = [[currentClass alloc] initWithReuseIdentifier:identifier];
             }
+            view.backgroundColor = controlView.tabAnimated.animatedBackgroundColor;
         }
             break;
             
@@ -311,23 +325,26 @@
     [TABAnimatedProductHelper fullDataAndStartNestAnimation:view isHidden:!needReset rootView:view];
     view.hidden = YES;
     
+    __weak typeof(self) weakSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
         
-        if (self.targetViewArray.count == 0) return;
-        if (self.productIndex > self.targetViewArray.count-1) return;
+        __strong typeof(weakSelf) strongSelf = weakSelf;
+        
+        if (strongSelf.targetViewArray.count == 0) return;
+        if (strongSelf.productIndex > strongSelf.targetViewArray.count-1) return;
         
         // 从等待队列中取出需要加工的view
-        self->_targetView = self.targetViewArray[self.productIndex];
-        if (!self->_targetView) return;
+        strongSelf->_targetView = strongSelf.targetViewArray[strongSelf.productIndex];
+        if (!strongSelf->_targetView) return;
         
-        self->_targetTagIndex = 0;
+        strongSelf->_targetTagIndex = 0;
         // 生产流水
-        [self _productWithTargetView:self->_targetView isCard:isCard];
+        [strongSelf _productWithTargetView:strongSelf->_targetView isCard:isCard];
         
-        self.productIndex++;
+        strongSelf.productIndex++;
         
         if (needReset) {
-            [TABAnimatedProductHelper resetData:self->_targetView];
+            [TABAnimatedProductHelper resetData:strongSelf->_targetView];
         }
     });
 }

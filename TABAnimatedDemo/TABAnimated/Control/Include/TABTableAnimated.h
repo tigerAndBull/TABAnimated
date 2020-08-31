@@ -219,10 +219,4 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-#pragma mark -
-
-@interface EstimatedTableViewDelegate : NSObject
-
-@end
-
 NS_ASSUME_NONNULL_END

@@ -11,7 +11,6 @@
 #import "TestTableViewCell.h"
 
 #import "LabWithLinesViewCell.h"
-#import "TestHeadView.h"
 
 #import "TABAnimated.h"
 #import <TABKit/TABKit.h>

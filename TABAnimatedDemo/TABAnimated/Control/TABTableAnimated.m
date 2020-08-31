@@ -13,6 +13,14 @@
 #import "UIView+TABControlAnimation.h"
 #import <objc/runtime.h>
 
+@interface EstimatedTableViewDelegate : NSObject
+@end
+@implementation EstimatedTableViewDelegate
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return UITableViewAutomaticDimension;
+}
+@end
+
 @interface TABTableAnimated()
 
 @property (nonatomic, strong, readwrite) NSMutableArray <NSNumber *> *headerHeightArray;
@@ -567,14 +575,6 @@
     hfView = [tabAnimated.producter productWithControlView:tableView currentClass:class indexPath:nil origin:origin];
     
     return hfView;
-}
-
-@end
-
-@implementation EstimatedTableViewDelegate
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return UITableViewAutomaticDimension;
 }
 
 @end
