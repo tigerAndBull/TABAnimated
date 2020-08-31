@@ -221,11 +221,11 @@ NSString * const TABViewAnimatedFooterPrefixString = @"tab_footer_";
         if (class == [NSNull class]) continue;
         
         NSString *classString = tab_NSStringFromClass(class);
-        NSString *nibPath = [[NSBundle mainBundle] pathForResource:classString ofType:@"nib"];
+        NSString *nibPath = [TABXibBundleWithClass(class) pathForResource:classString ofType:@"nib"];
         
         if (nil != nibPath && nibPath.length > 0) {
-            [collectionView registerNib:[UINib nibWithNibName:classString bundle:[NSBundle mainBundle]] forCellWithReuseIdentifier:[NSString stringWithFormat:@"tab_%@",classString]];
-            [collectionView registerNib:[UINib nibWithNibName:classString bundle:[NSBundle mainBundle]] forCellWithReuseIdentifier:classString];
+            [collectionView registerNib:[UINib nibWithNibName:classString bundle:TABXibBundleWithClass(class)] forCellWithReuseIdentifier:[NSString stringWithFormat:@"tab_%@",classString]];
+            [collectionView registerNib:[UINib nibWithNibName:classString bundle:TABXibBundleWithClass(class)] forCellWithReuseIdentifier:classString];
         }else {
             [collectionView registerClass:class forCellWithReuseIdentifier:[NSString stringWithFormat:@"tab_%@",classString]];
             [collectionView registerClass:class forCellWithReuseIdentifier:classString];
@@ -341,11 +341,11 @@ NSString * const TABViewAnimatedFooterPrefixString = @"tab_footer_";
     for (Class class in classArray) {
         
         NSString *classString = tab_NSStringFromClass(class);
-        NSString *nibPath = [[NSBundle mainBundle] pathForResource:classString ofType:@"nib"];
+        NSString *nibPath = [TABXibBundleWithClass(class) pathForResource:classString ofType:@"nib"];
         
         if (nil != nibPath && nibPath.length > 0) {
             [collectionView registerNib:[UINib nibWithNibName:classString
-                                                       bundle:[NSBundle mainBundle]]
+                                                       bundle:TABXibBundleWithClass(class)]
              forSupplementaryViewOfKind:kind
                     withReuseIdentifier:[NSString stringWithFormat:@"%@%@",defaultPrefix,classString]];
         }else {

@@ -285,19 +285,19 @@
         if (class == [NSNull class]) continue;
         
         NSString *classString = tab_NSStringFromClass(class);
-        NSString *nibPath = [[NSBundle mainBundle] pathForResource:classString ofType:@"nib"];
+        NSString *nibPath = [TABXibBundleWithClass(class) pathForResource:classString ofType:@"nib"];
         
         if (isHeaderFooter) {
             if (nil != nibPath && nibPath.length > 0) {
-                [tableView registerNib:[UINib nibWithNibName:classString bundle:[NSBundle mainBundle]] forHeaderFooterViewReuseIdentifier:[NSString stringWithFormat:@"tab_%@",classString]];
+                [tableView registerNib:[UINib nibWithNibName:classString bundle:TABXibBundleWithClass(class)] forHeaderFooterViewReuseIdentifier:[NSString stringWithFormat:@"tab_%@",classString]];
             }else {
                 [tableView registerClass:class forHeaderFooterViewReuseIdentifier:[NSString stringWithFormat:@"tab_%@",classString]];
             }
             [tableView registerClass:containClass forHeaderFooterViewReuseIdentifier:[NSString stringWithFormat:@"tab_contain_%@",classString]];
         }else {
-            NSString *nibPath = [[NSBundle mainBundle] pathForResource:classString ofType:@"nib"];
+            NSString *nibPath = [TABXibBundleWithClass(class) pathForResource:classString ofType:@"nib"];
             if (nil != nibPath && nibPath.length > 0) {
-                [tableView registerNib:[UINib nibWithNibName:classString bundle:[NSBundle mainBundle]] forCellReuseIdentifier:[NSString stringWithFormat:@"tab_%@",classString]];
+                [tableView registerNib:[UINib nibWithNibName:classString bundle:TABXibBundleWithClass(class)] forCellReuseIdentifier:[NSString stringWithFormat:@"tab_%@",classString]];
             }else {
                 [tableView registerClass:class forCellReuseIdentifier:[NSString stringWithFormat:@"tab_%@",classString]];
             }

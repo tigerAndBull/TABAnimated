@@ -318,6 +318,8 @@
         
         // 从等待队列中取出需要加工的view
         self->_targetView = self.targetViewArray[self.productIndex];
+        if (!self->_targetView) return;
+        
         self->_targetTagIndex = 0;
         // 生产流水
         [self _productWithTargetView:self->_targetView isCard:isCard];
@@ -332,6 +334,7 @@
 
 - (void)_productWithTargetView:(UIView *)targetView isCard:(BOOL)isCard {
     @autoreleasepool {
+        if (!_controlView) return;
         TABAnimatedProduction *production = targetView.tabAnimatedProduction;
         NSString *controlerClassName = _controlView.tabAnimated.targetControllerClassName;
         production.fileName = [TABAnimatedProductHelper getKeyWithControllerName:controlerClassName targetClass:production.targetClass];

@@ -11,6 +11,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+#define TABXibBundleWithClass(class) [NSBundle bundleForClass:class]
+
 @interface TABFormAnimated : TABViewAnimated
 
 /**
