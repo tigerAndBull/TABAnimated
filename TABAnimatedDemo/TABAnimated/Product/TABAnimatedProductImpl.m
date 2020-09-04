@@ -72,12 +72,6 @@
 
 #pragma mark - TABAnimatedProductInterface
 
-// 根据className，取cell状态
-// 取完cell后
-// 1. 池子没有production 取母cell production 生成、加工、装饰 需要实时同步
-// 2. 池子有production 创建完状态，取子cell 需要等待同步 cell没有production，刚创建状态 取子cell，等待同步 绑定
-// 3. 池子有production 加工完状态\绑定完状态， 取子cell，copy一份
-// 4. 启动同步流程
 - (__kindof UIView *)productWithControlView:(UIView *)controlView
                                currentClass:(Class)currentClass
                                   indexPath:(nullable NSIndexPath *)indexPath
@@ -187,7 +181,6 @@
 
 - (void)_recoveryProductStatus {
     [_targetViewArray removeAllObjects];
-    [_productionPool removeAllObjects];
     _productIndex = 0;
     _targetTagIndex = 0;
     _productFinished = NO;
@@ -346,6 +339,7 @@
         }
         
         strongSelf.productIndex++;
+        
     });
 }
 
