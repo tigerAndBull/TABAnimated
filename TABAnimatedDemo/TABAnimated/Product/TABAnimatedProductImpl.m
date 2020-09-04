@@ -341,11 +341,11 @@
         // 生产流水
         [strongSelf _productWithTargetView:strongSelf->_targetView isCard:isCard];
         
-        strongSelf.productIndex++;
-        
         if (needReset) {
             [TABAnimatedProductHelper resetData:strongSelf->_targetView];
         }
+        
+        strongSelf.productIndex++;
     });
 }
 

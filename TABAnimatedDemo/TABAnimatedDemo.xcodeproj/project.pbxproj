@@ -31,7 +31,6 @@
 		6806411E2279A5CB00D79040 /* SectionsCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6806411D2279A5CB00D79040 /* SectionsCollectionViewController.m */; };
 		680641212279B99900D79040 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 680641232279B99900D79040 /* Localizable.strings */; };
 		6806412C2279C83200D79040 /* comic.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6806412B2279C83200D79040 /* comic.jpg */; };
-		6811013024F3904F007343BF /* TABAnimatedNormalViewProductImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 6811012F24F3904F007343BF /* TABAnimatedNormalViewProductImpl.m */; };
 		681567102264214F00293AB4 /* JXCategoryTitleVerticalZoomCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 681566B72264214F00293AB4 /* JXCategoryTitleVerticalZoomCellModel.m */; };
 		681567112264214F00293AB4 /* JXCategoryTitleVerticalZoomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 681566B82264214F00293AB4 /* JXCategoryTitleVerticalZoomCell.m */; };
 		681567122264214F00293AB4 /* JXCategoryTitleVerticalZoomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 681566B92264214F00293AB4 /* JXCategoryTitleVerticalZoomView.m */; };
@@ -252,8 +251,6 @@
 		680641292279C61D00D79040 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		6806412A2279C64B00D79040 /* en-IN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-IN"; path = "en-IN.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		6806412B2279C83200D79040 /* comic.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = comic.jpg; sourceTree = "<group>"; };
-		6811012E24F3904F007343BF /* TABAnimatedNormalViewProductImpl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TABAnimatedNormalViewProductImpl.h; sourceTree = "<group>"; };
-		6811012F24F3904F007343BF /* TABAnimatedNormalViewProductImpl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TABAnimatedNormalViewProductImpl.m; sourceTree = "<group>"; };
 		681566B42264214F00293AB4 /* JXCategoryTitleVerticalZoomCellModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXCategoryTitleVerticalZoomCellModel.h; sourceTree = "<group>"; };
 		681566B52264214F00293AB4 /* JXCategoryTitleVerticalZoomCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXCategoryTitleVerticalZoomCell.h; sourceTree = "<group>"; };
 		681566B62264214F00293AB4 /* JXCategoryTitleVerticalZoomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXCategoryTitleVerticalZoomView.h; sourceTree = "<group>"; };
@@ -1044,8 +1041,6 @@
 				688A37BB24893B3D00A76894 /* TABComponentLayer.m */,
 				688A37BA24893B3D00A76894 /* UIView+TABAnimatedProduction.h */,
 				688A37C224893B3D00A76894 /* UIView+TABAnimatedProduction.m */,
-				6811012E24F3904F007343BF /* TABAnimatedNormalViewProductImpl.h */,
-				6811012F24F3904F007343BF /* TABAnimatedNormalViewProductImpl.m */,
 			);
 			path = Product;
 			sourceTree = "<group>";
@@ -1800,7 +1795,6 @@
 				6815671B2264214F00293AB4 /* JXCategoryIndicatorCellModel.m in Sources */,
 				681567282264214F00293AB4 /* JXCategoryImageCell.m in Sources */,
 				688A37E124893B3D00A76894 /* TABAnimatedCacheModel.m in Sources */,
-				6811013024F3904F007343BF /* TABAnimatedNormalViewProductImpl.m in Sources */,
 				688A380024893B3E00A76894 /* UIView+TABAnimatedProduction.m in Sources */,
 				681567332264214F00293AB4 /* UIColor+JXAdd.m in Sources */,
 				68D20752228BE55400B32CD1 /* DoubanCollectionViewController.m in Sources */,
