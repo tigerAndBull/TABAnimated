@@ -377,7 +377,7 @@
                                array:(NSMutableArray <TABComponentLayer *> *)array
                               isCard:(BOOL)isCard {
     
-    NSArray *subViews;
+   NSArray *subViews;
     subViews = [view subviews];
     if ([subViews count] == 0) return;
     
@@ -385,17 +385,13 @@
         
         UIView *subV = subViews[i];
         if (subV.tabAnimated) continue;
-        
-        [self _recurseProductLayerWithView:subV array:array isCard:isCard];
-        
-        if ([subV.superview isKindOfClass:[UITableViewCell class]] ||
-            [subV.superview isKindOfClass:[UICollectionViewCell class]] ||
-            [subV.superview isKindOfClass:[UITableViewHeaderFooterView class]]) {
-            // 此处排除cell中的contentView，不生成动画对象
-            if (i == 0) {
-                continue;
+        if (@available(iOS 14, *)) {
+            if ([NSStringFromClass(subV.class) isEqualToString:@"UITableViewCellContentView"] ||
+                [NSStringFromClass(subV.class) isEqualToString:@"_UISystemBackgroundView"]) {
+                    continue;
             }
         }
+        [self _recurseProductLayerWithView:subV array:array isCard:isCard];
         
         // 移除UITableView/UICollectionView的滚动条
         if ([view isKindOfClass:[UIScrollView class]]) {
