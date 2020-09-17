@@ -177,7 +177,7 @@ static const CGFloat kTagLabelMinWidth = 15.f;
         backgroundLayer.shadowOpacity = view.layer.shadowOpacity;
         backgroundLayer.frame = view.frame;
     }else if (view.frame.size.width == 0.) {
-        backgroundLayer.frame = CGRectMake(view.frame.origin.x, view.frame.origin.y, [UIScreen mainScreen].bounds.size.width, view.frame.size.height);
+        backgroundLayer.frame = CGRectMake(view.frame.origin.x, view.frame.origin.y, TABAnimatedProductHelperScreenWidth, view.frame.size.height);
     }else {
         backgroundLayer.frame = view.bounds;
     }

@@ -346,7 +346,7 @@
 }
 
 - (void)result_cancelAlignCenter {
-    _layer.origin = TABComponentLayerOriginViewOrLabel;
+    _layer.origin = TABComponentLayerOriginLabel;
 }
 
 #pragma mark - color

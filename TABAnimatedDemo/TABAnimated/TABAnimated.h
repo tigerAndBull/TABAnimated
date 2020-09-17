@@ -83,9 +83,9 @@ typedef NS_ENUM(NSInteger, TABAnimationType) {
 
 /**
  * 动画高度与视图原有高度的比例系数，
- * 该属性对除了`UIImageView`类型的所有子视图生效。
+ * 该属性仅仅对`UILabel`生效。
  *
- * 在实践中发现，对于UILabel, UIButton等视图，当动画的高度与原视图的高度一致时，效果并不美观（太粗）。
+ * 在实践中发现，对于UILabel视图，当动画的高度与原视图的高度一致时，效果并不美观（高度太高，看起来很粗）。
  * 大概保持在原高度的0.75的比例，动画效果会看起来比较美观，具体系数可以根据你自己的审美进行修改。
  */
 @property (nonatomic, assign) CGFloat animatedHeightCoefficient;

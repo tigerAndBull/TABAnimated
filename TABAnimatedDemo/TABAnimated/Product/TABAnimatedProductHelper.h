@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class TABAnimatedProduction, TABComponentLayer;
 
+#define TABAnimatedProductHelperScreenWidth [UIScreen mainScreen].bounds.size.width
+
 @interface TABAnimatedProductHelper : NSObject
 
 /// 填充数据, 并启动嵌套的view

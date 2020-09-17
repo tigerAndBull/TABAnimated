@@ -34,8 +34,11 @@ typedef NS_ENUM(NSInteger, TABViewLoadAnimationStyle) {
 
 typedef NS_ENUM(NSInteger, TABComponentLayerOrigin) {
     
-    // 来自UIView、UILabel
-    TABComponentLayerOriginViewOrLabel = 0,
+    // 来自UIView
+    TABComponentLayerOriginView = 0,
+    
+    // 来自UILabel
+    TABComponentLayerOriginLabel,
     
     // 来自UIImageView
     TABComponentLayerOriginImageView,

@@ -70,7 +70,7 @@
         iv.layer.masksToBounds = YES;
         
         self.gameImg = iv;
-        [self addSubview:iv];
+        [self.contentView addSubview:iv];
     }
     
     {
@@ -79,7 +79,7 @@
         [lab setTextColor:[UIColor blackColor]];
         
         self.titleLab = lab;
-        [self addSubview:lab];
+        [self.contentView addSubview:lab];
     }
     
     {
@@ -87,7 +87,7 @@
         [lab setFont:kFont(12)];
         
         self.timeLab = lab;
-        [self addSubview:lab];
+        [self.contentView addSubview:lab];
     }
     
     {
@@ -96,7 +96,7 @@
         [btn.titleLabel setFont:kFont(12)];
         
         self.statusBtn = btn;
-        [self addSubview:btn];
+        [self.contentView addSubview:btn];
     }
     
     [self.gameImg mas_makeConstraints:^(MASConstraintMaker *make) {

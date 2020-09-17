@@ -42,7 +42,9 @@ static const CGFloat kDefaultHeight = 16.f;
     if (_origin != TABComponentLayerOriginImageView) {
         if (animatedHeight > 0.) {
             height = animatedHeight;
-        }else {
+        }else if (_origin == TABComponentLayerOriginLabel ||
+                  _origin == TABComponentLayerOriginLinesLabel ||
+                  _origin == TABComponentLayerOriginCenterLabel) {
             height = rect.size.height*[TABAnimated sharedAnimated].animatedHeightCoefficient;
             if (self.cornerRadius > 0) {
                 CGFloat originScale = self.cornerRadius/rect.size.height;
@@ -51,6 +53,7 @@ static const CGFloat kDefaultHeight = 16.f;
             }
         }
     }
+
     rect = CGRectMake(rect.origin.x, rect.origin.y, width, height);
     
     return rect;
