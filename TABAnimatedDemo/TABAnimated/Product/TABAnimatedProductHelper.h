@@ -58,9 +58,11 @@ NS_ASSUME_NONNULL_BEGIN
 /**
 获取指定情景下production的key
 
+@param controllerName 控制器名称
 @param targetClass 目标class
+@param frame 控制视图的frame
 */
-+ (NSString *)getKeyWithControllerName:(NSString *)controllerName targetClass:(Class)targetClass;
++ (NSString *)getKeyWithControllerName:(NSString *)controllerName targetClass:(Class)targetClass frame:(CGRect)frame;
     
 @end
 

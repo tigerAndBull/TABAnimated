@@ -48,8 +48,9 @@ extern NSString * const TABCacheManagerFolderName;
 /**
  * 更新该viewAnimated下所有骨架屏管理单元的loadCount
  * @param viewAnimated 骨架屏配置对象
+ * @param frame  控制视图的坐标
  */
-- (void)updateCacheModelLoadCountWithFormAnimated:(TABFormAnimated *)viewAnimated;
+- (void)updateCacheModelLoadCountWithFormAnimated:(TABFormAnimated *)viewAnimated frame:(CGRect)frame;
 
 /// 设置最大缓存在内存中的model数量
 /// @param maxMemoryCount 最大数量

@@ -178,19 +178,19 @@ static const NSInteger kMemeoryModelMaxCount = 20;
     return nil;
 }
 
-- (void)updateCacheModelLoadCountWithFormAnimated:(TABFormAnimated *)viewAnimated {
+- (void)updateCacheModelLoadCountWithFormAnimated:(TABFormAnimated *)viewAnimated frame:(CGRect)frame {
     if ([TABAnimated sharedAnimated].closeCache) return;
     if (viewAnimated == nil) return;
     dispatch_async(dispatch_get_main_queue(), ^{
         NSString *controllerName = viewAnimated.targetControllerClassName;
         for (Class class in viewAnimated.cellClassArray) {
-            [self updateCacheModelLoadCountWithClass:class controllerName:controllerName];
+            [self updateCacheModelLoadCountWithClass:class controllerName:controllerName frame:frame];
         }
         for (Class class in viewAnimated.headerClassArray) {
-            [self updateCacheModelLoadCountWithClass:class controllerName:controllerName];
+            [self updateCacheModelLoadCountWithClass:class controllerName:controllerName frame:frame];
         }
         for (Class class in viewAnimated.footerClassArray) {
-            [self updateCacheModelLoadCountWithClass:class controllerName:controllerName];
+            [self updateCacheModelLoadCountWithClass:class controllerName:controllerName frame:frame];
         }
     });
 }
@@ -269,9 +269,10 @@ static const NSInteger kMemeoryModelMaxCount = 20;
 }
 
 - (void)updateCacheModelLoadCountWithClass:(Class)class
-                            controllerName:(NSString *)controllerName {
+                            controllerName:(NSString *)controllerName
+                                     frame:(CGRect)frame {
     if (!class) return;
-    NSString *fileName = [TABAnimatedProductHelper getKeyWithControllerName:controllerName targetClass:class];
+    NSString *fileName = [TABAnimatedProductHelper getKeyWithControllerName:controllerName targetClass:class frame:frame];
     if (!fileName) return;
     dispatch_async([self.class updateQueue], ^{
         [self performSelector:@selector(updateCacheModelLoadCountWithTargetFileName:)

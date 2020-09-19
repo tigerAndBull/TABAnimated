@@ -86,7 +86,7 @@
     NSString *controllerClassName = controlView.tabAnimated.targetControllerClassName;
     UIView *view;
     
-    NSString *key = [TABAnimatedProductHelper getKeyWithControllerName:controllerClassName targetClass:currentClass];
+    NSString *key = [TABAnimatedProductHelper getKeyWithControllerName:controllerClassName targetClass:currentClass frame:controlView.frame];
     TABAnimatedProduction *production;
     
     if (!_controlView.tabAnimated.containNestAnimation) {
@@ -122,7 +122,7 @@
     }
     
     NSString *controlerClassName = controlView.tabAnimated.targetControllerClassName;
-    NSString *key = [TABAnimatedProductHelper getKeyWithControllerName:controlerClassName targetClass:currentClass];
+    NSString *key = [TABAnimatedProductHelper getKeyWithControllerName:controlerClassName targetClass:currentClass frame:controlView.frame];
     TABAnimatedProduction *production = [[TABAnimatedCacheManager shareManager] getProductionWithKey:key];
     if (production) {
         TABAnimatedProduction *newProduction = production.copy;
@@ -142,7 +142,7 @@
     if (_controlView == nil) [self setControlView:controlView];
     
     NSString *controlerClassName = controlView.tabAnimated.targetControllerClassName;
-    NSString *key = [TABAnimatedProductHelper getKeyWithControllerName:controlerClassName targetClass:currentClass];
+    NSString *key = [TABAnimatedProductHelper getKeyWithControllerName:controlerClassName targetClass:currentClass frame:controlView.frame];
     TABAnimatedProduction *production = [[TABAnimatedCacheManager shareManager] getProductionWithKey:key];
     if (production) {
         TABAnimatedProduction *newProduction = production.copy;
@@ -350,7 +350,7 @@
         if (!_controlView) return;
         TABAnimatedProduction *production = targetView.tabAnimatedProduction;
         NSString *controlerClassName = _controlView.tabAnimated.targetControllerClassName;
-        production.fileName = [TABAnimatedProductHelper getKeyWithControllerName:controlerClassName targetClass:production.targetClass];
+        production.fileName = [TABAnimatedProductHelper getKeyWithControllerName:controlerClassName targetClass:production.targetClass frame:_controlView.frame];
         
         NSMutableArray <TABComponentLayer *> *layerArray = @[].mutableCopy;
         // 生产

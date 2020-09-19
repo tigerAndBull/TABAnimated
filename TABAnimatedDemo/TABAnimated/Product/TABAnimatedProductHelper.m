@@ -205,9 +205,9 @@ static const CGFloat kTagLabelMinWidth = 15.f;
     [layer addSublayer:textLayer];
 }
 
-+ (NSString *)getKeyWithControllerName:(NSString *)controllerName targetClass:(Class)targetClass {
++ (NSString *)getKeyWithControllerName:(NSString *)controllerName targetClass:(Class)targetClass frame:(CGRect)frame {
     NSString *classString = tab_NSStringFromClass(targetClass);
-    return [NSString stringWithFormat:@"%@_%@",controllerName, classString];
+    return [NSString stringWithFormat:@"%@_%@_%.2f_%.2f_%.2f_%.2f", controllerName, classString, frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
 }
 
 + (void)cutView:(UIView *)view rootView:(UIView *)rootView {

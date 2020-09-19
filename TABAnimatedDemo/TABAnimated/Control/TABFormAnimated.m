@@ -83,13 +83,13 @@
 - (void)startAnimationWithIndex:(NSInteger)index isFirstLoad:(BOOL)isFirstLoad controlView:(UIView *)controlView {
     if ([self prepareDataWithIndex:index isFirstLoad:isFirstLoad controlView:controlView]) {
         [self refreshWithIndex:index controlView:controlView];
-        [self updateLoadCount];
+        [self updateLoadCountWithFrame:controlView.frame];
     }
 }
 
-- (void)updateLoadCount {
+- (void)updateLoadCountWithFrame:(CGRect)frame {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [[TABAnimatedCacheManager shareManager] updateCacheModelLoadCountWithFormAnimated:self];
+        [[TABAnimatedCacheManager shareManager] updateCacheModelLoadCountWithFormAnimated:self frame:frame];
     });
 }
 
