@@ -35,7 +35,7 @@
     // 如果你始终都不想使用缓存功能，可以手动置为YES
     // debug 环境下，默认关闭缓存功能（为了方便调试预处理回调)
     // release 环境下，默认开启缓存功能
-    [TABAnimated sharedAnimated].closeCache = NO;
+//    [TABAnimated sharedAnimated].closeCache = NO;
 
     MainViewController *vc = [[MainViewController alloc] init];
     vc.title = kText(@"主页面");
