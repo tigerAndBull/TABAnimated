@@ -14,14 +14,9 @@
 
 @class TABBaseComponent, TABComponentManager;
 
+typedef TABBaseComponent * _Nullable (^TABBaseComponentBlock)(NSInteger);
 typedef void(^TABAdjustBlock)(TABComponentManager * _Nonnull manager);
 typedef void(^TABAdjustWithClassBlock)(TABComponentManager * _Nonnull manager, Class _Nullable targetClass);
-
-typedef NSArray <TABBaseComponent *> * _Nullable (^TABAnimatedArrayFloatBlock)(CGFloat);
-typedef NSArray <TABBaseComponent *> * _Nullable (^TABAnimatedArrayIntBlock)(NSInteger);
-typedef NSArray <TABBaseComponent *> * _Nullable (^TABAnimatedArrayBlock)(void);
-typedef NSArray <TABBaseComponent *> * _Nullable (^TABAnimatedArrayStringBlock)(NSString * _Nonnull);
-typedef NSArray <TABBaseComponent *> * _Nullable (^TABAnimatedArrayColorBlock)(UIColor * _Nonnull);
 
 typedef TABBaseComponent * _Nullable (^TABBaseComponentVoidBlock)(void);
 typedef TABBaseComponent * _Nullable (^TABBaseComponentIntegerBlock)(NSInteger);
@@ -29,8 +24,21 @@ typedef TABBaseComponent * _Nullable (^TABBaseComponentFloatBlock)(CGFloat);
 typedef TABBaseComponent * _Nullable (^TABBaseComponentStringBlock)(NSString * _Nonnull);
 typedef TABBaseComponent * _Nullable (^TABBaseComponentColorBlock)(UIColor * _Nonnull);
 
-typedef TABBaseComponent * _Nullable (^TABBaseComponentBlock)(NSInteger);
+typedef NSArray <TABBaseComponent *> * _Nullable (^TABAnimatedArrayFloatBlock)(CGFloat);
+typedef NSArray <TABBaseComponent *> * _Nullable (^TABAnimatedArrayIntBlock)(NSInteger);
+typedef NSArray <TABBaseComponent *> * _Nullable (^TABAnimatedArrayBlock)(void);
+typedef NSArray <TABBaseComponent *> * _Nullable (^TABAnimatedArrayStringBlock)(NSString * _Nonnull);
+typedef NSArray <TABBaseComponent *> * _Nullable (^TABAnimatedArrayColorBlock)(UIColor * _Nonnull);
+
 typedef NSArray <TABBaseComponent *> * _Nullable (^TABBaseComponentArrayBlock)(NSInteger location, NSInteger length);
 typedef NSArray <TABBaseComponent *> * _Nullable (^TABBaseComponentArrayWithIndexsBlock)(NSInteger index, ...);
+
+#pragma mark -
+
+typedef TABBaseComponent * _Nullable (^TABBaseComponentCompareBlock)(NSInteger index);
+typedef TABBaseComponent * _Nullable (^TABBaseComponentCompareWithOffsetBlock)(NSInteger index, CGFloat offset);
+
+typedef NSArray <TABBaseComponent *> * _Nullable (^TABComponentArrayCompareBlock)(NSInteger index);
+typedef NSArray <TABBaseComponent *> * _Nullable (^TABComponentArrayCompareWithOffsetBlock)(NSInteger index, CGFloat offset);
 
 #endif /* TABAnimatedChainDefines_h */

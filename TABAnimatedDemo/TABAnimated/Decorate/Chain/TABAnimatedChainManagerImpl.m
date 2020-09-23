@@ -13,8 +13,9 @@
 @implementation TABAnimatedChainManagerImpl
 
 - (void)chainAdjustWithArray:(NSMutableArray <TABComponentLayer *> *)array
-                 adjustBlock:(TABAdjustBlock)adjustBlock {
-    TABComponentManager *manager = [TABComponentManager managerWithLayers:array];
+                 adjustBlock:(TABAdjustBlock)adjustBlock
+               animatedColor:(UIColor *)animatedColor {
+    TABComponentManager *manager = [TABComponentManager managerWithLayers:array animatedColor:animatedColor];
     if (adjustBlock) {
         adjustBlock(manager);
     }
@@ -22,8 +23,9 @@
 
 - (void)chainAdjustWithArray:(NSMutableArray <TABComponentLayer *> *)array
         adjustWithClassBlock:(TABAdjustWithClassBlock)adjustWithClassBlock
-                 targetClass:(Class)targetClass {
-    TABComponentManager *manager = [TABComponentManager managerWithLayers:array];
+                 targetClass:(Class)targetClass
+               animatedColor:(UIColor *)animatedColor {
+    TABComponentManager *manager = [TABComponentManager managerWithLayers:array animatedColor:animatedColor];
     if (adjustWithClassBlock) {
         adjustWithClassBlock(manager, targetClass);
     }

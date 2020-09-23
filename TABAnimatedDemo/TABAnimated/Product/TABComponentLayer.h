@@ -51,6 +51,9 @@ typedef NS_ENUM(NSInteger, TABComponentLayerOrigin) {
     
     // 来自多行的UILabel
     TABComponentLayerOriginLinesLabel,
+    
+    // 来自开发者创建
+    TABComponentLayerOriginCreate,
 };
 
 #pragma mark - 属性

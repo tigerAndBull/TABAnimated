@@ -8,24 +8,38 @@
 
 #import "TABBaseComponent.h"
 #import "TABComponentLayer.h"
+#import "TABComponentManager.h"
+
+struct TABBaseComonentOperation {
+    NSInteger leftEqualIndex:8;
+    NSInteger rightEqualIndex:8;
+    NSInteger topEqualIndex:8;
+    NSInteger bottomEqualIndex:8;
+} componentOperation;
 
 @interface TABBaseComponent()
 
 @property (nonatomic, strong, readwrite) TABComponentLayer *layer;
+@property (nonatomic, weak) TABComponentManager *manager;
 
 @end
 
 @implementation TABBaseComponent
 
-+ (instancetype)componentWithLayer:(TABComponentLayer *)layer {
-    return [[self alloc] initWithLayer:layer];
++ (instancetype)componentWithLayer:(TABComponentLayer *)layer manager:(nonnull TABComponentManager *)manager {
+    return [[self alloc] initWithLayer:layer manager:manager];
 }
 
-- (instancetype)initWithLayer:(TABComponentLayer *)layer {
+- (instancetype)initWithLayer:(TABComponentLayer *)layer manager:(nonnull TABComponentManager *)manager {
     if(layer == nil) return nil;
     if(self = [super init]) {
         _layer = layer;
         _layer.adjustingFrame = layer.frame;
+        _manager = manager;
+        componentOperation.leftEqualIndex = -1;
+        componentOperation.rightEqualIndex = -1;
+        componentOperation.topEqualIndex = -1;
+        componentOperation.bottomEqualIndex = -1;
     }
     return self;
 }
@@ -33,9 +47,10 @@
 #pragma mark - left
 
 - (TABBaseComponentFloatBlock)left {
+    __weak typeof(self) weakSelf = self;
     return ^TABBaseComponent *(CGFloat offset) {
-        [self result_left:offset];
-        return self;
+        [weakSelf result_left:offset];
+        return weakSelf;
     };
 }
 
@@ -50,9 +65,10 @@
 #pragma mark - right
 
 - (TABBaseComponentFloatBlock)right {
+    __weak typeof(self) weakSelf = self;
     return ^TABBaseComponent *(CGFloat offset) {
-        [self result_right:offset];
-        return self;
+        [weakSelf result_right:offset];
+        return weakSelf;
     };
 }
 
@@ -67,9 +83,10 @@
 #pragma mark - up
 
 - (TABBaseComponentFloatBlock)up {
+    __weak typeof(self) weakSelf = self;
     return ^TABBaseComponent *(CGFloat offset) {
-        [self result_up:offset];
-        return self;
+        [weakSelf result_up:offset];
+        return weakSelf;
     };
 }
 
@@ -84,9 +101,10 @@
 #pragma mark - down
 
 - (TABBaseComponentFloatBlock)down {
+    __weak typeof(self) weakSelf = self;
     return ^TABBaseComponent *(CGFloat offset) {
-        [self result_down:offset];
-        return self;
+        [weakSelf result_down:offset];
+        return weakSelf;
     };
 }
 
@@ -101,12 +119,13 @@
 #pragma mark - width
 
 - (TABBaseComponentFloatBlock)width {
+    __weak typeof(self) weakSelf = self;
     return ^TABBaseComponent *(CGFloat offset) {
         if (offset <= 0) {
-            return self;
+            return weakSelf;
         }
-        [self result_width:offset];
-        return self;
+        [weakSelf result_width:offset];
+        return weakSelf;
     };
 }
 
@@ -121,12 +140,13 @@
 #pragma mark - height
 
 - (TABBaseComponentFloatBlock)height {
+    __weak typeof(self) weakSelf = self;
     return ^TABBaseComponent *(CGFloat offset) {
         if (offset <= 0) {
-            return self;
+            return weakSelf;
         }
-        [self result_height:offset];
-        return self;
+        [weakSelf result_height:offset];
+        return weakSelf;
     };
 }
 
@@ -144,9 +164,10 @@
 #pragma mark - radius
 
 - (TABBaseComponentFloatBlock)radius {
+    __weak typeof(self) weakSelf = self;
     return ^TABBaseComponent *(CGFloat offset) {
-        [self result_radius:offset];
-        return self;
+        [weakSelf result_radius:offset];
+        return weakSelf;
     };
 }
 
@@ -161,9 +182,10 @@
 #pragma mark - reducedWidth
 
 - (TABBaseComponentFloatBlock)reducedWidth {
+    __weak typeof(self) weakSelf = self;
     return ^TABBaseComponent *(CGFloat offset) {
-        [self result_reducedWidth:offset];
-        return self;
+        [weakSelf result_reducedWidth:offset];
+        return weakSelf;
     };
 }
 
@@ -178,9 +200,10 @@
 #pragma mark - reducedHeight
 
 - (TABBaseComponentFloatBlock)reducedHeight {
+    __weak typeof(self) weakSelf = self;
     return ^TABBaseComponent *(CGFloat offset) {
-        [self result_reducedHeight:offset];
-        return self;
+        [weakSelf result_reducedHeight:offset];
+        return weakSelf;
     };
 }
 
@@ -198,9 +221,10 @@
 #pragma mark - reducedRadius
 
 - (TABBaseComponentFloatBlock)reducedRadius {
+    __weak typeof(self) weakSelf = self;
     return ^TABBaseComponent *(CGFloat offset) {
-        [self result_reducedRadius:offset];
-        return self;
+        [weakSelf result_reducedRadius:offset];
+        return weakSelf;
     };
 }
 
@@ -215,9 +239,10 @@
 #pragma mark - x
 
 - (TABBaseComponentFloatBlock)x {
+    __weak typeof(self) weakSelf = self;
     return ^TABBaseComponent *(CGFloat offset) {
-        [self result_x:offset];
-        return self;
+        [weakSelf result_x:offset];
+        return weakSelf;
     };
 }
 
@@ -232,9 +257,10 @@
 #pragma mark - y
 
 - (TABBaseComponentFloatBlock)y {
+    __weak typeof(self) weakSelf = self;
     return ^TABBaseComponent *(CGFloat offset) {
-        [self result_y:offset];
-        return self;
+        [weakSelf result_y:offset];
+        return weakSelf;
     };
 }
 
@@ -249,9 +275,10 @@
 #pragma mark - line
 
 - (TABBaseComponentIntegerBlock)line {
+    __weak typeof(self) weakSelf = self;
     return ^TABBaseComponent *(NSInteger value) {
-        [self result_line:value];
-        return self;
+        [weakSelf result_line:value];
+        return weakSelf;
     };
 }
 
@@ -266,9 +293,10 @@
 #pragma mark - space
 
 - (TABBaseComponentFloatBlock)space {
+    __weak typeof(self) weakSelf = self;
     return ^TABBaseComponent *(CGFloat value) {
-        [self result_space:value];
-        return self;
+        [weakSelf result_space:value];
+        return weakSelf;
     };
 }
 
@@ -283,9 +311,10 @@
 #pragma mark - lastLineScale
 
 - (TABBaseComponentFloatBlock)lastLineScale {
+    __weak typeof(self) weakSelf = self;
     return ^TABBaseComponent *(CGFloat value) {
-        [self result_lastLineScale:value];
-        return self;
+        [weakSelf result_lastLineScale:value];
+        return weakSelf;
     };
 }
 
@@ -300,9 +329,10 @@
 #pragma mark - remove
 
 - (TABBaseComponentVoidBlock)remove {
+    __weak typeof(self) weakSelf = self;
     return ^TABBaseComponent *(void) {
-        [self result_remove];
-        return self;
+        [weakSelf result_remove];
+        return weakSelf;
     };
 }
 
@@ -317,9 +347,10 @@
 #pragma mark - placeholder
 
 - (TABBaseComponentStringBlock)placeholder {
+    __weak typeof(self) weakSelf = self;
     return ^TABBaseComponent *(NSString *string) {
-        [self result_placeholder:string];
-        return self;
+        [weakSelf result_placeholder:string];
+        return weakSelf;
     };
 }
 
@@ -335,9 +366,10 @@
 #pragma mark - cancelAlignCenter
 
 - (TABBaseComponentVoidBlock)cancelAlignCenter {
+    __weak typeof(self) weakSelf = self;
     return ^TABBaseComponent *(void) {
-        [self result_cancelAlignCenter];
-        return self;
+        [weakSelf result_cancelAlignCenter];
+        return weakSelf;
     };
 }
 
@@ -352,9 +384,10 @@
 #pragma mark - color
 
 - (TABBaseComponentColorBlock)color {
+    __weak typeof(self) weakSelf = self;
     return ^TABBaseComponent *(UIColor *color) {
-        [self result_color:color];
-        return self;
+        [weakSelf result_color:color];
+        return weakSelf;
     };
 }
 
@@ -372,8 +405,286 @@
     __weak typeof(self) weakSelf = self;
     return ^TABBaseComponent *(void) {
         weakSelf.layer.withoutAnimation = YES;
-        return self;
+        return weakSelf;
     };
+}
+
+#pragma mark -
+
+- (TABBaseComponentCompareBlock)leftEqualTo {
+    __weak typeof(self) weakSelf = self;
+    return ^TABBaseComponent *(NSInteger index) {
+        [weakSelf _leftEqualWithIndex:index offset:0];
+        return weakSelf;
+    };
+}
+
+- (TABBaseComponentCompareBlock)rightEqualTo {
+    __weak typeof(self) weakSelf = self;
+    return ^TABBaseComponent *(NSInteger index) {
+        [weakSelf _rightEqualWithIndex:index offset:0];
+        return weakSelf;
+    };
+}
+
+- (TABBaseComponentCompareBlock)topEqualTo {
+    __weak typeof(self) weakSelf = self;
+    return ^TABBaseComponent *(NSInteger index) {
+        [weakSelf _topEqualWithIndex:index offset:0];
+        return weakSelf;
+    };
+}
+
+- (TABBaseComponentCompareBlock)bottomEqualTo {
+    __weak typeof(self) weakSelf = self;
+    return ^TABBaseComponent *(NSInteger index) {
+        [weakSelf _bottomEqualWithIndex:index offset:0];
+        return weakSelf;
+    };
+}
+
+- (TABBaseComponentCompareBlock)widthEqualTo {
+    __weak typeof(self) weakSelf = self;
+    return ^TABBaseComponent *(NSInteger index) {
+        [weakSelf _widthEqualWithIndex:index offset:0];
+        return weakSelf;
+    };
+}
+
+- (TABBaseComponentCompareBlock)heightEqualTo {
+    __weak typeof(self) weakSelf = self;
+    return ^TABBaseComponent *(NSInteger index) {
+        [weakSelf _heightEqualWithIndex:index offset:0];
+        return weakSelf;
+    };
+}
+
+
+- (TABBaseComponentCompareBlock)leftEqualToRight {
+    __weak typeof(self) weakSelf = self;
+    return ^TABBaseComponent *(NSInteger index) {
+        [weakSelf _leftEqualToRightWithIndex:index offset:0];
+        return weakSelf;
+    };
+}
+
+- (TABBaseComponentCompareBlock)rightEqualToLeft {
+    __weak typeof(self) weakSelf = self;
+    return ^TABBaseComponent *(NSInteger index) {
+        [weakSelf _rightEqualToLeftWithIndex:index offset:0];
+        return weakSelf;
+    };
+}
+
+- (TABBaseComponentCompareBlock)topEqualToBottom {
+    __weak typeof(self) weakSelf = self;
+    return ^TABBaseComponent *(NSInteger index) {
+        [weakSelf _topEqualToBottomWithIndex:index offset:0];
+        return weakSelf;
+    };
+}
+
+- (TABBaseComponentCompareBlock)bottomEqualToTop {
+    __weak typeof(self) weakSelf = self;
+    return ^TABBaseComponent *(NSInteger index) {
+        [weakSelf _bottomEqualToTopWithIndex:index offset:0];
+        return weakSelf;
+    };
+}
+
+#pragma mark -
+
+- (TABBaseComponentCompareWithOffsetBlock)leftEqualTo_offset {
+    __weak typeof(self) weakSelf = self;
+    return ^TABBaseComponent *(NSInteger index, CGFloat offset) {
+        [weakSelf _leftEqualWithIndex:index offset:offset];
+        return weakSelf;
+    };
+}
+
+- (TABBaseComponentCompareWithOffsetBlock)rightEqualTo_offset {
+    __weak typeof(self) weakSelf = self;
+    return ^TABBaseComponent *(NSInteger index, CGFloat offset) {
+        [weakSelf _rightEqualWithIndex:index offset:offset];
+        return weakSelf;
+    };
+}
+
+- (TABBaseComponentCompareWithOffsetBlock)topEqualTo_offset {
+    __weak typeof(self) weakSelf = self;
+    return ^TABBaseComponent *(NSInteger index, CGFloat offset) {
+        [weakSelf _topEqualWithIndex:index offset:offset];
+        return weakSelf;
+    };
+}
+
+- (TABBaseComponentCompareWithOffsetBlock)bottomEqualTo_offset {
+    __weak typeof(self) weakSelf = self;
+    return ^TABBaseComponent *(NSInteger index, CGFloat offset) {
+        [weakSelf _bottomEqualWithIndex:index offset:offset];
+        return weakSelf;
+    };
+}
+
+- (TABBaseComponentCompareWithOffsetBlock)widthEqualTo_offset {
+    __weak typeof(self) weakSelf = self;
+    return ^TABBaseComponent *(NSInteger index, CGFloat offset) {
+        [weakSelf _widthEqualWithIndex:index offset:offset];
+        return weakSelf;
+    };
+}
+
+- (TABBaseComponentCompareWithOffsetBlock)heightEqualTo_offset {
+    __weak typeof(self) weakSelf = self;
+    return ^TABBaseComponent *(NSInteger index, CGFloat offset) {
+        [weakSelf _heightEqualWithIndex:index offset:offset];
+        return weakSelf;
+    };
+}
+
+- (TABBaseComponentCompareWithOffsetBlock)leftEqualToRight_offset {
+    __weak typeof(self) weakSelf = self;
+    return ^TABBaseComponent *(NSInteger index, CGFloat offset) {
+        [weakSelf _leftEqualToRightWithIndex:index offset:offset];
+        return weakSelf;
+    };
+}
+
+- (TABBaseComponentCompareWithOffsetBlock)rightEqualToLeft_offset {
+    __weak typeof(self) weakSelf = self;
+    return ^TABBaseComponent *(NSInteger index, CGFloat offset) {
+        [weakSelf _rightEqualToLeftWithIndex:index offset:offset];
+        return weakSelf;
+    };
+}
+
+- (TABBaseComponentCompareWithOffsetBlock)topEqualToBottom_offset {
+    __weak typeof(self) weakSelf = self;
+    return ^TABBaseComponent *(NSInteger index, CGFloat offset) {
+        [weakSelf _topEqualToBottomWithIndex:index offset:offset];
+        return weakSelf;
+    };
+}
+
+- (TABBaseComponentCompareWithOffsetBlock)bottomEqualToTop_offset {
+    __weak typeof(self) weakSelf = self;
+    return ^TABBaseComponent *(NSInteger index, CGFloat offset) {
+        [weakSelf _bottomEqualToTopWithIndex:index offset:offset];
+        return weakSelf;
+    };
+}
+
+#pragma mark -
+
+- (void)_leftEqualWithIndex:(NSInteger)index offset:(CGFloat)offset {
+    componentOperation.leftEqualIndex = index;
+    [self _updateWidth];
+    
+    TABBaseComponent *comparedComponent = self.manager.animation(index);
+    TABComponentLayer *comparedLayer = comparedComponent.layer;
+    CGRect comparedFrame = comparedLayer.adjustingFrame;
+    self.layer.adjustingFrame = CGRectMake(comparedFrame.origin.x + offset, self.layer.adjustingFrame.origin.y, self.layer.adjustingFrame.size.width, self.layer.adjustingFrame.size.height);
+}
+
+- (void)_leftEqualToRightWithIndex:(NSInteger)index offset:(CGFloat)offset {
+    TABBaseComponent *comparedComponent = self.manager.animation(index);
+    TABComponentLayer *comparedLayer = comparedComponent.layer;
+    CGRect comparedFrame = comparedLayer.adjustingFrame;
+    self.layer.adjustingFrame = CGRectMake(CGRectGetMaxX(comparedFrame) + offset, self.layer.adjustingFrame.origin.y, self.layer.adjustingFrame.size.width, self.layer.adjustingFrame.size.height);
+}
+
+- (void)_rightEqualWithIndex:(NSInteger)index offset:(CGFloat)offset {
+    componentOperation.rightEqualIndex = index;
+    [self _updateWidth];
+    
+    TABBaseComponent *comparedComponent = self.manager.animation(index);
+    TABComponentLayer *comparedLayer = comparedComponent.layer;
+    CGRect comparedFrame = comparedLayer.adjustingFrame;
+    CGFloat layerWidth = self.layer.adjustingFrame.size.width;
+    CGFloat comparedMaxX = CGRectGetMaxX(comparedFrame);
+    self.layer.adjustingFrame = CGRectMake(comparedMaxX - layerWidth + offset, self.layer.frame.origin.y, layerWidth, self.layer.adjustingFrame.size.height);
+}
+
+- (void)_rightEqualToLeftWithIndex:(NSInteger)index offset:(CGFloat)offset {
+    TABBaseComponent *comparedComponent = self.manager.animation(index);
+    TABComponentLayer *comparedLayer = comparedComponent.layer;
+    CGRect comparedFrame = comparedLayer.adjustingFrame;
+    CGFloat layerWidth = self.layer.adjustingFrame.size.width;
+    CGFloat comparedMinX = CGRectGetMinX(comparedFrame);
+    self.layer.adjustingFrame = CGRectMake(comparedMinX - layerWidth + offset, self.layer.frame.origin.y, layerWidth, self.layer.adjustingFrame.size.height);
+}
+
+- (void)_topEqualWithIndex:(NSInteger)index offset:(CGFloat)offset {
+    componentOperation.topEqualIndex = index;
+    [self _updateHeight];
+    
+    TABBaseComponent *comparedComponent = self.manager.animation(index);
+    TABComponentLayer *comparedLayer = comparedComponent.layer;
+    CGRect comparedFrame = comparedLayer.adjustingFrame;
+    self.layer.adjustingFrame = CGRectMake(self.layer.adjustingFrame.origin.x, comparedFrame.origin.y + offset, self.layer.adjustingFrame.size.width, self.layer.adjustingFrame.size.height);
+}
+
+- (void)_topEqualToBottomWithIndex:(NSInteger)index offset:(CGFloat)offset {
+    TABBaseComponent *comparedComponent = self.manager.animation(index);
+    TABComponentLayer *comparedLayer = comparedComponent.layer;
+    CGRect comparedFrame = comparedLayer.adjustingFrame;
+    self.layer.adjustingFrame = CGRectMake(self.layer.adjustingFrame.origin.x, CGRectGetMaxY(comparedFrame) + offset, self.layer.adjustingFrame.size.width, self.layer.adjustingFrame.size.height);
+}
+
+- (void)_bottomEqualWithIndex:(NSInteger)index offset:(CGFloat)offset {
+    componentOperation.bottomEqualIndex = index;
+    [self _updateHeight];
+    
+    TABBaseComponent *comparedComponent = self.manager.animation(index);
+    TABComponentLayer *comparedLayer = comparedComponent.layer;
+    CGRect comparedFrame = comparedLayer.adjustingFrame;
+    CGFloat comparedMaxY = CGRectGetMaxY(comparedFrame);
+    CGFloat layerHeight = self.layer.adjustingFrame.size.height;
+    self.layer.adjustingFrame = CGRectMake(self.layer.adjustingFrame.origin.x, comparedMaxY - layerHeight + offset, self.layer.adjustingFrame.size.width, layerHeight);
+}
+
+- (void)_bottomEqualToTopWithIndex:(NSInteger)index offset:(CGFloat)offset {
+    TABBaseComponent *comparedComponent = self.manager.animation(index);
+    TABComponentLayer *comparedLayer = comparedComponent.layer;
+    CGRect comparedFrame = comparedLayer.adjustingFrame;
+    CGFloat comparedMinY = CGRectGetMinY(comparedFrame);
+    CGFloat layerHeight = self.layer.adjustingFrame.size.height;
+    self.layer.adjustingFrame = CGRectMake(self.layer.adjustingFrame.origin.x, comparedMinY - layerHeight + offset, self.layer.adjustingFrame.size.width, layerHeight);
+}
+
+- (void)_widthEqualWithIndex:(NSInteger)index offset:(CGFloat)offset {
+    TABBaseComponent *comparedComponent = self.manager.animation(index);
+    TABComponentLayer *comparedLayer = comparedComponent.layer;
+    CGRect comparedFrame = comparedLayer.adjustingFrame;
+    self.layer.adjustingFrame = CGRectMake(self.layer.adjustingFrame.origin.x, self.layer.adjustingFrame.origin.y, comparedFrame.size.width + offset, self.layer.adjustingFrame.size.height);
+}
+
+- (void)_heightEqualWithIndex:(NSInteger)index offset:(CGFloat)offset {
+    TABBaseComponent *comparedComponent = self.manager.animation(index);
+    TABComponentLayer *comparedLayer = comparedComponent.layer;
+    CGRect comparedFrame = comparedLayer.adjustingFrame;
+    self.layer.adjustingFrame = CGRectMake(self.layer.adjustingFrame.origin.x, self.layer.adjustingFrame.origin.y, self.layer.adjustingFrame.size.width, comparedFrame.size.height + offset);
+}
+
+- (void)_updateWidth {
+    if(componentOperation.leftEqualIndex != -1 &&
+       componentOperation.rightEqualIndex != -1 &&
+       componentOperation.leftEqualIndex == componentOperation.rightEqualIndex) {
+        TABBaseComponent *comparedComponent = self.manager.animation(componentOperation.leftEqualIndex);
+        TABComponentLayer *comparedLayer = comparedComponent.layer;
+        self.layer.adjustingFrame = CGRectMake(self.layer.adjustingFrame.origin.x, self.layer.adjustingFrame.origin.y, comparedLayer.adjustingFrame.size.width, self.layer.adjustingFrame.size.width);
+    }
+}
+
+- (void)_updateHeight {
+    if(componentOperation.topEqualIndex != -1 &&
+       componentOperation.bottomEqualIndex != -1 &&
+       componentOperation.topEqualIndex == componentOperation.bottomEqualIndex) {
+        TABBaseComponent *comparedComponent = self.manager.animation(componentOperation.topEqualIndex);
+        TABComponentLayer *comparedLayer = comparedComponent.layer;
+        self.layer.adjustingFrame = CGRectMake(self.layer.adjustingFrame.origin.x, self.layer.adjustingFrame.origin.y, self.layer.adjustingFrame.size.width, comparedLayer.adjustingFrame.size.height);
+        
+    }
 }
 
 @end

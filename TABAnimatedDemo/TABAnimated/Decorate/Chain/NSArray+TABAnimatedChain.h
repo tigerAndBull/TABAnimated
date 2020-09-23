@@ -154,6 +154,32 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (TABAnimatedArrayBlock)withoutAnimation;
 
+#pragma mark - 接口作用说明见TABBaseComponent.h
+
+- (TABComponentArrayCompareBlock)leftEqualTo;
+- (TABComponentArrayCompareBlock)rightEqualTo;
+- (TABComponentArrayCompareBlock)topEqualTo;
+- (TABComponentArrayCompareBlock)bottomEqualTo;
+- (TABComponentArrayCompareBlock)widthEqualTo;
+- (TABComponentArrayCompareBlock)heightEqualTo;
+- (TABComponentArrayCompareBlock)leftEqualToRight;
+- (TABComponentArrayCompareBlock)rightEqualToLeft;
+- (TABComponentArrayCompareBlock)topEqualToBottom;
+- (TABComponentArrayCompareBlock)bottomEqualToTop;
+
+#pragma mark -
+
+- (TABComponentArrayCompareWithOffsetBlock)leftEqualTo_offset;
+- (TABComponentArrayCompareWithOffsetBlock)rightEqualTo_offset;
+- (TABComponentArrayCompareWithOffsetBlock)topEqualTo_offset;
+- (TABComponentArrayCompareWithOffsetBlock)bottomEqualTo_offset;
+- (TABComponentArrayCompareWithOffsetBlock)widthEqualTo_offset;
+- (TABComponentArrayCompareWithOffsetBlock)heightEqualTo_offset;
+- (TABComponentArrayCompareWithOffsetBlock)leftEqualToRight_offset;
+- (TABComponentArrayCompareWithOffsetBlock)rightEqualToLeft_offset;
+- (TABComponentArrayCompareWithOffsetBlock)topEqualToBottom_offset;
+- (TABComponentArrayCompareWithOffsetBlock)bottomEqualToTop_offset;
+
 @end
 
 NS_ASSUME_NONNULL_END

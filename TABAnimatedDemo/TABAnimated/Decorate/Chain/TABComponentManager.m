@@ -12,6 +12,8 @@
 @interface TABComponentManager()
 
 @property (nonatomic, strong) NSMutableArray <TABBaseComponent *> *components;
+@property (nonatomic, strong) NSMutableArray <TABComponentLayer *> *layers;
+@property (nonatomic, strong) UIColor *animatedColor;
 
 @end
 
@@ -19,17 +21,19 @@
 
 #pragma mark - Public
 
-+ (instancetype)managerWithLayers:(NSArray<TABComponentLayer *> *)layers {
-    TABComponentManager *manager = [[TABComponentManager alloc] initWithLayers:layers];
++ (instancetype)managerWithLayers:(NSMutableArray <TABComponentLayer *> *)layers animatedColor:(UIColor *)animatedColor {
+    TABComponentManager *manager = [[TABComponentManager alloc] initWithLayers:layers animatedColor:animatedColor];
     return manager;
 }
 
-- (instancetype)initWithLayers:(NSArray<TABComponentLayer *> *)layers {
+- (instancetype)initWithLayers:(NSMutableArray <TABComponentLayer *> *)layers animatedColor:(UIColor *)animatedColor {
     if (self = [super init]) {
+        _animatedColor = animatedColor;
         _components = @[].mutableCopy;
+        _layers = layers;
         for (NSInteger i = 0; i < layers.count; i++) {
             TABComponentLayer *layer = layers[i];
-            TABBaseComponent *component = [TABBaseComponent componentWithLayer:layer];
+            TABBaseComponent *component = [TABBaseComponent componentWithLayer:layer manager:self];
             [_components addObject:component];
         }
     }
@@ -88,6 +92,22 @@
         va_end(args);
         
         return resultArray.copy;
+    };
+}
+
+
+- (TABBaseComponentIntegerBlock)create {
+    __weak typeof(self) weakSelf = self;
+    return ^TABBaseComponent * (NSInteger index) {
+        TABComponentLayer *layer = TABComponentLayer.new;
+        layer.tagIndex = index;
+        layer.numberOflines = 1;
+        layer.origin = TABComponentLayerOriginCreate;
+        layer.backgroundColor = weakSelf.animatedColor.CGColor;
+        TABBaseComponent *baseComponent = [TABBaseComponent componentWithLayer:layer manager:weakSelf];
+        [weakSelf.components addObject:baseComponent];
+        [weakSelf.layers addObject:layer];
+        return baseComponent;
     };
 }
 

@@ -52,10 +52,15 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (TABBaseComponentArrayWithIndexsBlock)animationsWithIndexs;
 
+/// 创建一个新的元素
+/// 需要传一个参数tag 作为唯一标识
+/// 没有做tag重复处理，如果用了重复的tag，会被创建，但是不能二次修改
+- (TABBaseComponentIntegerBlock)create;
+
 #pragma mark - Method
 
-- (instancetype)initWithLayers:(NSArray <TABComponentLayer *> *)layers;
-+ (instancetype)managerWithLayers:(NSArray <TABComponentLayer *> *)layers;
+- (instancetype)initWithLayers:(NSMutableArray <TABComponentLayer *> *)layers animatedColor:(UIColor *)animatedColor;
++ (instancetype)managerWithLayers:(NSMutableArray <TABComponentLayer *> *)layers animatedColor:(UIColor *)animatedColor;
 
 - (instancetype)init UNAVAILABLE_ATTRIBUTE;
 + (instancetype)new UNAVAILABLE_ATTRIBUTE;

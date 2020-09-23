@@ -173,4 +173,208 @@
     };
 }
 
+#pragma mark -
+
+/// 居左
+/// 需要一个参数：对应元素的index
+- (TABComponentArrayCompareBlock)leftEqualTo {
+    return ^NSArray <TABBaseComponent *> *(NSInteger index) {
+        for (TABBaseComponent *component in self) {
+            component.leftEqualTo(index);
+        }
+        return self;
+    };
+}
+
+/// 居右
+/// 需要一个参数：对应元素的index
+- (TABComponentArrayCompareBlock)rightEqualTo {
+    return ^NSArray <TABBaseComponent *> *(NSInteger index) {
+        for (TABBaseComponent *component in self) {
+            component.rightEqualTo(index);
+        }
+        return self;
+    };
+}
+
+/// 居上
+/// 需要一个参数：对应元素的index
+- (TABComponentArrayCompareBlock)topEqualTo {
+    return ^NSArray <TABBaseComponent *> *(NSInteger index) {
+        for (TABBaseComponent *component in self) {
+            component.topEqualTo(index);
+        }
+        return self;
+    };
+}
+
+/// 居下
+/// 需要一个参数：对应元素的index
+- (TABComponentArrayCompareBlock)bottomEqualTo {
+    return ^NSArray <TABBaseComponent *> *(NSInteger index) {
+        for (TABBaseComponent *component in self) {
+            component.bottomEqualTo(index);
+        }
+        return self;
+    };
+}
+
+- (TABComponentArrayCompareBlock)widthEqualTo {
+    return ^NSArray <TABBaseComponent *> *(NSInteger index) {
+        for (TABBaseComponent *component in self) {
+            component.widthEqualTo(index);
+        }
+        return self;
+    };
+}
+
+- (TABComponentArrayCompareBlock)heightEqualTo {
+    return ^NSArray <TABBaseComponent *> *(NSInteger index) {
+        for (TABBaseComponent *component in self) {
+            component.heightEqualTo(index);
+        }
+        return self;
+    };
+}
+
+- (TABComponentArrayCompareBlock)leftEqualToRight {
+    return ^NSArray <TABBaseComponent *> *(NSInteger index) {
+        for (TABBaseComponent *component in self) {
+            component.leftEqualToRight(index);
+        }
+        return self;
+    };
+}
+
+- (TABComponentArrayCompareBlock)rightEqualToLeft {
+    return ^NSArray <TABBaseComponent *> *(NSInteger index) {
+        for (TABBaseComponent *component in self) {
+            component.rightEqualToLeft(index);
+        }
+        return self;
+    };
+}
+
+- (TABComponentArrayCompareBlock)topEqualToBottom {
+    return ^NSArray <TABBaseComponent *> *(NSInteger index) {
+        for (TABBaseComponent *component in self) {
+            component.topEqualToBottom(index);
+        }
+        return self;
+    };
+}
+
+- (TABComponentArrayCompareBlock)bottomEqualToTop {
+    return ^NSArray <TABBaseComponent *> *(NSInteger index) {
+        for (TABBaseComponent *component in self) {
+            component.bottomEqualToTop(index);
+        }
+        return self;
+    };
+}
+
+#pragma mark -
+
+/// 居左
+/// 参数1：对应元素的index
+/// 参数2： 偏移量
+- (TABComponentArrayCompareWithOffsetBlock)leftEqualTo_offset {
+    return ^NSArray <TABBaseComponent *> *(NSInteger index, CGFloat offset) {
+        for (TABBaseComponent *component in self) {
+            component.leftEqualTo_offset(index, offset);
+        }
+        return self;
+    };
+}
+
+/// 居右
+/// 参数1：对应元素的index
+/// 参数2： 偏移量
+- (TABComponentArrayCompareWithOffsetBlock)rightEqualTo_offset {
+    return ^NSArray <TABBaseComponent *> *(NSInteger index, CGFloat offset) {
+        for (TABBaseComponent *component in self) {
+            component.rightEqualTo_offset(index, offset);
+        }
+        return self;
+    };
+}
+
+/// 居上
+/// 参数1：对应元素的index
+/// 参数2： 偏移量
+- (TABComponentArrayCompareWithOffsetBlock)topEqualTo_offset {
+    return ^NSArray <TABBaseComponent *> *(NSInteger index, CGFloat offset) {
+        for (TABBaseComponent *component in self) {
+            component.topEqualTo_offset(index, offset);
+        }
+        return self;
+    };
+}
+
+/// 居下
+/// 参数1：对应元素的index
+/// 参数2： 偏移量
+- (TABComponentArrayCompareWithOffsetBlock)bottomEqualTo_offset {
+    return ^NSArray <TABBaseComponent *> *(NSInteger index, CGFloat offset) {
+        for (TABBaseComponent *component in self) {
+            component.bottomEqualTo_offset(index, offset);
+        }
+        return self;
+    };
+}
+
+- (TABComponentArrayCompareWithOffsetBlock)widthEqualTo_offset {
+    return ^NSArray <TABBaseComponent *> *(NSInteger index, CGFloat offset) {
+        for (TABBaseComponent *component in self) {
+            component.widthEqualTo_offset(index, offset);
+        }
+        return self;
+    };
+}
+
+- (TABComponentArrayCompareWithOffsetBlock)heightEqualTo_offset {
+    return ^NSArray <TABBaseComponent *> *(NSInteger index, CGFloat offset) {
+        for (TABBaseComponent *component in self) {
+            component.heightEqualTo_offset(index, offset);
+        }
+        return self;
+    };
+}
+
+- (TABComponentArrayCompareWithOffsetBlock)leftEqualToRight_offset {
+    return ^NSArray <TABBaseComponent *> *(NSInteger index, CGFloat offset) {
+        for (TABBaseComponent *component in self) {
+            component.leftEqualToRight_offset(index, offset);
+        }
+        return self;
+    };
+}
+
+- (TABComponentArrayCompareWithOffsetBlock)rightEqualToLeft_offset {
+    return ^NSArray <TABBaseComponent *> *(NSInteger index, CGFloat offset) {
+        for (TABBaseComponent *component in self) {
+            component.rightEqualToLeft_offset(index, offset);
+        }
+        return self;
+    };
+}
+
+- (TABComponentArrayCompareWithOffsetBlock)topEqualToBottom_offset {
+    return ^NSArray <TABBaseComponent *> *(NSInteger index, CGFloat offset) {
+        for (TABBaseComponent *component in self) {
+            component.topEqualToBottom_offset(index, offset);
+        }
+        return self;
+    };
+}
+
+- (TABComponentArrayCompareWithOffsetBlock)bottomEqualToTop_offset {
+    return ^NSArray <TABBaseComponent *> *(NSInteger index, CGFloat offset) {
+        for (TABBaseComponent *component in self) {
+            component.bottomEqualToTop_offset(index, offset);
+        }
+        return self;
+    };
+}
+
 @end

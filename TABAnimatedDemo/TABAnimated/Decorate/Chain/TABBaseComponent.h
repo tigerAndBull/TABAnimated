@@ -166,10 +166,108 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (TABBaseComponentVoidBlock)withoutAnimation;
 
+#pragma mark -
+
+/// 需要调整的元素左部 等于 传入的元素的左部
+/// 参数tag：传入比较的tag
+/// 用法 manager.animation(1).leftEqualTo(2), 意为 目标元素1的横坐标等于元素2的横坐标
+- (TABBaseComponentCompareBlock)leftEqualTo;
+
+/// 需要调整的元素右部 等于 传入的元素的右部
+/// 参数tag：传入比较的tag
+- (TABBaseComponentCompareBlock)rightEqualTo;
+
+/// 需要调整的元素顶部等于 传入的元素的顶部
+/// 参数tag：传入比较的tag
+- (TABBaseComponentCompareBlock)topEqualTo;
+
+/// 需要调整的元素底部 等于 传入的元素的底部
+/// 参数tag：传入比较的tag
+- (TABBaseComponentCompareBlock)bottomEqualTo;
+
+/// 需要调整的元素宽度 等于 传入的元素的宽度
+/// 参数tag：传入比较的tag
+- (TABBaseComponentCompareBlock)widthEqualTo;
+
+/// 需要调整的元素高度 等于 传入的元素的高度
+/// 参数tag：传入比较的tag
+- (TABBaseComponentCompareBlock)heightEqualTo;
+
+/// 需要调整的元素左部 等于 传入的元素的右部
+/// 参数tag：传入比较的tag
+- (TABBaseComponentCompareBlock)leftEqualToRight;
+
+/// 需要调整的元素右部 等于 传入的元素的左部
+/// 参数tag：传入比较的tag
+- (TABBaseComponentCompareBlock)rightEqualToLeft;
+
+/// 需要调整的元素顶部 等于 传入的元素的底部
+/// 参数tag：传入比较的tag
+- (TABBaseComponentCompareBlock)topEqualToBottom;
+
+/// 需要调整的元素底部 等于 传入的元素的顶部
+/// 参数tag：传入比较的tag
+- (TABBaseComponentCompareBlock)bottomEqualToTop;
+
+#pragma mark -
+
+/// 偏移量offset：正数表示往右、往下偏移， 负数表示往左、往上偏移
+
+/// 需要调整的元素左部 等于 传入的元素的左部
+/// 参数tag：传入比较的tag
+/// 参数offset：偏移量
+/// 用法 manager.animation(1).leftEqualTo(2), 意为 目标元素1的横坐标等于元素2的横坐标
+- (TABBaseComponentCompareWithOffsetBlock)leftEqualTo_offset;
+
+/// 需要调整的元素右部 等于 传入的元素的右部
+/// 参数tag：传入比较的tag
+/// 参数offset：偏移量
+- (TABBaseComponentCompareWithOffsetBlock)rightEqualTo_offset;
+
+/// 需要调整的元素顶部等于 传入的元素的顶部
+/// 参数tag：传入比较的tag
+/// 参数offset：偏移量
+- (TABBaseComponentCompareWithOffsetBlock)topEqualTo_offset;
+
+/// 需要调整的元素底部 等于 传入的元素的底部
+/// 参数tag：传入比较的tag
+/// 参数offset：偏移量
+- (TABBaseComponentCompareWithOffsetBlock)bottomEqualTo_offset;
+
+/// 需要调整的元素宽度 等于 传入的元素的宽度
+/// 参数tag：传入比较的tag
+/// 参数offset：偏移量
+- (TABBaseComponentCompareWithOffsetBlock)widthEqualTo_offset;
+
+/// 需要调整的元素高度 等于 传入的元素的高度
+/// 参数tag：传入比较的tag
+/// 参数offset：偏移量
+- (TABBaseComponentCompareWithOffsetBlock)heightEqualTo_offset;
+
+/// 需要调整的元素左部 等于 传入的元素的右部
+/// 参数tag：传入比较的tag
+/// 参数offset：偏移量
+- (TABBaseComponentCompareWithOffsetBlock)leftEqualToRight_offset;
+
+/// 需要调整的元素右部 等于 传入的元素的左部
+/// 参数tag：传入比较的tag
+/// 参数offset：偏移量
+- (TABBaseComponentCompareWithOffsetBlock)rightEqualToLeft_offset;
+
+/// 需要调整的元素顶部 等于 传入的元素的底部
+/// 参数tag：传入比较的tag
+/// 参数offset：偏移量
+- (TABBaseComponentCompareWithOffsetBlock)topEqualToBottom_offset;
+
+/// 需要调整的元素底部 等于 传入的元素的顶部
+/// 参数tag：传入比较的tag
+/// 参数offset：偏移量 
+- (TABBaseComponentCompareWithOffsetBlock)bottomEqualToTop_offset;
+
 #pragma mark - Init Method
 
-- (instancetype)initWithLayer:(TABComponentLayer *)layer;
-+ (instancetype)componentWithLayer:(TABComponentLayer *)layer;
+- (instancetype)initWithLayer:(TABComponentLayer *)layer manager:(TABComponentManager *)manager;
++ (instancetype)componentWithLayer:(TABComponentLayer *)layer manager:(TABComponentManager *)manager;
 
 - (instancetype)init UNAVAILABLE_ATTRIBUTE;
 + (instancetype)new UNAVAILABLE_ATTRIBUTE;

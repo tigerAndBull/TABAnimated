@@ -516,11 +516,14 @@
 - (void)_chainAdjustWithArray:(NSMutableArray <TABComponentLayer *> *)array
                   tabAnimated:(TABViewAnimated *)tabAnimated
                   targetClass:(Class)targetClass {
+
+    UIColor *animatedColor = [tabAnimated getCurrentAnimatedColorWithCollection:_controlView.traitCollection];
+    
     if (tabAnimated.adjustBlock) {
-        [self.chainManager chainAdjustWithArray:array adjustBlock:tabAnimated.adjustBlock];
+        [self.chainManager chainAdjustWithArray:array adjustBlock:tabAnimated.adjustBlock animatedColor:animatedColor];
     }
     if (tabAnimated.adjustWithClassBlock) {
-        [self.chainManager chainAdjustWithArray:array adjustWithClassBlock:tabAnimated.adjustWithClassBlock targetClass:targetClass];
+        [self.chainManager chainAdjustWithArray:array adjustWithClassBlock:tabAnimated.adjustWithClassBlock targetClass:targetClass animatedColor:animatedColor];
     }
 }
 
