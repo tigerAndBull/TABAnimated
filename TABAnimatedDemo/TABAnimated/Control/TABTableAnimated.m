@@ -228,7 +228,7 @@
     
     UITableView *tableView = (UITableView *)controlView;
     
-    if (tableView.estimatedRowHeight != 0) {
+    if (tableView.estimatedRowHeight > 0) {
         self.oldEstimatedRowHeight = tableView.estimatedRowHeight;
         tableView.estimatedRowHeight = UITableViewAutomaticDimension;
         if (self.animatedCount == 0) {
