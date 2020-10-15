@@ -379,8 +379,14 @@
                                array:(NSMutableArray <TABComponentLayer *> *)array
                               isCard:(BOOL)isCard {
     
-    NSArray *subViews;
-    subViews = [view subviews];
+    NSMutableArray<UIView *> *subViews = [NSMutableArray array];
+    for (UIView * subView in view.subviews) {
+        if ([subView isKindOfClass:[NSClassFromString(@"_UISystemBackgroundView") class]]) {
+            continue;
+        }
+        [subViews addObject:subView];
+    }
+    
     if ([subViews count] == 0) return;
     
     for (int i = 0; i < subViews.count;i++) {
