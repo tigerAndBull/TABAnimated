@@ -473,8 +473,13 @@
     
     if ([view isKindOfClass:[NSClassFromString(@"UITableViewCellContentView") class]] ||
         [view isKindOfClass:[NSClassFromString(@"UICollectionViewCellContentView") class]]  ||
-        [view isKindOfClass:[NSClassFromString(@"_UITableViewHeaderFooterViewBackground") class]]) {
+        [view isKindOfClass:[NSClassFromString(@"_UITableViewHeaderFooterViewBackground") class]] ||
+        [view isKindOfClass:[NSClassFromString(@"_UISystemBackgroundView") class]]) {
         return YES;
+    }
+    //移除iOS14 uitableviewcell 新增视图
+    if ([superView isKindOfClass:[NSClassFromString(@"_UISystemBackgroundView") class]]) {
+        return  YES;
     }
     
     // 移除UITableView/UICollectionView的滚动条
