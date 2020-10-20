@@ -477,10 +477,6 @@
         [view isKindOfClass:[NSClassFromString(@"_UISystemBackgroundView") class]]) {
         return YES;
     }
-    //移除iOS14 uitableviewcell 新增视图
-    if ([superView isKindOfClass:[NSClassFromString(@"_UISystemBackgroundView") class]]) {
-        return  YES;
-    }
     
     // 移除UITableView/UICollectionView的滚动条
     if ([superView isKindOfClass:[UIScrollView class]]) {
