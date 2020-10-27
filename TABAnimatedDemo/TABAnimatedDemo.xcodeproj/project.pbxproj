@@ -1080,13 +1080,13 @@
 			isa = PBXGroup;
 			children = (
 				688A37D724893B3D00A76894 /* Include */,
-				688A37D624893B3D00A76894 /* TABCollectionAnimated.m */,
+				688A37D524893B3D00A76894 /* TABViewAnimated.m */,
 				688A37D324893B3D00A76894 /* TABFormAnimated.h */,
 				688A37DF24893B3D00A76894 /* TABFormAnimated.m */,
 				688A37DE24893B3D00A76894 /* TABTableAnimated.m */,
-				688A37D524893B3D00A76894 /* TABViewAnimated.m */,
-				688A37D424893B3D00A76894 /* UIView+TABControlAnimation.m */,
+				688A37D624893B3D00A76894 /* TABCollectionAnimated.m */,
 				688A37E024893B3D00A76894 /* UIView+TABControlModel.m */,
+				688A37D424893B3D00A76894 /* UIView+TABControlAnimation.m */,
 			);
 			path = Control;
 			sourceTree = "<group>";
@@ -1978,7 +1978,7 @@
 					"-Xlinker",
 					"-interposable",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.tigerAndBull.TABAnimated;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tigerAndBull.TABAnimated2;
 				PRODUCT_NAME = TABAnimated;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -2013,7 +2013,7 @@
 					"-Xlinker",
 					"-interposable",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.tigerAndBull.TABAnimated;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tigerAndBull.TABAnimated2;
 				PRODUCT_NAME = TABAnimated;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";

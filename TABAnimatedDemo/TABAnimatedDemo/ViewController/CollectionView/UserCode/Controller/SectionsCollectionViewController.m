@@ -101,7 +101,7 @@ UICollectionViewDataSource
 
     NSMutableArray *array = @[].mutableCopy;
     for (int i = 0; i < 10; i ++) {
-        [array addObject:[NSString stringWithFormat:@"test%ld.jpg",indexPath.row]];
+        [array addObject:[NSString stringWithFormat:@"test%ld.jpg",(long)indexPath.row]];
     }
     
     [cell updateCellWithData:array];

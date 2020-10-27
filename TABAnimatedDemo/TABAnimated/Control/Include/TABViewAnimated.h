@@ -14,9 +14,8 @@
 #import "TABViewAnimatedDefines.h"
 #import "TABAnimatedProductInterface.h"
 #import "TABAnimatedDecorateInterface.h"
-#import "TABAnimatedDarkModeManagerInterface.h"
 #import "TABAnimatedDarkModeInterface.h"
-
+#import "TABAnimatedDarkModeManagerInterface.h"
 #import "TABComponentLayerSerializationInterface.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -125,7 +124,6 @@ FOUNDATION_EXPORT NSString *tab_NSStringFromClass(Class aClass);
 #pragma mark - DEPRECATED
 
 typedef void(^TABAnimatedCategoryBlock)(UIView *view);
-
 @property (nonatomic, assign) BOOL isNest DEPRECATED_MSG_ATTRIBUTE("该属性在v2.4.4被弃用，请使用`containNestAnimation`取代");
 
 @property (nonatomic, assign) CGFloat dropAnimationDuration DEPRECATED_MSG_ATTRIBUTE("该属性在v2.2.5被弃用，请使用`TABDropAnimation`取代");

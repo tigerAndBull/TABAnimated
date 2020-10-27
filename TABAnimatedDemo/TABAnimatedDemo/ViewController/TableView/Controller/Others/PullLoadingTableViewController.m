@@ -86,8 +86,8 @@
 - (void)_addData {
     for (int i = 0; i < pageCount; i ++) {
         Game *game = [[Game alloc]init];
-        game.gameId = [NSString stringWithFormat:@"%ld",i+pageIndex*pageCount];
-        game.title = [NSString stringWithFormat:@"这里是测试数据%ld",i+1+pageIndex*pageCount];
+        game.gameId = [NSString stringWithFormat:@"%ld",(long)(i+pageIndex*pageCount)];
+        game.title = [NSString stringWithFormat:@"这里是测试数据%ld",(long)(i+1+pageIndex*pageCount)];
         game.cover = @"test.jpg";
         [dataArray addObject:game];
     }

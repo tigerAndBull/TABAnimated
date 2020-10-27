@@ -182,6 +182,8 @@
 
 #pragma mark - Private
 
+// 生产/自生产 加工 缓存
+
 - (void)_recoveryProductStatus {
     _weakTargetViewArray = [NSPointerArray weakObjectsPointerArray];
     _productIndex = 0;
@@ -472,7 +474,8 @@
 - (BOOL)_cannotBeCreated:(UIView *)view superView:(UIView *)superView {
     
     if ([view isKindOfClass:[NSClassFromString(@"UITableViewCellContentView") class]] ||
-        [view isKindOfClass:[NSClassFromString(@"UICollectionViewCellContentView") class]]  ||
+        [view isKindOfClass:[NSClassFromString(@"UICollectionViewCellContentView") class]] ||
+        [view isKindOfClass:[NSClassFromString(@"_UISystemBackgroundView") class]] ||
         [view isKindOfClass:[NSClassFromString(@"_UITableViewHeaderFooterViewBackground") class]]) {
         return YES;
     }

@@ -62,7 +62,7 @@
         [array addObject:@"test.jpg"];
         [self.dataArray addObject:array];
         [self.collectionView registerClass:[NestCollectionViewCell class]
-                forCellWithReuseIdentifier:[NSString stringWithFormat:@"NestCollectionViewCell %ld",i]];
+                forCellWithReuseIdentifier:[NSString stringWithFormat:@"NestCollectionViewCell %ld",(long)i]];
     }
     [self.collectionView tab_endAnimationEaseOut];
 }

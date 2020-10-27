@@ -23,8 +23,6 @@ typedef NS_ENUM(NSInteger, TABViewAnimationStyle) {
 
     // 可以开启动画
     TABViewAnimationStart,
-    
-    TABViewAnimationStartMoreAnimation,
 
     // 动画加载完毕
     TABViewAnimationRunning,
