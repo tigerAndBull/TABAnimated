@@ -1978,7 +1978,7 @@
 					"-Xlinker",
 					"-interposable",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.tigerAndBull.TABAnimated2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tigerAndBull.TABAnimated;
 				PRODUCT_NAME = TABAnimated;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -2013,7 +2013,7 @@
 					"-Xlinker",
 					"-interposable",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.tigerAndBull.TABAnimated2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tigerAndBull.TABAnimated;
 				PRODUCT_NAME = TABAnimated;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
