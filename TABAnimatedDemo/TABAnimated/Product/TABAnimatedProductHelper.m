@@ -15,9 +15,8 @@
 #import "UIView+TABControlModel.h"
 #import "UIView+TABControlAnimation.h"
 
-static NSString * const kShortDataString = @"                ";
-static NSString * const kLongDataString = @"                                                ";
-static NSString * const kTagDefaultFontName = @"HiraKakuProN-W3";
+static NSString * const kShortFillString = @"                "; // 16
+static NSString * const kLongFillString = @"                                                "; // 48
 
 static const CGFloat kTagDefaultFontSize = 12.f;
 static const CGFloat kTagLabelHeight = 20.f;
@@ -58,15 +57,15 @@ static const CGFloat kTagLabelMinWidth = 15.f;
             UILabel *lab = (UILabel *)subV;
             if (lab.text == nil || [lab.text isEqualToString:@""]) {
                 if (lab.numberOfLines == 1) {
-                    lab.text = kShortDataString;
+                    lab.text = kShortFillString;
                 }else {
-                    lab.text = kLongDataString;
+                    lab.text = kLongFillString;
                 }
             }
         }else if ([subV isKindOfClass:[UIButton class]]) {
             UIButton *btn = (UIButton *)subV;
             if (btn.titleLabel.text == nil && btn.imageView.image == nil) {
-                [btn setTitle:kShortDataString forState:UIControlStateNormal];
+                [btn setTitle:kShortFillString forState:UIControlStateNormal];
             }
         }
     }
@@ -87,14 +86,12 @@ static const CGFloat kTagLabelMinWidth = 15.f;
         
         if ([subV isKindOfClass:[UILabel class]]) {
             UILabel *lab = (UILabel *)subV;
-            if ([lab.text isEqualToString:kLongDataString] ||
-                [lab.text isEqualToString:kShortDataString]) {
+            if ([lab.text isEqualToString:kLongFillString] || [lab.text isEqualToString:kShortFillString]) {
                 lab.text = @"";
             }
         }else if ([subV isKindOfClass:[UIButton class]]) {
             UIButton *btn = (UIButton *)subV;
-            if ([btn.titleLabel.text isEqualToString:kLongDataString] ||
-                [btn.titleLabel.text isEqualToString:kShortDataString]) {
+            if ([btn.titleLabel.text isEqualToString:kLongFillString] || [btn.titleLabel.text isEqualToString:kShortFillString]) {
                 [btn setTitle:@"" forState:UIControlStateNormal];
             }
         }
@@ -136,6 +133,8 @@ static const CGFloat kTagLabelMinWidth = 15.f;
     if (production.backgroundLayer.frame.size.height == 0. && view.layer.bounds.size.height > 0.) {
         production.backgroundLayer.frame = view.layer.bounds;
     }
+
+    view.layer.cornerRadius = production.backgroundLayer.cornerRadius;
     [view.layer addSublayer:production.backgroundLayer];
     for (NSInteger i = 0; i < production.layers.count; i++) {
         TABComponentLayer *layer = production.layers[i];
@@ -150,7 +149,6 @@ static const CGFloat kTagLabelMinWidth = 15.f;
     TABViewAnimated *tabAnimated = controlView.tabAnimated;
     
     UIColor *animatedBackgroundColor = [tabAnimated getCurrentAnimatedBackgroundColorWithCollection:controlView.traitCollection];
-
     TABComponentLayer *backgroundLayer = TABComponentLayer.new;
     
     if (tabAnimated.animatedBackViewCornerRadius > 0) {
@@ -198,14 +196,14 @@ static const CGFloat kTagLabelMinWidth = 15.f;
         textLayer.frame = CGRectMake(0, layer.frame.size.height/2.0, width, kTagLabelHeight);
     }
     textLayer.contentsScale = ([[UIScreen mainScreen] scale] > 3.0) ? [[UIScreen mainScreen] scale]:3.0;
-    textLayer.font = (__bridge CFTypeRef)(kTagDefaultFontName);
     textLayer.fontSize = kTagDefaultFontSize;
     textLayer.alignmentMode = kCAAlignmentRight;
     textLayer.foregroundColor = UIColor.redColor.CGColor;
     [layer addSublayer:textLayer];
 }
 
-+ (NSString *)getKeyWithControllerName:(NSString *)controllerName targetClass:(Class)targetClass frame:(CGRect)frame {
++ (nullable NSString *)getKeyWithControllerName:(NSString *)controllerName targetClass:(Class)targetClass frame:(CGRect)frame {
+    if (!controllerName) return nil;
     NSString *classString = tab_NSStringFromClass(targetClass);
     return [NSString stringWithFormat:@"%@_%@_%.2f_%.2f_%.2f_%.2f", controllerName, classString, frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
 }

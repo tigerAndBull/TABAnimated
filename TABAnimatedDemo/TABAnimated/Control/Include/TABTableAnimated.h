@@ -29,7 +29,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSArray <NSNumber *> *cellHeightArray;
 
 /**
- 用于section为1时，设置对应的row数量
+ section为1时，设置对应的row数量
+ 多section时，统一设置所有section的row数量
  */
 @property (nonatomic, assign) NSInteger animatedCount;
 

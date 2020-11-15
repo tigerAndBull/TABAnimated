@@ -97,15 +97,14 @@
             if (temp == arg) continue;
             if(arg < 0) continue;
             if (arg > 1000) break;
-            
-            if (arg < weakSelf.components.count) {
+            if (arg >= weakSelf.components.count) {
 #ifdef DEBUG
-                NSAssert(NO, @"如果运行到此断言，请取消使用该方法，使用单个获取的方式");
+                NSAssert(NO, @"如果运行到此断言，先检查是否调用了超过数组下标的index。若是确定没有，请取消使用该方法，使用单个获取的方式");
 #else
                 break;
 #endif
             }
-
+            
             [resultArray addObject:weakSelf.components[arg]];
             temp = arg;
         }while ((arg = va_arg(args, NSInteger)));

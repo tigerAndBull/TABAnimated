@@ -18,4 +18,8 @@
     [view.layer addAnimation:animation forKey:@"animation"];
 }
 
++ (NSString *)appVersion {
+    return [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+}
+
 @end

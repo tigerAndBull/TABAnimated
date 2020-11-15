@@ -370,37 +370,37 @@ NSString * const TABViewAnimatedFooterPrefixString = @"tab_footer_";
 
 - (NSInteger)tab_numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     
-    if (collectionView.tabAnimated.state != TABViewAnimationStart) {
+    TABCollectionAnimated *tabAnimated = collectionView.tabAnimated;
+    if (tabAnimated.state != TABViewAnimationStart) {
         return [self tab_numberOfSectionsInCollectionView:collectionView];
     }
     
-    NSInteger count;
-    if (collectionView.tabAnimated.animatedSectionCount > 0) {
-        return collectionView.tabAnimated.animatedSectionCount;
+    if (tabAnimated.runMode == TABAnimatedRunBySection && tabAnimated.animatedSectionCount > 0) {
+        return tabAnimated.animatedSectionCount;
     }
     
-    count = [self tab_numberOfSectionsInCollectionView:collectionView];
-    if (count == 0) {
-        count = collectionView.tabAnimated.cellClassArray.count;
-    }
+    NSInteger count = [self tab_numberOfSectionsInCollectionView:collectionView];
+    if (count == 0) count = tabAnimated.cellClassArray.count;
     if (count == 0) return 1;
     return count;
 }
 
 - (NSInteger)tab_collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    
     TABCollectionAnimated *tabAnimated = collectionView.tabAnimated;
-    if (tabAnimated.state != TABViewAnimationStart || tabAnimated.runMode == TABAnimatedRunByRow) {
+    if (tabAnimated.state != TABViewAnimationStart) {
         return [self tab_collectionView:collectionView numberOfItemsInSection:section];
     }
     
-    if (tabAnimated.animatedCount > 0) {
-        return tabAnimated.animatedCount;
+    NSInteger originCount = [self tab_collectionView:collectionView numberOfItemsInSection:section];
+    if (tabAnimated.runMode == TABAnimatedRunByRow) {
+        if (tabAnimated.animatedCount > 0) return tabAnimated.animatedCount;
+        return originCount > 0 ? originCount : tabAnimated.cellClassArray.count;
     }
     
+    if (tabAnimated.animatedCount > 0) return tabAnimated.animatedCount;
     NSInteger index = [tabAnimated getIndexWithIndex:section];
-    if (index < 0) {
-        return [self tab_collectionView:collectionView numberOfItemsInSection:section];
-    }
+    if (index < 0) return originCount > 0 ? originCount : 1;
     return [tabAnimated.cellCountArray[index] integerValue];
 }
 
@@ -429,7 +429,6 @@ NSString * const TABViewAnimatedFooterPrefixString = @"tab_footer_";
     }
 
     Class currentClass = tabAnimated.cellClassArray[index];
-    // 启动加工层
     UICollectionViewCell *cell = [tabAnimated.producter productWithControlView:collectionView currentClass:currentClass indexPath:indexPath origin:TABAnimatedProductOriginCollectionViewCell];
     return cell;
 }

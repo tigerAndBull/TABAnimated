@@ -72,6 +72,9 @@
 		681567362264214F00293AB4 /* JXCategoryBaseCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6815670D2264214F00293AB4 /* JXCategoryBaseCellModel.m */; };
 		681DBF0022F879ED002176E8 /* TableDynamicSectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 681DBEF822F879EC002176E8 /* TableDynamicSectionViewController.m */; };
 		681DBF0222F879ED002176E8 /* TestCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 681DBEFD22F879EC002176E8 /* TestCollectionViewController.m */; };
+		683C4CC2255FD401008DFD62 /* GradientButtonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 683C4CC1255FD401008DFD62 /* GradientButtonViewController.m */; };
+		683C4CC7255FDE71008DFD62 /* UIImage+Gradient.m in Sources */ = {isa = PBXBuildFile; fileRef = 683C4CC4255FDE71008DFD62 /* UIImage+Gradient.m */; };
+		683C4CC8255FDE71008DFD62 /* UIButton+Gradient.m in Sources */ = {isa = PBXBuildFile; fileRef = 683C4CC5255FDE71008DFD62 /* UIButton+Gradient.m */; };
 		6843006E235F775700CD19CE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6843006D235F775700CD19CE /* LaunchScreen.storyboard */; };
 		68589C1E23431CC800E8E630 /* BaseDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68589C1D23431CC800E8E630 /* BaseDemoViewController.m */; };
 		68589C2E23431F6500E8E630 /* TestBaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 68589C2B23431F6500E8E630 /* TestBaseModel.m */; };
@@ -339,6 +342,12 @@
 		683420BC233CC5330056557C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		683420BE233CC53A0056557C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		683420C0233CC5440056557C /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		683C4CC0255FD401008DFD62 /* GradientButtonViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GradientButtonViewController.h; sourceTree = "<group>"; };
+		683C4CC1255FD401008DFD62 /* GradientButtonViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GradientButtonViewController.m; sourceTree = "<group>"; };
+		683C4CC3255FDE71008DFD62 /* UIButton+Gradient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Gradient.h"; sourceTree = "<group>"; };
+		683C4CC4255FDE71008DFD62 /* UIImage+Gradient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Gradient.m"; sourceTree = "<group>"; };
+		683C4CC5255FDE71008DFD62 /* UIButton+Gradient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Gradient.m"; sourceTree = "<group>"; };
+		683C4CC6255FDE71008DFD62 /* UIImage+Gradient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Gradient.h"; sourceTree = "<group>"; };
 		6843006D235F775700CD19CE /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		68589C1C23431CC800E8E630 /* BaseDemoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseDemoViewController.h; sourceTree = "<group>"; };
 		68589C1D23431CC800E8E630 /* BaseDemoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseDemoViewController.m; sourceTree = "<group>"; };
@@ -1154,6 +1163,10 @@
 		68B045E922BC891C006FED14 /* Third */ = {
 			isa = PBXGroup;
 			children = (
+				683C4CC3255FDE71008DFD62 /* UIButton+Gradient.h */,
+				683C4CC5255FDE71008DFD62 /* UIButton+Gradient.m */,
+				683C4CC6255FDE71008DFD62 /* UIImage+Gradient.h */,
+				683C4CC4255FDE71008DFD62 /* UIImage+Gradient.m */,
 				68C17171245DD563004FD76F /* AlertView */,
 				68A652D9235F732100D12ADC /* Masonry */,
 				681566AF2264214F00293AB4 /* JXCategoryView */,
@@ -1278,6 +1291,8 @@
 				20E72D7C2226EEBB00E781C9 /* ViewExampleViewController.m */,
 				68D20756228BE7A400B32CD1 /* DoubanNormalViewController.h */,
 				68D20757228BE7A400B32CD1 /* DoubanNormalViewController.m */,
+				683C4CC0255FD401008DFD62 /* GradientButtonViewController.h */,
+				683C4CC1255FD401008DFD62 /* GradientButtonViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1659,6 +1674,7 @@
 				681567272264214F00293AB4 /* JXCategoryImageView.m in Sources */,
 				68C17170245DD230004FD76F /* TABAnimatedControllerUIImpl.m in Sources */,
 				688A37E224893B3D00A76894 /* TABAnimatedDocumentMethod.m in Sources */,
+				683C4CC2255FD401008DFD62 /* GradientButtonViewController.m in Sources */,
 				681567152264214F00293AB4 /* JXCategoryIndicatorRainbowLineView.m in Sources */,
 				688A380B24893B3E00A76894 /* TABFormAnimated.m in Sources */,
 				680641182279712200D79040 /* News.m in Sources */,
@@ -1735,6 +1751,7 @@
 				688A37FD24893B3E00A76894 /* NSArray+TABAnimatedChain.m in Sources */,
 				68A652FD235F732100D12ADC /* MASViewAttribute.m in Sources */,
 				68C171BA2461A095004FD76F /* NestTableViewController.m in Sources */,
+				683C4CC8255FDE71008DFD62 /* UIButton+Gradient.m in Sources */,
 				688A37E524893B3D00A76894 /* TABWeakDelegateManager.m in Sources */,
 				68958D542274AA40002C4295 /* CardViewController.m in Sources */,
 				68C35F58249E6D8F00A34D22 /* TABShimmerAnimationImpl.m in Sources */,
@@ -1763,6 +1780,7 @@
 				68B7A9252344669A0099EC81 /* BaseOptionViewController.m in Sources */,
 				6815672F2264214F00293AB4 /* JXCategoryCollectionView.m in Sources */,
 				681567352264214F00293AB4 /* JXCategoryBaseCell.m in Sources */,
+				683C4CC7255FDE71008DFD62 /* UIImage+Gradient.m in Sources */,
 				6806411522796E2C00D79040 /* NewsCollectionViewCell.m in Sources */,
 				681567252264214F00293AB4 /* JXCategoryTitleCell.m in Sources */,
 				688A380824893B3E00A76894 /* TABViewAnimated.m in Sources */,

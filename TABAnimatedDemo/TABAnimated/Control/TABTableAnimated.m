@@ -180,20 +180,15 @@
 }
 
 - (CGFloat)cellHeight {
-    if (self.cellHeightArray.count == 1) {
-        return [self.cellHeightArray[0] floatValue];
-    }
-    return 44;
+    return (self.cellHeightArray.count == 1) ? [self.cellHeightArray[0] floatValue] : 44;
 }
 
 #pragma mark - Public Method
 
 - (void)addHeaderViewClass:(__nonnull Class)headerViewClass
                 viewHeight:(CGFloat)viewHeight {
-    if (self.animatedSectionCount > 0) {
-        for (NSInteger i = 0; i < self.animatedSectionCount; i++) {
-            [self addHeaderViewClass:headerViewClass viewHeight:viewHeight toSection:i];
-        }
+    for (NSInteger i = 0; i < self.animatedSectionCount; i++) {
+        [self addHeaderViewClass:headerViewClass viewHeight:viewHeight toSection:i];
     }
 }
 
@@ -207,10 +202,8 @@
 
 - (void)addFooterViewClass:(__nonnull Class)footerViewClass
                 viewHeight:(CGFloat)viewHeight {
-    if (self.animatedSectionCount > 0) {
-        for (NSInteger i = 0; i < self.animatedSectionCount; i++) {
-            [self addFooterViewClass:footerViewClass viewHeight:viewHeight toSection:i];
-        }
+    for (NSInteger i = 0; i < self.animatedSectionCount; i++) {
+        [self addFooterViewClass:footerViewClass viewHeight:viewHeight toSection:i];
     }
 }
 
@@ -265,19 +258,17 @@
 }
 
 - (void)exchangeDelegate:(UIView *)target {
-    if (!self.isExhangeDelegateIMP) {
-        id <UITableViewDelegate> delegate = ((UITableView *)target).delegate;
-        [self exchangeDelegateMethods:delegate target:target];
-        self.isExhangeDelegateIMP = YES;
-    }
+    if (self.isExhangeDelegateIMP) return;
+    id <UITableViewDelegate> delegate = ((UITableView *)target).delegate;
+    [self exchangeDelegateMethods:delegate target:target];
+    self.isExhangeDelegateIMP = YES;
 }
 
 - (void)exchangeDataSource:(UIView *)target {
-    if (!self.isExhangeDataSourceIMP) {
-        id <UITableViewDataSource> dataSource = ((UITableView *)target).dataSource;
-        [self exchangeDataSourceMethods:dataSource target:target];
-        self.isExhangeDataSourceIMP = YES;
-    }
+    if(self.isExhangeDataSourceIMP) return;
+    id <UITableViewDataSource> dataSource = ((UITableView *)target).dataSource;
+    [self exchangeDataSourceMethods:dataSource target:target];
+    self.isExhangeDataSourceIMP = YES;
 }
 
 - (void)registerViewToReuse:(UIView *)view {
@@ -428,15 +419,13 @@
     if (tableView.tabAnimated.state != TABViewAnimationStart) {
         return [self tab_numberOfSectionsInTableView:tableView];
     }
-
-    if (tabAnimated.animatedSectionCount > 0) {
+    
+    if (tabAnimated.runMode == TABAnimatedRunBySection && tabAnimated.animatedSectionCount > 0) {
         return tabAnimated.animatedSectionCount;
     }
     
     NSInteger count = [self tab_numberOfSectionsInTableView:tableView];
-    if (count == 0) {
-        count = tabAnimated.cellClassArray.count;
-    }
+    if (count == 0) count = tabAnimated.cellClassArray.count;
     if (count == 0) return 1;
     return count;
 }
@@ -444,18 +433,19 @@
 - (NSInteger)tab_tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
     TABTableAnimated *tabAnimated = tableView.tabAnimated;
-    if (tableView.tabAnimated.state != TABViewAnimationStart || tabAnimated.runMode == TABAnimatedRunByRow) {
+    if (tableView.tabAnimated.state != TABViewAnimationStart) {
         return [self tab_tableView:tableView numberOfRowsInSection:section];
     }
     
-    if (tabAnimated.animatedCount > 0) {
-        return tabAnimated.animatedCount;
+    NSInteger originCount = [self tab_tableView:tableView numberOfRowsInSection:section];
+    if (tabAnimated.runMode == TABAnimatedRunByRow) {
+        if (tabAnimated.animatedCount > 0) return tabAnimated.animatedCount;
+        return originCount > 0 ? originCount : tabAnimated.cellClassArray.count;
     }
-    
+
+    if (tabAnimated.animatedCount > 0) return tabAnimated.animatedCount;
     NSInteger index = [tabAnimated getIndexWithIndex:section];
-    if (index < 0) {
-        return [self tab_tableView:tableView numberOfRowsInSection:section];
-    }
+    if (index < 0) return originCount > 0 ? originCount : 1;
     return [tabAnimated.cellCountArray[index] integerValue];
 }
 
@@ -486,7 +476,6 @@
     }
     
     Class currentClass = tabAnimated.cellClassArray[index];
-    // 启动加工层
     UITableViewCell *cell = [tabAnimated.producter productWithControlView:tableView currentClass:currentClass indexPath:indexPath origin:TABAnimatedProductOriginTableViewCell];
     return cell;
 }
@@ -548,7 +537,6 @@
     Class class = tableView.tabAnimated.headerClassArray[index];
     
     UIView *hfView;
-    // 启动加工层
     TABAnimatedProductOrigin origin = [class isSubclassOfClass:[UITableViewHeaderFooterView class]] ? TABAnimatedProductOriginTableHeaderFooterViewCell : TABAnimatedProductOriginTableHeaderFooterView;
     hfView = [tabAnimated.producter productWithControlView:tableView currentClass:class indexPath:nil origin:origin];
     
@@ -570,7 +558,6 @@
     Class class = tableView.tabAnimated.footerClassArray[index];
     
     UIView *hfView;
-    // 启动加工层
     TABAnimatedProductOrigin origin = [class isSubclassOfClass:[UITableViewHeaderFooterView class]] ? TABAnimatedProductOriginTableHeaderFooterViewCell : TABAnimatedProductOriginTableHeaderFooterView;
     hfView = [tabAnimated.producter productWithControlView:tableView currentClass:class indexPath:nil origin:origin];
     

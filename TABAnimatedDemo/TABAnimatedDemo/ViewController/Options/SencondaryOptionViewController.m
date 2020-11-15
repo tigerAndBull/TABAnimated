@@ -84,6 +84,7 @@
             return @[
                 kText(@"普通view"),
                 kText(@"豆瓣动画"),
+                kText(@"渐变色（框架不支持创建，支持映射）"),
             ];
             break;
     }
@@ -138,6 +139,7 @@
             return @[
                 @"ViewExampleViewController",
                 @"DoubanNormalViewController",
+                @"GradientButtonViewController",
             ];
             break;
     }

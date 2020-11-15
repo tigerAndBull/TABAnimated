@@ -62,7 +62,7 @@ NS_ASSUME_NONNULL_BEGIN
 @param targetClass 目标class
 @param frame 控制视图的frame
 */
-+ (NSString *)getKeyWithControllerName:(NSString *)controllerName targetClass:(Class)targetClass frame:(CGRect)frame;
++ (nullable NSString *)getKeyWithControllerName:(NSString *)controllerName targetClass:(Class)targetClass frame:(CGRect)frame;
     
 @end
 

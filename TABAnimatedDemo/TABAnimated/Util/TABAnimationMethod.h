@@ -27,6 +27,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (void)addEaseOutAnimation:(UIView *)view;
 
+/// 获取App版本
++ (NSString *)appVersion;
 
 @end
 

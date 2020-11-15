@@ -149,17 +149,11 @@ static const CGFloat kDefaultHeight = 16.f;
 #pragma mark -
 
 - (CGFloat)lastScale {
-    if (_lastScale == 0.) {
-        return 0.5;
-    }
-    return _lastScale;
+    return (_lastScale == 0.) ? .5 : _lastScale;
 }
 
 - (CGFloat)lineSpace {
-    if (_lineSpace == 0.) {
-        return 8.;
-    }
-    return _lineSpace;
+    return (_lineSpace == 0.) ? 8. : _lineSpace;
 }
 
 #pragma mark - NSSecureCoding
@@ -188,6 +182,17 @@ static const CGFloat kDefaultHeight = 16.f;
         [aCoder encodeObject:NSStringFromClass(self.serializationImpl.class) forKey:@"serializationImpl"];
         [self.serializationImpl tab_encodeWithCoder:aCoder layer:self];
     }
+    
+    [aCoder encodeCGPoint:self.startPoint forKey:@"startPoint"];
+    [aCoder encodeCGPoint:self.endPoint forKey:@"endPoint"];
+    [aCoder encodeObject:self.locations forKey:@"loactions"];
+    NSMutableArray *colorObjectArray = @[].mutableCopy;
+    for (id color in self.colors) {
+        CGColorRef cgcolor = (__bridge CGColorRef)color;
+        [colorObjectArray addObject:[UIColor colorWithCGColor:cgcolor]];
+    }
+    [aCoder encodeObject:colorObjectArray forKey:@"colors"];
+    [aCoder encodeBool:self.masksToBounds forKey:@"masksToBounds"];
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
@@ -214,6 +219,18 @@ static const CGFloat kDefaultHeight = 16.f;
                 self.serializationImpl = serializationImplClass.new;
             }
         }
+        
+        self.startPoint = [aDecoder decodeCGPointForKey:@"startPoint"];
+        self.endPoint = [aDecoder decodeCGPointForKey:@"endPoint"];
+        self.locations = [aDecoder decodeObjectForKey:@"locations"];
+
+        NSArray *colorObjectArray = [aDecoder decodeObjectForKey:@"colors"];
+        NSMutableArray *cgcolorArray = @[].mutableCopy;
+        for (UIColor *color in colorObjectArray) {
+            [cgcolorArray addObject:(id)(color.CGColor)];
+        }
+        self.colors = cgcolorArray;
+        self.masksToBounds = [aDecoder decodeBoolForKey:@"masksToBounds"];
     }
     
     if (self.serializationImpl) {
@@ -259,6 +276,11 @@ static const CGFloat kDefaultHeight = 16.f;
         [self.serializationImpl propertyBindWithNewLayer:layer oldLayer:self];
     }
     
+    layer.startPoint = self.startPoint;
+    layer.endPoint = self.endPoint;
+    layer.locations = self.locations;
+    layer.colors = self.colors;
+    layer.masksToBounds = self.masksToBounds;
     return layer;
 }
 

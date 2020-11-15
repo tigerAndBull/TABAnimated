@@ -16,6 +16,10 @@
 #import "TABAnimatedProductHelper.h"
 #import "TABFormAnimated.h"
 
+#import "TABAnimationMethod.h"
+
+#define _safe_string(x) (x && x.length > 0)
+
 // 一级目录
 NSString * const TABCacheManagerFolderName = @"TABAnimated";
 
@@ -34,7 +38,6 @@ static const NSInteger kMemeoryModelMaxCount = 20;
 }
 
 @property (nonatomic, strong) NSRecursiveLock *lock;
-
 // 当前App版本
 @property (nonatomic, copy, readwrite) NSString *currentSystemVersion;
 // 本地的缓存
@@ -89,9 +92,9 @@ static const NSInteger kMemeoryModelMaxCount = 20;
 
 - (instancetype)init {
     if (self = [super init]) {
+        _lock = [NSRecursiveLock new];
         _cacheModelArray = @[].mutableCopy;
         _cacheManagerDict = @{}.mutableCopy;
-        _lock = [NSRecursiveLock new];
         _maxMemeoryCount = kMemeoryModelMaxCount;
     }
     return self;
@@ -100,46 +103,33 @@ static const NSInteger kMemeoryModelMaxCount = 20;
 #pragma mark - Public Methods
 
 - (void)install {
-    
     if ([TABAnimated sharedAnimated].closeCache) return;
     
-    // 获取App版本
-    NSString *currentVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
-    if (currentVersion == nil && currentVersion.length <= 0) return;
-    _currentSystemVersion = currentVersion;
+    NSString *currentVersion = [TABAnimationMethod appVersion];
+    self.currentSystemVersion = currentVersion;
     
-    NSString *modelDirPath = [self _checkFolder];
-    if (!modelDirPath) return;
-    
-    dispatch_async([self.class updateQueue], ^{
-        [self performSelector:@selector(_loadDataToMemory:)
-                     onThread:[self.class updateThread]
-                   withObject:modelDirPath
-                waitUntilDone:NO];
-    });
+    NSString *modelDirPath = [self _getFolderPath];
+    [self _startLoadData:modelDirPath];
 }
 
 - (void)cacheProduction:(TABAnimatedProduction *)production {
-    if ([TABAnimated sharedAnimated].closeCache) return;
-    if (production == nil || production.fileName == nil || production.fileName.length == 0) return;
-    if (_currentSystemVersion == nil || _currentSystemVersion.length == 0) return;
-    
+    if (![self _canCacheProduction:production]) return;
     __weak typeof(self) weakSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
-        __strong typeof(weakSelf) self = weakSelf;
-        [self.lock lock];
-        production.version = self.currentSystemVersion.copy;
-        [self.cacheManagerDict setObject:production forKey:production.fileName];
+        __strong typeof(weakSelf) strongSelf = weakSelf;
+        [strongSelf.lock lock];
+        production.version = strongSelf.currentSystemVersion.copy;
+        [strongSelf.cacheManagerDict setObject:production forKey:production.fileName];
 
         TABAnimatedCacheModel *cacheModel = TABAnimatedCacheModel.new;
         cacheModel.fileName = production.fileName;
-        [self.cacheModelArray addObject:cacheModel];
-        [self.lock unlock];
+        [strongSelf.cacheModelArray addObject:cacheModel];
+        [strongSelf.lock unlock];
 
         NSArray *writeArray = @[cacheModel, production];
-        dispatch_async([self.class updateQueue], ^{
-            [self performSelector:@selector(didReceiveWriteRequest:)
-                         onThread:[self.class updateThread]
+        dispatch_async([strongSelf.class updateQueue], ^{
+            [strongSelf performSelector:@selector(didReceiveWriteRequest:)
+                         onThread:[strongSelf.class updateThread]
                        withObject:writeArray
                     waitUntilDone:NO];
         });
@@ -147,40 +137,16 @@ static const NSInteger kMemeoryModelMaxCount = 20;
 }
 
 - (nullable TABAnimatedProduction *)getProductionWithKey:(NSString *)key {
-    
-    if ([TABAnimated sharedAnimated].closeCache) return nil;
-
-    // 从内存中查找
+    if ([TABAnimated sharedAnimated].closeCache || !key) return nil;
     TABAnimatedProduction *production;
-    production = [self.cacheManagerDict objectForKey:key];
-    if (production) {
-        if (![self _judgeIsNeedUpdateWithProduction:production]) {
-            return production.copy;
-        }
-        return nil;
-    }
-
-    // 从沙盒中读取，并存储到内存中
-    NSString *filePath = [self _getCacheProductionFilePathWithFileName:key];
-    if (filePath != nil && filePath.length > 0) {
-        TABAnimatedProduction *production = (TABAnimatedProduction *)[TABAnimatedDocumentMethod getCacheData:filePath targetClass:[TABAnimatedProduction class]];
-        if (production) {
-            if (![self _judgeIsNeedUpdateWithProduction:production]) {
-                [self.cacheManagerDict setObject:production.copy forKey:production.fileName];
-                return production.copy;
-            }else {
-                return nil;
-            }
-        }else {
-            return nil;
-        }
-    }
-    return nil;
+    production = [self _getProductionInMemoryWithKey:key];
+    if (production) return production;
+    production = [self _getProductionInDiskWithKey:key];
+    return production;
 }
 
 - (void)updateCacheModelLoadCountWithFormAnimated:(TABFormAnimated *)viewAnimated frame:(CGRect)frame {
-    if ([TABAnimated sharedAnimated].closeCache) return;
-    if (viewAnimated == nil) return;
+    if ([TABAnimated sharedAnimated].closeCache || viewAnimated == nil) return;
     dispatch_async(dispatch_get_main_queue(), ^{
         NSString *controllerName = viewAnimated.targetControllerClassName;
         for (Class class in viewAnimated.cellClassArray) {
@@ -201,25 +167,29 @@ static const NSInteger kMemeoryModelMaxCount = 20;
 
 #pragma mark - Private Method
 
-- (void)_loadDataToMemory:(NSString *)modelDirPath {
+- (void)_startLoadData:(NSString *)modelDirPath {
+    if (!_safe_string(modelDirPath)) return;
+    dispatch_async([self.class updateQueue], ^{
+        [self performSelector:@selector(_loadDataToMemory:)
+                     onThread:[self.class updateThread]
+                   withObject:modelDirPath
+                waitUntilDone:NO];
+    });
+}
 
-    if (modelDirPath == nil || modelDirPath.length == 0) return;
-    
+- (void)_loadDataToMemory:(NSString *)modelDirPath {
     NSError *error;
     NSArray <NSString *> *fileNameArray =
     [[NSFileManager defaultManager] contentsOfDirectoryAtPath:modelDirPath error:&error];
     
-    if (error) return;
+    if (error || fileNameArray.count == 0) return;
     
     @autoreleasepool {
         
         NSMutableArray *cacheModelArray = @[].mutableCopy;
         for (NSString *fileName in fileNameArray) {
-            
             NSString *resultFilePath = [self _getCacheModelFilePathWithFileName:fileName];
-
             [_lock lock];
-            
             TABAnimatedCacheModel *model =
             (TABAnimatedCacheModel *)[TABAnimatedDocumentMethod
                                            getCacheData:resultFilePath
@@ -227,12 +197,10 @@ static const NSInteger kMemeoryModelMaxCount = 20;
             if (model) {
                 [cacheModelArray addObject:model];
             }
-            
             [_lock unlock];
         }
         
         [_lock lock];
-        
         _cacheModelArray = [NSMutableArray arrayWithArray:[cacheModelArray sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
             TABAnimatedCacheModel *model1 = obj1;
             TABAnimatedCacheModel *model2 = obj2;
@@ -242,7 +210,6 @@ static const NSInteger kMemeoryModelMaxCount = 20;
                 return NSOrderedDescending;
             }
         }]];
-
         [_lock unlock];
         
         if (_cacheModelArray == nil || _cacheModelArray.count == 0) return;
@@ -251,16 +218,13 @@ static const NSInteger kMemeoryModelMaxCount = 20;
         for (NSInteger i = 0; i < maxCount; i++) {
             
             [_lock lock];
-            
             TABAnimatedCacheModel *model = _cacheModelArray[i];
             NSString *filePath = [self _getCacheProductionFilePathWithFileName:model.fileName];
             
             TABAnimatedProduction *production =
             (TABAnimatedProduction *)[TABAnimatedDocumentMethod getCacheData:filePath
                                                                  targetClass:[TABAnimatedProduction class]];
-            if (production &&
-                production.fileName &&
-                production.fileName.length > 0) {
+            if (production && production.fileName && production.fileName.length > 0) {
                 [_cacheManagerDict setObject:production.copy forKey:production.fileName];
             }
             [_lock unlock];
@@ -273,7 +237,7 @@ static const NSInteger kMemeoryModelMaxCount = 20;
                                      frame:(CGRect)frame {
     if (!class) return;
     NSString *fileName = [TABAnimatedProductHelper getKeyWithControllerName:controllerName targetClass:class frame:frame];
-    if (!fileName) return;
+    if (!_safe_string(fileName)) return;
     dispatch_async([self.class updateQueue], ^{
         [self performSelector:@selector(updateCacheModelLoadCountWithTargetFileName:)
                      onThread:[self.class updateThread]
@@ -315,23 +279,23 @@ static const NSInteger kMemeoryModelMaxCount = 20;
     
     if (array == nil || array.count != 2) return;
     
-    [_lock lock];
     TABAnimatedCacheModel *cacheModel = array[0];
     TABAnimatedProduction *production = array[1];
     if (production && cacheModel) {
+        [_lock lock];
         NSString *managerFilePath = [self _getCacheProductionFilePathWithFileName:production.fileName];
         [TABAnimatedDocumentMethod writeToFileWithData:production
                                               filePath:managerFilePath];
         NSString *modelFilePath = [self _getCacheModelFilePathWithFileName:production.fileName];
         [TABAnimatedDocumentMethod writeToFileWithData:cacheModel
                                               filePath:modelFilePath];
+        [_lock unlock];
     }
-    [_lock unlock];
 }
 
 #pragma mark -
 
-- (NSString *)_checkFolder {
+- (NSString *)_getFolderPath {
     
     BOOL isSuccess = YES;
     
@@ -377,15 +341,38 @@ static const NSInteger kMemeoryModelMaxCount = 20;
     return [TABAnimatedDocumentMethod getPathByFilePacketName:[NSString stringWithFormat:@"/%@/%@/%@.plist",TABCacheManagerFolderName,TABCacheManagerCacheModelFolderName,fileName]];
 }
 
-- (BOOL)_judgeIsNeedUpdateWithProduction:(TABAnimatedProduction *)production {
+- (BOOL)_judgeProdcutionIsNeedUpdate:(TABAnimatedProduction *)production {
     if (production.version && production.version.length > 0 &&
         [TABAnimatedCacheManager shareManager].currentSystemVersion &&
         [TABAnimatedCacheManager shareManager].currentSystemVersion.length > 0) {
         if ([production.version isEqualToString:[TABAnimatedCacheManager shareManager].currentSystemVersion]) {
             return NO;
         }
-        return YES;
     }
+    return YES;
+}
+
+- (nullable TABAnimatedProduction *)_getProductionInMemoryWithKey:(NSString *)key {
+    TABAnimatedProduction *production;
+    production = [self.cacheManagerDict objectForKey:key];
+    if (!production || [self _judgeProdcutionIsNeedUpdate:production]) return nil;
+    return production.copy;
+}
+
+- (nullable TABAnimatedProduction *)_getProductionInDiskWithKey:(NSString *)key {
+    NSString *filePath = [self _getCacheProductionFilePathWithFileName:key];
+    if (!_safe_string(filePath)) return nil;
+    
+    TABAnimatedProduction *production = (TABAnimatedProduction *)[TABAnimatedDocumentMethod getCacheData:filePath targetClass:[TABAnimatedProduction class]];
+    if (!production || [self _judgeProdcutionIsNeedUpdate:production]) return nil;
+    [self.cacheManagerDict setObject:production.copy forKey:production.fileName];
+    return production.copy;
+}
+ 
+- (BOOL)_canCacheProduction:(TABAnimatedProduction *)production {
+    if ([TABAnimated sharedAnimated].closeCache) return NO;
+    if (production == nil || production.fileName == nil || production.fileName.length == 0) return NO;
+    if (_currentSystemVersion == nil || _currentSystemVersion.length == 0) return NO;
     return YES;
 }
 

@@ -62,9 +62,7 @@ const int TABAnimatedIndexTag = -100000;
     
     TABViewAnimated *tabAnimated = self.tabAnimated;
     if (tabAnimated == nil || (tabAnimated.state == TABViewAnimationEnd && !tabAnimated.canLoadAgain)) {
-        if (completion) {
-            completion();
-        }
+        if (completion) completion();
         return;
     }
     

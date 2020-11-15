@@ -234,7 +234,7 @@ typedef NS_ENUM(NSInteger, TABAnimationType) {
  */
 - (void)initWithShimmerAnimatedDuration:(CGFloat)duration withColor:(UIColor *)color;
 
-#pragma mark -
+#pragma mark - Deprecated
 
 @property (nonatomic, assign) CGFloat animatedDuration;
 @property (nonatomic, assign) CGFloat longToValue;

@@ -114,12 +114,11 @@
                                             cellSize:[CardCollectionViewCell cellSize]];
         _collectionView.tabAnimated.superAnimationType = TABViewSuperAnimationTypeDrop;
         _collectionView.tabAnimated.animatedHeight = 6.0;
-        _collectionView.tabAnimated.cancelGlobalCornerRadius = YES;
         _collectionView.tabAnimated.animatedColor = kColor(0xF3F3F3FF);
-        _collectionView.tabAnimated.animatedBackViewCornerRadius = 5.;
-        
+//        _collectionView.tabAnimated.animatedBackViewCornerRadius = 10.;
 //        _collectionView.tabAnimated.dropAnimationDuration = 0.34;
 //        _collectionView.tabAnimated.dropAnimationDeepColor = kColor(0xEBEBEBFF);
+//        _collectionView.tabAnimated.cancelGlobalCornerRadius = YES;
 
         _collectionView.tabAnimated.adjustBlock = ^(TABComponentManager * _Nonnull manager) {
             // 一旦豆瓣动画队列中 其中一个元素的dropIndex被修改了，那么其他元素大概率需要重新设置

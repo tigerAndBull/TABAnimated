@@ -90,7 +90,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 40;
+    return 50;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
@@ -135,20 +135,20 @@
 
 - (UITableView *)tableView {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:UITableViewStyleGrouped];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:UITableViewStylePlain];
         _tableView.delegate = self;
         _tableView.dataSource = self;
-        _tableView.rowHeight = 100;
+        _tableView.rowHeight = 80;
         _tableView.estimatedRowHeight = 0;
         _tableView.estimatedSectionFooterHeight = 0;
         _tableView.estimatedSectionHeaderHeight = 0;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.backgroundColor = [UIColor tab_normalDynamicBackgroundColor];
         
-        _tableView.tabAnimated = [TABTableAnimated animatedWithCellClass:[LabWithLinesViewCell class] cellHeight:100];
-        _tableView.tabAnimated.animatedSectionCount = 3;
+        _tableView.tabAnimated = [TABTableAnimated animatedWithCellClass:[LabWithLinesViewCell class] cellHeight:80];
+        _tableView.tabAnimated.animatedSectionCount = 6;
         _tableView.tabAnimated.animatedCount = 2;
-        [_tableView.tabAnimated addHeaderViewClass:[LineTableViewHeaderFooterView class] viewHeight:40];
+        [_tableView.tabAnimated addHeaderViewClass:[LineTableViewHeaderFooterView class] viewHeight:50];
         _tableView.tabAnimated.adjustWithClassBlock = ^(TABComponentManager *manager, __unsafe_unretained Class targetClass) {
             if (targetClass == LineTableViewHeaderFooterView.class) {
                 manager.animation(2).right(3).height(14).down(16).reducedWidth(30).radius(2);
