@@ -223,7 +223,7 @@ manager.animationWithIndexs(1,5,7).down(5);
 - 集成最可能用到的文档：
 
 > + [预处理回调动画元素下标问题](https://github.com/tigerAndBull/TABAnimated/blob/master/Documents/%E5%8A%A8%E7%94%BB%E5%85%83%E7%B4%A0%E4%B8%8B%E6%A0%87%E9%97%AE%E9%A2%98.md)
-> + [问题答疑文档](https://github.com/tigerAndBull/TABAnimated/blob/master/Documents/%E9%97%AE%E9%A2%98%E7%AD%94%E7%96%91%E6%96%87%E6%A1%A3.md)
+> + [问题答疑文档](https://github.com/tigerAndBull/TABAnimated/blob/master/Documents/%E9%97%AE%E9%A2%98%E7%AD%94%E7%96%91%E6%96%87%E6%A1%A3.md)、[版本信息记录文档](https://github.com/tigerAndBull/TABAnimated/blob/master/Documents/%E5%8D%87%E7%BA%A7%E6%96%87%E6%A1%A3%E5%92%8C%E5%85%B6%E4%BB%96%E4%BF%AE%E5%A4%8D.md)
 > + [全局:局部属性、链式语法api](https://github.com/tigerAndBull/TABAnimated/blob/master/Documents/%E5%85%A8%E5%B1%80:%E5%B1%80%E9%83%A8%E5%B1%9E%E6%80%A7%E3%80%81%E9%93%BE%E5%BC%8F%E8%AF%AD%E6%B3%95api.md)
 
 - 可能用到的其他技术文档
