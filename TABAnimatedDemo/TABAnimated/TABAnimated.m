@@ -37,7 +37,6 @@
         _animatedHeightCoefficient = 0.75;
         _animatedColor = tab_kBackColor;
         _darkAnimatedColor = tab_kDarkBackColor;
-        _animatedBackgroundColor = UIColor.whiteColor;
         _scrollEnabled = YES;
         
         if (@available(iOS 13.0, *)) {

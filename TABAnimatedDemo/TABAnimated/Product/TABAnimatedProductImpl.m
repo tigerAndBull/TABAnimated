@@ -179,8 +179,6 @@
 
 #pragma mark - Private
 
-// 生产/自生产 加工 缓存
-
 - (void)_recoveryProductStatus {
     _weakTargetViewArray = [NSPointerArray weakObjectsPointerArray];
     _productIndex = 0;
@@ -232,13 +230,11 @@
         case TABAnimatedProductOriginTableViewCell: {
             view = [(UITableView *)controlView dequeueReusableCellWithIdentifier:identifier forIndexPath:indexPath];
             ((UITableViewCell *)view).selectionStyle = UITableViewCellSelectionStyleNone;
-            view.backgroundColor = controlView.tabAnimated.animatedBackgroundColor;
         }
             break;
             
         case TABAnimatedProductOriginCollectionViewCell: {
             view = [(UICollectionView *)controlView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
-            view.backgroundColor = controlView.tabAnimated.animatedBackgroundColor;
         }
             break;
             
@@ -246,7 +242,6 @@
             view = [(UICollectionView *)controlView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader
                                                                        withReuseIdentifier:identifier
                                                                               forIndexPath:indexPath];
-            view.backgroundColor = controlView.tabAnimated.animatedBackgroundColor;
         }
             break;
             
@@ -254,7 +249,6 @@
             view = [(UICollectionView *)controlView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter
                                                                        withReuseIdentifier:identifier
                                                                               forIndexPath:indexPath];
-            view.backgroundColor = controlView.tabAnimated.animatedBackgroundColor;
         }
             break;
             
@@ -263,7 +257,6 @@
             if (view == nil) {
                 view = [[currentClass alloc] initWithReuseIdentifier:identifier];
             }
-            view.backgroundColor = controlView.tabAnimated.animatedBackgroundColor;
         }
             break;
             
@@ -272,6 +265,11 @@
         }
             break;
     }
+    
+    if(controlView.tabAnimated.animatedBackgroundColor) {
+        view.backgroundColor = controlView.tabAnimated.animatedBackgroundColor;
+    }
+    
     return view;
 }
 

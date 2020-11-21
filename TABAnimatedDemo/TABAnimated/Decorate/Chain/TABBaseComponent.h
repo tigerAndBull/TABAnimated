@@ -166,6 +166,12 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (TABBaseComponentVoidBlock)withoutAnimation;
 
+/**
+ 删除layer的contents
+ 如果你的button有不需要的image，可以调用此接口清空image
+ */
+- (TABBaseComponentVoidBlock)removeContents;
+
 #pragma mark -
 
 /// 需要调整的元素左部 等于 传入的元素的左部

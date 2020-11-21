@@ -409,6 +409,14 @@ struct TABBaseComonentOperation {
     };
 }
 
+- (TABBaseComponentVoidBlock)removeContents {
+    __weak typeof(self) weakSelf = self;
+    return ^TABBaseComponent *(void) {
+        weakSelf.layer.contents = nil;
+        return weakSelf;
+    };
+}
+
 #pragma mark -
 
 - (TABBaseComponentCompareBlock)leftEqualTo {

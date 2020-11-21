@@ -1974,7 +1974,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2.4.5;
+				CURRENT_PROJECT_VERSION = 2.4.9;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = JGZKPAYJ7R;
 				ENABLE_BITCODE = NO;
@@ -1991,12 +1991,12 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.4.5;
+				MARKETING_VERSION = 2.4.9;
 				OTHER_LDFLAGS = (
 					"-Xlinker",
 					"-interposable",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.tigerAndBull.TABAnimated;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tigerAndBull.TABAnimated2;
 				PRODUCT_NAME = TABAnimated;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -2010,7 +2010,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2.4.5;
+				CURRENT_PROJECT_VERSION = 2.4.9;
 				DEVELOPMENT_TEAM = JGZKPAYJ7R;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2026,12 +2026,12 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.4.5;
+				MARKETING_VERSION = 2.4.9;
 				OTHER_LDFLAGS = (
 					"-Xlinker",
 					"-interposable",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.tigerAndBull.TABAnimated;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tigerAndBull.TABAnimated2;
 				PRODUCT_NAME = TABAnimated;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
