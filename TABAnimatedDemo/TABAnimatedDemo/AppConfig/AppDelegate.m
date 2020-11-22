@@ -38,11 +38,11 @@
     // release 环境下，默认开启缓存功能
 //    [TABAnimated sharedAnimated].closeCache = NO;
     
-    // 强制设置暗黑模式并查看效果
-    [TABAnimated sharedAnimated].darkModeType = TABAnimatedDarkModeForceDark;
-    if(@available(iOS 13.0,*)){
-        self.window.overrideUserInterfaceStyle = UIUserInterfaceStyleDark;
-    }
+//    // 强制设置暗黑模式并查看效果
+//    [TABAnimated sharedAnimated].darkModeType = TABAnimatedDarkModeForceDark;
+//    if(@available(iOS 13.0,*)){
+//        self.window.overrideUserInterfaceStyle = UIUserInterfaceStyleDark;
+//    }
 
     MainViewController *vc = [[MainViewController alloc] init];
     vc.title = kText(@"主页面");
