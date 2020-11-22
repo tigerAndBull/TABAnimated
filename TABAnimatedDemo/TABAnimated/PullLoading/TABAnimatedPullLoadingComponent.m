@@ -209,7 +209,7 @@ NSString *const TABAnimatedPullLoadingKeyPathPanState = @"state";
                                                                         indexPath:nil
                                                                            origin:TABAnimatedProductOriginView];
             }
-            // 执行回调
+
             if (self.actionHandler) {
                 self.actionHandler();
             }

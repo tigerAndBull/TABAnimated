@@ -32,7 +32,7 @@
     dataArray = @[].mutableCopy;
     [self.collectionView tab_startAnimation];
     
-    [self performSelector:@selector(afterGetData) withObject:nil afterDelay:5.0];
+    [self performSelector:@selector(afterGetData) withObject:nil afterDelay:TABAnimatedDemoDelayLongTime];
 }
 
 - (void)reloadViewAnimated {

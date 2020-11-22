@@ -38,6 +38,7 @@
         _animatedColor = tab_kBackColor;
         _darkAnimatedColor = tab_kDarkBackColor;
         _scrollEnabled = YES;
+        _animatedBackgroundColor = UIColor.whiteColor;
         
         if (@available(iOS 13.0, *)) {
             _darkAnimatedBackgroundColor = UIColor.secondarySystemBackgroundColor;
@@ -130,7 +131,7 @@
     return _binAnimation;
 }
 
-#pragma mark -
+#pragma mark - Deprecated
 
 - (CGFloat)animatedDuration {
     return self.classicAnimation.duration;

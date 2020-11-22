@@ -16,5 +16,7 @@
 #import "Masonry.h"
 
 #define kText(x) (NSLocalizedString(x, nil))
+static const NSTimeInterval TABAnimatedDemoDelayTime = 3.;
+static const NSTimeInterval TABAnimatedDemoDelayLongTime = 5.;
 
 #endif /* TABAnimatedDemo_pch */

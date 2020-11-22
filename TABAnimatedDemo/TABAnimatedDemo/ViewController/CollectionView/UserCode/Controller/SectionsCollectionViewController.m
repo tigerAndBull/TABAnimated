@@ -35,12 +35,12 @@ UICollectionViewDataSource
     [self initUI];
     
     // 假设3秒后，获取到数据
-    [self performSelector:@selector(afterGetData) withObject:nil afterDelay:1.];
+    [self performSelector:@selector(afterGetData) withObject:nil afterDelay:TABAnimatedDemoDelayTime];
 }
 
 - (void)reloadViewAnimated {
     [self.collectionView tab_startAnimation];
-    [self performSelector:@selector(afterGetData) withObject:nil afterDelay:1.];
+    [self performSelector:@selector(afterGetData) withObject:nil afterDelay:TABAnimatedDemoDelayTime];
 }
 
 #pragma mark - Target Methods

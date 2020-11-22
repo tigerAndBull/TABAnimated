@@ -265,11 +265,6 @@
         }
             break;
     }
-    
-    if(controlView.tabAnimated.animatedBackgroundColor) {
-        view.backgroundColor = controlView.tabAnimated.animatedBackgroundColor;
-    }
-    
     return view;
 }
 

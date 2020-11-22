@@ -2,7 +2,7 @@
 //  PullLoadingTableViewController.h
 //  TABAnimatedDemo
 //
-//  Created by 安文虎 on 2020/6/4.
+//  Created by tigerAndBull on 2020/6/4.
 //  Copyright © 2020 tigerAndBull. All rights reserved.
 //
 

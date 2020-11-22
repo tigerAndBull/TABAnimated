@@ -2,7 +2,7 @@
 //  TABAnimatedInjectionIIIHelper.m
 //  TABAnimatedDemo
 //
-//  Created by 安文虎 on 2020/7/19.
+//  Created by tigerAndBull on 2020/7/19.
 //  Copyright © 2020 tigerAndBull. All rights reserved.
 //
 

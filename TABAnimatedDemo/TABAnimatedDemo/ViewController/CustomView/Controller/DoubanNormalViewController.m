@@ -33,7 +33,7 @@
     [self initUI];
     
     // 假设3秒后，获取到数据
-    [self performSelector:@selector(afterGetData) withObject:nil afterDelay:3.0];
+    [self performSelector:@selector(afterGetData) withObject:nil afterDelay:TABAnimatedDemoDelayTime];
 }
 
 - (void)afterGetData {
