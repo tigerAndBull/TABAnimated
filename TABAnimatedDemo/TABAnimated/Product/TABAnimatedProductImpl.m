@@ -47,7 +47,7 @@
 // 生产结束，将产品同步给等待中的view
 @property (nonatomic, assign) BOOL productFinished;
 
-// 模式切换协议
+// 暗黑模式管理者协议
 @property (nonatomic, strong) id <TABAnimatedDarkModeManagerInterface> darkModeManager;
 
 // 链式调整协议
@@ -303,6 +303,7 @@
     }
     
     view.tabAnimatedProduction.backgroundLayer = [TABAnimatedProductHelper getBackgroundLayerWithView:flagView controlView:self->_controlView];
+    view.tabAnimatedProduction.backgroundLayer.isCard = isCard;
     
     [self _productWithView:view needReset:needReset isCard:isCard];
 }

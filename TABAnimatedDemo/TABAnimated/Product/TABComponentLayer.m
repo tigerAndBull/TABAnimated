@@ -193,6 +193,8 @@ static const CGFloat kDefaultHeight = 16.f;
     }
     [aCoder encodeObject:colorObjectArray forKey:@"colors"];
     [aCoder encodeBool:self.masksToBounds forKey:@"masksToBounds"];
+    
+    [aCoder encodeBool:_isCard forKey:@"isCard"];
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
@@ -231,6 +233,7 @@ static const CGFloat kDefaultHeight = 16.f;
         }
         self.colors = cgcolorArray;
         self.masksToBounds = [aDecoder decodeBoolForKey:@"masksToBounds"];
+        self.isCard = [aDecoder decodeBoolForKey:@"isCard"];
     }
     
     if (self.serializationImpl) {
@@ -281,6 +284,7 @@ static const CGFloat kDefaultHeight = 16.f;
     layer.locations = self.locations;
     layer.colors = self.colors;
     layer.masksToBounds = self.masksToBounds;
+    layer.isCard = self.isCard;
     return layer;
 }
 

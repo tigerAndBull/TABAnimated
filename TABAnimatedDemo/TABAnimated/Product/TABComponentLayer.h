@@ -126,6 +126,9 @@ typedef NS_ENUM(NSInteger, TABComponentLayerOrigin) {
  */
 @property (nonatomic, strong) id <TABComponentLayerSerializationInterface> serializationImpl;
 
+/// 是否基于卡片类型视图调整过
+@property (nonatomic, assign) BOOL isCard;
+
 - (CGRect)resetFrameWithRect:(CGRect)rect animatedHeight:(CGFloat)animatedHeight;
 - (void)addLayer:(TABComponentLayer *)layer viewWidth:(CGFloat)viewWidth animatedHeight:(CGFloat)animatedHeight;
     
