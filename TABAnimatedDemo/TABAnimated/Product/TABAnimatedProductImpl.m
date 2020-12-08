@@ -365,15 +365,15 @@
                                array:(NSMutableArray <TABComponentLayer *> *)array
                           production:(TABAnimatedProduction *)production
                               isCard:(BOOL)isCard {
-    [self _recurseProductLayerWithView:view array:array isCard:isCard];
+    [self _recurseProductLayerWithView:view rootView:view array:array isCard:isCard];
 }
 
 - (void)_recurseProductLayerWithView:(UIView *)view
+                            rootView:(UIView *)rootView
                                array:(NSMutableArray <TABComponentLayer *> *)array
                               isCard:(BOOL)isCard {
     
-    NSArray *subViews;
-    subViews = [view subviews];
+    NSArray *subViews = [view subviews];
     if ([subViews count] == 0) return;
     
     for (int i = 0; i < subViews.count;i++) {
@@ -381,10 +381,9 @@
         UIView *subV = subViews[i];
         if (subV.tabAnimated) continue;
         
-        [self _recurseProductLayerWithView:subV array:array isCard:isCard];
+        [self _recurseProductLayerWithView:subV rootView:rootView array:array isCard:isCard];
         
-        if ([self _cannotBeCreated:subV superView:view]) continue;
-        
+        if ([self _cannotBeCreated:subV superView:view rootView:rootView]) continue;
         // 标记移除：会生成动画对象，但是会被设置为移除状态
         BOOL needRemove = [self _isNeedRemove:subV];
         // 生产
@@ -486,12 +485,21 @@
 
 #pragma mark -
 
-- (BOOL)_cannotBeCreated:(UIView *)view superView:(UIView *)superView {
+- (BOOL)_cannotBeCreated:(UIView *)view superView:(UIView *)superView rootView:(UIView *)rootView {
     
     if ([view isKindOfClass:[NSClassFromString(@"UITableViewCellContentView") class]] ||
         [view isKindOfClass:[NSClassFromString(@"UICollectionViewCellContentView") class]] ||
         [view isKindOfClass:[NSClassFromString(@"_UISystemBackgroundView") class]] ||
         [view isKindOfClass:[NSClassFromString(@"_UITableViewHeaderFooterViewBackground") class]]) {
+        return YES;
+    }
+    
+    // 过滤和目标view一样大小的view, 同时需要排除_UITableViewHeaderFooterContentView
+    // 和历史版本有关，这个只能向下兼容
+    if ((CGRectEqualToRect(view.bounds, rootView.bounds)
+         || view.bounds.size.width > rootView.bounds.size.width
+         || view.bounds.size.height > rootView.bounds.size.height)
+         && ![view isKindOfClass:[NSClassFromString(@"_UITableViewHeaderFooterContentView") class]]) {
         return YES;
     }
     
@@ -506,12 +514,14 @@
     return NO;
 }
 
+/// 标记移除函数
+/// @param view 目标view
 - (BOOL)_isNeedRemove:(UIView *)view {
     
     BOOL needRemove = NO;
-    // 分割线标记移除
+    // 标记移除
     if ([view isKindOfClass:[NSClassFromString(@"_UITableViewCellSeparatorView") class]]  ||
-        [view isKindOfClass:[NSClassFromString(@"_UITableViewHeaderFooterContentView") class]] ) {
+        [view isKindOfClass:[NSClassFromString(@"_UITableViewHeaderFooterContentView") class]]) {
         needRemove = YES;
     }
     

@@ -99,7 +99,7 @@
 - (UICollectionView *)collectionView {
     if (!_collectionView) {
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, kNavigationHeight, kScreenWidth, kScreenHeight-kNavigationHeight)
+        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, kNavigationHeight+25, kScreenWidth, kScreenHeight-kNavigationHeight-25)
                                              collectionViewLayout:layout];
         _collectionView.delegate = self;
         _collectionView.dataSource = self;
@@ -107,7 +107,7 @@
         _collectionView.showsVerticalScrollIndicator = NO;
         _collectionView.bounces = YES;
         _collectionView.backgroundColor = [UIColor tab_normalDynamicBackgroundColor];
-        _collectionView.contentInset = UIEdgeInsetsMake(0, 0, kSafeAreaHeight+10, 0);
+        _collectionView.contentInset = UIEdgeInsetsMake(0, 0, kSafeAreaHeight+25, 0);
         
         if (@available(iOS 11.0, *)) {
             _collectionView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
