@@ -172,6 +172,10 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (TABBaseComponentVoidBlock)removeContents;
 
+/// 穿透组件
+/// 在骨架屏期间暴露出该组件
+- (TABBaseComponentVoidBlock)penetrate;
+
 #pragma mark -
 
 /// 需要调整的元素左部 等于 传入的元素的左部

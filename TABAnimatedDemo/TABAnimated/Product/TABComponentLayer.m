@@ -14,7 +14,22 @@
 static NSString * const TABComponentLayerName = @"TABLayer";
 static const CGFloat kDefaultHeight = 16.f;
 
+@interface TABComponentLayer()
+
+/// 原始frame
+@property (nonatomic, assign, readwrite) CGRect originFrame;
+
+@end
+
 @implementation TABComponentLayer
+
+- (instancetype)initWithFrame:(CGRect)frame {
+    if (self = [super init]) {
+        self.originFrame = frame;
+        self.frame = frame;
+    }
+    return self;
+}
 
 - (instancetype)init {
     if (self = [super init]) {

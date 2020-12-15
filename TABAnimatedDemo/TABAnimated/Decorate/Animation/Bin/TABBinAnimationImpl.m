@@ -21,10 +21,6 @@ static NSString * const kAnimatedBinAnimation = @"kAnimatedBinAnimation";
     [self _addBinAnimationWithLayer:backgroundLayer duration:[TABAnimated sharedAnimated].binAnimation.animatedDurationBin key:kAnimatedBinAnimation];
 }
 
-- (void)destory {
-    
-}
-
 - (void)_addBinAnimationWithLayer:(CALayer *)layer
                          duration:(CGFloat)duration
                               key:(NSString *)key {
@@ -38,6 +34,10 @@ static NSString * const kAnimatedBinAnimation = @"kAnimatedBinAnimation";
     animation.fillMode = kCAFillModeForwards;
     animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
     [layer addAnimation:animation forKey:key];
+}
+
+- (void)destory {
+    
 }
 
 @end

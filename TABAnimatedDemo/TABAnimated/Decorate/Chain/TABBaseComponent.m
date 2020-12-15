@@ -417,7 +417,31 @@ struct TABBaseComonentOperation {
     };
 }
 
-#pragma mark -
+#pragma mark - penetration
+
+- (TABBaseComponentVoidBlock)penetrate {
+    __weak typeof(self) weakSelf = self;
+    return ^TABBaseComponent *(void) {
+        // 先标记为穿透，并加入穿透列表
+        [weakSelf result_penetrate];
+//        CGRect frame = weakSelf.layer.frame;
+//        UIBezierPath *path = [UIBezierPath bezierPathWithRect:weakSelf.manager.backgroundLayer.bounds];
+//        UIBezierPath *targetPath = [UIBezierPath bezierPathWithRect:frame];
+//        [path appendPath:targetPath];
+//
+//        CAShapeLayer *fillLayer = [CAShapeLayer layer];
+//        fillLayer.path = path.CGPath;
+//        fillLayer.fillRule = kCAFillRuleEvenOdd;
+//        weakSelf.manager.backgroundLayer.mask = fillLayer;
+        return weakSelf;
+    };
+}
+
+- (void)result_penetrate {
+    _layer.loadStyle = TABViewLoadAnimationPenetrate;
+}
+
+#pragma mark - Auto layout
 
 - (TABBaseComponentCompareBlock)leftEqualTo {
     __weak typeof(self) weakSelf = self;

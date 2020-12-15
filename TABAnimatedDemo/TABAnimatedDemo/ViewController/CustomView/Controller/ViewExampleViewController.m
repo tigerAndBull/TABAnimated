@@ -30,9 +30,13 @@
     // Do any additional setup after loading the view.
     [self initUI];
     
+    _topImg.image = [UIImage imageNamed:@"test.jpg"];
+    _titleLab.text = @"您不会没有骨架过渡吧？";
+    
     TABViewAnimated *viewAnimated = TABViewAnimated.new;
     viewAnimated.adjustBlock = ^(TABComponentManager * _Nonnull manager) {
-        manager.animation(1).width(200);
+        manager.animation(0).penetrate();
+        manager.animation(1).width(200).penetrate();
         manager.animation(2).width(220);
         manager.animation(3).width(180);
     };

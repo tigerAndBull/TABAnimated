@@ -146,11 +146,25 @@ static const CGFloat kTagLabelMinWidth = 15.f;
 
     view.layer.cornerRadius = production.backgroundLayer.cornerRadius;
     [view.layer addSublayer:production.backgroundLayer];
+    
+    UIBezierPath *penetratePath = [UIBezierPath bezierPathWithRect:production.backgroundLayer.bounds];
+    BOOL isNeedPenetrate = NO;
     for (NSInteger i = 0; i < production.layers.count; i++) {
         TABComponentLayer *layer = production.layers[i];
         if (layer.loadStyle == TABViewLoadAnimationRemove) continue;
+        // 穿透
+        if (layer.loadStyle == TABViewLoadAnimationPenetrate) {
+            if (!isNeedPenetrate) isNeedPenetrate = YES;
+            UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:layer.frame cornerRadius:layer.cornerRadius];
+            [penetratePath appendPath:path];
+        }
         [production.backgroundLayer addLayer:layer viewWidth:view.frame.size.width animatedHeight:animatedHeight];
     }
+    
+    if (isNeedPenetrate) {
+        [TABAnimatedProductHelper penetrateTargetLayer:production.backgroundLayer path:penetratePath];
+    }
+    
     production.state = TABAnimatedProductionBind;
     view.tabAnimatedProduction = production;
 }
@@ -228,6 +242,13 @@ static const CGFloat kTagLabelMinWidth = 15.f;
         shapeLayer.path = path.CGPath;
         [rootView.tabAnimatedProduction.backgroundLayer setMask:shapeLayer];
     });
+}
+
++ (void)penetrateTargetLayer:(TABComponentLayer *)targetLayer path:(UIBezierPath *)path {
+    CAShapeLayer *fillLayer = [CAShapeLayer layer];
+    fillLayer.path = path.CGPath;
+    fillLayer.fillRule = kCAFillRuleEvenOdd;
+    targetLayer.mask = fillLayer;
 }
 
 @end

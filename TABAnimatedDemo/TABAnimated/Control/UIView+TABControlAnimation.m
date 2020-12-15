@@ -21,7 +21,12 @@
 
 #import "TABAnimatedPullLoadingComponent.h"
 
+#ifdef DEBUG
+static const NSTimeInterval kDelayReloadDataTime = 4;
+#else
 static const NSTimeInterval kDelayReloadDataTime = .4;
+#endif
+
 const int TABAnimatedIndexTag = -100000;
 
 @implementation UIView (TABControlAnimation)
