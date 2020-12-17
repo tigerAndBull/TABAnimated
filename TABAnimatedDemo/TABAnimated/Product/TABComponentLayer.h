@@ -133,14 +133,11 @@ typedef NS_ENUM(NSInteger, TABComponentLayerOrigin) {
 @property (nonatomic, assign) BOOL isCard;
 
 /// 原始frame
-@property (nonatomic, assign, readonly) CGRect originFrame;
+/// 非自创建：在调整回调之后，再经过计算得到
+/// 自创建：在调整回调之后的原始
+@property (nonatomic, assign) CGRect originFrame;
 
 #pragma mark -
-
-- (instancetype)initWithFrame:(CGRect)frame;
-
-//- (instancetype)init UNAVAILABLE_ATTRIBUTE;
-//+ (instancetype)new UNAVAILABLE_ATTRIBUTE;
 
 - (CGRect)resetFrameWithRect:(CGRect)rect animatedHeight:(CGFloat)animatedHeight;
 - (void)addLayer:(TABComponentLayer *)layer viewWidth:(CGFloat)viewWidth animatedHeight:(CGFloat)animatedHeight;

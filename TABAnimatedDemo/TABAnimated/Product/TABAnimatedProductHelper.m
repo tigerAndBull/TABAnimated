@@ -155,7 +155,7 @@ static const CGFloat kTagLabelMinWidth = 15.f;
         // 穿透
         if (layer.loadStyle == TABViewLoadAnimationPenetrate) {
             if (!isNeedPenetrate) isNeedPenetrate = YES;
-            UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:layer.frame cornerRadius:layer.cornerRadius];
+            UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:layer.originFrame cornerRadius:layer.cornerRadius];
             [penetratePath appendPath:path];
         }
         [production.backgroundLayer addLayer:layer viewWidth:view.frame.size.width animatedHeight:animatedHeight];

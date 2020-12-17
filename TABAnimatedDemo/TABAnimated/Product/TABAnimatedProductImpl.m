@@ -431,6 +431,7 @@
     }else {
         rect = [_targetView convertRect:view.frame fromView:view.superview];
     }
+    layer.originFrame = rect;
     rect = [layer resetFrameWithRect:rect animatedHeight:_controlView.tabAnimated.animatedHeight];
     layer.frame = rect;
     

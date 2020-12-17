@@ -14,22 +14,7 @@
 static NSString * const TABComponentLayerName = @"TABLayer";
 static const CGFloat kDefaultHeight = 16.f;
 
-@interface TABComponentLayer()
-
-/// 原始frame
-@property (nonatomic, assign, readwrite) CGRect originFrame;
-
-@end
-
 @implementation TABComponentLayer
-
-- (instancetype)initWithFrame:(CGRect)frame {
-    if (self = [super init]) {
-        self.originFrame = frame;
-        self.frame = frame;
-    }
-    return self;
-}
 
 - (instancetype)init {
     if (self = [super init]) {
@@ -210,6 +195,7 @@ static const CGFloat kDefaultHeight = 16.f;
     [aCoder encodeBool:self.masksToBounds forKey:@"masksToBounds"];
     
     [aCoder encodeBool:_isCard forKey:@"isCard"];
+    [aCoder encodeCGRect:_originFrame forKey:@"originFrame"];
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
@@ -217,6 +203,7 @@ static const CGFloat kDefaultHeight = 16.f;
         
         self.resultFrameValue = [aDecoder decodeObjectForKey:@"resultFrameValue"];
         self.frame = [self.resultFrameValue CGRectValue];
+        self.originFrame = [aDecoder decodeCGRectForKey:@"originFrame"];
         self.backgroundColor = [(UIColor *)[aDecoder decodeObjectForKey:@"backgroundColor"] CGColor];
         self.cornerRadius = [aDecoder decodeFloatForKey:@"cornerRadius"];
         
@@ -266,6 +253,7 @@ static const CGFloat kDefaultHeight = 16.f;
     
     layer.loadStyle = self.loadStyle;
     layer.origin  = self.origin;
+    layer.originFrame = self.originFrame;
     layer.numberOflines = self.numberOflines;
     layer.lineSpace = self.lineSpace;
     layer.lastScale = self.lastScale;

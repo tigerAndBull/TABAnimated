@@ -28,6 +28,7 @@ FOUNDATION_EXPORT NSString *tab_NSStringFromClass(Class aClass);
 // 生产者
 @property (nonatomic, strong) id <TABAnimatedProductInterface> producter;
 // 装饰者，用于制作自定义动画, 关联layers
+// 开发者可以设置TABShimmerAnimation,TABDropAnimation,TABBindAnimation达到局部自定制，也可以设置自己制定的规则
 @property (nonatomic, strong) id <TABAnimatedDecorateInterface> decorator;
 // 暗黑模式骨架内容切换协议
 @property (nonatomic, strong) id <TABAnimatedDarkModeInterface> switcher;
