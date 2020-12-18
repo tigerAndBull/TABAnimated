@@ -154,6 +154,10 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (TABAnimatedArrayBlock)withoutAnimation;
 
+/// 穿透组件
+/// 在骨架屏期间暴露出该组件
+- (TABAnimatedArrayBlock)penetrate;
+
 #pragma mark - 接口作用说明见TABBaseComponent.h
 
 - (TABComponentArrayCompareBlock)leftEqualTo;

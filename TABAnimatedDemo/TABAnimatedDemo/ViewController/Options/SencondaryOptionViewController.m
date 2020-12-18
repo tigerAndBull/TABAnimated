@@ -85,6 +85,7 @@
                 kText(@"普通view"),
                 kText(@"豆瓣动画"),
                 kText(@"渐变色（框架不支持创建，支持映射）"),
+                kText(@"穿透组件"),
             ];
             break;
     }
@@ -140,6 +141,7 @@
                 @"ViewExampleViewController",
                 @"DoubanNormalViewController",
                 @"GradientButtonViewController",
+                @"PenerateViewExampleController",
             ];
             break;
     }

@@ -423,7 +423,6 @@ struct TABBaseComonentOperation {
     __weak typeof(self) weakSelf = self;
     return ^TABBaseComponent *(void) {
         if (weakSelf.layer.origin != TABComponentLayerOriginCreate) {
-            // 先标记为穿透，并加入穿透列表
             [weakSelf result_penetrate];
         }else {
 #ifdef DEBUG

@@ -129,7 +129,13 @@ static const CGFloat kTagLabelMinWidth = 15.f;
     return NO;
 }
 
-// 填充后
+/**
+  填充后行为：
+  1. frame兜底
+  2. 卡片视图frame处理
+  3. 标记过滤，穿透组件
+  4. 绑定layer
+ */
 + (void)bindView:(UIView *)view production:(TABAnimatedProduction *)production animatedHeight:(CGFloat)animatedHeight {
     
     // 防止不能覆盖底部视图
@@ -162,7 +168,7 @@ static const CGFloat kTagLabelMinWidth = 15.f;
     }
     
     if (isNeedPenetrate) {
-        [TABAnimatedProductHelper penetrateTargetLayer:production.backgroundLayer path:penetratePath];
+        [self penetrateTargetLayer:production.backgroundLayer path:penetratePath];
     }
     
     production.state = TABAnimatedProductionBind;

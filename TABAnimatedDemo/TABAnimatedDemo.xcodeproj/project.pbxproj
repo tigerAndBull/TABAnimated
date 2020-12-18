@@ -14,6 +14,7 @@
 		2039EF7B21DA15C100AE09FC /* ImageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2039EF7A21DA15C100AE09FC /* ImageCollectionViewCell.m */; };
 		205664D42489038700AC16D9 /* PullLoadingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 205664D32489038700AC16D9 /* PullLoadingTableViewController.m */; };
 		2063FD1E24C4883E00517F3E /* TABAnimatedInjectionIIIHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 2063FD1C24C4883D00517F3E /* TABAnimatedInjectionIIIHelper.m */; };
+		206B44BE258CAC0E0010B64F /* PenerateViewExampleController.m in Sources */ = {isa = PBXBuildFile; fileRef = 206B44BD258CAC0E0010B64F /* PenerateViewExampleController.m */; };
 		2083176521A0451A000A0D95 /* TableRowModeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2083176421A0451A000A0D95 /* TableRowModeViewController.m */; };
 		20A01597216A51FC0082425D /* XibTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A01596216A51FC0082425D /* XibTestViewController.m */; };
 		20A0159A216A538F0082425D /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A01599216A538F0082425D /* MainViewController.m */; };
@@ -219,6 +220,8 @@
 		205664D32489038700AC16D9 /* PullLoadingTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PullLoadingTableViewController.m; sourceTree = "<group>"; };
 		2063FD1C24C4883D00517F3E /* TABAnimatedInjectionIIIHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TABAnimatedInjectionIIIHelper.m; sourceTree = "<group>"; };
 		2063FD1D24C4883E00517F3E /* TABAnimatedInjectionIIIHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TABAnimatedInjectionIIIHelper.h; sourceTree = "<group>"; };
+		206B44BC258CAC0E0010B64F /* PenerateViewExampleController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PenerateViewExampleController.h; sourceTree = "<group>"; };
+		206B44BD258CAC0E0010B64F /* PenerateViewExampleController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PenerateViewExampleController.m; sourceTree = "<group>"; };
 		2083176321A0451A000A0D95 /* TableRowModeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TableRowModeViewController.h; sourceTree = "<group>"; };
 		2083176421A0451A000A0D95 /* TableRowModeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TableRowModeViewController.m; sourceTree = "<group>"; };
 		20A01595216A51FC0082425D /* XibTestViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XibTestViewController.h; sourceTree = "<group>"; };
@@ -1293,6 +1296,8 @@
 				68D20757228BE7A400B32CD1 /* DoubanNormalViewController.m */,
 				683C4CC0255FD401008DFD62 /* GradientButtonViewController.h */,
 				683C4CC1255FD401008DFD62 /* GradientButtonViewController.m */,
+				206B44BC258CAC0E0010B64F /* PenerateViewExampleController.h */,
+				206B44BD258CAC0E0010B64F /* PenerateViewExampleController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1714,6 +1719,7 @@
 				681567122264214F00293AB4 /* JXCategoryTitleVerticalZoomView.m in Sources */,
 				2083176521A0451A000A0D95 /* TableRowModeViewController.m in Sources */,
 				68B045E822BC88EE006FED14 /* TestLayoutTableViewController.m in Sources */,
+				206B44BE258CAC0E0010B64F /* PenerateViewExampleController.m in Sources */,
 				68958D6022753D43002C4295 /* LawyerArticleCollectionViewCell.m in Sources */,
 				68C17176245DD563004FD76F /* TABPopBgView.m in Sources */,
 				6815671D2264214F00293AB4 /* JXCategoryIndicatorView.m in Sources */,
@@ -1974,7 +1980,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2.5.0;
+				CURRENT_PROJECT_VERSION = 2.5.1_dev;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = JGZKPAYJ7R;
 				ENABLE_BITCODE = NO;
@@ -1991,7 +1997,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.5.0;
+				MARKETING_VERSION = 2.5.1_dev;
 				OTHER_LDFLAGS = (
 					"-Xlinker",
 					"-interposable",
@@ -2010,7 +2016,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2.5.0;
+				CURRENT_PROJECT_VERSION = 2.5.1_dev;
 				DEVELOPMENT_TEAM = JGZKPAYJ7R;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2026,7 +2032,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.5.0;
+				MARKETING_VERSION = 2.5.1_dev;
 				OTHER_LDFLAGS = (
 					"-Xlinker",
 					"-interposable",

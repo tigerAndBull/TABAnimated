@@ -1,18 +1,18 @@
 //
-//  AccredtationViewController.m
-//  yifu
+//  PenerateViewExampleController.m
+//  TABAnimatedDemo
 //
-//  Created by tigerAndBull on 2019/2/27.
-//  Copyright © 2019年 tigerAndBull. All rights reserved.
+//  Created by 安文虎 on 2020/12/18.
+//  Copyright © 2020 tigerAndBull. All rights reserved.
 //
 
-#import "ViewExampleViewController.h"
+#import "PenerateViewExampleController.h"
 #import <TABKit/TABKit.h>
 #import "TABAnimated.h"
 
 #define imgWidth kHeight(100)
 
-@interface ViewExampleViewController ()
+@interface PenerateViewExampleController ()
 
 @property (nonatomic, strong) UIImageView *topImg;
 @property (nonatomic, strong) UILabel *titleLab;
@@ -23,7 +23,7 @@
 
 @end
 
-@implementation ViewExampleViewController
+@implementation PenerateViewExampleController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -31,10 +31,11 @@
     [self initUI];
     
     _topImg.image = [UIImage imageNamed:@"test.jpg"];
-    _titleLab.text = @"您不会没有骨架过渡吧？";
+    _titleLab.text = @"假设这里是本地数据";
     
     TABViewAnimated *viewAnimated = TABViewAnimated.new;
     viewAnimated.adjustBlock = ^(TABComponentManager * _Nonnull manager) {
+        manager.animations(0, 2).penetrate();
         manager.animation(1).width(200);
         manager.animation(2).width(220);
         manager.animation(3).width(180);

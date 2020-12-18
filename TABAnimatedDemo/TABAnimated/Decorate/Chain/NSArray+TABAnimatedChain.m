@@ -173,6 +173,17 @@
     };
 }
 
+/// 穿透组件
+/// 在骨架屏期间暴露出该组件
+- (TABAnimatedArrayBlock)penetrate {
+    return ^NSArray <TABBaseComponent *> *(void) {
+        for (TABBaseComponent *component in self) {
+            component.penetrate();
+        }
+        return self;
+    };
+}
+
 #pragma mark -
 
 /// 居左
