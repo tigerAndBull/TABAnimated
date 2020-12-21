@@ -28,7 +28,7 @@
 // use to iphone 6P,7P,8P
 #define isIPhonePlus ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1242,2208), [[UIScreen mainScreen] currentMode].size) : NO)
 // use to iphoneX,XR,XS,XS Max
-#define isIPhoneFill (([UIScreen mainScreen].bounds.size.height == 812) || ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(828, 1792), [[UIScreen mainScreen] currentMode].size) && !isIPad : NO) || ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(828, 1792), [[UIScreen mainScreen] currentMode].size) && !isIPad : NO) || ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1242, 2688), [[UIScreen mainScreen] currentMode].size) && !isIPad : NO))
+#define isIPhoneFill (kScreenHeight == 812.0f || kScreenHeight == 896.0f || kScreenHeight == 844.0f || kScreenHeight == 926.0f || kScreenHeight == 780.0f)
 
 #define kNavigationHeight (isIPhoneFill?88:64)
 #define kTabbarHeight (isIPhoneFill?83:49)

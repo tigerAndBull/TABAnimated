@@ -270,14 +270,14 @@
 - (UIScrollView *)mainScrollView {
     if (!_mainScrollView) {
         UIScrollView *sv = [[UIScrollView alloc] init];
-        [sv setFrame:CGRectMake(0,CGRectGetMaxY(self.categoryView.frame), self.view.bounds.size.width, self.view.bounds.size.height - self.categoryView.frame.size.height)];
-        [sv setBackgroundColor:kBackColor];
-        [sv setShowsVerticalScrollIndicator:NO];
-        [sv setShowsHorizontalScrollIndicator:NO];
-        [sv setPagingEnabled:YES];
+        sv.frame = CGRectMake(0, CGRectGetMaxY(self.categoryView.frame), self.view.bounds.size.width, self.view.bounds.size.height - self.categoryView.frame.size.height);
+        sv.backgroundColor = kBackColor;
+        sv.showsVerticalScrollIndicator = NO;
+        sv.showsHorizontalScrollIndicator = NO;
+        sv.pagingEnabled = YES;
+        sv.delegate = self;
+        sv.contentSize = CGSizeMake(kScreenWidth*categoryCount, sv.frame.size.height);
         [sv setBounces:NO];
-        [sv setDelegate:self];
-        [sv setContentSize:CGSizeMake(kScreenWidth*categoryCount, sv.frame.size.height)];
         _mainScrollView = sv;
     }
     return _mainScrollView;
@@ -285,7 +285,7 @@
 
 - (JXCategoryTitleView *)categoryView {
     if (!_categoryView) {
-        _categoryView = [[JXCategoryTitleView alloc] initWithFrame:CGRectMake(0,kNavigationHeight,kScreenWidth,40)];
+        _categoryView = [[JXCategoryTitleView alloc] initWithFrame:CGRectMake(0, kNavigationHeight, kScreenWidth, 40)];
         _categoryView.titleColorGradientEnabled = YES;
         _categoryView.titleLabelZoomEnabled = YES;
         _categoryView.titleLabelZoomScale = 1.0;

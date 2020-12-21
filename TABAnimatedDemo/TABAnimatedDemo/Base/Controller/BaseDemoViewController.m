@@ -32,7 +32,7 @@
 }
 
 - (void)dealloc {
-    NSLog(@"==========  dealloc  ==========");
+    NSLog(@"%@", [NSString stringWithFormat:@"【控制器：%@】---> dealloc", NSStringFromClass(self.class)]);
 }
 
 - (void)setupUI {

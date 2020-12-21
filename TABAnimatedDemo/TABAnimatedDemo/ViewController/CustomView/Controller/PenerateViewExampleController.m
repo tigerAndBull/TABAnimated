@@ -21,6 +21,8 @@
 
 @property (nonatomic, strong) UIButton *commitBtn;
 
+@property (nonatomic, copy) NSString *locationString;
+
 @end
 
 @implementation PenerateViewExampleController
@@ -31,7 +33,8 @@
     [self initUI];
     
     _topImg.image = [UIImage imageNamed:@"test.jpg"];
-    _titleLab.text = @"假设这里是本地数据";
+    _locationString = @"假设这里是本地数据";
+    _titleLab.text = _locationString;
     
     TABViewAnimated *viewAnimated = TABViewAnimated.new;
     viewAnimated.adjustBlock = ^(TABComponentManager * _Nonnull manager) {
@@ -56,8 +59,6 @@
 - (void)afterGetData {
     [self.view tab_endAnimationEaseOut];
     
-    _topImg.image = [UIImage imageNamed:@"test.jpg"];
-    _titleLab.text = @"您不会没有骨架过渡吧？";
     _firstInfoLab.text = @"使用用TABAnimated 问题交流";
     _secondInfoLab.text = @"关注 tigerAndBull技术分享 公众号 进微信群";
     [_commitBtn setTitle:@"立即使用" forState:UIControlStateNormal];

@@ -90,7 +90,7 @@
             break;
     }
     
-    return nil;
+    return @[].copy;
 }
 
 - (NSArray *)controllerClassArray {
@@ -146,7 +146,7 @@
             break;
     }
     
-    return nil;
+    return @[].copy;
 }
 
 @end
