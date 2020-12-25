@@ -25,6 +25,10 @@
 		20BFBBA12153F3FF00136258 /* TestHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 20BFBBA02153F3FF00136258 /* TestHeadView.m */; };
 		20BFBBA32153FB5300136258 /* head.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 20BFBBA22153FB5300136258 /* head.jpg */; };
 		20BFBFFA2170D912001887A9 /* TestCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 20BFBFF92170D912001887A9 /* TestCollectionViewCell.m */; };
+		20CDCB782591FBE900DF28DA /* WaterFlowCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 20CDCB762591FBE900DF28DA /* WaterFlowCollectionViewCell.m */; };
+		20CDCB792591FBE900DF28DA /* WaterFlowCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 20CDCB772591FBE900DF28DA /* WaterFlowCollectionViewCell.xib */; };
+		20E14AAD2591F1CE00190A51 /* WaterFlowLayoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20E14AAC2591F1CE00190A51 /* WaterFlowLayoutViewController.m */; };
+		20E14AB12591F28600190A51 /* TABAnimatedWaterFallLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 20E14AAF2591F28600190A51 /* TABAnimatedWaterFallLayout.m */; };
 		20E72D7A2226E2D200E781C9 /* DailyCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 20E72D782226E2D200E781C9 /* DailyCollectionViewCell.m */; };
 		20E72D7D2226EEBB00E781C9 /* ViewExampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20E72D7C2226EEBB00E781C9 /* ViewExampleViewController.m */; };
 		6806411522796E2C00D79040 /* NewsCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6806411422796E2C00D79040 /* NewsCollectionViewCell.m */; };
@@ -242,6 +246,13 @@
 		20BFBBA22153FB5300136258 /* head.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = head.jpg; sourceTree = "<group>"; };
 		20BFBFF82170D912001887A9 /* TestCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestCollectionViewCell.h; sourceTree = "<group>"; };
 		20BFBFF92170D912001887A9 /* TestCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestCollectionViewCell.m; sourceTree = "<group>"; };
+		20CDCB752591FBE900DF28DA /* WaterFlowCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WaterFlowCollectionViewCell.h; sourceTree = "<group>"; };
+		20CDCB762591FBE900DF28DA /* WaterFlowCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WaterFlowCollectionViewCell.m; sourceTree = "<group>"; };
+		20CDCB772591FBE900DF28DA /* WaterFlowCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WaterFlowCollectionViewCell.xib; sourceTree = "<group>"; };
+		20E14AAB2591F1CE00190A51 /* WaterFlowLayoutViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WaterFlowLayoutViewController.h; sourceTree = "<group>"; };
+		20E14AAC2591F1CE00190A51 /* WaterFlowLayoutViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WaterFlowLayoutViewController.m; sourceTree = "<group>"; };
+		20E14AAF2591F28600190A51 /* TABAnimatedWaterFallLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TABAnimatedWaterFallLayout.m; sourceTree = "<group>"; };
+		20E14AB02591F28600190A51 /* TABAnimatedWaterFallLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TABAnimatedWaterFallLayout.h; sourceTree = "<group>"; };
 		20E72D782226E2D200E781C9 /* DailyCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DailyCollectionViewCell.m; sourceTree = "<group>"; };
 		20E72D792226E2D200E781C9 /* DailyCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DailyCollectionViewCell.h; sourceTree = "<group>"; };
 		20E72D7B2226EEBA00E781C9 /* ViewExampleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewExampleViewController.h; sourceTree = "<group>"; };
@@ -652,6 +663,26 @@
 				68B7A8FD2344601F0099EC81 /* CustomView */,
 			);
 			path = ViewController;
+			sourceTree = "<group>";
+		};
+		20BAF5B525959E0E00DBAEC0 /* Gradient */ = {
+			isa = PBXGroup;
+			children = (
+				683C4CC3255FDE71008DFD62 /* UIButton+Gradient.h */,
+				683C4CC5255FDE71008DFD62 /* UIButton+Gradient.m */,
+				683C4CC6255FDE71008DFD62 /* UIImage+Gradient.h */,
+				683C4CC4255FDE71008DFD62 /* UIImage+Gradient.m */,
+			);
+			path = Gradient;
+			sourceTree = "<group>";
+		};
+		20E14AAE2591F27D00190A51 /* WaterFallLayout */ = {
+			isa = PBXGroup;
+			children = (
+				20E14AB02591F28600190A51 /* TABAnimatedWaterFallLayout.h */,
+				20E14AAF2591F28600190A51 /* TABAnimatedWaterFallLayout.m */,
+			);
+			path = WaterFallLayout;
 			sourceTree = "<group>";
 		};
 		681566AF2264214F00293AB4 /* JXCategoryView */ = {
@@ -1166,10 +1197,8 @@
 		68B045E922BC891C006FED14 /* Third */ = {
 			isa = PBXGroup;
 			children = (
-				683C4CC3255FDE71008DFD62 /* UIButton+Gradient.h */,
-				683C4CC5255FDE71008DFD62 /* UIButton+Gradient.m */,
-				683C4CC6255FDE71008DFD62 /* UIImage+Gradient.h */,
-				683C4CC4255FDE71008DFD62 /* UIImage+Gradient.m */,
+				20BAF5B525959E0E00DBAEC0 /* Gradient */,
+				20E14AAE2591F27D00190A51 /* WaterFallLayout */,
 				68C17171245DD563004FD76F /* AlertView */,
 				68A652D9235F732100D12ADC /* Masonry */,
 				681566AF2264214F00293AB4 /* JXCategoryView */,
@@ -1255,6 +1284,8 @@
 				2039EF7121DA077200AE09FC /* NestCollectionViewController.m */,
 				6806411C2279A5CB00D79040 /* SectionsCollectionViewController.h */,
 				6806411D2279A5CB00D79040 /* SectionsCollectionViewController.m */,
+				20E14AAB2591F1CE00190A51 /* WaterFlowLayoutViewController.h */,
+				20E14AAC2591F1CE00190A51 /* WaterFlowLayoutViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1274,6 +1305,9 @@
 				68CFCF0C2294DCBC007D167F /* XibCollectionViewCell.h */,
 				68CFCF0D2294DCBC007D167F /* XibCollectionViewCell.m */,
 				68CFCF0E2294DCBC007D167F /* XibCollectionViewCell.xib */,
+				20CDCB752591FBE900DF28DA /* WaterFlowCollectionViewCell.h */,
+				20CDCB762591FBE900DF28DA /* WaterFlowCollectionViewCell.m */,
+				20CDCB772591FBE900DF28DA /* WaterFlowCollectionViewCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1658,6 +1692,7 @@
 				6806412C2279C83200D79040 /* comic.jpg in Resources */,
 				685A2AC7247A685C00D9DB7C /* XIBTableViewCell.xib in Resources */,
 				68CFCF102294DCBC007D167F /* XibCollectionViewCell.xib in Resources */,
+				20CDCB792591FBE900DF28DA /* WaterFlowCollectionViewCell.xib in Resources */,
 				6843006E235F775700CD19CE /* LaunchScreen.storyboard in Resources */,
 				68B214CC2292BA7E007E05A7 /* test0.jpg in Resources */,
 				20A85BFD2152248E0005AD62 /* Images.xcassets in Resources */,
@@ -1731,7 +1766,9 @@
 				20BFBBA12153F3FF00136258 /* TestHeadView.m in Sources */,
 				68C35F4A249E6D8F00A34D22 /* TABBinAnimation.m in Sources */,
 				681567242264214F00293AB4 /* JXCategoryTitleCellModel.m in Sources */,
+				20E14AAD2591F1CE00190A51 /* WaterFlowLayoutViewController.m in Sources */,
 				20A01597216A51FC0082425D /* XibTestViewController.m in Sources */,
+				20CDCB782591FBE900DF28DA /* WaterFlowCollectionViewCell.m in Sources */,
 				685A2ACA247A685C00D9DB7C /* NestTableViewCell.m in Sources */,
 				68589C2E23431F6500E8E630 /* TestBaseModel.m in Sources */,
 				681567202264214F00293AB4 /* JXCategoryDotCellModel.m in Sources */,
@@ -1765,6 +1802,7 @@
 				6815672B2264214F00293AB4 /* JXCategoryNumberCell.m in Sources */,
 				68C35F4C249E6D8F00A34D22 /* TABClassicAnimation.m in Sources */,
 				685A2AC5247A685C00D9DB7C /* LineTableViewHeaderFooterView.m in Sources */,
+				20E14AB12591F28600190A51 /* TABAnimatedWaterFallLayout.m in Sources */,
 				68C171902460407F004FD76F /* OneSectionWithHeaderSectionViewController.m in Sources */,
 				68CFCF0F2294DCBC007D167F /* XibCollectionViewCell.m in Sources */,
 				68A652FC235F732100D12ADC /* MASViewConstraint.m in Sources */,
@@ -1994,7 +2032,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = TABAnimatedDemo/AppConfig/TABAnimatedDemo.pch;
 				INFOPLIST_FILE = "$(SRCROOT)/TABAnimatedDemo/AppConfig/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2029,7 +2067,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = TABAnimatedDemo/AppConfig/TABAnimatedDemo.pch;
 				INFOPLIST_FILE = "$(SRCROOT)/TABAnimatedDemo/AppConfig/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -35,12 +35,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSInteger animatedCount;
 
 /**
- UITableView动画启动时，同时启动UITableViewHeaderView
+ UITableView动画启动时，同时启动UITableViewHeaderView， 默认是YES
  */
 @property (nonatomic, assign) BOOL showTableHeaderView;
 
 /**
- UITableView动画启动时，同时启动UITableViewFooterView
+ UITableView动画启动时，同时启动UITableViewFooterView， 默认是YES
  */
 @property (nonatomic, assign) BOOL showTableFooterView;
 
@@ -53,6 +53,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, readonly) NSMutableArray <NSNumber *> *headerHeightArray;
 @property (nonatomic, strong, readonly) NSMutableArray <NSNumber *> *footerHeightArray;
+
+// 与tableHeaderView对应的参数设置
+@property (nonatomic, strong) TABViewAnimated *tabHeadViewAnimated;
+
+// 与tableFooterView对应的参数设置
+@property (nonatomic, strong) TABViewAnimated *tabFooterViewAnimated;
 
 #pragma mark - 以下均为以section为单位的初始化方法
 
@@ -214,8 +220,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - DEPRECATED
 
-@property (nonatomic, weak) TABViewAnimated *tabHeadViewAnimated DEPRECATED_MSG_ATTRIBUTE("直接使用tableView.tableHeaderView.tabAnimated获取");
-@property (nonatomic, weak) TABViewAnimated *tabFooterViewAnimated DEPRECATED_MSG_ATTRIBUTE("直接使用tableView.tableFooterView.tabAnimated获取");
 + (instancetype)animatedWithCellClass:(Class)cellClass DEPRECATED_MSG_ATTRIBUTE("该回调在v2.3.0被弃用，请使用`animatedWithCellClass:cellHeight:`取代");
 
 @end

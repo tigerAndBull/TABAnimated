@@ -9,7 +9,7 @@
 #ifndef TABDefine_h
 #define TABDefine_h
 
-#import "TABSafe.h"
+#import <TABKit/TABSafe.h>
 
 #define kAPPDELEGATE ((AppDelegate *)[UIApplication sharedApplication].delegate)
 

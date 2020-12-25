@@ -77,6 +77,7 @@
                 kText(@"Xib"),
                 kText(@"豆瓣动画"),
                 kText(@"豆瓣动画 卡片式"),
+                kText(@"瀑布流"),
             ];
             break;
         
@@ -133,6 +134,7 @@
                 @"XibCollectionViewController",
                 @"DoubanCollectionViewController",
                 @"DoubanCardViewController",
+                @"WaterFlowLayoutViewController",
             ];
             break;
         

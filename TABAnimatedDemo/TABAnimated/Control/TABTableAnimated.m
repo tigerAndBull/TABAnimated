@@ -175,6 +175,8 @@
     if (self = [super init]) {
         _headerHeightArray = @[].mutableCopy;
         _footerHeightArray = @[].mutableCopy;
+        _showTableHeaderView = YES;
+        _showTableFooterView = YES;
     }
     return self;
 }
@@ -232,18 +234,32 @@
     
     if (self.showTableHeaderView) {
         if (tableView.tableHeaderView.tabAnimated == nil) {
-            tableView.tableHeaderView.tabAnimated = TABViewAnimated.new;
+            if (tableView.tabAnimated.tabHeadViewAnimated) {
+                tableView.tableHeaderView.tabAnimated = tableView.tabAnimated.tabHeadViewAnimated;
+            }else {
+                tableView.tableHeaderView.tabAnimated = TABViewAnimated.new;
+            }
         }
-        tableView.tableHeaderView.tabAnimated.superAnimationType = tableView.tabAnimated.superAnimationType;
+        TABViewSuperAnimationType superAnimationType = tableView.tableHeaderView.tabAnimated.superAnimationType;
+        if (superAnimationType == TABViewSuperAnimationTypeDefault) {
+            tableView.tableHeaderView.tabAnimated.superAnimationType = superAnimationType;
+        }
         tableView.tableHeaderView.tabAnimated.canLoadAgain = tableView.tabAnimated.canLoadAgain;
         [tableView.tableHeaderView tab_startAnimation];
     }
     
     if (self.showTableFooterView) {
         if (tableView.tableFooterView.tabAnimated == nil) {
-            tableView.tableFooterView.tabAnimated = TABViewAnimated.new;
+            if (tableView.tabAnimated.tabFooterViewAnimated) {
+                tableView.tableFooterView.tabAnimated = tableView.tabAnimated.tabFooterViewAnimated;
+            }else {
+                tableView.tableFooterView.tabAnimated = TABViewAnimated.new;
+            }
         }
-        tableView.tableFooterView.tabAnimated.superAnimationType = tableView.tabAnimated.superAnimationType;
+        TABViewSuperAnimationType superAnimationType = tableView.tableFooterView.tabAnimated.superAnimationType;
+        if (superAnimationType == TABViewSuperAnimationTypeDefault) {
+            tableView.tableFooterView.tabAnimated.superAnimationType = superAnimationType;
+        }
         tableView.tableFooterView.tabAnimated.canLoadAgain = tableView.tabAnimated.canLoadAgain;
         [tableView.tableFooterView tab_startAnimation];
     }

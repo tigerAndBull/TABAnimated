@@ -37,6 +37,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly) NSMutableArray <NSValue *> *headerSizeArray;
 @property (nonatomic, strong, readonly) NSMutableArray <NSValue *> *footerSizeArray;
 
+// 绑定瀑布流高度代理的sel
+@property (nonatomic, assign) SEL waterFallLayoutHeightSel;
+
+// 如果你的代理就是dataSource的代理，就不用设置
+@property (nonatomic, weak) id waterFallLayoutDelegate;
+
+@property (nonatomic, copy) NSArray <NSNumber *> *waterFallLayoutHeightArray;
+
 #pragma mark -
 
 /**
@@ -169,6 +177,12 @@ NS_ASSUME_NONNULL_BEGIN
                                       cellSizeArray:(NSArray <NSValue *> *)cellSizeArray
                                            rowArray:(NSArray <NSNumber *> *)rowArray;
 
+#pragma mark - 瀑布流
+
++ (instancetype)animatedWaterFallLayoutWithCellClass:(Class)cellClass
+                                         heightArray:(NSArray <NSNumber *> *)heightArray
+                                           heightSel:(SEL)heightSel;
+
 #pragma mark - Header / Footer
 
 /**
@@ -198,6 +212,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)addHeaderViewClass:(_Nonnull Class)headerViewClass viewSize:(CGSize)viewSize;
 - (void)addFooterViewClass:(_Nonnull Class)footerViewClass viewSize:(CGSize)viewSize;
+
 
 @end
 

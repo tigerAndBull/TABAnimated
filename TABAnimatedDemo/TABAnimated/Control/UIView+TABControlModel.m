@@ -30,7 +30,13 @@
 }
 
 - (void)setTabAnimated:(TABTableAnimated *)tabAnimated {
-    objc_setAssociatedObject(self, @selector(tabAnimated),tabAnimated, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    if (self.tableHeaderView != nil && self.tableHeaderView.tabAnimated == nil && tabAnimated.showTableHeaderView) {
+        tabAnimated.tabHeadViewAnimated = TABViewAnimated.new;
+    }
+    if (self.tableFooterView != nil && self.tableFooterView.tabAnimated == nil && tabAnimated.showTableFooterView) {
+        tabAnimated.tabFooterViewAnimated = TABViewAnimated.new;
+    }
+    objc_setAssociatedObject(self, @selector(tabAnimated), tabAnimated, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 @end
@@ -38,6 +44,21 @@
 #import "TABCollectionAnimated.h"
 
 @implementation UICollectionView (TABControlModel)
+
+- (TABCollectionAnimated *)tabAnimated {
+    return objc_getAssociatedObject(self, @selector(tabAnimated));
+}
+
+- (void)setTabAnimated:(TABCollectionAnimated *)tabAnimated {
+    self.collectionViewLayout.tabAnimated = tabAnimated;
+    objc_setAssociatedObject(self, @selector(tabAnimated),tabAnimated, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+@end
+
+#import "TABCollectionAnimated.h"
+
+@implementation UICollectionViewLayout (TABAnimated)
 
 - (TABCollectionAnimated *)tabAnimated {
     return objc_getAssociatedObject(self, @selector(tabAnimated));

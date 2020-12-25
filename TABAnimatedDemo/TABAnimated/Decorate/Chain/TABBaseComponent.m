@@ -379,6 +379,7 @@ struct TABBaseComonentOperation {
 
 - (void)result_cancelAlignCenter {
     _layer.origin = TABComponentLayerOriginLabel;
+    _layer.contentsGravity = kCAGravityResizeAspect;
 }
 
 #pragma mark - color

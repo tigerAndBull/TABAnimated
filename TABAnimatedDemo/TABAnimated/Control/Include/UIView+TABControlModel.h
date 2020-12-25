@@ -25,4 +25,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) TABCollectionAnimated * _Nullable tabAnimated;
 @end
 
+@class TABCollectionAnimated;
+@interface UICollectionViewLayout (TABAnimated)
+@property (nonatomic, strong) TABCollectionAnimated * _Nullable tabAnimated;
+@end
+
 NS_ASSUME_NONNULL_END

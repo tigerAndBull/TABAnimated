@@ -89,6 +89,15 @@
     return obj;
 }
 
++ (instancetype)animatedWaterFallLayoutWithCellClass:(Class)cellClass
+                                         heightArray:(NSArray <NSNumber *> *)heightArray
+                                           heightSel:(SEL)heightSel {
+    TABCollectionAnimated *obj = [TABCollectionAnimated _animatedWithCellClass:cellClass cellSize:CGSizeZero animatedCount:0 toIndex:0 runMode:TABAnimatedRunBySection];
+    obj.waterFallLayoutHeightArray = heightArray;
+    obj.waterFallLayoutHeightSel = heightSel;
+   return obj;
+}
+
 #pragma mark -
 
 + (instancetype)_animatedWithCellClass:(Class)cellClass
@@ -312,6 +321,16 @@
                           newSel:newFooterCellSel
                           target:target
                         delegate:dataSource];
+    
+    if (self.waterFallLayoutHeightSel) {
+        SEL oldWaterFallLayoutHeight = self.waterFallLayoutHeightSel;
+        SEL newWaterFallLayoutHeight = @selector(tab_waterFallLayout:index:itemWidth:);
+        
+        [self exchangeDelegateOldSel:oldWaterFallLayoutHeight
+                              newSel:newWaterFallLayoutHeight
+                              target:target
+                            delegate:dataSource];
+    }
 }
 
 #pragma clang diagnostic pop
@@ -489,6 +508,28 @@
     
     UICollectionReusableView *view = [collectionView.tabAnimated.producter productWithControlView:collectionView currentClass:currentClass indexPath:indexPath origin:origin];
     return view;
+}
+
+#pragma mark - 瀑布流
+
+- (CGFloat)tab_waterFallLayout:(UICollectionViewLayout *)waterFallLayout index:(NSInteger)index itemWidth:(CGFloat)itemWidth {
+    TABCollectionAnimated *tabAnimated = waterFallLayout.tabAnimated;
+    if (tabAnimated.state != TABViewAnimationStart) {
+        return [self tab_waterFallLayout:waterFallLayout index:index itemWidth:itemWidth];
+    }
+    return [tabAnimated.waterFallLayoutHeightArray[index] floatValue];
+}
+
+#pragma mark -
+
+- (void)setWaterFallLayoutHeightArray:(NSArray<NSNumber *> *)waterFallLayoutHeightArray {
+    _waterFallLayoutHeightArray = waterFallLayoutHeightArray;
+    _animatedCount = waterFallLayoutHeightArray.count;
+}
+
+- (void)setAnimatedCount:(NSInteger)animatedCount {
+    if (_waterFallLayoutHeightArray.count > 0) return;
+    _animatedCount = animatedCount;
 }
 
 @end

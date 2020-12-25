@@ -148,7 +148,6 @@
         // 设置tabAnimated相关属性
         // 可以不进行手动初始化，将使用默认属性
         _tableView.tabAnimated = [TABTableAnimated animatedWithCellClass:[TestTableViewCell class] cellHeight:100];
-        _tableView.tabAnimated.showTableHeaderView = YES;
         _tableView.tabAnimated.canLoadAgain = YES;
         _tableView.tabAnimated.adjustBlock = ^(TABComponentManager * _Nonnull manager) {
             manager.animation(1).down(3).height(12);

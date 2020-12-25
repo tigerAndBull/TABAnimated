@@ -57,4 +57,15 @@ typedef NS_ENUM(NSInteger, TABAnimatedProductionPoolState) {
     TABAnimatedProductionPoolProcessed,
 };
 
+typedef NS_ENUM(NSUInteger, TABAnimatedProductType) {
+    // 从未被生产，初次生产, 生产行为
+    TABAnimatedProductFirst,
+    // 正在生产中，等待复用
+    TABAnimatedProductReuseWait,
+    // 以前有生产过，读取复用
+    TABAnimatedProductReuseByHistory,
+    // 不使用复用机制，生产行为
+    TABAnimatedProductReuseNever,
+};
+
 #endif /* TABAnimatedProductDefines_h */

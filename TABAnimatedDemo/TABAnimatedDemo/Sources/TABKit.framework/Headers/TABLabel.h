@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TABSafe.h"
+#import <TABKit/TABSafe.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

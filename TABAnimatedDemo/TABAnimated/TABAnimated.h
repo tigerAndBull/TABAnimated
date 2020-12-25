@@ -133,7 +133,7 @@ typedef NS_ENUM(NSInteger, TABAnimationType) {
 @property (nonatomic, assign) CGFloat animatedHeight;
 
 /**
- 是否可以在滚动，默认无法滚动
+ 是否可以在滚动，默认可以滚动
  */
 @property (nonatomic, assign) BOOL scrollEnabled;
 
