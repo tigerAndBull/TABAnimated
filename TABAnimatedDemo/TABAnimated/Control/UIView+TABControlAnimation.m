@@ -130,7 +130,7 @@ const int TABAnimatedIndexTag = -100000;
 - (void)tab_endAnimationWithIndex:(NSInteger)index isEaseOut:(BOOL)isEaseOut {
     
     TABViewAnimated *viewAnimated = self.tabAnimated;
-    if (viewAnimated.state == (TABViewAnimationDefault || TABViewAnimationEnd)) return;
+    if (viewAnimated.state == (TABViewAnimationDefault | TABViewAnimationEnd)) return;
     
     if (index == TABAnimatedIndexTag && ![viewAnimated isKindOfClass:[TABFormAnimated class]]) {
         [self _endViewAnimation];
