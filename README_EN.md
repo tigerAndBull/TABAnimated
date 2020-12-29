@@ -28,12 +28,12 @@ Of course, TABAnimated will help you manage the lifecycle of the skeleton screen
 
 ## Catalog
 
-* [Integration Advantage] (#Integration Advantage)
-* [Effect display] (#effect display)
-* [demo process] (#demo process)
-* [Integration Steps] (#Integration Step)
-* [Question Search] (#Question Search)
-* [Last emphasis] (#last emphasis)
+* [Integration Advantage] (# Integration Advantage)
+* [Effect display] (# effect display)
+* [demo process] (# demo process)
+* [Integration Steps] (# Integration Step)
+* [Question Search] (# Question Search)
+* [Last emphasis] (# last emphasis)
 
 ## Features
 

@@ -21,12 +21,13 @@
 
 ## 骨架屏是什么？
 
-找到这里的同志，或多或少都对骨架屏有所了解，请容许我先啰嗦一句。骨架屏(Skeleton Screen)是一种优化用户弱网体验的方案，可以有效缓解用户等待的焦躁情绪。
+骨架屏(Skeleton Screen)是一种优化用户弱网体验的方案。在弱网情况下，客户端获取到服务器数据的时间会比较长，此时用户会比较烦躁。该方案是指在空白页面提供与原视图结构一致的灰色区块。使得用户在未获得数据前，提前看到视图的轮廓，以缓解用户等待时的烦躁情绪。
 
 ## TABAnimated是什么？
 
-TABAnimated是提供给iOS开发者自动生成骨架屏的一种解决方案。开发者可以将已经开发好的视图，通过TABAnimated配置一些全局/局部的参数，自动生成与其长相一致的骨架屏。
-当然，TABAnimated会协助你管理骨架屏的生命周期。
+TABAnimated是提供给iOS开发者自动生成骨架屏的一种解决方案。开发者可以将已经开发好的视图，通过TABAnimated配置一些全局/局部的参数，自动生成与其长相一致的骨架屏。也就是说开发者不需要额外开发成本，就可以获得和需求一致的骨架屏。  
+
+当然，TABAnimated会管理你的骨架屏生命周期。
 
 ## 目录
 
@@ -41,14 +42,14 @@ TABAnimated是提供给iOS开发者自动生成骨架屏的一种解决方案。
 
 通过TABAnimated集成的骨架屏有什么优势？
 
--  是一种自动化方案，集成速度非常快
--  零耦合，易于将其动画逻辑封装到基础库，且移除方便
--  配有缓存功能，压测切换控制器不卡顿
--  适用场景广，可以适用开发中99.99%的视图
--  自由度非常高，可以完全地自定制，包括动画及其序列化
+-  是一种自动化方案，实现速度快
+-  零耦合，易于集成和移除
+-  配有缓存功能，压测切换控制器不掉帧
+-  针对iOS原生视图处理，适用场景广
+-  自由度高，可以完全自定制，包括动画及其序列化
 -  自动切换暗黑模式骨架屏
--  支持上拉加载更多
--   配合InjectionIII支持实时预览
+-  支持上拉加载时显示骨架屏
+-  可以配合InjectionIII实时预览集成效果
 
 ## 效果展示
 
@@ -95,7 +96,7 @@ TABAnimated是提供给iOS开发者自动生成骨架屏的一种解决方案。
 - CocoaPods
 
 ```
-pod 'TABAnimated', '2.5.0'
+pod 'TABAnimated', '2.5.1'
 ```
 
 - Carthage
@@ -220,25 +221,23 @@ manager.animationWithIndexs(1,5,7).down(5);
 > + [缓存策略和线程处理](https://github.com/tigerAndBull/TABAnimated/blob/master/Documents/%E7%BC%93%E5%AD%98%E7%AD%96%E7%95%A5%E5%92%8C%E7%BA%BF%E7%A8%8B%E5%A4%84%E7%90%86.md)
 > + [架构设计和性能测试](https://github.com/tigerAndBull/TABAnimated/blob/master/Documents/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E5%92%8C%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95.md)
 
-- 集成最可能用到的文档：
+- 可能会用到的文档：
 
 > + [预处理回调动画元素下标问题](https://github.com/tigerAndBull/TABAnimated/blob/master/Documents/%E5%8A%A8%E7%94%BB%E5%85%83%E7%B4%A0%E4%B8%8B%E6%A0%87%E9%97%AE%E9%A2%98.md)
 > + [问题答疑文档](https://github.com/tigerAndBull/TABAnimated/blob/master/Documents/%E9%97%AE%E9%A2%98%E7%AD%94%E7%96%91%E6%96%87%E6%A1%A3.md)、[版本信息记录文档](https://github.com/tigerAndBull/TABAnimated/blob/master/Documents/%E5%8D%87%E7%BA%A7%E6%96%87%E6%A1%A3%E5%92%8C%E5%85%B6%E4%BB%96%E4%BF%AE%E5%A4%8D.md)
 > + [全局:局部属性、链式语法api](https://github.com/tigerAndBull/TABAnimated/blob/master/Documents/%E5%85%A8%E5%B1%80:%E5%B1%80%E9%83%A8%E5%B1%9E%E6%80%A7%E3%80%81%E9%93%BE%E5%BC%8F%E8%AF%AD%E6%B3%95api.md)
 
-- 可能用到的其他技术文档
+- 其他实现原理文档
 
 > + [豆瓣动画详解](https://github.com/tigerAndBull/TABAnimated/blob/master/Documents/%E8%B1%86%E7%93%A3%E5%8A%A8%E7%94%BB%E8%AF%A6%E8%A7%A3.md)
 > + [不再hook setDelegate和setDataSource](https://github.com/tigerAndBull/TABAnimated/blob/master/Documents/%E4%B8%8D%E5%86%8Dhook%20setDelegate%E5%92%8CsetDataSource.md)
 > + [上拉加载更多](https://github.com/tigerAndBull/TABAnimated/blob/master/Documents/%E4%B8%8A%E6%8B%89%E5%8A%A0%E8%BD%BD%E5%8A%9F%E8%83%BD.md)
 
-**如果你仍无法解决问题，可以尽快联系我，我相信TABAnimated是可以解决99%的需求的**
-
 ## 最后强调
 
-- 有问题一定要先看`demo`和文档哈，demo的示例分散在`UITableView`和`UICollectionView`两种类型视图上
-- demo也只是引导的作用，你可以自己设置出更精美的效果
-- 如有使用问题、优化建议、好的想法等，可以关注公众号：tigerAndBull技术分享，扫码加群快速解决
+- 有问题一定要先看issues和documents
+- demo主要是引导作用，提供不同结构视图的集成方案，开发者可以自己定制出更精美的效果
+- 如有使用问题、优化建议、好的想法等，可以关注公众号：tigerAndBull技术分享，加群快速解决
 
 ## License
 

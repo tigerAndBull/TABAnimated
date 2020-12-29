@@ -123,9 +123,10 @@
         _collectionView.backgroundColor = [UIColor tab_normalDynamicBackgroundColor];
         
         CGFloat height = CardCollectionViewCell.cellSize.height+50;
+        NSArray <NSNumber *>* heightArray = @[@(height), @(height+20), @(height+20), @(height+20), @(height+20), @(height+20), @(height+20), @(height+20)];
         TABCollectionAnimated *tabAnimated =
         [TABCollectionAnimated animatedWaterFallLayoutWithCellClass:CardCollectionViewCell.class
-                                                        heightArray:@[@(height), @(height+20), @(height+20), @(height+20), @(height+20), @(height+20), @(height+20), @(height+20)]
+                                                        heightArray:heightArray
                                                           heightSel:@selector(waterFallLayout:heightForItemAtIndex:itemWidth:)];
         tabAnimated.animatedBackgroundColor = UIColor.redColor;
         _collectionView.tabAnimated = tabAnimated;

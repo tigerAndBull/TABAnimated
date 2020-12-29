@@ -129,9 +129,10 @@ const int TABAnimatedIndexTag = -100000;
 
 - (void)tab_endAnimationWithIndex:(NSInteger)index isEaseOut:(BOOL)isEaseOut {
     
-    if (self.tabAnimated.state == TABViewAnimationEnd) return;
+    TABViewAnimated *viewAnimated = self.tabAnimated;
+    if (viewAnimated.state == (TABViewAnimationDefault || TABViewAnimationEnd)) return;
     
-    if (index == TABAnimatedIndexTag && ![self.tabAnimated isKindOfClass:[TABFormAnimated class]]) {
+    if (index == TABAnimatedIndexTag && ![viewAnimated isKindOfClass:[TABFormAnimated class]]) {
         [self _endViewAnimation];
         if (isEaseOut) [TABAnimationMethod addEaseOutAnimation:self];
         return;
@@ -140,9 +141,9 @@ const int TABAnimatedIndexTag = -100000;
     BOOL isNeedReset = NO;
     if (index == TABAnimatedIndexTag) isNeedReset = YES;
     
-    if ([self.tabAnimated isKindOfClass:[TABFormAnimated class]]) {
+    if ([viewAnimated isKindOfClass:[TABFormAnimated class]]) {
         
-        TABFormAnimated *tabAnimated = (TABFormAnimated *)self.tabAnimated;
+        TABFormAnimated *tabAnimated = (TABFormAnimated *)viewAnimated;
         
         UIScrollView *scrollView = (UIScrollView *)self;
         if (!tabAnimated.scrollEnabled) {
