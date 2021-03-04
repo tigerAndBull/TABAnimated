@@ -12,6 +12,7 @@
 #import "UIView+TABControlModel.h"
 #import "UIView+TABControlAnimation.h"
 #import <objc/runtime.h>
+#import <objc/message.h>
 
 @interface TABCollectionAnimated()
 
@@ -203,19 +204,21 @@
     [self.runFooterIndexDict setValue:@(self.footerClassArray.count-1) forKey:[self getStringWIthIndex:section]];
 }
 
-- (void)exchangeDelegate:(UIView *)target {
+- (void)rebindDelegate:(UIView *)target {
     id <UICollectionViewDelegate> delegate = ((UICollectionView *)target).delegate;
-    if (!self.isExhangeDelegateIMP) {
-        [self exchangeDelegateMethods:delegate target:target];
-        self.isExhangeDelegateIMP = YES;
+    if (!self.isRebindDelegateIMP) {
+        self.oldDelegate = delegate;
+        [self updateDelegateMethods:delegate target:target];
+        self.isRebindDelegateIMP = YES;
     }
 }
 
-- (void)exchangeDataSource:(UIView *)target {
+- (void)rebindDataSource:(UIView *)target {
     id <UICollectionViewDataSource> dataSource = ((UICollectionView *)target).dataSource;
-    if (!self.isExhangeDataSourceIMP) {
-        [self exchangeDataSourceMethods:dataSource target:target];
-        self.isExhangeDataSourceIMP = YES;
+    if (!self.isRebindDataSourceIMP) {
+        self.oldDataSource = dataSource;
+        [self updateDataSourceMethods:dataSource target:target];
+        self.isRebindDataSourceIMP = YES;
     }
 }
 
@@ -252,85 +255,79 @@
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wundeclared-selector"
 
-- (void)exchangeDelegateMethods:(id<UICollectionViewDelegate>)delegate
-                         target:(id)target {
+- (void)updateDelegateMethods:(id<UICollectionViewDelegate>)delegate
+                       target:(id)target {
         
     SEL oldHeightSel = @selector(collectionView:layout:sizeForItemAtIndexPath:);
     SEL newHeightSel = @selector(tab_collectionView:layout:sizeForItemAtIndexPath:);
-    [self exchangeDelegateOldSel:oldHeightSel
-                          newSel:newHeightSel
-                          target:target
-                        delegate:delegate];
+    if ([delegate respondsToSelector:oldHeightSel]) {
+        [self addNewMethodWithSel:oldHeightSel newSel:newHeightSel];
+    }
     
     SEL oldDisplaySel = @selector(collectionView:willDisplayCell:forItemAtIndexPath:);
     SEL newDisplaySel = @selector(tab_collectionView:willDisplayCell:forItemAtIndexPath:);
-    [self exchangeDelegateOldSel:oldDisplaySel
-                          newSel:newDisplaySel
-                          target:target
-                        delegate:delegate];
+    if ([delegate respondsToSelector:oldDisplaySel]) {
+        [self addNewMethodWithSel:oldDisplaySel newSel:newDisplaySel];
+    }
     
     SEL oldClickSel = @selector(collectionView:didSelectItemAtIndexPath:);
     SEL newClickSel = @selector(tab_collectionView:didSelectItemAtIndexPath:);
-    [self exchangeDelegateOldSel:oldClickSel
-                          newSel:newClickSel
-                          target:target
-                        delegate:delegate];
+    if ([delegate respondsToSelector:oldClickSel]) {
+        [self addNewMethodWithSel:oldClickSel newSel:newClickSel];
+    }
+    
+    ((UICollectionView *)target).delegate = self.protocolContainer;
 }
 
-- (void)exchangeDataSourceMethods:(id<UICollectionViewDataSource>)dataSource
-                           target:(id)target {
+- (void)updateDataSourceMethods:(id<UICollectionViewDataSource>)dataSource
+                         target:(id)target {
 
     SEL oldSectionsSel = @selector(numberOfSectionsInCollectionView:);
     SEL newSectionsSel = @selector(tab_numberOfSectionsInCollectionView:);
-    [self exchangeDelegateOldSel:oldSectionsSel
-                          newSel:newSectionsSel
-                          target:target
-                        delegate:dataSource];
+    if ([dataSource respondsToSelector:oldSectionsSel]) {
+        [self addNewMethodWithSel:oldSectionsSel newSel:newSectionsSel];
+    }
     
     SEL oldItemsSel = @selector(collectionView:numberOfItemsInSection:);
     SEL newItemsSel = @selector(tab_collectionView:numberOfItemsInSection:);
-    [self exchangeDelegateOldSel:oldItemsSel
-                          newSel:newItemsSel
-                          target:target
-                        delegate:dataSource];
+    if ([dataSource respondsToSelector:oldItemsSel]) {
+        [self addNewMethodWithSel:oldItemsSel newSel:newItemsSel];
+    }
     
     SEL oldCellSel = @selector(collectionView:cellForItemAtIndexPath:);
     SEL newCellSel = @selector(tab_collectionView:cellForItemAtIndexPath:);
-    [self exchangeDelegateOldSel:oldCellSel
-                          newSel:newCellSel
-                          target:target
-                        delegate:dataSource];
+    if ([dataSource respondsToSelector:oldCellSel]) {
+        [self addNewMethodWithSel:oldCellSel newSel:newCellSel];
+    }
     
     SEL oldReuseableCellSel = @selector(collectionView:viewForSupplementaryElementOfKind:atIndexPath:);
     SEL newReuseableCellSel = @selector(tab_collectionView:viewForSupplementaryElementOfKind:atIndexPath:);
-    [self exchangeDelegateOldSel:oldReuseableCellSel
-                          newSel:newReuseableCellSel
-                          target:target
-                        delegate:dataSource];
+    if ([dataSource respondsToSelector:oldReuseableCellSel]) {
+        [self addNewMethodWithSel:oldReuseableCellSel newSel:newReuseableCellSel];
+    }
     
     SEL oldHeaderCellSel = @selector(collectionView:layout:referenceSizeForHeaderInSection:);
     SEL newHeaderCellSel = @selector(tab_collectionView:layout:referenceSizeForHeaderInSection:);
-    [self exchangeDelegateOldSel:oldHeaderCellSel
-                          newSel:newHeaderCellSel
-                          target:target
-                        delegate:dataSource];
+    if ([dataSource respondsToSelector:oldHeaderCellSel]) {
+        [self addNewMethodWithSel:oldHeaderCellSel newSel:newHeaderCellSel];
+    }
     
     SEL oldFooterCellSel = @selector(collectionView:layout:referenceSizeForFooterInSection:);
     SEL newFooterCellSel = @selector(tab_collectionView:layout:referenceSizeForFooterInSection:);
-    [self exchangeDelegateOldSel:oldFooterCellSel
-                          newSel:newFooterCellSel
-                          target:target
-                        delegate:dataSource];
+    if ([dataSource respondsToSelector:oldFooterCellSel]) {
+        [self addNewMethodWithSel:oldFooterCellSel newSel:newFooterCellSel];
+    }
     
     if (self.waterFallLayoutHeightSel) {
         SEL oldWaterFallLayoutHeight = self.waterFallLayoutHeightSel;
         SEL newWaterFallLayoutHeight = @selector(tab_waterFallLayout:index:itemWidth:);
-        
         [self exchangeDelegateOldSel:oldWaterFallLayoutHeight
                               newSel:newWaterFallLayoutHeight
                               target:target
                             delegate:dataSource];
     }
+    
+    ((UICollectionView *)target).dataSource = self.protocolContainer;
 }
 
 #pragma clang diagnostic pop
@@ -384,15 +381,18 @@
 - (NSInteger)tab_numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     
     TABCollectionAnimated *tabAnimated = collectionView.tabAnimated;
+    id oldDelegate = tabAnimated.oldDataSource;
+    SEL sel = @selector(numberOfSectionsInCollectionView:);
+    
     if (tabAnimated.state != TABViewAnimationStart) {
-        return [self tab_numberOfSectionsInCollectionView:collectionView];
+        return ((NSInteger (*)(id, SEL, UICollectionView *))objc_msgSend)((id)oldDelegate, sel, collectionView);
     }
     
     if (tabAnimated.runMode == TABAnimatedRunBySection && tabAnimated.animatedSectionCount > 0) {
         return tabAnimated.animatedSectionCount;
     }
     
-    NSInteger count = [self tab_numberOfSectionsInCollectionView:collectionView];
+    NSInteger count = ((NSInteger (*)(id, SEL, UICollectionView *))objc_msgSend)((id)oldDelegate, sel, collectionView);
     if (count == 0) count = tabAnimated.cellClassArray.count;
     if (count == 0) return 1;
     return count;
@@ -401,11 +401,14 @@
 - (NSInteger)tab_collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     
     TABCollectionAnimated *tabAnimated = collectionView.tabAnimated;
+    id oldDelegate = tabAnimated.oldDataSource;
+    SEL sel = @selector(collectionView:numberOfItemsInSection:);
+    
     if (tabAnimated.state != TABViewAnimationStart) {
-        return [self tab_collectionView:collectionView numberOfItemsInSection:section];
+        return ((NSInteger (*)(id, SEL, UICollectionView *, NSInteger))objc_msgSend)((id)oldDelegate, sel, collectionView, section);
     }
     
-    NSInteger originCount = [self tab_collectionView:collectionView numberOfItemsInSection:section];
+    NSInteger originCount = ((NSInteger (*)(id, SEL, UICollectionView *, NSInteger))objc_msgSend)((id)oldDelegate, sel, collectionView, section);
     if (tabAnimated.runMode == TABAnimatedRunByRow) {
         if (tabAnimated.animatedCount > 0) return tabAnimated.animatedCount;
         return originCount > 0 ? originCount : tabAnimated.cellClassArray.count;
@@ -418,27 +421,35 @@
 }
 
 - (CGSize)tab_collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    if (collectionView.tabAnimated.state != TABViewAnimationStart) {
-        return [self tab_collectionView:collectionView layout:collectionViewLayout sizeForItemAtIndexPath:indexPath];
-    }
     
     TABCollectionAnimated *tabAnimated = collectionView.tabAnimated;
+    id oldDelegate = tabAnimated.oldDelegate;
+    SEL sel = @selector(collectionView:layout:sizeForItemAtIndexPath:);
+    
+    if (tabAnimated.state != TABViewAnimationStart) {
+        return ((CGSize (*)(id, SEL, UICollectionView *, UICollectionViewLayout *, NSIndexPath *))objc_msgSend)((id)oldDelegate, sel, collectionView, collectionViewLayout, indexPath);
+    }
+    
     NSInteger index = [tabAnimated getIndexWithIndex:indexPath.section];
     if (index < 0) {
-        return [self tab_collectionView:collectionView layout:collectionViewLayout sizeForItemAtIndexPath:indexPath];
+        return ((CGSize (*)(id, SEL, UICollectionView *, UICollectionViewLayout *, NSIndexPath *))objc_msgSend)((id)oldDelegate, sel, collectionView, collectionViewLayout, indexPath);
     }
     return [tabAnimated.cellSizeArray[index] CGSizeValue];
 }
 
 - (UICollectionViewCell *)tab_collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    if (collectionView.tabAnimated.state != TABViewAnimationStart) {
-        return [self tab_collectionView:collectionView cellForItemAtIndexPath:indexPath];
-    }
     
     TABCollectionAnimated *tabAnimated = collectionView.tabAnimated;
+    id oldDelegate = tabAnimated.oldDataSource;
+    SEL sel = @selector(collectionView:cellForItemAtIndexPath:);
+    
+    if (tabAnimated.state != TABViewAnimationStart) {
+        return ((UICollectionViewCell * (*)(id, SEL, UICollectionView *, NSIndexPath *))objc_msgSend)((id)oldDelegate, sel, collectionView, indexPath);
+    }
+    
     NSInteger index = [tabAnimated getIndexWithIndex:indexPath.section];
     if (index < 0) {
-        return [self tab_collectionView:collectionView cellForItemAtIndexPath:indexPath];
+        return ((UICollectionViewCell * (*)(id, SEL, UICollectionView *, NSIndexPath *))objc_msgSend)((id)oldDelegate, sel, collectionView, indexPath);
     }
 
     Class currentClass = tabAnimated.cellClassArray[index];
@@ -447,14 +458,24 @@
 }
 
 - (void)tab_collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
-    if (collectionView.tabAnimated.state != TABViewAnimationStart) {
-        [self tab_collectionView:collectionView willDisplayCell:cell forItemAtIndexPath:indexPath];
+    
+    TABCollectionAnimated *tabAnimated = collectionView.tabAnimated;
+    id oldDelegate = tabAnimated.oldDelegate;
+    SEL sel = @selector(collectionView:willDisplayCell:forItemAtIndexPath:);
+    
+    if (tabAnimated.state != TABViewAnimationStart) {
+        ((void (*)(id, SEL, UICollectionView *, UICollectionViewCell *, NSIndexPath *))objc_msgSend)((id)oldDelegate, sel, collectionView, cell, indexPath);
     }
 }
 
 - (void)tab_collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    if (collectionView.tabAnimated.state != TABViewAnimationStart) {
-        [self tab_collectionView:collectionView didSelectItemAtIndexPath:indexPath];
+    
+    TABCollectionAnimated *tabAnimated = collectionView.tabAnimated;
+    id oldDelegate = tabAnimated.oldDelegate;
+    SEL sel = @selector(collectionView:didSelectItemAtIndexPath:);
+    
+    if (tabAnimated.state != TABViewAnimationStart) {
+        ((void (*)(id, SEL, UICollectionView *, NSIndexPath *))objc_msgSend)((id)oldDelegate, sel, collectionView, indexPath);
     }
 }
 
@@ -462,9 +483,11 @@
 
 - (CGSize)tab_collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
     TABCollectionAnimated *tabAnimated = collectionView.tabAnimated;
+    id oldDelegate = tabAnimated.oldDataSource;
+    SEL sel = @selector(collectionView:layout:referenceSizeForHeaderInSection:);
     NSInteger index = [tabAnimated getHeaderIndexWithIndex:section];
     if (index < 0) {
-        return [self tab_collectionView:collectionView layout:collectionViewLayout referenceSizeForHeaderInSection:section];
+        return ((CGSize (*)(id, SEL, UICollectionView *, UICollectionViewLayout *, NSInteger))objc_msgSend)((id)oldDelegate, sel, collectionView, collectionViewLayout, section);
     }
     NSValue *value = collectionView.tabAnimated.headerSizeArray[index];
     return [value CGSizeValue];
@@ -472,9 +495,11 @@
 
 - (CGSize)tab_collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section {
     TABCollectionAnimated *tabAnimated = collectionView.tabAnimated;
+    id oldDelegate = tabAnimated.oldDataSource;
+    SEL sel = @selector(collectionView:layout:referenceSizeForFooterInSection:);
     NSInteger index = [tabAnimated getFooterIndexWithIndex:section];
     if (index < 0) {
-        return [self tab_collectionView:collectionView layout:collectionViewLayout referenceSizeForFooterInSection:section];
+        return ((CGSize (*)(id, SEL, UICollectionView *, UICollectionViewLayout *, NSInteger))objc_msgSend)((id)oldDelegate, sel, collectionView, collectionViewLayout, section);
     }
     NSValue *value = collectionView.tabAnimated.footerSizeArray[index];
     return [value CGSizeValue];
@@ -485,6 +510,9 @@
                                      atIndexPath:(NSIndexPath *)indexPath {
     
     TABCollectionAnimated *tabAnimated = collectionView.tabAnimated;
+    id oldDelegate = tabAnimated.oldDataSource;
+    SEL sel = @selector(collectionView:viewForSupplementaryElementOfKind:atIndexPath:);
+    
     NSInteger index = -1;
     if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
         index = [tabAnimated getHeaderIndexWithIndex:indexPath.section];
@@ -493,7 +521,7 @@
     }
     
     if (index < 0) {
-        return [self tab_collectionView:collectionView viewForSupplementaryElementOfKind:kind atIndexPath:indexPath];
+        return ((UICollectionReusableView * (*)(id, SEL, UICollectionView *, NSString *, NSIndexPath *))objc_msgSend)((id)oldDelegate, sel, collectionView, kind, indexPath);
     }
     
     Class currentClass = nil;
