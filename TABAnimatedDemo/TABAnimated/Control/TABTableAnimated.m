@@ -496,15 +496,6 @@
     return cell;
 }
 
-- (void)tab_tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    TABTableAnimated *tabAnimated = tableView.tabAnimated;
-    if (tabAnimated.state != TABViewAnimationStart) {
-        id oldDelegate = tabAnimated.oldDataSource;
-        SEL sel = @selector(tableView:willDisplayCell:forRowAtIndexPath:);
-        ((void (*)(id, SEL, UITableView *, UITableViewCell *, NSIndexPath *))objc_msgSend)((id)oldDelegate, sel, tableView, cell, indexPath);
-    }
-}
-
 - (void)tab_tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     TABTableAnimated *tabAnimated = tableView.tabAnimated;
     if (tabAnimated.state != TABViewAnimationStart) {
@@ -597,5 +588,391 @@
     
     return hfView;
 }
+
+#pragma mark - Extra Datasource
+
+- (nullable NSString *)tab_tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    TABTableAnimated *tabAnimated = tableView.tabAnimated;
+    id oldDelegate = tabAnimated.oldDataSource;
+    SEL sel = @selector(tableView:titleForHeaderInSection:);
+    return ((NSString * (*)(id, SEL, UITableView *, NSInteger))objc_msgSend)((id)oldDelegate, sel, tableView, section);
+}
+
+- (nullable NSString *)tab_tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
+    TABTableAnimated *tabAnimated = tableView.tabAnimated;
+    id oldDelegate = tabAnimated.oldDataSource;
+    SEL sel = @selector(tableView:titleForFooterInSection:);
+    return ((NSString * (*)(id, SEL, UITableView *, NSInteger))objc_msgSend)((id)oldDelegate, sel, tableView, section);
+}
+
+- (BOOL)tab_tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    TABTableAnimated *tabAnimated = tableView.tabAnimated;
+    if (tabAnimated.state == TABViewAnimationStart) {
+        return NO;
+    }
+    id oldDelegate = tabAnimated.oldDataSource;
+    SEL sel = @selector(tableView:canEditRowAtIndexPath:);
+    return ((BOOL (*)(id, SEL, UITableView *, NSIndexPath *))objc_msgSend)((id)oldDelegate, sel, tableView, indexPath);
+}
+
+- (BOOL)tab_tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
+    TABTableAnimated *tabAnimated = tableView.tabAnimated;
+    if (tabAnimated.state == TABViewAnimationStart) {
+        return NO;
+    }
+    id oldDelegate = tabAnimated.oldDataSource;
+    SEL sel = @selector(tableView:canMoveRowAtIndexPath:);
+    return ((BOOL (*)(id, SEL, UITableView *, NSIndexPath *))objc_msgSend)((id)oldDelegate, sel, tableView, indexPath);
+}
+
+- (nullable NSArray<NSString *> *)tab_sectionIndexTitlesForTableView:(UITableView *)tableView {
+    TABTableAnimated *tabAnimated = tableView.tabAnimated;
+    if (tabAnimated.state == TABViewAnimationStart) {
+        return nil;
+    }
+    id oldDelegate = tabAnimated.oldDataSource;
+    SEL sel = @selector(sectionIndexTitlesForTableView:);
+    return ((NSArray<NSString *> * (*)(id, SEL, UITableView *))objc_msgSend)((id)oldDelegate, sel, tableView);
+}
+
+- (NSInteger)tab_tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index {
+    TABTableAnimated *tabAnimated = tableView.tabAnimated;
+    id oldDelegate = tabAnimated.oldDataSource;
+    SEL sel = @selector(tableView:sectionForSectionIndexTitle:atIndex:);
+    return ((NSInteger (*)(id, SEL, UITableView *, NSString *, NSInteger index))objc_msgSend)((id)oldDelegate, sel, tableView, title, index);
+}
+
+- (void)tab_tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    TABTableAnimated *tabAnimated = tableView.tabAnimated;
+    id oldDelegate = tabAnimated.oldDataSource;
+    SEL sel = @selector(tableView:commitEditingStyle:forRowAtIndexPath:);
+    ((void (*)(id, SEL, UITableView *, UITableViewCellEditingStyle, NSIndexPath *))objc_msgSend)((id)oldDelegate, sel, tableView, editingStyle, indexPath);
+}
+
+- (void)tab_tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
+    TABTableAnimated *tabAnimated = tableView.tabAnimated;
+    id oldDelegate = tabAnimated.oldDataSource;
+    SEL sel = @selector(tableView:moveRowAtIndexPath:toIndexPath:);
+    ((void (*)(id, SEL, UITableView *, NSIndexPath *, NSIndexPath *))objc_msgSend)((id)oldDelegate, sel, tableView, sourceIndexPath, destinationIndexPath);
+}
+
+
+#pragma mark - Extra Delegate
+
+// Display customization
+
+- (void)tab_tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    TABTableAnimated *tabAnimated = tableView.tabAnimated;
+    if (tabAnimated.state == TABViewAnimationStart) return;
+    id oldDelegate = tabAnimated.oldDelegate;
+    SEL sel = @selector(tableView:willDisplayCell:forRowAtIndexPath:);
+    ((void (*)(id, SEL, UITableView *, UITableViewCell *, NSIndexPath *))objc_msgSend)((id)oldDelegate, sel, tableView, cell, indexPath);
+}
+
+- (void)tab_tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
+    TABTableAnimated *tabAnimated = tableView.tabAnimated;
+    if (tabAnimated.state == TABViewAnimationStart) return;
+    id oldDelegate = tabAnimated.oldDelegate;
+    SEL sel = @selector(tableView:willDisplayHeaderView:forSection:);
+    ((void (*)(id, SEL, UITableView *, UIView *, NSInteger))objc_msgSend)((id)oldDelegate, sel, tableView, view, section);
+}
+
+- (void)tab_tableView:(UITableView *)tableView willDisplayFooterView:(UIView *)view forSection:(NSInteger)section {
+    TABTableAnimated *tabAnimated = tableView.tabAnimated;
+    if (tabAnimated.state == TABViewAnimationStart) return;
+    id oldDelegate = tabAnimated.oldDelegate;
+    SEL sel = @selector(tableView:willDisplayFooterView:forSection:);
+    ((void (*)(id, SEL, UITableView *, UIView *, NSInteger))objc_msgSend)((id)oldDelegate, sel, tableView, view, section);
+}
+
+- (void)tab_tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    TABTableAnimated *tabAnimated = tableView.tabAnimated;
+    if (tabAnimated.state == TABViewAnimationStart) return;
+    id oldDelegate = tabAnimated.oldDelegate;
+    SEL sel = @selector(tableView:didEndDisplayingCell:forRowAtIndexPath:);
+    ((void (*)(id, SEL, UITableView *, UITableViewCell *, NSIndexPath *))objc_msgSend)((id)oldDelegate, sel, tableView, cell, indexPath);
+}
+
+- (void)tab_tableView:(UITableView *)tableView didEndDisplayingHeaderView:(UIView *)view forSection:(NSInteger)section {
+    TABTableAnimated *tabAnimated = tableView.tabAnimated;
+    if (tabAnimated.state == TABViewAnimationStart) return;
+    id oldDelegate = tabAnimated.oldDelegate;
+    SEL sel = @selector(tableView:didEndDisplayingHeaderView:forSection:);
+    ((void (*)(id, SEL, UITableView *, UIView *, NSInteger))objc_msgSend)((id)oldDelegate, sel, tableView, view, section);
+}
+
+- (void)tab_tableView:(UITableView *)tableView didEndDisplayingFooterView:(UIView *)view forSection:(NSInteger)section {
+    TABTableAnimated *tabAnimated = tableView.tabAnimated;
+    if (tabAnimated.state == TABViewAnimationStart) return;
+    id oldDelegate = tabAnimated.oldDelegate;
+    SEL sel = @selector(tableView:didEndDisplayingFooterView:forSection:);
+    ((void (*)(id, SEL, UITableView *, UIView *, NSInteger))objc_msgSend)((id)oldDelegate, sel, tableView, view, section);
+}
+
+//- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath API_AVAILABLE(ios(7.0));
+//- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForHeaderInSection:(NSInteger)section API_AVAILABLE(ios(7.0));
+//- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForFooterInSection:(NSInteger)section API_AVAILABLE(ios(7.0));
+
+// Accessories (disclosures).
+
+- (UITableViewCellAccessoryType)tab_tableView:(UITableView *)tableView accessoryTypeForRowWithIndexPath:(NSIndexPath *)indexPath {
+    TABTableAnimated *tabAnimated = tableView.tabAnimated;
+    if (tabAnimated.state == TABViewAnimationStart) return UITableViewCellAccessoryNone;
+    id oldDelegate = tabAnimated.oldDelegate;
+    SEL sel = @selector(tableView:accessoryTypeForRowWithIndexPath:);
+    return ((UITableViewCellAccessoryType (*)(id, SEL, UITableView *, NSIndexPath *))objc_msgSend)((id)oldDelegate, sel, tableView, indexPath);
+}
+
+- (void)tab_tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
+    TABTableAnimated *tabAnimated = tableView.tabAnimated;
+    if (tabAnimated.state == TABViewAnimationStart) return;
+    id oldDelegate = tabAnimated.oldDelegate;
+    SEL sel = @selector(tableView:accessoryButtonTappedForRowWithIndexPath:);
+    ((void (*)(id, SEL, UITableView *, NSIndexPath *))objc_msgSend)((id)oldDelegate, sel, tableView, indexPath);
+}
+
+- (BOOL)tab_tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
+    TABTableAnimated *tabAnimated = tableView.tabAnimated;
+    if (tabAnimated.state == TABViewAnimationStart) return NO;
+    id oldDelegate = tabAnimated.oldDelegate;
+    SEL sel = @selector(tableView:shouldHighlightRowAtIndexPath:);
+    return ((BOOL (*)(id, SEL, UITableView *, NSIndexPath *))objc_msgSend)((id)oldDelegate, sel, tableView, indexPath);
+}
+
+- (void)tab_tableView:(UITableView *)tableView didHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
+    TABTableAnimated *tabAnimated = tableView.tabAnimated;
+    if (tabAnimated.state == TABViewAnimationStart) return;
+    id oldDelegate = tabAnimated.oldDelegate;
+    SEL sel = @selector(tableView:didHighlightRowAtIndexPath:);
+    ((void (*)(id, SEL, UITableView *, NSIndexPath *))objc_msgSend)((id)oldDelegate, sel, tableView, indexPath);
+}
+
+- (void)tab_tableView:(UITableView *)tableView didUnhighlightRowAtIndexPath:(NSIndexPath *)indexPath {
+    TABTableAnimated *tabAnimated = tableView.tabAnimated;
+    if (tabAnimated.state == TABViewAnimationStart) return;
+    id oldDelegate = tabAnimated.oldDelegate;
+    SEL sel = @selector(tableView:didUnhighlightRowAtIndexPath:);
+    ((void (*)(id, SEL, UITableView *, NSIndexPath *))objc_msgSend)((id)oldDelegate, sel, tableView, indexPath);
+}
+
+- (nullable NSIndexPath *)tab_tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    TABTableAnimated *tabAnimated = tableView.tabAnimated;
+    if (tabAnimated.state == TABViewAnimationStart) return nil;
+    id oldDelegate = tabAnimated.oldDelegate;
+    SEL sel = @selector(tableView:willSelectRowAtIndexPath:);
+    return ((NSIndexPath * (*)(id, SEL, UITableView *, NSIndexPath *))objc_msgSend)((id)oldDelegate, sel, tableView, indexPath);
+}
+
+- (nullable NSIndexPath *)tab_tableView:(UITableView *)tableView willDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
+    TABTableAnimated *tabAnimated = tableView.tabAnimated;
+    if (tabAnimated.state == TABViewAnimationStart) return nil;
+    id oldDelegate = tabAnimated.oldDelegate;
+    SEL sel = @selector(tableView:willDeselectRowAtIndexPath:);
+    return ((NSIndexPath * (*)(id, SEL, UITableView *, NSIndexPath *))objc_msgSend)((id)oldDelegate, sel, tableView, indexPath);
+}
+
+- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
+    TABTableAnimated *tabAnimated = tableView.tabAnimated;
+    if (tabAnimated.state == TABViewAnimationStart) return;
+    id oldDelegate = tabAnimated.oldDelegate;
+    SEL sel = @selector(tableView:didDeselectRowAtIndexPath:);
+    ((void (*)(id, SEL, UITableView *, NSIndexPath *))objc_msgSend)((id)oldDelegate, sel, tableView, indexPath);
+}
+
+- (UITableViewCellEditingStyle)tab_tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+    TABTableAnimated *tabAnimated = tableView.tabAnimated;
+    if (tabAnimated.state == TABViewAnimationStart) return UITableViewCellEditingStyleNone;
+    id oldDelegate = tabAnimated.oldDelegate;
+    SEL sel = @selector(tableView:editingStyleForRowAtIndexPath:);
+    return ((UITableViewCellEditingStyle (*)(id, SEL, UITableView *, NSIndexPath *))objc_msgSend)((id)oldDelegate, sel, tableView, indexPath);
+}
+
+- (nullable NSString *)tab_tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
+    TABTableAnimated *tabAnimated = tableView.tabAnimated;
+    if (tabAnimated.state == TABViewAnimationStart) return nil;
+    id oldDelegate = tabAnimated.oldDelegate;
+    SEL sel = @selector(tableView:titleForDeleteConfirmationButtonForRowAtIndexPath:);
+    return ((NSString * (*)(id, SEL, UITableView *, NSIndexPath *))objc_msgSend)((id)oldDelegate, sel, tableView, indexPath);
+}
+
+- (nullable NSArray<UITableViewRowAction *> *)tab_tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
+    TABTableAnimated *tabAnimated = tableView.tabAnimated;
+    if (tabAnimated.state == TABViewAnimationStart) return nil;
+    id oldDelegate = tabAnimated.oldDelegate;
+    SEL sel = @selector(tableView:editActionsForRowAtIndexPath:);
+    return ((NSArray<UITableViewRowAction *> * (*)(id, SEL, UITableView *, NSIndexPath *))objc_msgSend)((id)oldDelegate, sel, tableView, indexPath);
+}
+
+// Swipe actions
+// These methods supersede -editActionsForRowAtIndexPath: if implemented
+// return nil to get the default swipe actions
+- (nullable UISwipeActionsConfiguration *)tab_tableView:(UITableView *)tableView leadingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath  {
+    TABTableAnimated *tabAnimated = tableView.tabAnimated;
+    if (tabAnimated.state == TABViewAnimationStart) return nil;
+    id oldDelegate = tabAnimated.oldDelegate;
+    SEL sel = @selector(tableView:leadingSwipeActionsConfigurationForRowAtIndexPath:);
+    if (@available(iOS 11.0, *)) {
+        return ((UISwipeActionsConfiguration * (*)(id, SEL, UITableView *, NSIndexPath *))objc_msgSend)((id)oldDelegate, sel, tableView, indexPath);
+    }
+    return nil;
+}
+
+- (nullable UISwipeActionsConfiguration *)tab_tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
+    TABTableAnimated *tabAnimated = tableView.tabAnimated;
+    if (tabAnimated.state == TABViewAnimationStart) return nil;
+    id oldDelegate = tabAnimated.oldDelegate;
+    SEL sel = @selector(tableView:trailingSwipeActionsConfigurationForRowAtIndexPath:);
+    if (@available(iOS 11.0, *)) {
+        return ((UISwipeActionsConfiguration * (*)(id, SEL, UITableView *, NSIndexPath *))objc_msgSend)((id)oldDelegate, sel, tableView, indexPath);
+    }
+    return nil;
+}
+
+// Controls whether the background is indented while editing.  If not implemented, the default is YES.  This is unrelated to the indentation level below.  This method only applies to grouped style table views.
+- (BOOL)tab_tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath {
+    TABTableAnimated *tabAnimated = tableView.tabAnimated;
+    if (tabAnimated.state == TABViewAnimationStart) return NO;
+    id oldDelegate = tabAnimated.oldDelegate;
+    SEL sel = @selector(tableView:shouldIndentWhileEditingRowAtIndexPath:);
+    return ((BOOL (*)(id, SEL, UITableView *, NSIndexPath *))objc_msgSend)((id)oldDelegate, sel, tableView, indexPath);
+}
+
+// The willBegin/didEnd methods are called whenever the 'editing' property is automatically changed by the table (allowing insert/delete/move). This is done by a swipe activating a single row
+- (void)tab_tableView:(UITableView *)tableView willBeginEditingRowAtIndexPath:(NSIndexPath *)indexPath {
+    TABTableAnimated *tabAnimated = tableView.tabAnimated;
+    if (tabAnimated.state == TABViewAnimationStart) return;
+    id oldDelegate = tabAnimated.oldDelegate;
+    SEL sel = @selector(tableView:willBeginEditingRowAtIndexPath:);
+    ((void (*)(id, SEL, UITableView *, NSIndexPath *))objc_msgSend)((id)oldDelegate, sel, tableView, indexPath);
+}
+
+- (void)tab_tableView:(UITableView *)tableView didEndEditingRowAtIndexPath:(nullable NSIndexPath *)indexPath {
+    TABTableAnimated *tabAnimated = tableView.tabAnimated;
+    if (tabAnimated.state == TABViewAnimationStart) return;
+    id oldDelegate = tabAnimated.oldDelegate;
+    SEL sel = @selector(tableView:didEndEditingRowAtIndexPath:);
+    ((void (*)(id, SEL, UITableView *, NSIndexPath *))objc_msgSend)((id)oldDelegate, sel, tableView, indexPath);
+}
+
+// Moving/reordering
+
+// Allows customization of the target row for a particular row as it is being moved/reordered
+- (NSIndexPath *)tab_tableView:(UITableView *)tableView targetIndexPathForMoveFromRowAtIndexPath:(NSIndexPath *)sourceIndexPath toProposedIndexPath:(NSIndexPath *)proposedDestinationIndexPath {
+    TABTableAnimated *tabAnimated = tableView.tabAnimated;
+    id oldDelegate = tabAnimated.oldDelegate;
+    SEL sel = @selector(tableView:targetIndexPathForMoveFromRowAtIndexPath:toProposedIndexPath:);
+    return ((NSIndexPath * (*)(id, SEL, UITableView *, NSIndexPath *, NSIndexPath *))objc_msgSend)((id)oldDelegate, sel, tableView, sourceIndexPath, proposedDestinationIndexPath);
+}
+
+// Indentation
+
+- (NSInteger)tab_tableView:(UITableView *)tableView indentationLevelForRowAtIndexPath:(NSIndexPath *)indexPath {
+    TABTableAnimated *tabAnimated = tableView.tabAnimated;
+    if (tabAnimated.state == TABViewAnimationStart) return 0;
+    id oldDelegate = tabAnimated.oldDelegate;
+    SEL sel = @selector(tableView:indentationLevelForRowAtIndexPath:);
+    return ((NSInteger (*)(id, SEL, UITableView *, NSIndexPath *))objc_msgSend)((id)oldDelegate, sel, tableView, indexPath);
+}
+
+// Copy/Paste.  All three methods must be implemented by the delegate.
+
+- (BOOL)tab_tableView:(UITableView *)tableView shouldShowMenuForRowAtIndexPath:(NSIndexPath *)indexPath {
+    TABTableAnimated *tabAnimated = tableView.tabAnimated;
+    if (tabAnimated.state == TABViewAnimationStart) return NO;
+    id oldDelegate = tabAnimated.oldDelegate;
+    SEL sel = @selector(tableView:shouldShowMenuForRowAtIndexPath:);
+    return ((BOOL (*)(id, SEL, UITableView *, NSIndexPath *))objc_msgSend)((id)oldDelegate, sel, tableView, indexPath);
+}
+
+- (BOOL)tab_tableView:(UITableView *)tableView canPerformAction:(SEL)action forRowAtIndexPath:(NSIndexPath *)indexPath withSender:(nullable id)sender {
+    TABTableAnimated *tabAnimated = tableView.tabAnimated;
+    if (tabAnimated.state == TABViewAnimationStart) return NO;
+    id oldDelegate = tabAnimated.oldDelegate;
+    SEL sel = @selector(tableView:canPerformAction:forRowAtIndexPath:withSender:);
+    return ((BOOL (*)(id, SEL, UITableView *, NSIndexPath *, id))objc_msgSend)((id)oldDelegate, sel, tableView, indexPath, sender);
+}
+- (void)tab_tableView:(UITableView *)tableView performAction:(SEL)action forRowAtIndexPath:(NSIndexPath *)indexPath withSender:(nullable id)sender {
+    TABTableAnimated *tabAnimated = tableView.tabAnimated;
+    if (tabAnimated.state == TABViewAnimationStart) return;
+    id oldDelegate = tabAnimated.oldDelegate;
+    SEL sel = @selector(tableView:performAction:forRowAtIndexPath:withSender:);
+    ((void (*)(id, SEL, UITableView *, NSIndexPath *, id))objc_msgSend)((id)oldDelegate, sel, tableView, indexPath, sender);
+}
+
+// Focus
+
+- (BOOL)tab_tableView:(UITableView *)tableView canFocusRowAtIndexPath:(NSIndexPath *)indexPath {
+    TABTableAnimated *tabAnimated = tableView.tabAnimated;
+    if (tabAnimated.state == TABViewAnimationStart) return NO;
+    id oldDelegate = tabAnimated.oldDelegate;
+    SEL sel = @selector(tableView:canFocusRowAtIndexPath:);
+    return ((BOOL (*)(id, SEL, UITableView *, NSIndexPath *))objc_msgSend)((id)oldDelegate, sel, tableView, indexPath);
+}
+
+- (BOOL)tab_tableView:(UITableView *)tableView shouldUpdateFocusInContext:(UITableViewFocusUpdateContext *)context {
+    TABTableAnimated *tabAnimated = tableView.tabAnimated;
+    if (tabAnimated.state == TABViewAnimationStart) return NO;
+    id oldDelegate = tabAnimated.oldDelegate;
+    SEL sel = @selector(tableView:shouldUpdateFocusInContext:);
+    return ((BOOL (*)(id, SEL, UITableView *, UITableViewFocusUpdateContext *))objc_msgSend)((id)oldDelegate, sel, tableView, context);
+}
+
+- (void)tab_tableView:(UITableView *)tableView didUpdateFocusInContext:(UITableViewFocusUpdateContext *)context withAnimationCoordinator:(UIFocusAnimationCoordinator *)coordinator {
+    TABTableAnimated *tabAnimated = tableView.tabAnimated;
+    if (tabAnimated.state == TABViewAnimationStart) return;
+    id oldDelegate = tabAnimated.oldDelegate;
+    SEL sel = @selector(tableView:didUpdateFocusInContext:withAnimationCoordinator:);
+    ((void (*)(id, SEL, UITableView *, UITableViewFocusUpdateContext *, UIFocusAnimationCoordinator *))objc_msgSend)((id)oldDelegate, sel, tableView, context, coordinator);
+}
+
+- (nullable NSIndexPath *)tab_indexPathForPreferredFocusedViewInTableView:(UITableView *)tableView {
+    TABTableAnimated *tabAnimated = tableView.tabAnimated;
+    if (tabAnimated.state == TABViewAnimationStart) return nil;
+    id oldDelegate = tabAnimated.oldDelegate;
+    SEL sel = @selector(tab_indexPathForPreferredFocusedViewInTableView:);
+    return ((NSIndexPath * (*)(id, SEL, UITableView *))objc_msgSend)((id)oldDelegate, sel, tableView);
+}
+
+- (BOOL)tab_tableView:(UITableView *)tableView shouldSpringLoadRowAtIndexPath:(NSIndexPath *)indexPath withContext:(id<UISpringLoadedInteractionContext>)context {
+    
+}
+
+
+- (BOOL)tab_tableView:(UITableView *)tableView shouldBeginMultipleSelectionInteractionAtIndexPath:(NSIndexPath *)indexPath {
+    
+}
+
+
+- (void)tab_tableView:(UITableView *)tableView didBeginMultipleSelectionInteractionAtIndexPath:(NSIndexPath *)indexPath {
+    
+}
+
+- (void)tab_tableViewDidEndMultipleSelectionInteraction:(UITableView *)tableView {
+    
+}
+
+//- (nullable UIContextMenuConfiguration *)tab_tableView:(UITableView *)tableView contextMenuConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath point:(CGPoint)point {
+//
+//}
+//
+//- (nullable UITargetedPreview *)tab_tableView:(UITableView *)tableView previewForHighlightingContextMenuWithConfiguration:(UIContextMenuConfiguration *)configuration {
+//
+//}
+//
+//- (nullable UITargetedPreview *)tab_tableView:(UITableView *)tableView previewForDismissingContextMenuWithConfiguration:(UIContextMenuConfiguration *)configuration {
+//
+//}
+//
+//- (void)tab_tableView:(UITableView *)tableView willPerformPreviewActionForMenuWithConfiguration:(UIContextMenuConfiguration *)configuration animator:(id<UIContextMenuInteractionCommitAnimating>)animator {
+//
+//}
+//
+//- (void)tab_tableView:(UITableView *)tableView willDisplayContextMenuWithConfiguration:(UIContextMenuConfiguration *)configuration animator:(nullable id<UIContextMenuInteractionAnimating>)animator {
+//
+//}
+//
+//- (void)tab_tableView:(UITableView *)tableView willEndContextMenuInteractionWithConfiguration:(UIContextMenuConfiguration *)configuration animator:(nullable id<UIContextMenuInteractionAnimating>)animator {
+//
+//}
 
 @end
