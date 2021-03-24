@@ -14,8 +14,6 @@
 #import <objc/runtime.h>
 #import <objc/message.h>
 
-struct
-
 @interface EstimatedTableViewDelegate : NSObject
 @end
 @implementation EstimatedTableViewDelegate
@@ -381,7 +379,7 @@ struct
     if ([delegate respondsToSelector:oldFooterHeightDelegate]) {
         [self addNewMethodWithSel:oldFooterHeightDelegate newSel:newFooterHeightDelegate];
     }
-    
+
     // Extra Delegate
     
     SEL oldWillDisplayCell = @selector(tableView:willDisplayCell:forRowAtIndexPath:);
@@ -1064,7 +1062,7 @@ struct
     return ((NSIndexPath * (*)(id, SEL, UITableView *, NSIndexPath *))objc_msgSend)((id)oldDelegate, sel, tableView, indexPath);
 }
 
-- (void)tab_tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
     TABTableAnimated *tabAnimated = tableView.tabAnimated;
     if (tabAnimated.state == TABViewAnimationStart) return;
     id oldDelegate = tabAnimated.oldDelegate;
