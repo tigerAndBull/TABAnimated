@@ -14,6 +14,8 @@
 #import <objc/runtime.h>
 #import <objc/message.h>
 
+struct
+
 @interface EstimatedTableViewDelegate : NSObject
 @end
 @implementation EstimatedTableViewDelegate
@@ -380,6 +382,248 @@
         [self addNewMethodWithSel:oldFooterHeightDelegate newSel:newFooterHeightDelegate];
     }
     
+    // Extra Delegate
+    
+    SEL oldWillDisplayCell = @selector(tableView:willDisplayCell:forRowAtIndexPath:);
+    SEL newWillDisplayCell = @selector(tab_tableView:willDisplayCell:forRowAtIndexPath:);
+    if ([delegate respondsToSelector:oldWillDisplayCell]) {
+        [self addNewMethodWithSel:oldWillDisplayCell newSel:newWillDisplayCell];
+    }
+    
+    SEL oldWillDisplayHeader = @selector(tableView:willDisplayHeaderView:forSection:);
+    SEL newWillDisplayHeader = @selector(tab_tableView:willDisplayHeaderView:forSection:);
+    if ([delegate respondsToSelector:oldWillDisplayHeader]) {
+        [self addNewMethodWithSel:oldWillDisplayHeader newSel:newWillDisplayHeader];
+    }
+    
+    SEL oldWillDisplayFooter = @selector(tableView:willDisplayFooterView:forSection:);
+    SEL newWillDisplayFooter = @selector(tab_tableView:willDisplayFooterView:forSection:);
+    if ([delegate respondsToSelector:oldWillDisplayFooter]) {
+        [self addNewMethodWithSel:oldWillDisplayFooter newSel:newWillDisplayFooter];
+    }
+    
+    SEL oldDidEndDisplayingCell = @selector(tableView:didEndDisplayingCell:forRowAtIndexPath:);
+    SEL newDidEndDisplayingCell = @selector(tab_tableView:didEndDisplayingCell:forRowAtIndexPath:);
+    if ([delegate respondsToSelector:oldDidEndDisplayingCell]) {
+        [self addNewMethodWithSel:oldDidEndDisplayingCell newSel:newDidEndDisplayingCell];
+    }
+    
+    SEL oldDidEndDisplayingHeader = @selector(tableView:didEndDisplayingHeaderView:forSection:);
+    SEL newDidEndDisplayingHeader = @selector(tab_tableView:didEndDisplayingHeaderView:forSection:);
+    if ([delegate respondsToSelector:oldDidEndDisplayingHeader]) {
+        [self addNewMethodWithSel:oldDidEndDisplayingHeader newSel:newDidEndDisplayingHeader];
+    }
+    
+    SEL oldDidEndDisplayingFooter = @selector(tableView:didEndDisplayingFooterView:forSection:);
+    SEL newDidEndDisplayingFooter = @selector(tab_tableView:didEndDisplayingFooterView:forSection:);
+    if ([delegate respondsToSelector:oldDidEndDisplayingFooter]) {
+        [self addNewMethodWithSel:oldDidEndDisplayingFooter newSel:newDidEndDisplayingFooter];
+    }
+    
+    SEL oldAccessoryTypeForRow = @selector(tableView:accessoryTypeForRowWithIndexPath:);
+    SEL newAccessoryTypeForRow = @selector(tab_tableView:accessoryTypeForRowWithIndexPath:);
+    if ([delegate respondsToSelector:oldAccessoryTypeForRow]) {
+        [self addNewMethodWithSel:oldAccessoryTypeForRow newSel:newAccessoryTypeForRow];
+    }
+    
+    SEL oldAccessoryButtonTapped = @selector(tableView:accessoryButtonTappedForRowWithIndexPath:);
+    SEL newAccessoryButtonTapped = @selector(tab_tableView:accessoryButtonTappedForRowWithIndexPath:);
+    if ([delegate respondsToSelector:oldAccessoryButtonTapped]) {
+        [self addNewMethodWithSel:oldAccessoryButtonTapped newSel:newAccessoryButtonTapped];
+    }
+    
+    SEL oldShouldHighlightRow = @selector(tableView:shouldHighlightRowAtIndexPath:);
+    SEL newShouldHighlightRow = @selector(tab_tableView:shouldHighlightRowAtIndexPath:);
+    if ([delegate respondsToSelector:oldShouldHighlightRow]) {
+        [self addNewMethodWithSel:oldShouldHighlightRow newSel:newShouldHighlightRow];
+    }
+    
+    SEL oldDidHighlightRow = @selector(tableView:didHighlightRowAtIndexPath:);
+    SEL newDidHighlightRow = @selector(tab_tableView:didHighlightRowAtIndexPath:);
+    if ([delegate respondsToSelector:oldDidHighlightRow]) {
+        [self addNewMethodWithSel:oldDidHighlightRow newSel:newDidHighlightRow];
+    }
+    
+    SEL oldDidUnhighlightRow = @selector(tableView:didUnhighlightRowAtIndexPath:);
+    SEL newDidUnhighlightRow = @selector(tab_tableView:didUnhighlightRowAtIndexPath:);
+    if ([delegate respondsToSelector:oldDidUnhighlightRow]) {
+        [self addNewMethodWithSel:oldDidUnhighlightRow newSel:newDidUnhighlightRow];
+    }
+    
+    SEL oldWillSelectRow = @selector(tableView:willSelectRowAtIndexPath:);
+    SEL newWillSelectRow = @selector(tab_tableView:willSelectRowAtIndexPath:);
+    if ([delegate respondsToSelector:oldWillSelectRow]) {
+        [self addNewMethodWithSel:oldWillSelectRow newSel:newWillSelectRow];
+    }
+    
+    SEL oldWillDeselectRow = @selector(tableView:willDeselectRowAtIndexPath:);
+    SEL newWillDeselectRow = @selector(tab_tableView:willDeselectRowAtIndexPath:);
+    if ([delegate respondsToSelector:oldWillDeselectRow]) {
+        [self addNewMethodWithSel:oldWillDeselectRow newSel:newWillDeselectRow];
+    }
+    
+    SEL oldDidDeselectRow = @selector(tableView:didDeselectRowAtIndexPath:);
+    SEL newDidDeselectRow = @selector(tab_tableView:didDeselectRowAtIndexPath:);
+    if ([delegate respondsToSelector:oldDidDeselectRow]) {
+        [self addNewMethodWithSel:oldDidDeselectRow newSel:newDidDeselectRow];
+    }
+    
+    SEL oldEditingStyleForRow = @selector(tableView:editingStyleForRowAtIndexPath:);
+    SEL newEditingStyleForRow = @selector(tab_tableView:editingStyleForRowAtIndexPath:);
+    if ([delegate respondsToSelector:oldEditingStyleForRow]) {
+        [self addNewMethodWithSel:oldEditingStyleForRow newSel:newEditingStyleForRow];
+    }
+    
+    SEL oldTitleForDelete = @selector(tableView:titleForDeleteConfirmationButtonForRowAtIndexPath:);
+    SEL newTitleForDelete = @selector(tab_tableView:titleForDeleteConfirmationButtonForRowAtIndexPath:);
+    if ([delegate respondsToSelector:oldTitleForDelete]) {
+        [self addNewMethodWithSel:oldTitleForDelete newSel:newTitleForDelete];
+    }
+    
+    SEL oldEditActionsForRow = @selector(tableView:editActionsForRowAtIndexPath:);
+    SEL newEditActionsForRow = @selector(tab_tableView:editActionsForRowAtIndexPath:);
+    if ([delegate respondsToSelector:oldEditActionsForRow]) {
+        [self addNewMethodWithSel:oldEditActionsForRow newSel:newEditActionsForRow];
+    }
+    
+    SEL oldLeadingSwipeActions = @selector(tableView:leadingSwipeActionsConfigurationForRowAtIndexPath:);
+    SEL newLeadingSwipeActions = @selector(tab_tableView:leadingSwipeActionsConfigurationForRowAtIndexPath:);
+    if ([delegate respondsToSelector:oldLeadingSwipeActions]) {
+        [self addNewMethodWithSel:oldLeadingSwipeActions newSel:newLeadingSwipeActions];
+    }
+    
+    SEL oldTrailingSwipeActions = @selector(tableView:trailingSwipeActionsConfigurationForRowAtIndexPath:);
+    SEL newTrailingSwipeActions = @selector(tab_tableView:trailingSwipeActionsConfigurationForRowAtIndexPath:);
+    if ([delegate respondsToSelector:oldTrailingSwipeActions]) {
+        [self addNewMethodWithSel:oldTrailingSwipeActions newSel:newTrailingSwipeActions];
+    }
+    
+    SEL oldShouldIndentWhileEditing = @selector(tableView:shouldIndentWhileEditingRowAtIndexPath:);
+    SEL newShouldIndentWhileEditing = @selector(tab_tableView:shouldIndentWhileEditingRowAtIndexPath:);
+    if ([delegate respondsToSelector:oldShouldIndentWhileEditing]) {
+        [self addNewMethodWithSel:oldShouldIndentWhileEditing newSel:newShouldIndentWhileEditing];
+    }
+    
+    SEL oldWillBeginEditingRow = @selector(tableView:willBeginEditingRowAtIndexPath:);
+    SEL newWillBeginEditingRow = @selector(tab_tableView:willBeginEditingRowAtIndexPath:);
+    if ([delegate respondsToSelector:oldWillBeginEditingRow]) {
+        [self addNewMethodWithSel:oldWillBeginEditingRow newSel:newWillBeginEditingRow];
+    }
+    
+    SEL oldDidEndEditingRow = @selector(tableView:didEndEditingRowAtIndexPath:);
+    SEL newDidEndEditingRow = @selector(tab_tableView:didEndEditingRowAtIndexPath:);
+    if ([delegate respondsToSelector:oldDidEndEditingRow]) {
+        [self addNewMethodWithSel:oldDidEndEditingRow newSel:newDidEndEditingRow];
+    }
+    
+    SEL oldTargetIndexPathForMove = @selector(tableView:targetIndexPathForMoveFromRowAtIndexPath:toProposedIndexPath:);
+    SEL newTargetIndexPathForMove = @selector(tab_tableView:targetIndexPathForMoveFromRowAtIndexPath:toProposedIndexPath:);
+    if ([delegate respondsToSelector:oldTargetIndexPathForMove]) {
+        [self addNewMethodWithSel:oldTargetIndexPathForMove newSel:newTargetIndexPathForMove];
+    }
+    
+    SEL oldIndentationLevelForRow = @selector(tableView:indentationLevelForRowAtIndexPath:);
+    SEL newIndentationLevelForRow = @selector(tab_tableView:indentationLevelForRowAtIndexPath:);
+    if ([delegate respondsToSelector:oldIndentationLevelForRow]) {
+        [self addNewMethodWithSel:oldIndentationLevelForRow newSel:newIndentationLevelForRow];
+    }
+    
+    SEL oldShouldShowMenuForRow = @selector(tableView:shouldShowMenuForRowAtIndexPath:);
+    SEL newShouldShowMenuForRow = @selector(tab_tableView:shouldShowMenuForRowAtIndexPath:);
+    if ([delegate respondsToSelector:oldShouldShowMenuForRow]) {
+        [self addNewMethodWithSel:oldShouldShowMenuForRow newSel:newShouldShowMenuForRow];
+    }
+    
+    SEL oldCanPerformAction = @selector(tableView:canPerformAction:forRowAtIndexPath:withSender:);
+    SEL newCanPerformAction = @selector(tab_tableView:canPerformAction:forRowAtIndexPath:withSender:);
+    if ([delegate respondsToSelector:oldCanPerformAction]) {
+        [self addNewMethodWithSel:oldCanPerformAction newSel:newCanPerformAction];
+    }
+    
+    SEL oldPerformAction = @selector(tableView:performAction:forRowAtIndexPath:withSender:);
+    SEL newPerformAction = @selector(tab_tableView:performAction:forRowAtIndexPath:withSender:);
+    if ([delegate respondsToSelector:oldPerformAction]) {
+        [self addNewMethodWithSel:oldPerformAction newSel:newPerformAction];
+    }
+    
+    SEL oldCanFocusRow = @selector(tableView:canFocusRowAtIndexPath:);
+    SEL newCanFocusRow = @selector(tab_tableView:canFocusRowAtIndexPath:);
+    if ([delegate respondsToSelector:oldCanFocusRow]) {
+        [self addNewMethodWithSel:oldCanFocusRow newSel:newCanFocusRow];
+    }
+    
+    SEL oldShouldUpdateFocus = @selector(tableView:shouldUpdateFocusInContext:);
+    SEL newShouldUpdateFocus = @selector(tab_tableView:shouldUpdateFocusInContext:);
+    if ([delegate respondsToSelector:oldShouldUpdateFocus]) {
+        [self addNewMethodWithSel:oldShouldUpdateFocus newSel:newShouldUpdateFocus];
+    }
+    
+    SEL oldDidUpdateFocus = @selector(tableView:didUpdateFocusInContext:withAnimationCoordinator:);
+    SEL newDidUpdateFocus = @selector(tab_tableView:didUpdateFocusInContext:withAnimationCoordinator:);
+    if ([delegate respondsToSelector:oldDidUpdateFocus]) {
+        [self addNewMethodWithSel:oldDidUpdateFocus newSel:newDidUpdateFocus];
+    }
+    
+    SEL oldPreferredFocusedView = @selector(indexPathForPreferredFocusedViewInTableView:);
+    SEL newPreferredFocusedView = @selector(tab_indexPathForPreferredFocusedViewInTableView:);
+    if ([delegate respondsToSelector:oldPreferredFocusedView]) {
+        [self addNewMethodWithSel:oldPreferredFocusedView newSel:newPreferredFocusedView];
+    }
+    
+    SEL oldShouldSpringLoadRow = @selector(tableView:shouldSpringLoadRowAtIndexPath:withContext:);
+    SEL newShouldSpringLoadRow = @selector(tab_tableView:shouldSpringLoadRowAtIndexPath:withContext:);
+    if ([delegate respondsToSelector:oldShouldSpringLoadRow]) {
+        [self addNewMethodWithSel:oldShouldSpringLoadRow newSel:newShouldSpringLoadRow];
+    }
+    
+    SEL oldShouldBeginMultipleSelection = @selector(tableView:shouldBeginMultipleSelectionInteractionAtIndexPath:);
+    SEL newShouldBeginMultipleSelection = @selector(tab_tableView:shouldBeginMultipleSelectionInteractionAtIndexPath:);
+    if ([delegate respondsToSelector:oldShouldBeginMultipleSelection]) {
+        [self addNewMethodWithSel:oldShouldBeginMultipleSelection newSel:newShouldBeginMultipleSelection];
+    }
+    
+    SEL oldDidBeginMultipleSelection = @selector(tableView:didBeginMultipleSelectionInteractionAtIndexPath:);
+    SEL newDidBeginMultipleSelection = @selector(tab_tableView:didBeginMultipleSelectionInteractionAtIndexPath:);
+    if ([delegate respondsToSelector:oldDidBeginMultipleSelection]) {
+        [self addNewMethodWithSel:oldDidBeginMultipleSelection newSel:newDidBeginMultipleSelection];
+    }
+    
+    SEL oldDidEndMultipleSelection = @selector(tableView:tableViewDidEndMultipleSelectionInteraction:);
+    SEL newDidEndMultipleSelection = @selector(tab_tableView:tableViewDidEndMultipleSelectionInteraction:);
+    if ([delegate respondsToSelector:oldDidEndMultipleSelection]) {
+        [self addNewMethodWithSel:oldDidEndMultipleSelection newSel:newDidEndMultipleSelection];
+    }
+    
+    SEL oldContextMenuConfiguration = @selector(tableView:contextMenuConfigurationForRowAtIndexPath:point:);
+    SEL newContextMenuConfiguration = @selector(tab_tableView:contextMenuConfigurationForRowAtIndexPath:point:);
+    if ([delegate respondsToSelector:oldContextMenuConfiguration]) {
+        [self addNewMethodWithSel:oldContextMenuConfiguration newSel:newContextMenuConfiguration];
+    }
+    
+    SEL oldPreviewForHighlightingContextMenu = @selector(tableView:previewForHighlightingContextMenuWithConfiguration:);
+    SEL newPreviewForHighlightingContextMenu = @selector(tab_tableView:previewForHighlightingContextMenuWithConfiguration:);
+    if ([delegate respondsToSelector:oldPreviewForHighlightingContextMenu]) {
+        [self addNewMethodWithSel:oldPreviewForHighlightingContextMenu newSel:newPreviewForHighlightingContextMenu];
+    }
+    
+    SEL oldPreviewForDismissingContextMenu = @selector(tableView:previewForDismissingContextMenuWithConfiguration:);
+    SEL newPreviewForDismissingContextMenu = @selector(tab_tableView:previewForDismissingContextMenuWithConfiguration:);
+    if ([delegate respondsToSelector:oldPreviewForDismissingContextMenu]) {
+        [self addNewMethodWithSel:oldPreviewForDismissingContextMenu newSel:newPreviewForDismissingContextMenu];
+    }
+    
+    SEL oldWillPerformPreviewAction = @selector(tableView:willPerformPreviewActionForMenuWithConfiguration:animator:);
+    SEL newWillPerformPreviewAction = @selector(tab_tableView:willPerformPreviewActionForMenuWithConfiguration:animator:);
+    if ([delegate respondsToSelector:oldWillPerformPreviewAction]) {
+        [self addNewMethodWithSel:oldWillPerformPreviewAction newSel:newWillPerformPreviewAction];
+    }
+    
+    SEL oldWillEndContextMenuInteraction = @selector(tableView:willEndContextMenuInteractionWithConfiguration:animator:);
+    SEL newWillEndContextMenuInteraction = @selector(tab_tableView:willEndContextMenuInteractionWithConfiguration:animator:);
+    if ([delegate respondsToSelector:oldWillEndContextMenuInteraction]) {
+        [self addNewMethodWithSel:oldWillEndContextMenuInteraction newSel:newWillEndContextMenuInteraction];
+    }
+    
     ((UITableView *)target).delegate = self.protocolContainer;
 }
 
@@ -408,6 +652,56 @@
     SEL new = @selector(tab_tableView:willDisplayCell:forRowAtIndexPath:);
     if ([dataSource respondsToSelector:old]) {
         [self addNewMethodWithSel:old newSel:new];
+    }
+    
+    // Extra Datasource
+    
+    SEL oldTitleForHeader = @selector(tableView:titleForHeaderInSection:);
+    SEL newTitleForHeader = @selector(tab_tableView:titleForHeaderInSection:);
+    if ([dataSource respondsToSelector:oldTitleForHeader]) {
+        [self addNewMethodWithSel:oldTitleForHeader newSel:newTitleForHeader];
+    }
+    
+    SEL oldTitleForFooter = @selector(tableView:titleForFooterInSection:);
+    SEL newTitleForFooter = @selector(tab_tableView:titleForFooterInSection:);
+    if ([dataSource respondsToSelector:oldTitleForFooter]) {
+        [self addNewMethodWithSel:oldTitleForFooter newSel:newTitleForFooter];
+    }
+    
+    SEL oldCanEditRow = @selector(tableView:canEditRowAtIndexPath:);
+    SEL newCanEditRow = @selector(tab_tableView:canEditRowAtIndexPath:);
+    if ([dataSource respondsToSelector:oldCanEditRow]) {
+        [self addNewMethodWithSel:oldCanEditRow newSel:newCanEditRow];
+    }
+    
+    SEL oldCanMoveRow = @selector(tableView:canMoveRowAtIndexPath:);
+    SEL newCanMoveRow = @selector(tab_tableView:canMoveRowAtIndexPath:);
+    if ([dataSource respondsToSelector:oldCanMoveRow]) {
+        [self addNewMethodWithSel:oldCanMoveRow newSel:newCanMoveRow];
+    }
+    
+    SEL oldSectionIndexTitles = @selector(sectionIndexTitlesForTableView:);
+    SEL newSectionIndexTitles = @selector(tab_sectionIndexTitlesForTableView:);
+    if ([dataSource respondsToSelector:oldSectionIndexTitles]) {
+        [self addNewMethodWithSel:oldSectionIndexTitles newSel:newSectionIndexTitles];
+    }
+    
+    SEL oldSectionIndexTitle = @selector(tableView:sectionForSectionIndexTitle:atIndex:);
+    SEL newSectionIndexTitle = @selector(tab_tableView:sectionForSectionIndexTitle:atIndex:);
+    if ([dataSource respondsToSelector:oldSectionIndexTitle]) {
+        [self addNewMethodWithSel:oldSectionIndexTitle newSel:newSectionIndexTitle];
+    }
+    
+    SEL oldCommitEditingStyle = @selector(tableView:commitEditingStyle:forRowAtIndexPath:);
+    SEL newCommitEditingStyle = @selector(tab_tableView:commitEditingStyle:forRowAtIndexPath:);
+    if ([dataSource respondsToSelector:oldCommitEditingStyle]) {
+        [self addNewMethodWithSel:oldCommitEditingStyle newSel:newCommitEditingStyle];
+    }
+    
+    SEL oldMoveRow = @selector(tableView:moveRowAtIndexPath:toIndexPath:);
+    SEL newMoveRow = @selector(tab_tableView:moveRowAtIndexPath:toIndexPath:);
+    if ([dataSource respondsToSelector:oldMoveRow]) {
+        [self addNewMethodWithSel:oldMoveRow newSel:newMoveRow];
     }
     
     ((UITableView *)target).dataSource = self.protocolContainer;
@@ -770,7 +1064,7 @@
     return ((NSIndexPath * (*)(id, SEL, UITableView *, NSIndexPath *))objc_msgSend)((id)oldDelegate, sel, tableView, indexPath);
 }
 
-- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tab_tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
     TABTableAnimated *tabAnimated = tableView.tabAnimated;
     if (tabAnimated.state == TABViewAnimationStart) return;
     id oldDelegate = tabAnimated.oldDelegate;

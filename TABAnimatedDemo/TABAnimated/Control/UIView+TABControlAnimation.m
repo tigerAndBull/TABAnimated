@@ -22,7 +22,7 @@
 #import "TABAnimatedPullLoadingComponent.h"
 
 #ifdef DEBUG
-static const NSTimeInterval kDelayReloadDataTime = 4;
+static const NSTimeInterval kDelayReloadDataTime = .4;
 #else
 static const NSTimeInterval kDelayReloadDataTime = .4;
 #endif
