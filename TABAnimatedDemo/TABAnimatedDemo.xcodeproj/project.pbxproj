@@ -166,7 +166,6 @@
 		68C171BA2461A095004FD76F /* NestTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C171B92461A095004FD76F /* NestTableViewController.m */; };
 		68C21D9A22F34548003C2936 /* TestCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C21D9922F34548003C2936 /* TestCollectionReusableView.m */; };
 		68C35F0F249E6B2600A34D22 /* TABKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2013CA9D222B0C0C00E928E1 /* TABKit.framework */; };
-		68C35F10249E6B2600A34D22 /* TABKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2013CA9D222B0C0C00E928E1 /* TABKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		68C35F46249E6D8F00A34D22 /* TABAnimatedDarkModeManagerImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C35F15249E6D8E00A34D22 /* TABAnimatedDarkModeManagerImpl.m */; };
 		68C35F47249E6D8F00A34D22 /* TABSentryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C35F19249E6D8E00A34D22 /* TABSentryView.m */; };
 		68C35F48249E6D8F00A34D22 /* TABAnimatedDarkModeImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C35F1A249E6D8E00A34D22 /* TABAnimatedDarkModeImpl.m */; };
@@ -193,20 +192,6 @@
 		68D20755228BE5C900B32CD1 /* DoubanCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68D20754228BE5C900B32CD1 /* DoubanCardViewController.m */; };
 		68D20758228BE7A400B32CD1 /* DoubanNormalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68D20757228BE7A400B32CD1 /* DoubanNormalViewController.m */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		20EE9147248609C40095A68A /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				68C35F10249E6B2600A34D22 /* TABKit.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		2013CA9D222B0C0C00E928E1 /* TABKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TABKit.framework; sourceTree = "<group>"; };
@@ -1635,7 +1620,6 @@
 				20A85BEC2152248D0005AD62 /* Sources */,
 				20A85BED2152248D0005AD62 /* Frameworks */,
 				20A85BEE2152248D0005AD62 /* Resources */,
-				20EE9147248609C40095A68A /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
