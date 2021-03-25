@@ -14,6 +14,7 @@
 #import "UIColor+TABCategory.h"
 #import <TABKit/TABKit.h>
 #import "Masonry.h"
+#import "UIImage+TABAnimatedDemo.h"
 
 #define kText(x) (NSLocalizedString(x, nil))
 static const NSTimeInterval TABAnimatedDemoDelayTime = 3.;

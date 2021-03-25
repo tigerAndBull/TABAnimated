@@ -17,9 +17,19 @@
 @interface EstimatedTableViewDelegate : NSObject
 @end
 @implementation EstimatedTableViewDelegate
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return UITableViewAutomaticDimension;
 }
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return UITableViewAutomaticDimension;
+}
+    
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return UITableViewAutomaticDimension;
+}
+
 @end
 
 @interface TABTableAnimated()
@@ -356,8 +366,47 @@
         }
     }
     
+    SEL oldHeaderHeightDelegate = @selector(tableView:heightForHeaderInSection:);
+    SEL newHeaderHeightDelegate = @selector(tab_tableView:heightForHeaderInSection:);
+    SEL estimatedHeaderHeightDelegateSel = @selector(tableView:estimatedHeightForHeaderInSection:);
+    if ([delegate respondsToSelector:estimatedHeaderHeightDelegateSel] &&
+        ![delegate respondsToSelector:oldHeaderHeightDelegate]) {
+        EstimatedTableViewDelegate *edelegate = EstimatedTableViewDelegate.new;
+        Method method = class_getInstanceMethod([edelegate class], oldHeaderHeightDelegate);
+        BOOL isVictory = class_addMethod([delegate class], oldHeaderHeightDelegate, class_getMethodImplementation([edelegate class], oldHeaderHeightDelegate), method_getTypeEncoding(method));
+        if (isVictory) {
+            if ([delegate respondsToSelector:oldHeaderHeightDelegate]) {
+                [self addNewMethodWithSel:oldHeaderHeightDelegate newSel:newHeaderHeightDelegate];
+            }
+        }
+    }else {
+        if ([delegate respondsToSelector:oldHeaderHeightDelegate]) {
+            [self addNewMethodWithSel:oldHeaderHeightDelegate newSel:newHeaderHeightDelegate];
+        }
+    }
+    
+    SEL oldFooterHeightDelegate = @selector(tableView:heightForFooterInSection:);
+    SEL newFooterHeightDelegate = @selector(tab_tableView:heightForFooterInSection:);
+    SEL estimatedFooterHeightDelegateSel = @selector(tableView:estimatedHeightForFooterInSection:);
+    if ([delegate respondsToSelector:estimatedFooterHeightDelegateSel] &&
+        ![delegate respondsToSelector:oldFooterHeightDelegate]) {
+        EstimatedTableViewDelegate *edelegate = EstimatedTableViewDelegate.new;
+        Method method = class_getInstanceMethod([edelegate class], oldFooterHeightDelegate);
+        BOOL isVictory = class_addMethod([delegate class], oldFooterHeightDelegate, class_getMethodImplementation([edelegate class], oldFooterHeightDelegate), method_getTypeEncoding(method));
+        if (isVictory) {
+            if ([delegate respondsToSelector:oldFooterHeightDelegate]) {
+                [self addNewMethodWithSel:oldFooterHeightDelegate newSel:newFooterHeightDelegate];
+            }
+        }
+    }else {
+        if ([delegate respondsToSelector:oldFooterHeightDelegate]) {
+            [self addNewMethodWithSel:oldFooterHeightDelegate newSel:newFooterHeightDelegate];
+        }
+    }
+    
+    
     SEL oldHeadViewDelegate = @selector(tableView:viewForHeaderInSection:);
-    SEL newHeadViewDelegate= @selector(tab_tableView:viewForHeaderInSection:);
+    SEL newHeadViewDelegate = @selector(tab_tableView:viewForHeaderInSection:);
     if ([delegate respondsToSelector:oldHeadViewDelegate]) {
         [self addNewMethodWithSel:oldHeadViewDelegate newSel:newHeadViewDelegate];
     }
@@ -366,18 +415,6 @@
     SEL newFooterViewDelegate = @selector(tab_tableView:viewForFooterInSection:);
     if ([delegate respondsToSelector:oldFooterViewDelegate]) {
         [self addNewMethodWithSel:oldFooterViewDelegate newSel:newFooterViewDelegate];
-    }
-    
-    SEL oldHeadHeightDelegate = @selector(tableView:heightForHeaderInSection:);
-    SEL newHeadHeightDelegate = @selector(tab_tableView:heightForHeaderInSection:);
-    if ([delegate respondsToSelector:oldHeadHeightDelegate]) {
-        [self addNewMethodWithSel:oldHeadHeightDelegate newSel:newHeadHeightDelegate];
-    }
-    
-    SEL oldFooterHeightDelegate = @selector(tableView:heightForFooterInSection:);
-    SEL newFooterHeightDelegate = @selector(tab_tableView:heightForFooterInSection:);
-    if ([delegate respondsToSelector:oldFooterHeightDelegate]) {
-        [self addNewMethodWithSel:oldFooterHeightDelegate newSel:newFooterHeightDelegate];
     }
 
     // Extra Delegate
@@ -999,10 +1036,6 @@
     SEL sel = @selector(tableView:didEndDisplayingFooterView:forSection:);
     ((void (*)(id, SEL, UITableView *, UIView *, NSInteger))objc_msgSend)((id)oldDelegate, sel, tableView, view, section);
 }
-
-//- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath API_AVAILABLE(ios(7.0));
-//- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForHeaderInSection:(NSInteger)section API_AVAILABLE(ios(7.0));
-//- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForFooterInSection:(NSInteger)section API_AVAILABLE(ios(7.0));
 
 // Accessories (disclosures).
 
