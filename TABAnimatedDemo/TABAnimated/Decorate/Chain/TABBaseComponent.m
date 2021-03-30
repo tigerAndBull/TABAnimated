@@ -418,7 +418,7 @@ struct TABBaseComonentOperation {
     };
 }
 
-#pragma mark - penetration
+#pragma mark - penetrate
 
 - (TABBaseComponentVoidBlock)penetrate {
     __weak typeof(self) weakSelf = self;
@@ -436,6 +436,22 @@ struct TABBaseComonentOperation {
 
 - (void)result_penetrate {
     _layer.loadStyle = TABViewLoadAnimationPenetrate;
+}
+ 
+#pragma mark - gradient
+
+- (TABBaseComponentArrayBlock)gradient {
+    __weak typeof(self) weakSelf = self;
+    return ^TABBaseComponent *(NSArray *gradientArray) {
+        if (weakSelf.layer.origin != TABComponentLayerOriginCreate) {
+            [weakSelf result_gradient];
+        }
+        return weakSelf;
+    };
+}
+
+- (void)result_gradient {
+    
 }
 
 #pragma mark - Auto layout

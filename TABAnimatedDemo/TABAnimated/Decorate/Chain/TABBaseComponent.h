@@ -176,6 +176,10 @@ NS_ASSUME_NONNULL_BEGIN
 /// 在骨架屏期间暴露出该组件
 - (TABBaseComponentVoidBlock)penetrate;
 
+/// 渐变层
+/// 传入渐变颜色数组 [Color0, Color1,  ...]
+- (TABBaseComponentArrayBlock)gradient;
+
 #pragma mark -
 
 /// 需要调整的元素左部 等于 传入的元素的左部

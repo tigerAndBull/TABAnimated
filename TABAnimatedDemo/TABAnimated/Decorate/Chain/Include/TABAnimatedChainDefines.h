@@ -23,6 +23,7 @@ typedef TABBaseComponent * _Nullable (^TABBaseComponentIntegerBlock)(NSInteger);
 typedef TABBaseComponent * _Nullable (^TABBaseComponentFloatBlock)(CGFloat);
 typedef TABBaseComponent * _Nullable (^TABBaseComponentStringBlock)(NSString * _Nonnull);
 typedef TABBaseComponent * _Nullable (^TABBaseComponentColorBlock)(UIColor * _Nonnull);
+typedef TABBaseComponent * _Nullable (^TABBaseComponentArrayBlock)(NSArray * _Nonnull);
 
 typedef NSArray <TABBaseComponent *> * _Nullable (^TABAnimatedArrayFloatBlock)(CGFloat);
 typedef NSArray <TABBaseComponent *> * _Nullable (^TABAnimatedArrayIntBlock)(NSInteger);
