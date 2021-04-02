@@ -1130,18 +1130,15 @@
 // Swipe actions
 // These methods supersede -editActionsForRowAtIndexPath: if implemented
 // return nil to get the default swipe actions
-- (nullable UISwipeActionsConfiguration *)tab_tableView:(UITableView *)tableView leadingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath  {
+- (nullable UISwipeActionsConfiguration *)tab_tableView:(UITableView *)tableView leadingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath API_AVAILABLE(ios(11.0)) {
     TABTableAnimated *tabAnimated = tableView.tabAnimated;
     if (tabAnimated.state == TABViewAnimationStart) return nil;
     id oldDelegate = tabAnimated.oldDelegate;
     SEL sel = @selector(tableView:leadingSwipeActionsConfigurationForRowAtIndexPath:);
-    if (@available(iOS 11.0, *)) {
-        return ((UISwipeActionsConfiguration * (*)(id, SEL, UITableView *, NSIndexPath *))objc_msgSend)((id)oldDelegate, sel, tableView, indexPath);
-    }
-    return nil;
+    return ((UISwipeActionsConfiguration * (*)(id, SEL, UITableView *, NSIndexPath *))objc_msgSend)((id)oldDelegate, sel, tableView, indexPath);
 }
 
-- (nullable UISwipeActionsConfiguration *)tab_tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (nullable UISwipeActionsConfiguration *)tab_tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath API_AVAILABLE(ios(11.0)) {
     TABTableAnimated *tabAnimated = tableView.tabAnimated;
     if (tabAnimated.state == TABViewAnimationStart) return nil;
     id oldDelegate = tabAnimated.oldDelegate;
@@ -1257,7 +1254,7 @@
     return ((NSIndexPath * (*)(id, SEL, UITableView *))objc_msgSend)((id)oldDelegate, sel, tableView);
 }
 
-- (BOOL)tab_tableView:(UITableView *)tableView shouldSpringLoadRowAtIndexPath:(NSIndexPath *)indexPath withContext:(id<UISpringLoadedInteractionContext>)context {
+- (BOOL)tab_tableView:(UITableView *)tableView shouldSpringLoadRowAtIndexPath:(NSIndexPath *)indexPath withContext:(id<UISpringLoadedInteractionContext>)context API_AVAILABLE(ios(11.0)){
     TABTableAnimated *tabAnimated = tableView.tabAnimated;
     if (tabAnimated.state == TABViewAnimationStart) return NO;
     id oldDelegate = tabAnimated.oldDelegate;
@@ -1289,7 +1286,7 @@
     ((void (*)(id, SEL, UITableView *))objc_msgSend)((id)oldDelegate, sel, tableView);
 }
 
-- (nullable UIContextMenuConfiguration *)tab_tableView:(UITableView *)tableView contextMenuConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath point:(CGPoint)point {
+- (nullable UIContextMenuConfiguration *)tab_tableView:(UITableView *)tableView contextMenuConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath point:(CGPoint)point API_AVAILABLE(ios(13.0)) {
     TABTableAnimated *tabAnimated = tableView.tabAnimated;
     if (tabAnimated.state == TABViewAnimationStart) return nil;
     id oldDelegate = tabAnimated.oldDelegate;
@@ -1297,7 +1294,7 @@
     return ((UIContextMenuConfiguration * (*)(id, SEL, UITableView *, NSIndexPath *, CGPoint))objc_msgSend)((id)oldDelegate, sel, tableView, indexPath, point);
 }
 
-- (nullable UITargetedPreview *)tab_tableView:(UITableView *)tableView previewForHighlightingContextMenuWithConfiguration:(UIContextMenuConfiguration *)configuration {
+- (nullable UITargetedPreview *)tab_tableView:(UITableView *)tableView previewForHighlightingContextMenuWithConfiguration:(UIContextMenuConfiguration *)configuration API_AVAILABLE(ios(13.0)) {
     TABTableAnimated *tabAnimated = tableView.tabAnimated;
     if (tabAnimated.state == TABViewAnimationStart) return nil;
     id oldDelegate = tabAnimated.oldDelegate;
@@ -1305,7 +1302,7 @@
     return ((UITargetedPreview * (*)(id, SEL, UITableView *, UIContextMenuConfiguration *))objc_msgSend)((id)oldDelegate, sel, tableView, configuration);
 }
 
-- (nullable UITargetedPreview *)tab_tableView:(UITableView *)tableView previewForDismissingContextMenuWithConfiguration:(UIContextMenuConfiguration *)configuration {
+- (nullable UITargetedPreview *)tab_tableView:(UITableView *)tableView previewForDismissingContextMenuWithConfiguration:(UIContextMenuConfiguration *)configuration API_AVAILABLE(ios(13.0)) {
     TABTableAnimated *tabAnimated = tableView.tabAnimated;
     if (tabAnimated.state == TABViewAnimationStart) return nil;
     id oldDelegate = tabAnimated.oldDelegate;
@@ -1313,7 +1310,7 @@
     return ((UITargetedPreview * (*)(id, SEL, UITableView *, UIContextMenuConfiguration *))objc_msgSend)((id)oldDelegate, sel, tableView, configuration);
 }
 
-- (void)tab_tableView:(UITableView *)tableView willPerformPreviewActionForMenuWithConfiguration:(UIContextMenuConfiguration *)configuration animator:(id<UIContextMenuInteractionCommitAnimating>)animator {
+- (void)tab_tableView:(UITableView *)tableView willPerformPreviewActionForMenuWithConfiguration:(UIContextMenuConfiguration *)configuration animator:(id<UIContextMenuInteractionCommitAnimating>)animator API_AVAILABLE(ios(13.0)) {
     TABTableAnimated *tabAnimated = tableView.tabAnimated;
     if (tabAnimated.state == TABViewAnimationStart) return;
     id oldDelegate = tabAnimated.oldDelegate;
@@ -1321,7 +1318,7 @@
     ((void (*)(id, SEL, UITableView *, UIContextMenuConfiguration *, id))objc_msgSend)((id)oldDelegate, sel, tableView, configuration, animator);
 }
 
-- (void)tab_tableView:(UITableView *)tableView willDisplayContextMenuWithConfiguration:(UIContextMenuConfiguration *)configuration animator:(nullable id<UIContextMenuInteractionAnimating>)animator {
+- (void)tab_tableView:(UITableView *)tableView willDisplayContextMenuWithConfiguration:(UIContextMenuConfiguration *)configuration animator:(nullable id<UIContextMenuInteractionAnimating>)animator API_AVAILABLE(ios(13.0)) {
     TABTableAnimated *tabAnimated = tableView.tabAnimated;
     if (tabAnimated.state == TABViewAnimationStart) return;
     id oldDelegate = tabAnimated.oldDelegate;
@@ -1329,7 +1326,7 @@
     ((void (*)(id, SEL, UITableView *, UIContextMenuConfiguration *, id))objc_msgSend)((id)oldDelegate, sel, tableView, configuration, animator);
 }
 
-- (void)tab_tableView:(UITableView *)tableView willEndContextMenuInteractionWithConfiguration:(UIContextMenuConfiguration *)configuration animator:(nullable id<UIContextMenuInteractionAnimating>)animator {
+- (void)tab_tableView:(UITableView *)tableView willEndContextMenuInteractionWithConfiguration:(UIContextMenuConfiguration *)configuration animator:(nullable id<UIContextMenuInteractionAnimating>)animator API_AVAILABLE(ios(13.0)) {
     TABTableAnimated *tabAnimated = tableView.tabAnimated;
     if (tabAnimated.state == TABViewAnimationStart) return;
     id oldDelegate = tabAnimated.oldDelegate;
