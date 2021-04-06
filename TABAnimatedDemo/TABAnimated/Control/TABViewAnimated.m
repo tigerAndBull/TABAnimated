@@ -25,6 +25,18 @@ NSString *tab_NSStringFromClass(Class aClass) {
     return classString;
 }
 
+- (instancetype)initWithViewHeight:(CGFloat)viewHeight {
+    if (self = [self init]) {
+        _viewHeight = viewHeight;
+    }
+    return self;
+}
+
++ (instancetype)animatedWithViewHeight:(CGFloat)viewHeight {
+    TABViewAnimated *tabAnimated = [[TABViewAnimated alloc] initWithViewHeight:viewHeight];
+    return tabAnimated;
+}
+
 - (instancetype)init {
     if (self = [super init]) {
         _superAnimationType = TABViewSuperAnimationTypeDefault;
@@ -34,6 +46,14 @@ NSString *tab_NSStringFromClass(Class aClass) {
         [self _initSeriaSlizationImpl];
     }
     return self;
+}
+
+- (BOOL)isAnimating {
+    if (self.state == TABViewAnimationStart ||
+        self.state == TABViewAnimationRunning) {
+        return YES;
+    }
+    return NO;
 }
 
 - (BOOL)currentIndexIsAnimatingWithIndex:(NSInteger)index {

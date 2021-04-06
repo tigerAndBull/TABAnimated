@@ -12,6 +12,8 @@
 		2039EF7521DA07F200AE09FC /* NestCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2039EF7421DA07F200AE09FC /* NestCollectionViewCell.m */; };
 		2039EF7821DA135900AE09FC /* BaseCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2039EF7621DA135900AE09FC /* BaseCollectionCell.m */; };
 		2039EF7B21DA15C100AE09FC /* ImageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2039EF7A21DA15C100AE09FC /* ImageCollectionViewCell.m */; };
+		20410A55261721620030575B /* NSArray+TABAnimated.m in Sources */ = {isa = PBXBuildFile; fileRef = 20410A54261721620030575B /* NSArray+TABAnimated.m */; };
+		20410A5C261CA46B0030575B /* TABComponentLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 20410A5A261CA46A0030575B /* TABComponentLayer.m */; };
 		205664D42489038700AC16D9 /* PullLoadingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 205664D32489038700AC16D9 /* PullLoadingTableViewController.m */; };
 		2063FD1E24C4883E00517F3E /* TABAnimatedInjectionIIIHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 2063FD1C24C4883D00517F3E /* TABAnimatedInjectionIIIHelper.m */; };
 		206B44BE258CAC0E0010B64F /* PenerateViewExampleController.m in Sources */ = {isa = PBXBuildFile; fileRef = 206B44BD258CAC0E0010B64F /* PenerateViewExampleController.m */; };
@@ -110,7 +112,6 @@
 		688A37FB24893B3E00A76894 /* TABComponentManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 688A37B524893B3D00A76894 /* TABComponentManager.m */; };
 		688A37FC24893B3E00A76894 /* TABAnimatedChainManagerImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 688A37B624893B3D00A76894 /* TABAnimatedChainManagerImpl.m */; };
 		688A37FD24893B3E00A76894 /* NSArray+TABAnimatedChain.m in Sources */ = {isa = PBXBuildFile; fileRef = 688A37B724893B3D00A76894 /* NSArray+TABAnimatedChain.m */; };
-		688A37FE24893B3E00A76894 /* TABComponentLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 688A37BB24893B3D00A76894 /* TABComponentLayer.m */; };
 		688A37FF24893B3E00A76894 /* TABAnimatedProductImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 688A37BC24893B3D00A76894 /* TABAnimatedProductImpl.m */; };
 		688A380024893B3E00A76894 /* UIView+TABAnimatedProduction.m in Sources */ = {isa = PBXBuildFile; fileRef = 688A37C224893B3D00A76894 /* UIView+TABAnimatedProduction.m */; };
 		688A380124893B3E00A76894 /* TABAnimatedProduction.m in Sources */ = {isa = PBXBuildFile; fileRef = 688A37C324893B3D00A76894 /* TABAnimatedProduction.m */; };
@@ -205,6 +206,10 @@
 		2039EF7721DA135900AE09FC /* BaseCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseCollectionCell.h; sourceTree = "<group>"; };
 		2039EF7921DA15C100AE09FC /* ImageCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageCollectionViewCell.h; sourceTree = "<group>"; };
 		2039EF7A21DA15C100AE09FC /* ImageCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageCollectionViewCell.m; sourceTree = "<group>"; };
+		20410A53261721620030575B /* NSArray+TABAnimated.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSArray+TABAnimated.h"; sourceTree = "<group>"; };
+		20410A54261721620030575B /* NSArray+TABAnimated.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSArray+TABAnimated.m"; sourceTree = "<group>"; };
+		20410A5A261CA46A0030575B /* TABComponentLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TABComponentLayer.m; sourceTree = "<group>"; };
+		20410A5B261CA46A0030575B /* TABComponentLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TABComponentLayer.h; sourceTree = "<group>"; };
 		205664D22489038700AC16D9 /* PullLoadingTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PullLoadingTableViewController.h; sourceTree = "<group>"; };
 		205664D32489038700AC16D9 /* PullLoadingTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PullLoadingTableViewController.m; sourceTree = "<group>"; };
 		2063FD1C24C4883D00517F3E /* TABAnimatedInjectionIIIHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TABAnimatedInjectionIIIHelper.m; sourceTree = "<group>"; };
@@ -409,7 +414,6 @@
 		688A37B724893B3D00A76894 /* NSArray+TABAnimatedChain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+TABAnimatedChain.m"; sourceTree = "<group>"; };
 		688A37B924893B3D00A76894 /* TABAnimatedProduction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TABAnimatedProduction.h; sourceTree = "<group>"; };
 		688A37BA24893B3D00A76894 /* UIView+TABAnimatedProduction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+TABAnimatedProduction.h"; sourceTree = "<group>"; };
-		688A37BB24893B3D00A76894 /* TABComponentLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TABComponentLayer.m; sourceTree = "<group>"; };
 		688A37BC24893B3D00A76894 /* TABAnimatedProductImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TABAnimatedProductImpl.m; sourceTree = "<group>"; };
 		688A37BE24893B3D00A76894 /* TABAnimatedProductInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TABAnimatedProductInterface.h; sourceTree = "<group>"; };
 		688A37BF24893B3D00A76894 /* TABAnimatedProductDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TABAnimatedProductDefines.h; sourceTree = "<group>"; };
@@ -417,7 +421,6 @@
 		688A37C124893B3D00A76894 /* TABAnimatedProductHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TABAnimatedProductHelper.h; sourceTree = "<group>"; };
 		688A37C224893B3D00A76894 /* UIView+TABAnimatedProduction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+TABAnimatedProduction.m"; sourceTree = "<group>"; };
 		688A37C324893B3D00A76894 /* TABAnimatedProduction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TABAnimatedProduction.m; sourceTree = "<group>"; };
-		688A37C424893B3D00A76894 /* TABComponentLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TABComponentLayer.h; sourceTree = "<group>"; };
 		688A37C524893B3D00A76894 /* TABAnimatedProductImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TABAnimatedProductImpl.h; sourceTree = "<group>"; };
 		688A37C624893B3D00A76894 /* TABAnimatedProductHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TABAnimatedProductHelper.m; sourceTree = "<group>"; };
 		688A37C824893B3D00A76894 /* UIScrollView+TABAnimated.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+TABAnimated.m"; sourceTree = "<group>"; };
@@ -1018,6 +1021,8 @@
 				688A377424893B3D00A76894 /* TABWeakDelegateManager.m */,
 				688A37CD24893B3D00A76894 /* UIScrollView+TABExtension.h */,
 				688A37CE24893B3D00A76894 /* UIScrollView+TABExtension.m */,
+				20410A53261721620030575B /* NSArray+TABAnimated.h */,
+				20410A54261721620030575B /* NSArray+TABAnimated.m */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -1065,10 +1070,10 @@
 				688A37BC24893B3D00A76894 /* TABAnimatedProductImpl.m */,
 				688A37B924893B3D00A76894 /* TABAnimatedProduction.h */,
 				688A37C324893B3D00A76894 /* TABAnimatedProduction.m */,
-				688A37C424893B3D00A76894 /* TABComponentLayer.h */,
-				688A37BB24893B3D00A76894 /* TABComponentLayer.m */,
 				688A37BA24893B3D00A76894 /* UIView+TABAnimatedProduction.h */,
 				688A37C224893B3D00A76894 /* UIView+TABAnimatedProduction.m */,
+				20410A5B261CA46A0030575B /* TABComponentLayer.h */,
+				20410A5A261CA46A0030575B /* TABComponentLayer.m */,
 			);
 			path = Product;
 			sourceTree = "<group>";
@@ -1636,7 +1641,7 @@
 		20A85BE82152248D0005AD62 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1020;
+				LastUpgradeCheck = 1240;
 				ORGANIZATIONNAME = tigerAndBull;
 				TargetAttributes = {
 					20A85BEF2152248D0005AD62 = {
@@ -1721,6 +1726,7 @@
 				685A2AC4247A685C00D9DB7C /* TestTableHeaderFooterView.m in Sources */,
 				681567232264214F00293AB4 /* JXCategoryTitleImageCellModel.m in Sources */,
 				688A380A24893B3E00A76894 /* TABTableAnimated.m in Sources */,
+				20410A5C261CA46B0030575B /* TABComponentLayer.m in Sources */,
 				68C35F48249E6D8F00A34D22 /* TABAnimatedDarkModeImpl.m in Sources */,
 				685A2AC6247A685C00D9DB7C /* XIBTableViewCell.m in Sources */,
 				68589C332343407200E8E630 /* UIColor+TABCategory.m in Sources */,
@@ -1776,6 +1782,7 @@
 				68A652F8235F732100D12ADC /* MASLayoutConstraint.m in Sources */,
 				68589C362343630F00E8E630 /* TestCollectionView.m in Sources */,
 				688A37FD24893B3E00A76894 /* NSArray+TABAnimatedChain.m in Sources */,
+				20410A55261721620030575B /* NSArray+TABAnimated.m in Sources */,
 				68A652FD235F732100D12ADC /* MASViewAttribute.m in Sources */,
 				68C171BA2461A095004FD76F /* NestTableViewController.m in Sources */,
 				683C4CC8255FDE71008DFD62 /* UIButton+Gradient.m in Sources */,
@@ -1856,7 +1863,6 @@
 				68A652F4235F732100D12ADC /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
 				20A85BF52152248D0005AD62 /* AppDelegate.m in Sources */,
 				688A380724893B3E00A76894 /* UIView+TABControlAnimation.m in Sources */,
-				688A37FE24893B3E00A76894 /* TABComponentLayer.m in Sources */,
 				2039EF7521DA07F200AE09FC /* NestCollectionViewCell.m in Sources */,
 				20BFBFFA2170D912001887A9 /* TestCollectionViewCell.m in Sources */,
 				68C1718A24604058004FD76F /* OneSectionViewController.m in Sources */,

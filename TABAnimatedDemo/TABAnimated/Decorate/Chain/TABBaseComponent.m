@@ -9,6 +9,7 @@
 #import "TABBaseComponent.h"
 #import "TABComponentLayer.h"
 #import "TABComponentManager.h"
+#import "NSArray+TABAnimated.h"
 
 struct TABBaseComonentOperation {
     NSInteger leftEqualIndex:8;
@@ -440,18 +441,34 @@ struct TABBaseComonentOperation {
  
 #pragma mark - gradient
 
-- (TABBaseComponentArrayBlock)gradient {
+- (TABBaseComponentWithArrayBlock)gradient {
     __weak typeof(self) weakSelf = self;
-    return ^TABBaseComponent *(NSArray *gradientArray) {
-        if (weakSelf.layer.origin != TABComponentLayerOriginCreate) {
-            [weakSelf result_gradient];
-        }
+    return ^TABBaseComponent *(NSArray <UIColor *> *gradientArray) {
+        [weakSelf result_gradient:gradientArray];
         return weakSelf;
     };
 }
 
-- (void)result_gradient {
-    
+- (void)result_gradient:(NSArray <UIColor *> *)gradientArray {
+    NSArray *colors = [gradientArray tab_map:^id(UIColor *color) {
+        return (id)color.CGColor;
+    }];
+    self.layer.colors = colors;
+    self.layer.startPoint = CGPointMake(0, 0);
+    self.layer.endPoint = CGPointMake(1, 0);
+}
+
+#pragma mark - removeShadow
+
+- (TABBaseComponentVoidBlock)removeShadow {
+    __weak typeof(self) weakSelf = self;
+    return ^TABBaseComponent *() {
+        self.layer.shadowColor = nil;
+        self.layer.shadowOffset = CGSizeZero;
+        self.layer.shadowPath = nil;
+        self.layer.shadowRadius = 0.;
+        return weakSelf;
+    };
 }
 
 #pragma mark - Auto layout
@@ -618,6 +635,98 @@ struct TABBaseComonentOperation {
         return weakSelf;
     };
 }
+
+#pragma mark -
+
+- (TABBaseComponentOffsetBlock)verticalCenterOffset {
+    __weak typeof(self) weakSelf = self;
+    return ^TABBaseComponent *(CGFloat offset) {
+        
+        return weakSelf;
+    };
+}
+
+- (TABBaseComponentOffsetBlock)horizontalCenterOffset {
+    __weak typeof(self) weakSelf = self;
+    return ^TABBaseComponent *(CGFloat offset) {
+        
+        return weakSelf;
+    };
+}
+
+#pragma mark -
+
+/// 输入(x, value)
+/// x为目标行数，value为目标行数的宽度比例（0 - 1）
+- (TABBaseComponentCompareWithOffsetBlock)targetLineScale {
+    __weak typeof(self) weakSelf = self;
+    return ^TABBaseComponent *(NSInteger index, CGFloat value) {
+        TABComponentLayer *targetLayer = self.layer.lineLayers[index];
+        [self.layer.widthDict setValue:@(targetLayer.frame.size.width * value) forKey:[TABComponentLayer getLineKey:index]];
+        return weakSelf;
+    };
+}
+
+/// 输入(x, value)
+/// x为目标行数，value为目标行数的宽度（数值）
+- (TABBaseComponentCompareWithOffsetBlock)targetLineWidth {
+    __weak typeof(self) weakSelf = self;
+    return ^TABBaseComponent *(NSInteger index, CGFloat value) {
+        [self.layer.widthDict setValue:@(value) forKey:[TABComponentLayer getLineKey:index]];
+        return weakSelf;
+    };
+}
+
+/// 输入(x, value)
+/// x为目标行数，value为目标行数的间距
+- (TABBaseComponentCompareWithOffsetBlock)targetLineSpace {
+    __weak typeof(self) weakSelf = self;
+    return ^TABBaseComponent *(NSInteger index, CGFloat value) {
+        [self.layer.spaceDict setValue:@(value) forKey:[TABComponentLayer getLineKey:index]];
+        return weakSelf;
+    };
+}
+
+- (TABBaseComponentCompareWithOffsetBlock)targetLineHeight {
+    __weak typeof(self) weakSelf = self;
+    return ^TABBaseComponent *(NSInteger index, CGFloat value) {
+        [self.layer.heightDict setValue:@(value) forKey:[TABComponentLayer getLineKey:index]];
+        return weakSelf;
+    };
+}
+
+#pragma mark -
+
+- (TABBaseComponentRangeWithOffsetBlock)rangeLineHeight {
+    __weak typeof(self) weakSelf = self;
+    return ^TABBaseComponent *(NSInteger location, NSInteger length, CGFloat value) {
+        for (NSInteger i = location; i <= location + length; i ++) {
+            [self.layer.heightDict setValue:@(value) forKey:[TABComponentLayer getLineKey:i]];
+        }
+        return weakSelf;
+    };
+}
+
+- (TABBaseComponentRangeWithOffsetBlock)rangeLineSpace {
+    __weak typeof(self) weakSelf = self;
+    return ^TABBaseComponent *(NSInteger location, NSInteger length, CGFloat value) {
+        for (NSInteger i = location; i <= location + length; i ++) {
+            [self.layer.spaceDict setValue:@(value) forKey:[TABComponentLayer getLineKey:i]];
+        }
+        return weakSelf;
+    };
+}
+
+- (TABBaseComponentRangeWithOffsetBlock)rangeLineWidth {
+    __weak typeof(self) weakSelf = self;
+    return ^TABBaseComponent *(NSInteger location, NSInteger length, CGFloat value) {
+        for (NSInteger i = location; i <= location + length; i ++) {
+            [self.layer.widthDict setValue:@(value) forKey:[TABComponentLayer getLineKey:i]];
+        }
+        return weakSelf;
+    };
+}
+
 
 #pragma mark -
 

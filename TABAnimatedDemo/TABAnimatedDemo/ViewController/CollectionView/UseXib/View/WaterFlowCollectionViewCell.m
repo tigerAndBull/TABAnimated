@@ -2,7 +2,7 @@
 //  WaterFlowCollectionViewCell.m
 //  TABAnimatedDemo
 //
-//  Created by 安文虎 on 2020/12/22.
+//  Created by tigerAndBull on 2020/12/22.
 //  Copyright © 2020 tigerAndBull. All rights reserved.
 //
 

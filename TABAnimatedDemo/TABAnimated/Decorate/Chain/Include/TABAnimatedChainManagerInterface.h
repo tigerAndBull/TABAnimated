@@ -11,18 +11,20 @@
 
 #import "TABAnimatedChainDefines.h"
 
-@class TABComponentLayer;
+@class TABComponentLayer, TABAnimatedProduction;
 
 @protocol TABAnimatedChainManagerInterface <NSObject>
 
-- (void)chainAdjustWithArray:(NSMutableArray <TABComponentLayer *> *)array
-                 adjustBlock:(TABAdjustBlock)adjustBlock
-               animatedColor:(UIColor *)animatedColor;
+- (void)chainAdjustWithBackgroundLayer:(TABComponentLayer *)backgroundLayer
+                                layers:(NSArray <TABComponentLayer *> *)layers
+                           adjustBlock:(TABAdjustBlock)adjustBlock
+                         animatedColor:(UIColor *)animatedColor;
 
-- (void)chainAdjustWithArray:(NSMutableArray <TABComponentLayer *> *)array
-        adjustWithClassBlock:(TABAdjustWithClassBlock)adjustWithClassBlock
-                 targetClass:(Class)targetClass
-               animatedColor:(UIColor *)animatedColor;
+- (void)chainAdjustWithBackgroundLayer:(TABComponentLayer *)backgroundLayer
+                                layers:(NSArray <TABComponentLayer *> *)layers
+                  adjustWithClassBlock:(TABAdjustWithClassBlock)adjustWithClassBlock
+                           targetClass:(Class)targetClass
+                         animatedColor:(UIColor *)animatedColor;
 
 - (void)destory;
 

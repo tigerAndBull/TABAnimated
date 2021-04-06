@@ -178,7 +178,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 渐变层
 /// 传入渐变颜色数组 [Color0, Color1,  ...]
-- (TABBaseComponentArrayBlock)gradient;
+- (TABBaseComponentWithArrayBlock)gradient;
+
+/// 移除该layer的shaow相关属性的设置
+- (TABBaseComponentVoidBlock)removeShadow;
 
 #pragma mark -
 
@@ -277,6 +280,34 @@ NS_ASSUME_NONNULL_BEGIN
 /// 参数tag：传入比较的tag
 /// 参数offset：偏移量 
 - (TABBaseComponentCompareWithOffsetBlock)bottomEqualToTop_offset;
+
+#pragma mark -
+
+/// 水平居中距离上下的间距偏移值
+- (TABBaseComponentOffsetBlock)verticalCenterOffset;
+
+/// 垂直居中距离左右的间距偏移值
+- (TABBaseComponentOffsetBlock)horizontalCenterOffset;
+
+/// 输入(x, value)
+/// x为目标行数，value为目标行数的宽度比例（0 - 1）
+- (TABBaseComponentCompareWithOffsetBlock)targetLineScale;
+
+/// 输入(x, value)
+/// x为目标行数，value为目标行数的宽度（数值）
+- (TABBaseComponentCompareWithOffsetBlock)targetLineWidth;
+
+/// 输入(x, value)
+/// x为目标行数，value为目标行数的间距
+- (TABBaseComponentCompareWithOffsetBlock)targetLineSpace;
+
+/// 输入(x, value)
+/// x为目标行数，value为目标行数的高度
+- (TABBaseComponentCompareWithOffsetBlock)targetLineHeight;
+
+- (TABBaseComponentRangeWithOffsetBlock)rangeLineHeight;
+- (TABBaseComponentRangeWithOffsetBlock)rangeLineSpace;
+- (TABBaseComponentRangeWithOffsetBlock)rangeLineWidth;
 
 #pragma mark - Init Method
 

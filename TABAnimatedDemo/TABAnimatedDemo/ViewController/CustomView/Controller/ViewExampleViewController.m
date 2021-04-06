@@ -38,6 +38,9 @@
         manager.animation(1).width(200);
         manager.animation(2).width(220);
         manager.animation(3).width(180);
+        UIColor *color1 = [UIColor colorWithRed:255/255. green:129/255. blue:39/255. alpha:1.];
+        UIColor *color2 = [UIColor colorWithRed:255/255. green:17/255. blue:126/255. alpha:1.];
+        manager.animation(4).gradient(@[color1, color2]);
     };
     self.view.tabAnimated = viewAnimated;
     

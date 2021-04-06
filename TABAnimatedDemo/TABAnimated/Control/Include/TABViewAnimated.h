@@ -83,6 +83,10 @@ FOUNDATION_EXPORT NSString *tab_NSStringFromClass(Class aClass);
  */
 @property (nonatomic, assign) CGFloat animatedHeight;
 
+@property (nonatomic, assign) CGFloat viewHeight;
+@property (nonatomic, assign) CGFloat originViewHeight;
+
+
 /**
  * 是否在动画中，在普通模式中，用于快速判断
  */
@@ -119,8 +123,15 @@ FOUNDATION_EXPORT NSString *tab_NSStringFromClass(Class aClass);
  */
 @property (nonatomic, copy) NSString *targetControllerClassName;
 
+@property (nonatomic, assign) Class withoutSubViewsClass;
+@property (nonatomic, copy) NSArray <Class> *withoutSubViewsClassArray;
+
 - (nonnull UIColor *)getCurrentAnimatedColorWithCollection:(UITraitCollection *)collection;
 - (nonnull UIColor *)getCurrentAnimatedBackgroundColorWithCollection:(UITraitCollection *)collection;
+
+/// viewHeight为骨架屏周期的视图高度，不影响骨架屏结束前后
+- (instancetype)initWithViewHeight:(CGFloat)viewHeight;
++ (instancetype)animatedWithViewHeight:(CGFloat)viewHeight;
 
 #pragma mark - DEPRECATED
 

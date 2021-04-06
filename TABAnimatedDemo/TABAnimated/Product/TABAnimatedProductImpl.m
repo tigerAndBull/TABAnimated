@@ -118,6 +118,11 @@
         [self setControlView:controlView];
     }
     
+    if (controlView.tabAnimated.viewHeight != 0) {
+        controlView.tabAnimated.originViewHeight = view.frame.size.height;
+        view.frame = CGRectMake(view.frame.origin.x, view.frame.origin.y, view.frame.size.width, controlView.tabAnimated.viewHeight);
+    }
+    
     NSString *controlerClassName = controlView.tabAnimated.targetControllerClassName;
     NSString *key = [TABAnimatedProductHelper getKeyWithControllerName:controlerClassName targetClass:currentClass frame:controlView.frame];
     TABAnimatedProduction *production = [[TABAnimatedCacheManager shareManager] getProductionWithKey:key];
@@ -169,6 +174,7 @@
         [self _bindWithProduction:view.tabAnimatedProduction targetView:view];
         [self _syncProduction:view.tabAnimatedProduction];
     }
+    _controlView.tabAnimated.state = TABViewAnimationRunning;
     [self _recoveryProductStatus];
 }
 
@@ -296,9 +302,7 @@
         isCard = YES;
     }
     
-    if (flagView) {
-        flagView.hidden = YES;
-    }else {
+    if (!flagView) {
         flagView = view;
     }
     
@@ -348,8 +352,9 @@
         NSMutableArray <TABComponentLayer *> *layerArray = @[].mutableCopy;
         // 生产
         [self _recurseProductLayerWithView:targetView array:layerArray production:production isCard:isCard];
+        production.layers = layerArray;
         // 加工
-        [self _chainAdjustWithArray:layerArray tabAnimated:_controlView.tabAnimated targetClass:production.targetClass];
+        [self _chainAdjustWithBackgroundLayer:production.backgroundLayer layers:layerArray.copy tabAnimated:_controlView.tabAnimated targetClass:production.targetClass];
         // 绑定
         production.state = TABAnimatedProductionBind;
         production.layers = layerArray;
@@ -433,6 +438,7 @@
     }
     layer.originFrame = rect;
     rect = [layer resetFrameWithRect:rect animatedHeight:_controlView.tabAnimated.animatedHeight];
+    
     layer.frame = rect;
     
     if (layer.contents) {
@@ -449,7 +455,7 @@
             if ([TABAnimated sharedAnimated].animatedCornerRadius != 0.) {
                 layer.cornerRadius = [TABAnimated sharedAnimated].animatedCornerRadius;
             }else {
-                layer.cornerRadius = layer.frame.size.height/2.0;
+                layer.cornerRadius = layer.frame.size.height / 2.0;
             }
         }
     }else {
@@ -542,17 +548,16 @@
     return needRemove;
 }
 
-- (void)_chainAdjustWithArray:(NSMutableArray <TABComponentLayer *> *)array
-                  tabAnimated:(TABViewAnimated *)tabAnimated
-                  targetClass:(Class)targetClass {
-
+- (void)_chainAdjustWithBackgroundLayer:(TABComponentLayer *)backgroundLayer
+                                 layers:(NSArray <TABComponentLayer *> *)layers
+                            tabAnimated:(TABViewAnimated *)tabAnimated
+                            targetClass:(Class)targetClass {
     UIColor *animatedColor = [tabAnimated getCurrentAnimatedColorWithCollection:_controlView.traitCollection];
-    
     if (tabAnimated.adjustBlock) {
-        [self.chainManager chainAdjustWithArray:array adjustBlock:tabAnimated.adjustBlock animatedColor:animatedColor];
+        [self.chainManager chainAdjustWithBackgroundLayer:backgroundLayer layers:layers adjustBlock:tabAnimated.adjustBlock animatedColor:animatedColor];
     }
     if (tabAnimated.adjustWithClassBlock) {
-        [self.chainManager chainAdjustWithArray:array adjustWithClassBlock:tabAnimated.adjustWithClassBlock targetClass:targetClass animatedColor:animatedColor];
+        [self.chainManager chainAdjustWithBackgroundLayer:backgroundLayer layers:layers adjustWithClassBlock:tabAnimated.adjustWithClassBlock targetClass:targetClass animatedColor:animatedColor];
     }
 }
 

@@ -23,7 +23,8 @@ typedef TABBaseComponent * _Nullable (^TABBaseComponentIntegerBlock)(NSInteger);
 typedef TABBaseComponent * _Nullable (^TABBaseComponentFloatBlock)(CGFloat);
 typedef TABBaseComponent * _Nullable (^TABBaseComponentStringBlock)(NSString * _Nonnull);
 typedef TABBaseComponent * _Nullable (^TABBaseComponentColorBlock)(UIColor * _Nonnull);
-typedef TABBaseComponent * _Nullable (^TABBaseComponentArrayBlock)(NSArray * _Nonnull);
+typedef TABBaseComponent * _Nullable (^TABBaseComponentWithArrayBlock)(NSArray * _Nonnull);
+
 
 typedef NSArray <TABBaseComponent *> * _Nullable (^TABAnimatedArrayFloatBlock)(CGFloat);
 typedef NSArray <TABBaseComponent *> * _Nullable (^TABAnimatedArrayIntBlock)(NSInteger);
@@ -36,8 +37,11 @@ typedef NSArray <TABBaseComponent *> * _Nullable (^TABBaseComponentArrayWithInde
 
 #pragma mark -
 
+typedef TABBaseComponent * _Nullable (^TABBaseComponentOffsetBlock)(CGFloat offset);
+
 typedef TABBaseComponent * _Nullable (^TABBaseComponentCompareBlock)(NSInteger index);
-typedef TABBaseComponent * _Nullable (^TABBaseComponentCompareWithOffsetBlock)(NSInteger index, CGFloat offset);
+typedef TABBaseComponent * _Nullable (^TABBaseComponentCompareWithOffsetBlock)(NSInteger index, CGFloat value);
+typedef TABBaseComponent * _Nullable (^TABBaseComponentRangeWithOffsetBlock)(NSInteger location, NSInteger length, CGFloat offset);
 
 typedef NSArray <TABBaseComponent *> * _Nullable (^TABComponentArrayCompareBlock)(NSInteger index);
 typedef NSArray <TABBaseComponent *> * _Nullable (^TABComponentArrayCompareWithOffsetBlock)(NSInteger index, CGFloat offset);

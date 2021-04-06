@@ -13,6 +13,7 @@
 
 @property (nonatomic, strong) NSMutableArray <TABBaseComponent *> *components;
 @property (nonatomic, strong) NSMutableArray <TABComponentLayer *> *layers;
+
 @property (nonatomic, strong) UIColor *animatedColor;
 
 @end
@@ -21,18 +22,23 @@
 
 #pragma mark - Public
 
-+ (instancetype)managerWithLayers:(NSMutableArray <TABComponentLayer *> *)layers animatedColor:(UIColor *)animatedColor {
-    TABComponentManager *manager = [[TABComponentManager alloc] initWithLayers:layers animatedColor:animatedColor];
++ (instancetype)managerWithBackgroundLayer:(TABComponentLayer *)backgroundLayer
+                                    layers:(NSArray <TABComponentLayer *> *)layers
+                             animatedColor:(UIColor *)animatedColor {
+    TABComponentManager *manager = [[TABComponentManager alloc] initWithBackgroundLayer:backgroundLayer layers:layers animatedColor:animatedColor];
     return manager;
 }
 
-- (instancetype)initWithLayers:(NSMutableArray <TABComponentLayer *> *)layers animatedColor:(UIColor *)animatedColor {
+- (instancetype)initWithBackgroundLayer:(TABComponentLayer *)backgroundLayer
+                                 layers:(NSArray <TABComponentLayer *> *)layers
+                          animatedColor:(UIColor *)animatedColor {
     if (self = [super init]) {
         _animatedColor = animatedColor;
         _components = @[].mutableCopy;
-        _layers = layers;
-        for (NSInteger i = 0; i < layers.count; i++) {
-            TABComponentLayer *layer = layers[i];
+        _layers = layers.mutableCopy;
+        _backgroundComponent = [TABBaseComponent componentWithLayer:backgroundLayer manager:self];
+        for (NSInteger i = 0; i < _layers.count; i++) {
+            TABComponentLayer *layer = _layers[i];
             TABBaseComponent *component = [TABBaseComponent componentWithLayer:layer manager:self];
             [_components addObject:component];
         }
