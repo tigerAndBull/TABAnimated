@@ -597,7 +597,7 @@
     id oldDelegate = tabAnimated.oldDataSource;
     SEL sel = @selector(numberOfSectionsInCollectionView:);
     
-    if (tabAnimated.state != TABViewAnimationStart) {
+    if (!tabAnimated.isAnimating) {
         return ((NSInteger (*)(id, SEL, UICollectionView *))objc_msgSend)((id)oldDelegate, sel, collectionView);
     }
     
@@ -617,7 +617,7 @@
     id oldDelegate = tabAnimated.oldDataSource;
     SEL sel = @selector(collectionView:numberOfItemsInSection:);
     
-    if (tabAnimated.state != TABViewAnimationStart) {
+    if (!tabAnimated.isAnimating) {
         return ((NSInteger (*)(id, SEL, UICollectionView *, NSInteger))objc_msgSend)((id)oldDelegate, sel, collectionView, section);
     }
     
@@ -639,7 +639,7 @@
     id oldDelegate = tabAnimated.oldDelegate;
     SEL sel = @selector(collectionView:layout:sizeForItemAtIndexPath:);
     
-    if (tabAnimated.state != TABViewAnimationStart) {
+    if (!tabAnimated.isAnimating) {
         return ((CGSize (*)(id, SEL, UICollectionView *, UICollectionViewLayout *, NSIndexPath *))objc_msgSend)((id)oldDelegate, sel, collectionView, collectionViewLayout, indexPath);
     }
     
@@ -656,7 +656,7 @@
     id oldDelegate = tabAnimated.oldDataSource;
     SEL sel = @selector(collectionView:cellForItemAtIndexPath:);
     
-    if (tabAnimated.state != TABViewAnimationStart) {
+    if (!tabAnimated.isAnimating) {
         return ((UICollectionViewCell * (*)(id, SEL, UICollectionView *, NSIndexPath *))objc_msgSend)((id)oldDelegate, sel, collectionView, indexPath);
     }
     
@@ -733,7 +733,7 @@
 
 - (CGFloat)tab_waterFallLayout:(UICollectionViewLayout *)waterFallLayout index:(NSInteger)index itemWidth:(CGFloat)itemWidth {
     TABCollectionAnimated *tabAnimated = waterFallLayout.tabAnimated;
-    if (tabAnimated.state != TABViewAnimationStart) {
+    if (!tabAnimated.isAnimating) {
         return [self tab_waterFallLayout:waterFallLayout index:index itemWidth:itemWidth];
     }
     return [tabAnimated.waterFallLayoutHeightArray[index] floatValue];
@@ -755,7 +755,7 @@
 
 - (BOOL)tab_collectionView:(UICollectionView *)collectionView canMoveItemAtIndexPath:(NSIndexPath *)indexPath {
     TABCollectionAnimated *tabAnimated = collectionView.tabAnimated;
-    if (tabAnimated.state == TABViewAnimationStart) return NO;
+    if (tabAnimated.isAnimating) return NO;
     id oldDelegate = tabAnimated.oldDelegate;
     SEL sel = @selector(collectionView:canMoveItemAtIndexPath:);
     return ((BOOL (*)(id, SEL, UICollectionView *, NSIndexPath *))objc_msgSend)((id)oldDelegate, sel, collectionView, indexPath);
@@ -763,7 +763,7 @@
 
 - (void)tab_collectionView:(UICollectionView *)collectionView moveItemAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath*)destinationIndexPath {
     TABCollectionAnimated *tabAnimated = collectionView.tabAnimated;
-    if (tabAnimated.state == TABViewAnimationStart) return;
+    if (tabAnimated.isAnimating) return;
     id oldDelegate = tabAnimated.oldDelegate;
     SEL sel = @selector(collectionView:moveItemAtIndexPath:toIndexPath:);
     ((void (*)(id, SEL, UICollectionView *, NSIndexPath *, NSIndexPath *))objc_msgSend)((id)oldDelegate, sel, collectionView, sourceIndexPath, destinationIndexPath);
@@ -771,7 +771,7 @@
 
 - (nullable NSArray<NSString *> *)tab_indexTitlesForCollectionView:(UICollectionView *)collectionView {
     TABCollectionAnimated *tabAnimated = collectionView.tabAnimated;
-    if (tabAnimated.state == TABViewAnimationStart) return nil;
+    if (tabAnimated.isAnimating) return nil;
     id oldDelegate = tabAnimated.oldDelegate;
     SEL sel = @selector(indexTitlesForCollectionView:);
     return ((NSArray<NSString *> * (*)(id, SEL, UICollectionView *))objc_msgSend)((id)oldDelegate, sel, collectionView);
@@ -779,7 +779,7 @@
 
 - (NSIndexPath *)tab_collectionView:(UICollectionView *)collectionView indexPathForIndexTitle:(NSString *)title atIndex:(NSInteger)index {
     TABCollectionAnimated *tabAnimated = collectionView.tabAnimated;
-    if (tabAnimated.state == TABViewAnimationStart) return nil;
+    if (tabAnimated.isAnimating) return nil;
     id oldDelegate = tabAnimated.oldDelegate;
     SEL sel = @selector(collectionView:indexPathForIndexTitle:atIndex:);
     return ((NSIndexPath * (*)(id, SEL, UICollectionView *, NSString *, NSInteger))objc_msgSend)((id)oldDelegate, sel, collectionView, title, index);
@@ -789,7 +789,7 @@
 
 - (BOOL)tab_collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
     TABCollectionAnimated *tabAnimated = collectionView.tabAnimated;
-    if (tabAnimated.state == TABViewAnimationStart) return NO;
+    if (tabAnimated.isAnimating) return NO;
     id oldDelegate = tabAnimated.oldDelegate;
     SEL sel = @selector(collectionView:shouldHighlightItemAtIndexPath:);
     return ((BOOL (*)(id, SEL, UICollectionView *, NSIndexPath *))objc_msgSend)((id)oldDelegate, sel, collectionView, indexPath);
@@ -797,7 +797,7 @@
 
 - (void)tab_collectionView:(UICollectionView *)collectionView didHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
     TABCollectionAnimated *tabAnimated = collectionView.tabAnimated;
-    if (tabAnimated.state == TABViewAnimationStart) return;
+    if (tabAnimated.isAnimating) return;
     id oldDelegate = tabAnimated.oldDelegate;
     SEL sel = @selector(collectionView:didHighlightItemAtIndexPath:);
     ((void (*)(id, SEL, UICollectionView *, NSIndexPath *))objc_msgSend)((id)oldDelegate, sel, collectionView, indexPath);
@@ -805,7 +805,7 @@
 
 - (void)tab_collectionView:(UICollectionView *)collectionView didUnhighlightItemAtIndexPath:(NSIndexPath *)indexPath {
     TABCollectionAnimated *tabAnimated = collectionView.tabAnimated;
-    if (tabAnimated.state == TABViewAnimationStart) return;
+    if (tabAnimated.isAnimating) return;
     id oldDelegate = tabAnimated.oldDelegate;
     SEL sel = @selector(collectionView:didUnhighlightItemAtIndexPath:);
     ((void (*)(id, SEL, UICollectionView *, NSIndexPath *))objc_msgSend)((id)oldDelegate, sel, collectionView, indexPath);
@@ -813,7 +813,7 @@
 
 - (BOOL)tab_collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     TABCollectionAnimated *tabAnimated = collectionView.tabAnimated;
-    if (tabAnimated.state == TABViewAnimationStart) return NO;
+    if (tabAnimated.isAnimating) return NO;
     id oldDelegate = tabAnimated.oldDelegate;
     SEL sel = @selector(collectionView:shouldSelectItemAtIndexPath:);
     return ((BOOL (*)(id, SEL, UICollectionView *, NSIndexPath *))objc_msgSend)((id)oldDelegate, sel, collectionView, indexPath);
@@ -821,7 +821,7 @@
 
 - (BOOL)tab_collectionView:(UICollectionView *)collectionView shouldDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
     TABCollectionAnimated *tabAnimated = collectionView.tabAnimated;
-    if (tabAnimated.state == TABViewAnimationStart) return NO;
+    if (tabAnimated.isAnimating) return NO;
     id oldDelegate = tabAnimated.oldDelegate;
     SEL sel = @selector(collectionView:shouldDeselectItemAtIndexPath:);
     return ((BOOL (*)(id, SEL, UICollectionView *, NSIndexPath *))objc_msgSend)((id)oldDelegate, sel, collectionView, indexPath);
@@ -829,7 +829,7 @@
 
 - (void)tab_collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     TABCollectionAnimated *tabAnimated = collectionView.tabAnimated;
-    if (tabAnimated.state == TABViewAnimationStart) return;
+    if (tabAnimated.isAnimating) return;
     id oldDelegate = tabAnimated.oldDelegate;
     SEL sel = @selector(collectionView:didSelectItemAtIndexPath:);
     ((void (*)(id, SEL, UICollectionView *, NSIndexPath *))objc_msgSend)((id)oldDelegate, sel, collectionView, indexPath);
@@ -837,7 +837,7 @@
 
 - (void)tab_collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
     TABCollectionAnimated *tabAnimated = collectionView.tabAnimated;
-    if (tabAnimated.state == TABViewAnimationStart) return;
+    if (tabAnimated.isAnimating) return;
     id oldDelegate = tabAnimated.oldDelegate;
     SEL sel = @selector(collectionView:didDeselectItemAtIndexPath:);
     ((void (*)(id, SEL, UICollectionView *, NSIndexPath *))objc_msgSend)((id)oldDelegate, sel, collectionView, indexPath);
@@ -845,7 +845,7 @@
 
 - (void)tab_collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
     TABCollectionAnimated *tabAnimated = collectionView.tabAnimated;
-    if (tabAnimated.state == TABViewAnimationStart) return;
+    if (tabAnimated.isAnimating) return;
     id oldDelegate = tabAnimated.oldDelegate;
     SEL sel = @selector(collectionView:willDisplayCell:forItemAtIndexPath:);
     ((void (*)(id, SEL, UICollectionView *, UICollectionViewCell *, NSIndexPath *))objc_msgSend)((id)oldDelegate, sel, collectionView, cell, indexPath);
@@ -853,7 +853,7 @@
 
 - (void)tab_collectionView:(UICollectionView *)collectionView willDisplaySupplementaryView:(UICollectionReusableView *)view forElementKind:(NSString *)elementKind atIndexPath:(NSIndexPath *)indexPath {
     TABCollectionAnimated *tabAnimated = collectionView.tabAnimated;
-    if (tabAnimated.state == TABViewAnimationStart) return;
+    if (tabAnimated.isAnimating) return;
     id oldDelegate = tabAnimated.oldDelegate;
     SEL sel = @selector(collectionView:willDisplaySupplementaryView:forElementKind:atIndexPath:);
     ((void (*)(id, SEL, UICollectionView *, UICollectionReusableView *, NSString *, NSIndexPath *))objc_msgSend)((id)oldDelegate, sel, collectionView, view, elementKind, indexPath);
@@ -861,7 +861,7 @@
 
 - (void)tab_collectionView:(UICollectionView *)collectionView didEndDisplayingCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
     TABCollectionAnimated *tabAnimated = collectionView.tabAnimated;
-    if (tabAnimated.state == TABViewAnimationStart) return;
+    if (tabAnimated.isAnimating) return;
     id oldDelegate = tabAnimated.oldDelegate;
     SEL sel = @selector(collectionView:didEndDisplayingCell:forItemAtIndexPath:);
     ((void (*)(id, SEL, UICollectionView *, UICollectionViewCell *, NSIndexPath *))objc_msgSend)((id)oldDelegate, sel, collectionView, cell, indexPath);
@@ -869,7 +869,7 @@
 
 - (void)tab_collectionView:(UICollectionView *)collectionView didEndDisplayingSupplementaryView:(UICollectionReusableView *)view forElementOfKind:(NSString *)elementKind atIndexPath:(NSIndexPath *)indexPath {
     TABCollectionAnimated *tabAnimated = collectionView.tabAnimated;
-    if (tabAnimated.state == TABViewAnimationStart) return;
+    if (tabAnimated.isAnimating) return;
     id oldDelegate = tabAnimated.oldDelegate;
     SEL sel = @selector(collectionView:didEndDisplayingSupplementaryView:forElementOfKind:atIndexPath:);
     ((void (*)(id, SEL, UICollectionView *, UICollectionReusableView *, NSString *, NSIndexPath *))objc_msgSend)((id)oldDelegate, sel, collectionView, view, elementKind, indexPath);
@@ -877,7 +877,7 @@
 
 - (BOOL)tab_collectionView:(UICollectionView *)collectionView shouldShowMenuForItemAtIndexPath:(NSIndexPath *)indexPath {
     TABCollectionAnimated *tabAnimated = collectionView.tabAnimated;
-    if (tabAnimated.state == TABViewAnimationStart) return NO;
+    if (tabAnimated.isAnimating) return NO;
     id oldDelegate = tabAnimated.oldDelegate;
     SEL sel = @selector(collectionView:shouldShowMenuForItemAtIndexPath:);
     return ((BOOL (*)(id, SEL, UICollectionView *, NSIndexPath *))objc_msgSend)((id)oldDelegate, sel, collectionView, indexPath);
@@ -885,7 +885,7 @@
 
 - (BOOL)tab_collectionView:(UICollectionView *)collectionView canPerformAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(nullable id)sender {
     TABCollectionAnimated *tabAnimated = collectionView.tabAnimated;
-    if (tabAnimated.state == TABViewAnimationStart) return NO;
+    if (tabAnimated.isAnimating) return NO;
     id oldDelegate = tabAnimated.oldDelegate;
     SEL sel = @selector(collectionView:canPerformAction:forItemAtIndexPath:withSender:);
     return ((BOOL (*)(id, SEL, UICollectionView *, SEL, NSIndexPath *, id))objc_msgSend)((id)oldDelegate, sel, collectionView, action, indexPath, sender);
@@ -893,7 +893,7 @@
 
 - (void)tab_collectionView:(UICollectionView *)collectionView performAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(nullable id)sender {
     TABCollectionAnimated *tabAnimated = collectionView.tabAnimated;
-    if (tabAnimated.state == TABViewAnimationStart) return;
+    if (tabAnimated.isAnimating) return;
     id oldDelegate = tabAnimated.oldDelegate;
     SEL sel = @selector(collectionView:performAction:forItemAtIndexPath:withSender:);
     ((void (*)(id, SEL, UICollectionView *, SEL, NSIndexPath *, id))objc_msgSend)((id)oldDelegate, sel, collectionView, action, indexPath, sender);
@@ -901,7 +901,7 @@
 
 - (nonnull UICollectionViewTransitionLayout *)tab_collectionView:(UICollectionView *)collectionView transitionLayoutForOldLayout:(UICollectionViewLayout *)fromLayout newLayout:(UICollectionViewLayout *)toLayout {
     TABCollectionAnimated *tabAnimated = collectionView.tabAnimated;
-    if (tabAnimated.state == TABViewAnimationStart) return nil;
+    if (tabAnimated.isAnimating) return nil;
     id oldDelegate = tabAnimated.oldDelegate;
     SEL sel = @selector(collectionView:transitionLayoutForOldLayout:newLayout:);
     return ((UICollectionViewTransitionLayout * (*)(id, SEL, UICollectionView *, UICollectionViewLayout *, UICollectionViewLayout *))objc_msgSend)((id)oldDelegate, sel, collectionView, fromLayout, toLayout);
@@ -909,7 +909,7 @@
 
 - (BOOL)tab_collectionView:(UICollectionView *)collectionView canFocusItemAtIndexPath:(NSIndexPath *)indexPath {
     TABCollectionAnimated *tabAnimated = collectionView.tabAnimated;
-    if (tabAnimated.state == TABViewAnimationStart) return NO;
+    if (tabAnimated.isAnimating) return NO;
     id oldDelegate = tabAnimated.oldDelegate;
     SEL sel = @selector(collectionView:canFocusItemAtIndexPath:);
     return ((BOOL (*)(id, SEL, UICollectionView *, NSIndexPath *))objc_msgSend)((id)oldDelegate, sel, collectionView, indexPath);
@@ -917,7 +917,7 @@
 
 - (BOOL)tab_collectionView:(UICollectionView *)collectionView shouldUpdateFocusInContext:(UICollectionViewFocusUpdateContext *)context {
     TABCollectionAnimated *tabAnimated = collectionView.tabAnimated;
-    if (tabAnimated.state == TABViewAnimationStart) return NO;
+    if (tabAnimated.isAnimating) return NO;
     id oldDelegate = tabAnimated.oldDelegate;
     SEL sel = @selector(collectionView:shouldUpdateFocusInContext:);
     return ((BOOL (*)(id, SEL, UICollectionView *, UICollectionViewFocusUpdateContext *))objc_msgSend)((id)oldDelegate, sel, collectionView, context);
@@ -925,7 +925,7 @@
 
 - (void)tab_collectionView:(UICollectionView *)collectionView didUpdateFocusInContext:(UICollectionViewFocusUpdateContext *)context withAnimationCoordinator:(UIFocusAnimationCoordinator *)coordinator {
     TABCollectionAnimated *tabAnimated = collectionView.tabAnimated;
-    if (tabAnimated.state == TABViewAnimationStart) return;
+    if (tabAnimated.isAnimating) return;
     id oldDelegate = tabAnimated.oldDelegate;
     SEL sel = @selector(collectionView:didUpdateFocusInContext:withAnimationCoordinator:);
     ((void (*)(id, SEL, UICollectionView *, UICollectionViewFocusUpdateContext *, UIFocusAnimationCoordinator *))objc_msgSend)((id)oldDelegate, sel, collectionView, context, coordinator);
@@ -933,7 +933,7 @@
 
 - (nullable NSIndexPath *)tab_indexPathForPreferredFocusedViewInCollectionView:(UICollectionView *)collectionView {
     TABCollectionAnimated *tabAnimated = collectionView.tabAnimated;
-    if (tabAnimated.state == TABViewAnimationStart) return nil;
+    if (tabAnimated.isAnimating) return nil;
     id oldDelegate = tabAnimated.oldDelegate;
     SEL sel = @selector(indexPathForPreferredFocusedViewInCollectionView:);
     return ((NSIndexPath * (*)(id, SEL, UICollectionView *))objc_msgSend)((id)oldDelegate, sel, collectionView);
@@ -941,7 +941,7 @@
 
 - (NSIndexPath *)tab_collectionView:(UICollectionView *)collectionView targetIndexPathForMoveFromItemAtIndexPath:(NSIndexPath *)originalIndexPath toProposedIndexPath:(NSIndexPath *)proposedIndexPath {
     TABCollectionAnimated *tabAnimated = collectionView.tabAnimated;
-    if (tabAnimated.state == TABViewAnimationStart) return nil;
+    if (tabAnimated.isAnimating) return nil;
     id oldDelegate = tabAnimated.oldDelegate;
     SEL sel = @selector(collectionView:targetIndexPathForMoveFromItemAtIndexPath:toProposedIndexPath:);
     return ((NSIndexPath * (*)(id, SEL, UICollectionView *, NSIndexPath *, NSIndexPath *))objc_msgSend)((id)oldDelegate, sel, collectionView, originalIndexPath, proposedIndexPath);
@@ -949,7 +949,7 @@
 
 - (CGPoint)tab_collectionView:(UICollectionView *)collectionView targetContentOffsetForProposedContentOffset:(CGPoint)proposedContentOffset {
     TABCollectionAnimated *tabAnimated = collectionView.tabAnimated;
-    if (tabAnimated.state == TABViewAnimationStart) return CGPointZero;
+    if (tabAnimated.isAnimating) return CGPointZero;
     id oldDelegate = tabAnimated.oldDelegate;
     SEL sel = @selector(collectionView:targetContentOffsetForProposedContentOffset:);
     return ((CGPoint (*)(id, SEL, UICollectionView *, CGPoint))objc_msgSend)((id)oldDelegate, sel, collectionView, proposedContentOffset);
@@ -957,7 +957,7 @@
 
 - (BOOL)tab_collectionView:(UICollectionView *)collectionView canEditItemAtIndexPath:(NSIndexPath *)indexPath {
     TABCollectionAnimated *tabAnimated = collectionView.tabAnimated;
-    if (tabAnimated.state == TABViewAnimationStart) return NO;
+    if (tabAnimated.isAnimating) return NO;
     id oldDelegate = tabAnimated.oldDelegate;
     SEL sel = @selector(collectionView:canEditItemAtIndexPath:);
     return ((BOOL (*)(id, SEL, UICollectionView *, NSIndexPath *))objc_msgSend)((id)oldDelegate, sel, collectionView, indexPath);
@@ -965,7 +965,7 @@
 
 - (BOOL)tab_collectionView:(UICollectionView *)collectionView shouldSpringLoadItemAtIndexPath:(NSIndexPath *)indexPath withContext:(id<UISpringLoadedInteractionContext>)context API_AVAILABLE(ios(11.0)) {
     TABCollectionAnimated *tabAnimated = collectionView.tabAnimated;
-    if (tabAnimated.state == TABViewAnimationStart) return NO;
+    if (tabAnimated.isAnimating) return NO;
     id oldDelegate = tabAnimated.oldDelegate;
     SEL sel = @selector(collectionView:shouldSpringLoadItemAtIndexPath:withContext:);
     return ((BOOL (*)(id, SEL, UICollectionView *, NSIndexPath *, id<UISpringLoadedInteractionContext>))objc_msgSend)((id)oldDelegate, sel, collectionView, indexPath, context);
@@ -973,7 +973,7 @@
 
 - (BOOL)tab_collectionView:(UICollectionView *)collectionView shouldBeginMultipleSelectionInteractionAtIndexPath:(NSIndexPath *)indexPath {
     TABCollectionAnimated *tabAnimated = collectionView.tabAnimated;
-    if (tabAnimated.state == TABViewAnimationStart) return NO;
+    if (tabAnimated.isAnimating) return NO;
     id oldDelegate = tabAnimated.oldDelegate;
     SEL sel = @selector(collectionView:shouldBeginMultipleSelectionInteractionAtIndexPath:);
     return ((BOOL (*)(id, SEL, UICollectionView *, NSIndexPath *))objc_msgSend)((id)oldDelegate, sel, collectionView, indexPath);
@@ -981,7 +981,7 @@
 
 - (void)tab_collectionView:(UICollectionView *)collectionView didBeginMultipleSelectionInteractionAtIndexPath:(NSIndexPath *)indexPath {
     TABCollectionAnimated *tabAnimated = collectionView.tabAnimated;
-    if (tabAnimated.state == TABViewAnimationStart) return;
+    if (tabAnimated.isAnimating) return;
     id oldDelegate = tabAnimated.oldDelegate;
     SEL sel = @selector(collectionView:didBeginMultipleSelectionInteractionAtIndexPath:);
     ((void (*)(id, SEL, UICollectionView *, NSIndexPath *))objc_msgSend)((id)oldDelegate, sel, collectionView, indexPath);
@@ -989,7 +989,7 @@
 
 - (void)tab_collectionViewDidEndMultipleSelectionInteraction:(UICollectionView *)collectionView {
     TABCollectionAnimated *tabAnimated = collectionView.tabAnimated;
-    if (tabAnimated.state == TABViewAnimationStart) return;
+    if (tabAnimated.isAnimating) return;
     id oldDelegate = tabAnimated.oldDelegate;
     SEL sel = @selector(collectionViewDidEndMultipleSelectionInteraction:);
     ((void (*)(id, SEL, UICollectionView *))objc_msgSend)((id)oldDelegate, sel, collectionView);
@@ -997,7 +997,7 @@
 
 - (nullable UIContextMenuConfiguration *)tab_collectionView:(UICollectionView *)collectionView contextMenuConfigurationForItemAtIndexPath:(NSIndexPath *)indexPath point:(CGPoint)point  API_AVAILABLE(ios(13.0)) {
     TABCollectionAnimated *tabAnimated = collectionView.tabAnimated;
-    if (tabAnimated.state == TABViewAnimationStart) return nil;
+    if (tabAnimated.isAnimating) return nil;
     id oldDelegate = tabAnimated.oldDelegate;
     SEL sel = @selector(collectionView:contextMenuConfigurationForItemAtIndexPath:point:);
     return ((UIContextMenuConfiguration * (*)(id, SEL, UICollectionView *, NSIndexPath *, CGPoint))objc_msgSend)((id)oldDelegate, sel, collectionView, indexPath, point);
@@ -1005,7 +1005,7 @@
 
 - (nullable UITargetedPreview *)tab_collectionView:(UICollectionView *)collectionView previewForHighlightingContextMenuWithConfiguration:(UIContextMenuConfiguration *)configuration API_AVAILABLE(ios(13.0)) {
     TABCollectionAnimated *tabAnimated = collectionView.tabAnimated;
-    if (tabAnimated.state == TABViewAnimationStart) return nil;
+    if (tabAnimated.isAnimating) return nil;
     id oldDelegate = tabAnimated.oldDelegate;
     SEL sel = @selector(collectionView:previewForHighlightingContextMenuWithConfiguration:);
     return ((UITargetedPreview * (*)(id, SEL, UICollectionView *, UIContextMenuConfiguration *))objc_msgSend)((id)oldDelegate, sel, collectionView, configuration);
@@ -1013,7 +1013,7 @@
 
 - (nullable UITargetedPreview *)tab_collectionView:(UICollectionView *)collectionView previewForDismissingContextMenuWithConfiguration:(UIContextMenuConfiguration *)configuration API_AVAILABLE(ios(13.0)) {
     TABCollectionAnimated *tabAnimated = collectionView.tabAnimated;
-    if (tabAnimated.state == TABViewAnimationStart) return nil;
+    if (tabAnimated.isAnimating) return nil;
     id oldDelegate = tabAnimated.oldDelegate;
     SEL sel = @selector(collectionView:previewForDismissingContextMenuWithConfiguration:);
     return ((UITargetedPreview * (*)(id, SEL, UICollectionView *, UIContextMenuConfiguration *))objc_msgSend)((id)oldDelegate, sel, collectionView, configuration);
@@ -1021,7 +1021,7 @@
 
 - (void)tab_collectionView:(UICollectionView *)collectionView willPerformPreviewActionForMenuWithConfiguration:(UIContextMenuConfiguration *)configuration animator:(id<UIContextMenuInteractionCommitAnimating>)animator API_AVAILABLE(ios(13.0)) {
     TABCollectionAnimated *tabAnimated = collectionView.tabAnimated;
-    if (tabAnimated.state == TABViewAnimationStart) return;
+    if (tabAnimated.isAnimating) return;
     id oldDelegate = tabAnimated.oldDelegate;
     SEL sel = @selector(collectionView:willPerformPreviewActionForMenuWithConfiguration:animator:);
     ((void (*)(id, SEL, UICollectionView *, UIContextMenuConfiguration *, id))objc_msgSend)((id)oldDelegate, sel, collectionView, configuration, animator);
@@ -1029,7 +1029,7 @@
 
 - (void)tab_collectionView:(UICollectionView *)collectionView willDisplayContextMenuWithConfiguration:(UIContextMenuConfiguration *)configuration animator:(nullable id<UIContextMenuInteractionAnimating>)animator API_AVAILABLE(ios(13.0)) {
     TABCollectionAnimated *tabAnimated = collectionView.tabAnimated;
-    if (tabAnimated.state == TABViewAnimationStart) return;
+    if (tabAnimated.isAnimating) return;
     id oldDelegate = tabAnimated.oldDelegate;
     SEL sel = @selector(collectionView:willDisplayContextMenuWithConfiguration:animator:);
     ((void (*)(id, SEL, UICollectionView *, UIContextMenuConfiguration *, id))objc_msgSend)((id)oldDelegate, sel, collectionView, configuration, animator);
@@ -1037,7 +1037,7 @@
 
 - (void)tab_collectionView:(UICollectionView *)collectionView willEndContextMenuInteractionWithConfiguration:(UIContextMenuConfiguration *)configuration animator:(nullable id<UIContextMenuInteractionAnimating>)animator API_AVAILABLE(ios(13.0)) {
     TABCollectionAnimated *tabAnimated = collectionView.tabAnimated;
-    if (tabAnimated.state == TABViewAnimationStart) return;
+    if (tabAnimated.isAnimating) return;
     id oldDelegate = tabAnimated.oldDelegate;
     SEL sel = @selector(collectionView:willEndContextMenuInteractionWithConfiguration:animator:);
     ((void (*)(id, SEL, UICollectionView *, UIContextMenuConfiguration *, id))objc_msgSend)((id)oldDelegate, sel, collectionView, configuration, animator);
