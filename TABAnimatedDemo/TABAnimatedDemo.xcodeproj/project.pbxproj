@@ -24,6 +24,7 @@
 		20A85BFD2152248E0005AD62 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 20A85BFC2152248E0005AD62 /* Images.xcassets */; };
 		20A85C032152248E0005AD62 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A85C022152248E0005AD62 /* main.m */; };
 		20A85C38215224B10005AD62 /* Game.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A85C26215224B10005AD62 /* Game.m */; };
+		20B61071260B896500782EA2 /* UIImage+TABAnimatedDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = 20B61070260B896500782EA2 /* UIImage+TABAnimatedDemo.m */; };
 		20BFBBA12153F3FF00136258 /* TestHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 20BFBBA02153F3FF00136258 /* TestHeadView.m */; };
 		20BFBBA32153FB5300136258 /* head.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 20BFBBA22153FB5300136258 /* head.jpg */; };
 		20BFBFFA2170D912001887A9 /* TestCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 20BFBFF92170D912001887A9 /* TestCollectionViewCell.m */; };
@@ -231,6 +232,8 @@
 		20A85C022152248E0005AD62 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		20A85C26215224B10005AD62 /* Game.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Game.m; sourceTree = "<group>"; };
 		20A85C27215224B10005AD62 /* Game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Game.h; sourceTree = "<group>"; };
+		20B6106F260B896500782EA2 /* UIImage+TABAnimatedDemo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+TABAnimatedDemo.h"; sourceTree = "<group>"; };
+		20B61070260B896500782EA2 /* UIImage+TABAnimatedDemo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+TABAnimatedDemo.m"; sourceTree = "<group>"; };
 		20BFBB9F2153F3FF00136258 /* TestHeadView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestHeadView.h; sourceTree = "<group>"; };
 		20BFBBA02153F3FF00136258 /* TestHeadView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestHeadView.m; sourceTree = "<group>"; };
 		20BFBBA22153FB5300136258 /* head.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = head.jpg; sourceTree = "<group>"; };
@@ -929,6 +932,8 @@
 			children = (
 				68589C312343407200E8E630 /* UIColor+TABCategory.h */,
 				68589C322343407200E8E630 /* UIColor+TABCategory.m */,
+				20B6106F260B896500782EA2 /* UIImage+TABAnimatedDemo.h */,
+				20B61070260B896500782EA2 /* UIImage+TABAnimatedDemo.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -1854,6 +1859,7 @@
 				6815671E2264214F00293AB4 /* JXCategoryDotCell.m in Sources */,
 				68C1719E246043B3004FD76F /* PartialSectionWithHeaderViewController.m in Sources */,
 				6806411E2279A5CB00D79040 /* SectionsCollectionViewController.m in Sources */,
+				20B61071260B896500782EA2 /* UIImage+TABAnimatedDemo.m in Sources */,
 				688A37FC24893B3E00A76894 /* TABAnimatedChainManagerImpl.m in Sources */,
 				68C35F52249E6D8F00A34D22 /* TABBaseComponent+TABDropAnimation.m in Sources */,
 				6815672A2264214F00293AB4 /* JXCategoryNumberView.m in Sources */,

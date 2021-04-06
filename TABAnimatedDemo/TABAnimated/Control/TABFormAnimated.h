@@ -52,14 +52,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSMutableArray <NSNumber *> *footerSectionArray;
 
 /**
- 是否已经交换了delegate的IMP地址
+ 是否已经重新绑定了delegate的IMP地址
  */
-@property (nonatomic, assign) BOOL isExhangeDelegateIMP;
+@property (nonatomic, assign) BOOL isRebindDelegateIMP;
 
 /**
- 是否已经交换了dataSource的IMP地址
+ 是否已经重新绑定了dataSource的IMP地址
  */
-@property (nonatomic, assign) BOOL isExhangeDataSourceIMP;
+@property (nonatomic, assign) BOOL isRebindDataSourceIMP;
 
 @property (nonatomic, assign, readonly) NSInteger runningCount;
 
@@ -80,6 +80,12 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, strong) TABAnimatedPullLoadingComponent *pullLoadingComponent;
 
+@property (nonatomic, weak, nullable) id oldDelegate;
+@property (nonatomic, weak, nullable) id oldDataSource;
+
+@property (nonatomic, assign) Class protocolContainerClass;
+@property (nonatomic, strong) id protocolContainer;
+
 #pragma mark -
 
 - (NSInteger)getIndexWithIndex:(NSInteger)index;
@@ -91,11 +97,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (BOOL)getIndexIsRuning:(NSInteger)index;
 
-- (void)exchangeDelegate:(UIView *)target;
-- (void)exchangeDataSource:(UIView *)target;
+- (void)rebindDelegate:(UIView *)target;
+- (void)rebindDataSource:(UIView *)target;
 - (void)registerViewToReuse:(UIView *)view;
 
-- (void)exchangeDelegateOldSel:(SEL)oldSelector newSel:(SEL)newSelector target:(id)target delegate:(id)delegate;
+- (void)addNewMethodWithSel:(SEL)oldSel newSel:(SEL)newSel;
+- (void)exchangeDelegateOldSel:(SEL)oldSel newSel:(SEL)newSel target:(id)target delegate:(id)delegate;
 
 - (void)startAnimationWithIndex:(NSInteger)index isFirstLoad:(BOOL)isFirstLoad controlView:(UIView *)controlView;
 - (void)refreshWithIndex:(NSInteger)index controlView:(UIView *)controlView;
