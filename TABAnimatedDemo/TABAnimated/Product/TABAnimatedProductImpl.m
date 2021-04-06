@@ -316,6 +316,7 @@
 
     [self.weakTargetViewArray addPointer:(__bridge void * _Nullable)(view)];
     [TABAnimatedProductHelper fullDataAndStartNestAnimation:view isHidden:!needReset rootView:view];
+    [view layoutSubviews];
     view.hidden = YES;
     
     __weak typeof(self) weakSelf = self;
@@ -386,14 +387,19 @@
         UIView *subV = subViews[i];
         if (subV.tabAnimated) continue;
         
-        [self _recurseProductLayerWithView:subV rootView:rootView array:array isCard:isCard];
+        BOOL stopRes = NO;
+        if (subV.class == _controlView.tabAnimated.withoutSubViewsClass) {
+            stopRes = YES;
+        }else {
+            [self _recurseProductLayerWithView:subV rootView:rootView array:array isCard:isCard];
+        }
         
         if ([self _cannotBeCreated:subV superView:view rootView:rootView]) continue;
         // 标记移除：会生成动画对象，但是会被设置为移除状态
         BOOL needRemove = [self _isNeedRemove:subV];
         // 生产
         TABComponentLayer *layer;
-        if ([TABAnimatedProductHelper canProduct:subV]) {
+        if (stopRes || [TABAnimatedProductHelper canProduct:subV]) {
             UIColor *animatedColor = [_controlView.tabAnimated getCurrentAnimatedColorWithCollection:_controlView.traitCollection];
             layer = [self _createLayerWithView:subV needRemove:needRemove color:animatedColor isCard:isCard];
             layer.serializationImpl = _controlView.tabAnimated.serializationImpl;

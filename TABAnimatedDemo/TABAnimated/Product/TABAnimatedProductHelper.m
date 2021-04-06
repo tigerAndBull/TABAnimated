@@ -53,7 +53,7 @@ static const CGFloat kTagLabelMinWidth = 15.f;
             subV.hidden = YES;
         }
         
-        if ([subV isKindOfClass:[UILabel class]]) {
+        if ([subV isKindOfClass:[UILabel class]] && ![subV isKindOfClass:NSClassFromString(@"UITableViewLabel")]) {
             UILabel *lab = (UILabel *)subV;
             if (lab.text == nil || [lab.text isEqualToString:@""]) {
                 if (lab.numberOfLines == 1) {

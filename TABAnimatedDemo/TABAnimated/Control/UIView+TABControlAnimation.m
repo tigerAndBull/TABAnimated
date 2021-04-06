@@ -22,7 +22,7 @@
 #import "TABAnimatedPullLoadingComponent.h"
 
 #ifdef DEBUG
-static const NSTimeInterval kDelayReloadDataTime = .4;
+static const NSTimeInterval kDelayReloadDataTime = 400;
 #else
 static const NSTimeInterval kDelayReloadDataTime = .4;
 #endif
@@ -95,7 +95,6 @@ const int TABAnimatedIndexTag = -100000;
         }
         [tabAnimated startAnimationWithIndex:index isFirstLoad:isFirstLoad controlView:self];
     }else {
-        tabAnimated.isAnimating = YES;
         tabAnimated.state = TABViewAnimationStart;
         [self _startViewAnimationWithIsFirstLoad:isFirstLoad];
     }
@@ -161,10 +160,10 @@ const int TABAnimatedIndexTag = -100000;
                     tableView.rowHeight = UITableViewAutomaticDimension;
                 }
                 [tableView reloadData];
-                if (tableView.tableHeaderView.tabAnimated != nil) {
+                if (tableView.tableHeaderView.tabAnimated != nil && ((TABTableAnimated *)tabAnimated).showTableHeaderView) {
                     [tableView.tableHeaderView tab_endAnimation];
                 }
-                if (tableView.tableFooterView.tabAnimated != nil) {
+                if (tableView.tableHeaderView.tabAnimated != nil && ((TABTableAnimated *)tabAnimated).showTableFooterView) {
                     [tableView.tableFooterView tab_endAnimation];
                 }
             }else {

@@ -123,8 +123,8 @@ FOUNDATION_EXPORT NSString *tab_NSStringFromClass(Class aClass);
  */
 @property (nonatomic, copy) NSString *targetControllerClassName;
 
+/// 只显示自己，不再遍历子视图
 @property (nonatomic, assign) Class withoutSubViewsClass;
-@property (nonatomic, copy) NSArray <Class> *withoutSubViewsClassArray;
 
 - (nonnull UIColor *)getCurrentAnimatedColorWithCollection:(UITraitCollection *)collection;
 - (nonnull UIColor *)getCurrentAnimatedBackgroundColorWithCollection:(UITraitCollection *)collection;

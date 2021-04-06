@@ -273,6 +273,26 @@ struct TABBaseComonentOperation {
     _layer.adjustingFrame = CGRectMake(_layer.adjustingFrame.origin.x, offset, _layer.adjustingFrame.size.width, _layer.adjustingFrame.size.height);
 }
 
+#pragma mark - x_offset
+
+- (TABBaseComponentFloatBlock)x_offset {
+    __weak typeof(self) weakSelf = self;
+    return ^TABBaseComponent *(CGFloat offset) {
+        weakSelf.layer.adjustingFrame = CGRectMake(weakSelf.layer.adjustingFrame.origin.x + offset, weakSelf.layer.adjustingFrame.origin.y, weakSelf.layer.adjustingFrame.size.width, weakSelf.layer.adjustingFrame.size.height);
+        return weakSelf;
+    };
+}
+
+#pragma mark - y_offset
+
+- (TABBaseComponentFloatBlock)y_offset {
+    __weak typeof(self) weakSelf = self;
+    return ^TABBaseComponent *(CGFloat offset) {
+        weakSelf.layer.adjustingFrame = CGRectMake(weakSelf.layer.adjustingFrame.origin.x, weakSelf.layer.adjustingFrame.origin.y + offset, weakSelf.layer.adjustingFrame.size.width, weakSelf.layer.adjustingFrame.size.height);
+        return weakSelf;
+    };
+}
+
 #pragma mark - line
 
 - (TABBaseComponentIntegerBlock)line {

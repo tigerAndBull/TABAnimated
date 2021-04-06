@@ -113,6 +113,20 @@ NS_ASSUME_NONNULL_BEGIN
 - (TABBaseComponentFloatBlock)y;
 
 /**
+ 基于当前横坐标的偏移值
+ 
+ @return 目标动画元素
+ */
+- (TABBaseComponentFloatBlock)x_offset;
+
+/**
+ 基于当前纵坐标的偏移值
+ 
+ @return 目标动画元素
+ */
+- (TABBaseComponentFloatBlock)y_offset;
+
+/**
  设置动画元素的行数
 
  @return 目标动画元素
@@ -305,8 +319,16 @@ NS_ASSUME_NONNULL_BEGIN
 /// x为目标行数，value为目标行数的高度
 - (TABBaseComponentCompareWithOffsetBlock)targetLineHeight;
 
+/// 输入(location, length, value)
+/// location为目标行数起点，length为长度，value为目标行数集的高度
 - (TABBaseComponentRangeWithOffsetBlock)rangeLineHeight;
+
+/// 输入(location, length, value)
+/// location为目标行数起点，length为长度，value为目标行数集的间距
 - (TABBaseComponentRangeWithOffsetBlock)rangeLineSpace;
+
+/// 输入(location, length, value)
+/// location为目标行数起点，length为长度，value为目标行数集的宽度
 - (TABBaseComponentRangeWithOffsetBlock)rangeLineWidth;
 
 #pragma mark - Init Method
