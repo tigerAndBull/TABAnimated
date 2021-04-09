@@ -32,12 +32,6 @@
     // 开启后，会在每一个动画元素上增加一个红色的数字，该数字表示该动画元素所在下标，方便快速定位某个动画元素。
     [TABAnimated sharedAnimated].openAnimationTag = YES;
     
-    // 如果你想在 debug 环境下测试缓存功能，可以手动置为NO，但是预处理回调只生效一次！！！！
-    // 如果你始终都不想使用缓存功能，可以手动置为YES
-    // debug 环境下，默认关闭缓存功能（为了方便调试预处理回调)
-    // release 环境下，默认开启缓存功能
-//    [TABAnimated sharedAnimated].closeCache = NO;
-    
 //    // 强制设置暗黑模式并查看效果
 //    [TABAnimated sharedAnimated].darkModeType = TABAnimatedDarkModeForceDark;
 //    if(@available(iOS 13.0,*)){

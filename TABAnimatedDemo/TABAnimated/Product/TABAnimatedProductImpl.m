@@ -362,6 +362,10 @@
         targetView.tabAnimatedProduction = production;
         // 缓存
         [[TABAnimatedCacheManager shareManager] cacheProduction:production];
+        // 推荐高度
+        if (_controlView.tabAnimated.recommendHeightBlock) {
+            _controlView.tabAnimated.recommendHeightBlock(targetView.class, [production recommendHeight]);
+        }
     }
 }
 

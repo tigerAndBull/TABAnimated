@@ -22,7 +22,7 @@
 #import "TABAnimatedPullLoadingComponent.h"
 
 #ifdef DEBUG
-static const NSTimeInterval kDelayReloadDataTime = 400;
+static const NSTimeInterval kDelayReloadDataTime = 4;
 #else
 static const NSTimeInterval kDelayReloadDataTime = .4;
 #endif
@@ -66,7 +66,10 @@ const int TABAnimatedIndexTag = -100000;
                       completion:(void (^)(void))completion {
     
     TABViewAnimated *tabAnimated = self.tabAnimated;
-    if (tabAnimated == nil || (tabAnimated.state == TABViewAnimationEnd && !tabAnimated.canLoadAgain)) {
+    
+    if (tabAnimated == nil || tabAnimated.isAnimating) return;
+    
+    if (tabAnimated.state == TABViewAnimationEnd && !tabAnimated.canLoadAgain) {
         if (completion) completion();
         return;
     }

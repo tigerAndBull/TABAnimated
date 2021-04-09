@@ -219,6 +219,48 @@ struct TABBaseComonentOperation {
     _layer.adjustingFrame = CGRectMake(_layer.adjustingFrame.origin.x, _layer.adjustingFrame.origin.y, _layer.adjustingFrame.size.width, _layer.adjustingFrame.size.height - offset);
 }
 
+#pragma mark -
+
+/**
+ 减少宽度，并保持当前位置的水平居中
+ @return 目标动画元素
+ */
+- (TABBaseComponentFloatBlock)reducedWidth_vertical {
+    __weak typeof(self) weakSelf = self;
+    return ^TABBaseComponent *(CGFloat offset) {
+        [weakSelf reducedWidth_vertical:offset];
+        return weakSelf;
+    };
+}
+
+- (void)reducedWidth_vertical:(CGFloat)offset {
+    if (!_layer.isChangedHeight) {
+        _layer.isChangedHeight = YES;
+    }
+    CGFloat value = offset / 2.;
+    _layer.adjustingFrame = CGRectMake(_layer.adjustingFrame.origin.x + value, _layer.adjustingFrame.origin.y, _layer.adjustingFrame.size.width - offset, _layer.adjustingFrame.size.height);
+}
+
+/**
+ 减少的高度，并保持当前位置的垂直居中
+ @return 目标动画元素
+ */
+- (TABBaseComponentFloatBlock)reducedHeight_horizontal {
+    __weak typeof(self) weakSelf = self;
+    return ^TABBaseComponent *(CGFloat offset) {
+        [weakSelf result_reducedHeight_horizontal:offset];
+        return weakSelf;
+    };
+}
+
+- (void)result_reducedHeight_horizontal:(CGFloat)offset {
+    if (!_layer.isChangedHeight) {
+        _layer.isChangedHeight = YES;
+    }
+    CGFloat value = offset / 2.;
+    _layer.adjustingFrame = CGRectMake(_layer.adjustingFrame.origin.x, _layer.adjustingFrame.origin.y + value, _layer.adjustingFrame.size.width, _layer.adjustingFrame.size.height - offset);
+}
+
 #pragma mark - reducedRadius
 
 - (TABBaseComponentFloatBlock)reducedRadius {

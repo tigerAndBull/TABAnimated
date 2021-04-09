@@ -18,6 +18,8 @@ typedef TABBaseComponent * _Nullable (^TABBaseComponentBlock)(NSInteger);
 typedef void(^TABAdjustBlock)(TABComponentManager * _Nonnull manager);
 typedef void(^TABAdjustWithClassBlock)(TABComponentManager * _Nonnull manager, Class _Nullable targetClass);
 
+typedef void(^TABRecommendHeightBlock)(Class _Nullable targetClass, CGFloat recommendHeight);
+
 typedef TABBaseComponent * _Nullable (^TABBaseComponentVoidBlock)(void);
 typedef TABBaseComponent * _Nullable (^TABBaseComponentIntegerBlock)(NSInteger);
 typedef TABBaseComponent * _Nullable (^TABBaseComponentFloatBlock)(CGFloat);

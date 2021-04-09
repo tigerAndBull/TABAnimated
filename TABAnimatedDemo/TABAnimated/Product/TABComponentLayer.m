@@ -180,6 +180,30 @@ static const CGFloat kDefaultHeight = 16.f;
     return (_lineSpace == 0.) ? 8. : _lineSpace;
 }
 
+- (CGFloat)tab_maxY {
+    if (self.lineLayers.count == 0) {
+        return CGRectGetMaxY(self.frame);
+    }
+    CGFloat result = [self.lineLayers[0] tab_maxY];
+    for (NSInteger i = 1; i < self.lineLayers.count; i++) {
+        TABComponentLayer *layer = self.lineLayers[i];
+        result = MAX(result, [layer tab_maxY]);
+    }
+    return result;
+}
+
+- (CGFloat)tab_minY {
+    if (self.lineLayers.count == 0) {
+        return CGRectGetMinY(self.frame);
+    }
+    CGFloat result = [self.lineLayers[0] tab_minY];
+    for (NSInteger i = 1; i < self.lineLayers.count; i++) {
+        TABComponentLayer *layer = self.lineLayers[i];
+        result = MIN(result, [layer tab_minY]);
+    }
+    return result;
+}
+
 #pragma mark - NSSecureCoding
 
 + (BOOL)supportsSecureCoding {

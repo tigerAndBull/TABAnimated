@@ -146,6 +146,9 @@ typedef NS_ENUM(NSInteger, TABComponentLayerOrigin) {
 + (NSString *)getLineKey:(NSInteger)index;
 - (CGRect)resetFrameWithRect:(CGRect)rect animatedHeight:(CGFloat)animatedHeight;
 - (void)addLayer:(TABComponentLayer *)layer viewWidth:(CGFloat)viewWidth animatedHeight:(CGFloat)animatedHeight;
+
+- (CGFloat)tab_minY;
+- (CGFloat)tab_maxY;
     
 @end
 

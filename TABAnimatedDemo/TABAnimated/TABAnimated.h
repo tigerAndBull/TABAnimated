@@ -153,14 +153,14 @@ typedef NS_ENUM(NSInteger, TABAnimationType) {
 @property (nonatomic, assign) BOOL openAnimationTag;
 
 /**
- * 关闭缓存功能
- * DEBUG环境下，默认关闭缓存功能（为了方便调试预处理回调），即为YES
- * RELEASE环境下，默认开启缓存功能，即为NO
- *
- * 如果你想在DEBUG环境下测试缓存功能，可以手动置为YES
- * 如果你始终都不想使用缓存功能，可以手动置为NO
+ * 关闭内存缓存功能，默认开启
  */
 @property (nonatomic, assign) BOOL closeCache;
+
+/**
+ * 关闭沙盒缓存功能，默认关闭
+ */
+@property (nonatomic, assign) BOOL closeDiskCache;
 
 #pragma mark - Dark Mode
 

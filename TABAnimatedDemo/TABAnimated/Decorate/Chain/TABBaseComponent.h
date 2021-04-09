@@ -84,12 +84,26 @@ NS_ASSUME_NONNULL_BEGIN
 - (TABBaseComponentFloatBlock)reducedWidth;
 
 /**
- 减少的高度：与当前高度相比，所减少的高度
+ 需要减少的高度：与当前高度相比，所减少的高度
  负数则为增加
  
  @return 目标动画元素
  */
 - (TABBaseComponentFloatBlock)reducedHeight;
+
+/**
+ 减少宽度，并保持当前位置的水平居中
+ 负数则为增加
+ @return 目标动画元素
+ */
+- (TABBaseComponentFloatBlock)reducedWidth_vertical;
+
+/**
+ 减少高度，并保持当前位置的垂直居中
+ 负数则为增加
+ @return 目标动画元素
+ */
+- (TABBaseComponentFloatBlock)reducedHeight_horizontal;
 
 /**
  减少的圆角
