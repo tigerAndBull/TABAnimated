@@ -14,7 +14,15 @@
 static NSString * const TABComponentLayerName = @"TABLayer";
 static const CGFloat kDefaultHeight = 16.f;
 
+@interface TABComponentLayer()
+
+@end
+
 @implementation TABComponentLayer
+
++ (NSString *)getLineKey:(NSInteger)index {
+    return [NSString stringWithFormat:@"%ld", index];
+}
 
 - (instancetype)init {
     if (self = [super init]) {
@@ -23,6 +31,9 @@ static const CGFloat kDefaultHeight = 16.f;
         self.opaque = YES;
         self.contentsGravity = kCAGravityResizeAspect;
         _tagIndex = TABAnimatedIndexTag;
+        _spaceDict = @{}.mutableCopy;
+        _widthDict = @{}.mutableCopy;
+        _heightDict = @{}.mutableCopy;
     }
     return self;
 }
@@ -103,23 +114,36 @@ static const CGFloat kDefaultHeight = 16.f;
     }else if (layer.isChangedHeight) {
         textHeight = frame.size.height;
     }else {
-        textHeight = kDefaultHeight*[TABAnimated sharedAnimated].animatedHeightCoefficient;
+        textHeight = kDefaultHeight * [TABAnimated sharedAnimated].animatedHeightCoefficient;
     }
     
     if (lines == 0) {
-        lines = (frame.size.height*1.0)/(textHeight+space);
+        lines = (frame.size.height * 1.0)/(textHeight + space);
         if (lines >= 0 && lines <= 1) {
             lines = 3;
         }
     }
     
-    for (NSInteger i = 0; i < lines; i++) {
+    CGFloat offsetY = frame.origin.y;
+    
+    for (NSInteger i = 0; i < lines; i ++) {
+        
+        NSString *key = [TABComponentLayer getLineKey:i];
+        NSString *spaceKey = (i == 0) ? nil : [TABComponentLayer getLineKey:i-1];
+        CGFloat subWidth = [[layer.widthDict valueForKey:key] floatValue];
+        CGFloat subHeight = [[layer.heightDict valueForKey:key] floatValue];
+        CGFloat subSpace = !spaceKey ? space : [[layer.spaceDict valueForKey:spaceKey] floatValue];
+        
+        CGFloat resultSpace = (subSpace != 0 && i != 0) ? subSpace : space;
+        CGFloat resultHeight = subHeight != 0 ? subHeight : textHeight;
         
         CGRect rect;
+        offsetY += (i != 0) ? (resultHeight + resultSpace) : 0 ;
+        
         if (i != lines - 1) {
-            rect = CGRectMake(frame.origin.x, frame.origin.y+i*(textHeight+space), frame.size.width, textHeight);
+            rect = CGRectMake(frame.origin.x, offsetY, subWidth != 0 ? subWidth : frame.size.width, resultHeight);
         }else {
-            rect = CGRectMake(frame.origin.x, frame.origin.y+i*(textHeight+space), frame.size.width*lastScale, textHeight);
+            rect = CGRectMake(frame.origin.x, offsetY, subWidth != 0 ? subWidth : frame.size.width * lastScale, resultHeight);
         }
         
         TABComponentLayer *sub = [[TABComponentLayer alloc]init];
@@ -154,6 +178,30 @@ static const CGFloat kDefaultHeight = 16.f;
 
 - (CGFloat)lineSpace {
     return (_lineSpace == 0.) ? 8. : _lineSpace;
+}
+
+- (CGFloat)tab_maxY {
+    if (self.lineLayers.count == 0) {
+        return CGRectGetMaxY(self.frame);
+    }
+    CGFloat result = [self.lineLayers[0] tab_maxY];
+    for (NSInteger i = 1; i < self.lineLayers.count; i++) {
+        TABComponentLayer *layer = self.lineLayers[i];
+        result = MAX(result, [layer tab_maxY]);
+    }
+    return result;
+}
+
+- (CGFloat)tab_minY {
+    if (self.lineLayers.count == 0) {
+        return CGRectGetMinY(self.frame);
+    }
+    CGFloat result = [self.lineLayers[0] tab_minY];
+    for (NSInteger i = 1; i < self.lineLayers.count; i++) {
+        TABComponentLayer *layer = self.lineLayers[i];
+        result = MIN(result, [layer tab_minY]);
+    }
+    return result;
 }
 
 #pragma mark - NSSecureCoding
@@ -196,6 +244,9 @@ static const CGFloat kDefaultHeight = 16.f;
     
     [aCoder encodeBool:_isCard forKey:@"isCard"];
     [aCoder encodeCGRect:_originFrame forKey:@"originFrame"];
+    [aCoder encodeObject:_widthDict forKey:@"widthDict"];
+    [aCoder encodeObject:_heightDict forKey:@"heightDict"];
+    [aCoder encodeObject:_spaceDict forKey:@"spaceDict"];
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
@@ -236,6 +287,9 @@ static const CGFloat kDefaultHeight = 16.f;
         self.colors = cgcolorArray;
         self.masksToBounds = [aDecoder decodeBoolForKey:@"masksToBounds"];
         self.isCard = [aDecoder decodeBoolForKey:@"isCard"];
+        self.widthDict = [aDecoder decodeObjectForKey:@"widthDict"];
+        self.heightDict = [aDecoder decodeObjectForKey:@"heightDict"];
+        self.spaceDict = [aDecoder decodeObjectForKey:@"spaceDict"];
     }
     
     if (self.serializationImpl) {
@@ -288,6 +342,9 @@ static const CGFloat kDefaultHeight = 16.f;
     layer.colors = self.colors;
     layer.masksToBounds = self.masksToBounds;
     layer.isCard = self.isCard;
+    layer.widthDict = self.widthDict;
+    layer.heightDict = self.heightDict;
+    layer.spaceDict = self.spaceDict;
     return layer;
 }
 

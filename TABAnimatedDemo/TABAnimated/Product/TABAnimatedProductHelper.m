@@ -36,7 +36,7 @@ static const CGFloat kTagLabelMinWidth = 15.f;
         return;
     }
     
-    for (int i = 0; i < subViews.count;i++) {
+    for (int i = 0; i < subViews.count; i++) {
         
         UIView *subV = subViews[i];
         [self fullDataAndStartNestAnimation:subV isHidden:isHidden rootView:rootView];
@@ -53,7 +53,7 @@ static const CGFloat kTagLabelMinWidth = 15.f;
             subV.hidden = YES;
         }
         
-        if ([subV isKindOfClass:[UILabel class]]) {
+        if ([subV isKindOfClass:[UILabel class]] && ![subV isKindOfClass:NSClassFromString(@"UITableViewLabel")]) {
             UILabel *lab = (UILabel *)subV;
             if (lab.text == nil || [lab.text isEqualToString:@""]) {
                 if (lab.numberOfLines == 1) {
@@ -224,9 +224,9 @@ static const CGFloat kTagLabelMinWidth = 15.f;
     }else if (layer.origin != TABComponentLayerOriginImageView) {
         textLayer.frame = CGRectMake(layer.bounds.origin.x, layer.bounds.origin.y, width, kTagLabelHeight);
     }else {
-        textLayer.frame = CGRectMake(0, layer.frame.size.height/2.0, width, kTagLabelHeight);
+        textLayer.frame = CGRectMake(0, layer.frame.size.height / 2.0, width, kTagLabelHeight);
     }
-    textLayer.contentsScale = ([[UIScreen mainScreen] scale] > 3.0) ? [[UIScreen mainScreen] scale]:3.0;
+    textLayer.contentsScale = ([[UIScreen mainScreen] scale] > 3.0) ? [[UIScreen mainScreen] scale] : 3.0;
     textLayer.fontSize = kTagDefaultFontSize;
     textLayer.alignmentMode = kCAAlignmentRight;
     textLayer.foregroundColor = UIColor.redColor.CGColor;

@@ -2,7 +2,7 @@
 //  TABAnimatedProductDefines.h
 //  AnimatedDemo
 //
-//  Created by wenhuan on 2020/4/14.
+//  Created by tigerAndBull on 2020/4/14.
 //  Copyright © 2020 tigerAndBull. All rights reserved.
 //
 

@@ -2,7 +2,7 @@
 //  TABViewAnimatedDefines.h
 //  TABAnimatedDemo
 //
-//  Created by wenhuan on 2020/4/21.
+//  Created by tigerAndBull on 2020/4/21.
 //  Copyright © 2020 tigerAndBull. All rights reserved.
 //
 

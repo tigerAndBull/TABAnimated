@@ -2,7 +2,7 @@
 //  PenerateViewExampleController.m
 //  TABAnimatedDemo
 //
-//  Created by 安文虎 on 2020/12/18.
+//  Created by tigerAndBull on 2020/12/18.
 //  Copyright © 2020 tigerAndBull. All rights reserved.
 //
 

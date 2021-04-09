@@ -9,6 +9,7 @@
 #import "TABBaseComponent.h"
 #import "TABComponentLayer.h"
 #import "TABComponentManager.h"
+#import "NSArray+TABAnimated.h"
 
 struct TABBaseComonentOperation {
     NSInteger leftEqualIndex:8;
@@ -218,6 +219,48 @@ struct TABBaseComonentOperation {
     _layer.adjustingFrame = CGRectMake(_layer.adjustingFrame.origin.x, _layer.adjustingFrame.origin.y, _layer.adjustingFrame.size.width, _layer.adjustingFrame.size.height - offset);
 }
 
+#pragma mark -
+
+/**
+ 减少宽度，并保持当前位置的水平居中
+ @return 目标动画元素
+ */
+- (TABBaseComponentFloatBlock)reducedWidth_vertical {
+    __weak typeof(self) weakSelf = self;
+    return ^TABBaseComponent *(CGFloat offset) {
+        [weakSelf reducedWidth_vertical:offset];
+        return weakSelf;
+    };
+}
+
+- (void)reducedWidth_vertical:(CGFloat)offset {
+    if (!_layer.isChangedHeight) {
+        _layer.isChangedHeight = YES;
+    }
+    CGFloat value = offset / 2.;
+    _layer.adjustingFrame = CGRectMake(_layer.adjustingFrame.origin.x + value, _layer.adjustingFrame.origin.y, _layer.adjustingFrame.size.width - offset, _layer.adjustingFrame.size.height);
+}
+
+/**
+ 减少的高度，并保持当前位置的垂直居中
+ @return 目标动画元素
+ */
+- (TABBaseComponentFloatBlock)reducedHeight_horizontal {
+    __weak typeof(self) weakSelf = self;
+    return ^TABBaseComponent *(CGFloat offset) {
+        [weakSelf result_reducedHeight_horizontal:offset];
+        return weakSelf;
+    };
+}
+
+- (void)result_reducedHeight_horizontal:(CGFloat)offset {
+    if (!_layer.isChangedHeight) {
+        _layer.isChangedHeight = YES;
+    }
+    CGFloat value = offset / 2.;
+    _layer.adjustingFrame = CGRectMake(_layer.adjustingFrame.origin.x, _layer.adjustingFrame.origin.y + value, _layer.adjustingFrame.size.width, _layer.adjustingFrame.size.height - offset);
+}
+
 #pragma mark - reducedRadius
 
 - (TABBaseComponentFloatBlock)reducedRadius {
@@ -270,6 +313,26 @@ struct TABBaseComonentOperation {
 
 - (void)result_y:(CGFloat)offset {
     _layer.adjustingFrame = CGRectMake(_layer.adjustingFrame.origin.x, offset, _layer.adjustingFrame.size.width, _layer.adjustingFrame.size.height);
+}
+
+#pragma mark - x_offset
+
+- (TABBaseComponentFloatBlock)x_offset {
+    __weak typeof(self) weakSelf = self;
+    return ^TABBaseComponent *(CGFloat offset) {
+        weakSelf.layer.adjustingFrame = CGRectMake(weakSelf.layer.adjustingFrame.origin.x + offset, weakSelf.layer.adjustingFrame.origin.y, weakSelf.layer.adjustingFrame.size.width, weakSelf.layer.adjustingFrame.size.height);
+        return weakSelf;
+    };
+}
+
+#pragma mark - y_offset
+
+- (TABBaseComponentFloatBlock)y_offset {
+    __weak typeof(self) weakSelf = self;
+    return ^TABBaseComponent *(CGFloat offset) {
+        weakSelf.layer.adjustingFrame = CGRectMake(weakSelf.layer.adjustingFrame.origin.x, weakSelf.layer.adjustingFrame.origin.y + offset, weakSelf.layer.adjustingFrame.size.width, weakSelf.layer.adjustingFrame.size.height);
+        return weakSelf;
+    };
 }
 
 #pragma mark - line
@@ -418,7 +481,7 @@ struct TABBaseComonentOperation {
     };
 }
 
-#pragma mark - penetration
+#pragma mark - penetrate
 
 - (TABBaseComponentVoidBlock)penetrate {
     __weak typeof(self) weakSelf = self;
@@ -436,6 +499,38 @@ struct TABBaseComonentOperation {
 
 - (void)result_penetrate {
     _layer.loadStyle = TABViewLoadAnimationPenetrate;
+}
+ 
+#pragma mark - gradient
+
+- (TABBaseComponentWithArrayBlock)gradient {
+    __weak typeof(self) weakSelf = self;
+    return ^TABBaseComponent *(NSArray <UIColor *> *gradientArray) {
+        [weakSelf result_gradient:gradientArray];
+        return weakSelf;
+    };
+}
+
+- (void)result_gradient:(NSArray <UIColor *> *)gradientArray {
+    NSArray *colors = [gradientArray tab_map:^id(UIColor *color) {
+        return (id)color.CGColor;
+    }];
+    self.layer.colors = colors;
+    self.layer.startPoint = CGPointMake(0, 0);
+    self.layer.endPoint = CGPointMake(1, 0);
+}
+
+#pragma mark - removeShadow
+
+- (TABBaseComponentVoidBlock)removeShadow {
+    __weak typeof(self) weakSelf = self;
+    return ^TABBaseComponent *() {
+        self.layer.shadowColor = nil;
+        self.layer.shadowOffset = CGSizeZero;
+        self.layer.shadowPath = nil;
+        self.layer.shadowRadius = 0.;
+        return weakSelf;
+    };
 }
 
 #pragma mark - Auto layout
@@ -602,6 +697,98 @@ struct TABBaseComonentOperation {
         return weakSelf;
     };
 }
+
+#pragma mark -
+
+- (TABBaseComponentOffsetBlock)verticalCenterOffset {
+    __weak typeof(self) weakSelf = self;
+    return ^TABBaseComponent *(CGFloat offset) {
+        
+        return weakSelf;
+    };
+}
+
+- (TABBaseComponentOffsetBlock)horizontalCenterOffset {
+    __weak typeof(self) weakSelf = self;
+    return ^TABBaseComponent *(CGFloat offset) {
+        
+        return weakSelf;
+    };
+}
+
+#pragma mark -
+
+/// 输入(x, value)
+/// x为目标行数，value为目标行数的宽度比例（0 - 1）
+- (TABBaseComponentCompareWithOffsetBlock)targetLineScale {
+    __weak typeof(self) weakSelf = self;
+    return ^TABBaseComponent *(NSInteger index, CGFloat value) {
+        TABComponentLayer *targetLayer = self.layer.lineLayers[index];
+        [self.layer.widthDict setValue:@(targetLayer.frame.size.width * value) forKey:[TABComponentLayer getLineKey:index]];
+        return weakSelf;
+    };
+}
+
+/// 输入(x, value)
+/// x为目标行数，value为目标行数的宽度（数值）
+- (TABBaseComponentCompareWithOffsetBlock)targetLineWidth {
+    __weak typeof(self) weakSelf = self;
+    return ^TABBaseComponent *(NSInteger index, CGFloat value) {
+        [self.layer.widthDict setValue:@(value) forKey:[TABComponentLayer getLineKey:index]];
+        return weakSelf;
+    };
+}
+
+/// 输入(x, value)
+/// x为目标行数，value为目标行数的间距
+- (TABBaseComponentCompareWithOffsetBlock)targetLineSpace {
+    __weak typeof(self) weakSelf = self;
+    return ^TABBaseComponent *(NSInteger index, CGFloat value) {
+        [self.layer.spaceDict setValue:@(value) forKey:[TABComponentLayer getLineKey:index]];
+        return weakSelf;
+    };
+}
+
+- (TABBaseComponentCompareWithOffsetBlock)targetLineHeight {
+    __weak typeof(self) weakSelf = self;
+    return ^TABBaseComponent *(NSInteger index, CGFloat value) {
+        [self.layer.heightDict setValue:@(value) forKey:[TABComponentLayer getLineKey:index]];
+        return weakSelf;
+    };
+}
+
+#pragma mark -
+
+- (TABBaseComponentRangeWithOffsetBlock)rangeLineHeight {
+    __weak typeof(self) weakSelf = self;
+    return ^TABBaseComponent *(NSInteger location, NSInteger length, CGFloat value) {
+        for (NSInteger i = location; i <= location + length; i ++) {
+            [self.layer.heightDict setValue:@(value) forKey:[TABComponentLayer getLineKey:i]];
+        }
+        return weakSelf;
+    };
+}
+
+- (TABBaseComponentRangeWithOffsetBlock)rangeLineSpace {
+    __weak typeof(self) weakSelf = self;
+    return ^TABBaseComponent *(NSInteger location, NSInteger length, CGFloat value) {
+        for (NSInteger i = location; i <= location + length; i ++) {
+            [self.layer.spaceDict setValue:@(value) forKey:[TABComponentLayer getLineKey:i]];
+        }
+        return weakSelf;
+    };
+}
+
+- (TABBaseComponentRangeWithOffsetBlock)rangeLineWidth {
+    __weak typeof(self) weakSelf = self;
+    return ^TABBaseComponent *(NSInteger location, NSInteger length, CGFloat value) {
+        for (NSInteger i = location; i <= location + length; i ++) {
+            [self.layer.widthDict setValue:@(value) forKey:[TABComponentLayer getLineKey:i]];
+        }
+        return weakSelf;
+    };
+}
+
 
 #pragma mark -
 

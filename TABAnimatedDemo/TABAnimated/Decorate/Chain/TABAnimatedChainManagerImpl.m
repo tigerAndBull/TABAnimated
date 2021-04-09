@@ -12,26 +12,27 @@
 
 @implementation TABAnimatedChainManagerImpl
 
-- (void)chainAdjustWithArray:(NSMutableArray <TABComponentLayer *> *)array
-                 adjustBlock:(TABAdjustBlock)adjustBlock
-               animatedColor:(UIColor *)animatedColor {
-    TABComponentManager *manager = [TABComponentManager managerWithLayers:array animatedColor:animatedColor];
+- (void)chainAdjustWithBackgroundLayer:(TABComponentLayer *)backgroundLayer
+                                layers:(NSArray <TABComponentLayer *> *)layers
+                           adjustBlock:(TABAdjustBlock)adjustBlock
+                         animatedColor:(UIColor *)animatedColor {
+    TABComponentManager *manager = [TABComponentManager managerWithBackgroundLayer:backgroundLayer layers:layers animatedColor:animatedColor];
     if (adjustBlock) {
         adjustBlock(manager);
     }
 }
 
-- (void)chainAdjustWithArray:(NSMutableArray <TABComponentLayer *> *)array
-        adjustWithClassBlock:(TABAdjustWithClassBlock)adjustWithClassBlock
-                 targetClass:(Class)targetClass
-               animatedColor:(UIColor *)animatedColor {
-    TABComponentManager *manager = [TABComponentManager managerWithLayers:array animatedColor:animatedColor];
+- (void)chainAdjustWithBackgroundLayer:(TABComponentLayer *)backgroundLayer
+                                layers:(NSArray <TABComponentLayer *> *)layers
+                  adjustWithClassBlock:(TABAdjustWithClassBlock)adjustWithClassBlock
+                           targetClass:(Class)targetClass
+                         animatedColor:(UIColor *)animatedColor {
+    TABComponentManager *manager = [TABComponentManager managerWithBackgroundLayer:backgroundLayer layers:layers animatedColor:animatedColor];
     if (adjustWithClassBlock) {
         adjustWithClassBlock(manager, targetClass);
     }
 }
 
-- (void)destory {
-}
+- (void)destory {}
 
 @end

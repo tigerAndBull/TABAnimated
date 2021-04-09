@@ -137,10 +137,18 @@ typedef NS_ENUM(NSInteger, TABComponentLayerOrigin) {
 /// 自创建：在调整回调之后的原始
 @property (nonatomic, assign) CGRect originFrame;
 
+@property (nonatomic, strong) NSMutableArray *spaceDict;
+@property (nonatomic, strong) NSMutableArray *widthDict;
+@property (nonatomic, strong) NSMutableArray *heightDict;
+
 #pragma mark -
 
++ (NSString *)getLineKey:(NSInteger)index;
 - (CGRect)resetFrameWithRect:(CGRect)rect animatedHeight:(CGFloat)animatedHeight;
 - (void)addLayer:(TABComponentLayer *)layer viewWidth:(CGFloat)viewWidth animatedHeight:(CGFloat)animatedHeight;
+
+- (CGFloat)tab_minY;
+- (CGFloat)tab_maxY;
     
 @end
 

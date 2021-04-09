@@ -38,8 +38,8 @@
     return self;
 }
 
-- (void)exchangeDelegate:(UIView *)target {}
-- (void)exchangeDataSource:(UIView *)target {}
+- (void)rebindDelegate:(UIView *)target {}
+- (void)rebindDataSource:(UIView *)target {}
 - (void)registerViewToReuse:(UIView *)view {}
 - (void)refreshWithIndex:(NSInteger)index controlView:(UIView *)controlView {}
 
@@ -52,8 +52,12 @@
     if (isFirstLoad) {
         if (self.runIndexDict.count == 0) return NO;
         [self registerViewToReuse:controlView];
-        [self exchangeDelegate:controlView];
-        [self exchangeDataSource:controlView];
+        NSString *className = [NSString stringWithFormat:@"%@_tabProtocolContainer", self.targetControllerClassName];
+        Class newClass = objc_allocateClassPair([NSObject class], [className UTF8String], 0);
+        self.protocolContainer = newClass.new;
+        self.protocolContainerClass = newClass;
+        [self rebindDelegate:controlView];
+        [self rebindDataSource:controlView];
     }else {
         
         UIScrollView *scrollView = (UIScrollView *)controlView;
@@ -91,6 +95,12 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         [[TABAnimatedCacheManager shareManager] updateCacheModelLoadCountWithFormAnimated:self frame:frame];
     });
+}
+
+- (void)addNewMethodWithSel:(SEL)oldSel newSel:(SEL)newSel {
+    Method newMethod = class_getInstanceMethod(self.class, newSel);
+    IMP imp = method_getImplementation(newMethod);
+    class_addMethod(self.protocolContainerClass, oldSel, imp, method_getTypeEncoding(newMethod));
 }
 
 - (void)exchangeDelegateOldSel:(SEL)oldSel newSel:(SEL)newSel target:(id)target delegate:(id)delegate {

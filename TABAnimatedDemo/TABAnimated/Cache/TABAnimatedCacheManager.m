@@ -103,7 +103,7 @@ static const NSInteger kMemeoryModelMaxCount = 20;
 #pragma mark - Public Methods
 
 - (void)install {
-    if ([TABAnimated sharedAnimated].closeCache) return;
+    if ([TABAnimated sharedAnimated].closeDiskCache) return;
     
     NSString *currentVersion = [TABAnimationMethod appVersion];
     self.currentSystemVersion = currentVersion;
@@ -113,19 +113,26 @@ static const NSInteger kMemeoryModelMaxCount = 20;
 }
 
 - (void)cacheProduction:(TABAnimatedProduction *)production {
-    if (![self _canCacheProduction:production]) return;
+    
+    if (![self _canCacheToMemoryWithProduction:production]) return;
+    
+    production.version = self.currentSystemVersion.copy;
+    [self.cacheManagerDict setObject:production forKey:production.fileName];
+    
+    if (![self _canCacheToDiskWithProduction:production]) return;
+    
     __weak typeof(self) weakSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
         __strong typeof(weakSelf) strongSelf = weakSelf;
-        [strongSelf.lock lock];
-        production.version = strongSelf.currentSystemVersion.copy;
-        [strongSelf.cacheManagerDict setObject:production forKey:production.fileName];
-
+        
         TABAnimatedCacheModel *cacheModel = TABAnimatedCacheModel.new;
         cacheModel.fileName = production.fileName;
-        [strongSelf.cacheModelArray addObject:cacheModel];
-        [strongSelf.lock unlock];
-
+        [self.cacheModelArray addObject:cacheModel];
+        
+        if (!production) {
+            return;
+        }
+        
         NSArray *writeArray = @[cacheModel, production];
         dispatch_async([strongSelf.class updateQueue], ^{
             [strongSelf performSelector:@selector(didReceiveWriteRequest:)
@@ -138,15 +145,17 @@ static const NSInteger kMemeoryModelMaxCount = 20;
 
 - (nullable TABAnimatedProduction *)getProductionWithKey:(NSString *)key {
     if ([TABAnimated sharedAnimated].closeCache || !key) return nil;
-    TABAnimatedProduction *production;
-    production = [self _getProductionInMemoryWithKey:key];
+    TABAnimatedProduction *production = [self _getProductionInMemoryWithKey:key];
     if (production) return production;
+    if ([TABAnimated sharedAnimated].closeDiskCache) {
+        return production;
+    }
     production = [self _getProductionInDiskWithKey:key];
     return production;
 }
 
 - (void)updateCacheModelLoadCountWithFormAnimated:(TABFormAnimated *)viewAnimated frame:(CGRect)frame {
-    if ([TABAnimated sharedAnimated].closeCache || viewAnimated == nil) return;
+    if ([TABAnimated sharedAnimated].closeDiskCache || viewAnimated == nil) return;
     dispatch_async(dispatch_get_main_queue(), ^{
         NSString *controllerName = viewAnimated.targetControllerClassName;
         for (Class class in viewAnimated.cellClassArray) {
@@ -369,8 +378,15 @@ static const NSInteger kMemeoryModelMaxCount = 20;
     return production.copy;
 }
  
-- (BOOL)_canCacheProduction:(TABAnimatedProduction *)production {
+- (BOOL)_canCacheToMemoryWithProduction:(TABAnimatedProduction *)production {
     if ([TABAnimated sharedAnimated].closeCache) return NO;
+    if (production == nil || production.fileName == nil || production.fileName.length == 0) return NO;
+    if (_currentSystemVersion == nil || _currentSystemVersion.length == 0) return NO;
+    return YES;
+}
+
+- (BOOL)_canCacheToDiskWithProduction:(TABAnimatedProduction *)production {
+    if ([TABAnimated sharedAnimated].closeDiskCache) return NO;
     if (production == nil || production.fileName == nil || production.fileName.length == 0) return NO;
     if (_currentSystemVersion == nil || _currentSystemVersion.length == 0) return NO;
     return YES;

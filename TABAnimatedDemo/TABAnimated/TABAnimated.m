@@ -47,9 +47,7 @@
             _darkAnimatedBackgroundColor = UIColor.whiteColor;
         }
         
-#ifdef DEBUG
-        _closeCache = YES;
-#endif
+        _closeDiskCache = YES;
         dispatch_async(dispatch_get_main_queue(), ^{
             [[TABAnimatedCacheManager shareManager] install];
         });

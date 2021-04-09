@@ -2,7 +2,7 @@
 //  TABComponentLayer+TABClassicAnimation.m
 //  AnimatedDemo
 //
-//  Created by wenhuan on 2020/4/24.
+//  Created by tigerAndBull on 2020/4/24.
 //  Copyright © 2020 tigerAndBull. All rights reserved.
 //
 

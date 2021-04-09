@@ -50,6 +50,9 @@ FOUNDATION_EXPORT NSString *tab_NSStringFromClass(Class aClass);
 // 可以在其中使用链式语法便捷调整每一个动画元素, 使用class区分不同cell
 @property (nonatomic, copy) TABAdjustWithClassBlock adjustWithClassBlock;
 
+// 推荐高度
+@property (nonatomic, copy) TABRecommendHeightBlock recommendHeightBlock;
+
 // 当前视图动画内容颜色
 @property (nonatomic, strong) UIColor *animatedColor;
 
@@ -82,6 +85,12 @@ FOUNDATION_EXPORT NSString *tab_NSStringFromClass(Class aClass);
  * 决定当前视图动画高度
  */
 @property (nonatomic, assign) CGFloat animatedHeight;
+
+/// 动画中view的高度
+@property (nonatomic, assign) CGFloat viewHeight;
+
+/// 动画前的view高度，暂时没有用到，一般来说，动画结束后，开发者会调用sizeToFIt重新设置高度 
+@property (nonatomic, assign) CGFloat originViewHeight;
 
 /**
  * 是否在动画中，在普通模式中，用于快速判断
@@ -119,8 +128,15 @@ FOUNDATION_EXPORT NSString *tab_NSStringFromClass(Class aClass);
  */
 @property (nonatomic, copy) NSString *targetControllerClassName;
 
+/// 只显示自己，不再遍历子视图
+@property (nonatomic, assign) Class withoutSubViewsClass;
+
 - (nonnull UIColor *)getCurrentAnimatedColorWithCollection:(UITraitCollection *)collection;
 - (nonnull UIColor *)getCurrentAnimatedBackgroundColorWithCollection:(UITraitCollection *)collection;
+
+/// viewHeight为骨架屏周期的视图高度，不影响骨架屏结束前后
+- (instancetype)initWithViewHeight:(CGFloat)viewHeight;
++ (instancetype)animatedWithViewHeight:(CGFloat)viewHeight;
 
 #pragma mark - DEPRECATED
 

@@ -84,12 +84,26 @@ NS_ASSUME_NONNULL_BEGIN
 - (TABBaseComponentFloatBlock)reducedWidth;
 
 /**
- 减少的高度：与当前高度相比，所减少的高度
+ 需要减少的高度：与当前高度相比，所减少的高度
  负数则为增加
  
  @return 目标动画元素
  */
 - (TABBaseComponentFloatBlock)reducedHeight;
+
+/**
+ 减少宽度，并保持当前位置的水平居中
+ 负数则为增加
+ @return 目标动画元素
+ */
+- (TABBaseComponentFloatBlock)reducedWidth_vertical;
+
+/**
+ 减少高度，并保持当前位置的垂直居中
+ 负数则为增加
+ @return 目标动画元素
+ */
+- (TABBaseComponentFloatBlock)reducedHeight_horizontal;
 
 /**
  减少的圆角
@@ -111,6 +125,20 @@ NS_ASSUME_NONNULL_BEGIN
  @return 目标动画元素
  */
 - (TABBaseComponentFloatBlock)y;
+
+/**
+ 基于当前横坐标的偏移值
+ 
+ @return 目标动画元素
+ */
+- (TABBaseComponentFloatBlock)x_offset;
+
+/**
+ 基于当前纵坐标的偏移值
+ 
+ @return 目标动画元素
+ */
+- (TABBaseComponentFloatBlock)y_offset;
 
 /**
  设置动画元素的行数
@@ -175,6 +203,13 @@ NS_ASSUME_NONNULL_BEGIN
 /// 穿透组件
 /// 在骨架屏期间暴露出该组件
 - (TABBaseComponentVoidBlock)penetrate;
+
+/// 渐变层
+/// 传入渐变颜色数组 [Color0, Color1,  ...]
+- (TABBaseComponentWithArrayBlock)gradient;
+
+/// 移除该layer的shaow相关属性的设置
+- (TABBaseComponentVoidBlock)removeShadow;
 
 #pragma mark -
 
@@ -273,6 +308,42 @@ NS_ASSUME_NONNULL_BEGIN
 /// 参数tag：传入比较的tag
 /// 参数offset：偏移量 
 - (TABBaseComponentCompareWithOffsetBlock)bottomEqualToTop_offset;
+
+#pragma mark -
+
+/// 水平居中距离上下的间距偏移值
+- (TABBaseComponentOffsetBlock)verticalCenterOffset;
+
+/// 垂直居中距离左右的间距偏移值
+- (TABBaseComponentOffsetBlock)horizontalCenterOffset;
+
+/// 输入(x, value)
+/// x为目标行数，value为目标行数的宽度比例（0 - 1）
+- (TABBaseComponentCompareWithOffsetBlock)targetLineScale;
+
+/// 输入(x, value)
+/// x为目标行数，value为目标行数的宽度（数值）
+- (TABBaseComponentCompareWithOffsetBlock)targetLineWidth;
+
+/// 输入(x, value)
+/// x为目标行数，value为目标行数的间距
+- (TABBaseComponentCompareWithOffsetBlock)targetLineSpace;
+
+/// 输入(x, value)
+/// x为目标行数，value为目标行数的高度
+- (TABBaseComponentCompareWithOffsetBlock)targetLineHeight;
+
+/// 输入(location, length, value)
+/// location为目标行数起点，length为长度，value为目标行数集的高度
+- (TABBaseComponentRangeWithOffsetBlock)rangeLineHeight;
+
+/// 输入(location, length, value)
+/// location为目标行数起点，length为长度，value为目标行数集的间距
+- (TABBaseComponentRangeWithOffsetBlock)rangeLineSpace;
+
+/// 输入(location, length, value)
+/// location为目标行数起点，length为长度，value为目标行数集的宽度
+- (TABBaseComponentRangeWithOffsetBlock)rangeLineWidth;
 
 #pragma mark - Init Method
 

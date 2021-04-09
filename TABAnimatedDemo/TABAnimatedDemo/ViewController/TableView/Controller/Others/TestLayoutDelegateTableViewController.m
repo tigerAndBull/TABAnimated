@@ -12,6 +12,8 @@
 #import "Masonry.h"
 #import "TestLayoutTableViewController.h"
 #import "TestLayoutDelegateTableViewController.h"
+#import "TestTableHeaderFooterView.h"
+#import "Game.h"
 
 @interface TestLayoutDelegateTableViewController ()
 <UITableViewDelegate,
@@ -86,12 +88,26 @@ UITableViewDataSource
     return 100;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return .1;
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForHeaderInSection:(NSInteger)section {
+    return 100;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     return .1;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    static NSString *str = @"TestTableHeaderFooterView";
+    TestTableHeaderFooterView *headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:str];
+    if (!headerView) {
+        headerView = [[TestTableHeaderFooterView alloc] initWithReuseIdentifier:str];
+    }
+    Game *game = [[Game alloc]init];
+    game.gameId = [NSString stringWithFormat:@"1"];
+    game.title = [NSString stringWithFormat:@"这里是测试数据"];
+    game.cover = @"test.jpg";
+    [headerView initWithData:game];
+    return headerView;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -136,8 +152,8 @@ UITableViewDataSource
         
         // 设置tabAnimated相关属性
         // 可以不进行手动初始化，将使用默认属性
-        _tableView.tabAnimated = [TABTableAnimated animatedWithCellClass:[TestLayoutCell class]
-                                                              cellHeight:100];
+        _tableView.tabAnimated = [TABTableAnimated animatedWithCellClass:[TestLayoutCell class] cellHeight:100];
+        [_tableView.tabAnimated addHeaderViewClass:TestTableHeaderFooterView.class viewHeight:100 toSection:0];
         _tableView.tabAnimated.superAnimationType = TABViewSuperAnimationTypeShimmer;
     }
     return _tableView;
