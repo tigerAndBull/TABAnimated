@@ -239,6 +239,10 @@ manager.animationWithIndexs(1,5,7).down(5);
 - demo主要是引导作用，提供不同结构视图的集成方案，开发者可以自己定制出更精美的效果
 - 如有使用问题、优化建议、好的想法等，可以关注公众号：tigerAndBull技术分享，加群快速解决
 
+## 交流群
+
+![交流群](https://user-images.githubusercontent.com/28705454/114334930-31493d00-9b7e-11eb-8479-76761616b08d.png)
+
 ## License
 
 All source code is licensed under the [License](https://github.com/tigerAndBull/TABAnimated/blob/master/LICENSE)
