@@ -63,6 +63,8 @@ NS_ASSUME_NONNULL_BEGIN
 @param frame 控制视图的frame
 */
 + (nullable NSString *)getKeyWithControllerName:(NSString *)controllerName targetClass:(Class)targetClass frame:(CGRect)frame;
+
++ (void)penerateIndexArray:(NSArray <NSNumber *> *)penerateIndexArray production:(TABAnimatedProduction *)production;
     
 @end
 

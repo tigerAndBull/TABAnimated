@@ -20,6 +20,7 @@
 #import "TABAnimatedProduction.h"
 
 #import "TABAnimatedPullLoadingComponent.h"
+#import "TABAnimatedProductHelper.h"
 
 #ifdef DEBUG
 static const NSTimeInterval kDelayReloadDataTime = 4;
@@ -200,6 +201,19 @@ const int TABAnimatedIndexTag = -100000;
 - (void)_endViewAnimation {
     self.tabAnimated.state = TABViewAnimationEnd;
     self.tabAnimatedProduction.backgroundLayer.hidden = YES;
+}
+
+#pragma mark -
+
+- (void)tab_penperateSkeletonWithIndex:(NSInteger)index {
+    [self tab_penperateSkeletonWithIndexArray:@[@(index)]];
+}
+
+- (void)tab_penperateSkeletonWithIndexArray:(NSArray <NSNumber *> *)indexArray {
+    if (!self.tabAnimated || !self.tabAnimatedProduction || self.tabAnimated.state != TABViewAnimationRunning) {
+        return;
+    }
+    [TABAnimatedProductHelper penerateIndexArray:indexArray production:self.tabAnimatedProduction];
 }
 
 #pragma mark -

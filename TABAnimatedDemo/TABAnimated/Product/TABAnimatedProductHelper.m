@@ -149,7 +149,8 @@ static const CGFloat kTagLabelMinWidth = 15.f;
         view.frame.size.height != 0 && production.backgroundLayer.frame.size.height != view.frame.size.height) {
         production.backgroundLayer.frame = CGRectMake(production.backgroundLayer.frame.origin.x, production.backgroundLayer.frame.origin.y, view.frame.size.width, view.frame.size.height);
     }
-
+    
+    view.hidden = NO;
     view.layer.cornerRadius = production.backgroundLayer.cornerRadius;
     [view.layer addSublayer:production.backgroundLayer];
     
@@ -248,6 +249,18 @@ static const CGFloat kTagLabelMinWidth = 15.f;
         shapeLayer.path = path.CGPath;
         [rootView.tabAnimatedProduction.backgroundLayer setMask:shapeLayer];
     });
+}
+
++ (void)penerateIndexArray:(NSArray <NSNumber *> *)penerateIndexArray production:(TABAnimatedProduction *)production {
+    UIBezierPath *penetratePath = [UIBezierPath bezierPathWithRect:production.backgroundLayer.bounds];
+    for (NSInteger i = 0; i < penerateIndexArray.count; i++) {
+        NSInteger index = [penerateIndexArray[i] integerValue];
+        TABComponentLayer *layer = production.layers[index];
+        layer.hidden = YES;
+        UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:layer.originFrame cornerRadius:layer.cornerRadius];
+        [penetratePath appendPath:path];
+    }
+    [self penetrateTargetLayer:production.backgroundLayer path:penetratePath];
 }
 
 + (void)penetrateTargetLayer:(TABComponentLayer *)targetLayer path:(UIBezierPath *)path {
