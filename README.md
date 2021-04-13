@@ -96,7 +96,7 @@ TABAnimated是提供给iOS开发者自动生成骨架屏的一种解决方案。
 - CocoaPods
 
 ```
-pod 'TABAnimated', '2.5.1'
+pod 'TABAnimated', '2.5.3'
 ```
 
 - Carthage
