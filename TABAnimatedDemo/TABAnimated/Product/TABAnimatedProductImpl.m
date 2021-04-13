@@ -129,6 +129,7 @@
     if (production) {
         TABAnimatedProduction *newProduction = production.copy;
         [self _bindWithProduction:newProduction targetView:view];
+        _controlView.tabAnimated.state = TABViewAnimationRunning;
         return;
     }
     
@@ -297,8 +298,8 @@
             flagView = view.subviews[1];
             isCard = YES;
         }
-    }else if (view.subviews.count >= 1 && view.subviews[0].layer.shadowOpacity > 0.) {
-        flagView = view.subviews[0];
+    }else if (view.layer.shadowOpacity > 0.) {
+        flagView = view;
         isCard = YES;
     }
     

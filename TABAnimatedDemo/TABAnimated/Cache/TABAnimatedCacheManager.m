@@ -96,6 +96,7 @@ static const NSInteger kMemeoryModelMaxCount = 20;
         _cacheModelArray = @[].mutableCopy;
         _cacheManagerDict = @{}.mutableCopy;
         _maxMemeoryCount = kMemeoryModelMaxCount;
+        _currentSystemVersion = [TABAnimationMethod appVersion];
     }
     return self;
 }

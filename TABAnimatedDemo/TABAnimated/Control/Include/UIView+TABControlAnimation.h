@@ -100,6 +100,18 @@ extern int const TABAnimatedIndexTag;
 
 #pragma mark -
 
+/// 骨架屏启动中，穿透骨架屏指定标记的组件,
+/// 一般用于多段网络请求，局部显示指定组件
+/// @param index 指定标记元素
+- (void)tab_penperateSkeletonWithIndex:(NSInteger)index;
+
+/// 骨架屏启动中，穿透骨架屏指定标记的组件, 用于多段网络请求
+/// 一般用于多段网络请求，局部显示指定组件 
+/// @param indexArray 指定标记数组
+- (void)tab_penperateSkeletonWithIndexArray:(NSArray <NSNumber *> *)indexArray;
+
+#pragma mark -
+
 - (void)tab_startAnimationWithSection:(NSInteger)section;
 - (void)tab_startAnimationWithSection:(NSInteger)section completion:(void (^)(void))completion;
 - (void)tab_startAnimationWithSection:(NSInteger)section delayTime:(CGFloat)delayTime completion:(void (^)(void))completion;
