@@ -208,6 +208,7 @@
     id <UICollectionViewDelegate> delegate = ((UICollectionView *)target).delegate;
     if (!self.isRebindDelegateIMP) {
         self.oldDelegate = delegate;
+        [self updateScrollViewDelegateMethods:delegate target:target];
         [self updateDelegateMethods:delegate target:target];
         self.isRebindDelegateIMP = YES;
     }

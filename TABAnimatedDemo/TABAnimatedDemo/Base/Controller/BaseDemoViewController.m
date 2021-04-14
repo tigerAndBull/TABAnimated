@@ -10,7 +10,7 @@
 #import "TABAnimatedControllerUIInterface.h"
 #import "TABAnimatedControllerUIImpl.h"
 
-@interface BaseDemoViewController ()
+@interface BaseDemoViewController ()<UIScrollViewDelegate>
 
 @property (nonatomic, strong) id <TABAnimatedControllerUIInterface> rightButtonImpl;
 
@@ -56,6 +56,66 @@
 
 - (void)reloadViewAnimated {
     
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    NSLog(@"%@", NSStringFromSelector(_cmd));
+}
+
+- (void)scrollViewDidZoom:(UIScrollView *)scrollView API_AVAILABLE(ios(3.2)) {
+    NSLog(@"%@", NSStringFromSelector(_cmd));
+}
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    NSLog(@"%@", NSStringFromSelector(_cmd));
+}
+
+// called on finger up if the user dragged. velocity is in points/millisecond. targetContentOffset may be changed to adjust where the scroll view comes to rest
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
+    NSLog(@"%@", NSStringFromSelector(_cmd));
+}
+
+// called on finger up if the user dragged. decelerate is true if it will continue moving afterwards
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    NSLog(@"%@", NSStringFromSelector(_cmd));
+}
+
+- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView {
+    NSLog(@"%@", NSStringFromSelector(_cmd));
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    NSLog(@"%@", NSStringFromSelector(_cmd));
+}
+
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
+    NSLog(@"%@", NSStringFromSelector(_cmd));
+}
+
+- (nullable UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
+    NSLog(@"%@", NSStringFromSelector(_cmd));
+    return nil;
+}
+
+- (void)scrollViewWillBeginZooming:(UIScrollView *)scrollView withView:(nullable UIView *)view API_AVAILABLE(ios(3.2)) {
+    NSLog(@"%@", NSStringFromSelector(_cmd));
+}
+
+- (void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(nullable UIView *)view atScale:(CGFloat)scale {
+    NSLog(@"%@", NSStringFromSelector(_cmd));
+}
+
+- (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView {
+    NSLog(@"%@", NSStringFromSelector(_cmd));
+    return NO;
+}
+
+- (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView {
+    NSLog(@"%@", NSStringFromSelector(_cmd));
+}
+
+- (void)scrollViewDidChangeAdjustedContentInset:(UIScrollView *)scrollView API_AVAILABLE(ios(11.0), tvos(11.0)) {
+    NSLog(@"%@", NSStringFromSelector(_cmd));
 }
 
 @end

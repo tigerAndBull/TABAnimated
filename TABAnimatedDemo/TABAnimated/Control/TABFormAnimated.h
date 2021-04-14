@@ -113,6 +113,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)endAnimation;
 - (BOOL)endAnimationWithIndex:(NSInteger)index;
 
+- (void)updateScrollViewDelegateMethods:(id)delegate target:(id)target;
+
 @end
 
 NS_ASSUME_NONNULL_END
