@@ -288,6 +288,7 @@
     if (self.isRebindDelegateIMP) return;
     id <UITableViewDelegate> delegate = ((UITableView *)target).delegate;
     self.oldDelegate = delegate;
+    [self updateScrollViewDelegateMethods:delegate target:target];
     [self updateDelegateMethods:delegate target:target];
     self.isRebindDelegateIMP = YES;
 }
