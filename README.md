@@ -153,12 +153,24 @@ cellSize:[NewsCollectionViewCell cellSize]];
 
 ### 五、刚刚说到的，预处理回调+链式语法怎么用？
 
+OC
+
 ```
 _tableView.tabAnimated.adjustBlock = ^(TABComponentManager * _Nonnull manager) {
     manager.animation(1).down(3).radius(12);
     manager.animation(2).height(12).width(110);
     manager.animation(3).down(-5).height(12);
 };
+```
+
+Swift
+
+```
+tableView.tabAnimated?.adjustBlock = { manager in
+   manager.animation()?(1)?.down()(3)?.radius()(12)
+   manager.animation()?(2)?.height()(12)?.width()(110)
+   manager.animation()?(3)?.down()(-5)?.height()(12)
+}
 ```
 
 #### 1. 有的人看到上面，可能一下子就被吓到了，集成需要这么复杂吗？
