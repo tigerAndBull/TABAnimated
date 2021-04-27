@@ -96,7 +96,7 @@ TABAnimated是提供给iOS开发者自动生成骨架屏的一种解决方案。
 - CocoaPods
 
 ```
-pod 'TABAnimated', '2.5.4'
+pod 'TABAnimated', '2.5.5'
 ```
 
 - Carthage
@@ -155,6 +155,14 @@ cellSize:[NewsCollectionViewCell cellSize]];
 
 OC
 
+使用变量名修改
+_tableView.tabAnimated.adjustBlock = ^(TABComponentManager * _Nonnull manager) {
+    manager.animation(@"titleImageView").down(3).radius(12);
+    manager.animation(@"nameLabel").height(12).width(110);
+    manager.animation(@"timeButton").down(-5).height(12);
+};
+
+使用index修改
 ```
 _tableView.tabAnimated.adjustBlock = ^(TABComponentManager * _Nonnull manager) {
     manager.animation(1).down(3).radius(12);
