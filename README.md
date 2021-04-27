@@ -158,9 +158,9 @@ OC
 使用变量名修改
 ```
 _tableView.tabAnimated.adjustBlock = ^(TABComponentManager * _Nonnull manager) {
-    manager.animation(@"titleImageView").down(3).radius(12);
-    manager.animation(@"nameLabel").height(12).width(110);
-    manager.animation(@"timeButton").down(-5).height(12);
+    manager.animationN(@"titleImageView").down(3).radius(12);
+    manager.animationN(@"nameLabel").height(12).width(110);
+    manager.animationN(@"timeButton").down(-5).height(12);
 };
 ```
 
@@ -188,12 +188,15 @@ tableView.tabAnimated?.adjustBlock = { manager in
 答：需不需要异步调整，需要调整到什么程度，与你自身约束、产品需求，都有关系。所以并不能自动生成让任何产品、任何人立即都完全满意的效果。
 你大可放心，推出这个功能反而是协助开发者更快速调整自己想要的结果。**
 
-#### 2. `manager.animation(x)`，x是多少？
+#### 2. `manager.animation(x)`和 `manager.animationN(@"x")`
 
-答：在appDelegate设置TABAnimated的`openAnimationTag`属性为YES，框架就会自动为你指示，究竟x是几
+答：在appDelegate设置TABAnimated的`openAnimationTag`属性为YES，框架就会自动为你指示，究竟x是几。
+其实是视图addSubView尾递归排序
 ```
 [TABAnimated sharedAnimated].openAnimationTag = YES;
 ```
+**animationN(@"x")**
+x是变量名，不支持局部变量名
 
 #### 3. 通过几个示例，具体了解（预处理回调+链式语法）
 
