@@ -14,6 +14,8 @@
 @property (nonatomic, strong) NSMutableArray <TABBaseComponent *> *components;
 @property (nonatomic, strong) NSMutableArray <TABComponentLayer *> *layers;
 
+@property (nonatomic, strong) NSMutableDictionary <NSString *, TABBaseComponent *> *dictComponents;
+
 @property (nonatomic, strong) UIColor *animatedColor;
 
 @end
@@ -36,27 +38,49 @@
         _animatedColor = animatedColor;
         _components = @[].mutableCopy;
         _layers = layers.mutableCopy;
+        _dictComponents = @{}.mutableCopy;
         _backgroundComponent = [TABBaseComponent componentWithLayer:backgroundLayer manager:self];
+        
         for (NSInteger i = 0; i < _layers.count; i++) {
             TABComponentLayer *layer = _layers[i];
             TABBaseComponent *component = [TABBaseComponent componentWithLayer:layer manager:self];
             [_components addObject:component];
+            if (layer.tagName) {
+                [_dictComponents addEntriesFromDictionary:@{
+                    layer.tagName : component
+                }];
+            }
         }
     }
     return self;
+}
+
+- (TABBaseComponentStringBlock _Nullable)animationN {
+    return [self animationWithName];
+}
+
+- (TABBaseComponentStringBlock _Nullable)animationWithName {
+    __weak typeof(self) weakSelf = self;
+    return ^TABBaseComponent *(NSString *name) {
+        if (!weakSelf.dictComponents[name]) {
+            NSAssert(NO, @"The name is not exist, please check it carefully.");
+            TABComponentLayer *layer = TABComponentLayer.new;
+            layer.loadStyle = TABViewLoadAnimationRemove;
+            return [TABBaseComponent componentWithLayer:layer manager:weakSelf];
+        }
+        TABBaseComponent *component = weakSelf.dictComponents[name];
+        return component;
+    };
 }
 
 - (TABBaseComponentBlock _Nullable)animation {
     __weak typeof(self) weakSelf = self;
     return ^TABBaseComponent *(NSInteger index) {
         if (index >= weakSelf.components.count) {
-#ifdef DEBUG
             NSAssert(NO, @"Array bound, please check it carefully.");
-#else
             TABComponentLayer *layer = TABComponentLayer.new;
             layer.loadStyle = TABViewLoadAnimationRemove;
             return [TABBaseComponent componentWithLayer:layer manager:weakSelf];
-#endif
         }
         return weakSelf.components[index];
     };
@@ -67,11 +91,8 @@
     return ^NSArray <TABBaseComponent *> *(NSInteger location, NSInteger length) {
         
         if (location + length > weakSelf.components.count) {
-#ifdef DEBUG
             NSAssert(NO, @"Array bound, please check it carefully.");
-#else
             return @[];
-#endif
         }
         
         NSMutableArray <TABBaseComponent *> *tempArray = @[].mutableCopy;
@@ -104,11 +125,8 @@
             if(arg < 0) continue;
             if (arg > 1000) break;
             if (arg >= weakSelf.components.count) {
-#ifdef DEBUG
                 NSAssert(NO, @"如果运行到此断言，先检查是否调用了超过数组下标的index。若是确定没有，请取消使用该方法，使用单个获取的方式");
-#else
                 break;
-#endif
             }
             
             [resultArray addObject:weakSelf.components[arg]];

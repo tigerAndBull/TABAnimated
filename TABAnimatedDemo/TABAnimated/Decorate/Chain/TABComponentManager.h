@@ -28,7 +28,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  * 获取单个动画元素
+ * 使用方式：.animationN(x)
+ * x为字符串，映射组件的变量名
+ *
+ * @return TABBaseComponent对象
+ */
+- (TABBaseComponentStringBlock _Nullable)animationN;
+
+/**
+ * 获取单个动画元素
  * 使用方式：.animation(x)
+ * x为int值
  *
  * @return TABBaseComponent对象
  */

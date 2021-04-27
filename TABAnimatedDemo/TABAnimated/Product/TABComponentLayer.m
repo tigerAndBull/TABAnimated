@@ -30,6 +30,9 @@ static const CGFloat kDefaultHeight = 16.f;
         _spaceDict = @{}.mutableCopy;
         _widthDict = @{}.mutableCopy;
         _heightDict = @{}.mutableCopy;
+#ifdef DEBUG
+        self.masksToBounds = NO;
+#endif
     }
     return self;
 }
@@ -108,7 +111,9 @@ static const CGFloat kDefaultHeight = 16.f;
     TABViewLoadAnimationStyle loadStyle = layer.loadStyle;
     BOOL withoutAnimation = layer.withoutAnimation;
     NSInteger tagIndex = layer.tagIndex;
+    NSString *tagName = layer.tagName;
     TABComponentLayerOrigin origin = layer.origin;
+    
     
     CGFloat textHeight;
     if (animatedHeight > 0.) {
@@ -158,6 +163,7 @@ static const CGFloat kDefaultHeight = 16.f;
         
         if (i == lines - 1) {
             sub.tagIndex = tagIndex;
+            sub.tagName = tagName;
 #ifdef DEBUG
             // 添加红色标记
             if ([TABAnimated sharedAnimated].openAnimationTag)
@@ -226,6 +232,7 @@ static const CGFloat kDefaultHeight = 16.f;
     [aCoder encodeObject:_widthDict forKey:@"widthDict"];
     [aCoder encodeObject:_heightDict forKey:@"heightDict"];
     [aCoder encodeObject:_spaceDict forKey:@"spaceDict"];
+    [aCoder encodeObject:_tagName forKey:@"tagName"];
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
@@ -270,6 +277,7 @@ static const CGFloat kDefaultHeight = 16.f;
         self.widthDict = [aDecoder decodeObjectForKey:@"widthDict"];
         self.heightDict = [aDecoder decodeObjectForKey:@"heightDict"];
         self.spaceDict = [aDecoder decodeObjectForKey:@"spaceDict"];
+        self.tagName = [aDecoder decodeObjectForKey:@"tagName"];
     }
     
     if (self.serializationImpl) {
@@ -325,6 +333,7 @@ static const CGFloat kDefaultHeight = 16.f;
     layer.widthDict = self.widthDict;
     layer.heightDict = self.heightDict;
     layer.spaceDict = self.spaceDict;
+    layer.tagName = self.tagName;
     
     if(self.lineLayers.count != 0) {
         layer.lineLayers = @[].mutableCopy;

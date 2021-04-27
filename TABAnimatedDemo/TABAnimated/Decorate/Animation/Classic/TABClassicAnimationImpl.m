@@ -34,7 +34,7 @@ static NSString * const kAnimatedClassicAnimation = @"kAnimatedClassicAnimation"
     animation.duration = duration;
     animation.autoreverses = YES;
     animation.repeatCount = HUGE_VALF;
-    animation.toValue = (toValue == 0.)?@0.6:@(toValue);
+    animation.toValue = (toValue == 0.)? @0.6 : @(toValue);
     animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
     return animation;
 }

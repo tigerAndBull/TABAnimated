@@ -14,17 +14,47 @@
 #import "UIView+TABAnimatedProduction.h"
 #import "UIView+TABControlModel.h"
 #import "UIView+TABControlAnimation.h"
+#import <objc/runtime.h>
+#import "UIView+TABAnimated.h"
 
 static NSString * const kShortFillString = @"                "; // 16
 static NSString * const kLongFillString = @"                                                "; // 48
 
-static const CGFloat kTagDefaultFontSize = 12.f;
+static const CGFloat kTagDefaultFontSize = 10.f;
 static const CGFloat kTagLabelHeight = 20.f;
 static const CGFloat kTagLabelMinWidth = 15.f;
 
 @implementation TABAnimatedProductHelper
 
-+ (void)fullDataAndStartNestAnimation:(UIView *)view isHidden:(BOOL)isHidden rootView:(UIView *)rootView {
++ (void)nameWithInstance:(UIView *)instance
+             superObject:(UIView *)superObject {
+    unsigned int numIvars = 0;
+    NSString *key = nil;
+    Ivar *ivars = class_copyIvarList(superObject.class, &numIvars);
+    for (int i = 0; i < numIvars; i++) {
+        Ivar thisIvar = ivars[i];
+        const char *type = ivar_getTypeEncoding(thisIvar);
+        NSString *stringType =  [NSString stringWithCString:type encoding:NSUTF8StringEncoding];
+        if (![stringType hasPrefix:@"@"]) {
+            continue;
+        }
+        
+        UIView *thisObject = object_getIvar(superObject, thisIvar);
+        if (thisObject == instance) {
+            key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+            if (key && key.length > 0) {
+                if ([[key substringWithRange:NSMakeRange(0, 1)] isEqualToString:@"_"]) {
+                    thisObject.tab_name = [key substringFromIndex:1];
+                }else {
+                    thisObject.tab_name = key;
+                }
+            }
+        }
+    }
+    free(ivars);
+}
+
++ (void)fullDataAndStartNestAnimation:(UIView *)view isHidden:(BOOL)isHidden superView:(UIView *)superView rootView:(UIView *)rootView {
     
     if ([view isKindOfClass:[UITableView class]] ||
         [view isKindOfClass:[UICollectionView class]]) {
@@ -39,7 +69,16 @@ static const CGFloat kTagLabelMinWidth = 15.f;
     for (int i = 0; i < subViews.count; i++) {
         
         UIView *subV = subViews[i];
-        [self fullDataAndStartNestAnimation:subV isHidden:isHidden rootView:rootView];
+        
+        UIView *targetView;
+        if (![NSStringFromClass(subV.class) hasPrefix:@"UI"]) {
+            targetView = subV;
+        }else {
+            targetView = view;
+        }
+        [self fullDataAndStartNestAnimation:subV isHidden:isHidden superView:targetView rootView:rootView];
+
+        [TABAnimatedProductHelper nameWithInstance:subV superObject:superView];
         
         if ([subV isKindOfClass:[UITableView class]] || [subV isKindOfClass:[UICollectionView class]]) {
             if (subV.tabAnimated) {
@@ -219,7 +258,11 @@ static const CGFloat kTagLabelMinWidth = 15.f;
 + (void)addTagWithComponentLayer:(TABComponentLayer *)layer isLines:(BOOL)isLines {
     CATextLayer *textLayer = [CATextLayer layer];
     CGFloat width = layer.frame.size.width > kTagLabelMinWidth ? layer.frame.size.width : kTagLabelMinWidth;
-    textLayer.string = [NSString stringWithFormat:@"%ld",(long)layer.tagIndex];
+    if (layer.tagName.length > 0) {
+        textLayer.string = [NSString stringWithFormat:@"%@ %ld", layer.tagName, (long)layer.tagIndex];
+    }else {
+        textLayer.string = [NSString stringWithFormat:@"%ld", (long)layer.tagIndex];
+    }
     if (isLines) {
         textLayer.frame = CGRectMake(0, 0, width, kTagLabelHeight);
     }else if (layer.origin != TABComponentLayerOriginImageView) {
@@ -229,7 +272,7 @@ static const CGFloat kTagLabelMinWidth = 15.f;
     }
     textLayer.contentsScale = ([[UIScreen mainScreen] scale] > 3.0) ? [[UIScreen mainScreen] scale] : 3.0;
     textLayer.fontSize = kTagDefaultFontSize;
-    textLayer.alignmentMode = kCAAlignmentRight;
+    textLayer.alignmentMode = kCAAlignmentCenter;
     textLayer.foregroundColor = UIColor.redColor.CGColor;
     [layer addSublayer:textLayer];
 }

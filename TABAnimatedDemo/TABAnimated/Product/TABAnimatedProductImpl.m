@@ -25,6 +25,7 @@
 #import "TABAnimationManagerImpl.h"
 
 #import "TABAnimated.h"
+#import "UIView+TABAnimated.h"
 
 @interface TABAnimatedProductImpl() {
     // self存在即存在
@@ -316,7 +317,7 @@
 - (void)_productWithView:(UIView *)view needReset:(BOOL)needReset isCard:(BOOL)isCard {
 
     [self.weakTargetViewArray addPointer:(__bridge void * _Nullable)(view)];
-    [TABAnimatedProductHelper fullDataAndStartNestAnimation:view isHidden:!needReset rootView:view];
+    [TABAnimatedProductHelper fullDataAndStartNestAnimation:view isHidden:!needReset superView:view rootView:view];
     [view layoutSubviews];
     view.hidden = YES;
     
@@ -409,6 +410,7 @@
             layer = [self _createLayerWithView:subV needRemove:needRemove color:animatedColor isCard:isCard];
             layer.serializationImpl = _controlView.tabAnimated.serializationImpl;
             layer.tagIndex = self->_targetTagIndex;
+            layer.tagName = subV.tab_name;
             [array addObject:layer];
             _targetTagIndex++;
         }

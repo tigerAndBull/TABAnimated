@@ -17,10 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface TABAnimatedProductHelper : NSObject
 
 /// 填充数据, 并启动嵌套的view
-/// @param view view
-/// @param isHidden 是否隐藏子view
-/// @param rootView 最初始view
- + (void)fullDataAndStartNestAnimation:(UIView *)view isHidden:(BOOL)isHidden rootView:(UIView *)rootView;
++ (void)fullDataAndStartNestAnimation:(UIView *)view isHidden:(BOOL)isHidden superView:(UIView *)superView rootView:(UIView *)rootView;
 
 /**
  恢复数据

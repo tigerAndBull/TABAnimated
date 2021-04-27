@@ -152,9 +152,9 @@
         _tableView.tabAnimated = [TABTableAnimated animatedWithCellClass:[TestTableViewCell class] cellHeight:100];
         _tableView.tabAnimated.canLoadAgain = YES;
         _tableView.tabAnimated.adjustBlock = ^(TABComponentManager * _Nonnull manager) {
-            manager.animation(1).down(3).height(12);
-            manager.animation(2).height(12).reducedWidth(70);
-            manager.animation(3).down(-5).height(12).radius(0.).reducedWidth(-20);
+            manager.animationN(@"titleLab").down(3).height(12);
+            manager.animationN(@"timeLab").height(12).reducedWidth(70);
+            manager.animationN(@"statusBtn").down(-5).height(12).radius(0.).reducedWidth(-20);
         };
     }
     return _tableView;

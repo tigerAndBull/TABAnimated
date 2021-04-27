@@ -12,6 +12,7 @@
 		2039EF7521DA07F200AE09FC /* NestCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2039EF7421DA07F200AE09FC /* NestCollectionViewCell.m */; };
 		2039EF7821DA135900AE09FC /* BaseCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2039EF7621DA135900AE09FC /* BaseCollectionCell.m */; };
 		2039EF7B21DA15C100AE09FC /* ImageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2039EF7A21DA15C100AE09FC /* ImageCollectionViewCell.m */; };
+		203B66E22637C6D400CD556B /* UIView+TABAnimated.m in Sources */ = {isa = PBXBuildFile; fileRef = 203B66E12637C6D400CD556B /* UIView+TABAnimated.m */; };
 		20410A55261721620030575B /* NSArray+TABAnimated.m in Sources */ = {isa = PBXBuildFile; fileRef = 20410A54261721620030575B /* NSArray+TABAnimated.m */; };
 		20410A5C261CA46B0030575B /* TABComponentLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 20410A5A261CA46A0030575B /* TABComponentLayer.m */; };
 		205664D42489038700AC16D9 /* PullLoadingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 205664D32489038700AC16D9 /* PullLoadingTableViewController.m */; };
@@ -207,6 +208,8 @@
 		2039EF7721DA135900AE09FC /* BaseCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseCollectionCell.h; sourceTree = "<group>"; };
 		2039EF7921DA15C100AE09FC /* ImageCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageCollectionViewCell.h; sourceTree = "<group>"; };
 		2039EF7A21DA15C100AE09FC /* ImageCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageCollectionViewCell.m; sourceTree = "<group>"; };
+		203B66E02637C6D400CD556B /* UIView+TABAnimated.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+TABAnimated.h"; sourceTree = "<group>"; };
+		203B66E12637C6D400CD556B /* UIView+TABAnimated.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+TABAnimated.m"; sourceTree = "<group>"; };
 		20410A53261721620030575B /* NSArray+TABAnimated.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSArray+TABAnimated.h"; sourceTree = "<group>"; };
 		20410A54261721620030575B /* NSArray+TABAnimated.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSArray+TABAnimated.m"; sourceTree = "<group>"; };
 		20410A5A261CA46A0030575B /* TABComponentLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TABComponentLayer.m; sourceTree = "<group>"; };
@@ -1028,6 +1031,8 @@
 				688A37CE24893B3D00A76894 /* UIScrollView+TABExtension.m */,
 				20410A53261721620030575B /* NSArray+TABAnimated.h */,
 				20410A54261721620030575B /* NSArray+TABAnimated.m */,
+				203B66E02637C6D400CD556B /* UIView+TABAnimated.h */,
+				203B66E12637C6D400CD556B /* UIView+TABAnimated.m */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -1855,6 +1860,7 @@
 				688A37E124893B3D00A76894 /* TABAnimatedCacheModel.m in Sources */,
 				688A380024893B3E00A76894 /* UIView+TABAnimatedProduction.m in Sources */,
 				681567332264214F00293AB4 /* UIColor+JXAdd.m in Sources */,
+				203B66E22637C6D400CD556B /* UIView+TABAnimated.m in Sources */,
 				68D20752228BE55400B32CD1 /* DoubanCollectionViewController.m in Sources */,
 				6815671E2264214F00293AB4 /* JXCategoryDotCell.m in Sources */,
 				68C1719E246043B3004FD76F /* PartialSectionWithHeaderViewController.m in Sources */,

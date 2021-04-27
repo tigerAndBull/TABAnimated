@@ -76,6 +76,11 @@ typedef NS_ENUM(NSInteger, TABComponentLayerOrigin) {
  */
 @property (nonatomic, assign) NSInteger tagIndex;
 
+/**
+ * 该动画元素基于UIView映射的属性名
+ */
+@property (nonatomic, copy) NSString *tagName;
+
 #pragma mark - 配置成多行的动画元素
 
 /**
