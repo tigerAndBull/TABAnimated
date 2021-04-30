@@ -41,13 +41,8 @@
         
         backgroundLayer.backgroundColor = animatedBackgroundColor.CGColor;
         for (TABComponentLayer *layer in layers) {
-            if (layer.numberOflines > 0) {
-                for (TABComponentLayer *sub in layer.lineLayers) {
-                    sub.backgroundColor = animatedColor.CGColor;
-                }
-            }else {
-                layer.backgroundColor = animatedColor.CGColor;
-            }
+            
+            layer.backgroundColor = animatedColor.CGColor;
             if (layer.contents && layer.placeholderName && layer.placeholderName.length > 0) {
                 layer.contents = (id)[UIImage imageNamed:layer.placeholderName].CGImage;
             }
