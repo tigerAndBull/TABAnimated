@@ -84,9 +84,6 @@
         }
     }
     
-    self.isAnimating = YES;
-    self.state = TABViewAnimationStart;
-    
     return YES;
 }
 

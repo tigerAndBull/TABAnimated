@@ -85,6 +85,8 @@ const int TABAnimatedIndexTag = -100000;
         }
     }
     
+    tabAnimated.state = TABViewAnimationStart;
+    
     if (tabAnimated.targetControllerClassName == nil || tabAnimated.targetControllerClassName.length == 0) {
         UIViewController *controller = [self _viewController];
         if (controller) tabAnimated.targetControllerClassName = NSStringFromClass(controller.class);
@@ -99,7 +101,6 @@ const int TABAnimatedIndexTag = -100000;
         }
         [tabAnimated startAnimationWithIndex:index isFirstLoad:isFirstLoad controlView:self];
     }else {
-        tabAnimated.state = TABViewAnimationStart;
         [self _startViewAnimationWithIsFirstLoad:isFirstLoad];
     }
     
