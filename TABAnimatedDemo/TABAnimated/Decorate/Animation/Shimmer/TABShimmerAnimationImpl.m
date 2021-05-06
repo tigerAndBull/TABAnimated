@@ -22,7 +22,7 @@ static NSString * const kShimmerAnimationKey = @"kShimmerAnimationKey";
                                  layers:(NSArray <TABComponentLayer *> *)layers {
     UIColor *baseColor;
     CGFloat brigtness;
-        
+    
     if (@available(iOS 13.0, *)) {
         if (traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
             baseColor = [TABAnimated sharedAnimated].shimmerAnimation.shimmerBackColorInDarkMode;
@@ -62,6 +62,15 @@ static NSString * const kShimmerAnimationKey = @"kShimmerAnimationKey";
     
     if (@available(iOS 13.0, *)) {
         
+        UIColor *animatedBackgroundColor = [UIColor colorWithDynamicProvider:^UIColor * _Nonnull(UITraitCollection * _Nonnull traitCollection) {
+            if (traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
+                return tabAnimated.darkAnimatedBackgroundColor;
+            }else {
+                return tabAnimated.animatedBackgroundColor;
+            }
+        }];
+        backgroundLayer.backgroundColor = animatedBackgroundColor.CGColor;
+        
         __block CGFloat brigtness = 0.;
         UIColor *baseColor = [UIColor colorWithDynamicProvider:^UIColor * _Nonnull(UITraitCollection * _Nonnull traitCollection) {
             if (traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
@@ -74,7 +83,6 @@ static NSString * const kShimmerAnimationKey = @"kShimmerAnimationKey";
         }];
        
         if (baseColor == nil) return;
-        
        for (TABComponentLayer *layer in layers) {
            if (layer.colors && [layer animationForKey:kShimmerAnimationKey]) {
                layer.colors = @[(id)baseColor.CGColor, (id)[self _brightenedColor:baseColor brightness:brigtness].CGColor, (id)baseColor.CGColor];

@@ -55,7 +55,11 @@
         if (self.runIndexDict.count == 0) return NO;
         [self registerViewToReuse:controlView];
         NSString *className = [NSString stringWithFormat:@"%@_tabProtocolContainer", self.targetControllerClassName];
-        Class newClass = objc_allocateClassPair([NSObject class], [className UTF8String], 0);
+        Class newClass = NSClassFromString(className);
+        if (!newClass) {
+            newClass = objc_allocateClassPair([NSObject class], [className UTF8String], 0);
+            objc_registerClassPair(newClass);
+        }
         self.protocolContainer = newClass.new;
         self.protocolContainerClass = newClass;
         [self rebindDelegate:controlView];
