@@ -8,6 +8,8 @@
 
 #import "UITableView+TABControlAnimation.h"
 #import "TABTableAnimated.h"
+#import "UIView+TABControlModel.h"
+#import "UIView+TABControlAnimation.h"
 
 @implementation UITableView (TABControlAnimation)
 

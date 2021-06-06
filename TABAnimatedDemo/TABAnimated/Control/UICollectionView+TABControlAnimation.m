@@ -7,6 +7,9 @@
 //
 
 #import "UICollectionView+TABControlAnimation.h"
+#import "TABCollectionAnimated.h"
+#import "UIView+TABControlModel.h"
+#import "UIView+TABControlAnimation.h"
 
 @implementation UICollectionView (TABControlAnimation)
 
