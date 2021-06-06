@@ -12,13 +12,16 @@
 		2039EF7521DA07F200AE09FC /* NestCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2039EF7421DA07F200AE09FC /* NestCollectionViewCell.m */; };
 		2039EF7821DA135900AE09FC /* BaseCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2039EF7621DA135900AE09FC /* BaseCollectionCell.m */; };
 		2039EF7B21DA15C100AE09FC /* ImageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2039EF7A21DA15C100AE09FC /* ImageCollectionViewCell.m */; };
-		203B66E22637C6D400CD556B /* UIView+TABAnimated.m in Sources */ = {isa = PBXBuildFile; fileRef = 203B66E12637C6D400CD556B /* UIView+TABAnimated.m */; };
 		20410A55261721620030575B /* NSArray+TABAnimated.m in Sources */ = {isa = PBXBuildFile; fileRef = 20410A54261721620030575B /* NSArray+TABAnimated.m */; };
 		20410A5C261CA46B0030575B /* TABComponentLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 20410A5A261CA46A0030575B /* TABComponentLayer.m */; };
 		205664D42489038700AC16D9 /* PullLoadingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 205664D32489038700AC16D9 /* PullLoadingTableViewController.m */; };
 		2063FD1E24C4883E00517F3E /* TABAnimatedInjectionIIIHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 2063FD1C24C4883D00517F3E /* TABAnimatedInjectionIIIHelper.m */; };
 		206B44BE258CAC0E0010B64F /* PenerateViewExampleController.m in Sources */ = {isa = PBXBuildFile; fileRef = 206B44BD258CAC0E0010B64F /* PenerateViewExampleController.m */; };
 		2083176521A0451A000A0D95 /* TableRowModeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2083176421A0451A000A0D95 /* TableRowModeViewController.m */; };
+		209433FF266A23A1002F555A /* TABComponentMutableKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 209433FE266A23A1002F555A /* TABComponentMutableKey.m */; };
+		20943402266CADE8002F555A /* UICollectionView+TABControlAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 20943401266CADE8002F555A /* UICollectionView+TABControlAnimation.m */; };
+		20992081265966E500B6CD56 /* UITableView+TABControlAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 20992080265966E500B6CD56 /* UITableView+TABControlAnimation.m */; };
+		2099208426596B4200B6CD56 /* UIView+TABAnimated.m in Sources */ = {isa = PBXBuildFile; fileRef = 2099208326596B4200B6CD56 /* UIView+TABAnimated.m */; };
 		20A01597216A51FC0082425D /* XibTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A01596216A51FC0082425D /* XibTestViewController.m */; };
 		20A0159A216A538F0082425D /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A01599216A538F0082425D /* MainViewController.m */; };
 		20A85BF52152248D0005AD62 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A85BF42152248D0005AD62 /* AppDelegate.m */; };
@@ -208,8 +211,6 @@
 		2039EF7721DA135900AE09FC /* BaseCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseCollectionCell.h; sourceTree = "<group>"; };
 		2039EF7921DA15C100AE09FC /* ImageCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageCollectionViewCell.h; sourceTree = "<group>"; };
 		2039EF7A21DA15C100AE09FC /* ImageCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageCollectionViewCell.m; sourceTree = "<group>"; };
-		203B66E02637C6D400CD556B /* UIView+TABAnimated.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+TABAnimated.h"; sourceTree = "<group>"; };
-		203B66E12637C6D400CD556B /* UIView+TABAnimated.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+TABAnimated.m"; sourceTree = "<group>"; };
 		20410A53261721620030575B /* NSArray+TABAnimated.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSArray+TABAnimated.h"; sourceTree = "<group>"; };
 		20410A54261721620030575B /* NSArray+TABAnimated.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSArray+TABAnimated.m"; sourceTree = "<group>"; };
 		20410A5A261CA46A0030575B /* TABComponentLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TABComponentLayer.m; sourceTree = "<group>"; };
@@ -222,6 +223,14 @@
 		206B44BD258CAC0E0010B64F /* PenerateViewExampleController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PenerateViewExampleController.m; sourceTree = "<group>"; };
 		2083176321A0451A000A0D95 /* TableRowModeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TableRowModeViewController.h; sourceTree = "<group>"; };
 		2083176421A0451A000A0D95 /* TableRowModeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TableRowModeViewController.m; sourceTree = "<group>"; };
+		209433FD266A23A1002F555A /* TABComponentMutableKey.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TABComponentMutableKey.h; sourceTree = "<group>"; };
+		209433FE266A23A1002F555A /* TABComponentMutableKey.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TABComponentMutableKey.m; sourceTree = "<group>"; };
+		20943400266CADE8002F555A /* UICollectionView+TABControlAnimation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UICollectionView+TABControlAnimation.h"; sourceTree = "<group>"; };
+		20943401266CADE8002F555A /* UICollectionView+TABControlAnimation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UICollectionView+TABControlAnimation.m"; sourceTree = "<group>"; };
+		2099207F265966E500B6CD56 /* UITableView+TABControlAnimation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITableView+TABControlAnimation.h"; sourceTree = "<group>"; };
+		20992080265966E500B6CD56 /* UITableView+TABControlAnimation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITableView+TABControlAnimation.m"; sourceTree = "<group>"; };
+		2099208226596B4200B6CD56 /* UIView+TABAnimated.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+TABAnimated.h"; sourceTree = "<group>"; };
+		2099208326596B4200B6CD56 /* UIView+TABAnimated.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+TABAnimated.m"; sourceTree = "<group>"; };
 		20A01595216A51FC0082425D /* XibTestViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XibTestViewController.h; sourceTree = "<group>"; };
 		20A01596216A51FC0082425D /* XibTestViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XibTestViewController.m; sourceTree = "<group>"; };
 		20A01598216A538F0082425D /* MainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
@@ -1031,8 +1040,6 @@
 				688A37CE24893B3D00A76894 /* UIScrollView+TABExtension.m */,
 				20410A53261721620030575B /* NSArray+TABAnimated.h */,
 				20410A54261721620030575B /* NSArray+TABAnimated.m */,
-				203B66E02637C6D400CD556B /* UIView+TABAnimated.h */,
-				203B66E12637C6D400CD556B /* UIView+TABAnimated.m */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -1057,6 +1064,8 @@
 				688A37AE24893B3D00A76894 /* TABBaseComponent.m */,
 				688A37AD24893B3D00A76894 /* TABComponentManager.h */,
 				688A37B524893B3D00A76894 /* TABComponentManager.m */,
+				209433FD266A23A1002F555A /* TABComponentMutableKey.h */,
+				209433FE266A23A1002F555A /* TABComponentMutableKey.m */,
 			);
 			path = Chain;
 			sourceTree = "<group>";
@@ -1101,35 +1110,38 @@
 		688A37C724893B3D00A76894 /* PullLoading */ = {
 			isa = PBXGroup;
 			children = (
-				688A37C924893B3D00A76894 /* Include */,
+				688A37CA24893B3D00A76894 /* TABAnimatedPullLoadingComponent.h */,
 				688A37CF24893B3D00A76894 /* TABAnimatedPullLoadingComponent.m */,
+				688A37CC24893B3D00A76894 /* UIScrollView+TABAnimated.h */,
 				688A37C824893B3D00A76894 /* UIScrollView+TABAnimated.m */,
+				688A37CB24893B3D00A76894 /* UIView+TABExtension.h */,
 				688A37D024893B3D00A76894 /* UIView+TABExtension.m */,
 			);
 			path = PullLoading;
-			sourceTree = "<group>";
-		};
-		688A37C924893B3D00A76894 /* Include */ = {
-			isa = PBXGroup;
-			children = (
-				688A37CA24893B3D00A76894 /* TABAnimatedPullLoadingComponent.h */,
-				688A37CC24893B3D00A76894 /* UIScrollView+TABAnimated.h */,
-				688A37CB24893B3D00A76894 /* UIView+TABExtension.h */,
-			);
-			path = Include;
 			sourceTree = "<group>";
 		};
 		688A37D224893B3D00A76894 /* Control */ = {
 			isa = PBXGroup;
 			children = (
 				688A37D724893B3D00A76894 /* Include */,
+				688A37DC24893B3D00A76894 /* TABViewAnimated.h */,
 				688A37D524893B3D00A76894 /* TABViewAnimated.m */,
 				688A37D324893B3D00A76894 /* TABFormAnimated.h */,
 				688A37DF24893B3D00A76894 /* TABFormAnimated.m */,
+				688A37DD24893B3D00A76894 /* TABTableAnimated.h */,
 				688A37DE24893B3D00A76894 /* TABTableAnimated.m */,
+				688A37DB24893B3D00A76894 /* TABCollectionAnimated.h */,
 				688A37D624893B3D00A76894 /* TABCollectionAnimated.m */,
+				2099208226596B4200B6CD56 /* UIView+TABAnimated.h */,
+				2099208326596B4200B6CD56 /* UIView+TABAnimated.m */,
+				688A37D824893B3D00A76894 /* UIView+TABControlModel.h */,
 				688A37E024893B3D00A76894 /* UIView+TABControlModel.m */,
+				688A37D924893B3D00A76894 /* UIView+TABControlAnimation.h */,
 				688A37D424893B3D00A76894 /* UIView+TABControlAnimation.m */,
+				2099207F265966E500B6CD56 /* UITableView+TABControlAnimation.h */,
+				20992080265966E500B6CD56 /* UITableView+TABControlAnimation.m */,
+				20943400266CADE8002F555A /* UICollectionView+TABControlAnimation.h */,
+				20943401266CADE8002F555A /* UICollectionView+TABControlAnimation.m */,
 			);
 			path = Control;
 			sourceTree = "<group>";
@@ -1137,12 +1149,7 @@
 		688A37D724893B3D00A76894 /* Include */ = {
 			isa = PBXGroup;
 			children = (
-				688A37DB24893B3D00A76894 /* TABCollectionAnimated.h */,
-				688A37DD24893B3D00A76894 /* TABTableAnimated.h */,
-				688A37DC24893B3D00A76894 /* TABViewAnimated.h */,
 				688A37DA24893B3D00A76894 /* TABViewAnimatedDefines.h */,
-				688A37D924893B3D00A76894 /* UIView+TABControlAnimation.h */,
-				688A37D824893B3D00A76894 /* UIView+TABControlModel.h */,
 			);
 			path = Include;
 			sourceTree = "<group>";
@@ -1741,6 +1748,7 @@
 				685A2AC6247A685C00D9DB7C /* XIBTableViewCell.m in Sources */,
 				68589C332343407200E8E630 /* UIColor+TABCategory.m in Sources */,
 				68C171982460429A004FD76F /* MutiSectionsMutiCellWithHeaderViewController.m in Sources */,
+				20992081265966E500B6CD56 /* UITableView+TABControlAnimation.m in Sources */,
 				20E72D7A2226E2D200E781C9 /* DailyCollectionViewCell.m in Sources */,
 				68CFCF162294DFA0007D167F /* XibCollectionViewController.m in Sources */,
 				681567212264214F00293AB4 /* JXCategoryTitleImageView.m in Sources */,
@@ -1784,6 +1792,7 @@
 				688A37FB24893B3E00A76894 /* TABComponentManager.m in Sources */,
 				68C1718D2460406C004FD76F /* OneSectionWithTableHeaderViewController.m in Sources */,
 				68C35F51249E6D8F00A34D22 /* NSArray+TABDropAnimation.m in Sources */,
+				209433FF266A23A1002F555A /* TABComponentMutableKey.m in Sources */,
 				685A2ACE247A685C00D9DB7C /* LabWithLinesViewCell.m in Sources */,
 				68D20758228BE7A400B32CD1 /* DoubanNormalViewController.m in Sources */,
 				68C35F49249E6D8F00A34D22 /* TABBinAnimationImpl.m in Sources */,
@@ -1838,6 +1847,7 @@
 				685A2AC9247A685C00D9DB7C /* DelegateSelfTableViewCell.m in Sources */,
 				681567182264214F00293AB4 /* JXCategoryIndicatorComponentView.m in Sources */,
 				688A380224893B3E00A76894 /* TABAnimatedProductHelper.m in Sources */,
+				20943402266CADE8002F555A /* UICollectionView+TABControlAnimation.m in Sources */,
 				681567142264214F00293AB4 /* JXCategoryIndicatorTriangleView.m in Sources */,
 				688A380924893B3E00A76894 /* TABCollectionAnimated.m in Sources */,
 				685A2AD0247A685C00D9DB7C /* NewsTableViewCell.m in Sources */,
@@ -1860,7 +1870,7 @@
 				688A37E124893B3D00A76894 /* TABAnimatedCacheModel.m in Sources */,
 				688A380024893B3E00A76894 /* UIView+TABAnimatedProduction.m in Sources */,
 				681567332264214F00293AB4 /* UIColor+JXAdd.m in Sources */,
-				203B66E22637C6D400CD556B /* UIView+TABAnimated.m in Sources */,
+				2099208426596B4200B6CD56 /* UIView+TABAnimated.m in Sources */,
 				68D20752228BE55400B32CD1 /* DoubanCollectionViewController.m in Sources */,
 				6815671E2264214F00293AB4 /* JXCategoryDotCell.m in Sources */,
 				68C1719E246043B3004FD76F /* PartialSectionWithHeaderViewController.m in Sources */,
@@ -2022,7 +2032,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2.5.6;
+				CURRENT_PROJECT_VERSION = 2.5.7;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = JGZKPAYJ7R;
 				ENABLE_BITCODE = NO;
@@ -2039,7 +2049,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.5.6;
+				MARKETING_VERSION = 2.5.7;
 				OTHER_LDFLAGS = (
 					"-Xlinker",
 					"-interposable",
@@ -2058,7 +2068,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2.5.6;
+				CURRENT_PROJECT_VERSION = 2.5.7;
 				DEVELOPMENT_TEAM = JGZKPAYJ7R;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2074,7 +2084,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.5.6;
+				MARKETING_VERSION = 2.5.7;
 				OTHER_LDFLAGS = (
 					"-Xlinker",
 					"-interposable",

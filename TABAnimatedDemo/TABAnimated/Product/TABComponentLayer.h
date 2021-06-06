@@ -33,6 +33,9 @@ typedef NS_ENUM(NSInteger, TABViewLoadAnimationStyle) {
     
     // 标记穿透
     TABViewLoadAnimationPenetrate,
+    
+    // 标记穿透来源创建
+    TABViewLoadAnimationPenetrateFromCreate,
 };
 
 typedef NS_ENUM(NSInteger, TABComponentLayerOrigin) {
@@ -142,9 +145,9 @@ typedef NS_ENUM(NSInteger, TABComponentLayerOrigin) {
 /// 自创建：在调整回调之后的原始
 @property (nonatomic, assign) CGRect originFrame;
 
-@property (nonatomic, strong) NSMutableArray *spaceDict;
-@property (nonatomic, strong) NSMutableArray *widthDict;
-@property (nonatomic, strong) NSMutableArray *heightDict;
+@property (nonatomic, strong) NSMutableDictionary *spaceDict;
+@property (nonatomic, strong) NSMutableDictionary *widthDict;
+@property (nonatomic, strong) NSMutableDictionary *heightDict;
 
 #pragma mark -
 

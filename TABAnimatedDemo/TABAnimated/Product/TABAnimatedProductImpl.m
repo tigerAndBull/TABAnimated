@@ -353,11 +353,11 @@
         production.fileName = [TABAnimatedProductHelper getKeyWithControllerName:controlerClassName targetClass:production.targetClass frame:_controlView.frame];
         
         NSMutableArray <TABComponentLayer *> *layerArray = @[].mutableCopy;
+        NSMutableDictionary <NSString *, TABComponentLayer *> *layerDict = @{}.mutableCopy;
         // 生产
-        [self _recurseProductLayerWithView:targetView array:layerArray production:production isCard:isCard];
-        production.layers = layerArray;
+        [self _recurseProductLayerWithView:targetView array:layerArray dict:layerDict production:production isCard:isCard];
         // 加工
-        [self _chainAdjustWithBackgroundLayer:production.backgroundLayer layers:layerArray.copy tabAnimated:_controlView.tabAnimated targetClass:production.targetClass];
+        [self _chainAdjustWithBackgroundLayer:production.backgroundLayer layers:layerArray tabAnimated:_controlView.tabAnimated targetClass:production.targetClass];
         // 绑定
         production.state = TABAnimatedProductionBind;
         production.layers = layerArray;
@@ -375,14 +375,16 @@
 
 - (void)_recurseProductLayerWithView:(UIView *)view
                                array:(NSMutableArray <TABComponentLayer *> *)array
+                               dict:(NSMutableDictionary *)dict
                           production:(TABAnimatedProduction *)production
                               isCard:(BOOL)isCard {
-    [self _recurseProductLayerWithView:view rootView:view array:array isCard:isCard];
+    [self _recurseProductLayerWithView:view rootView:view array:array dict:dict isCard:isCard];
 }
 
 - (void)_recurseProductLayerWithView:(UIView *)view
                             rootView:(UIView *)rootView
                                array:(NSMutableArray <TABComponentLayer *> *)array
+                                dict:(NSMutableDictionary *)dict
                               isCard:(BOOL)isCard {
     
     NSArray *subViews = [view subviews];
@@ -397,7 +399,7 @@
         if (subV.class == _controlView.tabAnimated.withoutSubViewsClass) {
             stopRes = YES;
         }else {
-            [self _recurseProductLayerWithView:subV rootView:rootView array:array isCard:isCard];
+            [self _recurseProductLayerWithView:subV rootView:rootView array:array dict:dict isCard:isCard];
         }
         
         if ([self _cannotBeCreated:subV superView:view rootView:rootView]) continue;
@@ -412,6 +414,13 @@
             layer.tagIndex = self->_targetTagIndex;
             layer.tagName = subV.tab_name;
             [array addObject:layer];
+
+            NSString *key = [NSString stringWithFormat:@"%ld", layer.tagIndex];
+            dict[key] = layer;
+            if (layer.tagName) {
+                dict[layer.tagName] = layer;
+            }
+            
             _targetTagIndex++;
         }
     }
@@ -430,7 +439,6 @@
         layer.numberOflines = lab.numberOfLines;
         if (lab.textAlignment == NSTextAlignmentCenter) {
             layer.origin = TABComponentLayerOriginCenterLabel;
-            layer.contentsGravity = kCAGravityCenter;
         }else {
             layer.origin = TABComponentLayerOriginLabel;
         }
@@ -562,7 +570,7 @@
 }
 
 - (void)_chainAdjustWithBackgroundLayer:(TABComponentLayer *)backgroundLayer
-                                 layers:(NSArray <TABComponentLayer *> *)layers
+                                 layers:(NSMutableArray <TABComponentLayer *> *)layers
                             tabAnimated:(TABViewAnimated *)tabAnimated
                             targetClass:(Class)targetClass {
     UIColor *animatedColor = [tabAnimated getCurrentAnimatedColorWithCollection:_controlView.traitCollection];

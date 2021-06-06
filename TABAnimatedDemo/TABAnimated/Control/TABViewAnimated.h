@@ -131,6 +131,8 @@ FOUNDATION_EXPORT NSString *tab_NSStringFromClass(Class aClass);
 /// 只显示自己，不再遍历子视图
 @property (nonatomic, assign) Class withoutSubViewsClass;
 
+@property (nonatomic, assign) BOOL configed;
+
 - (nonnull UIColor *)getCurrentAnimatedColorWithCollection:(UITraitCollection *)collection;
 - (nonnull UIColor *)getCurrentAnimatedBackgroundColorWithCollection:(UITraitCollection *)collection;
 

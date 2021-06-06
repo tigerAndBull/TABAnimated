@@ -36,18 +36,13 @@
     _locationString = @"假设这里是本地数据";
     _titleLab.text = _locationString;
     
-    TABViewAnimated *viewAnimated = TABViewAnimated.new;
-    viewAnimated.adjustBlock = ^(TABComponentManager * _Nonnull manager) {
+    [self.view tab_startAnimationWithConfigBlock:nil
+                                     adjustBlock:^(TABComponentManager * _Nonnull manager) {
         manager.animations(0, 2).penetrate();
         manager.animation(1).width(200);
         manager.animation(2).width(220);
         manager.animation(3).width(180);
-    };
-    self.view.tabAnimated = viewAnimated;
-    
-    // 启动动画
-    // 默认延迟时间0.4s
-    [self.view tab_startAnimationWithCompletion:^{
+    } completion:^{
         // 请求数据
         // ...
         // 获得数据

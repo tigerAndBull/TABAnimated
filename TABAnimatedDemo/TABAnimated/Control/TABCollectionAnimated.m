@@ -320,20 +320,20 @@
         [self addNewMethodWithSel:oldWillDisplaySel newSel:newWillDisplaySel];
     }
     
-    SEL oldWillDisplaySupplementarySel = @selector(collectionView:willDisplaySupplementaryView:forElementKind:);
-    SEL newWillDisplaySupplementarySel = @selector(tab_collectionView:willDisplaySupplementaryView:forElementKind:);
+    SEL oldWillDisplaySupplementarySel = @selector(collectionView:willDisplaySupplementaryView:forElementKind:atIndexPath:);
+    SEL newWillDisplaySupplementarySel = @selector(tab_collectionView:willDisplaySupplementaryView:forElementKind:atIndexPath:);
     if ([delegate respondsToSelector:oldWillDisplaySupplementarySel]) {
         [self addNewMethodWithSel:oldWillDisplaySupplementarySel newSel:newWillDisplaySupplementarySel];
     }
     
-    SEL oldDidEndDisplayingSel = @selector(collectionView:didEndDisplayingCell:forElementKind:);
-    SEL newDidEndDisplayingSel = @selector(tab_collectionView:didEndDisplayingCell:forElementKind:);
+    SEL oldDidEndDisplayingSel = @selector(collectionView:didEndDisplayingCell:forItemAtIndexPath:);
+    SEL newDidEndDisplayingSel = @selector(tab_collectionView:didEndDisplayingCell:forItemAtIndexPath:);
     if ([delegate respondsToSelector:oldDidEndDisplayingSel]) {
         [self addNewMethodWithSel:oldDidEndDisplayingSel newSel:newDidEndDisplayingSel];
     }
 
-    SEL oldDidEndDisplayingSupplementarySel = @selector(collectionView:didEndDisplayingSupplementaryView:forElementKind:);
-    SEL newDidEndDisplayingSupplementarySel = @selector(tab_collectionView:didEndDisplayingSupplementaryView:forElementKind:);
+    SEL oldDidEndDisplayingSupplementarySel = @selector(collectionView:didEndDisplayingSupplementaryView:forElementKind:atIndexPath:);
+    SEL newDidEndDisplayingSupplementarySel = @selector(tab_collectionView:didEndDisplayingSupplementaryView:forElementKind:atIndexPath:);
     if ([delegate respondsToSelector:oldDidEndDisplayingSupplementarySel]) {
         [self addNewMethodWithSel:oldDidEndDisplayingSupplementarySel newSel:newDidEndDisplayingSupplementarySel];
     }

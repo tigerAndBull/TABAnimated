@@ -487,18 +487,12 @@ struct TABBaseComonentOperation {
     __weak typeof(self) weakSelf = self;
     return ^TABBaseComponent *(void) {
         if (weakSelf.layer.origin != TABComponentLayerOriginCreate) {
-            [weakSelf result_penetrate];
+            weakSelf.layer.loadStyle = TABViewLoadAnimationPenetrate;
         }else {
-#ifdef DEBUG
-            NSAssert(YES, @"The layer created by yourself can not penetrate.");
-#endif
+            weakSelf.layer.loadStyle = TABViewLoadAnimationPenetrateFromCreate;
         }
         return weakSelf;
     };
-}
-
-- (void)result_penetrate {
-    _layer.loadStyle = TABViewLoadAnimationPenetrate;
 }
  
 #pragma mark - gradient

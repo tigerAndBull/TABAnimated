@@ -16,10 +16,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TABAnimatedConfig.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 extern int const TABAnimatedIndexTag;
+
+@class TABViewAnimated;
 
 @interface UIView (TABControlAnimation)
 
@@ -98,7 +101,16 @@ extern int const TABAnimatedIndexTag;
  */
 - (void)tab_endAnimationWithIndex:(NSInteger)index;
 
-#pragma mark -
+#pragma mark - TABViewAnimated
+
+// 不需要初始化TABViewAnimated
+// 如果需要调整TABViewAnimated的参数，通过configBlock调整
+// 如果需要调整骨架元素，通过adjustBlock调整
+- (void)tab_startAnimationWithConfigBlock:(nullable TABConfigBlock)configBlock
+                              adjustBlock:(nullable TABAdjustBlock)adjustBlock
+                               completion:(nullable void (^)(void))completion;
+
+#pragma mark - Penperate
 
 /// 骨架屏启动中，穿透骨架屏指定标记的组件,
 /// 一般用于多段网络请求，局部显示指定组件

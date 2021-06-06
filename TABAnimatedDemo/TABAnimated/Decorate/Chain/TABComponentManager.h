@@ -19,6 +19,7 @@
 #import <UIKit/UIKit.h>
 #import "TABBaseComponent.h"
 #import "TABAnimatedChainDefines.h"
+#import "TABAnimationMethod.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -63,20 +64,25 @@ NS_ASSUME_NONNULL_BEGIN
 - (TABBaseComponentArrayWithIndexsBlock)animationsWithIndexs;
 
 /// 创建一个新的元素
+/// 需要传一个index作为唯一标识
+/// 如果用了已经存在的index，仍然会被创建，但是不能二次修改
+- (TABBaseComponentIntegerBlock)create;
+
+/// 创建一个新的元素
 /// 需要传一个参数tag 作为唯一标识
 /// 没有做tag重复处理，如果用了重复的tag，会被创建，但是不能二次修改
-- (TABBaseComponentIntegerBlock)create;
+- (TABBaseComponentStringBlock)createN;
 
 @property (nonatomic, strong) TABBaseComponent *backgroundComponent;
 
 #pragma mark - Method
 
 - (instancetype)initWithBackgroundLayer:(TABComponentLayer *)backgroundLayer
-                                 layers:(NSArray <TABComponentLayer *> *)layers
+                                 layers:(NSMutableArray <TABComponentLayer *> *)layers
                           animatedColor:(UIColor *)animatedColor;
 
 + (instancetype)managerWithBackgroundLayer:(TABComponentLayer *)backgroundLayer
-                                    layers:(NSArray <TABComponentLayer *> *)layers
+                                    layers:(NSMutableArray <TABComponentLayer *> *)layers
                              animatedColor:(UIColor *)animatedColor;
 
 - (instancetype)init UNAVAILABLE_ATTRIBUTE;

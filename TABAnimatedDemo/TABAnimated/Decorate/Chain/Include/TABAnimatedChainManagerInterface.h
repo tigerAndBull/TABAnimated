@@ -16,12 +16,12 @@
 @protocol TABAnimatedChainManagerInterface <NSObject>
 
 - (void)chainAdjustWithBackgroundLayer:(TABComponentLayer *)backgroundLayer
-                                layers:(NSArray <TABComponentLayer *> *)layers
+                                layers:(NSMutableArray <TABComponentLayer *> *)layers
                            adjustBlock:(TABAdjustBlock)adjustBlock
                          animatedColor:(UIColor *)animatedColor;
 
 - (void)chainAdjustWithBackgroundLayer:(TABComponentLayer *)backgroundLayer
-                                layers:(NSArray <TABComponentLayer *> *)layers
+                                layers:(NSMutableArray <TABComponentLayer *> *)layers
                   adjustWithClassBlock:(TABAdjustWithClassBlock)adjustWithClassBlock
                            targetClass:(Class)targetClass
                          animatedColor:(UIColor *)animatedColor;

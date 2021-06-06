@@ -23,9 +23,9 @@
 #import "TABAnimatedProductHelper.h"
 
 #ifdef DEBUG
-static const NSTimeInterval kDelayReloadDataTime = 4;
+static const NSTimeInterval kDelayReloadDataTime = 1;
 #else
-static const NSTimeInterval kDelayReloadDataTime = .4;
+static const NSTimeInterval kDelayReloadDataTime = .25;
 #endif
 
 const int TABAnimatedIndexTag = -100000;
@@ -60,6 +60,25 @@ const int TABAnimatedIndexTag = -100000;
                           delayTime:(CGFloat)delayTime
                          completion:(void (^)(void))completion {
     [self _startAnimationWithIndex:index delayTime:kDelayReloadDataTime completion:completion];
+}
+
+#pragma mark - Only TABViewAnimated
+
+- (void)tab_startAnimationWithConfigBlock:(nullable TABConfigBlock)configBlock
+                              adjustBlock:(nullable TABAdjustBlock)adjustBlock
+                               completion:(nullable void (^)(void))completion {
+    if (!self.tabAnimated) {
+        TABViewAnimated *tabAnimated = TABViewAnimated.new;
+        tabAnimated.adjustBlock = adjustBlock;
+        self.tabAnimated = tabAnimated;
+    }
+    
+    if (configBlock && !self.tabAnimated.configed) {
+        configBlock(self.tabAnimated);
+        self.tabAnimated.configed = YES;
+    }
+    
+    [self _startAnimationWithIndex:TABAnimatedIndexTag delayTime:kDelayReloadDataTime completion:completion];
 }
 
 - (void)_startAnimationWithIndex:(NSInteger)index

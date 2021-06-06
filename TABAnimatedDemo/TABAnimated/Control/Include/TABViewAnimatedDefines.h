@@ -74,6 +74,9 @@ typedef NS_ENUM(NSInteger, TABAnimatedRunMode) {
     3. row的数量必须要是定值
      */
     TABAnimatedRunByRow,
+    
+    // 创作模式，不依赖view生成元素，全部由开发者自行通过预处理回调创建
+    TABAnimatedRunCreative,
 };
 
 typedef NS_ENUM(NSInteger, TABAnimatedViewType) {

@@ -10,6 +10,10 @@
 
 @implementation TABAnimationMethod
 
+NSString *tab_NSStringFromIndex(NSInteger index) {
+    return [NSString stringWithFormat:@"%ld", index];
+}
+
 + (void)addEaseOutAnimation:(UIView *)view {
     CATransition *animation = [CATransition animation];
     animation.duration = 0.2;

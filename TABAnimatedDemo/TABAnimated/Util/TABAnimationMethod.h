@@ -19,6 +19,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+FOUNDATION_EXPORT NSString *tab_NSStringFromIndex(NSInteger index);
+
 @interface TABAnimationMethod : NSObject
 
 /**

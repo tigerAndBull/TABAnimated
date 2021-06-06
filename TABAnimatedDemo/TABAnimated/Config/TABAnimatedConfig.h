@@ -20,6 +20,8 @@
 
 #import "TABAnimatedProduction.h"
 
+typedef void (^TABConfigBlock)(TABViewAnimated * _Nonnull tabAnimated);
+
 #define tabAnimatedLog(x) {if([TABAnimated sharedAnimated].openLog) NSLog(x);}
 #define tab_kColor(s) [UIColor colorWithRed:(((s&0xFF0000)>>16))/255.0 green:(((s&0xFF00)>>8))/255.0 blue:((s&0xFF))/255.0 alpha:1.]
 #define tab_RGB(R,G,B) [UIColor colorWithRed:R/255.0 green:G/255.0 blue:B/255.0 alpha:1.]

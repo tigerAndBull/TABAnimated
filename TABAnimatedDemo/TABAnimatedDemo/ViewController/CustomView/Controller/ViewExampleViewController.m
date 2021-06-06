@@ -33,20 +33,13 @@
     _topImg.image = [UIImage imageNamed:@"test.jpg"];
     _titleLab.text = @"您不会没有骨架过渡吧？";
     
-    TABViewAnimated *viewAnimated = TABViewAnimated.new;
-    viewAnimated.adjustBlock = ^(TABComponentManager * _Nonnull manager) {
+    [self.view tab_startAnimationWithConfigBlock:nil
+                                     adjustBlock:^(TABComponentManager * _Nonnull manager) {
         manager.animation(1).width(200);
         manager.animation(2).width(220);
         manager.animation(3).width(180);
-        UIColor *color1 = [UIColor colorWithRed:255/255. green:129/255. blue:39/255. alpha:1.];
-        UIColor *color2 = [UIColor colorWithRed:255/255. green:17/255. blue:126/255. alpha:1.];
-        manager.animation(4).gradient(@[color1, color2]);
-    };
-    self.view.tabAnimated = viewAnimated;
-    
-    // 启动动画
-    // 默认延迟时间0.4s
-    [self.view tab_startAnimationWithCompletion:^{
+        manager.create(10).width(200).height(12).leftEqualTo_offset(1, 30).topEqualTo_offset(1, 20);
+    } completion:^{
         // 请求数据
         // ...
         // 获得数据

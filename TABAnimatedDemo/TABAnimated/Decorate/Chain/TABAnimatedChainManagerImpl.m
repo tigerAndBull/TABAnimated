@@ -13,7 +13,7 @@
 @implementation TABAnimatedChainManagerImpl
 
 - (void)chainAdjustWithBackgroundLayer:(TABComponentLayer *)backgroundLayer
-                                layers:(NSArray <TABComponentLayer *> *)layers
+                                layers:(NSMutableArray <TABComponentLayer *> *)layers
                            adjustBlock:(TABAdjustBlock)adjustBlock
                          animatedColor:(UIColor *)animatedColor {
     TABComponentManager *manager = [TABComponentManager managerWithBackgroundLayer:backgroundLayer layers:layers animatedColor:animatedColor];
@@ -23,7 +23,7 @@
 }
 
 - (void)chainAdjustWithBackgroundLayer:(TABComponentLayer *)backgroundLayer
-                                layers:(NSArray <TABComponentLayer *> *)layers
+                                layers:(NSMutableArray <TABComponentLayer *> *)layers
                   adjustWithClassBlock:(TABAdjustWithClassBlock)adjustWithClassBlock
                            targetClass:(Class)targetClass
                          animatedColor:(UIColor *)animatedColor {

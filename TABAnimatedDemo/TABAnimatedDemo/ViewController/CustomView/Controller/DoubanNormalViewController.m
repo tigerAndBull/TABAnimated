@@ -68,15 +68,13 @@
     [self.mainView addSubview:self.secondInfoLab];
     [self.mainView addSubview:self.commitBtn];
     
-    self.mainView.tabAnimated = TABViewAnimated.new;
-    self.mainView.tabAnimated.superAnimationType = TABViewSuperAnimationTypeDrop;
-    self.mainView.tabAnimated.adjustBlock = ^(TABComponentManager * _Nonnull manager) {
+    [self.mainView tab_startAnimationWithConfigBlock:^(TABViewAnimated * _Nonnull tabAnimated) {
+        tabAnimated.superAnimationType = TABViewSuperAnimationTypeShimmer;
+    }                                    adjustBlock:^(TABComponentManager * _Nonnull manager) {
         manager.animation(1).width(200);
         manager.animation(2).width(220);
         manager.animation(3).width(180);
-    };
-    
-    [self.mainView tab_startAnimation];
+    } completion:nil];
 }
 
 #pragma mark - Lazy Method

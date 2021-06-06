@@ -27,15 +27,18 @@
     // Do any additional setup after loading the view.
     [self.view addSubview:self.gradientLayerButton];
     [self.view addSubview:self.gradientImageButton];
-    self.view.tabAnimated = TABViewAnimated.new;
-    [self.view tab_startAnimationWithCompletion:^{
+    
+    [self.view tab_startAnimationWithConfigBlock:^(TABViewAnimated * _Nonnull tabAnimated) {
+        tabAnimated.canLoadAgain = YES;
+    } adjustBlock:nil completion:^{
         [self afterGetData];
     }];
 }
 
 - (void)reloadViewAnimated {
-    self.view.tabAnimated.canLoadAgain = YES;
-    [self.view tab_startAnimationWithCompletion:^{
+    [self.view tab_startAnimationWithConfigBlock:^(TABViewAnimated * _Nonnull tabAnimated) {
+        tabAnimated.canLoadAgain = YES;
+    } adjustBlock:nil completion:^{
         [self afterGetData];
     }];
 }
