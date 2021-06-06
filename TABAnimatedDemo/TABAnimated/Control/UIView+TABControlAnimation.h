@@ -17,12 +17,16 @@
 
 #import <UIKit/UIKit.h>
 #import "TABAnimatedConfig.h"
+#import "TABAnimatedChainDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 extern int const TABAnimatedIndexTag;
 
 @class TABViewAnimated;
+@class TABComponentManager;
+
+typedef void (^TABConfigBlock)(TABViewAnimated * _Nonnull tabAnimated);
 
 @interface UIView (TABControlAnimation)
 
@@ -118,7 +122,7 @@ extern int const TABAnimatedIndexTag;
 - (void)tab_penperateSkeletonWithIndex:(NSInteger)index;
 
 /// 骨架屏启动中，穿透骨架屏指定标记的组件, 用于多段网络请求
-/// 一般用于多段网络请求，局部显示指定组件 
+/// 一般用于多段网络请求，局部显示指定组件
 /// @param indexArray 指定标记数组
 - (void)tab_penperateSkeletonWithIndexArray:(NSArray <NSNumber *> *)indexArray;
 
