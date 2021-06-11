@@ -527,7 +527,10 @@
     if ((CGRectEqualToRect(view.bounds, rootView.bounds)
          || view.bounds.size.width > rootView.bounds.size.width
          || view.bounds.size.height > rootView.bounds.size.height)
-         && ![view isKindOfClass:[NSClassFromString(@"_UITableViewHeaderFooterContentView") class]]) {
+         && ![view isKindOfClass:[NSClassFromString(@"_UITableViewHeaderFooterContentView") class]]
+        && ![view isKindOfClass:[UILabel class]]
+        && ![view isKindOfClass:[UIButton class]]
+        && ![view isKindOfClass:[UIImageView class]]) {
         return YES;
     }
     
