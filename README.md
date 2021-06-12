@@ -43,7 +43,7 @@ TABAnimated是提供给iOS开发者自动生成骨架屏的一种解决方案。
 通过TABAnimated集成的骨架屏有什么优势？
 
 -  是一种自动化方案，实现速度快
--  零耦合，易于集成和移除
+-  与业务低耦合，易于集成和移除
 -  配有缓存功能，压测切换控制器不掉帧
 -  针对iOS原生视图处理，适用场景广
 -  自由度高，可以完全自定制，包括动画及其序列化
@@ -266,9 +266,7 @@ manager.animationWithIndexs(1,5,7).down(5);
 
 ## 交流群
 
-![交流群](https://user-images.githubusercontent.com/28705454/120928756-9baed180-c718-11eb-97de-7c5ad922f699.jpeg)
-
-
+![交流群](https://user-images.githubusercontent.com/28705454/121767693-6ed14300-cb8c-11eb-8c09-ffa3448ec676.jpeg)
 
 ## License
 
