@@ -1096,7 +1096,7 @@
     return ((NSIndexPath * (*)(id, SEL, UITableView *, NSIndexPath *))objc_msgSend)((id)oldDelegate, sel, tableView, indexPath);
 }
 
-- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tab_tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
     TABTableAnimated *tabAnimated = tableView.tabAnimated;
     if (tabAnimated.isAnimating) return;
     id oldDelegate = tabAnimated.oldDelegate;
