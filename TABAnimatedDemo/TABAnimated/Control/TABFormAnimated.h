@@ -75,6 +75,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL scrollEnabled;
 @property (nonatomic, assign) BOOL oldScrollEnabled;
 
+// default is YES
+@property (nonatomic, assign) BOOL scrollToTopEnabled;
+
 /**
  上拉加载更多组件
  */

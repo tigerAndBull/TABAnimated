@@ -36,6 +36,7 @@
         _runIndexDict = @{}.mutableCopy;
         
         _scrollEnabled = YES;
+        _scrollToTopEnabled = YES;
     }
     return self;
 }
@@ -67,7 +68,10 @@
     }else {
         
         UIScrollView *scrollView = (UIScrollView *)controlView;
-        [scrollView tab_scrollToTop];
+        
+        if (self.scrollToTopEnabled) {
+            [scrollView tab_scrollToTop];
+        }
         
         if (index == TABAnimatedIndexTag) {
             [self reloadAnimation];
