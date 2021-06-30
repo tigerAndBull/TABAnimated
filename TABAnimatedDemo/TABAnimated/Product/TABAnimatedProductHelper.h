@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class TABAnimatedProduction, TABComponentLayer;
+@class TABAnimatedProduction, TABComponentLayer, TABViewAnimated;
 
 #define TABAnimatedProductHelperScreenWidth [UIScreen mainScreen].bounds.size.width
 
@@ -31,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @param view 目标view
 */
-+ (BOOL)canProduct:(UIView *)view;
++ (BOOL)canProduct:(UIView *)view tabAnimated:(TABViewAnimated *)tabAnimated;
 
 + (TABComponentLayer *)getBackgroundLayerWithView:(UIView *)view controlView:(UIView *)controlView;
 

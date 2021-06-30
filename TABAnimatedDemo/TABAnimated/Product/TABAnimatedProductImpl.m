@@ -407,7 +407,7 @@
         BOOL needRemove = [self _isNeedRemove:subV];
         // 生产
         TABComponentLayer *layer;
-        if (stopRes || [TABAnimatedProductHelper canProduct:subV]) {
+        if (stopRes || [TABAnimatedProductHelper canProduct:subV tabAnimated:_controlView.tabAnimated]) {
             UIColor *animatedColor = [_controlView.tabAnimated getCurrentAnimatedColorWithCollection:_controlView.traitCollection];
             layer = [self _createLayerWithView:subV needRemove:needRemove color:animatedColor isCard:isCard];
             layer.serializationImpl = _controlView.tabAnimated.serializationImpl;

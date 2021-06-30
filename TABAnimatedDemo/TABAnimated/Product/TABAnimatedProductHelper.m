@@ -137,7 +137,15 @@ static const CGFloat kTagLabelMinWidth = 15.f;
     }
 }
 
-+ (BOOL)canProduct:(UIView *)view {
++ (BOOL)canProduct:(UIView *)view tabAnimated:(TABViewAnimated *)tabAnimated {
+    
+    if ([view isKindOfClass:[UITextField class]] && tabAnimated.needToCreateTextFieldLayer) {
+        return YES;
+    }
+    
+    if ([view.superview isKindOfClass:[UITextField class]]) {
+        return NO;
+    }
     
     if ([view isKindOfClass:[UICollectionView class]] || [view isKindOfClass:[UITableView class]]) {
         // 判断view为tableview/collectionview时，若有设置骨架动画，则返回NO；否则返回YES，允许设置绘制骨架图

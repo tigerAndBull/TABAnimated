@@ -131,6 +131,9 @@ FOUNDATION_EXPORT NSString *tab_NSStringFromClass(Class aClass);
 /// 只显示自己，不再遍历子视图
 @property (nonatomic, assign) Class withoutSubViewsClass;
 
+/// 是否需要基于UITextField创建骨架元素，默认为NO
+@property (nonatomic, assign) BOOL needToCreateTextFieldLayer;
+
 @property (nonatomic, assign) BOOL configed;
 
 - (nonnull UIColor *)getCurrentAnimatedColorWithCollection:(UITraitCollection *)collection;
