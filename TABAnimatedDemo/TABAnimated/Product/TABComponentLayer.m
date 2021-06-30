@@ -69,7 +69,7 @@ static const CGFloat kDefaultHeight = 16.f;
     return rect;
 }
 
-- (void)addLayer:(TABComponentLayer *)layer viewWidth:(CGFloat)viewWidth animatedHeight:(CGFloat)animatedHeight {
+- (void)addLayer:(TABComponentLayer *)layer viewWidth:(CGFloat)viewWidth animatedHeight:(CGFloat)animatedHeight superLayer:(nonnull TABComponentLayer *)superLayer {
     
     if (!CGRectEqualToRect(layer.adjustingFrame, CGRectZero)) {
         if (layer.origin != TABComponentLayerOriginCenterLabel) {
@@ -86,21 +86,28 @@ static const CGFloat kDefaultHeight = 16.f;
     #ifdef DEBUG
            // 添加红色标记
            if ([TABAnimated sharedAnimated].openAnimationTag) {
-               [TABAnimatedProductHelper addTagWithComponentLayer:layer isLines:layer.numberOflines == 1 ? NO : YES];
+               [TABAnimatedProductHelper addTagWithComponentLayer:layer isLines:NO needFrame:NO superLayer:superLayer];
            }
     #endif
     }else {
         if (layer.lineLayers.count != 0) {
             for (TABComponentLayer *subLayer in layer.lineLayers) {
                 [self addSublayer:subLayer];
+                if ([subLayer isEqual:layer.lineLayers.lastObject]) {
+    #ifdef DEBUG
+                // 添加红色标记
+                if ([TABAnimated sharedAnimated].openAnimationTag)
+                    [TABAnimatedProductHelper addTagWithComponentLayer:subLayer isLines:YES needFrame:NO superLayer:superLayer];
+    #endif
+                }
             }
         }else {
-            [self _addLinesLayer:layer animatedHeight:animatedHeight];
+            [self _addLinesLayer:layer animatedHeight:animatedHeight superLayer:superLayer];
         }
     }
 }
 
-- (void)_addLinesLayer:(TABComponentLayer *)layer animatedHeight:(CGFloat)animatedHeight {
+- (void)_addLinesLayer:(TABComponentLayer *)layer animatedHeight:(CGFloat)animatedHeight superLayer:(TABComponentLayer *)superLayer {
     
     CGRect frame = layer.frame;
     NSInteger lines = layer.numberOflines;
@@ -113,7 +120,6 @@ static const CGFloat kDefaultHeight = 16.f;
     NSInteger tagIndex = layer.tagIndex;
     NSString *tagName = layer.tagName;
     TABComponentLayerOrigin origin = layer.origin;
-    
     
     CGFloat textHeight;
     if (animatedHeight > 0.) {
@@ -167,7 +173,7 @@ static const CGFloat kDefaultHeight = 16.f;
 #ifdef DEBUG
             // 添加红色标记
             if ([TABAnimated sharedAnimated].openAnimationTag)
-                [TABAnimatedProductHelper addTagWithComponentLayer:sub isLines:YES];
+                [TABAnimatedProductHelper addTagWithComponentLayer:sub isLines:YES needFrame:YES superLayer:superLayer];
 #endif
         }else {
             sub.tagIndex = TABAnimatedIndexTag;

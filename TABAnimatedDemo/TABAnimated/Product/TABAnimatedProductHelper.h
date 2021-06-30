@@ -50,7 +50,7 @@ NS_ASSUME_NONNULL_BEGIN
 @param layer 目标layer
 @param isLines 是否为多行layer
 */
-+ (void)addTagWithComponentLayer:(TABComponentLayer *)layer isLines:(BOOL)isLines;
++ (void)addTagWithComponentLayer:(TABComponentLayer *)layer isLines:(BOOL)isLines needFrame:(BOOL)needFrame superLayer:(TABComponentLayer *)superLayer;
 
 /**
 获取指定情景下production的key
