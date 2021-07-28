@@ -266,7 +266,7 @@ manager.animationWithIndexs(1,5,7).down(5);
 
 ## 交流群
 
-![交流群](https://user-images.githubusercontent.com/28705454/125649624-180f3b4d-5c21-4b5e-b1b1-7c66c173ecd7.jpeg)
+![交流群](https://user-images.githubusercontent.com/28705454/127262028-cca78fa7-424a-4f89-b160-502310e66314.jpeg)
 
 
 ## License
