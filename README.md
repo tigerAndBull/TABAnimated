@@ -268,6 +268,9 @@ manager.animationWithIndexs(1,5,7).down(5);
 
 ![交流群](https://user-images.githubusercontent.com/28705454/127262028-cca78fa7-424a-4f89-b160-502310e66314.jpeg)
 
+## 应用接入
+
+<img width="100" alt="wecom-temp-4c0b27e6372bb356a05c92b838598457_副本" src="https://user-images.githubusercontent.com/28705454/128043124-9191c56d-38eb-4836-920c-8c4aa0e4efda.png">
 
 ## License
 
