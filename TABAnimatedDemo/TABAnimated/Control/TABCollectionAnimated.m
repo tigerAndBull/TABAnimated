@@ -265,10 +265,34 @@
         [self addNewMethodWithSel:oldHeightSel newSel:newHeightSel];
     }
     
-    SEL oldClickSel = @selector(collectionView:didSelectItemAtIndexPath:);
-    SEL newClickSel = @selector(tab_collectionView:didSelectItemAtIndexPath:);
-    if ([delegate respondsToSelector:oldClickSel]) {
-        [self addNewMethodWithSel:oldClickSel newSel:newClickSel];
+    SEL oldHeaderCellSel = @selector(collectionView:layout:referenceSizeForHeaderInSection:);
+    SEL newHeaderCellSel = @selector(tab_collectionView:layout:referenceSizeForHeaderInSection:);
+    if ([delegate respondsToSelector:oldHeaderCellSel]) {
+        [self addNewMethodWithSel:oldHeaderCellSel newSel:newHeaderCellSel];
+    }
+    
+    SEL oldFooterCellSel = @selector(collectionView:layout:referenceSizeForFooterInSection:);
+    SEL newFooterCellSel = @selector(tab_collectionView:layout:referenceSizeForFooterInSection:);
+    if ([delegate respondsToSelector:oldFooterCellSel]) {
+        [self addNewMethodWithSel:oldFooterCellSel newSel:newFooterCellSel];
+    }
+    
+    SEL oldInsetForSectionAtIndexSel = @selector(collectionView:layout:insetForSectionAtIndex:);
+    SEL newInsetForSectionAtIndexSel = @selector(tab_collectionView:layout:insetForSectionAtIndex:);
+    if ([delegate respondsToSelector:oldInsetForSectionAtIndexSel]) {
+        [self addNewMethodWithSel:oldInsetForSectionAtIndexSel newSel:newInsetForSectionAtIndexSel];
+    }
+    
+    SEL oldMinimumLineSpacingForSectionAtIndex = @selector(collectionView:layout:minimumLineSpacingForSectionAtIndex:);
+    SEL newMinimumLineSpacingForSectionAtIndex = @selector(tab_collectionView:layout:minimumLineSpacingForSectionAtIndex:);
+    if ([delegate respondsToSelector:oldMinimumLineSpacingForSectionAtIndex]) {
+        [self addNewMethodWithSel:oldMinimumLineSpacingForSectionAtIndex newSel:newMinimumLineSpacingForSectionAtIndex];
+    }
+    
+    SEL oldMinimumInteritemSpacingForSectionAtIndex = @selector(collectionView:layout:minimumInteritemSpacingForSectionAtIndex:);
+    SEL newMinimumInteritemSpacingForSectionAtIndex = @selector(tab_collectionView:layout:minimumInteritemSpacingForSectionAtIndex:);
+    if ([delegate respondsToSelector:oldMinimumInteritemSpacingForSectionAtIndex]) {
+        [self addNewMethodWithSel:oldMinimumInteritemSpacingForSectionAtIndex newSel:newMinimumInteritemSpacingForSectionAtIndex];
     }
     
     // Extra Delegate
@@ -492,18 +516,6 @@
     SEL newReuseableCellSel = @selector(tab_collectionView:viewForSupplementaryElementOfKind:atIndexPath:);
     if ([dataSource respondsToSelector:oldReuseableCellSel]) {
         [self addNewMethodWithSel:oldReuseableCellSel newSel:newReuseableCellSel];
-    }
-    
-    SEL oldHeaderCellSel = @selector(collectionView:layout:referenceSizeForHeaderInSection:);
-    SEL newHeaderCellSel = @selector(tab_collectionView:layout:referenceSizeForHeaderInSection:);
-    if ([dataSource respondsToSelector:oldHeaderCellSel]) {
-        [self addNewMethodWithSel:oldHeaderCellSel newSel:newHeaderCellSel];
-    }
-    
-    SEL oldFooterCellSel = @selector(collectionView:layout:referenceSizeForFooterInSection:);
-    SEL newFooterCellSel = @selector(tab_collectionView:layout:referenceSizeForFooterInSection:);
-    if ([dataSource respondsToSelector:oldFooterCellSel]) {
-        [self addNewMethodWithSel:oldFooterCellSel newSel:newFooterCellSel];
     }
     
     if (self.waterFallLayoutHeightSel) {
@@ -953,7 +965,12 @@
     if (tabAnimated.isAnimating) return CGPointZero;
     id oldDelegate = tabAnimated.oldDelegate;
     SEL sel = @selector(collectionView:targetContentOffsetForProposedContentOffset:);
+    // On some architectures, use objc_msgSend_stret for some struct return types.
+#ifdef __arm64__
     return ((CGPoint (*)(id, SEL, UICollectionView *, CGPoint))objc_msgSend)((id)oldDelegate, sel, collectionView, proposedContentOffset);
+#else
+    return ((CGPoint (*)(id, SEL, UICollectionView *, CGPoint))objc_msgSend_stret)((id)oldDelegate, sel, collectionView, proposedContentOffset);
+#endif
 }
 
 - (BOOL)tab_collectionView:(UICollectionView *)collectionView canEditItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -1042,6 +1059,35 @@
     id oldDelegate = tabAnimated.oldDelegate;
     SEL sel = @selector(collectionView:willEndContextMenuInteractionWithConfiguration:animator:);
     ((void (*)(id, SEL, UICollectionView *, UIContextMenuConfiguration *, id))objc_msgSend)((id)oldDelegate, sel, collectionView, configuration, animator);
+}
+
+#pragma mark - UICollectionViewLayout
+
+- (UIEdgeInsets)tab_collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
+    TABCollectionAnimated *tabAnimated = collectionView.tabAnimated;
+    id oldDelegate = tabAnimated.oldDelegate;
+    SEL sel = @selector(collectionView:layout:insetForSectionAtIndex:);
+    
+    // On some architectures, use objc_msgSend_stret for some struct return types.
+#ifdef __arm64__
+    return ((UIEdgeInsets (*)(id, SEL, UICollectionView *, UICollectionViewLayout *, NSInteger))objc_msgSend)((id)oldDelegate, sel, collectionView, collectionViewLayout, section);
+#else
+    return ((UIEdgeInsets (*)(id, SEL, UICollectionView *, UICollectionViewLayout *, NSInteger))objc_msgSend_stret)((id)oldDelegate, sel, collectionView, collectionViewLayout, section);
+#endif
+}
+
+- (CGFloat)tab_collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
+    TABCollectionAnimated *tabAnimated = collectionView.tabAnimated;
+    id oldDelegate = tabAnimated.oldDelegate;
+    SEL sel = @selector(collectionView:layout:minimumLineSpacingForSectionAtIndex:);
+    return ((CGFloat (*)(id, SEL, UICollectionView *, UICollectionViewLayout *, NSInteger))objc_msgSend)((id)oldDelegate, sel, collectionView, collectionViewLayout, section);
+}
+
+- (CGFloat)tab_collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
+    TABCollectionAnimated *tabAnimated = collectionView.tabAnimated;
+    id oldDelegate = tabAnimated.oldDelegate;
+    SEL sel = @selector(collectionView:layout:minimumInteritemSpacingForSectionAtIndex:);
+    return ((CGFloat (*)(id, SEL, UICollectionView *, UICollectionViewLayout *, NSInteger))objc_msgSend)((id)oldDelegate, sel, collectionView, collectionViewLayout, section);
 }
 
 @end

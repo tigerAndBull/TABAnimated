@@ -28,6 +28,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    NSLog(@"%@", [NSString stringWithFormat:@"【控制器：%@】---> enter", NSStringFromClass(self.class)]);
     [self setupUI];
 }
 
