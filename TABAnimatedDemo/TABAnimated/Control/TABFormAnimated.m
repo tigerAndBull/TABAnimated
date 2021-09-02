@@ -145,7 +145,7 @@
 
 - (NSInteger)getIndexWithIndexPath:(NSIndexPath *)indexPath {
     NSInteger currentIndex;
-    if (self.runMode == TABAnimatedRunBySection) {
+    if (self.runMode == TABAnimatedRunBySection || self.runMode == TABAnimatedRunByPartSection) {
         currentIndex = indexPath.section;
     }else {
         currentIndex = indexPath.row;

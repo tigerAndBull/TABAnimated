@@ -158,7 +158,7 @@
     UICollectionView *collectionView = (UICollectionView *)controlView;
     if (index == TABAnimatedIndexTag) {
         [collectionView reloadData];
-    }else if (self.runMode == TABAnimatedRunBySection) {
+    }else if (self.runMode == TABAnimatedRunBySection || self.runMode == TABAnimatedRunByPartSection) {
         [collectionView reloadSections:[NSIndexSet indexSetWithIndex:index]];
     }else if (self.runMode == TABAnimatedRunByRow) {
         [collectionView reloadItemsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]]];
@@ -614,8 +614,11 @@
         return ((NSInteger (*)(id, SEL, UICollectionView *))objc_msgSend)((id)oldDelegate, sel, collectionView);
     }
     
-    if (tabAnimated.runMode == TABAnimatedRunBySection && tabAnimated.animatedSectionCount > 0) {
-        return tabAnimated.animatedSectionCount;
+    if (tabAnimated.runMode == TABAnimatedRunBySection) {
+        if (tabAnimated.animatedSectionCount > 0) {
+            return tabAnimated.animatedSectionCount;
+        }
+        return tabAnimated.cellClassArray.count;
     }
     
     NSInteger count = ((NSInteger (*)(id, SEL, UICollectionView *))objc_msgSend)((id)oldDelegate, sel, collectionView);
@@ -634,10 +637,14 @@
         return ((NSInteger (*)(id, SEL, UICollectionView *, NSInteger))objc_msgSend)((id)oldDelegate, sel, collectionView, section);
     }
     
-    NSInteger originCount = ((NSInteger (*)(id, SEL, UICollectionView *, NSInteger))objc_msgSend)((id)oldDelegate, sel, collectionView, section);
-    if (tabAnimated.runMode == TABAnimatedRunByRow) {
-        if (tabAnimated.animatedCount > 0) return tabAnimated.animatedCount;
-        return originCount > 0 ? originCount : tabAnimated.cellClassArray.count;
+    NSInteger originCount = 0;
+    
+    if (tabAnimated.animatedSectionCount <= 0) {
+        originCount = ((NSInteger (*)(id, SEL, UICollectionView *, NSInteger))objc_msgSend)((id)oldDelegate, sel, collectionView, section);
+        if (tabAnimated.runMode == TABAnimatedRunByRow) {
+            if (tabAnimated.animatedCount > 0) return tabAnimated.animatedCount;
+            return originCount > 0 ? originCount : tabAnimated.cellClassArray.count;
+        }
     }
     
     if (tabAnimated.animatedCount > 0) return tabAnimated.animatedCount;

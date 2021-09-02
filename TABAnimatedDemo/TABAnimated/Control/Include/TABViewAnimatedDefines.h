@@ -75,8 +75,7 @@ typedef NS_ENUM(NSInteger, TABAnimatedRunMode) {
      */
     TABAnimatedRunByRow,
     
-    // 创作模式，不依赖view生成元素，全部由开发者自行通过预处理回调创建
-    TABAnimatedRunCreative,
+    TABAnimatedRunByPartSection, 
 };
 
 typedef NS_ENUM(NSInteger, TABAnimatedViewType) {

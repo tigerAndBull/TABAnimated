@@ -167,7 +167,6 @@
     [self _reuseProduction:production targetView:view];
 }
 
-// 同步
 - (void)syncProductions {
     for (NSInteger i = 0; i < self.weakTargetViewArray.count; i++) {
         UIView *view = [self.weakTargetViewArray pointerAtIndex:i];
@@ -327,14 +326,12 @@
         __strong typeof(weakSelf) strongSelf = weakSelf;
         
         if (strongSelf.weakTargetViewArray.allObjects.count == 0) return;
-        if (strongSelf.productIndex > strongSelf.weakTargetViewArray.allObjects.count-1) return;
+        if (strongSelf.productIndex > strongSelf.weakTargetViewArray.allObjects.count - 1) return;
         
-        // 从等待队列中取出需要加工的view
         strongSelf->_targetView = [strongSelf.weakTargetViewArray pointerAtIndex:strongSelf.productIndex];
         if (!strongSelf->_targetView) return;
         
         strongSelf->_targetTagIndex = 0;
-        // 生产流水
         [strongSelf _productWithTargetView:strongSelf->_targetView isCard:isCard];
         
         if (needReset) {
@@ -351,20 +348,19 @@
         TABAnimatedProduction *production = targetView.tabAnimatedProduction;
         NSString *controlerClassName = _controlView.tabAnimated.targetControllerClassName;
         production.fileName = [TABAnimatedProductHelper getKeyWithControllerName:controlerClassName targetClass:production.targetClass frame:_controlView.frame];
-        
         NSMutableArray <TABComponentLayer *> *layerArray = @[].mutableCopy;
         NSMutableDictionary <NSString *, TABComponentLayer *> *layerDict = @{}.mutableCopy;
-        // 生产
+        // producting
         [self _recurseProductLayerWithView:targetView array:layerArray dict:layerDict production:production isCard:isCard];
-        // 加工
+        // adjusting
         [self _chainAdjustWithBackgroundLayer:production.backgroundLayer layers:layerArray tabAnimated:_controlView.tabAnimated targetClass:production.targetClass];
-        // 绑定
+        // binding
         production.state = TABAnimatedProductionBind;
         production.layers = layerArray;
         targetView.tabAnimatedProduction = production;
-        // 缓存
+        // caching
         [[TABAnimatedCacheManager shareManager] cacheProduction:production];
-        // 推荐高度
+        // caculating recommendHeight
         if (_controlView.tabAnimated.recommendHeightBlock) {
             _controlView.tabAnimated.recommendHeightBlock(targetView.class, [production recommendHeight]);
         }

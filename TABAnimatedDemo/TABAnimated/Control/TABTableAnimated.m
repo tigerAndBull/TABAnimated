@@ -59,7 +59,7 @@
 + (instancetype)animatedWithCellClass:(Class)cellClass
                            cellHeight:(CGFloat)cellHeight
                             toSection:(NSInteger)section {
-    TABTableAnimated *obj = [self _animatedWithCellClass:cellClass cellHeight:cellHeight animatedCount:ceilf([UIScreen mainScreen].bounds.size.height/cellHeight*1.0) toIndex:section runMode:TABAnimatedRunBySection];
+    TABTableAnimated *obj = [self _animatedWithCellClass:cellClass cellHeight:cellHeight animatedCount:ceilf([UIScreen mainScreen].bounds.size.height/cellHeight*1.0) toIndex:section runMode:TABAnimatedRunByPartSection];
     return obj;
 }
 
@@ -67,7 +67,7 @@
                            cellHeight:(CGFloat)cellHeight
                         animatedCount:(NSInteger)animatedCount
                             toSection:(NSInteger)section {
-    TABTableAnimated *obj = [self _animatedWithCellClass:cellClass cellHeight:cellHeight animatedCount:animatedCount toIndex:section runMode:TABAnimatedRunBySection];
+    TABTableAnimated *obj = [self _animatedWithCellClass:cellClass cellHeight:cellHeight animatedCount:animatedCount toIndex:section runMode:TABAnimatedRunByPartSection];
     return obj;
 }
 
@@ -90,7 +90,7 @@
                                                           cellHeightArray:cellHeightArray
                                                        animatedCountArray:animatedCountArray
                                                                indexArray:animatedSectionArray
-                                                                  runMode:TABAnimatedRunBySection];
+                                                                  runMode:TABAnimatedRunByPartSection];
     return obj;
 }
 
@@ -277,7 +277,7 @@
 
     if (index == TABAnimatedIndexTag) {
         [tableView reloadData];
-    }else if (self.runMode == TABAnimatedRunBySection) {
+    }else if (self.runMode == TABAnimatedRunBySection || self.runMode == TABAnimatedRunByPartSection) {
         [tableView reloadSections:[NSIndexSet indexSetWithIndex:index] withRowAnimation:UITableViewRowAnimationNone];
     }else if (self.runMode == TABAnimatedRunByRow) {
         [tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
@@ -757,8 +757,11 @@
         return ((NSInteger (*)(id, SEL, UITableView *))objc_msgSend)((id)oldDelegate, sel, tableView);
     }
     
-    if (tabAnimated.runMode == TABAnimatedRunBySection && tabAnimated.animatedSectionCount > 0) {
-        return tabAnimated.animatedSectionCount;
+    if (tabAnimated.runMode == TABAnimatedRunBySection) {
+        if (tabAnimated.animatedSectionCount > 0) {
+            return tabAnimated.animatedSectionCount;
+        }
+        return tabAnimated.cellClassArray.count;
     }
     
     NSInteger count = ((NSInteger (*)(id, SEL, UITableView *))objc_msgSend)((id)oldDelegate, sel, tableView);
@@ -777,10 +780,14 @@
         return ((NSInteger (*)(id, SEL, UITableView *, NSInteger))objc_msgSend)((id)oldDelegate, sel, tableView, section);
     }
     
-    NSInteger originCount = ((NSInteger (*)(id, SEL, UITableView *, NSInteger))objc_msgSend)((id)oldDelegate, sel, tableView, section);
-    if (tabAnimated.runMode == TABAnimatedRunByRow) {
-        if (tabAnimated.animatedCount > 0) return tabAnimated.animatedCount;
-        return originCount > 0 ? originCount : tabAnimated.cellClassArray.count;
+    NSInteger originCount = 0;
+    
+    if (tabAnimated.animatedSectionCount <= 0) {
+        originCount = ((NSInteger (*)(id, SEL, UITableView *, NSInteger))objc_msgSend)((id)oldDelegate, sel, tableView, section);
+        if (tabAnimated.runMode == TABAnimatedRunByRow) {
+            if (tabAnimated.animatedCount > 0) return tabAnimated.animatedCount;
+            return originCount > 0 ? originCount : tabAnimated.cellClassArray.count;
+        }
     }
 
     if (tabAnimated.animatedCount > 0) return tabAnimated.animatedCount;

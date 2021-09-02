@@ -62,6 +62,13 @@ typedef NS_ENUM(NSInteger, TABComponentLayerOrigin) {
     TABComponentLayerOriginCreate,
 };
 
+typedef NS_ENUM(NSInteger, TABLinesMode) {
+    // 基于该layer的高度，衍生出n个layer，并垂直排列（n为numberOflines，链式语法.line(n)）
+    TABLinesVertical = 0,
+    // 基于该layer的宽度/n，衍生出n个layer，并水平排列
+    TABLinesHorizontal,
+};
+
 #pragma mark - 属性
 
 /**
@@ -91,6 +98,9 @@ typedef NS_ENUM(NSInteger, TABComponentLayerOrigin) {
  * 由其他类型组件映射出的动画元素，该属性会被设置为1，你可以对其更改，达到多行的效果。
  */
 @property (nonatomic, assign) NSInteger numberOflines;
+
+/// 多行的布局方式
+@property (nonatomic, assign) TABLinesMode linesMode;
 
 /**
  * 对于`numberOflines` > 1的动画元素，设置行与行之间的间距，默认是8.0。

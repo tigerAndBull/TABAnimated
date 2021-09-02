@@ -351,6 +351,16 @@ struct TABBaseComonentOperation {
 
 - (void)result_line:(CGFloat)offset {
     _layer.numberOflines = offset;
+    _layer.linesMode = TABLinesVertical;
+}
+
+- (TABBaseComponentIntegerAndIntegerBlock)lineWithMode {
+    __weak typeof(self) weakSelf = self;
+    return ^TABBaseComponent *(NSInteger value, TABLinesMode mode) {
+        weakSelf.layer.numberOflines = value;
+        weakSelf.layer.linesMode = mode;
+        return weakSelf;
+    };
 }
 
 #pragma mark - space

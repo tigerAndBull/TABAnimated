@@ -147,6 +147,9 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (TABBaseComponentIntegerBlock)line;
 
+/// 设置动画行数，同时设置排列方式，请搜索 TABLinesMode查看
+- (TABBaseComponentIntegerAndIntegerBlock)lineWithMode;
+
 /**
  设置多行动画元素的间距，即行数超过1时生效，默认为8.0。
  

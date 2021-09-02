@@ -192,7 +192,7 @@ const int TABAnimatedIndexTag = -100000;
                 }
             }else {
                 if (![tabAnimated endAnimationWithIndex:index]) return;
-                if (tabAnimated.runMode == TABAnimatedRunBySection) {
+                if (tabAnimated.runMode == TABAnimatedRunBySection || tabAnimated.runMode == TABAnimatedRunByPartSection) {
                     [(UITableView *)self reloadSections:[NSIndexSet indexSetWithIndex:index] withRowAnimation:UITableViewRowAnimationNone];
                 }else {
                     [(UITableView *)self reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
@@ -204,7 +204,7 @@ const int TABAnimatedIndexTag = -100000;
                 [(UICollectionView *)self reloadData];
             }else {
                 [tabAnimated endAnimationWithIndex:index];
-                if (tabAnimated.runMode == TABAnimatedRunBySection) {
+                if (tabAnimated.runMode == TABAnimatedRunBySection || tabAnimated.runMode == TABAnimatedRunByPartSection) {
                     [(UICollectionView *)self reloadSections:[NSIndexSet indexSetWithIndex:index]];
                 }else {
                     [(UICollectionView *)self reloadItemsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]]];

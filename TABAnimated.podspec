@@ -26,7 +26,7 @@ Pod::Spec.new do |s|
   s.platform     = :ios, "8.0"
 
   #库的地址
-  s.source       = { :git => "https://github.com/tigerAndBull/TABAnimated.git", :commit => "a626d4a1a5a0aa3ea182cc9256c3179555c83881" }
+  s.source       = { :git => "https://github.com/tigerAndBull/TABAnimated.git", :commit => "80ab756afb38325c202f90187fbb39c6919d6d7a" }
 
   s.source_files = 'TABAnimatedDemo/TABAnimated/**/*.{h,m}'
 

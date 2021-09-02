@@ -76,7 +76,7 @@ static const CGFloat kDefaultHeight = 16.f;
             layer.frame = layer.adjustingFrame;
         }else {
             CGRect frame = layer.adjustingFrame;
-            CGRect rect = CGRectMake((viewWidth - frame.size.width)/2.0, frame.origin.y, frame.size.width, frame.size.height);
+            CGRect rect = CGRectMake((viewWidth - frame.size.width) / 2.0, frame.origin.y, frame.size.width, frame.size.height);
             layer.frame = rect;
         }
     }
@@ -131,32 +131,52 @@ static const CGFloat kDefaultHeight = 16.f;
     }
     
     if (lines == 0) {
-        lines = (frame.size.height * 1.0)/(textHeight + space);
+        lines = (frame.size.height * 1.0) / (textHeight + space);
         if (lines >= 0 && lines <= 1) {
             lines = 3;
         }
     }
     
     CGFloat offsetY = frame.origin.y;
+    CGFloat offsetX = frame.origin.x;
     
     for (NSInteger i = 0; i < lines; i ++) {
         
         NSString *key = [TABComponentLayer getLineKey:i];
-        NSString *spaceKey = (i == 0) ? nil : [TABComponentLayer getLineKey:i-1];
+        NSString *spaceKey = (i == 0) ? nil : [TABComponentLayer getLineKey:i - 1];
         CGFloat subWidth = [[layer.widthDict valueForKey:key] floatValue];
         CGFloat subHeight = [[layer.heightDict valueForKey:key] floatValue];
         CGFloat subSpace = !spaceKey ? space : [[layer.spaceDict valueForKey:spaceKey] floatValue];
         
         CGFloat resultSpace = (subSpace != 0 && i != 0) ? subSpace : space;
         CGFloat resultHeight = subHeight != 0 ? subHeight : textHeight;
+        CGFloat resultWidth = 0.;
         
         CGRect rect;
-        offsetY += (i != 0) ? (resultHeight + resultSpace) : 0 ;
         
-        if (i != lines - 1) {
-            rect = CGRectMake(frame.origin.x, offsetY, subWidth != 0 ? subWidth : frame.size.width, resultHeight);
-        }else {
-            rect = CGRectMake(frame.origin.x, offsetY, subWidth != 0 ? subWidth : frame.size.width * lastScale, resultHeight);
+        switch (layer.linesMode) {
+            case TABLinesVertical:
+                if (subWidth > 0) {
+                    resultWidth = subWidth;
+                } else if (i != lines - 1) {
+                    resultWidth = frame.size.width;
+                } else {
+                    resultWidth = frame.size.width * lastScale;
+                }
+                offsetY += (i != 0) ? (resultHeight + resultSpace) : 0 ;
+                rect = CGRectMake(offsetX, offsetY, resultWidth, resultHeight);
+                break;
+            case TABLinesHorizontal:
+                if (subWidth > 0) {
+                    resultWidth = subWidth;
+                } else {
+                    resultWidth = frame.size.width / lines;
+                }
+                offsetX += (i != 0) ? (resultWidth + resultSpace) : 0 ;
+                rect = CGRectMake(offsetX, offsetY, resultWidth, resultHeight);
+                break;
+            default:
+                break;
         }
         
         TABComponentLayer *sub = [[TABComponentLayer alloc]init];
@@ -239,6 +259,7 @@ static const CGFloat kDefaultHeight = 16.f;
     [aCoder encodeObject:_heightDict forKey:@"heightDict"];
     [aCoder encodeObject:_spaceDict forKey:@"spaceDict"];
     [aCoder encodeObject:_tagName forKey:@"tagName"];
+    [aCoder encodeInteger:_linesMode forKey:@"linesMode"];
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
@@ -284,6 +305,7 @@ static const CGFloat kDefaultHeight = 16.f;
         self.heightDict = [aDecoder decodeObjectForKey:@"heightDict"];
         self.spaceDict = [aDecoder decodeObjectForKey:@"spaceDict"];
         self.tagName = [aDecoder decodeObjectForKey:@"tagName"];
+        self.linesMode = [aDecoder decodeIntegerForKey:@"linesMode"];
     }
     
     if (self.serializationImpl) {
@@ -340,6 +362,7 @@ static const CGFloat kDefaultHeight = 16.f;
     layer.heightDict = self.heightDict;
     layer.spaceDict = self.spaceDict;
     layer.tagName = self.tagName;
+    layer.linesMode = self.linesMode;
     
     if(self.lineLayers.count != 0) {
         layer.lineLayers = @[].mutableCopy;
