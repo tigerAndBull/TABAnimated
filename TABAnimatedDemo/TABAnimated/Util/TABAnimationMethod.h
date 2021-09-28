@@ -32,8 +32,6 @@ FOUNDATION_EXPORT NSString *tab_NSStringFromIndex(NSInteger index);
 /// 获取App版本
 + (NSString *)appVersion;
 
-+ (NSString *)uuidString;
-
 @end
 
 NS_ASSUME_NONNULL_END

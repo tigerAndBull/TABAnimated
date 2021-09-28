@@ -107,7 +107,20 @@ const int TABAnimatedIndexTag = -100000;
     tabAnimated.state = TABViewAnimationStart;
     
     if (tabAnimated.targetControllerClassName == nil || tabAnimated.targetControllerClassName.length == 0) {
-        tabAnimated.targetControllerClassName = [self _getKey];
+        NSString *prefixString;
+        if ([tabAnimated isKindOfClass:[TABFormAnimated class]]) {
+            NSObject *oldDelegate;
+            NSObject *oldDataSource;
+            if ([self isKindOfClass:[UITableView class]]) {
+                oldDelegate = ((UITableView *)self).delegate;
+                oldDataSource = ((UITableView *)self).dataSource;
+            } else if ([self isKindOfClass:[UICollectionView class]]) {
+                oldDelegate = ((UICollectionView *)self).delegate;
+                oldDataSource = ((UICollectionView *)self).dataSource;
+            }
+            prefixString = [NSString stringWithFormat:@"%@_%@", NSStringFromClass(oldDelegate.class), NSStringFromClass(oldDataSource.class)];
+        }
+        tabAnimated.targetControllerClassName = [self _getKeyWithPrefixString:prefixString];
     }
     
     if ([tabAnimated isKindOfClass:[TABFormAnimated class]]) {
@@ -271,14 +284,22 @@ const int TABAnimatedIndexTag = -100000;
 
 #pragma mark - Private
 
-- (NSString *)_getKey {
+- (NSString *)_getKeyWithPrefixString:(NSString *)prefixString {
     for (UIView *next = [self superview]; next; next = next.superview) {
         UIResponder *nextResponder = [next nextResponder];
         if ([nextResponder isKindOfClass:[UIViewController class]]) {
+            if (prefixString.length) {
+                return [NSString stringWithFormat:@"%@_%@", prefixString, NSStringFromClass(nextResponder.class)];
+            }
             return NSStringFromClass(nextResponder.class);
         }
     }
-    return [TABAnimationMethod uuidString];
+    
+    if (prefixString.length) {
+        return prefixString;
+    }
+    
+    return nil;
 }
 
 @end
