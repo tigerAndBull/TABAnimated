@@ -107,8 +107,7 @@ const int TABAnimatedIndexTag = -100000;
     tabAnimated.state = TABViewAnimationStart;
     
     if (tabAnimated.targetControllerClassName == nil || tabAnimated.targetControllerClassName.length == 0) {
-        UIViewController *controller = [self _viewController];
-        if (controller) tabAnimated.targetControllerClassName = NSStringFromClass(controller.class);
+        tabAnimated.targetControllerClassName = [self _getKey];
     }
     
     if ([tabAnimated isKindOfClass:[TABFormAnimated class]]) {
@@ -272,14 +271,14 @@ const int TABAnimatedIndexTag = -100000;
 
 #pragma mark - Private
 
-- (UIViewController*)_viewController {
+- (NSString *)_getKey {
     for (UIView *next = [self superview]; next; next = next.superview) {
         UIResponder *nextResponder = [next nextResponder];
         if ([nextResponder isKindOfClass:[UIViewController class]]) {
-            return (UIViewController*)nextResponder;
+            return NSStringFromClass(nextResponder.class);
         }
     }
-    return nil;
+    return [TABAnimationMethod uuidString];
 }
 
 @end
