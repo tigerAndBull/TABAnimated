@@ -28,11 +28,12 @@
 #import "UIView+TABAnimated.h"
 
 @interface TABAnimatedProductImpl() {
-    // self存在即存在
-    __unsafe_unretained UIView *_controlView;
     // 进入加工流时，会取出targetView，结束时释放。加工流只会在持有targetView的controlView存在时执行。
     __unsafe_unretained UIView *_targetView;
 }
+
+// self存在即存在
+@property (nonatomic, weak) UIView *controlView;
 
 // 加工等待队列
 @property (nonatomic, strong) NSPointerArray *weakTargetViewArray;
