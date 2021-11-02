@@ -392,6 +392,8 @@
         UIView *subV = subViews[i];
         if (subV.tabAnimated) continue;
         
+        if ([self _withoutSubViewsWithView:view tabAnimated:_controlView.tabAnimated]) continue;
+        
         BOOL stopRes = NO;
         if (subV.class == _controlView.tabAnimated.withoutSubViewsClass) {
             stopRes = YES;
@@ -510,12 +512,23 @@
 
 #pragma mark -
 
+- (BOOL)_withoutSubViewsWithView:(UIView *)view tabAnimated:(TABViewAnimated *)tabAnimated {
+    if ([view isKindOfClass:[UITextField class]] && !tabAnimated.needToCreateTextFieldLayer) {
+        return YES;
+    }
+    if ([view isKindOfClass:[UITextView class]]) {
+        return YES;
+    }
+    return NO;
+}
+
 - (BOOL)_cannotBeCreated:(UIView *)view superView:(UIView *)superView rootView:(UIView *)rootView {
     
     if ([view isKindOfClass:[NSClassFromString(@"UITableViewCellContentView") class]] ||
         [view isKindOfClass:[NSClassFromString(@"UICollectionViewCellContentView") class]] ||
         [view isKindOfClass:[NSClassFromString(@"_UISystemBackgroundView") class]] ||
-        [view isKindOfClass:[NSClassFromString(@"_UITableViewHeaderFooterViewBackground") class]]) {
+        [view isKindOfClass:[NSClassFromString(@"_UITableViewHeaderFooterViewBackground") class]] ||
+        [view isKindOfClass:[NSClassFromString(@"_UIScrollViewScrollIndicator") class]]) {
         return YES;
     }
     
