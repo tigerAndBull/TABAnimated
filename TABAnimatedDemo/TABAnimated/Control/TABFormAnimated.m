@@ -375,7 +375,6 @@
 
 - (void)tab_scrollViewDidScroll:(UIScrollView *)scrollView {
     TABFormAnimated *tabAnimated = (TABFormAnimated *)(scrollView.tabAnimated);
-    if (tabAnimated.isAnimating) return;
     id oldDelegate = tabAnimated.oldDelegate;
     SEL sel = @selector(scrollViewDidScroll:);
     ((void (*)(id, SEL, UIScrollView *))objc_msgSend)((id)oldDelegate, sel, scrollView);
@@ -383,7 +382,6 @@
 
 - (void)tab_scrollViewDidZoom:(UIScrollView *)scrollView {
     TABFormAnimated *tabAnimated = (TABFormAnimated *)(scrollView.tabAnimated);
-    if (tabAnimated.isAnimating) return;
     id oldDelegate = tabAnimated.oldDelegate;
     SEL sel = @selector(scrollViewDidZoom:);
     ((void (*)(id, SEL, UIScrollView *))objc_msgSend)((id)oldDelegate, sel, scrollView);
@@ -392,7 +390,6 @@
 // called on start of dragging (may require some time and or distance to move)
 - (void)tab_scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     TABFormAnimated *tabAnimated = (TABFormAnimated *)(scrollView.tabAnimated);
-    if (tabAnimated.isAnimating) return;
     id oldDelegate = tabAnimated.oldDelegate;
     SEL sel = @selector(scrollViewWillBeginDragging:);
     ((void (*)(id, SEL, UIScrollView *))objc_msgSend)((id)oldDelegate, sel, scrollView);
@@ -401,7 +398,6 @@
 // called on finger up if the user dragged. velocity is in points/millisecond. targetContentOffset may be changed to adjust where the scroll view comes to rest
 - (void)tab_scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset API_AVAILABLE(ios(5.0)) {
     TABFormAnimated *tabAnimated = (TABFormAnimated *)(scrollView.tabAnimated);
-    if (tabAnimated.isAnimating) return;
     id oldDelegate = tabAnimated.oldDelegate;
     SEL sel = @selector(scrollViewWillEndDragging:withVelocity:targetContentOffset:);
     ((void (*)(id, SEL, UIScrollView *, CGPoint, CGPoint *))objc_msgSend)((id)oldDelegate, sel, scrollView, velocity, targetContentOffset);
@@ -410,7 +406,6 @@
 // called on finger up if the user dragged. decelerate is true if it will continue moving afterwards
 - (void)tab_scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
     TABFormAnimated *tabAnimated = (TABFormAnimated *)(scrollView.tabAnimated);
-    if (tabAnimated.isAnimating) return;
     id oldDelegate = tabAnimated.oldDelegate;
     SEL sel = @selector(scrollViewDidEndDragging:willDecelerate:);
     ((void (*)(id, SEL, UIScrollView *, BOOL))objc_msgSend)((id)oldDelegate, sel, scrollView, decelerate);
@@ -418,7 +413,6 @@
 
 - (void)tab_scrollViewWillBeginDecelerating:(UIScrollView *)scrollView {
     TABFormAnimated *tabAnimated = (TABFormAnimated *)(scrollView.tabAnimated);
-    if (tabAnimated.isAnimating) return;
     id oldDelegate = tabAnimated.oldDelegate;
     SEL sel = @selector(scrollViewWillBeginDecelerating:);
     ((void (*)(id, SEL, UIScrollView *))objc_msgSend)((id)oldDelegate, sel, scrollView);
@@ -426,7 +420,6 @@
 
 - (void)tab_scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     TABFormAnimated *tabAnimated = (TABFormAnimated *)(scrollView.tabAnimated);
-    if (tabAnimated.isAnimating) return;
     id oldDelegate = tabAnimated.oldDelegate;
     SEL sel = @selector(scrollViewDidEndDecelerating:);
     ((void (*)(id, SEL, UIScrollView *))objc_msgSend)((id)oldDelegate, sel, scrollView);
@@ -434,7 +427,6 @@
 
 - (void)tab_scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
     TABFormAnimated *tabAnimated = (TABFormAnimated *)(scrollView.tabAnimated);
-    if (tabAnimated.isAnimating) return;
     id oldDelegate = tabAnimated.oldDelegate;
     SEL sel = @selector(scrollViewDidEndScrollingAnimation:);
     ((void (*)(id, SEL, UIScrollView *))objc_msgSend)((id)oldDelegate, sel, scrollView);
@@ -442,7 +434,6 @@
 
 - (nullable UIView *)tab_viewForZoomingInScrollView:(UIScrollView *)scrollView {
     TABFormAnimated *tabAnimated = (TABFormAnimated *)(scrollView.tabAnimated);
-    if (tabAnimated.isAnimating) return nil;
     id oldDelegate = tabAnimated.oldDelegate;
     SEL sel = @selector(viewForZoomingInScrollView:);
     return ((UIView * (*)(id, SEL, UIScrollView *))objc_msgSend)((id)oldDelegate, sel, scrollView);
@@ -450,7 +441,6 @@
 
 - (void)tab_scrollViewWillBeginZooming:(UIScrollView *)scrollView withView:(nullable UIView *)view API_AVAILABLE(ios(3.2)) {
     TABFormAnimated *tabAnimated = (TABFormAnimated *)(scrollView.tabAnimated);
-    if (tabAnimated.isAnimating) return;
     id oldDelegate = tabAnimated.oldDelegate;
     SEL sel = @selector(scrollViewWillBeginZooming:withView:);
     ((void (*)(id, SEL, UIScrollView *, UIView *))objc_msgSend)((id)oldDelegate, sel, scrollView, view);
@@ -458,7 +448,6 @@
 
 - (void)tab_scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(nullable UIView *)view atScale:(CGFloat)scale {
     TABFormAnimated *tabAnimated = (TABFormAnimated *)(scrollView.tabAnimated);
-    if (tabAnimated.isAnimating) return;
     id oldDelegate = tabAnimated.oldDelegate;
     SEL sel = @selector(scrollViewDidEndZooming:withView:atScale:);
     ((void (*)(id, SEL, UIScrollView *, UIView *, CGFloat))objc_msgSend)((id)oldDelegate, sel, scrollView, view, scale);
@@ -466,7 +455,6 @@
 
 - (BOOL)tab_scrollViewShouldScrollToTop:(UIScrollView *)scrollView {
     TABFormAnimated *tabAnimated = (TABFormAnimated *)(scrollView.tabAnimated);
-    if (tabAnimated.isAnimating) return NO;
     id oldDelegate = tabAnimated.oldDelegate;
     SEL sel = @selector(scrollViewShouldScrollToTop:);
     return ((BOOL (*)(id, SEL, UIScrollView *))objc_msgSend)((id)oldDelegate, sel, scrollView);
@@ -474,7 +462,6 @@
 
 - (void)tab_scrollViewDidScrollToTop:(UIScrollView *)scrollView {
     TABFormAnimated *tabAnimated = (TABFormAnimated *)(scrollView.tabAnimated);
-    if (tabAnimated.isAnimating) return;
     id oldDelegate = tabAnimated.oldDelegate;
     SEL sel = @selector(scrollViewShouldScrollToTop:);
     ((void (*)(id, SEL, UIScrollView *))objc_msgSend)((id)oldDelegate, sel, scrollView);
@@ -484,7 +471,6 @@
  */
 - (void)tab_scrollViewDidChangeAdjustedContentInset:(UIScrollView *)scrollView API_AVAILABLE(ios(11.0), tvos(11.0)) {
     TABFormAnimated *tabAnimated = (TABFormAnimated *)(scrollView.tabAnimated);
-    if (tabAnimated.isAnimating) return;
     id oldDelegate = tabAnimated.oldDelegate;
     SEL sel = @selector(scrollViewDidChangeAdjustedContentInset:);
     ((void (*)(id, SEL, UIScrollView *))objc_msgSend)((id)oldDelegate, sel, scrollView);

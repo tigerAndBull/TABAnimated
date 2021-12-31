@@ -2030,9 +2030,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2.6.2;
+				CURRENT_PROJECT_VERSION = 2.6.3;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = JGZKPAYJ7R;
 				ENABLE_BITCODE = NO;
@@ -2049,7 +2049,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.6.2;
+				MARKETING_VERSION = 2.6.3;
 				OTHER_LDFLAGS = (
 					"-Xlinker",
 					"-interposable",
@@ -2066,9 +2066,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "Apple Development: Wenhu An (629MZJMJ23)";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2.6.2;
+				CURRENT_PROJECT_VERSION = 2.6.3;
 				DEVELOPMENT_TEAM = JGZKPAYJ7R;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2084,7 +2084,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.6.2;
+				MARKETING_VERSION = 2.6.3;
 				OTHER_LDFLAGS = (
 					"-Xlinker",
 					"-interposable",
