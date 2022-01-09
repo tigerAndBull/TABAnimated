@@ -463,7 +463,7 @@
 - (void)tab_scrollViewDidScrollToTop:(UIScrollView *)scrollView {
     TABFormAnimated *tabAnimated = (TABFormAnimated *)(scrollView.tabAnimated);
     id oldDelegate = tabAnimated.oldDelegate;
-    SEL sel = @selector(scrollViewShouldScrollToTop:);
+    SEL sel = @selector(scrollViewDidScrollToTop:);
     ((void (*)(id, SEL, UIScrollView *))objc_msgSend)((id)oldDelegate, sel, scrollView);
 }
 
