@@ -34,6 +34,9 @@ static const CGFloat kTagLabelMinWidth = 15.f;
     for (int i = 0; i < numIvars; i++) {
         Ivar thisIvar = ivars[i];
         const char *type = ivar_getTypeEncoding(thisIvar);
+        if (type == NULL) {
+            continue;
+        }
         NSString *stringType =  [NSString stringWithCString:type encoding:NSUTF8StringEncoding];
         if (![stringType hasPrefix:@"@"]) {
             continue;
