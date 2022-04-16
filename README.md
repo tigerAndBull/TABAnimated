@@ -31,25 +31,23 @@ TABAnimated是提供给iOS开发者自动生成骨架屏的一种解决方案。
 
 ## 目录
 
-* [集成优势](#集成优势)
+* [项目优势](#项目优势)
 * [效果展示](#效果展示)
-* [演示过程](#演示过程)  
+* [场景还原](#场景还原)  
 * [集成步骤](#集成步骤)
 * [问题检索](#问题检索)
-* [最后强调](#最后强调)
+* [Tips](#Tips)
 
-## 集成优势
-
-通过TABAnimated集成的骨架屏有什么优势？
+## 项目优势
 
 -  是一种自动化方案，实现速度快
--  与业务低耦合，易于集成和移除
--  配有缓存功能，压测切换控制器不掉帧
+-  与业务视图分离，耦合低
+-  有缓存功能，压测切换控制器不掉帧
 -  针对iOS原生视图处理，适用场景广
--  自由度高，可以完全自定制，包括动画及其序列化
+-  自由度高，可以自定制动画及其序列化
 -  自动切换暗黑模式骨架屏
 -  支持上拉加载时显示骨架屏
--  可以配合InjectionIII实时预览集成效果
+-  可以配合InjectionIII插件实时预览集成效果
 
 ## 效果展示
 
@@ -71,7 +69,7 @@ TABAnimated是提供给iOS开发者自动生成骨架屏的一种解决方案。
 
 ![实时预览.gif](https://upload-images.jianshu.io/upload_images/5632003-4161e026819b7739.gif?imageMogr2/auto-orient/strip)
 
-## 演示过程
+## 场景还原
 
 下面通过一个小例子，更深入地了解一下TABAnimated。
 
@@ -258,11 +256,11 @@ manager.animationWithIndexs(1,5,7).down(5);
 > + [不再hook setDelegate和setDataSource](https://github.com/tigerAndBull/TABAnimated/blob/master/Documents/%E4%B8%8D%E5%86%8Dhook%20setDelegate%E5%92%8CsetDataSource.md)
 > + [上拉加载更多](https://github.com/tigerAndBull/TABAnimated/blob/master/Documents/%E4%B8%8A%E6%8B%89%E5%8A%A0%E8%BD%BD%E5%8A%9F%E8%83%BD.md)
 
-## 最后强调
+## Tips
 
-- 有问题一定要先看issues和documents
-- demo主要是引导作用，提供不同结构视图的集成方案，开发者可以自己定制出更精美的效果
-- 如有使用问题、优化建议、好的想法等，可以关注公众号：tigerAndBull技术分享，加群快速解决
+- 有问题优先查看issues和documents
+- demo提供的只是不同结构视图的集成方案，开发者可以自己定制出更精美的效果
+- 如有使用问题、优化建议等，可以关注公众号：tigerAndBull技术分享，加群解决
 
 ## 应用接入
 
