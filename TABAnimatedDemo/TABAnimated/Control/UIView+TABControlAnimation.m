@@ -118,6 +118,12 @@ const int TABAnimatedIndexTag = -100000;
                 oldDelegate = ((UICollectionView *)self).delegate;
                 oldDataSource = ((UICollectionView *)self).dataSource;
             }
+            if (oldDelegate) {
+                ((TABFormAnimated *)tabAnimated).oldDelegate = oldDelegate;
+            }
+            if (oldDataSource) {
+                ((TABFormAnimated *)tabAnimated).oldDataSource = oldDataSource;
+            }
             prefixString = [NSString stringWithFormat:@"%@_%@", NSStringFromClass(oldDelegate.class), NSStringFromClass(oldDataSource.class)];
         }
         tabAnimated.targetControllerClassName = [self _getKeyWithPrefixString:prefixString];
@@ -188,9 +194,9 @@ const int TABAnimatedIndexTag = -100000;
         }
         
         if ([self isKindOfClass:[UITableView class]]) {
+            UITableView *tableView = (UITableView *)self;
             if (isNeedReset) {
                 [tabAnimated endAnimation];
-                UITableView *tableView = (UITableView *)self;
                 if (((TABTableAnimated *)tabAnimated).oldEstimatedRowHeight > 0) {
                     tableView.estimatedRowHeight = ((TABTableAnimated *)tabAnimated).oldEstimatedRowHeight;
                     tableView.rowHeight = UITableViewAutomaticDimension;
@@ -203,14 +209,30 @@ const int TABAnimatedIndexTag = -100000;
                     [tableView.tableFooterView tab_endAnimation];
                 }
             }else {
-                if (![tabAnimated endAnimationWithIndex:index]) return;
+                if (![tabAnimated endAnimationWithIndex:index]) {
+                    if (tabAnimated.oldDelegate) {
+                        tableView.delegate = tabAnimated.oldDelegate;
+                    }
+                    if (tabAnimated.oldDataSource) {
+                        tableView.dataSource = tabAnimated.oldDataSource;
+                    }
+                    return;
+                }
                 if (tabAnimated.runMode == TABAnimatedRunBySection || tabAnimated.runMode == TABAnimatedRunByPartSection) {
                     [(UITableView *)self reloadSections:[NSIndexSet indexSetWithIndex:index] withRowAnimation:UITableViewRowAnimationNone];
                 }else {
                     [(UITableView *)self reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
                 }
             }
+            if (tabAnimated.oldDelegate) {
+                tableView.delegate = tabAnimated.oldDelegate;
+            }
+            if (tabAnimated.oldDataSource) {
+                tableView.dataSource = tabAnimated.oldDataSource;
+            }
+
         }else if ([self isKindOfClass:[UICollectionView class]]) {
+            UICollectionView *collection = (UICollectionView *)self;
             if (isNeedReset) {
                 [tabAnimated endAnimation];
                 [(UICollectionView *)self reloadData];
@@ -221,6 +243,12 @@ const int TABAnimatedIndexTag = -100000;
                 }else {
                     [(UICollectionView *)self reloadItemsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]]];
                 }
+            }
+            if (tabAnimated.oldDelegate) {
+                collection.delegate = tabAnimated.oldDelegate;
+            }
+            if (tabAnimated.oldDataSource) {
+                collection.dataSource = tabAnimated.oldDataSource;
             }
         }
     }else {
