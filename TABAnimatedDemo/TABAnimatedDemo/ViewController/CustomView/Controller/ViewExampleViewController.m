@@ -33,8 +33,6 @@
     _topImg.image = [UIImage imageNamed:@"test.jpg"];
     _titleLab.text = @"您不会没有骨架过渡吧？";
     
-    TABViewAnimated *viewAnimated = [[TABViewAnimated alloc] initWithTemplateViewClass:NSClassFromString(@"TestTableHeaderFooterView")];
-    self.view.tabAnimated = viewAnimated;
     [self.view tab_startAnimationWithConfigBlock:nil
                                      adjustBlock:^(TABComponentManager * _Nonnull manager) {
         manager.animation(1).width(200);
