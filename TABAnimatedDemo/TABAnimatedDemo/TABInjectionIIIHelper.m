@@ -1,16 +1,15 @@
 //
-//  TABAnimatedInjectionIIIHelper.m
+//  TABInjectionIIIHelper.m
 //  TABAnimatedDemo
 //
 //  Created by tigerAndBull on 2020/7/19.
 //  Copyright © 2020 tigerAndBull. All rights reserved.
 //
 
-#import "TABAnimatedInjectionIIIHelper.h"
+#import "TABInjectionIIIHelper.h"
 #import <objc/runtime.h>
-#import "UIView+TABControlModel.h"
 
-@implementation TABAnimatedInjectionIIIHelper
+@implementation TABInjectionIIIHelper
 
 #if DEBUG
 

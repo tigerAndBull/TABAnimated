@@ -15,7 +15,7 @@
 		20410A55261721620030575B /* NSArray+TABAnimated.m in Sources */ = {isa = PBXBuildFile; fileRef = 20410A54261721620030575B /* NSArray+TABAnimated.m */; };
 		20410A5C261CA46B0030575B /* TABComponentLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 20410A5A261CA46A0030575B /* TABComponentLayer.m */; };
 		205664D42489038700AC16D9 /* PullLoadingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 205664D32489038700AC16D9 /* PullLoadingTableViewController.m */; };
-		2063FD1E24C4883E00517F3E /* TABAnimatedInjectionIIIHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 2063FD1C24C4883D00517F3E /* TABAnimatedInjectionIIIHelper.m */; };
+		2063FD1E24C4883E00517F3E /* TABInjectionIIIHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 2063FD1C24C4883D00517F3E /* TABInjectionIIIHelper.m */; };
 		206B44BE258CAC0E0010B64F /* PenerateViewExampleController.m in Sources */ = {isa = PBXBuildFile; fileRef = 206B44BD258CAC0E0010B64F /* PenerateViewExampleController.m */; };
 		2083176521A0451A000A0D95 /* TableRowModeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2083176421A0451A000A0D95 /* TableRowModeViewController.m */; };
 		209433FF266A23A1002F555A /* TABComponentMutableKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 209433FE266A23A1002F555A /* TABComponentMutableKey.m */; };
@@ -217,8 +217,8 @@
 		20410A5B261CA46A0030575B /* TABComponentLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TABComponentLayer.h; sourceTree = "<group>"; };
 		205664D22489038700AC16D9 /* PullLoadingTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PullLoadingTableViewController.h; sourceTree = "<group>"; };
 		205664D32489038700AC16D9 /* PullLoadingTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PullLoadingTableViewController.m; sourceTree = "<group>"; };
-		2063FD1C24C4883D00517F3E /* TABAnimatedInjectionIIIHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TABAnimatedInjectionIIIHelper.m; sourceTree = "<group>"; };
-		2063FD1D24C4883E00517F3E /* TABAnimatedInjectionIIIHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TABAnimatedInjectionIIIHelper.h; sourceTree = "<group>"; };
+		2063FD1C24C4883D00517F3E /* TABInjectionIIIHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TABInjectionIIIHelper.m; sourceTree = "<group>"; };
+		2063FD1D24C4883E00517F3E /* TABInjectionIIIHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TABInjectionIIIHelper.h; sourceTree = "<group>"; };
 		206B44BC258CAC0E0010B64F /* PenerateViewExampleController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PenerateViewExampleController.h; sourceTree = "<group>"; };
 		206B44BD258CAC0E0010B64F /* PenerateViewExampleController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PenerateViewExampleController.m; sourceTree = "<group>"; };
 		2083176321A0451A000A0D95 /* TableRowModeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TableRowModeViewController.h; sourceTree = "<group>"; };
@@ -647,6 +647,8 @@
 		20A85BF22152248D0005AD62 /* TABAnimatedDemo */ = {
 			isa = PBXGroup;
 			children = (
+				2063FD1D24C4883E00517F3E /* TABInjectionIIIHelper.h */,
+				2063FD1C24C4883D00517F3E /* TABInjectionIIIHelper.m */,
 				20A85C32215224B10005AD62 /* ViewController */,
 				68B045E222BC829B006FED14 /* AppConfig */,
 				68B045E922BC891C006FED14 /* Third */,
@@ -1030,8 +1032,6 @@
 		688A377024893B3D00A76894 /* Util */ = {
 			isa = PBXGroup;
 			children = (
-				2063FD1D24C4883E00517F3E /* TABAnimatedInjectionIIIHelper.h */,
-				2063FD1C24C4883D00517F3E /* TABAnimatedInjectionIIIHelper.m */,
 				688A377324893B3D00A76894 /* TABAnimationMethod.h */,
 				688A377124893B3D00A76894 /* TABAnimationMethod.m */,
 				688A377224893B3D00A76894 /* TABWeakDelegateManager.h */,
@@ -1853,7 +1853,7 @@
 				685A2AD0247A685C00D9DB7C /* NewsTableViewCell.m in Sources */,
 				681567312264214F00293AB4 /* JXCategoryViewAnimator.m in Sources */,
 				68C35F55249E6D8F00A34D22 /* TABDropAnimation.m in Sources */,
-				2063FD1E24C4883E00517F3E /* TABAnimatedInjectionIIIHelper.m in Sources */,
+				2063FD1E24C4883E00517F3E /* TABInjectionIIIHelper.m in Sources */,
 				68589C1E23431CC800E8E630 /* BaseDemoViewController.m in Sources */,
 				688A380624893B3E00A76894 /* UIView+TABExtension.m in Sources */,
 				685A2ACC247A685C00D9DB7C /* TestTableViewCell.m in Sources */,

@@ -159,7 +159,12 @@ NSString *const TABAnimatedPullLoadingKeyPathPanState = @"state";
     // 表格的高度
     CGFloat scrollHeight = self.scrollView.tab_h - self.scrollViewOriginalInset.top - self.scrollViewOriginalInset.bottom;
     // 设置位置和尺寸
-    self.tab_y = MAX(contentHeight, scrollHeight);
+    if (contentHeight < scrollHeight && contentHeight < self.scrollView.tab_h) {
+        self.tab_y = MIN(contentHeight, scrollHeight);
+    } else {
+        self.tab_y = MAX(contentHeight, scrollHeight);
+    }
+    
     if (self.state == TABAnimatedPullLoadingStateStopped) {
         self.state = TABAnimatedPullLoadingStateNormal;
     }

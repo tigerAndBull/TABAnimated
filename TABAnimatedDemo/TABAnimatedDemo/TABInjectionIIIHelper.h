@@ -1,5 +1,5 @@
 //
-//  TABAnimatedInjectionIIIHelper.h
+//  TABInjectionIIIHelper.h
 //  TABAnimatedDemo
 //
 //  Created by tigerAndBull on 2020/7/19.
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface TABAnimatedInjectionIIIHelper : NSObject
+@interface TABInjectionIIIHelper : NSObject
 
 @end
 

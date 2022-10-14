@@ -202,23 +202,23 @@ const int TABAnimatedIndexTag = -100000;
                 if (tableView.tableHeaderView.tabAnimated != nil && ((TABTableAnimated *)tabAnimated).showTableFooterView) {
                     [tableView.tableFooterView tab_endAnimation];
                 }
-            }else {
+            } else {
                 if (![tabAnimated endAnimationWithIndex:index]) return;
                 if (tabAnimated.runMode == TABAnimatedRunBySection || tabAnimated.runMode == TABAnimatedRunByPartSection) {
                     [(UITableView *)self reloadSections:[NSIndexSet indexSetWithIndex:index] withRowAnimation:UITableViewRowAnimationNone];
-                }else {
+                } else {
                     [(UITableView *)self reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
                 }
             }
-        }else if ([self isKindOfClass:[UICollectionView class]]) {
+        } else if ([self isKindOfClass:[UICollectionView class]]) {
             if (isNeedReset) {
                 [tabAnimated endAnimation];
                 [(UICollectionView *)self reloadData];
-            }else {
+            } else {
                 [tabAnimated endAnimationWithIndex:index];
                 if (tabAnimated.runMode == TABAnimatedRunBySection || tabAnimated.runMode == TABAnimatedRunByPartSection) {
                     [(UICollectionView *)self reloadSections:[NSIndexSet indexSetWithIndex:index]];
-                }else {
+                } else {
                     [(UICollectionView *)self reloadItemsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]]];
                 }
             }

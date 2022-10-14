@@ -273,7 +273,6 @@
         }
             break;
     }
-    view.backgroundColor = UIColor.clearColor;
     return view;
 }
 
