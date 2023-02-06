@@ -12,7 +12,7 @@
 #import "TABAnimated.h"
 #import "BaseDemoViewController.h"
 #import "UIColor+TABCategory.h"
-#import <TABKit/TABKit.h>
+#import "TABDefine.h"
 #import "Masonry.h"
 #import "UIImage+TABAnimatedDemo.h"
 

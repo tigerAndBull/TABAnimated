@@ -9,7 +9,7 @@
 #import "TestLayoutTableViewController.h"
 #import "Game.h"
 #import "TABAnimated.h"
-#import <TABKit/TABKit.h>
+#import "TABDefine.h"
 #import "Masonry.h"
 
 @interface TestLayoutTableViewController ()<UITableViewDelegate,UITableViewDataSource> {

@@ -12,7 +12,7 @@
 #import "LabWithLinesViewCell.h"
 
 #import "Game.h"
-#import <TABKit/TABKit.h>
+#import "TABDefine.h"
 
 @interface PartialSectionViewController ()<UITableViewDelegate,UITableViewDataSource> {
     NSMutableArray *dataArray;

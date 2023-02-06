@@ -8,7 +8,7 @@
 
 #import "CardViewController.h"
 
-#import <TABKit/TABKit.h>
+#import "TABDefine.h"
 #import "TABAnimated.h"
 #import "Game.h"
 

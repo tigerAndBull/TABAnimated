@@ -7,7 +7,7 @@
 //
 
 #import "DoubanNormalViewController.h"
-#import <TABKit/TABKit.h>
+#import "TABDefine.h"
 #import "TABAnimated.h"
 
 #define imgWidth (100)

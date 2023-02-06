@@ -1,13 +1,12 @@
 //
 //  AccredtationViewController.m
-//  yifu
 //
 //  Created by tigerAndBull on 2019/2/27.
 //  Copyright © 2019年 tigerAndBull. All rights reserved.
 //
 
 #import "ViewExampleViewController.h"
-#import <TABKit/TABKit.h>
+#import "TABDefine.h"
 #import "TABAnimated.h"
 
 #define imgWidth kHeight(100)

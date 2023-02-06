@@ -7,7 +7,7 @@
 //
 
 #import "DailyTableViewCell.h"
-#import <TABKit/TABKit.h>
+#import "TABDefine.h"
 #import "Masonry.h"
 
 #define mLeft kWidth(15)

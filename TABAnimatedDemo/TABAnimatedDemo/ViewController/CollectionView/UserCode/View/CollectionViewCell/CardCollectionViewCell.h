@@ -1,6 +1,5 @@
 //
 //  CourseListCollectionViewCell.h
-//  yifu
 //
 //  Created by tigerAndBull on 2019/3/6.
 //  Copyright © 2019年 tigerAndBull. All rights reserved.

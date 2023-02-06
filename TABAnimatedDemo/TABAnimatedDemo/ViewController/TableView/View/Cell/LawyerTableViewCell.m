@@ -8,7 +8,7 @@
 
 #import "LawyerTableViewCell.h"
 
-#import <TABKit/TABKit.h>
+#import "TABDefine.h"
 #import "Masonry.h"
 
 #define mLeft 15
@@ -24,7 +24,7 @@
 @interface LawyerTableViewCell()
 
 @property (nonatomic,strong) UIImageView *leftImg;
-@property (nonatomic,strong) TABLabel *nameLab;
+@property (nonatomic,strong) UILabel *nameLab;
 @property (nonatomic,strong) UILabel *typeLab;
 @property (nonatomic,strong) UILabel *areaLab;
 
@@ -59,8 +59,14 @@
     
     self.typeLab.frame = CGRectMake(CGRectGetMaxX(self.leftImg.frame)+kWidth(12), CGRectGetMinY(self.leftImg.frame)+(imgWidth - kHeight(20))/2.0, kWidth(100), kHeight(20));
     
-    CGSize size = [self.nameLab getTextSize:CGSizeMake(MAXFLOAT, kHeight(30))];
-    self.nameLab.frame = CGRectMake(CGRectGetMinX(self.typeLab.frame), CGRectGetMinY(self.typeLab.frame)-30, size.width, kHeight(30));
+    CGRect rect = [self.nameLab.text
+                        boundingRectWithSize:CGSizeMake(MAXFLOAT, kHeight(30))
+                        options:NSStringDrawingUsesLineFragmentOrigin
+                        attributes:@{
+                         NSFontAttributeName : self.nameLab.font
+                        }
+                        context:nil];
+    self.nameLab.frame = CGRectMake(CGRectGetMinX(self.typeLab.frame), CGRectGetMinY(self.typeLab.frame)-30, rect.size.width, kHeight(30));
     
     [self.areaLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.typeLab.mas_bottom).mas_offset(2);
@@ -94,9 +100,9 @@
     return _leftImg;
 }
 
-- (TABLabel *)nameLab {
+- (UILabel *)nameLab {
     if (!_nameLab) {
-        _nameLab = [[TABLabel alloc] init];
+        _nameLab = [[UILabel alloc] init];
         _nameLab.textColor = UIColor.blackColor;
         _nameLab.font = kFont(16);
         _nameLab.text = @"测试数据";

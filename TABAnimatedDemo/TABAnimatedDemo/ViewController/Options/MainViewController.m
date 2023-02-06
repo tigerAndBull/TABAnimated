@@ -7,7 +7,7 @@
 //
 
 #import "MainViewController.h"
-#import <TABKit/TABKit.h>
+#import "TABDefine.h"
 #import "AppDelegate.h"
 #import "SencondaryOptionViewController.h"
 

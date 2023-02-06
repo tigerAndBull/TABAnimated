@@ -8,7 +8,7 @@
 
 #import "Game.h"
 #import "TABAnimated.h"
-#import <TABKit/TABKit.h>
+#import "TABDefine.h"
 #import "Masonry.h"
 #import "TestLayoutTableViewController.h"
 #import "TestLayoutDelegateTableViewController.h"

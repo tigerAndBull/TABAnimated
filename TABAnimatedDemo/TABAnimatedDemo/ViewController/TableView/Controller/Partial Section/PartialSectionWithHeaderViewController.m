@@ -13,7 +13,7 @@
 #import "LineTableViewHeaderFooterView.h"
 
 #import "Game.h"
-#import <TABKit/TABKit.h>
+#import "TABDefine.h"
 
 @interface PartialSectionWithHeaderViewController ()<UITableViewDelegate,UITableViewDataSource> {
     NSMutableArray *dataArray;

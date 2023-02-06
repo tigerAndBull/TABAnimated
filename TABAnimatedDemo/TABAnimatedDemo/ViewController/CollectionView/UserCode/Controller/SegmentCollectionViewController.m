@@ -15,7 +15,7 @@
 #import "LawyerCollectionViewCell.h"
 
 #import "TABAnimated.h"
-#import <TABKit/TABKit.h>
+#import "TABDefine.h"
 
 #define categoryCount (self.categoryTitleArray.count)
 

@@ -8,7 +8,7 @@
 
 #import "TestTableViewCell.h"
 #import "Game.h"
-#import <TABKit/TABKit.h>
+#import "TABDefine.h"
 
 @interface TestTableViewCell ()
 

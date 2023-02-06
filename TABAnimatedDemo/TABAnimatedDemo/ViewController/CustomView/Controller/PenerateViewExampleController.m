@@ -7,7 +7,7 @@
 //
 
 #import "PenerateViewExampleController.h"
-#import <TABKit/TABKit.h>
+#import "TABDefine.h"
 #import "TABAnimated.h"
 
 #define imgWidth kHeight(100)

@@ -1,6 +1,5 @@
 //
 //  BaseTableViewCell.m
-//  yifu
 //
 //  Created by tigerAndBull on 2019/2/23.
 //  Copyright © 2019年 tigerAndBull. All rights reserved.

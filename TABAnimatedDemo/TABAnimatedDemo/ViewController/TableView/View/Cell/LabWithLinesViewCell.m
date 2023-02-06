@@ -11,11 +11,12 @@
 #import "TABAnimated.h"
 
 #import "Game.h"
-#import <TABKit/TABKit.h>
+#import "TABDefine.h"
+#import "UILabel+TABCategory.h"
 
 @interface LabWithLinesViewCell () {
     UIImageView *gameImg;
-    TABLabel *titleLab;
+    UILabel *titleLab;
 }
 
 @end
@@ -44,14 +45,20 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     
-    CGFloat gameImageWidth = (self.frame.size.height-20)*1.5;
-    CGFloat titleLabelWidth = kScreenWidth-gameImageWidth-15-15-10;
+    CGFloat gameImageWidth = (self.frame.size.height - 20) * 1.5;
+    CGFloat titleLabelWidth = kScreenWidth - gameImageWidth- 15 - 15 - 10;
     // 获取对应组件文本大小
-    CGSize titleSize = [titleLab getTextSize:CGSizeMake(titleLabelWidth, MAXFLOAT)];
+    CGRect rect = [titleLab.text
+                        boundingRectWithSize:CGSizeMake(titleLabelWidth, MAXFLOAT)
+                        options:NSStringDrawingUsesLineFragmentOrigin
+                        attributes:@{
+                         NSFontAttributeName : titleLab.font
+                        }
+                        context:nil];
     // 布局
-    gameImg.frame = CGRectMake(15, 10, gameImageWidth, (self.frame.size.height-20));
+    gameImg.frame = CGRectMake(15, 10, gameImageWidth, (self.frame.size.height - 20));
     gameImg.layer.cornerRadius = 5;
-    titleLab.frame = CGRectMake(CGRectGetMaxX(gameImg.frame)+15, 10, titleLabelWidth, titleSize.height);
+    titleLab.frame = CGRectMake(CGRectGetMaxX(gameImg.frame) + 15, 10, titleLabelWidth, rect.size.height);
 }
 
 #pragma mark - Public Methods
@@ -75,7 +82,7 @@
     }
     
     {
-        TABLabel *lab = [[TABLabel alloc]init];
+        UILabel *lab = [[UILabel alloc]init];
         [lab setFont:kFont(15)];
         lab.lineSpace = 5.0f;
         lab.tag = 1000;

@@ -1,6 +1,5 @@
 //
 //  LawyerArticleCollectionViewCell.m
-//  yifu
 //
 //  Created by tigerAndBull on 2019/2/27.
 //  Copyright © 2019年 tigerAndBull. All rights reserved.
@@ -8,7 +7,7 @@
 
 #import "LawyerArticleCollectionViewCell.h"
 
-#import <TABKit/TABKit.h>
+#import "TABDefine.h"
 #import "Masonry.h"
 
 #define mLeft kHeight(20)
@@ -21,7 +20,7 @@
 @property (nonatomic,strong) UIImageView *leftImg;
 @property (nonatomic,strong) UILabel *infoLab;
 @property (nonatomic,strong) UILabel *titleLab;
-@property (nonatomic,strong) TABLabel *contentLab;
+@property (nonatomic,strong) UILabel *contentLab;
 
 @end
 
@@ -117,9 +116,9 @@
     return _titleLab;
 }
 
-- (TABLabel *)contentLab {
+- (UILabel *)contentLab {
     if (!_contentLab) {
-        _contentLab = [[TABLabel alloc] init];
+        _contentLab = [[UILabel alloc] init];
         _contentLab.font = kFont(15);
         _contentLab.textColor = UIColor.lightGrayColor;
         _contentLab.numberOfLines = 0;

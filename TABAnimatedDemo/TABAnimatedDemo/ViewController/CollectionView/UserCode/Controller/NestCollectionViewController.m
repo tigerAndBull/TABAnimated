@@ -11,7 +11,7 @@
 #import "TestCollectionReusableView.h"
 
 #import "TABAnimated.h"
-#import <TABKit/TABKit.h>
+#import "TABDefine.h"
 #import "TestHeadView.h"
 
 @interface NestCollectionViewController ()<UICollectionViewDelegate,UICollectionViewDataSource>

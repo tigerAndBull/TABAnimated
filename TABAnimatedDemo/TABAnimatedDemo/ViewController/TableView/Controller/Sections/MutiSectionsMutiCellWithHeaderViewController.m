@@ -14,7 +14,7 @@
 #import "LineTableViewHeaderFooterView.h"
 
 #import "Game.h"
-#import <TABKit/TABKit.h>
+#import "TABDefine.h"
 
 @interface MutiSectionsMutiCellWithHeaderViewController ()<UITableViewDelegate,UITableViewDataSource> {
     NSMutableArray *dataArray;

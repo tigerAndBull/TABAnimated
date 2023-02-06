@@ -9,8 +9,6 @@
 #ifndef TABDefine_h
 #define TABDefine_h
 
-#import <TABKit/TABSafe.h>
-
 #define kAPPDELEGATE ((AppDelegate *)[UIApplication sharedApplication].delegate)
 
 #define kScreenWidth [UIScreen mainScreen].bounds.size.width

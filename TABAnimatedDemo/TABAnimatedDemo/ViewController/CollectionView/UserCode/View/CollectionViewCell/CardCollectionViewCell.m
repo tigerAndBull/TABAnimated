@@ -1,6 +1,5 @@
 //
 //  CourseListCollectionViewCell.m
-//  yifu
 //
 //  Created by tigerAndBull on 2019/3/6.
 //  Copyright © 2019年 tigerAndBull. All rights reserved.
@@ -8,7 +7,7 @@
 
 #import "CardCollectionViewCell.h"
 
-#import <TABKit/TABKit.h>
+#import "TABDefine.h"
 #import "Game.h"
 #import "Masonry.h"
 

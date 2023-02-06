@@ -11,7 +11,7 @@
 
 #import "TABAnimated.h"
 #import "Game.h"
-#import <TABKit/TABKit.h>
+#import "TABDefine.h"
 
 @interface XibTestViewController () <UITableViewDelegate,UITableViewDataSource> {
     NSMutableArray *dataArray;

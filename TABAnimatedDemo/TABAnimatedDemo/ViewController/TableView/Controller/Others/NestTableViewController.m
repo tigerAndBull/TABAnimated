@@ -12,7 +12,7 @@
 #import "LineTableViewHeaderFooterView.h"
 
 #import "TABAnimated.h"
-#import <TABKit/TABKit.h>
+#import "TABDefine.h"
 
 #import "Game.h"
 

@@ -11,7 +11,7 @@
 
 #import "TABAnimated.h"
 #import "Game.h"
-#import <TABKit/TABKit.h>
+#import "TABDefine.h"
 #import "TABAnimatedWaterFallLayout.h"
 #import "LawyerCollectionViewCell.h"
 #import "WaterFlowCollectionViewCell.h"

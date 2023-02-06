@@ -11,7 +11,7 @@
 #import "AppDelegate.h"
 #import "TABAnimated.h"
 #import "Masonry.h"
-#import <TABKit/TABKit.h>
+#import "TABDefine.h"
 
 @interface NestTableViewCell()<UICollectionViewDelegate,UICollectionViewDataSource>{
     NSMutableArray *dataArray;

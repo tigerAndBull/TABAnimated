@@ -1,6 +1,5 @@
 //
 //  LawyerCollectionViewCell.m
-//  yifu
 //
 //  Created by tigerAndBull on 2019/2/25.
 //  Copyright © 2019年 tigerAndBull. All rights reserved.
@@ -8,7 +7,7 @@
 
 #import "LawyerCollectionViewCell.h"
 
-#import <TABKit/TABKit.h>
+#import "TABDefine.h"
 #import "Masonry.h"
 
 #define mLeft 15
@@ -24,11 +23,11 @@
 @interface LawyerCollectionViewCell()
 
 @property (nonatomic,strong) UIImageView *leftImg;
-@property (nonatomic,strong) TABLabel *nameLab;
+@property (nonatomic,strong) UILabel *nameLab;
 @property (nonatomic,strong) UILabel *typeLab;
 @property (nonatomic,strong) UILabel *areaLab;
 
-@property (nonatomic,strong) NSMutableArray <TABLabel *> *labelArray;
+@property (nonatomic,strong) NSMutableArray <UILabel *> *labelArray;
 
 @property (nonatomic,strong) UIView *lineView;
 
@@ -51,7 +50,7 @@
         _labelArray = [NSMutableArray array];
         
         for (int i = 0; i < 3; i++) {
-            TABLabel *lab = [[TABLabel alloc] init];
+            UILabel *lab = [[UILabel alloc] init];
             lab.layer.borderColor = kOrangeColor.CGColor;
             lab.layer.borderWidth = 1.0;
             lab.font = kFont(13);
@@ -75,24 +74,36 @@
     
     self.typeLab.frame = CGRectMake(CGRectGetMaxX(self.leftImg.frame)+kWidth(12), CGRectGetMinY(self.leftImg.frame)+(imgWidth - kHeight(20))/2.0, kWidth(100), kHeight(20));
     
-    CGSize size = [self.nameLab getTextSize:CGSizeMake(MAXFLOAT, kHeight(30))];
-    self.nameLab.frame = CGRectMake(CGRectGetMinX(self.typeLab.frame), CGRectGetMinY(self.typeLab.frame)-30, size.width, kHeight(30));
+    CGRect rect = [self.nameLab.text
+                        boundingRectWithSize:CGSizeMake(MAXFLOAT, kHeight(30))
+                        options:NSStringDrawingUsesLineFragmentOrigin
+                        attributes:@{
+                         NSFontAttributeName : self.nameLab.font
+                        }
+                        context:nil];
+    self.nameLab.frame = CGRectMake(CGRectGetMinX(self.typeLab.frame), CGRectGetMinY(self.typeLab.frame)-30, rect.size.width, kHeight(30));
     
     [self.areaLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.typeLab.mas_bottom).mas_offset(2);
         make.left.mas_equalTo(self.typeLab);
-        make.width.mas_offset(kScreenWidth - imgWidth - mLeft*2 - kWidth(12));
+        make.width.mas_offset(kScreenWidth - imgWidth - mLeft * 2 - kWidth(12));
         make.height.mas_offset(kHeight(25));
     }];
     
     for (int i = 0; i < self.labelArray.count; i++) {
-        TABLabel *lab = self.labelArray[i];
-        CGSize size = [lab getTextSize:CGSizeMake(MAXFLOAT, kHeight(22))];
+        UILabel *lab = self.labelArray[i];
+        CGRect rect = [lab.text
+                            boundingRectWithSize:CGSizeMake(MAXFLOAT, kHeight(22))
+                            options:NSStringDrawingUsesLineFragmentOrigin
+                            attributes:@{
+                             NSFontAttributeName : lab.font
+                            }
+                            context:nil];
         if (i == 0) {
-            lab.frame = CGRectMake(CGRectGetMaxX(self.nameLab.frame)+8, isIPhoneFill?8-1:8+2, size.width+5, size.height+2);
+            lab.frame = CGRectMake(CGRectGetMaxX(self.nameLab.frame) + 8, isIPhoneFill ? 8 - 1 : 8 + 2, rect.size.width + 5, rect.size.height + 2);
         }else {
-            TABLabel *tempLab = self.labelArray[i-1];
-            lab.frame = CGRectMake(CGRectGetMaxX(tempLab.frame)+kWidth(5), isIPhoneFill?8-1:8+2, size.width+5, size.height+2);
+            UILabel *tempLab = self.labelArray[i - 1];
+            lab.frame = CGRectMake(CGRectGetMaxX(tempLab.frame) + kWidth(5), isIPhoneFill ? 8 - 1 : 8 + 2, rect.size.width + 5, rect.size.height + 2);
         }
         
         lab.layer.cornerRadius = 4.0f;
@@ -123,9 +134,9 @@
     return _leftImg;
 }
 
-- (TABLabel *)nameLab {
+- (UILabel *)nameLab {
     if (!_nameLab) {
-        _nameLab = [[TABLabel alloc] init];
+        _nameLab = [[UILabel alloc] init];
         _nameLab.textColor = UIColor.blackColor;
         _nameLab.font = kFont(16);
         _nameLab.text = @"测试数据";

@@ -7,7 +7,7 @@
 //
 
 #import "SencondaryOptionViewController.h"
-#import <TABKit/TABKit.h>
+#import "TABDefine.h"
 #import "AppDelegate.h"
 #import "TABAnimatedControllerUIImpl.h"
 

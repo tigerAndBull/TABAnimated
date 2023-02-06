@@ -1,6 +1,5 @@
 //
 //  DailyCollectionViewCell.h
-//  yifu
 //
 //  Created by tigerAndBull on 2019/2/25.
 //  Copyright © 2019年 tigerAndBull. All rights reserved.

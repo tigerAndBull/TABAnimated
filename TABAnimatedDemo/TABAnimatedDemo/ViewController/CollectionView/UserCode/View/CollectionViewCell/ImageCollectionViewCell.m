@@ -2,7 +2,7 @@
 
 #import "TABAnimated.h"
 #import "Masonry.h"
-#import <TABKit/TABKit.h>
+#import "TABDefine.h"
 
 @interface ImageCollectionViewCell()
 

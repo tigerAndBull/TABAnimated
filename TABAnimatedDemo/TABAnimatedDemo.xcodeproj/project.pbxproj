@@ -32,6 +32,7 @@
 		20BFBBA12153F3FF00136258 /* TestHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 20BFBBA02153F3FF00136258 /* TestHeadView.m */; };
 		20BFBBA32153FB5300136258 /* head.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 20BFBBA22153FB5300136258 /* head.jpg */; };
 		20BFBFFA2170D912001887A9 /* TestCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 20BFBFF92170D912001887A9 /* TestCollectionViewCell.m */; };
+		20C3A570299108DE00D18273 /* UILabel+TABCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 20C3A56F299108DE00D18273 /* UILabel+TABCategory.m */; };
 		20CDCB782591FBE900DF28DA /* WaterFlowCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 20CDCB762591FBE900DF28DA /* WaterFlowCollectionViewCell.m */; };
 		20CDCB792591FBE900DF28DA /* WaterFlowCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 20CDCB772591FBE900DF28DA /* WaterFlowCollectionViewCell.xib */; };
 		20E14AAD2591F1CE00190A51 /* WaterFlowLayoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20E14AAC2591F1CE00190A51 /* WaterFlowLayoutViewController.m */; };
@@ -171,7 +172,6 @@
 		68C171B624617AA5004FD76F /* test3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 68C171B524617AA5004FD76F /* test3.jpg */; };
 		68C171BA2461A095004FD76F /* NestTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C171B92461A095004FD76F /* NestTableViewController.m */; };
 		68C21D9A22F34548003C2936 /* TestCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C21D9922F34548003C2936 /* TestCollectionReusableView.m */; };
-		68C35F0F249E6B2600A34D22 /* TABKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2013CA9D222B0C0C00E928E1 /* TABKit.framework */; };
 		68C35F46249E6D8F00A34D22 /* TABAnimatedDarkModeManagerImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C35F15249E6D8E00A34D22 /* TABAnimatedDarkModeManagerImpl.m */; };
 		68C35F47249E6D8F00A34D22 /* TABSentryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C35F19249E6D8E00A34D22 /* TABSentryView.m */; };
 		68C35F48249E6D8F00A34D22 /* TABAnimatedDarkModeImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C35F1A249E6D8E00A34D22 /* TABAnimatedDarkModeImpl.m */; };
@@ -200,7 +200,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2013CA9D222B0C0C00E928E1 /* TABKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TABKit.framework; sourceTree = "<group>"; };
 		202D40BC22297D92005CF7E3 /* CourseCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CourseCollectionViewCell.h; sourceTree = "<group>"; };
 		202D40BD22297D92005CF7E3 /* CourseCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CourseCollectionViewCell.m; sourceTree = "<group>"; };
 		2039EF7021DA077200AE09FC /* NestCollectionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NestCollectionViewController.h; sourceTree = "<group>"; };
@@ -251,6 +250,9 @@
 		20BFBBA22153FB5300136258 /* head.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = head.jpg; sourceTree = "<group>"; };
 		20BFBFF82170D912001887A9 /* TestCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestCollectionViewCell.h; sourceTree = "<group>"; };
 		20BFBFF92170D912001887A9 /* TestCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestCollectionViewCell.m; sourceTree = "<group>"; };
+		20C3A56A299103CB00D18273 /* TABDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TABDefine.h; path = TABAnimatedDemo/Base/TABDefine.h; sourceTree = SOURCE_ROOT; };
+		20C3A56E299108DE00D18273 /* UILabel+TABCategory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UILabel+TABCategory.h"; sourceTree = "<group>"; };
+		20C3A56F299108DE00D18273 /* UILabel+TABCategory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UILabel+TABCategory.m"; sourceTree = "<group>"; };
 		20CDCB752591FBE900DF28DA /* WaterFlowCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WaterFlowCollectionViewCell.h; sourceTree = "<group>"; };
 		20CDCB762591FBE900DF28DA /* WaterFlowCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WaterFlowCollectionViewCell.m; sourceTree = "<group>"; };
 		20CDCB772591FBE900DF28DA /* WaterFlowCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WaterFlowCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -602,7 +604,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				68C35F0F249E6B2600A34D22 /* TABKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -612,7 +613,6 @@
 		20A01594216A51A80082425D /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				2013CA9D222B0C0C00E928E1 /* TABKit.framework */,
 				68A7FDB022D1CE1F0060CEEA /* placeholder.png */,
 				6806412B2279C83200D79040 /* comic.jpg */,
 				20BFBBA22153FB5300136258 /* head.jpg */,
@@ -679,6 +679,16 @@
 				683C4CC4255FDE71008DFD62 /* UIImage+Gradient.m */,
 			);
 			path = Gradient;
+			sourceTree = "<group>";
+		};
+		20C3A569299103BB00D18273 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				20C3A56A299103CB00D18273 /* TABDefine.h */,
+				20C3A56E299108DE00D18273 /* UILabel+TABCategory.h */,
+				20C3A56F299108DE00D18273 /* UILabel+TABCategory.m */,
+			);
+			path = Util;
 			sourceTree = "<group>";
 		};
 		20E14AAE2591F27D00190A51 /* WaterFallLayout */ = {
@@ -914,6 +924,7 @@
 		68589C1F23431E6D00E8E630 /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				20C3A569299103BB00D18273 /* Util */,
 				68B7A921234463430099EC81 /* Model */,
 				68B7A920234463420099EC81 /* View */,
 				68589C302343404F00E8E630 /* Category */,
@@ -1842,6 +1853,7 @@
 				688A380124893B3E00A76894 /* TABAnimatedProduction.m in Sources */,
 				6815672D2264214F00293AB4 /* JXCategoryListContainerView.m in Sources */,
 				68A652F5235F732100D12ADC /* ViewController+MASAdditions.m in Sources */,
+				20C3A570299108DE00D18273 /* UILabel+TABCategory.m in Sources */,
 				681567222264214F00293AB4 /* JXCategoryTitleImageCell.m in Sources */,
 				6815672C2264214F00293AB4 /* JXCategoryNumberCellModel.m in Sources */,
 				685A2AC9247A685C00D9DB7C /* DelegateSelfTableViewCell.m in Sources */,
@@ -2058,6 +2070,7 @@
 				PRODUCT_NAME = TABAnimated;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
 			};
 			name = Debug;
 		};
