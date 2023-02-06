@@ -155,14 +155,9 @@ typedef NS_ENUM(NSInteger, TABAnimationType) {
 @property (nonatomic, assign) BOOL openAnimationTag;
 
 /**
- * 关闭内存缓存功能，默认开启
+ * 关闭缓存功能，默认开启
  */
 @property (nonatomic, assign) BOOL closeCache;
-
-/**
- * 关闭沙盒缓存功能，默认关闭
- */
-@property (nonatomic, assign) BOOL closeDiskCache;
 
 #pragma mark - Dark Mode
 
@@ -248,5 +243,6 @@ typedef NS_ENUM(NSInteger, TABAnimationType) {
 @property (nonatomic, assign) CGFloat shimmerBrightness;
 @property (nonatomic, strong) UIColor *shimmerBackColorInDarkMode;
 @property (nonatomic, assign) CGFloat shimmerBrightnessInDarkMode;
+@property (nonatomic, assign) BOOL closeDiskCache;
 
 @end

@@ -65,6 +65,7 @@
 
 - (void)initWithData:(Game *)game {
     titleLab.text = [NSString stringWithFormat:@"%@",game.title];
+    titleLab.lineSpace = 5;
     [gameImg setImage:[UIImage imageNamed:@"test.jpg"]];
 }
 
@@ -84,7 +85,6 @@
     {
         UILabel *lab = [[UILabel alloc]init];
         [lab setFont:kFont(15)];
-        lab.lineSpace = 5.0f;
         lab.tag = 1000;
         lab.numberOfLines = 3;
         [lab setTextColor:[UIColor blackColor]];

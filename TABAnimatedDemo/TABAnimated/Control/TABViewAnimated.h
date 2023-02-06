@@ -136,6 +136,9 @@ FOUNDATION_EXPORT NSString *tab_NSStringFromClass(Class aClass);
 
 @property (nonatomic, assign) BOOL configed;
 
+// 关闭缓存
+@property (nonatomic, assign) BOOL closeCache;
+
 - (nonnull UIColor *)getCurrentAnimatedColorWithCollection:(UITraitCollection *)collection;
 - (nonnull UIColor *)getCurrentAnimatedBackgroundColorWithCollection:(UITraitCollection *)collection;
 

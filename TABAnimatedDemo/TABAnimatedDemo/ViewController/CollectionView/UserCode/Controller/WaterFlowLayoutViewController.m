@@ -7,7 +7,6 @@
 //
 
 #import "WaterFlowLayoutViewController.h"
-#import "CardCollectionViewCell.h"
 
 #import "TABAnimated.h"
 #import "Game.h"
@@ -15,7 +14,6 @@
 #import "TABAnimatedWaterFallLayout.h"
 #import "LawyerCollectionViewCell.h"
 #import "WaterFlowCollectionViewCell.h"
-#import "CardCollectionViewCell.h"
 
 @interface WaterFlowLayoutViewController () <UICollectionViewDelegate, UICollectionViewDataSource, TABAnimatedWaterFallLayoutDelegate> {
     NSMutableArray *dataArray;
@@ -62,8 +60,12 @@
 - (void)afterGetData {
     
     // 模拟数据
-    for (int i = 0; i < 5; i ++) {
-        [dataArray addObject:[NSObject new]];
+    for (int i = 0; i < 10; i ++) {
+        Game *game = [[Game alloc]init];
+        game.gameId = [NSString stringWithFormat:@"%d",i];
+        game.title = [NSString stringWithFormat:@"这里是测试数据%d",i+1];
+        game.cover = @"test2.jpg";
+        [dataArray addObject:game];
     }
     
     // 停止动画,并刷新数据
@@ -77,8 +79,8 @@
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    CardCollectionViewCell *cell = [CardCollectionViewCell cellWithIndexPath:indexPath atCollectionView:collectionView];
-    [cell updateWithModel:Game.new];
+    WaterFlowCollectionViewCell *cell = [WaterFlowCollectionViewCell cellWithIndexPath:indexPath atCollectionView:collectionView];
+    [cell updateWithModel:dataArray[indexPath.row]];
     return cell;
 }
 
@@ -114,7 +116,7 @@
         flowLayout.columnSpacing = 10;
         flowLayout.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10);
         flowLayout.delegate = self;
-        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, kNavigationHeight, kScreenWidth, kScreenHeight-kNavigationHeight)            collectionViewLayout:flowLayout];
+        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, kNavigationHeight, kScreenWidth, kScreenHeight - kNavigationHeight)            collectionViewLayout:flowLayout];
         
         _collectionView.dataSource = self;
         _collectionView.delegate = self;
@@ -122,13 +124,13 @@
         _collectionView.showsVerticalScrollIndicator = NO;
         _collectionView.backgroundColor = [UIColor tab_normalDynamicBackgroundColor];
         
-        CGFloat height = CardCollectionViewCell.cellSize.height+50;
-        NSArray <NSNumber *>* heightArray = @[@(height), @(height+20), @(height+20), @(height+20), @(height+20), @(height+20), @(height+20), @(height+20)];
+        CGFloat height = WaterFlowCollectionViewCell.cellSize.height + 20;
+        NSArray <NSNumber *>* heightArray = @[@(height), @(height + 20), @(height + 40), @(height), @(height), @(height)];
         TABCollectionAnimated *tabAnimated =
-        [TABCollectionAnimated animatedWaterFallLayoutWithCellClass:CardCollectionViewCell.class
+        [TABCollectionAnimated animatedWaterFallLayoutWithCellClass:WaterFlowCollectionViewCell.class
                                                         heightArray:heightArray
                                                           heightSel:@selector(waterFallLayout:heightForItemAtIndex:itemWidth:)];
-        tabAnimated.animatedBackgroundColor = UIColor.redColor;
+        tabAnimated.closeCache = YES;
         _collectionView.tabAnimated = tabAnimated;
     }
     return _collectionView;

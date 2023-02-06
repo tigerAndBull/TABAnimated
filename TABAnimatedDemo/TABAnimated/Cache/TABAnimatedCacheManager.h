@@ -36,14 +36,18 @@ extern NSString * const TABCacheManagerFolderName;
 /**
  * 存储骨架屏管理单元到指定沙盒目录
  * @param production 骨架屏产品
+ * @param tabAnimated 骨架屏配置项
  */
-- (void)cacheProduction:(TABAnimatedProduction *)production;
+- (void)cacheProduction:(TABAnimatedProduction *)production
+            tabAnimated:(TABViewAnimated *)tabAnimated;
 
 /**
  * 获取指定骨架屏产品
  * @param key  目标产品的唯一标识
+ * @param tabAnimated 列表配置对象
  */
-- (nullable TABAnimatedProduction *)getProductionWithKey:(NSString *)key;
+- (nullable TABAnimatedProduction *)getProductionWithKey:(NSString *)key
+                                             tabAnimated:(TABViewAnimated *)tabAnimated;
 
 /**
  * 更新该viewAnimated下所有骨架屏管理单元的loadCount
