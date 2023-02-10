@@ -262,14 +262,6 @@ manager.animationWithIndexs(1,5,7).down(5);
 - demo提供的只是不同结构视图的集成方案，开发者可以自己定制出更精美的效果
 - 如有使用问题、优化建议等，可以关注公众号：tigerAndBull技术分享，加群解决
 
-## 应用接入
-
-<img width="100" alt="wecom-temp-4c0b27e6372bb356a05c92b838598457_副本" src="https://user-images.githubusercontent.com/28705454/128043124-9191c56d-38eb-4836-920c-8c4aa0e4efda.png">
-
-## 交流群
-
-![交流群](https://user-images.githubusercontent.com/28705454/127262028-cca78fa7-424a-4f89-b160-502310e66314.jpeg)
-
 ## License
 
 All source code is licensed under the [License](https://github.com/tigerAndBull/TABAnimated/blob/master/LICENSE)
