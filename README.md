@@ -256,6 +256,12 @@ manager.animationWithIndexs(1,5,7).down(5);
 > + [不再hook setDelegate和setDataSource](https://github.com/tigerAndBull/TABAnimated/blob/master/Documents/%E4%B8%8D%E5%86%8Dhook%20setDelegate%E5%92%8CsetDataSource.md)
 > + [上拉加载更多](https://github.com/tigerAndBull/TABAnimated/blob/master/Documents/%E4%B8%8A%E6%8B%89%E5%8A%A0%E8%BD%BD%E5%8A%9F%E8%83%BD.md)
 
+
+## Stargazers over time
+
+[![Stargazers over time](https://starchart.cc/tigerAndBull/TABAnimated.svg)](https://starchart.cc/tigerAndBull/TABAnimated)
+
+
 ## Tips
 
 - 有问题优先查看issues和documents
