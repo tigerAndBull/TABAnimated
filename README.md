@@ -234,24 +234,15 @@ manager.animationWithIndexs(1,5,7).down(5);
 
 (3) 最后到框架内找到对应的初始化方法、启动动画方法即可！
 
-## 问题检索
+## FAQ
 
-**当然啦，在实际应用中，我们还有各式各样的视图，TABAnimated经历了很多产品的考验，统统都可以应对。
-但是光凭上面的知识肯定是不够的，以下是更详细说明文档。**
-
-- 最好要阅读的文档：
+**在实际应用中有各式各样的视图，以下是更详细说明文档。**
 
 > + [缓存策略和线程处理](https://github.com/tigerAndBull/TABAnimated/blob/master/Documents/%E7%BC%93%E5%AD%98%E7%AD%96%E7%95%A5%E5%92%8C%E7%BA%BF%E7%A8%8B%E5%A4%84%E7%90%86.md)
 > + [架构设计和性能测试](https://github.com/tigerAndBull/TABAnimated/blob/master/Documents/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E5%92%8C%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95.md)
-
-- 可能会用到的文档：
-
 > + [预处理回调动画元素下标问题](https://github.com/tigerAndBull/TABAnimated/blob/master/Documents/%E5%8A%A8%E7%94%BB%E5%85%83%E7%B4%A0%E4%B8%8B%E6%A0%87%E9%97%AE%E9%A2%98.md)
 > + [问题答疑文档](https://github.com/tigerAndBull/TABAnimated/blob/master/Documents/%E9%97%AE%E9%A2%98%E7%AD%94%E7%96%91%E6%96%87%E6%A1%A3.md)、[版本信息记录文档](https://github.com/tigerAndBull/TABAnimated/blob/master/Documents/%E5%8D%87%E7%BA%A7%E6%96%87%E6%A1%A3%E5%92%8C%E5%85%B6%E4%BB%96%E4%BF%AE%E5%A4%8D.md)
 > + [全局:局部属性、链式语法api](https://github.com/tigerAndBull/TABAnimated/blob/master/Documents/%E5%85%A8%E5%B1%80:%E5%B1%80%E9%83%A8%E5%B1%9E%E6%80%A7%E3%80%81%E9%93%BE%E5%BC%8F%E8%AF%AD%E6%B3%95api.md)
-
-- 其他实现原理文档
-
 > + [豆瓣动画详解](https://github.com/tigerAndBull/TABAnimated/blob/master/Documents/%E8%B1%86%E7%93%A3%E5%8A%A8%E7%94%BB%E8%AF%A6%E8%A7%A3.md)
 > + [不再hook setDelegate和setDataSource](https://github.com/tigerAndBull/TABAnimated/blob/master/Documents/%E4%B8%8D%E5%86%8Dhook%20setDelegate%E5%92%8CsetDataSource.md)
 > + [上拉加载更多](https://github.com/tigerAndBull/TABAnimated/blob/master/Documents/%E4%B8%8A%E6%8B%89%E5%8A%A0%E8%BD%BD%E5%8A%9F%E8%83%BD.md)
