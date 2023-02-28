@@ -19,35 +19,19 @@
 
 > + [English Documents](https://github.com/tigerAndBull/TABAnimated/blob/master/README_EN.md)
 
-## 骨架屏是什么？
+## 骨架屏
 
-骨架屏(Skeleton Screen)是一种优化用户弱网体验的方案。在弱网情况下，客户端获取到服务器数据的时间会比较长，此时用户会比较烦躁。该方案是指在空白页面提供与原视图结构一致的灰色区块。使得用户在未获得数据前，提前看到视图的轮廓，以缓解用户等待时的烦躁情绪。
+骨架屏(Skeleton Screen)是一种优化用户弱网体验的方案。在弱网情况下，客户端获取到服务器数据的时间会比较长，通过骨架屏来减缓用户等待的焦躁情绪。
+TABAnimated是提供给iOS开发者自动生成骨架屏的一种解决方案。开发者可以将已经开发好的视图，通过配置一些全局/局部的参数，自动生成与其结构一致的骨架屏。开发者用较少的开发成本，就可以获得和需求一致的骨架屏。  
 
-## TABAnimated是什么？
+## 优势
 
-TABAnimated是提供给iOS开发者自动生成骨架屏的一种解决方案。开发者可以将已经开发好的视图，通过配置一些全局/局部的参数，自动生成与其长相一致的骨架屏。也就是说开发者不需要额外开发成本，就可以获得和需求一致的骨架屏。  
-
-当然，TABAnimated会管理你的骨架屏生命周期。
-
-## 目录
-
-* [项目优势](#项目优势)
-* [效果展示](#效果展示)
-* [场景还原](#场景还原)  
-* [集成步骤](#集成步骤)
-* [问题检索](#问题检索)
-* [Tips](#Tips)
-
-## 项目优势
-
--  是一种自动化方案，实现速度快
--  与业务视图分离，耦合低
--  有缓存功能，压测切换控制器不掉帧
--  针对iOS原生视图处理，适用场景广
--  自由度高，可以自定制动画及其序列化
--  自动切换暗黑模式骨架屏
--  支持上拉加载时显示骨架屏
--  可以配合InjectionIII插件实时预览集成效果
+-  自动化、低耦合
+-  列表视图、嵌套视图
+-  支持上拉加载
+-  支持暗黑模式
+-  自定制动画及其序列化
+-  实时预览
 
 ## 效果展示
 
@@ -69,27 +53,13 @@ TABAnimated是提供给iOS开发者自动生成骨架屏的一种解决方案。
 
 ![实时预览.gif](https://upload-images.jianshu.io/upload_images/5632003-4161e026819b7739.gif?imageMogr2/auto-orient/strip)
 
-## 场景还原
+## Usages
 
-下面通过一个小例子，更深入地了解一下TABAnimated。
+### 流程图
 
-#### 1. 小明和小张有一个下图这样的视图，需要集成骨架屏
+![流程图.png](https://upload-images.jianshu.io/upload_images/5632003-0c16a40e0bbd78d9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600)
 
-![需求.png](https://upload-images.jianshu.io/upload_images/5632003-8bb0895de7690f79.png?imageMogr2/auto-orient/strip%7CimageView2/3/w/300)
-
-#### 2. 下面是通过TABAnimated自动化生成的效果
-
-![自动化生成.png](https://upload-images.jianshu.io/upload_images/5632003-f10c2427f8b149ba.png?imageMogr2/auto-orient/strip%7CimageView2/3/w/300)
-
-#### 3. 小明做这个需求说，这个效果我很满意，那么小明的工作到此就结束了。但是小张说，我感觉长度，高度，虽然和原视图很像，但是作为一种动画效果我不太满意，不够精致。于是，他通过（预处理回调+链式语法），很快地做了如下调整。
-
-![调整后效果.png](https://upload-images.jianshu.io/upload_images/5632003-0affe19065135d31.png?imageMogr2/auto-orient/strip%7CimageView2/3/w/300)
-
-当然啦，每个人有不同的审美，每个产品有不同的需求，这些就全交由你来把握啦～
-
-## 集成步骤
-
-### 一、导入到工程中
+### 一、导入
 
 - CocoaPods
 
@@ -103,26 +73,21 @@ pod 'TABAnimated', '2.6.3'
 github "tigerAndBull/TABAnimated"
 ```
 
-- 将TABAnimated文件夹拖入工程
+- 手动将TABAnimated文件夹拖入工程
 
-**注意: 在github上下载的演示demo，为了很好的模拟真实的应用场景，使用了一些大家都熟悉的第三方，但是TABAnimated自身并不依赖他们。**
-
-### 二、全局参数初始化
+### 二、全局参数设置
 
 在 `didFinishLaunchingWithOptions` 中初始化 `TABAimated`
 
 ```
 [[TABAnimated sharedAnimated] initWithOnlySkeleton];
 [TABAnimated sharedAnimated].openLog = YES;
+...
 ```
 
-**注意：还有其他的动画类型、全局属性，在框架中都有注释。**
+### 三、初始化
 
-### 三、控制视图初始化
-
-**控制视图：如果是列表视图，那么就是UITableView/UICollectionView，有文档具体讲解。**
-
-`NewsCollectionViewCell`就是你列表中用到的cell，当然你要绑定其他cell，也是完全可以的！
+`NewsCollectionViewCell`就是业务方自己的cell，也可以绑定其他任意类型cell！
 
 ```
 _collectionView.tabAnimated = 
@@ -130,10 +95,8 @@ _collectionView.tabAnimated =
 cellSize:[NewsCollectionViewCell cellSize]];
 ```
 
-**注意：**
-
-- **有其他初始化方法，比如常见的多种cell，在框架中都有注释**
-- **有针对这个控制视图的局部属性，在框架中都有注释**
+- 有其他初始化方法，针对不同结构的列表视图，在框架中都有注释
+- 有针对这个控制视图的局部属性，在框架中都有注释
 
 ### 四、控制骨架屏开关
 
@@ -149,11 +112,10 @@ cellSize:[NewsCollectionViewCell cellSize]];
 [self.collectionView tab_endAnimation];
 ```
 
-### 五、刚刚说到的，预处理回调+链式语法怎么用？
-
-OC
+### 五、预处理回调+链式语法用于修改骨架元素的属性
 
 使用变量名修改
+
 ```
 _tableView.tabAnimated.adjustBlock = ^(TABComponentManager * _Nonnull manager) {
     manager.animationN(@"titleImageView").down(3).radius(12);
@@ -163,6 +125,7 @@ _tableView.tabAnimated.adjustBlock = ^(TABComponentManager * _Nonnull manager) {
 ```
 
 使用index修改
+
 ```
 _tableView.tabAnimated.adjustBlock = ^(TABComponentManager * _Nonnull manager) {
     manager.animation(1).down(3).radius(12);
@@ -181,62 +144,63 @@ tableView.tabAnimated?.adjustBlock = { manager in
 }
 ```
 
-#### 1. 有的人看到上面，可能一下子就被吓到了，集成需要这么复杂吗？
+## FAQ
 
-答：需不需要异步调整，需要调整到什么程度，与你自身约束、产品需求，都有关系。所以并不能自动生成让任何产品、任何人立即都完全满意的效果。
-你大可放心，推出这个功能反而是协助开发者更快速调整自己想要的结果。**
+### 1. `manager.animation(x)`和 `manager.animationN(@"x")`，x是几？
 
-#### 2. `manager.animation(x)`和 `manager.animationN(@"x")`
+manager.animation(x)其实是视图addSubView尾递归排序。
+在appDelegate设置TABAnimated的`openAnimationTag`属性为YES，框架就会自动为你指示，究竟x是几。
 
-答：在appDelegate设置TABAnimated的`openAnimationTag`属性为YES，框架就会自动为你指示，究竟x是几。
-其实是视图addSubView尾递归排序
 ```
 [TABAnimated sharedAnimated].openAnimationTag = YES;
 ```
-**animationN(@"x")**
-x是变量名，不支持局部变量名
 
-#### 3. 通过几个示例，具体了解（预处理回调+链式语法）
+animationN(@"x")的x是变量名，不支持局部变量。
+
+### 2. 通过几个示例，了解预处理回调和链式语法
 
 - 假如第0个元素的高度和宽度不合适
+
 ```
 manager.animation(0).height(12).width(110);
 ```
+
 - 假如第1个元素需要使用占位图
+
 ```
 manager.animation(1).placeholder(@"占位图名称.png");
 ```
+
 - 假如第1，2，3个元素宽度都为50
+
 ```
 manager.animations(1,3).width(50);
 ```
+
 - 假如第1，5，7个元素需要下移5px
+
 ```
 manager.animationWithIndexs(1,5,7).down(5);
 ```
 
 ![下标示意图.png](https://upload-images.jianshu.io/upload_images/5632003-2842bd54e80dd9ef.png?imageMogr2/auto-orient/strip%7CimageView2/3/w/300)
 
-#### 表格集成必看
+### 3. 列表集成问题
 
-(1) 在你集成表格视图之前，一定要理清你自己的视图结构：
-
-分为以下三种
+在你集成列表视图之前，一定要理清列表视图结构。分为以下三种：
 
 + 以section为单元，section和cell样式一一对应
 + 视图只有1个section, 但是对应多个cell
-+ 动态section：你的section数量是网络获取的
++ 动态section：section数量是网络获取的
 
-(2) 明白你自己的需求：
+明确自身需求
 
 + 设置多个section/row，一起开启动画
 + 设置多个section/row，部分开启动画
 
-(3) 最后到框架内找到对应的初始化方法、启动动画方法即可！
+最后到框架内找到对应的初始化方法、启动动画方法即可！
 
-## FAQ
-
-**在实际应用中有各式各样的视图，以下是更详细说明文档。**
+### 4. 详细说明文档列表
 
 > + [缓存策略和线程处理](https://github.com/tigerAndBull/TABAnimated/blob/master/Documents/%E7%BC%93%E5%AD%98%E7%AD%96%E7%95%A5%E5%92%8C%E7%BA%BF%E7%A8%8B%E5%A4%84%E7%90%86.md)
 > + [架构设计和性能测试](https://github.com/tigerAndBull/TABAnimated/blob/master/Documents/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E5%92%8C%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95.md)
@@ -247,17 +211,15 @@ manager.animationWithIndexs(1,5,7).down(5);
 > + [不再hook setDelegate和setDataSource](https://github.com/tigerAndBull/TABAnimated/blob/master/Documents/%E4%B8%8D%E5%86%8Dhook%20setDelegate%E5%92%8CsetDataSource.md)
 > + [上拉加载更多](https://github.com/tigerAndBull/TABAnimated/blob/master/Documents/%E4%B8%8A%E6%8B%89%E5%8A%A0%E8%BD%BD%E5%8A%9F%E8%83%BD.md)
 
-
-## Stargazers over time
-
-[![Stargazers over time](https://starchart.cc/tigerAndBull/TABAnimated.svg)](https://starchart.cc/tigerAndBull/TABAnimated)
-
-
 ## Tips
 
 - 有问题优先查看issues和documents
 - demo提供的只是不同结构视图的集成方案，开发者可以自己定制出更精美的效果
 - 如有使用问题、优化建议等，可以关注公众号：tigerAndBull技术分享，加群解决
+
+## Stargazers over time
+
+[![Stargazers over time](https://starchart.cc/tigerAndBull/TABAnimated.svg)](https://starchart.cc/tigerAndBull/TABAnimated)
 
 ## License
 
