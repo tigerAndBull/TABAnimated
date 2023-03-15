@@ -75,13 +75,13 @@ github "tigerAndBull/TABAnimated"
 
 - 手动将TABAnimated文件夹拖入工程
 
-### 二、全局参数设置(可选)
+### 二、设置全局参数(可选)
 
-在 `didFinishLaunchingWithOptions` 中初始化 `TABAimated`
+在 `didFinishLaunchingWithOptions` 中设置全局参数
 
 ```
-[[TABAnimated sharedAnimated] initWithOnlySkeleton];
 [TABAnimated sharedAnimated].openLog = YES;
+[TABAnimated sharedAnimated].openAnimationTag = YES;
 ...
 ```
 
