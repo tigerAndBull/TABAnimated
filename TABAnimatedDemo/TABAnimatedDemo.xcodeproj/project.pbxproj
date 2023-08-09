@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		010511E62A83710A006EDCD0 /* TABAnimated.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01050FC82A836D6D006EDCD0 /* TABAnimated.framework */; };
+		0105120A2A8394B9006EDCD0 /* TABAnimated.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01050FC82A836D6D006EDCD0 /* TABAnimated.framework */; };
+		0105120B2A8394B9006EDCD0 /* TABAnimated.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 01050FC82A836D6D006EDCD0 /* TABAnimated.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		202D40BE22297D92005CF7E3 /* CourseCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 202D40BD22297D92005CF7E3 /* CourseCollectionViewCell.m */; };
 		2039EF7221DA077200AE09FC /* NestCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2039EF7121DA077200AE09FC /* NestCollectionViewController.m */; };
 		2039EF7521DA07F200AE09FC /* NestCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2039EF7421DA07F200AE09FC /* NestCollectionViewCell.m */; };
@@ -158,14 +159,21 @@
 			remoteGlobalIDString = 01050FA82A836D19006EDCD0;
 			remoteInfo = TABAnimated;
 		};
-		01050FC92A836D6D006EDCD0 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 01050FC22A836D6D006EDCD0 /* TABAnimated.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 01050FB22A836D19006EDCD0;
-			remoteInfo = TABAnimatedTests;
-		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		0105120C2A8394B9006EDCD0 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				0105120B2A8394B9006EDCD0 /* TABAnimated.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		01050FC22A836D6D006EDCD0 /* TABAnimated.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TABAnimated.xcodeproj; path = ../TABAnimated.xcodeproj; sourceTree = "<group>"; };
@@ -460,7 +468,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				010511E62A83710A006EDCD0 /* TABAnimated.framework in Frameworks */,
+				0105120A2A8394B9006EDCD0 /* TABAnimated.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -471,7 +479,6 @@
 			isa = PBXGroup;
 			children = (
 				01050FC82A836D6D006EDCD0 /* TABAnimated.framework */,
-				01050FCA2A836D6D006EDCD0 /* TABAnimatedTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1247,6 +1254,7 @@
 				20A85BEC2152248D0005AD62 /* Sources */,
 				20A85BED2152248D0005AD62 /* Frameworks */,
 				20A85BEE2152248D0005AD62 /* Resources */,
+				0105120C2A8394B9006EDCD0 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1304,13 +1312,6 @@
 			fileType = wrapper.framework;
 			path = TABAnimated.framework;
 			remoteRef = 01050FC72A836D6D006EDCD0 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		01050FCA2A836D6D006EDCD0 /* TABAnimatedTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = TABAnimatedTests.xctest;
-			remoteRef = 01050FC92A836D6D006EDCD0 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
