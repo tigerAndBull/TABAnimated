@@ -9,7 +9,7 @@
 #import "AppDelegate.h"
 
 #import "MainViewController.h"
-#import "TABAnimated.h"
+@import TABAnimated;
 
 @interface AppDelegate ()
 

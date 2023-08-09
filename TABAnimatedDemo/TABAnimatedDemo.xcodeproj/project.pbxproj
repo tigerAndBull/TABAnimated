@@ -3,25 +3,20 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 53;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		010511E62A83710A006EDCD0 /* TABAnimated.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01050FC82A836D6D006EDCD0 /* TABAnimated.framework */; };
 		202D40BE22297D92005CF7E3 /* CourseCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 202D40BD22297D92005CF7E3 /* CourseCollectionViewCell.m */; };
 		2039EF7221DA077200AE09FC /* NestCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2039EF7121DA077200AE09FC /* NestCollectionViewController.m */; };
 		2039EF7521DA07F200AE09FC /* NestCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2039EF7421DA07F200AE09FC /* NestCollectionViewCell.m */; };
 		2039EF7821DA135900AE09FC /* BaseCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2039EF7621DA135900AE09FC /* BaseCollectionCell.m */; };
 		2039EF7B21DA15C100AE09FC /* ImageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2039EF7A21DA15C100AE09FC /* ImageCollectionViewCell.m */; };
-		20410A55261721620030575B /* NSArray+TABAnimated.m in Sources */ = {isa = PBXBuildFile; fileRef = 20410A54261721620030575B /* NSArray+TABAnimated.m */; };
-		20410A5C261CA46B0030575B /* TABComponentLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 20410A5A261CA46A0030575B /* TABComponentLayer.m */; };
 		205664D42489038700AC16D9 /* PullLoadingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 205664D32489038700AC16D9 /* PullLoadingTableViewController.m */; };
 		2063FD1E24C4883E00517F3E /* TABInjectionIIIHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 2063FD1C24C4883D00517F3E /* TABInjectionIIIHelper.m */; };
 		206B44BE258CAC0E0010B64F /* PenerateViewExampleController.m in Sources */ = {isa = PBXBuildFile; fileRef = 206B44BD258CAC0E0010B64F /* PenerateViewExampleController.m */; };
 		2083176521A0451A000A0D95 /* TableRowModeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2083176421A0451A000A0D95 /* TableRowModeViewController.m */; };
-		209433FF266A23A1002F555A /* TABComponentMutableKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 209433FE266A23A1002F555A /* TABComponentMutableKey.m */; };
-		20943402266CADE8002F555A /* UICollectionView+TABControlAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 20943401266CADE8002F555A /* UICollectionView+TABControlAnimation.m */; };
-		20992081265966E500B6CD56 /* UITableView+TABControlAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 20992080265966E500B6CD56 /* UITableView+TABControlAnimation.m */; };
-		2099208426596B4200B6CD56 /* UIView+TABAnimated.m in Sources */ = {isa = PBXBuildFile; fileRef = 2099208326596B4200B6CD56 /* UIView+TABAnimated.m */; };
 		20A01597216A51FC0082425D /* XibTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A01596216A51FC0082425D /* XibTestViewController.m */; };
 		20A0159A216A538F0082425D /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A01599216A538F0082425D /* MainViewController.m */; };
 		20A85BF52152248D0005AD62 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A85BF42152248D0005AD62 /* AppDelegate.m */; };
@@ -107,30 +102,6 @@
 		685A2ACF247A685C00D9DB7C /* LawyerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 685A2ABE247A685C00D9DB7C /* LawyerTableViewCell.m */; };
 		685A2AD0247A685C00D9DB7C /* NewsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 685A2ABF247A685C00D9DB7C /* NewsTableViewCell.m */; };
 		685A2AD1247A685C00D9DB7C /* PackageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 685A2AC0247A685C00D9DB7C /* PackageTableViewCell.m */; };
-		688A37E124893B3D00A76894 /* TABAnimatedCacheModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 688A376B24893B3D00A76894 /* TABAnimatedCacheModel.m */; };
-		688A37E224893B3D00A76894 /* TABAnimatedDocumentMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = 688A376D24893B3D00A76894 /* TABAnimatedDocumentMethod.m */; };
-		688A37E324893B3D00A76894 /* TABAnimatedCacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 688A376F24893B3D00A76894 /* TABAnimatedCacheManager.m */; };
-		688A37E424893B3D00A76894 /* TABAnimationMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = 688A377124893B3D00A76894 /* TABAnimationMethod.m */; };
-		688A37E524893B3D00A76894 /* TABWeakDelegateManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 688A377424893B3D00A76894 /* TABWeakDelegateManager.m */; };
-		688A37E924893B3D00A76894 /* TABAnimated.m in Sources */ = {isa = PBXBuildFile; fileRef = 688A378124893B3D00A76894 /* TABAnimated.m */; };
-		688A37FA24893B3E00A76894 /* TABBaseComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 688A37AE24893B3D00A76894 /* TABBaseComponent.m */; };
-		688A37FB24893B3E00A76894 /* TABComponentManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 688A37B524893B3D00A76894 /* TABComponentManager.m */; };
-		688A37FC24893B3E00A76894 /* TABAnimatedChainManagerImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 688A37B624893B3D00A76894 /* TABAnimatedChainManagerImpl.m */; };
-		688A37FD24893B3E00A76894 /* NSArray+TABAnimatedChain.m in Sources */ = {isa = PBXBuildFile; fileRef = 688A37B724893B3D00A76894 /* NSArray+TABAnimatedChain.m */; };
-		688A37FF24893B3E00A76894 /* TABAnimatedProductImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 688A37BC24893B3D00A76894 /* TABAnimatedProductImpl.m */; };
-		688A380024893B3E00A76894 /* UIView+TABAnimatedProduction.m in Sources */ = {isa = PBXBuildFile; fileRef = 688A37C224893B3D00A76894 /* UIView+TABAnimatedProduction.m */; };
-		688A380124893B3E00A76894 /* TABAnimatedProduction.m in Sources */ = {isa = PBXBuildFile; fileRef = 688A37C324893B3D00A76894 /* TABAnimatedProduction.m */; };
-		688A380224893B3E00A76894 /* TABAnimatedProductHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 688A37C624893B3D00A76894 /* TABAnimatedProductHelper.m */; };
-		688A380324893B3E00A76894 /* UIScrollView+TABAnimated.m in Sources */ = {isa = PBXBuildFile; fileRef = 688A37C824893B3D00A76894 /* UIScrollView+TABAnimated.m */; };
-		688A380424893B3E00A76894 /* UIScrollView+TABExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 688A37CE24893B3D00A76894 /* UIScrollView+TABExtension.m */; };
-		688A380524893B3E00A76894 /* TABAnimatedPullLoadingComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 688A37CF24893B3D00A76894 /* TABAnimatedPullLoadingComponent.m */; };
-		688A380624893B3E00A76894 /* UIView+TABExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 688A37D024893B3D00A76894 /* UIView+TABExtension.m */; };
-		688A380724893B3E00A76894 /* UIView+TABControlAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 688A37D424893B3D00A76894 /* UIView+TABControlAnimation.m */; };
-		688A380824893B3E00A76894 /* TABViewAnimated.m in Sources */ = {isa = PBXBuildFile; fileRef = 688A37D524893B3D00A76894 /* TABViewAnimated.m */; };
-		688A380924893B3E00A76894 /* TABCollectionAnimated.m in Sources */ = {isa = PBXBuildFile; fileRef = 688A37D624893B3D00A76894 /* TABCollectionAnimated.m */; };
-		688A380A24893B3E00A76894 /* TABTableAnimated.m in Sources */ = {isa = PBXBuildFile; fileRef = 688A37DE24893B3D00A76894 /* TABTableAnimated.m */; };
-		688A380B24893B3E00A76894 /* TABFormAnimated.m in Sources */ = {isa = PBXBuildFile; fileRef = 688A37DF24893B3D00A76894 /* TABFormAnimated.m */; };
-		688A380C24893B3E00A76894 /* UIView+TABControlModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 688A37E024893B3D00A76894 /* UIView+TABControlModel.m */; };
 		68958D542274AA40002C4295 /* CardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68958D522274AA3F002C4295 /* CardViewController.m */; };
 		68958D572274AA7B002C4295 /* CardCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 68958D562274AA7A002C4295 /* CardCollectionViewCell.m */; };
 		68958D5A22753D00002C4295 /* SegmentCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68958D5922753D00002C4295 /* SegmentCollectionViewController.m */; };
@@ -171,25 +142,6 @@
 		68C171B624617AA5004FD76F /* test3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 68C171B524617AA5004FD76F /* test3.jpg */; };
 		68C171BA2461A095004FD76F /* NestTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C171B92461A095004FD76F /* NestTableViewController.m */; };
 		68C21D9A22F34548003C2936 /* TestCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C21D9922F34548003C2936 /* TestCollectionReusableView.m */; };
-		68C35F46249E6D8F00A34D22 /* TABAnimatedDarkModeManagerImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C35F15249E6D8E00A34D22 /* TABAnimatedDarkModeManagerImpl.m */; };
-		68C35F47249E6D8F00A34D22 /* TABSentryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C35F19249E6D8E00A34D22 /* TABSentryView.m */; };
-		68C35F48249E6D8F00A34D22 /* TABAnimatedDarkModeImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C35F1A249E6D8E00A34D22 /* TABAnimatedDarkModeImpl.m */; };
-		68C35F49249E6D8F00A34D22 /* TABBinAnimationImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C35F1E249E6D8E00A34D22 /* TABBinAnimationImpl.m */; };
-		68C35F4A249E6D8F00A34D22 /* TABBinAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C35F1F249E6D8E00A34D22 /* TABBinAnimation.m */; };
-		68C35F4B249E6D8F00A34D22 /* TABComponentLayerClassicSerializationImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C35F24249E6D8E00A34D22 /* TABComponentLayerClassicSerializationImpl.m */; };
-		68C35F4C249E6D8F00A34D22 /* TABClassicAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C35F26249E6D8E00A34D22 /* TABClassicAnimation.m */; };
-		68C35F4D249E6D8F00A34D22 /* TABBaseComponent+TABClassicAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C35F27249E6D8E00A34D22 /* TABBaseComponent+TABClassicAnimation.m */; };
-		68C35F4E249E6D8F00A34D22 /* TABClassicAnimationImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C35F29249E6D8E00A34D22 /* TABClassicAnimationImpl.m */; };
-		68C35F4F249E6D8F00A34D22 /* TABComponentLayer+TABClassicAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C35F2B249E6D8E00A34D22 /* TABComponentLayer+TABClassicAnimation.m */; };
-		68C35F50249E6D8F00A34D22 /* TABComponentLayer+TABDropAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C35F32249E6D8E00A34D22 /* TABComponentLayer+TABDropAnimation.m */; };
-		68C35F51249E6D8F00A34D22 /* NSArray+TABDropAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C35F34249E6D8E00A34D22 /* NSArray+TABDropAnimation.m */; };
-		68C35F52249E6D8F00A34D22 /* TABBaseComponent+TABDropAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C35F36249E6D8E00A34D22 /* TABBaseComponent+TABDropAnimation.m */; };
-		68C35F53249E6D8F00A34D22 /* TABComponentLayerDropSerializationImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C35F38249E6D8E00A34D22 /* TABComponentLayerDropSerializationImpl.m */; };
-		68C35F54249E6D8F00A34D22 /* TABDropAnimationImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C35F3C249E6D8E00A34D22 /* TABDropAnimationImpl.m */; };
-		68C35F55249E6D8F00A34D22 /* TABDropAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C35F3D249E6D8E00A34D22 /* TABDropAnimation.m */; };
-		68C35F56249E6D8F00A34D22 /* TABAnimationManagerImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C35F3F249E6D8E00A34D22 /* TABAnimationManagerImpl.m */; };
-		68C35F57249E6D8F00A34D22 /* TABShimmerAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C35F41249E6D8E00A34D22 /* TABShimmerAnimation.m */; };
-		68C35F58249E6D8F00A34D22 /* TABShimmerAnimationImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C35F45249E6D8E00A34D22 /* TABShimmerAnimationImpl.m */; };
 		68CFCF0F2294DCBC007D167F /* XibCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 68CFCF0D2294DCBC007D167F /* XibCollectionViewCell.m */; };
 		68CFCF102294DCBC007D167F /* XibCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68CFCF0E2294DCBC007D167F /* XibCollectionViewCell.xib */; };
 		68CFCF162294DFA0007D167F /* XibCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68CFCF152294DFA0007D167F /* XibCollectionViewController.m */; };
@@ -198,7 +150,25 @@
 		68D20758228BE7A400B32CD1 /* DoubanNormalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68D20757228BE7A400B32CD1 /* DoubanNormalViewController.m */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		01050FC72A836D6D006EDCD0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 01050FC22A836D6D006EDCD0 /* TABAnimated.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 01050FA82A836D19006EDCD0;
+			remoteInfo = TABAnimated;
+		};
+		01050FC92A836D6D006EDCD0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 01050FC22A836D6D006EDCD0 /* TABAnimated.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 01050FB22A836D19006EDCD0;
+			remoteInfo = TABAnimatedTests;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		01050FC22A836D6D006EDCD0 /* TABAnimated.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TABAnimated.xcodeproj; path = ../TABAnimated.xcodeproj; sourceTree = "<group>"; };
 		202D40BC22297D92005CF7E3 /* CourseCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CourseCollectionViewCell.h; sourceTree = "<group>"; };
 		202D40BD22297D92005CF7E3 /* CourseCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CourseCollectionViewCell.m; sourceTree = "<group>"; };
 		2039EF7021DA077200AE09FC /* NestCollectionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NestCollectionViewController.h; sourceTree = "<group>"; };
@@ -209,10 +179,6 @@
 		2039EF7721DA135900AE09FC /* BaseCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseCollectionCell.h; sourceTree = "<group>"; };
 		2039EF7921DA15C100AE09FC /* ImageCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageCollectionViewCell.h; sourceTree = "<group>"; };
 		2039EF7A21DA15C100AE09FC /* ImageCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageCollectionViewCell.m; sourceTree = "<group>"; };
-		20410A53261721620030575B /* NSArray+TABAnimated.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSArray+TABAnimated.h"; sourceTree = "<group>"; };
-		20410A54261721620030575B /* NSArray+TABAnimated.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSArray+TABAnimated.m"; sourceTree = "<group>"; };
-		20410A5A261CA46A0030575B /* TABComponentLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TABComponentLayer.m; sourceTree = "<group>"; };
-		20410A5B261CA46A0030575B /* TABComponentLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TABComponentLayer.h; sourceTree = "<group>"; };
 		205664D22489038700AC16D9 /* PullLoadingTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PullLoadingTableViewController.h; sourceTree = "<group>"; };
 		205664D32489038700AC16D9 /* PullLoadingTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PullLoadingTableViewController.m; sourceTree = "<group>"; };
 		2063FD1C24C4883D00517F3E /* TABInjectionIIIHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TABInjectionIIIHelper.m; sourceTree = "<group>"; };
@@ -221,19 +187,10 @@
 		206B44BD258CAC0E0010B64F /* PenerateViewExampleController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PenerateViewExampleController.m; sourceTree = "<group>"; };
 		2083176321A0451A000A0D95 /* TableRowModeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TableRowModeViewController.h; sourceTree = "<group>"; };
 		2083176421A0451A000A0D95 /* TableRowModeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TableRowModeViewController.m; sourceTree = "<group>"; };
-		209433FD266A23A1002F555A /* TABComponentMutableKey.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TABComponentMutableKey.h; sourceTree = "<group>"; };
-		209433FE266A23A1002F555A /* TABComponentMutableKey.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TABComponentMutableKey.m; sourceTree = "<group>"; };
-		20943400266CADE8002F555A /* UICollectionView+TABControlAnimation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UICollectionView+TABControlAnimation.h"; sourceTree = "<group>"; };
-		20943401266CADE8002F555A /* UICollectionView+TABControlAnimation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UICollectionView+TABControlAnimation.m"; sourceTree = "<group>"; };
-		2099207F265966E500B6CD56 /* UITableView+TABControlAnimation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITableView+TABControlAnimation.h"; sourceTree = "<group>"; };
-		20992080265966E500B6CD56 /* UITableView+TABControlAnimation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITableView+TABControlAnimation.m"; sourceTree = "<group>"; };
-		2099208226596B4200B6CD56 /* UIView+TABAnimated.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+TABAnimated.h"; sourceTree = "<group>"; };
-		2099208326596B4200B6CD56 /* UIView+TABAnimated.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+TABAnimated.m"; sourceTree = "<group>"; };
 		20A01595216A51FC0082425D /* XibTestViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XibTestViewController.h; sourceTree = "<group>"; };
 		20A01596216A51FC0082425D /* XibTestViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XibTestViewController.m; sourceTree = "<group>"; };
 		20A01598216A538F0082425D /* MainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		20A01599216A538F0082425D /* MainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
-		20A7405224AAF92300A0AC85 /* TABAnimatedDarkModeDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TABAnimatedDarkModeDefines.h; sourceTree = "<group>"; };
 		20A85BF02152248D0005AD62 /* TABAnimated.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TABAnimated.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		20A85BF32152248D0005AD62 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		20A85BF42152248D0005AD62 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -405,61 +362,6 @@
 		685A2AC1247A685C00D9DB7C /* NestTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NestTableViewCell.h; sourceTree = "<group>"; };
 		685A2AC2247A685C00D9DB7C /* TestTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestTableViewCell.h; sourceTree = "<group>"; };
 		685A2AC3247A685C00D9DB7C /* CardTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardTableViewCell.h; sourceTree = "<group>"; };
-		688A376A24893B3D00A76894 /* TABAnimatedDocumentMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TABAnimatedDocumentMethod.h; sourceTree = "<group>"; };
-		688A376B24893B3D00A76894 /* TABAnimatedCacheModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TABAnimatedCacheModel.m; sourceTree = "<group>"; };
-		688A376C24893B3D00A76894 /* TABAnimatedCacheManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TABAnimatedCacheManager.h; sourceTree = "<group>"; };
-		688A376D24893B3D00A76894 /* TABAnimatedDocumentMethod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TABAnimatedDocumentMethod.m; sourceTree = "<group>"; };
-		688A376E24893B3D00A76894 /* TABAnimatedCacheModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TABAnimatedCacheModel.h; sourceTree = "<group>"; };
-		688A376F24893B3D00A76894 /* TABAnimatedCacheManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TABAnimatedCacheManager.m; sourceTree = "<group>"; };
-		688A377124893B3D00A76894 /* TABAnimationMethod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TABAnimationMethod.m; sourceTree = "<group>"; };
-		688A377224893B3D00A76894 /* TABWeakDelegateManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TABWeakDelegateManager.h; sourceTree = "<group>"; };
-		688A377324893B3D00A76894 /* TABAnimationMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TABAnimationMethod.h; sourceTree = "<group>"; };
-		688A377424893B3D00A76894 /* TABWeakDelegateManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TABWeakDelegateManager.m; sourceTree = "<group>"; };
-		688A377624893B3D00A76894 /* TABAnimatedConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TABAnimatedConfig.h; sourceTree = "<group>"; };
-		688A378124893B3D00A76894 /* TABAnimated.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TABAnimated.m; sourceTree = "<group>"; };
-		688A37AD24893B3D00A76894 /* TABComponentManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TABComponentManager.h; sourceTree = "<group>"; };
-		688A37AE24893B3D00A76894 /* TABBaseComponent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TABBaseComponent.m; sourceTree = "<group>"; };
-		688A37AF24893B3D00A76894 /* TABAnimatedChainManagerImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TABAnimatedChainManagerImpl.h; sourceTree = "<group>"; };
-		688A37B124893B3D00A76894 /* TABAnimatedChainDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TABAnimatedChainDefines.h; sourceTree = "<group>"; };
-		688A37B224893B3D00A76894 /* TABAnimatedChainManagerInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TABAnimatedChainManagerInterface.h; sourceTree = "<group>"; };
-		688A37B324893B3D00A76894 /* NSArray+TABAnimatedChain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+TABAnimatedChain.h"; sourceTree = "<group>"; };
-		688A37B424893B3D00A76894 /* TABBaseComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TABBaseComponent.h; sourceTree = "<group>"; };
-		688A37B524893B3D00A76894 /* TABComponentManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TABComponentManager.m; sourceTree = "<group>"; };
-		688A37B624893B3D00A76894 /* TABAnimatedChainManagerImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TABAnimatedChainManagerImpl.m; sourceTree = "<group>"; };
-		688A37B724893B3D00A76894 /* NSArray+TABAnimatedChain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+TABAnimatedChain.m"; sourceTree = "<group>"; };
-		688A37B924893B3D00A76894 /* TABAnimatedProduction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TABAnimatedProduction.h; sourceTree = "<group>"; };
-		688A37BA24893B3D00A76894 /* UIView+TABAnimatedProduction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+TABAnimatedProduction.h"; sourceTree = "<group>"; };
-		688A37BC24893B3D00A76894 /* TABAnimatedProductImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TABAnimatedProductImpl.m; sourceTree = "<group>"; };
-		688A37BE24893B3D00A76894 /* TABAnimatedProductInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TABAnimatedProductInterface.h; sourceTree = "<group>"; };
-		688A37BF24893B3D00A76894 /* TABAnimatedProductDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TABAnimatedProductDefines.h; sourceTree = "<group>"; };
-		688A37C024893B3D00A76894 /* TABComponentLayerSerializationInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TABComponentLayerSerializationInterface.h; sourceTree = "<group>"; };
-		688A37C124893B3D00A76894 /* TABAnimatedProductHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TABAnimatedProductHelper.h; sourceTree = "<group>"; };
-		688A37C224893B3D00A76894 /* UIView+TABAnimatedProduction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+TABAnimatedProduction.m"; sourceTree = "<group>"; };
-		688A37C324893B3D00A76894 /* TABAnimatedProduction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TABAnimatedProduction.m; sourceTree = "<group>"; };
-		688A37C524893B3D00A76894 /* TABAnimatedProductImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TABAnimatedProductImpl.h; sourceTree = "<group>"; };
-		688A37C624893B3D00A76894 /* TABAnimatedProductHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TABAnimatedProductHelper.m; sourceTree = "<group>"; };
-		688A37C824893B3D00A76894 /* UIScrollView+TABAnimated.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+TABAnimated.m"; sourceTree = "<group>"; };
-		688A37CA24893B3D00A76894 /* TABAnimatedPullLoadingComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TABAnimatedPullLoadingComponent.h; sourceTree = "<group>"; };
-		688A37CB24893B3D00A76894 /* UIView+TABExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+TABExtension.h"; sourceTree = "<group>"; };
-		688A37CC24893B3D00A76894 /* UIScrollView+TABAnimated.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+TABAnimated.h"; sourceTree = "<group>"; };
-		688A37CD24893B3D00A76894 /* UIScrollView+TABExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+TABExtension.h"; sourceTree = "<group>"; };
-		688A37CE24893B3D00A76894 /* UIScrollView+TABExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+TABExtension.m"; sourceTree = "<group>"; };
-		688A37CF24893B3D00A76894 /* TABAnimatedPullLoadingComponent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TABAnimatedPullLoadingComponent.m; sourceTree = "<group>"; };
-		688A37D024893B3D00A76894 /* UIView+TABExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+TABExtension.m"; sourceTree = "<group>"; };
-		688A37D124893B3D00A76894 /* TABAnimated.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TABAnimated.h; sourceTree = "<group>"; };
-		688A37D324893B3D00A76894 /* TABFormAnimated.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TABFormAnimated.h; sourceTree = "<group>"; };
-		688A37D424893B3D00A76894 /* UIView+TABControlAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+TABControlAnimation.m"; sourceTree = "<group>"; };
-		688A37D524893B3D00A76894 /* TABViewAnimated.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TABViewAnimated.m; sourceTree = "<group>"; };
-		688A37D624893B3D00A76894 /* TABCollectionAnimated.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TABCollectionAnimated.m; sourceTree = "<group>"; };
-		688A37D824893B3D00A76894 /* UIView+TABControlModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+TABControlModel.h"; sourceTree = "<group>"; };
-		688A37D924893B3D00A76894 /* UIView+TABControlAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+TABControlAnimation.h"; sourceTree = "<group>"; };
-		688A37DA24893B3D00A76894 /* TABViewAnimatedDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TABViewAnimatedDefines.h; sourceTree = "<group>"; };
-		688A37DB24893B3D00A76894 /* TABCollectionAnimated.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TABCollectionAnimated.h; sourceTree = "<group>"; };
-		688A37DC24893B3D00A76894 /* TABViewAnimated.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TABViewAnimated.h; sourceTree = "<group>"; };
-		688A37DD24893B3D00A76894 /* TABTableAnimated.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TABTableAnimated.h; sourceTree = "<group>"; };
-		688A37DE24893B3D00A76894 /* TABTableAnimated.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TABTableAnimated.m; sourceTree = "<group>"; };
-		688A37DF24893B3D00A76894 /* TABFormAnimated.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TABFormAnimated.m; sourceTree = "<group>"; };
-		688A37E024893B3D00A76894 /* UIView+TABControlModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+TABControlModel.m"; sourceTree = "<group>"; };
 		68958D522274AA3F002C4295 /* CardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardViewController.m; sourceTree = "<group>"; };
 		68958D532274AA3F002C4295 /* CardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardViewController.h; sourceTree = "<group>"; };
 		68958D552274AA7A002C4295 /* CardCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardCollectionViewCell.h; sourceTree = "<group>"; };
@@ -539,50 +441,6 @@
 		68C171B92461A095004FD76F /* NestTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NestTableViewController.m; sourceTree = "<group>"; };
 		68C21D9822F34548003C2936 /* TestCollectionReusableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestCollectionReusableView.h; sourceTree = "<group>"; };
 		68C21D9922F34548003C2936 /* TestCollectionReusableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestCollectionReusableView.m; sourceTree = "<group>"; };
-		68C35F13249E6D8E00A34D22 /* TABAnimatedDarkModeImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TABAnimatedDarkModeImpl.h; sourceTree = "<group>"; };
-		68C35F14249E6D8E00A34D22 /* TABSentryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TABSentryView.h; sourceTree = "<group>"; };
-		68C35F15249E6D8E00A34D22 /* TABAnimatedDarkModeManagerImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TABAnimatedDarkModeManagerImpl.m; sourceTree = "<group>"; };
-		68C35F17249E6D8E00A34D22 /* TABAnimatedDarkModeInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TABAnimatedDarkModeInterface.h; sourceTree = "<group>"; };
-		68C35F18249E6D8E00A34D22 /* TABAnimatedDarkModeManagerInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TABAnimatedDarkModeManagerInterface.h; sourceTree = "<group>"; };
-		68C35F19249E6D8E00A34D22 /* TABSentryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TABSentryView.m; sourceTree = "<group>"; };
-		68C35F1A249E6D8E00A34D22 /* TABAnimatedDarkModeImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TABAnimatedDarkModeImpl.m; sourceTree = "<group>"; };
-		68C35F1B249E6D8E00A34D22 /* TABAnimatedDarkModeManagerImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TABAnimatedDarkModeManagerImpl.h; sourceTree = "<group>"; };
-		68C35F1E249E6D8E00A34D22 /* TABBinAnimationImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TABBinAnimationImpl.m; sourceTree = "<group>"; };
-		68C35F1F249E6D8E00A34D22 /* TABBinAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TABBinAnimation.m; sourceTree = "<group>"; };
-		68C35F20249E6D8E00A34D22 /* TABBinAnimationImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TABBinAnimationImpl.h; sourceTree = "<group>"; };
-		68C35F21249E6D8E00A34D22 /* TABBinAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TABBinAnimation.h; sourceTree = "<group>"; };
-		68C35F23249E6D8E00A34D22 /* TABClassicAnimationImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TABClassicAnimationImpl.h; sourceTree = "<group>"; };
-		68C35F24249E6D8E00A34D22 /* TABComponentLayerClassicSerializationImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TABComponentLayerClassicSerializationImpl.m; sourceTree = "<group>"; };
-		68C35F25249E6D8E00A34D22 /* TABComponentLayer+TABClassicAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TABComponentLayer+TABClassicAnimation.h"; sourceTree = "<group>"; };
-		68C35F26249E6D8E00A34D22 /* TABClassicAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TABClassicAnimation.m; sourceTree = "<group>"; };
-		68C35F27249E6D8E00A34D22 /* TABBaseComponent+TABClassicAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TABBaseComponent+TABClassicAnimation.m"; sourceTree = "<group>"; };
-		68C35F28249E6D8E00A34D22 /* TABComponentLayerClassicSerializationImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TABComponentLayerClassicSerializationImpl.h; sourceTree = "<group>"; };
-		68C35F29249E6D8E00A34D22 /* TABClassicAnimationImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TABClassicAnimationImpl.m; sourceTree = "<group>"; };
-		68C35F2A249E6D8E00A34D22 /* TABClassicAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TABClassicAnimation.h; sourceTree = "<group>"; };
-		68C35F2B249E6D8E00A34D22 /* TABComponentLayer+TABClassicAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TABComponentLayer+TABClassicAnimation.m"; sourceTree = "<group>"; };
-		68C35F2C249E6D8E00A34D22 /* TABBaseComponent+TABClassicAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TABBaseComponent+TABClassicAnimation.h"; sourceTree = "<group>"; };
-		68C35F2E249E6D8E00A34D22 /* TABAnimatedDecorateInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TABAnimatedDecorateInterface.h; sourceTree = "<group>"; };
-		68C35F2F249E6D8E00A34D22 /* TABAnimationManagerInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TABAnimationManagerInterface.h; sourceTree = "<group>"; };
-		68C35F30249E6D8E00A34D22 /* TABAnimationManagerImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TABAnimationManagerImpl.h; sourceTree = "<group>"; };
-		68C35F32249E6D8E00A34D22 /* TABComponentLayer+TABDropAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TABComponentLayer+TABDropAnimation.m"; sourceTree = "<group>"; };
-		68C35F33249E6D8E00A34D22 /* TABComponentLayerDropSerializationImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TABComponentLayerDropSerializationImpl.h; sourceTree = "<group>"; };
-		68C35F34249E6D8E00A34D22 /* NSArray+TABDropAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+TABDropAnimation.m"; sourceTree = "<group>"; };
-		68C35F35249E6D8E00A34D22 /* TABDropAnimationImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TABDropAnimationImpl.h; sourceTree = "<group>"; };
-		68C35F36249E6D8E00A34D22 /* TABBaseComponent+TABDropAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TABBaseComponent+TABDropAnimation.m"; sourceTree = "<group>"; };
-		68C35F37249E6D8E00A34D22 /* TABDropAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TABDropAnimation.h; sourceTree = "<group>"; };
-		68C35F38249E6D8E00A34D22 /* TABComponentLayerDropSerializationImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TABComponentLayerDropSerializationImpl.m; sourceTree = "<group>"; };
-		68C35F39249E6D8E00A34D22 /* TABComponentLayer+TABDropAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TABComponentLayer+TABDropAnimation.h"; sourceTree = "<group>"; };
-		68C35F3A249E6D8E00A34D22 /* NSArray+TABDropAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+TABDropAnimation.h"; sourceTree = "<group>"; };
-		68C35F3B249E6D8E00A34D22 /* TABDropAnimationDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TABDropAnimationDefines.h; sourceTree = "<group>"; };
-		68C35F3C249E6D8E00A34D22 /* TABDropAnimationImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TABDropAnimationImpl.m; sourceTree = "<group>"; };
-		68C35F3D249E6D8E00A34D22 /* TABDropAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TABDropAnimation.m; sourceTree = "<group>"; };
-		68C35F3E249E6D8E00A34D22 /* TABBaseComponent+TABDropAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TABBaseComponent+TABDropAnimation.h"; sourceTree = "<group>"; };
-		68C35F3F249E6D8E00A34D22 /* TABAnimationManagerImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TABAnimationManagerImpl.m; sourceTree = "<group>"; };
-		68C35F41249E6D8E00A34D22 /* TABShimmerAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TABShimmerAnimation.m; sourceTree = "<group>"; };
-		68C35F42249E6D8E00A34D22 /* TABShimmerAnimationImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TABShimmerAnimationImpl.h; sourceTree = "<group>"; };
-		68C35F43249E6D8E00A34D22 /* TABShimmerAnimationDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TABShimmerAnimationDefines.h; sourceTree = "<group>"; };
-		68C35F44249E6D8E00A34D22 /* TABShimmerAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TABShimmerAnimation.h; sourceTree = "<group>"; };
-		68C35F45249E6D8E00A34D22 /* TABShimmerAnimationImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TABShimmerAnimationImpl.m; sourceTree = "<group>"; };
 		68CFCF0C2294DCBC007D167F /* XibCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XibCollectionViewCell.h; sourceTree = "<group>"; };
 		68CFCF0D2294DCBC007D167F /* XibCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XibCollectionViewCell.m; sourceTree = "<group>"; };
 		68CFCF0E2294DCBC007D167F /* XibCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = XibCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -602,12 +460,22 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				010511E62A83710A006EDCD0 /* TABAnimated.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		01050FC32A836D6D006EDCD0 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				01050FC82A836D6D006EDCD0 /* TABAnimated.framework */,
+				01050FCA2A836D6D006EDCD0 /* TABAnimatedTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		20A01594216A51A80082425D /* Sources */ = {
 			isa = PBXGroup;
 			children = (
@@ -627,7 +495,7 @@
 		20A85BE72152248D0005AD62 = {
 			isa = PBXGroup;
 			children = (
-				688A376824893B3D00A76894 /* TABAnimated */,
+				01050FC22A836D6D006EDCD0 /* TABAnimated.xcodeproj */,
 				20A85BF22152248D0005AD62 /* TABAnimatedDemo */,
 				20A85BF12152248D0005AD62 /* Products */,
 				683420BB233CC5330056557C /* Frameworks */,
@@ -1011,160 +879,6 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
-		688A376824893B3D00A76894 /* TABAnimated */ = {
-			isa = PBXGroup;
-			children = (
-				688A37D124893B3D00A76894 /* TABAnimated.h */,
-				688A378124893B3D00A76894 /* TABAnimated.m */,
-				688A377024893B3D00A76894 /* Util */,
-				688A376924893B3D00A76894 /* Cache */,
-				688A377524893B3D00A76894 /* Config */,
-				688A37D224893B3D00A76894 /* Control */,
-				688A37B824893B3D00A76894 /* Product */,
-				68C35F11249E6D8E00A34D22 /* Decorate */,
-				688A37C724893B3D00A76894 /* PullLoading */,
-			);
-			path = TABAnimated;
-			sourceTree = "<group>";
-		};
-		688A376924893B3D00A76894 /* Cache */ = {
-			isa = PBXGroup;
-			children = (
-				688A376C24893B3D00A76894 /* TABAnimatedCacheManager.h */,
-				688A376F24893B3D00A76894 /* TABAnimatedCacheManager.m */,
-				688A376E24893B3D00A76894 /* TABAnimatedCacheModel.h */,
-				688A376B24893B3D00A76894 /* TABAnimatedCacheModel.m */,
-				688A376A24893B3D00A76894 /* TABAnimatedDocumentMethod.h */,
-				688A376D24893B3D00A76894 /* TABAnimatedDocumentMethod.m */,
-			);
-			path = Cache;
-			sourceTree = "<group>";
-		};
-		688A377024893B3D00A76894 /* Util */ = {
-			isa = PBXGroup;
-			children = (
-				688A377324893B3D00A76894 /* TABAnimationMethod.h */,
-				688A377124893B3D00A76894 /* TABAnimationMethod.m */,
-				688A377224893B3D00A76894 /* TABWeakDelegateManager.h */,
-				688A377424893B3D00A76894 /* TABWeakDelegateManager.m */,
-				688A37CD24893B3D00A76894 /* UIScrollView+TABExtension.h */,
-				688A37CE24893B3D00A76894 /* UIScrollView+TABExtension.m */,
-				20410A53261721620030575B /* NSArray+TABAnimated.h */,
-				20410A54261721620030575B /* NSArray+TABAnimated.m */,
-			);
-			path = Util;
-			sourceTree = "<group>";
-		};
-		688A377524893B3D00A76894 /* Config */ = {
-			isa = PBXGroup;
-			children = (
-				688A377624893B3D00A76894 /* TABAnimatedConfig.h */,
-			);
-			path = Config;
-			sourceTree = "<group>";
-		};
-		688A37AC24893B3D00A76894 /* Chain */ = {
-			isa = PBXGroup;
-			children = (
-				688A37B024893B3D00A76894 /* Include */,
-				688A37B324893B3D00A76894 /* NSArray+TABAnimatedChain.h */,
-				688A37B724893B3D00A76894 /* NSArray+TABAnimatedChain.m */,
-				688A37AF24893B3D00A76894 /* TABAnimatedChainManagerImpl.h */,
-				688A37B624893B3D00A76894 /* TABAnimatedChainManagerImpl.m */,
-				688A37B424893B3D00A76894 /* TABBaseComponent.h */,
-				688A37AE24893B3D00A76894 /* TABBaseComponent.m */,
-				688A37AD24893B3D00A76894 /* TABComponentManager.h */,
-				688A37B524893B3D00A76894 /* TABComponentManager.m */,
-				209433FD266A23A1002F555A /* TABComponentMutableKey.h */,
-				209433FE266A23A1002F555A /* TABComponentMutableKey.m */,
-			);
-			path = Chain;
-			sourceTree = "<group>";
-		};
-		688A37B024893B3D00A76894 /* Include */ = {
-			isa = PBXGroup;
-			children = (
-				688A37B124893B3D00A76894 /* TABAnimatedChainDefines.h */,
-				688A37B224893B3D00A76894 /* TABAnimatedChainManagerInterface.h */,
-			);
-			path = Include;
-			sourceTree = "<group>";
-		};
-		688A37B824893B3D00A76894 /* Product */ = {
-			isa = PBXGroup;
-			children = (
-				688A37BD24893B3D00A76894 /* Include */,
-				688A37C124893B3D00A76894 /* TABAnimatedProductHelper.h */,
-				688A37C624893B3D00A76894 /* TABAnimatedProductHelper.m */,
-				688A37C524893B3D00A76894 /* TABAnimatedProductImpl.h */,
-				688A37BC24893B3D00A76894 /* TABAnimatedProductImpl.m */,
-				688A37B924893B3D00A76894 /* TABAnimatedProduction.h */,
-				688A37C324893B3D00A76894 /* TABAnimatedProduction.m */,
-				688A37BA24893B3D00A76894 /* UIView+TABAnimatedProduction.h */,
-				688A37C224893B3D00A76894 /* UIView+TABAnimatedProduction.m */,
-				20410A5B261CA46A0030575B /* TABComponentLayer.h */,
-				20410A5A261CA46A0030575B /* TABComponentLayer.m */,
-			);
-			path = Product;
-			sourceTree = "<group>";
-		};
-		688A37BD24893B3D00A76894 /* Include */ = {
-			isa = PBXGroup;
-			children = (
-				688A37BF24893B3D00A76894 /* TABAnimatedProductDefines.h */,
-				688A37BE24893B3D00A76894 /* TABAnimatedProductInterface.h */,
-				688A37C024893B3D00A76894 /* TABComponentLayerSerializationInterface.h */,
-			);
-			path = Include;
-			sourceTree = "<group>";
-		};
-		688A37C724893B3D00A76894 /* PullLoading */ = {
-			isa = PBXGroup;
-			children = (
-				688A37CA24893B3D00A76894 /* TABAnimatedPullLoadingComponent.h */,
-				688A37CF24893B3D00A76894 /* TABAnimatedPullLoadingComponent.m */,
-				688A37CC24893B3D00A76894 /* UIScrollView+TABAnimated.h */,
-				688A37C824893B3D00A76894 /* UIScrollView+TABAnimated.m */,
-				688A37CB24893B3D00A76894 /* UIView+TABExtension.h */,
-				688A37D024893B3D00A76894 /* UIView+TABExtension.m */,
-			);
-			path = PullLoading;
-			sourceTree = "<group>";
-		};
-		688A37D224893B3D00A76894 /* Control */ = {
-			isa = PBXGroup;
-			children = (
-				688A37D724893B3D00A76894 /* Include */,
-				688A37DC24893B3D00A76894 /* TABViewAnimated.h */,
-				688A37D524893B3D00A76894 /* TABViewAnimated.m */,
-				688A37D324893B3D00A76894 /* TABFormAnimated.h */,
-				688A37DF24893B3D00A76894 /* TABFormAnimated.m */,
-				688A37DD24893B3D00A76894 /* TABTableAnimated.h */,
-				688A37DE24893B3D00A76894 /* TABTableAnimated.m */,
-				688A37DB24893B3D00A76894 /* TABCollectionAnimated.h */,
-				688A37D624893B3D00A76894 /* TABCollectionAnimated.m */,
-				2099208226596B4200B6CD56 /* UIView+TABAnimated.h */,
-				2099208326596B4200B6CD56 /* UIView+TABAnimated.m */,
-				688A37D824893B3D00A76894 /* UIView+TABControlModel.h */,
-				688A37E024893B3D00A76894 /* UIView+TABControlModel.m */,
-				688A37D924893B3D00A76894 /* UIView+TABControlAnimation.h */,
-				688A37D424893B3D00A76894 /* UIView+TABControlAnimation.m */,
-				2099207F265966E500B6CD56 /* UITableView+TABControlAnimation.h */,
-				20992080265966E500B6CD56 /* UITableView+TABControlAnimation.m */,
-				20943400266CADE8002F555A /* UICollectionView+TABControlAnimation.h */,
-				20943401266CADE8002F555A /* UICollectionView+TABControlAnimation.m */,
-			);
-			path = Control;
-			sourceTree = "<group>";
-		};
-		688A37D724893B3D00A76894 /* Include */ = {
-			isa = PBXGroup;
-			children = (
-				688A37DA24893B3D00A76894 /* TABViewAnimatedDefines.h */,
-			);
-			path = Include;
-			sourceTree = "<group>";
-		};
 		68A652D9235F732100D12ADC /* Masonry */ = {
 			isa = PBXGroup;
 			children = (
@@ -1523,123 +1237,6 @@
 			path = Others;
 			sourceTree = "<group>";
 		};
-		68C35F11249E6D8E00A34D22 /* Decorate */ = {
-			isa = PBXGroup;
-			children = (
-				688A37AC24893B3D00A76894 /* Chain */,
-				68C35F12249E6D8E00A34D22 /* DarkMode */,
-				68C35F1C249E6D8E00A34D22 /* Animation */,
-			);
-			path = Decorate;
-			sourceTree = "<group>";
-		};
-		68C35F12249E6D8E00A34D22 /* DarkMode */ = {
-			isa = PBXGroup;
-			children = (
-				68C35F16249E6D8E00A34D22 /* Include */,
-				68C35F13249E6D8E00A34D22 /* TABAnimatedDarkModeImpl.h */,
-				68C35F1A249E6D8E00A34D22 /* TABAnimatedDarkModeImpl.m */,
-				68C35F1B249E6D8E00A34D22 /* TABAnimatedDarkModeManagerImpl.h */,
-				68C35F15249E6D8E00A34D22 /* TABAnimatedDarkModeManagerImpl.m */,
-				68C35F14249E6D8E00A34D22 /* TABSentryView.h */,
-				68C35F19249E6D8E00A34D22 /* TABSentryView.m */,
-			);
-			path = DarkMode;
-			sourceTree = "<group>";
-		};
-		68C35F16249E6D8E00A34D22 /* Include */ = {
-			isa = PBXGroup;
-			children = (
-				68C35F17249E6D8E00A34D22 /* TABAnimatedDarkModeInterface.h */,
-				68C35F18249E6D8E00A34D22 /* TABAnimatedDarkModeManagerInterface.h */,
-				20A7405224AAF92300A0AC85 /* TABAnimatedDarkModeDefines.h */,
-			);
-			path = Include;
-			sourceTree = "<group>";
-		};
-		68C35F1C249E6D8E00A34D22 /* Animation */ = {
-			isa = PBXGroup;
-			children = (
-				68C35F2D249E6D8E00A34D22 /* Include */,
-				68C35F1D249E6D8E00A34D22 /* Bin */,
-				68C35F22249E6D8E00A34D22 /* Classic */,
-				68C35F31249E6D8E00A34D22 /* Drop */,
-				68C35F40249E6D8E00A34D22 /* Shimmer */,
-				68C35F30249E6D8E00A34D22 /* TABAnimationManagerImpl.h */,
-				68C35F3F249E6D8E00A34D22 /* TABAnimationManagerImpl.m */,
-			);
-			path = Animation;
-			sourceTree = "<group>";
-		};
-		68C35F1D249E6D8E00A34D22 /* Bin */ = {
-			isa = PBXGroup;
-			children = (
-				68C35F21249E6D8E00A34D22 /* TABBinAnimation.h */,
-				68C35F1F249E6D8E00A34D22 /* TABBinAnimation.m */,
-				68C35F20249E6D8E00A34D22 /* TABBinAnimationImpl.h */,
-				68C35F1E249E6D8E00A34D22 /* TABBinAnimationImpl.m */,
-			);
-			path = Bin;
-			sourceTree = "<group>";
-		};
-		68C35F22249E6D8E00A34D22 /* Classic */ = {
-			isa = PBXGroup;
-			children = (
-				68C35F2C249E6D8E00A34D22 /* TABBaseComponent+TABClassicAnimation.h */,
-				68C35F27249E6D8E00A34D22 /* TABBaseComponent+TABClassicAnimation.m */,
-				68C35F2A249E6D8E00A34D22 /* TABClassicAnimation.h */,
-				68C35F26249E6D8E00A34D22 /* TABClassicAnimation.m */,
-				68C35F23249E6D8E00A34D22 /* TABClassicAnimationImpl.h */,
-				68C35F29249E6D8E00A34D22 /* TABClassicAnimationImpl.m */,
-				68C35F25249E6D8E00A34D22 /* TABComponentLayer+TABClassicAnimation.h */,
-				68C35F2B249E6D8E00A34D22 /* TABComponentLayer+TABClassicAnimation.m */,
-				68C35F28249E6D8E00A34D22 /* TABComponentLayerClassicSerializationImpl.h */,
-				68C35F24249E6D8E00A34D22 /* TABComponentLayerClassicSerializationImpl.m */,
-			);
-			path = Classic;
-			sourceTree = "<group>";
-		};
-		68C35F2D249E6D8E00A34D22 /* Include */ = {
-			isa = PBXGroup;
-			children = (
-				68C35F2E249E6D8E00A34D22 /* TABAnimatedDecorateInterface.h */,
-				68C35F2F249E6D8E00A34D22 /* TABAnimationManagerInterface.h */,
-			);
-			path = Include;
-			sourceTree = "<group>";
-		};
-		68C35F31249E6D8E00A34D22 /* Drop */ = {
-			isa = PBXGroup;
-			children = (
-				68C35F3A249E6D8E00A34D22 /* NSArray+TABDropAnimation.h */,
-				68C35F34249E6D8E00A34D22 /* NSArray+TABDropAnimation.m */,
-				68C35F3E249E6D8E00A34D22 /* TABBaseComponent+TABDropAnimation.h */,
-				68C35F36249E6D8E00A34D22 /* TABBaseComponent+TABDropAnimation.m */,
-				68C35F39249E6D8E00A34D22 /* TABComponentLayer+TABDropAnimation.h */,
-				68C35F32249E6D8E00A34D22 /* TABComponentLayer+TABDropAnimation.m */,
-				68C35F33249E6D8E00A34D22 /* TABComponentLayerDropSerializationImpl.h */,
-				68C35F38249E6D8E00A34D22 /* TABComponentLayerDropSerializationImpl.m */,
-				68C35F37249E6D8E00A34D22 /* TABDropAnimation.h */,
-				68C35F3D249E6D8E00A34D22 /* TABDropAnimation.m */,
-				68C35F3B249E6D8E00A34D22 /* TABDropAnimationDefines.h */,
-				68C35F35249E6D8E00A34D22 /* TABDropAnimationImpl.h */,
-				68C35F3C249E6D8E00A34D22 /* TABDropAnimationImpl.m */,
-			);
-			path = Drop;
-			sourceTree = "<group>";
-		};
-		68C35F40249E6D8E00A34D22 /* Shimmer */ = {
-			isa = PBXGroup;
-			children = (
-				68C35F44249E6D8E00A34D22 /* TABShimmerAnimation.h */,
-				68C35F41249E6D8E00A34D22 /* TABShimmerAnimation.m */,
-				68C35F43249E6D8E00A34D22 /* TABShimmerAnimationDefines.h */,
-				68C35F42249E6D8E00A34D22 /* TABShimmerAnimationImpl.h */,
-				68C35F45249E6D8E00A34D22 /* TABShimmerAnimationImpl.m */,
-			);
-			path = Shimmer;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1666,7 +1263,8 @@
 		20A85BE82152248D0005AD62 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1240;
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
 				ORGANIZATIONNAME = tigerAndBull;
 				TargetAttributes = {
 					20A85BEF2152248D0005AD62 = {
@@ -1687,12 +1285,35 @@
 			mainGroup = 20A85BE72152248D0005AD62;
 			productRefGroup = 20A85BF12152248D0005AD62 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 01050FC32A836D6D006EDCD0 /* Products */;
+					ProjectRef = 01050FC22A836D6D006EDCD0 /* TABAnimated.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				20A85BEF2152248D0005AD62 /* TABAnimatedDemo */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		01050FC82A836D6D006EDCD0 /* TABAnimated.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = TABAnimated.framework;
+			remoteRef = 01050FC72A836D6D006EDCD0 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		01050FCA2A836D6D006EDCD0 /* TABAnimatedTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = TABAnimatedTests.xctest;
+			remoteRef = 01050FC92A836D6D006EDCD0 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		20A85BEE2152248D0005AD62 /* Resources */ = {
@@ -1723,46 +1344,31 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				688A380C24893B3E00A76894 /* UIView+TABControlModel.m in Sources */,
 				681567272264214F00293AB4 /* JXCategoryImageView.m in Sources */,
 				68C17170245DD230004FD76F /* TABAnimatedControllerUIImpl.m in Sources */,
-				688A37E224893B3D00A76894 /* TABAnimatedDocumentMethod.m in Sources */,
 				683C4CC2255FD401008DFD62 /* GradientButtonViewController.m in Sources */,
 				681567152264214F00293AB4 /* JXCategoryIndicatorRainbowLineView.m in Sources */,
-				688A380B24893B3E00A76894 /* TABFormAnimated.m in Sources */,
 				680641182279712200D79040 /* News.m in Sources */,
 				2039EF7221DA077200AE09FC /* NestCollectionViewController.m in Sources */,
 				681567342264214F00293AB4 /* JXCategoryBaseView.m in Sources */,
-				688A37E924893B3D00A76894 /* TABAnimated.m in Sources */,
 				685A2ACF247A685C00D9DB7C /* LawyerTableViewCell.m in Sources */,
 				2039EF7B21DA15C100AE09FC /* ImageCollectionViewCell.m in Sources */,
-				688A37E324893B3D00A76894 /* TABAnimatedCacheManager.m in Sources */,
-				68C35F50249E6D8F00A34D22 /* TABComponentLayer+TABDropAnimation.m in Sources */,
 				681DBF0022F879ED002176E8 /* TableDynamicSectionViewController.m in Sources */,
-				68C35F54249E6D8F00A34D22 /* TABDropAnimationImpl.m in Sources */,
 				6815671F2264214F00293AB4 /* JXCategoryDotView.m in Sources */,
-				68C35F47249E6D8F00A34D22 /* TABSentryView.m in Sources */,
-				688A380424893B3E00A76894 /* UIScrollView+TABExtension.m in Sources */,
 				681567132264214F00293AB4 /* JXCategoryIndicatorLineView.m in Sources */,
-				68C35F57249E6D8F00A34D22 /* TABShimmerAnimation.m in Sources */,
 				6815671A2264214F00293AB4 /* JXCategoryIndicatorBackgroundView.m in Sources */,
 				20A0159A216A538F0082425D /* MainViewController.m in Sources */,
 				685A2AC4247A685C00D9DB7C /* TestTableHeaderFooterView.m in Sources */,
 				681567232264214F00293AB4 /* JXCategoryTitleImageCellModel.m in Sources */,
-				688A380A24893B3E00A76894 /* TABTableAnimated.m in Sources */,
-				20410A5C261CA46B0030575B /* TABComponentLayer.m in Sources */,
-				68C35F48249E6D8F00A34D22 /* TABAnimatedDarkModeImpl.m in Sources */,
 				685A2AC6247A685C00D9DB7C /* XIBTableViewCell.m in Sources */,
 				68589C332343407200E8E630 /* UIColor+TABCategory.m in Sources */,
 				68C171982460429A004FD76F /* MutiSectionsMutiCellWithHeaderViewController.m in Sources */,
-				20992081265966E500B6CD56 /* UITableView+TABControlAnimation.m in Sources */,
 				20E72D7A2226E2D200E781C9 /* DailyCollectionViewCell.m in Sources */,
 				68CFCF162294DFA0007D167F /* XibCollectionViewController.m in Sources */,
 				681567212264214F00293AB4 /* JXCategoryTitleImageView.m in Sources */,
 				2039EF7821DA135900AE09FC /* BaseCollectionCell.m in Sources */,
 				68A652F7235F732100D12ADC /* MASConstraintMaker.m in Sources */,
 				681567102264214F00293AB4 /* JXCategoryTitleVerticalZoomCellModel.m in Sources */,
-				68C35F53249E6D8F00A34D22 /* TABComponentLayerDropSerializationImpl.m in Sources */,
 				681567302264214F00293AB4 /* JXCategoryIndicatorParamsModel.m in Sources */,
 				68C17177245DD563004FD76F /* TABPopViewController.m in Sources */,
 				681567322264214F00293AB4 /* JXCategoryListCollectionContainerView.m in Sources */,
@@ -1774,12 +1380,9 @@
 				68C17176245DD563004FD76F /* TABPopBgView.m in Sources */,
 				6815671D2264214F00293AB4 /* JXCategoryIndicatorView.m in Sources */,
 				681567292264214F00293AB4 /* JXCategoryImageCellModel.m in Sources */,
-				688A37FF24893B3E00A76894 /* TABAnimatedProductImpl.m in Sources */,
 				681DBF0222F879ED002176E8 /* TestCollectionViewController.m in Sources */,
 				6815671C2264214F00293AB4 /* JXCategoryIndicatorCell.m in Sources */,
-				688A380324893B3E00A76894 /* UIScrollView+TABAnimated.m in Sources */,
 				20BFBBA12153F3FF00136258 /* TestHeadView.m in Sources */,
-				68C35F4A249E6D8F00A34D22 /* TABBinAnimation.m in Sources */,
 				681567242264214F00293AB4 /* JXCategoryTitleCellModel.m in Sources */,
 				20E14AAD2591F1CE00190A51 /* WaterFlowLayoutViewController.m in Sources */,
 				20A01597216A51FC0082425D /* XibTestViewController.m in Sources */,
@@ -1787,36 +1390,22 @@
 				68589C2E23431F6500E8E630 /* TestBaseModel.m in Sources */,
 				681567202264214F00293AB4 /* JXCategoryDotCellModel.m in Sources */,
 				68A652F9235F732100D12ADC /* NSArray+MASAdditions.m in Sources */,
-				688A380524893B3E00A76894 /* TABAnimatedPullLoadingComponent.m in Sources */,
 				681567192264214F00293AB4 /* JXCategoryIndicatorDotLineView.m in Sources */,
-				68C35F4E249E6D8F00A34D22 /* TABClassicAnimationImpl.m in Sources */,
 				205664D42489038700AC16D9 /* PullLoadingTableViewController.m in Sources */,
-				688A37E424893B3D00A76894 /* TABAnimationMethod.m in Sources */,
-				68C35F4D249E6D8F00A34D22 /* TABBaseComponent+TABClassicAnimation.m in Sources */,
 				685A2AD1247A685C00D9DB7C /* PackageTableViewCell.m in Sources */,
 				68C21D9A22F34548003C2936 /* TestCollectionReusableView.m in Sources */,
-				688A37FB24893B3E00A76894 /* TABComponentManager.m in Sources */,
 				68C1718D2460406C004FD76F /* OneSectionWithTableHeaderViewController.m in Sources */,
-				68C35F51249E6D8F00A34D22 /* NSArray+TABDropAnimation.m in Sources */,
-				209433FF266A23A1002F555A /* TABComponentMutableKey.m in Sources */,
 				685A2ACE247A685C00D9DB7C /* LabWithLinesViewCell.m in Sources */,
 				68D20758228BE7A400B32CD1 /* DoubanNormalViewController.m in Sources */,
-				68C35F49249E6D8F00A34D22 /* TABBinAnimationImpl.m in Sources */,
 				68A652FB235F732100D12ADC /* MASConstraint.m in Sources */,
-				688A37FA24893B3E00A76894 /* TABBaseComponent.m in Sources */,
 				68A652F8235F732100D12ADC /* MASLayoutConstraint.m in Sources */,
 				68589C362343630F00E8E630 /* TestCollectionView.m in Sources */,
-				688A37FD24893B3E00A76894 /* NSArray+TABAnimatedChain.m in Sources */,
-				20410A55261721620030575B /* NSArray+TABAnimated.m in Sources */,
 				68A652FD235F732100D12ADC /* MASViewAttribute.m in Sources */,
 				68C171BA2461A095004FD76F /* NestTableViewController.m in Sources */,
 				683C4CC8255FDE71008DFD62 /* UIButton+Gradient.m in Sources */,
-				688A37E524893B3D00A76894 /* TABWeakDelegateManager.m in Sources */,
 				68958D542274AA40002C4295 /* CardViewController.m in Sources */,
-				68C35F58249E6D8F00A34D22 /* TABShimmerAnimationImpl.m in Sources */,
 				68C171A12460446F004FD76F /* TableDynamicWithHeaderViewController.m in Sources */,
 				6815672B2264214F00293AB4 /* JXCategoryNumberCell.m in Sources */,
-				68C35F4C249E6D8F00A34D22 /* TABClassicAnimation.m in Sources */,
 				685A2AC5247A685C00D9DB7C /* LineTableViewHeaderFooterView.m in Sources */,
 				20E14AB12591F28600190A51 /* TABAnimatedWaterFallLayout.m in Sources */,
 				68C171902460407F004FD76F /* OneSectionWithHeaderSectionViewController.m in Sources */,
@@ -1830,7 +1419,6 @@
 				68B7A929234468790099EC81 /* SencondaryOptionViewController.m in Sources */,
 				6815672E2264214F00293AB4 /* JXCategoryFactory.m in Sources */,
 				68C1719B246043A3004FD76F /* PartialSectionViewController.m in Sources */,
-				68C35F56249E6D8F00A34D22 /* TABAnimationManagerImpl.m in Sources */,
 				68D20755228BE5C900B32CD1 /* DoubanCardViewController.m in Sources */,
 				68B0457A22BB9B98006FED14 /* TestLayoutDelegateTableViewController.m in Sources */,
 				681567172264214F00293AB4 /* JXCategoryIndicatorBallView.m in Sources */,
@@ -1843,9 +1431,7 @@
 				683C4CC7255FDE71008DFD62 /* UIImage+Gradient.m in Sources */,
 				6806411522796E2C00D79040 /* NewsCollectionViewCell.m in Sources */,
 				681567252264214F00293AB4 /* JXCategoryTitleCell.m in Sources */,
-				688A380824893B3E00A76894 /* TABViewAnimated.m in Sources */,
 				68958D5F22753D43002C4295 /* LawyerCollectionViewCell.m in Sources */,
-				688A380124893B3E00A76894 /* TABAnimatedProduction.m in Sources */,
 				6815672D2264214F00293AB4 /* JXCategoryListContainerView.m in Sources */,
 				68A652F5235F732100D12ADC /* ViewController+MASAdditions.m in Sources */,
 				20C3A570299108DE00D18273 /* UILabel+TABCategory.m in Sources */,
@@ -1853,45 +1439,31 @@
 				6815672C2264214F00293AB4 /* JXCategoryNumberCellModel.m in Sources */,
 				685A2AC9247A685C00D9DB7C /* DelegateSelfTableViewCell.m in Sources */,
 				681567182264214F00293AB4 /* JXCategoryIndicatorComponentView.m in Sources */,
-				688A380224893B3E00A76894 /* TABAnimatedProductHelper.m in Sources */,
-				20943402266CADE8002F555A /* UICollectionView+TABControlAnimation.m in Sources */,
 				681567142264214F00293AB4 /* JXCategoryIndicatorTriangleView.m in Sources */,
-				688A380924893B3E00A76894 /* TABCollectionAnimated.m in Sources */,
 				685A2AD0247A685C00D9DB7C /* NewsTableViewCell.m in Sources */,
 				681567312264214F00293AB4 /* JXCategoryViewAnimator.m in Sources */,
-				68C35F55249E6D8F00A34D22 /* TABDropAnimation.m in Sources */,
 				2063FD1E24C4883E00517F3E /* TABInjectionIIIHelper.m in Sources */,
 				68589C1E23431CC800E8E630 /* BaseDemoViewController.m in Sources */,
-				688A380624893B3E00A76894 /* UIView+TABExtension.m in Sources */,
 				685A2ACC247A685C00D9DB7C /* TestTableViewCell.m in Sources */,
 				685A2ACD247A685C00D9DB7C /* DailyTableViewCell.m in Sources */,
 				68A652F6235F732100D12ADC /* MASCompositeConstraint.m in Sources */,
 				68C171B4246136FB004FD76F /* TableCardViewController.m in Sources */,
 				68958D5A22753D00002C4295 /* SegmentCollectionViewController.m in Sources */,
 				681567262264214F00293AB4 /* JXCategoryTitleView.m in Sources */,
-				68C35F46249E6D8F00A34D22 /* TABAnimatedDarkModeManagerImpl.m in Sources */,
-				68C35F4F249E6D8F00A34D22 /* TABComponentLayer+TABClassicAnimation.m in Sources */,
-				68C35F4B249E6D8F00A34D22 /* TABComponentLayerClassicSerializationImpl.m in Sources */,
 				6815671B2264214F00293AB4 /* JXCategoryIndicatorCellModel.m in Sources */,
 				681567282264214F00293AB4 /* JXCategoryImageCell.m in Sources */,
-				688A37E124893B3D00A76894 /* TABAnimatedCacheModel.m in Sources */,
-				688A380024893B3E00A76894 /* UIView+TABAnimatedProduction.m in Sources */,
 				681567332264214F00293AB4 /* UIColor+JXAdd.m in Sources */,
-				2099208426596B4200B6CD56 /* UIView+TABAnimated.m in Sources */,
 				68D20752228BE55400B32CD1 /* DoubanCollectionViewController.m in Sources */,
 				6815671E2264214F00293AB4 /* JXCategoryDotCell.m in Sources */,
 				68C1719E246043B3004FD76F /* PartialSectionWithHeaderViewController.m in Sources */,
 				6806411E2279A5CB00D79040 /* SectionsCollectionViewController.m in Sources */,
 				20B61071260B896500782EA2 /* UIImage+TABAnimatedDemo.m in Sources */,
-				688A37FC24893B3E00A76894 /* TABAnimatedChainManagerImpl.m in Sources */,
-				68C35F52249E6D8F00A34D22 /* TABBaseComponent+TABDropAnimation.m in Sources */,
 				6815672A2264214F00293AB4 /* JXCategoryNumberView.m in Sources */,
 				685A2ACB247A685C00D9DB7C /* CardTableViewCell.m in Sources */,
 				20E72D7D2226EEBB00E781C9 /* ViewExampleViewController.m in Sources */,
 				68A652FA235F732100D12ADC /* View+MASAdditions.m in Sources */,
 				68A652F4235F732100D12ADC /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
 				20A85BF52152248D0005AD62 /* AppDelegate.m in Sources */,
-				688A380724893B3E00A76894 /* UIView+TABControlAnimation.m in Sources */,
 				20C3A57329910C4200D18273 /* WaterFlowCollectionViewCell.m in Sources */,
 				2039EF7521DA07F200AE09FC /* NestCollectionViewCell.m in Sources */,
 				20BFBFFA2170D912001887A9 /* TestCollectionViewCell.m in Sources */,
@@ -1970,7 +1542,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -2025,7 +1597,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -2052,11 +1624,12 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = TABAnimatedDemo/AppConfig/TABAnimatedDemo.pch;
 				INFOPLIST_FILE = "$(SRCROOT)/TABAnimatedDemo/AppConfig/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MARKETING_VERSION = 2.6.3;
 				OTHER_LDFLAGS = (
 					"-Xlinker",
@@ -2066,7 +1639,9 @@
 				PRODUCT_NAME = TABAnimated;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				TVOS_DEPLOYMENT_TARGET = 11.0;
 				VALIDATE_PRODUCT = YES;
+				WATCHOS_DEPLOYMENT_TARGET = 7.0;
 			};
 			name = Debug;
 		};
@@ -2088,11 +1663,12 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = TABAnimatedDemo/AppConfig/TABAnimatedDemo.pch;
 				INFOPLIST_FILE = "$(SRCROOT)/TABAnimatedDemo/AppConfig/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MARKETING_VERSION = 2.6.3;
 				OTHER_LDFLAGS = (
 					"-Xlinker",
@@ -2102,6 +1678,8 @@
 				PRODUCT_NAME = TABAnimated;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				TVOS_DEPLOYMENT_TARGET = 11.0;
+				WATCHOS_DEPLOYMENT_TARGET = 7.0;
 			};
 			name = Release;
 		};

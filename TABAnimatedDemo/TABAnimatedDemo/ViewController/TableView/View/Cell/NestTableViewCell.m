@@ -9,7 +9,7 @@
 #import "NestTableViewCell.h"
 #import "ImageCollectionViewCell.h"
 #import "AppDelegate.h"
-#import "TABAnimated.h"
+@import TABAnimated;
 #import "Masonry.h"
 #import "TABDefine.h"
 

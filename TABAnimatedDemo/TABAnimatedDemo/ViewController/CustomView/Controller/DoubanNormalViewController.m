@@ -8,7 +8,7 @@
 
 #import "DoubanNormalViewController.h"
 #import "TABDefine.h"
-#import "TABAnimated.h"
+@import TABAnimated;
 
 #define imgWidth (100)
 

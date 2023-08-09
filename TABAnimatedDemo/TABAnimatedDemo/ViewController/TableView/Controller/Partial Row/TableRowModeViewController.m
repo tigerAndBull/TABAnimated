@@ -9,7 +9,7 @@
 #import "TableRowModeViewController.h"
 
 #import "PackageTableViewCell.h"
-#import "TABAnimated.h"
+@import TABAnimated;
 #import "TABDefine.h"
 
 #import "Game.h"

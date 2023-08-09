@@ -9,7 +9,7 @@
 #import "TestCollectionViewController.h"
 #import "NewsCollectionViewCell.h"
 
-#import "TABAnimated.h"
+@import TABAnimated;
 #import "Game.h"
 #import "TABDefine.h"
 

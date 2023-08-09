@@ -9,7 +9,7 @@
 #import "DoubanCardViewController.h"
 
 #import "TABDefine.h"
-#import "TABAnimated.h"
+@import TABAnimated;
 #import "Game.h"
 
 #import "CardCollectionViewCell.h"

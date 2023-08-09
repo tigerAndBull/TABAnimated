@@ -9,7 +9,7 @@
 #import "TableCardViewController.h"
 
 #import "CardTableViewCell.h"
-#import "TABAnimated.h"
+@import TABAnimated;
 #import "TABDefine.h"
 
 #import "Game.h"

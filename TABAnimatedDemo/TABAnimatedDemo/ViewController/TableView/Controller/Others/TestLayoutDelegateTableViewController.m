@@ -7,13 +7,14 @@
 //
 
 #import "Game.h"
-#import "TABAnimated.h"
 #import "TABDefine.h"
 #import "Masonry.h"
 #import "TestLayoutTableViewController.h"
 #import "TestLayoutDelegateTableViewController.h"
 #import "TestTableHeaderFooterView.h"
 #import "Game.h"
+
+@import TABAnimated;
 
 @interface TestLayoutDelegateTableViewController ()
 <UITableViewDelegate,

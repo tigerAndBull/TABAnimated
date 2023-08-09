@@ -1,6 +1,6 @@
 #import "ImageCollectionViewCell.h"
 
-#import "TABAnimated.h"
+@import TABAnimated;
 #import "Masonry.h"
 #import "TABDefine.h"
 

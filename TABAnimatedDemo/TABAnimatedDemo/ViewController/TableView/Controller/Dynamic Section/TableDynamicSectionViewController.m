@@ -8,7 +8,7 @@
 
 #import "TableDynamicSectionViewController.h"
 
-#import "TABAnimated.h"
+@import TABAnimated;
 #import "LabWithLinesViewCell.h"
 #import "TABDefine.h"
 
