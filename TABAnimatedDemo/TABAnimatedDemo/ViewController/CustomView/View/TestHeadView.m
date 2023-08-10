@@ -8,11 +8,12 @@
 
 #import "TestHeadView.h"
 
-#import "TABAnimated.h"
 #import "Game.h"
 
 #import "Masonry.h"
 #import "TABDefine.h"
+
+@import TABAnimated;
 
 @interface TestHeadView ()
 

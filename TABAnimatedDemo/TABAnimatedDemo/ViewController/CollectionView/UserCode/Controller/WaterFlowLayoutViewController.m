@@ -8,12 +8,13 @@
 
 #import "WaterFlowLayoutViewController.h"
 
-#import "TABAnimated.h"
 #import "Game.h"
 #import "TABDefine.h"
 #import "TABAnimatedWaterFallLayout.h"
 #import "LawyerCollectionViewCell.h"
 #import "WaterFlowCollectionViewCell.h"
+
+@import TABAnimated;
 
 @interface WaterFlowLayoutViewController () <UICollectionViewDelegate, UICollectionViewDataSource, TABAnimatedWaterFallLayoutDelegate> {
     NSMutableArray *dataArray;

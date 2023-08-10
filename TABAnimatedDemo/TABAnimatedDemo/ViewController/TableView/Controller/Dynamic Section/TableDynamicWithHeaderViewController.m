@@ -8,7 +8,7 @@
 
 #import "TableDynamicWithHeaderViewController.h"
 
-#import "TABAnimated.h"
+@import TABAnimated;
 #import "LabWithLinesViewCell.h"
 #import "LineTableViewHeaderFooterView.h"
 #import "TABDefine.h"

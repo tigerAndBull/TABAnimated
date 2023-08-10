@@ -9,12 +9,13 @@
 #ifndef TABAnimatedDemo_pch
 #define TABAnimatedDemo_pch
 
-#import "TABAnimated.h"
 #import "BaseDemoViewController.h"
 #import "UIColor+TABCategory.h"
 #import "TABDefine.h"
 #import "Masonry.h"
 #import "UIImage+TABAnimatedDemo.h"
+
+#import <TABAnimated/TABAnimated.h>
 
 #define kText(x) (NSLocalizedString(x, nil))
 static const NSTimeInterval TABAnimatedDemoDelayTime = 3.;

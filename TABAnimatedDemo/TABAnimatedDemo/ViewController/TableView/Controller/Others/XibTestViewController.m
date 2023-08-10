@@ -9,9 +9,10 @@
 #import "XibTestViewController.h"
 #import "XIBTableViewCell.h"
 
-#import "TABAnimated.h"
 #import "Game.h"
 #import "TABDefine.h"
+
+@import TABAnimated;
 
 @interface XibTestViewController () <UITableViewDelegate,UITableViewDataSource> {
     NSMutableArray *dataArray;

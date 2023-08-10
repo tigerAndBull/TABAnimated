@@ -12,7 +12,7 @@
 
 #import "LabWithLinesViewCell.h"
 
-#import "TABAnimated.h"
+@import TABAnimated;
 #import "TABDefine.h"
 
 #import "Game.h"

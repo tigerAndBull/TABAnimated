@@ -10,7 +10,7 @@
 #import "NestCollectionViewCell.h"
 #import "TestCollectionReusableView.h"
 
-#import "TABAnimated.h"
+@import TABAnimated;
 #import "TABDefine.h"
 #import "TestHeadView.h"
 
