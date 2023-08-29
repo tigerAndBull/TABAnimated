@@ -33,6 +33,10 @@
 
 @implementation TABAnimatedDarkModeManagerImpl
 
+- (void)dealloc {
+    
+}
+
 - (void)setControlView:(UIView *)controlView {
     _controlView = controlView;
 }
@@ -49,6 +53,7 @@
 
 - (void)addNeedChangeView:(UIView *)view {
     [self.weakDelegateManager addDelegate:view];
+    [self _traitCollectionDidChangeWithTargetView:view];
 }
 
 - (void)destroy {
