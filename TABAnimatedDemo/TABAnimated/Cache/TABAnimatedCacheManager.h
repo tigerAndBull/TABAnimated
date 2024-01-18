@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class TABFormAnimated, TABAnimatedProduction;
+@class TABViewAnimated, TABFormAnimated, TABAnimatedProduction;
 
 extern NSString * const TABCacheManagerFolderName;
 
