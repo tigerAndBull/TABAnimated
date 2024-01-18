@@ -179,7 +179,6 @@
     TABAnimatedProduction *production = view.tabAnimatedProduction;
     if (production == nil) {
         production = [TABAnimatedProduction productWithState:TABAnimatedProductionCreate];
-        NSString *className = tab_NSStringFromClass(view.class);
         view.tabAnimatedProduction = production;
     }
     production.targetClass = currentClass;
