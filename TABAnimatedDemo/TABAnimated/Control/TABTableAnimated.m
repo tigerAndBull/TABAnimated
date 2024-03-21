@@ -792,7 +792,7 @@
 
     if (tabAnimated.animatedCount > 0) return tabAnimated.animatedCount;
     NSInteger index = [tabAnimated getIndexWithIndex:section];
-    if (index < 0) return originCount > 0 ? originCount : 1;
+    if (index < 0) return originCount;
     return [tabAnimated.cellCountArray[index] integerValue];
 }
 
