@@ -106,7 +106,7 @@
     TestTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:str];
     if (!cell) {
         cell = [[TestTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:str];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+//        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     [cell initWithData:dataArray[indexPath.row]];
     return cell;

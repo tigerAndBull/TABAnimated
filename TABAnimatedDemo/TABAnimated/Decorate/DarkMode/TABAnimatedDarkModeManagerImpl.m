@@ -33,6 +33,10 @@
 
 @implementation TABAnimatedDarkModeManagerImpl
 
+- (void)dealloc {
+    
+}
+
 - (void)setControlView:(UIView *)controlView {
     _controlView = controlView;
 }

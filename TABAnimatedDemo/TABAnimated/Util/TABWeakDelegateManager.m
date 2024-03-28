@@ -10,6 +10,10 @@
 
 @implementation TABWeakDelegateManager
 
+- (void)dealloc {
+    
+}
+
 - (instancetype)init {
     if (self = [super init]) {
         _delegatesMap = [NSHashTable weakObjectsHashTable];

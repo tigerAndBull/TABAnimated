@@ -76,7 +76,7 @@
     {
         UILabel *lab = [[UILabel alloc]init];
         [lab setFont:kFont(15)];
-        [lab setTextColor:[UIColor blackColor]];
+//        [lab setTextColor:[UIColor blackColor]];
         
         self.titleLab = lab;
         [self.contentView addSubview:lab];
