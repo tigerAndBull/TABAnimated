@@ -30,7 +30,7 @@
     [self initUI];
     
     _topImg.image = [UIImage imageNamed:@"test.jpg"];
-    _titleLab.text = @"您不会没有骨架过渡吧？";
+    _titleLab.text = @"主标题label";
     
     [self.view tab_startAnimationWithConfigBlock:nil
                                      adjustBlock:^(TABComponentManager * _Nonnull manager) {
@@ -51,9 +51,9 @@
     [self.view tab_endAnimationEaseOut];
     
     _topImg.image = [UIImage imageNamed:@"test.jpg"];
-    _titleLab.text = @"您不会没有骨架过渡吧？";
-    _firstInfoLab.text = @"使用用TABAnimated 问题交流";
-    _secondInfoLab.text = @"关注 tigerAndBull技术分享 公众号 进微信群";
+    _titleLab.text = @"主标题label";
+    _firstInfoLab.text = @"副标题label";
+    _secondInfoLab.text = @"其他补充信息label";
     [_commitBtn setTitle:@"立即使用" forState:UIControlStateNormal];
     _commitBtn.layer.borderColor = UIColor.redColor.CGColor;
     _commitBtn.layer.borderWidth = 1.0;

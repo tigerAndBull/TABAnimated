@@ -88,8 +88,8 @@
 
 - (void)updateWithModel:(id)model {
     self.titleLab.text = @"骨架屏";
-    self.contentLab.text = @"不好用没关系，我们一起优化吧～";
-    self.otherInfoLab.text = @"家住在卫红路 来啊";
+    self.contentLab.text = @"内容测试信息label";
+    self.otherInfoLab.text = @"详细测试信息label";
     self.headImg.image = [UIImage imageNamed:@"comic.jpg"];
     self.priceLab.text = @"$18";
     self.dateLab.text = @"更新于2019-01-11";
@@ -98,7 +98,7 @@
 - (UILabel *)titleLab {
     if (!_titleLab) {
         _titleLab = [[UILabel alloc] init];
-        _titleLab.text = @"婚姻法律课";
+        _titleLab.text = @"标题label";
         _titleLab.font = kFont(15);
         _titleLab.textColor = UIColor.blackColor;
     }
@@ -108,7 +108,7 @@
 - (UILabel *)contentLab {
     if (!_contentLab) {
         _contentLab = [[UILabel alloc] init];
-        _contentLab.text = @"离婚协议约定的房产赠予孩子与否";
+        _contentLab.text = @"内容label";
         _contentLab.font = kFont(15);
         _contentLab.textColor = UIColor.grayColor;
     }
@@ -119,7 +119,7 @@
     if (!_otherInfoLab) {
         _otherInfoLab = [[UILabel alloc] init];
         _otherInfoLab.font = kFont(13);
-        _otherInfoLab.text = @"卫红路 婚姻家庭律师";
+        _otherInfoLab.text = @"其他信息label";
         _otherInfoLab.textColor = UIColor.grayColor;
     }
     return _otherInfoLab;

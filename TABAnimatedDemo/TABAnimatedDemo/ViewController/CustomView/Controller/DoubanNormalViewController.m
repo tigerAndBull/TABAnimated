@@ -40,9 +40,9 @@
     [self.mainView tab_endAnimation];
     
     _topImg.image = [UIImage imageNamed:@"test.jpg"];
-    _titleLab.text = @"您不会没有骨架过渡吧？";
-    _firstInfoLab.text = @"快用TABAnimated，为您解决烦恼";
-    _secondInfoLab.text = @"加群更好解决问题：304543771";
+    _titleLab.text = @"主标题label";
+    _firstInfoLab.text = @"副标题label";
+    _secondInfoLab.text = @"其他补充信息label";
     [_commitBtn setTitle:@"立即使用" forState:UIControlStateNormal];
     
     _commitBtn.layer.borderColor = UIColor.redColor.CGColor;
